@@ -1,10 +1,15 @@
 ## Introduction
 "Data management plan generator" can create a data management plan automatically. 
-This tool is purely web-based, front end and written in javascript. 
+This is a very simple way to make a DMP. By using this Generator, you can create
+1. a full Data Management Plan;
+2. a DMP summary for funding proposal;
+3. a customized practical guide throughout your projects
 
-Input files can be 
-
-To try this tool, you can go to [this link](https://nfdi4plants.de/plan-generator/)
+Here is a light version of the tool, you can copy the outcome and edit it later. 
+There is also a full version of the DMP generator which also offers you a format editor.
+You can try those two versions here: 
+[light version](https://nfdi4plants.de/dmpg/)
+[Full version](https://nfdi4plants.de/plan-generator/)
 
 You can also try an edited document through saved answers in JSON format. [try this link](https://nfdi4plants.de/plan-generator/?https://raw.githubusercontent.com/nfdi4plants/plan-generator/main/saved_json/example2.json)
 
