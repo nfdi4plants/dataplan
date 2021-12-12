@@ -1,0 +1,54 @@
+{
+  "name": "generator",
+  "version": "1.0.0",
+  "description": "\"Data management plan generator\" can create a data management plan automatically. \r This tool is purely web-based, front end and written in javascript. \r Currently both the input and output are .odt files.",
+  "main": "main.js",
+  
+ 
+  "license": "GNU 3.0",
+
+   "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "npm install && electron ./app",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "yourappid",
+    "category": "your.app.category.type",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "portable",
+      "_icon": ""
+    }
+  },
+
+  
+  
+  "dependencies": {
+    "yarn": "^1.22.15"
+  },
+  "devDependencies": {
+    "electron-builder": "^22.13.1",
+    "electron-packager": "^15.4.0"
+  }
+}
