@@ -12,8 +12,8 @@ You can try those two versions here:
 [Full version](https://nfdi4plants.de/plan-generator/)
 
 ### folder structure:
-./js/: javascripts (mainly for style)
-./css/: css files (mainly for style)
-./docs/: document templates
-./saved_json/: json files including saved answers.
-./index.html : functional javascript codes
+./js/: javascripts (mainly for style)  
+./css/: css files (mainly for style)  
+./docs/: document templates  
+./saved_json/: json files including saved answers.  
+./index.html : functional javascript codes  
