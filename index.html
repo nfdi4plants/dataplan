@@ -9,9 +9,9 @@
 	<link href="css/bs5-intro-tour.css" rel="stylesheet" />
 
     <title>Data Management Plan Generator</title>
-	<script src="bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
-	<script src="FileSaver.js" type="text/javascript" charset="utf-8"></script>
-	<script src="bs5-intro-tour.js"></script>
+	<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
+	<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bs5-intro-tour.js"></script>
 
    
 
@@ -32,7 +32,7 @@
 	<script>
 	var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 	console.log("is firefox ?"+is_firefox);
-	function load_dmp(callback=reload_answers, name='dmp1.html') {
+	function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
      fetch(name)
   .then(data => data.text())
   .then(html => document.getElementById('doc3').innerHTML = html)
@@ -1380,8 +1380,8 @@
 	</form>
 			 <button id="json_save" class="btn-sm btn-secondary" onclick = "save_json()" >save json</button>
 		  <button id="odt_save" class="btn-sm btn-secondary d-none" onclick = "save()">export document</button>
-		  <button id="guide_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="guide.html")'>practice guide</button>
-		  <button id="proposal_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="proposal.html")'>proposal</button>
+		  <button id="guide_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/guide.html")'>practice guide</button>
+		  <button id="proposal_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/proposalh2020.html")'>proposal</button>
 		  
 		  <button id="copy_doc" class=" btn-sm btn-secondary" onclick = 'copy_doc()'>copy</button>
 		  <br>
