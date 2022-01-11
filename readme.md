@@ -8,8 +8,8 @@ This is a very simple way to make a DMP. By using this Generator, you can create
 Here is a light version of the tool, you can copy the outcome and edit it later. 
 There is also a full version of the DMP generator which also offers you a format editor.
 You can try those two versions here:  
-[light version](https://nfdi4plants.de/dmpg/)  
-[Full version](https://nfdi4plants.de/plan-generator/)
+[light version](https://nfdi4plants.github.io/dmpg/)  
+[Full version](https://nfdi4plants.github.io/plan-generator/)
 
 ### folder structure:
 ./js/: javascripts (mainly for style)  
