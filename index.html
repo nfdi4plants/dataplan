@@ -32,7 +32,7 @@
 	<script>
 	var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 	console.log("is firefox ?"+is_firefox);
-	function load_dmp(callback=reload_answers, name='docs/DMP1.html') {
+	function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
      fetch(name)
   .then(data => data.text())
   .then(html => document.getElementById('doc3').innerHTML = html)
