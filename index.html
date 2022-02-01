@@ -690,7 +690,7 @@
 				console.log("window.find is: " + window.find );
 				
 					while (window.find(before, aCaseSensitive =0, aBackwards =is_firefox, aWrapAround =is_firefox,
-            aWholeWord =0, aSearchInFrames =0, aShowDialog =0 )) {
+						aWholeWord =0, aSearchInFrames =0, aShowDialog =0 )) {
 						
 						let last_letter;
 						
@@ -742,7 +742,8 @@
 				}
 				
 			}
-			window.onload = function () {}
+			
+			
 			var x = 0;
 			function nav_next() {
 				x = x+20 ;
@@ -854,7 +855,26 @@
 			//reload_answers();
 			
 			
-			
+				var inputs = document.querySelectorAll("input,select");
+				for (var i = 0 ; i < inputs.length; i++) {
+				   inputs[i].addEventListener("keypress", function(e){
+						console.log("added event listener");
+					  if (e.which == 13) {
+						 e.preventDefault();
+						 console.log("enter is pressed");
+						 //var nextInput = document.querySelectorAll('[tabIndex="' + (this.tabIndex + 1) + '"]');
+						 //if (nextInput.length === 0) {
+						//	nextInput = document.querySelectorAll('[tabIndex="1"]');
+						// }
+						// nextInput[0].focus();
+						console.log(document.activeElement.id);
+						const button_id = "#" + document.activeElement.id + "_submit";
+						console.log(button_id);
+						const submit_button = document.querySelector(button_id);
+						submit_button.click();
+					  }
+				   })
+				}
 			
 			
 			
@@ -876,7 +896,7 @@
         }
 		
 		}
-
+		
 
 </script>			
 	 <body style="width:100%; height:auto; margin:0px; padding:0px;overflow-x: hidden;overflow-y: hidden; "  >
