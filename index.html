@@ -985,7 +985,7 @@
 					   onclick="undo(this);">
 	  
 		</form>
-		
+		<br>
 		  <p >1.2 Give the object to be studied and the project aim:</p>
 		<form >
 			<label for="study_object"></label>
@@ -1017,7 +1017,7 @@
 					   onclick="undo(this);">
 	  
 		</form>
-		
+		<br>
 		<p >1.3 Give the data officer name:</p>
 		<form >
 			<label for="dataofficer"></label>
@@ -1033,7 +1033,7 @@
 					   onclick="undo(this);">
 	  
 		</form>
-		
+		<br>
 		 <p >1.4 Chose some additional information</p>
 		 
 	<div class="form-data_type form-check-inline ">
@@ -1393,33 +1393,23 @@
 		 </div>
 
 	<br>
-
-
-	</div>
-	</div>	
-	<div class ="row card text-center " style="height:20vh;position: absolute;
-	  bottom: 3px;background:lightgrey ;width: 33vw">
-	<div class= ""  >
-
-
-
-
-
-
-		 
-		 
-
-		
 		 <div class="btn-group" >
 	<button btn type="button" class="btn-primary  btn-sm " value= "previous" style= "" onclick = "nav_previous()">←previous</button>
 	<button  type="button" class="btn-primary btn-sm " value= "next" style= "" onclick= "nav_next()">next→</button>
 	 <br>
 	</div>
 
-		  
-		  
-		  
-		  
+	</div>
+	</div>	
+	
+	
+	
+	
+	<div class ="row card text-center " style="height:200 px;position: absolute;
+	  bottom: 2px;background:lightgrey ;width: 33vw">
+	<div class= ""  >
+
+	  
 		  <div class="progress"  >
 	  <div class="progress-bar progress-bar-striped" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar">  </div>
 	  
@@ -1434,7 +1424,7 @@
 
 
 	</form>
-			 <button id="json_save" class="btn-sm btn-secondary" onclick = "save_json()" >save json</button>
+			 <button id="json_save" class="btn-sm btn-secondary" onclick = "save_json()" style = "height: 3 vh; ">save json</button>
 		  <button id="odt_save" class="btn-sm btn-secondary d-none" onclick = "save()">export document</button>
 		  <button id="guide_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/guide.html")'>practice guide</button>
 		  <button id="proposal_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/proposalh2020.html")'>proposal</button>
@@ -1443,17 +1433,17 @@
 		  <br>
 		  <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >Please check our wiki, if you have more questions</a>
 		  <button id="test" class="d-none btn-sm btn-secondary" onclick = "test()">debug test</button>
-	</div>
-		
 
+		</div>
+		
+		
 
 		
 		  
-		   </div>
+	</div>
 		   
 		   
-
-
+			
 
 	<br>
 
