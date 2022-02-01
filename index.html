@@ -37,9 +37,11 @@
   .then(data => data.text())
   .then(html => document.getElementById('doc3').innerHTML = html)
   .then(setTimeout(()=> { callback()} , 500));}
-	
+			// template answers
+			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"q_1st":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":["form-check-input"]},"q_2nd":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_box1"]}}};
+			
 			// saved answers
-			let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"q_1st":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":["form-check-input"]},"q_2nd":{"checked":["check_image","check_RNAseq","check_genomic","check_Metabolomic","check_Proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_PHENOTPIC","check_GENETIC"],"unchecked":["check_box1"]}}};
+			let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"q_1st":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":["form-check-input"]},"q_2nd":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_box1"]}}};
 			// initialization
 
 			
@@ -98,14 +100,40 @@
 			];
 			var tour = new Tour(steps);
 			/*============== tutorial initialization ends ==============*/
-			/*jslint emptyblock: true*/
 			
-						
+			
+			// compare updated answers and the original answers
+			
+			function compare_answers(old_a, new_a){
+				let total_n1 = 0, changed_n1 = 0, total_n2 = 0, changed_n2 = 0 ;
+				for (const [key,value] of Object.entries(old_a["replace"]) ){
+					total_n1 ++;
+					if (new_a["replace"][key] != value){
+					changed_n1 ++;
+					
+					}
+				
+				}
+			for (const [key,value] of Object.entries(old_a["checkbox"]) ){
+					total_n2 ++;
+					if (JSON.stringify(new_a["checkbox"][key]) != JSON.stringify(value)){
+					console.log(new_a["checkbox"][key]);
+					console.log(value);
+					changed_n2 ++;
+					
+					}
+				}
+			console.log( "total n1: " + total_n1 + "; changed n1: " + changed_n1 +"\n ;  total n2  " + total_n2 + ", changed n2: " + changed_n2 )
+			
+			}
+			
+			
+			// reload all answers			
 			function reload_all(path) {
 								
 				
 
-				//Wodo.destroy();
+				
 				const selection = window.getSelection();
 				selection.removeAllRanges();
 				
@@ -150,7 +178,7 @@
 				}
 
 				console.log("json is " + saved_a);
-				reload_all( "./DMP1.odt");
+				
 			}
 
 			function reload_answers() {
@@ -181,7 +209,7 @@
 					checkbox(singleOption);
 				}
 				console.log("answer reload is finished");
-				
+				compare_answers(temp_a, saved_a);
 			}
 
 			function getOption(this_element) {
@@ -743,7 +771,7 @@
 				
 			}
 			
-			
+			//progress-bar
 			var x = 0;
 			function nav_next() {
 				x = x+20 ;
@@ -803,8 +831,14 @@
 
 			}
 			
+			window.addEventListener('beforeunload', function (e) {
+			  // Cancel the event
+			  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+			  // Chrome requires returnValue to be set
+			  e.returnValue = '';
+			});
 			
-			
+			// initialization
 			window.addEventListener("load", function () {
 				tour.show();
 				load_dmp(reload_answers);
@@ -830,10 +864,8 @@
 
 				function reloadJson() {
 
-					uploadJson.files[0].text().then(text =>
-						saved_a = JSON.parse(text));
+					uploadJson.files[0].text().then(text =>saved_a = JSON.parse(text));
 
-					//saved_a = JSON.parse(uploadJson.files[0]);
 					console.log(JSON.stringify(saved_a));
 					setTimeout(()=> { load_dmp(reload_answers)} , 500);
 				}
@@ -852,7 +884,7 @@
 				
 
 				
-			//reload_answers();
+			
 			
 			
 				var inputs = document.querySelectorAll("input,select");
@@ -862,11 +894,6 @@
 					  if (e.which == 13) {
 						 e.preventDefault();
 						 console.log("enter is pressed");
-						 //var nextInput = document.querySelectorAll('[tabIndex="' + (this.tabIndex + 1) + '"]');
-						 //if (nextInput.length === 0) {
-						//	nextInput = document.querySelectorAll('[tabIndex="1"]');
-						// }
-						// nextInput[0].focus();
 						console.log(document.activeElement.id);
 						const button_id = "#" + document.activeElement.id + "_submit";
 						console.log(button_id);
@@ -889,7 +916,8 @@
         selection.addRange(range);
         try {
             return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-        }
+			
+		}
         catch (ex) {
             console.warn("Copy to clipboard failed.", ex);
             return false;
@@ -897,7 +925,7 @@
 		
 		}
 		
-
+		
 </script>			
 	 <body style="width:100%; height:auto; margin:0px; padding:0px;overflow-x: hidden;overflow-y: hidden; "  >
 	 
@@ -997,7 +1025,7 @@
 				   id="dataofficer"
 				   name="$_dataofficer"
 				   placeholder="data officer name">
-				<input class="btn btn-primary btn-sm" type="button"
+				<input class="btn btn-primary btn-sm" type="button" id="dataofficer_submit"
 					   value="replace"
 					   onclick="replace(this)">
 				<input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1194,7 +1222,7 @@
 	</div>  
 	  
 	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="4" id="check_Metabolomic" >
+	  <input class="form-check-input q_2nd" type="checkbox" value="4" id="check_metabolomic" >
 	  <label class="form-check-label" for="check_Metabolomic">
 		metabolomics
 	  </label>
@@ -1202,7 +1230,7 @@
 
 
 	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="5" id="check_Proteomic" >
+	  <input class="form-check-input q_2nd" type="checkbox" value="5" id="check_proteomic" >
 	  <label class="form-check-label" for="check_Proteomic">
 		proteomics
 	  </label>
@@ -1239,15 +1267,15 @@
 	  </label>
 	</div> 
 	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="11" id="check_PHENOTPIC" >
-	  <label class="form-check-label" for="check_PHENOTPIC">
+	  <input class="form-check-input q_2nd" type="checkbox" value="11" id="check_phenotypic" >
+	  <label class="form-check-label" for="check_phenotypic">
 		phenotypic
 	  </label>
 	</div> 
 
 	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="12" id="check_GENETIC" >
-	  <label class="form-check-label" for="check_GENETIC">
+	  <input class="form-check-input q_2nd" type="checkbox" value="12" id="check_genetic" >
+	  <label class="form-check-label" for="check_genetic">
 		genetics
 	  </label>
 	</div> 
@@ -1271,7 +1299,7 @@
 				   id="raw_data"
 				   name="$_RAWDATA"
 				   placeholder="raw data volume (in GB)"> GB
-				<input class="btn btn-primary btn-sm" type="button"
+				<input class="btn btn-primary btn-sm" type="button" id="raw_data_submit"
 					   value="replace"
 					   onclick="replace(this)">
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1285,7 +1313,7 @@
 				   name="$_DERIVEDDATA"
 				   placeholder="derived data volume (in GB)"> GB
 				<input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
+					   value="replace" id="derived_data_submit"
 					   onclick="replace(this)">
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
 					   value="undo"
