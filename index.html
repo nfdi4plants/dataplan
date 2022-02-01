@@ -1374,9 +1374,16 @@
 			<input type="text"
 				   id="raw_data"
 				   name="$_VISUALIZATION"
-				   placeholder=" " class="d-none" value= " " >
+				   placeholder=" " class="d-none" value= "visualization" >
 				<input class="btn btn-primary btn-sm" type="button"
-					   value="press if you don't need visualization"
+					   value="yes"
+					   onclick="replace(this)">
+			<input type="text"
+				   id="raw_data"
+				   name="$_VISUALIZATION"
+				   placeholder=" " class="d-none" value= "" >	
+				<input class="btn btn-primary btn-sm" type="button"
+					   value="no"
 					   onclick="replace(this)">
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
 					   value="undo"
