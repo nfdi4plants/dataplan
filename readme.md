@@ -11,6 +11,8 @@ You can try those two versions here:
 [light version](https://nfdi4plants.github.io/dmpg/)  
 [Full version](https://nfdi4plants.github.io/plan-generator/)
 
+
+[light version with.de domin](https://nfdi4plants.de/dmpg/)  
 ### folder structure:
 ./js/: javascripts (mainly for style)  
 ./css/: css files (mainly for style)  
