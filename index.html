@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-	<!-- loading css styleSheets -->
-    <link href="css/bootstrap.rtl.min.css" rel="stylesheet" >
-	<link href="css/custom.css" rel="stylesheet">
-	<link href="css/bs5-intro-tour.css" rel="stylesheet" />
+		<head>
+		<meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- disable cache accross browsers for testing purpose -->
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />	
+		<meta http-equiv="Expires" content="0" />
+		
+		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+		<!-- loading css styleSheets -->
+		<link href="css/bootstrap.rtl.min.css" rel="stylesheet" >
+		<link href="css/custom.css" rel="stylesheet">
+		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
 
-    <title>Data Management Plan Generator</title>
-	<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
-	<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
+		<title>Data Management Plan Generator</title>
+		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
+		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
 
-   
+	   
 
-	<link href="favicon.png" rel="icon">
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-2BBTS3ZDF7"></script>
-	<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+		<link href="favicon.png" rel="icon">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2BBTS3ZDF7"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-	gtag('config', 'G-2BBTS3ZDF7', {
-		    client_storage: 'none',
-		    client_id: 'G-2BBTS3ZDF7',
-	});
-	</script>
-  </head>
+		gtag('config', 'G-2BBTS3ZDF7', {
+				client_storage: 'none',
+				client_id: 'G-2BBTS3ZDF7',
+		});
+		</script>
+	</head>
 	<script>
 	var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 	console.log("is firefox ?"+is_firefox);
 	function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
      fetch(name)
-  .then(data => data.text())
-  .then(html => document.getElementById('doc3').innerHTML = html)
-  .then(setTimeout(()=> { callback()} , 500));}
+		.then(data => data.text())
+		.then(html => document.getElementById('doc3').innerHTML = html)
+		.then(setTimeout(()=> { callback()} , 500));}
 			// template answers
 			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"q_1st":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":["form-check-input"]},"q_2nd":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_box1"]}}};
 			
@@ -88,7 +94,7 @@
 					id: "upload",
 					content: "<p>and then upload it to continue your generation</p>"
 				}, {
-					id: "odt_save",
+					id: "copy_doc",
 					content: '<p>after answering all questions, you can export your document<br>' 
 				}, {
 					id: "proposal_save",
@@ -263,7 +269,7 @@
 
 			}
 
-			function issueWarning()
+			function issue_warning()
 			{
 				const selection = window.getSelection();
 				selection.removeAllRanges();
@@ -272,24 +278,35 @@
 					ns = window.find("#issuewarning", aWrapAround = 1);
 					let warning_number = 0;
 					while (ns) {
+					// text range is the text between #issuewarning and #endissuewarning without the tag
 						let text_range = window.getSelection().getRangeAt(0).cloneRange();
+					// full range is the text between #issuewarning and #endissuewarning with the tag
 						let full_range = window.getSelection().getRangeAt(0).cloneRange();
+					// relate range is the text related to the warning.
+
+						//let relate_range = ;
 						text_range.setStart(window.getSelection().focusNode, window.getSelection().focusOffset);
 						window.find("#endissuewarning");
 						let end_range = window.getSelection().getRangeAt(0).cloneRange();
 						text_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+						
 						full_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
 						text = text_range.toString();
 						console.log("full range text is" + full_range.toString());
 						full_range.deleteContents();
+						
+						
+						
 						let newText = document.createElement("warning_number" + warning_number);
-						newText.innerHTML = '<span id= "warning_number' + warning_number + '" class = "text-warning">warning location</span>';
+						
+						newText.innerHTML = '<span id= "warning_number' + warning_number + '" class = "text-warning"><--pay attention to the sentence before because'+ text  +'</span>';
 						full_range.insertNode(newText);
+						
 						const warning_no = "warning_number" + warning_number;
 						let div = document.createElement('div');
 						div.setAttribute("class", "alert alert-danger");
 						div.setAttribute("role", "alert");
-						let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to go to the warning location</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
+						let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
 
 						div.innerHTML = html1;
 						document.getElementById("warningText").appendChild(div)
@@ -299,7 +316,12 @@
 
 				}
 				var div = document.createElement('div');
-
+				const text_location = document.getElementById("warningText");
+				text_location.scrollIntoView({
+					behavior: "smooth",
+					block: "center",
+					inline: "nearest"
+				});
 			}
 
 			/**
@@ -481,7 +503,7 @@
 					{
 						let range_if = document.body.createTextRange();
 						while (range_if.findText(match_name)) {
-							range_if.pasteHTML('haha______worked___');
+							range_if.pasteHTML('atest');
 						}
 					}
 
@@ -796,7 +818,7 @@
 					p_bar.style.setProperty("width", 100 + "%");
 					p_bar.innerHTML = "finished!";
 					p_bar.setAttribute("aria-valuenow", 100);
-					issueWarning();
+					issue_warning();
 				}
 				console.log(tabs);
 
@@ -908,6 +930,7 @@
 			});
 
 		function copy_doc(){
+		issue_warning();
 		const text= document.getElementById("doc3");
 		const selection = window.getSelection();
         const range = document.createRange();
