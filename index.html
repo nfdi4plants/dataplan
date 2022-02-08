@@ -10,10 +10,9 @@
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
-		<link href="css/bootstrap.rtl.min.css" rel="stylesheet" >
+		<link href="css/bootstrap.min.css" rel="stylesheet" >
 		<link href="css/custom.css" rel="stylesheet">
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
-
 		<title>Data Management Plan Generator</title>
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
@@ -34,1463 +33,1545 @@
 				client_id: 'G-2BBTS3ZDF7',
 		});
 		</script>
-	</head>
-	<script>
-	var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-	console.log("is firefox ?"+is_firefox);
-	function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
-     fetch(name)
-		.then(data => data.text())
-		.then(html => document.getElementById('doc3').innerHTML = html)
-		.then(setTimeout(()=> { callback()} , 500));}
-			// template answers
-			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"q_1st":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":["form-check-input"]},"q_2nd":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_box1"]}}};
-			
-			// saved answers
-			let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"q_1st":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":["form-check-input"]},"q_2nd":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_box1"]}}};
-			// initialization
-
-			
-			const prefix = '$_';
-			
-			function save_json() {
-			
-				aJSONString = JSON.stringify(saved_a);
-				const blob = new Blob([aJSONString], {
-					type: "application/json"
-				});
-				saveAs(blob);
-
-			}
-			/*============== tutorial ==============*/
-			
-			var steps = [
-			{
-					title: "Welcome to our DMP Generator",
-					content: '<p> This is a very simple way to make a DMP. By using this Generator, you can create <br>1. a full Data Management Plan;<br>2. a DMP summary for funding proposal; <br>3. a customized practical guide throughout your projects</p>'
-					//<h1> currently there is a bug in undo, trying to fix it by now </h1>
-				}, {
-					id: "interface",
-					content: "<p>You can answer questions here</p>"
-				}, {
-					id: "nav-tab",
-					content: "<p>There are five pages of questions in total</p>"
-				}, {
-					id: "nav-tabContent",
-					content: "<p>Each page has a few questions</p>"
-				}, {
-					id: "project_name",
-					content: "<p>Answer the first question by type your project name</p>"
-				}, {
-					id: "project_name_submit",
-					content: "<p>Then press submit</p>"
-				}, {
-					id: "doc",
-					content: "<p>Now the document's content has included your project name</p>"
-				}, {
-					id: "json_save",
-					content: "<p>You can save your answers</p>"
-				}, {
-					id: "upload",
-					content: "<p>and then upload it to continue your generation</p>"
-				}, {
-					id: "copy_doc",
-					content: '<p>after answering all questions, you can export your document<br>' 
-				}, {
-					id: "proposal_save",
-					content: '<p>beside the current document, a short proposal can also be downloaded. To go back to the main document, you can simply click replace.<br>' 
-				}, {
-					id: "guide_save",
-					content: '<p> you can also download a practice guide. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>'
-				}
-			];
-			var tour = new Tour(steps);
-			/*============== tutorial initialization ends ==============*/
-			
-			
-			// compare updated answers and the original answers
-			
-			function compare_answers(old_a, new_a){
-				let total_n1 = 0, changed_n1 = 0, total_n2 = 0, changed_n2 = 0 ;
-				for (const [key,value] of Object.entries(old_a["replace"]) ){
-					total_n1 ++;
-					if (new_a["replace"][key] != value){
-					changed_n1 ++;
+			</head>
+			<script>
+			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+			console.log("is firefox ?"+is_firefox);
+			function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
+			 fetch(name)
+				.then(data => data.text())
+				.then(html => document.getElementById('doc3').innerHTML = html)
+				.then(setTimeout(()=> { callback()} , 500));}
+					// template answers
+					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 					
-					}
-				
-				}
-			for (const [key,value] of Object.entries(old_a["checkbox"]) ){
-					total_n2 ++;
-					if (JSON.stringify(new_a["checkbox"][key]) != JSON.stringify(value)){
-					console.log(new_a["checkbox"][key]);
-					console.log(value);
-					changed_n2 ++;
+					// saved answers
+					let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					// initialization
+
 					
+					const prefix = '$_';
+					
+					function save_json() {
+					
+						aJSONString = JSON.stringify(saved_a);
+						const blob = new Blob([aJSONString], {
+							type: "application/json"
+						});
+						saveAs(blob);
+
 					}
-				}
-			console.log( "total n1: " + total_n1 + "; changed n1: " + changed_n1 +"\n ;  total n2  " + total_n2 + ", changed n2: " + changed_n2 )
-			
-			}
-			
-			
-			// reload all answers			
-			function reload_all(path) {
-								
-				
-
-				
-				const selection = window.getSelection();
-				selection.removeAllRanges();
-				
-				reload_answers();
-				
-				
-			}
-
-			function replace(child) {
-
-				const before = child.previousElementSibling.name;
-
-				const after = child.previousElementSibling.value;
-				console.log(before, after);
-				undo(child.nextElementSibling);
-				saved_a["replace"][before] = after;
-				let singleOption = {};
-				singleOption[before] = after;
-				load_dmp();
-				//find_replace(singleOption);
-			}
-
-			function undo(this_element) {
-				
-				const selection = window.getSelection();
-				selection.removeAllRanges();
-				const previous_element = this_element.previousElementSibling;
-				console.log(previous_element.getAttribute('onclick'));
-				if (previous_element.getAttribute('onclick') == "replace(this)") {
-					try {
-						delete saved_a["replace"][previous_element.previousElementSibling.getAttribute('name')];
-					} catch (e) {
-						console.log("no such content, already undo");
-					}
-
-				} else {
-					try {
-						delete saved_a["checkbox"][previous_element.classList[0]];
-					} catch (e) {
-						console.log("no such content, already undo");
-					}
-				}
-
-				console.log("json is " + saved_a);
-				
-			}
-
-			function reload_answers() {
-					document.getElementById("doc3").focus();
-				const selection = window.getSelection();
-				selection.removeAllRanges();
-				
-				
-				console.log("answers is reloading");
-				
-
-				
-				
-				
-				for (let answers in saved_a["replace"]) {
-					let singleOption = {};
-					singleOption[answers] = saved_a["replace"][answers]
-						console.log(singleOption);
-					find_replace(singleOption);
-				}
-				for (let answers in saved_a["checkbox"]) {
-					let singleOption = {};
-					singleOption[answers] = {
-						"checked": saved_a["checkbox"][answers]["checked"],
-						"unchecked": saved_a["checkbox"][answers]["unchecked"]
-					}
-					console.log(singleOption);
-					checkbox(singleOption);
-				}
-				console.log("answer reload is finished");
-				compare_answers(temp_a, saved_a);
-			}
-
-			function getOption(this_element) {
-				undo(this_element.nextElementSibling);
-				const class_name = this_element.classList[0];
-				console.log("class name for question is " + class_name);
-				const checked = document.querySelectorAll(`.${class_name}:checked`);
-				const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
-				//console.log([...checked]);
-				const checked_list = [];
-				checked.forEach(element => checked_list.push(element.id));
-				const unchecked_list = [];
-				unchecked.forEach(element => unchecked_list.push(element.id));
-				console.log("uncheck and checked" + checked_list, unchecked_list)
-				saved_a["checkbox"][class_name] = {
-					"checked": checked_list,
-					"unchecked": unchecked_list
-				};
-				let singleOption = {};
-				singleOption[class_name] = {
-					"checked": checked_list,
-					"unchecked": unchecked_list
-				};
-				//try {
-				console.log("+++++++++++++++++" + checked_list);
-
-				//}catch (e)
-				//{ alert("you have submitted, please use undo if you want to change your input");}
-				load_dmp();
-				//checkbox(singleOption);
-
-			}
-
-			// go to the high lighted lockation
-			function go_to(element1) {
-				const warning = element1.value;
-				console.log("the warning text tag is " + warning);
-				const element = document.getElementById(warning);
-				element.scrollIntoView({
-					behavior: "smooth",
-					block: "center",
-					inline: "nearest"
-				});
-
-			}
-			function remove_warning(element) {
-
-				let warning_no = element.value;
-				let warning = document.getElementById(warning_no);
-				warning.remove();
-
-			}
-
-			function issue_warning()
-			{
-				const selection = window.getSelection();
-				selection.removeAllRanges();
-				let text;
-				if (window.find) {
-					ns = window.find("#issuewarning", aWrapAround = 1);
-					let warning_number = 0;
-					while (ns) {
-					// text range is the text between #issuewarning and #endissuewarning without the tag
-						let text_range = window.getSelection().getRangeAt(0).cloneRange();
-					// full range is the text between #issuewarning and #endissuewarning with the tag
-						let full_range = window.getSelection().getRangeAt(0).cloneRange();
-					// relate range is the text related to the warning.
-
-						//let relate_range = ;
-						text_range.setStart(window.getSelection().focusNode, window.getSelection().focusOffset);
-						window.find("#endissuewarning");
-						let end_range = window.getSelection().getRangeAt(0).cloneRange();
-						text_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
-						
-						full_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-						text = text_range.toString();
-						console.log("full range text is" + full_range.toString());
-						full_range.deleteContents();
-						
-						
-						
-						let newText = document.createElement("warning_number" + warning_number);
-						
-						newText.innerHTML = '<span id= "warning_number' + warning_number + '" class = "text-warning"><--pay attention to the sentence before because'+ text  +'</span>';
-						full_range.insertNode(newText);
-						
-						const warning_no = "warning_number" + warning_number;
-						let div = document.createElement('div');
-						div.setAttribute("class", "alert alert-danger");
-						div.setAttribute("role", "alert");
-						let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
-
-						div.innerHTML = html1;
-						document.getElementById("warningText").appendChild(div)
-						ns = window.find("#issuewarning", aWrapAround = 1);
-						warning_number = warning_number + 1;
-					}
-
-				}
-				var div = document.createElement('div');
-				const text_location = document.getElementById("warningText");
-				text_location.scrollIntoView({
-					behavior: "smooth",
-					block: "center",
-					inline: "nearest"
-				});
-			}
-
-			/**
-			 * edit checked/unchecked placeholders in the file.
-			 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be replaced.
-			 *
-			 */
-
-			function checkbox(options) {
-
-				
-				// remove ranges, very important. took me long time to find this function
-				const selection = window.getSelection();
-				selection.removeAllRanges();
-				// all ojects which first class name is the option name
-				const class_name = Object.keys(options)[0];
-				console.log(class_name);
-				const checked = options[class_name]["checked"];
-				const unchecked = options[class_name]["unchecked"];
-
-				//console.log([...unchecked]);
-				for (let i = 0; i < checked.length; i++) {
-					let check_box_item = checked[i];
-					//console.log(check_box );
-					let name = check_box_item.split('_')[1];
-					// here the ________ should not match anything, make sure not to use it as a real placeholder
-					let match_name = "_________";
-					try {
-						match_name = prefix.concat(name.toUpperCase());
-						console.log("check for loop, starts " + match_name + " " + checked.length);
-					} catch (e) {}
-
-					selection.removeAllRanges();
-					if (window.find) //for chrome, firefox
+					/*============== tutorial ==============*/
+					
+					var steps = [
 					{
+							title: "Welcome to our DMP Generator",
+							content: '<p> This is a very simple way to make a DMP. By using this Generator, you can create <br>1. a full <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/dmp1.html")\' >Data Management Plan </a>;<br>2. a DMP <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/proposalh2020.html")\' >short proposal </a> for funding applications; <br>3. a customized <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/guide.html")\' >practical guide </a> throughout your projects</p>'
+							//
+						}, {
+							id: "interface",
+							content: "<p>You can answer questions here</p>"
+						}, {
+							id: "nav-tab",
+							content: "<p>There are five pages of questions in total</p>"
+						}, {
+							id: "nav-tabContent",
+							content: "<p>Each page has a few questions</p>"
+						}, {
+							id: "project_name",
+							content: "<p>Answer the first question by type your project name</p>"
+						}, {
+							id: "project_name_submit",
+							content: "<p>Then press submit</p>"
+						}, {
+							id: "doc",
+							content: "<p>Now the document's content has included your project name</p>"
+						}, {
+							id: "json_save",
+							content: "<p>You can save your answers</p>"
+						}, {
+							id: "upload",
+							content: "<p>and then upload it to continue your generation</p>"
+						}, {
+							id: "copy_doc",
+							content: '<p>after answering all questions, you can export your document<br>' 
+						}, {
+							id: "proposal_save",
+							content: '<p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/proposalh2020.html")\' >short proposal </a> can also be downloaded. To go back to the main document, you can simply click replace.<br></p>' 
+						}, {
+							id: "guide_save",
+							content: '<p> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/guide.html")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>'
+						}
+					];
+					
+					
+					
+					var tour = new Tour(steps);
+					/*============== tutorial initialization ends ==============*/
+					
+					
+					// compare updated answers and the original answers
+					
+					function compare_answers(old_a, new_a){
+						let unreplaced_keys = [];
+						let unsubmitted_checkbox = [];
+						let total_keywords = 0, changed_keywords = 0, total_checkboxes = 0, changed_checkboxes = 0 ;
+						for (const [key,value] of Object.entries(old_a["replace"]) ){
+							total_keywords ++;
+							if ((new_a["replace"][key] != value) && (new_a["replace"][key]!= "") ){
+							changed_keywords ++;
+							unreplaced_keys.push(key);
+							console.log(new_a["replace"][key]);
+							}
+						
+						}
+					for (const [key,value] of Object.entries(old_a["checkbox"]) ){
+							total_checkboxes ++;
+							if (JSON.stringify(new_a["checkbox"][key]) != JSON.stringify(value)){
+							console.log(new_a["checkbox"][key]);
+							console.log(value);
+							changed_checkboxes ++;
+							unsubmitted_checkbox.push(key);
+							}
+						}
+					console.log( "total_keys: " + total_keywords + "; unreplaced_keys: " + changed_keywords +"\n ;  total_box  " + total_checkboxes + ", unsubmitted_checkbox: " + changed_checkboxes )
+					return [total_keywords,  total_checkboxes, changed_keywords, changed_checkboxes, unreplaced_keys, unsubmitted_checkbox];
+					}
+					
+					
+					// reload all answers			
+					function reload_all(path) {
+										
+						
+
+						
+						const selection = window.getSelection();
+						selection.removeAllRanges();
+						
+						reload_answers();
+						
+						
+					}
+
+					function replace(child) {
+
+						const before = child.previousElementSibling.name;
+
+						const after = child.previousElementSibling.value;
+						console.log(before, after);
+						undo(child.nextElementSibling);
+						saved_a["replace"][before] = after;
+						let singleOption = {};
+						singleOption[before] = after;
+						load_dmp();
+						//find_replace(singleOption);
+					}
+
+					function undo(this_element) {
+						
+						const selection = window.getSelection();
+						selection.removeAllRanges();
+						const previous_element = this_element.previousElementSibling;
+						console.log(previous_element.getAttribute('onclick'));
+						if (previous_element.getAttribute('onclick') == "replace(this)") {
+							try {
+								delete saved_a["replace"][previous_element.previousElementSibling.getAttribute('name')];
+							} catch (e) {
+								console.log("no such content, already undo");
+							}
+
+						} else {
+							try {
+								delete saved_a["checkbox"][previous_element.classList[0]];
+							} catch (e) {
+								console.log("no such content, already undo");
+							}
+						}
+
+						console.log("json is " + saved_a);
+						
+					}
+
+					function reload_answers() {
+							document.getElementById("doc3").focus();
+						const selection = window.getSelection();
+						selection.removeAllRanges();
+						
+						
+						console.log("answers is reloading");
+						
+
+						
+						
+						
+						for (let answers in saved_a["replace"]) {
+							let singleOption = {};
+							singleOption[answers] = saved_a["replace"][answers]
+								console.log(singleOption);
+							find_replace(singleOption);
+						}
+						for (let answers in saved_a["checkbox"]) {
+							let singleOption = {};
+							singleOption[answers] = {
+								"checked": saved_a["checkbox"][answers]["checked"],
+								"unchecked": saved_a["checkbox"][answers]["unchecked"]
+							}
+							console.log(singleOption);
+							checkbox(singleOption);
+						}
+						console.log("answer reload is finished");
+						let unfinished = compare_answers(temp_a, saved_a);
+						let p_bar = document.getElementById("p-bar");
+						let percentage =  (unfinished[2]+ unfinished[3])/(unfinished[0] + unfinished[1]) *100;
+						p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
+						p_bar.innerHTML =  Math.ceil(percentage) + "%";
+						p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
+						
+						
+					}
+
+					function get_option(this_element) {
+						undo(this_element.nextElementSibling);
+						const class_name = this_element.dataset.checkbox;
+						console.log("class name for question is " + class_name);
+						const checked = document.querySelectorAll(`.${class_name}:checked`);
+						const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
+						//console.log([...checked]);
+						const checked_list = [];
+						checked.forEach(element => checked_list.push(element.id));
+						const unchecked_list = [];
+						unchecked.forEach(element => unchecked_list.push(element.id));
+						console.log("uncheck and checked" + checked_list, unchecked_list)
+						saved_a["checkbox"][class_name] = {
+							"checked": checked_list,
+							"unchecked": unchecked_list
+						};
+						let singleOption = {};
+						singleOption[class_name] = {
+							"checked": checked_list,
+							"unchecked": unchecked_list
+						};
+						//try {
+						console.log("+++++++++++++++++" + checked_list);
+
+						//}catch (e)
+						//{ alert("you have submitted, please use undo if you want to change your input");}
+						load_dmp();
+						//checkbox(singleOption);
+
+					}
+
+					// go to the high lighted lockation
+					function go_to(element1) {
+						const warning = element1.value;
+						console.log("the warning text tag is " + warning);
+						const element = document.getElementById(warning);
+						try {
+							element.scrollIntoView({
+							behavior: "smooth",
+							block: "center",
+							inline: "nearest"
+						});} catch (error) {
+						alert("warning issue is already resolved, please close this warning");
+						console.error("element not found");
+						}
+						
+						
+
+					}
+					function remove_warning(element) {
+
+						let warning_no = element.value;
+						let warning = document.getElementById(warning_no);
+						try {warning.remove();} catch (error) {
+						alert("warning issue is already resolved, this warning will be closed");
+						console.error("element not found");
+						}
+
+					}
+
+					function issue_warning()
+					{
+						const selection = window.getSelection();
+						selection.removeAllRanges();
+						let text;
+						if (window.find) {
+							ns = window.find("#issuewarning", aWrapAround = 1);
+							let warning_number = 0;
+							while (ns) {
+							// text range is the text between #issuewarning and #endissuewarning without the tag
+								let text_range = window.getSelection().getRangeAt(0).cloneRange();
+							// full range is the text between #issuewarning and #endissuewarning with the tag
+								let full_range = window.getSelection().getRangeAt(0).cloneRange();
+							// relate range is the text related to the warning.
+
+								//let relate_range = ;
+								text_range.setStart(window.getSelection().focusNode, window.getSelection().focusOffset);
+								window.find("#endissuewarning");
+								let end_range = window.getSelection().getRangeAt(0).cloneRange();
+								text_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+								
+								full_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
+								text = text_range.toString();
+								console.log("full range text is" + full_range.toString());
+								full_range.deleteContents();
+								
+								
+								
+								let newText = document.createElement("warning_number" + warning_number);
+								
+								newText.innerHTML = '<span id= "warning_number' + warning_number + '" class = "text-warning"><--pay attention to the sentence before because'+ text  +'</span>';
+								full_range.insertNode(newText);
+								
+								const warning_no = "warning_number" + warning_number;
+								let div = document.createElement('div');
+								div.setAttribute("class", "alert alert-danger");
+								div.setAttribute("role", "alert");
+								let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
+
+								div.innerHTML = html1;
+								document.getElementById("warningText").appendChild(div)
+								ns = window.find("#issuewarning", aWrapAround = 1);
+								warning_number = warning_number + 1;
+							}
+
+						}
+						var div = document.createElement('div');
+						const text_location = document.getElementById("warningText");
+						text_location.scrollIntoView({
+							behavior: "smooth",
+							block: "center",
+							inline: "nearest"
+						});
+					}
+
+					/**
+					 * edit checked/unchecked placeholders in the file.
+					 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be replaced.
+					 *
+					 */
+
+					function checkbox(options) {
+
+						
+						// remove ranges, very important. took me long time to find this function
+						const selection = window.getSelection();
+						selection.removeAllRanges();
+						// all ojects which first class name is the option name
+						const class_name = Object.keys(options)[0];
+						console.log(class_name);
+						const checked = options[class_name]["checked"];
+						const unchecked = options[class_name]["unchecked"];
+
+						//console.log([...unchecked]);
+						for (let i = 0; i < checked.length; i++) {
+							let check_box_item = checked[i];
+							//console.log(check_box );
+							let name = check_box_item.split('_')[1];
+							// here the ________ should not match anything, make sure not to use it as a real placeholder
+							let match_name = "_________";
+							try {
+								match_name = prefix.concat(name.toUpperCase());
+								console.log("check for loop, starts " + match_name + " " + checked.length);
+							} catch (e) {}
+
+							selection.removeAllRanges();
+							if (window.find) //for chrome, firefox
+							{
+								selection.removeAllRanges();
+
+								let ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
+					aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
+								while (ns) {
+									// this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.  
+									console.log("found");
+									let left_range = window.getSelection().getRangeAt(0).cloneRange();
+									let right_range = window.getSelection().getRangeAt(0).cloneRange();
+									let original_range = window.getSelection().getRangeAt(0).cloneRange();
+									let if_range = window.getSelection().getRangeAt(0).cloneRange();
+
+									let extended_begin_node;
+									let extended_begin_focus;
+									let extended_end_node;
+									let extended_end_focus;
+									let begin_node;
+									let begin_focus;
+
+									if (window.getSelection().anchorOffset < 3) {
+										begin_node = window.getSelection().anchorNode.previousSibling;
+										begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
+										console.log("begin extended through focus " + begin_node);
+									} else {
+
+										begin_node = window.getSelection().anchorNode;
+
+										begin_focus = window.getSelection().anchorOffset - 3;
+										console.log("begin extended through node " + begin_node.data);
+
+									}
+
+									if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
+										extended_end_node = window.getSelection().focusNode.nextSibling;
+										extended_end_focus = 1;
+										console.log("end extended through next node ");
+
+									} else {
+										extended_end_node = window.getSelection().focusNode;
+										extended_end_focus = window.getSelection().focusOffset + 1;
+										console.log("end extended through focus " + extended_end_node.data);
+
+									}
+
+									right_range.setEnd(extended_end_node, extended_end_focus);
+
+									if_range.setStart(begin_node, begin_focus);
+									let if_text = if_range.toString();
+									const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
+									const right_text = right_range.toString();
+									console.log("if_text: " + if_text);
+									console.log("if_cha: " + if_cha);
+
+									const right_cha = right_text.slice(-1);
+									console.log("right_text: " + right_text);
+									console.log("right_cha: " + right_cha);
+
+									if (if_cha == "|") {
+										if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
+											extended_begin_node = window.getSelection().anchorNode.previousSibling;
+											extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
+											console.log("begin extended through focus " + extended_begin_node);
+
+										} else {
+
+											extended_begin_node = window.getSelection().anchorNode;
+
+											extended_begin_focus = window.getSelection().anchorOffset - 13;
+											console.log("begin extended through node " + extended_begin_node.data);
+
+										}
+
+										left_range.setStart(extended_begin_node, extended_begin_focus);
+										const left_text = left_range.toString();
+
+										console.log("left_text: " + left_text);
+										place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
+										console.log("place holder: " + place_holder);
+										selection.removeAllRanges();
+										window.find(place_holder);
+										if_range = window.getSelection().getRangeAt(0);
+										if_text = if_range.toString();
+
+										console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+
+										match_mod(if_range);
+										selection.removeAllRanges();
+										// to match different conditions
+									} else if (if_cha == "f") {
+										if (right_cha == "|") {
+											window.find(" ");
+
+											if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
+											match_mod(if_range);
+											if_range.detach();
+										} else {
+											match_mod(if_range);
+											if_range.detach();
+										}
+
+									} else if (if_cha == "," || if_cha == " ") {
+										console.log("!!!! replace match text");
+
+										original_range.deleteContents();
+										original_range.insertNode(document.createTextNode(name));
+										original_range.detach();
+									} else if (if_cha == "!") {
+										if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
+											extended_begin_node = window.getSelection().anchorNode.previousSibling;
+											extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
+											console.log("begin extended through focus " + extended_begin_node);
+
+										} else {
+
+											extended_begin_node = window.getSelection().anchorNode;
+
+											extended_begin_focus = window.getSelection().anchorOffset - 4;
+											console.log("begin extended through node " + extended_begin_node.data);
+
+										}
+
+										left_range.setStart(extended_begin_node, extended_begin_focus);
+										const left_text = left_range.toString();
+
+										console.log("left_text with <!>: " + left_text);
+										match_remove(left_range);
+
+									} else
+										{
+
+										console.log("_____other cases");
+										console.log("last character is: ", right_cha);
+										match_mod(if_range);
+										if_range.detach();
+									}
+
+									//window.find("#endif");
+
+									if_range.detach();
+									ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
+					aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
+								}
+							} else if (document.body.createTextRange) //for ie etc.
+							{
+								let range_if = document.body.createTextRange();
+								while (range_if.findText(match_name)) {
+									range_if.pasteHTML('atest');
+								}
+							}
+
+							console.log("check for loop, ends " + match_name);
+						}
+
+						for (let i = 0; i < unchecked.length; i++) {
+						// here starts the unchecked box, it is basically as same as the checked options. It should be warped in a more general function, so no copy-paste is used. but I am too lazy to warp it and it only shows twice, so I think it is OK.
+							let check_box_item = unchecked[i];
+							//console.log(check_box );
+							let name = check_box_item.split('_')[1];
+							let match_name = "_________";
+							try {
+								match_name = prefix.concat(name.toUpperCase());
+								console.log("uncheck for loop, starts " + match_name);
+							} catch (e) {
+								match_name = "__________"
+							}
+
+							const selection = window.getSelection();
+
+							selection.removeAllRanges();
+							if (window.find) //for chrome, firefox
+							{
+
+								let ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
+					aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
+								while (ns) {
+
+									console.log("unchecked found");
+									let left_range = window.getSelection().getRangeAt(0).cloneRange();
+									let right_range = window.getSelection().getRangeAt(0).cloneRange();
+									let original_range = window.getSelection().getRangeAt(0).cloneRange();
+									let if_range = window.getSelection().getRangeAt(0).cloneRange();
+
+									let extended_begin_node;
+									let extended_begin_focus;
+									let extended_end_node;
+									let extended_end_focus;
+
+									if (window.getSelection().anchorOffset < 3) {
+										extended_begin_node = window.getSelection().anchorNode.previousSibling;
+										extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
+										console.log("begin extended through focus " + extended_begin_node);
+									} else {
+
+										extended_begin_node = window.getSelection().anchorNode;
+
+										extended_begin_focus = window.getSelection().anchorOffset - 3;
+										console.log("begin extended through node " + extended_begin_node.data);
+
+									}
+
+									if (window.getSelection().anchorOffset < 3) {
+										begin_node = window.getSelection().anchorNode.previousSibling;
+										begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
+										console.log("begin extended through focus " + extended_begin_node);
+									} else {
+
+										begin_node = window.getSelection().anchorNode;
+
+										begin_focus = window.getSelection().anchorOffset - 3;
+										console.log("begin extended through node " + extended_begin_node.data);
+
+									}
+
+									if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
+										extended_end_node = window.getSelection().focusNode.nextSibling;
+										extended_end_focus = 1;
+										console.log("end extended through next node ");
+
+									} else {
+										extended_end_node = window.getSelection().focusNode;
+										extended_end_focus = window.getSelection().focusOffset + 1;
+										console.log("end extended through focus " + extended_end_node.data);
+
+									}
+
+									right_range.setEnd(extended_end_node, extended_end_focus);
+									left_range.setStart(extended_begin_node, extended_begin_focus);
+									if_range.setStart(begin_node, begin_focus);
+									let if_text = if_range.toString();
+									const right_text = right_range.toString();
+									console.log("if_text: " + if_text);
+
+									const right_cha = right_text.slice(-1);
+									console.log("right_text: " + right_text);
+									console.log("right_cha: " + right_cha);
+
+									const left_text = left_range.toString();
+									const if_cha = left_text.slice(-match_name.length - 1, -match_name.length);
+									console.log("left_text: " + left_text);
+									console.log("if_cha: " + if_cha);
+
+									place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
+									console.log("place holder: " + place_holder);
+
+									if (if_cha == "|") {
+
+										selection.removeAllRanges();
+										window.find(place_holder);
+										if_range = window.getSelection().getRangeAt(0);
+										if_text = if_range.toString();
+
+										console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+
+										match_remove(if_range);
+										selection.removeAllRanges();
+									} else if (if_cha == "f") {
+										if (right_cha == "|") {
+											window.find(" ");
+
+											if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
+											match_remove(if_range);
+											if_range.detach();
+										} else {
+											match_remove(if_range);
+											if_range.detach();
+										}
+
+									} else if (if_cha == "," || if_cha == " ") {
+										console.log("!!!! remove the matched text");
+
+										original_range.deleteContents();
+
+										original_range.detach();
+									} else if (if_cha == "!") {
+									
+										if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
+											extended_begin_node = window.getSelection().anchorNode.previousSibling;
+											extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
+											console.log("begin extended through focus " + extended_begin_node);
+
+										} else {
+
+											extended_begin_node = window.getSelection().anchorNode;
+
+											extended_begin_focus = window.getSelection().anchorOffset - 4;
+											console.log("begin extended through node " + extended_begin_node.data);
+
+										}
+
+										left_range.setStart(extended_begin_node, extended_begin_focus);
+										const left_text = left_range.toString();
+
+										console.log("left_text with <!>: " + left_text);
+										match_mod(left_range);
+
+									} else {
+
+										console.log("_____other cases");
+										console.log("last character is: ", right_cha);
+										match_remove(if_range);
+										if_range.detach();
+									}
+
+									//window.find("#endif");
+
+									if_range.detach();
+									ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
+					aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
+								}
+							} else if (document.body.createTextRange) //for ie etc.
+							{
+								let range_if = document.body.createTextRange();
+								while (range_if.findText(match_name)) {
+									range_if.pasteHTML('');
+								}
+							}
+
+							console.log("uncheck for loop, ends " + match_name);
+						}
+
+					}
+
+					/**
+					 * match a place holder and then modify it.
+					 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be replaced.
+					 *
+					 */
+
+					function match_mod(in_range) {
+						
+						const text_after_if = (in_range.toString().slice(3));
+						console.log("after_endif: " + text_after_if);
+						in_range.deleteContents();
+
+						window.find("#endif" + text_after_if);
+
+						let end_if_range = window.getSelection().getRangeAt(0);
+						end_if_range.deleteContents();
+						end_if_range.detach();
+
+					}
+					/**
+					 * match a place holder and then remove it.
+					 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be removed.
+					 *
+					 */
+					function match_remove(right_range) {
+						
+						const text_after_if = (right_range.toString().slice(3));
+						console.log("after_if: " + text_after_if);
+
+						window.find("#endif" + text_after_if);
+
+						right_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
+						right_range.deleteContents();
+						right_range.detach();
+
+					}
+					/**
+					 * replace a keyword by its formal meaning.
+					 * @param {string} before - the keyword need to be replaced.
+					 * @param {string} after - the formal text represented by the keyword.
+					 */
+					function find_replace(option) {
+						
+
+
+						const selection = window.getSelection();
 						selection.removeAllRanges();
 
-						let ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
-            aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
-						while (ns) {
-							// this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.  
-							console.log("found");
-							let left_range = window.getSelection().getRangeAt(0).cloneRange();
-							let right_range = window.getSelection().getRangeAt(0).cloneRange();
-							let original_range = window.getSelection().getRangeAt(0).cloneRange();
-							let if_range = window.getSelection().getRangeAt(0).cloneRange();
+						
 
-							let extended_begin_node;
-							let extended_begin_focus;
-							let extended_end_node;
-							let extended_end_focus;
-							let begin_node;
-							let begin_focus;
-
-							if (window.getSelection().anchorOffset < 3) {
-								begin_node = window.getSelection().anchorNode.previousSibling;
-								begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-								console.log("begin extended through focus " + begin_node);
-							} else {
-
-								begin_node = window.getSelection().anchorNode;
-
-								begin_focus = window.getSelection().anchorOffset - 3;
-								console.log("begin extended through node " + begin_node.data);
-
-							}
-
-							if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
-								extended_end_node = window.getSelection().focusNode.nextSibling;
-								extended_end_focus = 1;
-								console.log("end extended through next node ");
-
-							} else {
-								extended_end_node = window.getSelection().focusNode;
-								extended_end_focus = window.getSelection().focusOffset + 1;
-								console.log("end extended through focus " + extended_end_node.data);
-
-							}
-
-							right_range.setEnd(extended_end_node, extended_end_focus);
-
-							if_range.setStart(begin_node, begin_focus);
-							let if_text = if_range.toString();
-							const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
-							const right_text = right_range.toString();
-							console.log("if_text: " + if_text);
-							console.log("if_cha: " + if_cha);
-
-							const right_cha = right_text.slice(-1);
-							console.log("right_text: " + right_text);
-							console.log("right_cha: " + right_cha);
-
-							if (if_cha == "|") {
-								if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
-									extended_begin_node = window.getSelection().anchorNode.previousSibling;
-									extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
-									console.log("begin extended through focus " + extended_begin_node);
-
+						const before = Object.keys(option)[0];
+						const after = option[before];
+						console.log("before: " + before +", after: " + after);
+						
+						
+						if (window.find) //for chrome, firefox
+						{
+						
+						console.log("window.find is: " + window.find );
+						
+							while (window.find(before, aCaseSensitive =0, aBackwards =is_firefox, aWrapAround =is_firefox,
+								aWholeWord =0, aSearchInFrames =0, aShowDialog =0 )) {
+								
+								let last_letter;
+								
+								let range = window.getSelection().getRangeAt(0);
+								window.getSelection().focusNode;
+								if (window.getSelection().focusNode.length == window.getSelection().focusOffset) {
+								console.log("first if : " + window.getSelection().focusNode.length );
+									last_letter = "";
+								
 								} else {
-
-									extended_begin_node = window.getSelection().anchorNode;
-
-									extended_begin_focus = window.getSelection().anchorOffset - 13;
-									console.log("begin extended through node " + extended_begin_node.data);
-
+									range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
+									last_letter = range.toString().slice(-1);
 								}
 
-								left_range.setStart(extended_begin_node, extended_begin_focus);
-								const left_text = left_range.toString();
-
-								console.log("left_text: " + left_text);
-								place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-								console.log("place holder: " + place_holder);
-								selection.removeAllRanges();
-								window.find(place_holder);
-								if_range = window.getSelection().getRangeAt(0);
-								if_text = if_range.toString();
-
-								console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-
-								match_mod(if_range);
-								selection.removeAllRanges();
-								// to match different conditions
-							} else if (if_cha == "f") {
-								if (right_cha == "|") {
-									window.find(" ");
-
-									if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-									match_mod(if_range);
-									if_range.detach();
+								if (window.getSelection().anchorOffset == 0) {
+									const old_offset = window.getSelection().anchorOffset;
+									console.log("no enough range");
+									range.setStart(window.getSelection().anchorNode.previousSibling, window.getSelection().anchorNode.previousSibling.length - 1);
+									first_letter = range.toString().slice(0, 1);
 								} else {
-									match_mod(if_range);
-									if_range.detach();
+									console.log("enough range" + window.getSelection().anchorOffset);
+									range.setStart(window.getSelection().anchorNode, window.getSelection().anchorOffset - 1);
+									first_letter = range.toString().slice(0, 1);
 								}
 
-							} else if (if_cha == "," || if_cha == " ") {
-								console.log("!!!! replace match text");
+								if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
+									console.log(range.toString(), "last letter " + last_letter);
 
-								original_range.deleteContents();
-								original_range.insertNode(document.createTextNode(name));
-								original_range.detach();
-							} else if (if_cha == "!") {
-								if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
-									extended_begin_node = window.getSelection().anchorNode.previousSibling;
-									extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-									console.log("begin extended through focus " + extended_begin_node);
-
+								} else if (/[a-zA-Z\|\$\!]/.test(first_letter)) {
+									console.log(range.toString(), "first letter " + first_letter);
 								} else {
-
-									extended_begin_node = window.getSelection().anchorNode;
-
-									extended_begin_focus = window.getSelection().anchorOffset - 4;
-									console.log("begin extended through node " + extended_begin_node.data);
+									console.log(range.toString(), "deleted with last letter: " + last_letter);
+									range.deleteContents();
+									console.log(encodeURIComponent(after));
+									let newText = document.createElement(before.split("_")[1] + "-to-");
+									newText.innerHTML = '<span class = "text-warning">' +
+										first_letter + after + last_letter + '</span>';
+									range.insertNode(newText);
 
 								}
-
-								left_range.setStart(extended_begin_node, extended_begin_focus);
-								const left_text = left_range.toString();
-
-								console.log("left_text with <!>: " + left_text);
-								match_remove(left_range);
-
-							} else
-								{
-
-								console.log("_____other cases");
-								console.log("last character is: ", right_cha);
-								match_mod(if_range);
-								if_range.detach();
-							}
-
-							//window.find("#endif");
-
-							if_range.detach();
-							ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
-            aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
-						}
-					} else if (document.body.createTextRange) //for ie etc.
-					{
-						let range_if = document.body.createTextRange();
-						while (range_if.findText(match_name)) {
-							range_if.pasteHTML('atest');
-						}
-					}
-
-					console.log("check for loop, ends " + match_name);
-				}
-
-				for (let i = 0; i < unchecked.length; i++) {
-				// here starts the unchecked box, it is basically as same as the checked options. It should be warped in a more general function, so no copy-paste is used. but I am too lazy to warp it and it only shows twice, so I think it is OK.
-					let check_box_item = unchecked[i];
-					//console.log(check_box );
-					let name = check_box_item.split('_')[1];
-					let match_name = "_________";
-					try {
-						match_name = prefix.concat(name.toUpperCase());
-						console.log("uncheck for loop, starts " + match_name);
-					} catch (e) {
-						match_name = "__________"
-					}
-
-					const selection = window.getSelection();
-
-					selection.removeAllRanges();
-					if (window.find) //for chrome, firefox
-					{
-
-						let ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
-            aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
-						while (ns) {
-
-							console.log("unchecked found");
-							let left_range = window.getSelection().getRangeAt(0).cloneRange();
-							let right_range = window.getSelection().getRangeAt(0).cloneRange();
-							let original_range = window.getSelection().getRangeAt(0).cloneRange();
-							let if_range = window.getSelection().getRangeAt(0).cloneRange();
-
-							let extended_begin_node;
-							let extended_begin_focus;
-							let extended_end_node;
-							let extended_end_focus;
-
-							if (window.getSelection().anchorOffset < 3) {
-								extended_begin_node = window.getSelection().anchorNode.previousSibling;
-								extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-								console.log("begin extended through focus " + extended_begin_node);
-							} else {
-
-								extended_begin_node = window.getSelection().anchorNode;
-
-								extended_begin_focus = window.getSelection().anchorOffset - 3;
-								console.log("begin extended through node " + extended_begin_node.data);
-
-							}
-
-							if (window.getSelection().anchorOffset < 3) {
-								begin_node = window.getSelection().anchorNode.previousSibling;
-								begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-								console.log("begin extended through focus " + extended_begin_node);
-							} else {
-
-								begin_node = window.getSelection().anchorNode;
-
-								begin_focus = window.getSelection().anchorOffset - 3;
-								console.log("begin extended through node " + extended_begin_node.data);
-
-							}
-
-							if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
-								extended_end_node = window.getSelection().focusNode.nextSibling;
-								extended_end_focus = 1;
-								console.log("end extended through next node ");
-
-							} else {
-								extended_end_node = window.getSelection().focusNode;
-								extended_end_focus = window.getSelection().focusOffset + 1;
-								console.log("end extended through focus " + extended_end_node.data);
-
-							}
-
-							right_range.setEnd(extended_end_node, extended_end_focus);
-							left_range.setStart(extended_begin_node, extended_begin_focus);
-							if_range.setStart(begin_node, begin_focus);
-							let if_text = if_range.toString();
-							const right_text = right_range.toString();
-							console.log("if_text: " + if_text);
-
-							const right_cha = right_text.slice(-1);
-							console.log("right_text: " + right_text);
-							console.log("right_cha: " + right_cha);
-
-							const left_text = left_range.toString();
-							const if_cha = left_text.slice(-match_name.length - 1, -match_name.length);
-							console.log("left_text: " + left_text);
-							console.log("if_cha: " + if_cha);
-
-							place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-							console.log("place holder: " + place_holder);
-
-							if (if_cha == "|") {
-
-								selection.removeAllRanges();
-								window.find(place_holder);
-								if_range = window.getSelection().getRangeAt(0);
-								if_text = if_range.toString();
-
-								console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-
-								match_remove(if_range);
-								selection.removeAllRanges();
-							} else if (if_cha == "f") {
-								if (right_cha == "|") {
-									window.find(" ");
-
-									if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-									match_remove(if_range);
-									if_range.detach();
-								} else {
-									match_remove(if_range);
-									if_range.detach();
-								}
-
-							} else if (if_cha == "," || if_cha == " ") {
-								console.log("!!!! remove the matched text");
-
-								original_range.deleteContents();
-
-								original_range.detach();
-							} else if (if_cha == "!") {
 							
-								if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
-									extended_begin_node = window.getSelection().anchorNode.previousSibling;
-									extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-									console.log("begin extended through focus " + extended_begin_node);
-
-								} else {
-
-									extended_begin_node = window.getSelection().anchorNode;
-
-									extended_begin_focus = window.getSelection().anchorOffset - 4;
-									console.log("begin extended through node " + extended_begin_node.data);
-
-								}
-
-								left_range.setStart(extended_begin_node, extended_begin_focus);
-								const left_text = left_range.toString();
-
-								console.log("left_text with <!>: " + left_text);
-								match_mod(left_range);
-
-							} else {
-
-								console.log("_____other cases");
-								console.log("last character is: ", right_cha);
-								match_remove(if_range);
-								if_range.detach();
 							}
-
-							//window.find("#endif");
-
-							if_range.detach();
-							ns = window.find(match_name, aCaseSensitive =0, aBackwards =0, aWrapAround =1,
-            aWholeWord =0, aSearchInFrames =is_firefox, aShowDialog =0);
+						} else if (document.createTextRange) //for ie etc.
+						{
+							var range = document.createTextRange();
+							while (range.findText(before)) {
+								range.pasteHTML(after);
+							}
 						}
-					} else if (document.body.createTextRange) //for ie etc.
-					{
-						let range_if = document.body.createTextRange();
-						while (range_if.findText(match_name)) {
-							range_if.pasteHTML('');
+						
+					}
+					
+					//progress-bar
+					var x = 0;
+					function nav_next() {
+						<!-- x = x+20 ; -->
+						let ele = document.getElementById("nav-tab")
+							<!-- console.log(ele); -->
+						let tabs = ele.querySelector('[class="nav-link active"]');
+						<!-- let p_bar = document.getElementById("p-bar"); -->
+						
+						let nexts = tabs.nextElementSibling;
+						//console.log(nexts);
+						try {
+							nexts.click();
+
+							<!-- console.log(p_bar); -->
+							<!-- p_bar.style.setProperty("width", x + "%"); -->
+							<!-- p_bar.innerHTML =  x + "%"; -->
+							<!-- p_bar.setAttribute("aria-valuenow", x); -->
+
+						} catch (e) {
+							<!-- x = 100; -->
+							alert("you have reached the end of the document, please save the document");
+							<!-- p_bar.style.setProperty("width", 100 + "%"); -->
+							<!-- p_bar.innerHTML = "finished!"; -->
+							<!-- p_bar.setAttribute("aria-valuenow", 100); -->
+							issue_warning();
 						}
+						console.log(tabs);
+
 					}
 
-					console.log("uncheck for loop, ends " + match_name);
-				}
+					function nav_previous() {
 
-			}
+						<!-- let ele = document.getElementById("nav-tab") -->
+							<!-- console.log(ele); -->
+						let tabs = ele.querySelector('[class="nav-link active"]');
+						<!-- let p_bar = document.getElementById("p-bar"); -->
+						
+						let nexts = tabs.previousElementSibling;
+						console.log(nexts);
+						try {
+							nexts.click();
+							<!-- x = x - 20; -->
+							<!-- console.log(p_bar); -->
+							<!-- p_bar.style.setProperty("width", x + "%"); -->
+							<!-- p_bar.innerHTML =  x + "%"; -->
+							<!-- p_bar.setAttribute("aria-valuenow", x); -->
 
-			/**
-			 * match a place holder and then modify it.
-			 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be replaced.
-			 *
-			 */
+						} catch (e) {
+							alert("you have reached the beginning of the document, please start editing");
 
-			function match_mod(in_range) {
+							<!-- p_bar.style.setProperty("width", 0 + "%"); -->
+							<!-- p_bar.innerHTML =  0 + "%"; -->
+							<!-- p_bar.setAttribute("aria-valuenow", 0); -->
+							<!-- x = 0; -->
+						}
+						console.log("progress bar value is" + x);
+
+					}
+					
+					window.addEventListener('beforeunload', function (e) {
+					  // Cancel the event
+					  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+					  // Chrome requires returnValue to be set
+					  e.returnValue = '';
+					});
+					
+					// initialization
+					window.addEventListener("load", function () {
+						tour.show();
+						load_dmp(reload_answers);
+						console.log("current url is: " + window.location.href);
+						const urls = window.location.href.split("?");
+						if (urls.length > 1) {
+
+							fetch(urls[1])
+							.then(response => response.json())
+							.then(json => {
+								saved_a = json;
+								
+								//setTimeout(() => reload_all(),1000);
+
+							})
+							
+
+
+						}
+						
+						const uploadJson = document.getElementById("upload");
+						uploadJson.addEventListener("change", reloadJson, false);
+
+						function reloadJson() {
+
+							uploadJson.files[0].text().then(text =>saved_a = JSON.parse(text));
+
+							console.log(JSON.stringify(saved_a));
+							setTimeout(()=> { load_dmp(reload_answers)} , 500);
+						}
+						//document.getElementById("nav-tab").addEventListener("click", function (e) {
+							//const tgt = e.target;
+							//if (tgt.classList.contains("nav-link")) {
+								//e.preventDefault();
+								//let x = (tgt.value-1) * 20;
+								//let p_bar = document.getElementById("p-bar");
+								//p_bar.style.setProperty("width", x + "%");
+								//p_bar.innerHTML=x+"%";
+								//p_bar.setAttribute("aria-valuenow", x);
+
+							//}
+						//});
+						
+
+						
+					
+					
+					
+						var inputs = document.querySelectorAll("input,select");
+						for (var i = 0 ; i < inputs.length; i++) {
+						   inputs[i].addEventListener("keypress", function(e){
+								console.log("added event listener");
+							  if (e.which == 13) {
+								 e.preventDefault();
+								 console.log("enter is pressed");
+								console.log(document.activeElement.id);
+								const button_id = "#" + document.activeElement.id + "_submit";
+								console.log(button_id);
+								const submit_button = document.querySelector(button_id);
+								submit_button.click();
+							  }
+						   })
+						}
+					
+					
+					
+					});
+
+				function copy_doc(){
+				issue_warning();
 				
-				const text_after_if = (in_range.toString().slice(3));
-				console.log("after_endif: " + text_after_if);
-				in_range.deleteContents();
-
-				window.find("#endif" + text_after_if);
-
-				let end_if_range = window.getSelection().getRangeAt(0);
-				end_if_range.deleteContents();
-				end_if_range.detach();
-
-			}
-			/**
-			 * match a place holder and then remove it.
-			 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be removed.
-			 *
-			 */
-			function match_remove(right_range) {
-				
-				const text_after_if = (right_range.toString().slice(3));
-				console.log("after_if: " + text_after_if);
-
-				window.find("#endif" + text_after_if);
-
-				right_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-				right_range.deleteContents();
-				right_range.detach();
-
-			}
-			/**
-			 * replace a keyword by its formal meaning.
-			 * @param {string} before - the keyword need to be replaced.
-			 * @param {string} after - the formal text represented by the keyword.
-			 */
-			function find_replace(option) {
-				
-
-
+				const text= document.getElementById("doc3");
 				const selection = window.getSelection();
+				const range = document.createRange();
+				range.selectNodeContents(text);
 				selection.removeAllRanges();
-
-				
-
-				const before = Object.keys(option)[0];
-				const after = option[before];
-				console.log("before: " + before +", after: " + after);
+				selection.addRange(range);
+				let undefined = compare_answers(temp_a ,saved_a);
 				
 				
-				if (window.find) //for chrome, firefox
-				{
+				if ((undefined[2] == undefined[0]) && (undefined[3] == undefined[1]) ) {
+								try {
+					return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+					const selection = window.getSelection();
+					selection.removeAllRanges();
+				}
+				catch (error) {
+					console.warn("Copy to clipboard failed.", error);
+					return false;
+				} 
+				} else {
 				
-				console.log("window.find is: " + window.find );
-				
-					while (window.find(before, aCaseSensitive =0, aBackwards =is_firefox, aWrapAround =is_firefox,
-						aWholeWord =0, aSearchInFrames =0, aShowDialog =0 )) {
-						
-						let last_letter;
-						
-						let range = window.getSelection().getRangeAt(0);
-						window.getSelection().focusNode;
-						if (window.getSelection().focusNode.length == window.getSelection().focusOffset) {
-						console.log("first if : " + window.getSelection().focusNode.length );
-							last_letter = "";
-						
-						} else {
-							range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
-							last_letter = range.toString().slice(-1);
+					var reminders = [
+					{
+							title: "you have "+ String (undefined[1]+undefined[0]-undefined[2]-undefined[3]) +" answer not answered",
+							content: ''
+							//
 						}
-
-						if (window.getSelection().anchorOffset == 0) {
-							const old_offset = window.getSelection().anchorOffset;
-							console.log("no enough range");
-							range.setStart(window.getSelection().anchorNode.previousSibling, window.getSelection().anchorNode.previousSibling.length - 1);
-							first_letter = range.toString().slice(0, 1);
-						} else {
-							console.log("enough range" + window.getSelection().anchorOffset);
-							range.setStart(window.getSelection().anchorNode, window.getSelection().anchorOffset - 1);
-							first_letter = range.toString().slice(0, 1);
-						}
-
-						if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
-							console.log(range.toString(), "last letter " + last_letter);
-
-						} else if (/[a-zA-Z\|\$\!]/.test(first_letter)) {
-							console.log(range.toString(), "first letter " + first_letter);
-						} else {
-							console.log(range.toString(), "deleted with last letter: " + last_letter);
-							range.deleteContents();
-							console.log(encodeURIComponent(after));
-							let newText = document.createElement(before.split("_")[1] + "-to-");
-							newText.innerHTML = '<span class = "text-warning">' +
-								first_letter + after + last_letter + '</span>';
-							range.insertNode(newText);
-
-						}
-					
-					}
-				} else if (document.createTextRange) //for ie etc.
-				{
-					var range = document.createTextRange();
-					while (range.findText(before)) {
-						range.pasteHTML(after);
-					}
+					];
+					var reminder = new Tour(reminders);
+				
+				
+					reminder.show();
+				
 				}
 				
-			}
-			
-			//progress-bar
-			var x = 0;
-			function nav_next() {
-				x = x+20 ;
-				let ele = document.getElementById("nav-tab")
-					console.log(ele);
-				let tabs = ele.querySelector('[class="nav-link active"]');
-				let p_bar = document.getElementById("p-bar");
-				
-				let nexts = tabs.nextElementSibling;
-				//console.log(nexts);
-				try {
-					nexts.click();
-
-					console.log(p_bar);
-					p_bar.style.setProperty("width", x + "%");
-					p_bar.innerHTML =  x + "%";
-					p_bar.setAttribute("aria-valuenow", x);
-
-				} catch (e) {
-					x = 100;
-					alert("you have reached the end of the document, please save the document");
-					p_bar.style.setProperty("width", 100 + "%");
-					p_bar.innerHTML = "finished!";
-					p_bar.setAttribute("aria-valuenow", 100);
-					issue_warning();
-				}
-				console.log(tabs);
-
-			}
-
-			function nav_previous() {
-
-				let ele = document.getElementById("nav-tab")
-					console.log(ele);
-				let tabs = ele.querySelector('[class="nav-link active"]');
-				let p_bar = document.getElementById("p-bar");
-				
-				let nexts = tabs.previousElementSibling;
-				console.log(nexts);
-				try {
-					nexts.click();
-					x = x - 20;
-					console.log(p_bar);
-					p_bar.style.setProperty("width", x + "%");
-					p_bar.innerHTML =  x + "%";
-					p_bar.setAttribute("aria-valuenow", x);
-
-				} catch (e) {
-					alert("you have reached the beginning of the document, please start editing");
-
-					p_bar.style.setProperty("width", 0 + "%");
-					p_bar.innerHTML =  0 + "%";
-					p_bar.setAttribute("aria-valuenow", 0);
-					x = 0;
-				}
-				console.log("progress bar value is" + x);
-
-			}
-			
-			window.addEventListener('beforeunload', function (e) {
-			  // Cancel the event
-			  e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-			  // Chrome requires returnValue to be set
-			  e.returnValue = '';
-			});
-			
-			// initialization
-			window.addEventListener("load", function () {
-				tour.show();
-				load_dmp(reload_answers);
-				console.log("current url is: " + window.location.href);
-				const urls = window.location.href.split("?");
-				if (urls.length > 1) {
-
-					fetch(urls[1])
-					.then(response => response.json())
-					.then(json => {
-						saved_a = json;
-						
-						//setTimeout(() => reload_all(),1000);
-
-					})
-					
-
-
-				}
-				
-				const uploadJson = document.getElementById("upload");
-				uploadJson.addEventListener("change", reloadJson, false);
-
-				function reloadJson() {
-
-					uploadJson.files[0].text().then(text =>saved_a = JSON.parse(text));
-
-					console.log(JSON.stringify(saved_a));
-					setTimeout(()=> { load_dmp(reload_answers)} , 500);
-				}
-				document.getElementById("nav-tab").addEventListener("click", function (e) {
-					const tgt = e.target;
-					if (tgt.classList.contains("nav-link")) {
-						e.preventDefault();
-						let x = (tgt.value-1) * 20;
-						let p_bar = document.getElementById("p-bar");
-						p_bar.style.setProperty("width", x + "%");
-						p_bar.innerHTML=x+"%";
-						p_bar.setAttribute("aria-valuenow", x);
-
-					}
-				});
 				
 
 				
-			
-			
-			
-				var inputs = document.querySelectorAll("input,select");
-				for (var i = 0 ; i < inputs.length; i++) {
-				   inputs[i].addEventListener("keypress", function(e){
-						console.log("added event listener");
-					  if (e.which == 13) {
-						 e.preventDefault();
-						 console.log("enter is pressed");
-						console.log(document.activeElement.id);
-						const button_id = "#" + document.activeElement.id + "_submit";
-						console.log(button_id);
-						const submit_button = document.querySelector(button_id);
-						submit_button.click();
-					  }
-				   })
 				}
+				
+				
+		</script>			
+		 <body style=" height:100vh;width:100vw; margin:0px; padding-right:0px; overflow-x: hidden; overflow-y: hidden;"  >
 			
-			
-			
-			});
 
-		function copy_doc(){
-		issue_warning();
-		const text= document.getElementById("doc3");
-		const selection = window.getSelection();
-        const range = document.createRange();
-        range.selectNodeContents(text);
-        selection.removeAllRanges();
-        selection.addRange(range);
-        try {
-            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-			
-		}
-        catch (ex) {
-            console.warn("Copy to clipboard failed.", ex);
-            return false;
-        }
-		
-		}
-		
-		
-</script>			
-	 <body style=" height:100vh;width:100vw; margin:0px; padding-right:0px; overflow-x: hidden; overflow-y: hidden;"  >
-	 
+	<!-- Button trigger modal -->
+	<button type="button" id = 'modal_button' class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	  Launch demo modal
+	</button>
 
-	
-
-
-
-
-	<div class="container-fluid main_container" style= "   ">
-	<div class="row" style= "  "> 
-		<div   class="col-8" id="doc"  style="height:100vh;   overflow-x: hidden;overflow-y: hidden; padding-right: 0px;  ">
-		<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden; overflow-y: scroll; padding-left:12px;  ">
-		<div id = "doc3" style = "overflow-x: hidden; overflow-y: hidden; ">
-		
-		
-		</div>
-		</div>
-		</div>
-	<div class="col-4" style="height:100vh;  padding-right : 2px;  " id="interface" >
-
-	<div class = "row" style="height: calc(100% - 200px);overflow-x: hidden;overflow-y: scroll;z-index: -1; ">
-	<nav>
-	  <div class="nav nav-pills   h6" id="nav-tab" role="tablist" aria-label="page-nav" >
-	  
-
-	  
-	  
-		<button class="nav-link active" id="nav-information-tab" data-bs-toggle="tab" value ="1" data-bs-target="#nav-information" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-information" aria-selected="true">1. General information</button>
-		<button class="nav-link" id="nav-data_type-tab" data-bs-toggle="tab" value ="2" data-bs-target="#nav-data_type" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_type" aria-selected="false">2. Data type</button>
-		<button class="nav-link" id="nav-data_volumn-tab" data-bs-toggle="tab" value ="3" data-bs-target="#nav-data_volumn" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_volumn" aria-selected="false">3. Data volume</button>
-		<button class="nav-link" id="nav-relevant_standards-tab" data-bs-toggle="tab" value ="4" data-bs-target="#nav-relevant_standards" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-relevant_standards" aria-selected="false">4. Standards</button>
-		<button class="nav-link" id="nav-nav-data_analysis-tab" data-bs-toggle="tab" value ="5" data-bs-target="#nav-data_analysis" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_analysis" aria-selected="false">5. Data analysis</button>
-
-						
-	  </div>
-	</nav>
-	<div class="tab-content  h6" id="nav-tabContent" >
-
-	  <div class="tab-pane fade show active " id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab test">
-	  <p >1.1 Give the project name or acronym to be used:</p>
-	  
-	 
-		<form >
-			<label for="project_name"></label>
-			<input type="text"
-				   id="project_name"
-				   name="$_PROJECT"
-				   placeholder="project name">
-				<input class="btn btn-primary btn-sm" type="button" id="project_name_submit"
-					   value="replace"
-					   onclick="replace(this)">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo" id="project_name_undo"
-					   onclick="undo(this);">
-	  
-		</form>
-		<br>
-		  <p >1.2 Give the object to be studied and the project aim:</p>
-		<form >
-			<label for="study_object"></label>
-
-			<textarea type="text"
-				   id="study_object"
-				   name="$_STUDYOBJECT"
-				   placeholder="study object"rows="3" style="width: 95%;"></textarea>
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
-					   onclick="replace(this)">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-		<br>
-		<form >
-			<label for="project_aim"></label>
-			<textarea type="text"
-				   id="project_aim"
-				   name="$_PROJECTAIM"
-				   placeholder="project aim" rows="3" style="width: 95%;"></textarea>
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
-					   onclick="replace(this)">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-		<br>
-		<p >1.3 Give the data officer name:</p>
-		<form >
-			<label for="dataofficer"></label>
-			<input type="text"
-				   id="dataofficer"
-				   name="$_dataofficer"
-				   placeholder="data officer name">
-				<input class="btn btn-primary btn-sm" type="button" id="dataofficer_submit"
-					   value="replace"
-					   onclick="replace(this)">
-				<input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-		<br>
-		 <p >1.4 Chose some additional information</p>
-		 
-	<div class="form-data_type form-check-inline ">
-	  <input class="form-check-input q_1st" type="checkbox" value="1" id="check_protect" >
-	  <label class="form-check-label" for="check_protect">
-		The data is protected
-	  </label>
-	  <br>
-		<input class="form-check-input q_1st" type="checkbox" value="2" id="check_dataplant"  data-bs-toggle="collapse" data-bs-target="#q_5th_a" aria-expanded="false" aria-controls="q_5th_a" checked>
-	  <label class="form-check-label" for="check_dataplant">
-		Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
-	  </label>
-
-	  <br>
-	  <input class="form-check-input q_1st" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_update_month" aria-expanded="false" aria-controls="q_update_month"  >
-	  <label class="form-check-label" for="check_update">
-		This project will be updated
-	  </label>
-	  <br>
-	  
-
-	  <input class="form-check-input q_1st" type="checkbox" value="4" id="check_previousprojects" 
-	  data-bs-toggle="collapse" data-bs-target="#q_previousprojects" aria-expanded="false" aria-controls="q_previousprojects"  >
-	  <label class="form-check-label" for="check_previousprojects">
-		This project has previous projects.
-	  </label>
-
-	  <br>
-		<input class="form-check-input q_1st" type="checkbox" value="5" id="check_industry" >
-	  <label class="form-check-label" for="check_industry">
-		This is an industry project.
-	  </label>
-		<br>
-	  
-	  <input class="form-check-input q_1st" type="checkbox" value="6" id="check_proprietary" 
-	  data-bs-toggle="collapse" data-bs-target="#q_proprietary" aria-expanded="false" aria-controls="q_proprietary"  >
-	  <label class="form-check-label" for="check_proprietary">
-		This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
-	  </label>
-	<br>
-	   
-	  <input class="form-check-input q_1st" type="checkbox" value="7" id="check_partners">
-	  <label class="form-check-label" for="check_partners">
-		This project has partners.
-	  </label> 
-	  <br>
-		<input class="form-check-input q_1st" type="checkbox" value="8" id="check_EU" >
-	  <label class="form-check-label" for="check_EU">
-		EU project.
-	  </label> 
-	  
-	  
-	</div> 
-
-	<p>
-		<input class="q_1st btn btn-primary form-check-inline btn-sm" type="button" id="form-check-input"
-					   value="submit "
-					   onclick="getOption(this)" > 
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-
-	</p>
-
-
-	  <div class="collapse" id="q_5th_a">
-
-		<p>Where will you submit your data as endpoints? (no #if in text)</p>
-		
-		ENA, GEO, NCBI, genbank, pride, proteomexchange, zenodo, dataDyrad
-		<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_5th_b" type="checkbox" value="1" id="check_ena" >
-	  <label class="form-check-label" for="check_ena">
-		ENA
-	  </label>
-	</div> 
-	<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_5th_b" type="checkbox" value="2" id="check_geo" checked>
-	  <label class="form-check-label" for="check_geo">
-		GEO
-	  </label>
-	</div> 
-	<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_5th_b" type="checkbox" value="3" id="check_NCBI" checked>
-	  <label class="form-check-label" for="check_NCBI">
-		NCBI
-	  </label>
-	</div>  
-	  
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_5th_b" type="checkbox" value="4" id="check_genbank" checked>
-	  <label class="form-check-label" for="check_genbank">
-		genbank
-	  </label>
-	</div> 
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
 		  </div>
-
-
-
-
-	<div class="collapse" id="q_update_month">
-	  <br>
-	<form >
-
-			<label for="q_update_month">At which month will your project updated?</label>
-			<input type="text"
-				   id="update_month"
-				   name="$_UPDATMONTH"
-				   placeholder="month of update">
-				  <input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
-					   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-				   </form>
-					<br>
+		  <div class="modal-body">
+			...
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		  </div>
+		</div>
+	  </div>
 	</div>
 
 
-	  <div class="collapse" id="q_previousprojects">
-	  <br>
-	<form >
-			<label for="previousprojects">The name of your previous project is:</label>
-			<input type="text"
-				   id="previousprojects"
-				   name="$_PREVIOUSPROJECTS"
-				   placeholder="previous project here">
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
-					   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-	</div>
-
-
-	  <div class="collapse" id="q_proprietary">
-	  <br>
-	<form >
-			<label for="proprietary">The name of your proprietary software is:</label>
+		<div class="container-fluid main_container" style= "   ">
+		<div class="row" style= "  "> 
+			<div   class="col-8" id="doc"  style="height:100vh;   overflow-x: hidden;overflow-y: hidden; padding-right: 0px;  ">
+			<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden; overflow-y: scroll; padding-left:12px;  ">
 			
-			<input type="text"
-				   id="proprietary"
-				   name="$_proprietary"
-				   placeholder=" proprietary software ">
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
-					   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-	</div>
+			<!-- Button trigger modal -->
+
+			<div id = "doc3" style = "overflow-x: hidden; overflow-y: hidden; ">
+			
+				
+			</div>
+			</div>
+			</div>
+		<div class="col-4" style="height:100vh;  padding-right : 2px;  " id="interface" >
+
+		<div class = "row" style="height: calc(100% - 200px);overflow-x: hidden;overflow-y: scroll;z-index: 1; ">
+		<nav>
+		  <div class="nav nav-pills   h6" id="nav-tab" role="tablist" aria-label="page-nav" >
+		  
+
+		  
+		  
+			<button class="nav-link active" id="nav-information-tab" data-bs-toggle="tab" value ="1" data-bs-target="#nav-information" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-information" aria-selected="true">1. General information</button>
+			<button class="nav-link" id="nav-data_type-tab" data-bs-toggle="tab" value ="2" data-bs-target="#nav-data_type" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_type" aria-selected="false">2. Data type</button>
+			<button class="nav-link" id="nav-data_volumn-tab" data-bs-toggle="tab" value ="3" data-bs-target="#nav-data_volumn" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_volumn" aria-selected="false">3. Data volume</button>
+			<button class="nav-link" id="nav-relevant_standards-tab" data-bs-toggle="tab" value ="4" data-bs-target="#nav-relevant_standards" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-relevant_standards" aria-selected="false">4. Standards</button>
+			<button class="nav-link" id="nav-nav-data_analysis-tab" data-bs-toggle="tab" value ="5" data-bs-target="#nav-data_analysis" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_analysis" aria-selected="false">5. Data analysis</button>
+
+							
+		  </div>
+		</nav>
+		<div class="tab-content  h6" id="nav-tabContent" >
+			
+		  <div class="tab-pane fade show active " id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab test">
+		  <p >1.1 Give the project name or acronym to be used:</p>
+		  
+		 
+			<form >
+				<label for="project_name"></label>
+				<input type="text"
+					   id="project_name"
+					   name="$_PROJECT"
+					   placeholder="project name">
+					<input class="btn btn-primary btn-sm" type="button" id="project_name_submit"
+						   value="replace"
+						   onclick="replace(this)">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo" id="project_name_undo"
+						   onclick="undo(this);">
+		  
+			</form>
+			<br>
+			  <p >1.2 Give the object to be studied and the project aim:</p>
+			<form >
+				<label for="study_object"></label>
+
+				<textarea type="text"
+					   id="study_object"
+					   name="$_STUDYOBJECT"
+					   placeholder="study object"rows="3" style="width: 95%;"></textarea>
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="replace"
+						   onclick="replace(this)">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+			<br>
+			<form >
+				<label for="project_aim"></label>
+				<textarea type="text"
+					   id="project_aim"
+					   name="$_PROJECTAIM"
+					   placeholder="project aim" rows="3" style="width: 95%;"></textarea>
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="replace"
+						   onclick="replace(this)">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+			<br>
+			<p >1.3 Give the data officer name:</p>
+			<form >
+				<label for="dataofficer"></label>
+				<input type="text"
+					   id="dataofficer"
+					   name="$_dataofficer"
+					   placeholder="data officer name">
+					<input class="btn btn-primary btn-sm" type="button" id="dataofficer_submit"
+						   value="replace"
+						   onclick="replace(this)">
+					<input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+			<br>
+			 <p >1.4 Chose some additional information</p>
+			 
+		<div class="form-data_type form-check-inline ">
+		  <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" >
+		  <label class="form-check-label" for="check_protect">
+			The data is protected
+		  </label>
+		  <br>
+			<input class="form-check-input checkbox_1" type="checkbox" value="2" id="check_dataplant"  data-bs-toggle="collapse" data-bs-target="#q_5th_a" aria-expanded="false" aria-controls="q_5th_a" checked>
+		  <label class="form-check-label" for="check_dataplant">
+			Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
+		  </label>
+
+		  <br>
+		  <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_update_month" aria-expanded="false" aria-controls="q_update_month"  >
+		  <label class="form-check-label" for="check_update">
+			This project will be updated
+		  </label>
+		  <br>
+		  
+
+		  <input class="form-check-input checkbox_1" type="checkbox" value="4" id="check_previousprojects" 
+		  data-bs-toggle="collapse" data-bs-target="#q_previousprojects" aria-expanded="false" aria-controls="q_previousprojects"  >
+		  <label class="form-check-label" for="check_previousprojects">
+			This project has previous projects.
+		  </label>
+
+		  <br>
+			<input class="form-check-input checkbox_1" type="checkbox" value="5" id="check_industry" >
+		  <label class="form-check-label" for="check_industry">
+			This is an industry project.
+		  </label>
+			<br>
+		  
+		  <input class="form-check-input checkbox_1" type="checkbox" value="6" id="check_proprietary" 
+		  data-bs-toggle="collapse" data-bs-target="#q_proprietary" aria-expanded="false" aria-controls="q_proprietary"  >
+		  <label class="form-check-label" for="check_proprietary">
+			This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
+		  </label>
+		<br>
+		   
+		  <input class="form-check-input checkbox_1" type="checkbox" value="7" id="check_partners">
+		  <label class="form-check-label" for="check_partners">
+			This project has partners.
+		  </label> 
+		  <br>
+			<input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_EU" >
+		  <label class="form-check-label" for="check_EU">
+			EU project.
+		  </label> 
+		  
+		  
+		</div> 
+
+		<p>
+			<input class=" btn btn-primary form-check-inline btn-sm" type="button" id="form-check-input"
+							data-checkbox = "checkbox_1"
+						   value="submit "
+						   onclick="get_option(this)" > 
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+
+		</p>
 
 
+		  <div class="collapse" id="q_5th_a">
+
+			<p>Where will you submit your data as endpoints? (no #if in text)</p>
+			
+			ENA, GEO, NCBI, genbank, pride, proteomexchange, zenodo, dataDyrad
+			<div class="form-data_type form-check-inline">
+		  <input class="form-check-input q_5th_b" type="checkbox" value="1" id="check_ena" >
+		  <label class="form-check-label" for="check_ena">
+			ENA
+		  </label>
+		</div> 
+		<div class="form-data_type form-check-inline">
+		  <input class="form-check-input q_5th_b" type="checkbox" value="2" id="check_geo" checked>
+		  <label class="form-check-label" for="check_geo">
+			GEO
+		  </label>
+		</div> 
+		<div class="form-data_type form-check-inline">
+		  <input class="form-check-input q_5th_b" type="checkbox" value="3" id="check_NCBI" checked>
+		  <label class="form-check-label" for="check_NCBI">
+			NCBI
+		  </label>
+		</div>  
+		  
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input q_5th_b" type="checkbox" value="4" id="check_genbank" checked>
+		  <label class="form-check-label" for="check_genbank">
+			genbank
+		  </label>
+		</div> 
+			  </div>
+
+
+
+
+		<div class="collapse" id="q_update_month">
+		  <br>
+		<form >
+
+				<label for="q_update_month">At which month will your project updated?</label>
+				<input type="text"
+					   id="update_month"
+					   name="$_UPDATMONTH"
+					   placeholder="month of update">
+					  <input class="btn btn-primary btn-sm" type="button"
+						   value="replace"
+						   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+					   </form>
+						<br>
+		</div>
+
+
+		  <div class="collapse" id="q_previousprojects">
+		  <br>
+		<form >
+				<label for="previousprojects">The name of your previous project is:</label>
+				<input type="text"
+					   id="previousprojects"
+					   name="$_PREVIOUSPROJECTS"
+					   placeholder="previous project here">
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="replace"
+						   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+		</div>
+
+
+		  <div class="collapse" id="q_proprietary">
+		  <br>
+		<form >
+				<label for="proprietary">The name of your proprietary software is:</label>
+				
+				<input type="text"
+					   id="proprietary"
+					   name="$_proprietary"
+					   placeholder=" proprietary software ">
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="replace"
+						   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+		</div>
+
+
+
+			  
+
+			</div>
+
+		 
+		 
+		 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab">
+		  <p>2. What kind of data will you handle:</p>
+		  <div class="form-data_type form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
+		  <label class="form-check-label" for="check_image">
+			image
+		  </label>
+		</div> 
+		<div class="form-data_type form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="2" id="check_RNAseq" >
+		  <label class="form-check-label" for="check_RNAseq">
+			RNAseq
+		  </label>
+		</div> 
+		<div class="form-data_type form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="3" id="check_genomic" >
+		  <label class="form-check-label" for="check_genomic">
+			other NGS (genomics)
+		  </label>
+		</div>  
+		  
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" >
+		  <label class="form-check-label" for="check_Metabolomic">
+			metabolomics
+		  </label>
+		</div> 
+
+
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" >
+		  <label class="form-check-label" for="check_Proteomic">
+			proteomics
+		  </label>
+		</div> 
+
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="6" id="check_targeted" >
+		  <label class="form-check-label" for="check_targeted">
+			targeted assays (e.g. glucose and fructose content)
+		  </label>
+		</div> 
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="7" id="check_models" >
+		  <label class="form-check-label" for="check_models">
+			models
+		  </label>
+		</div> 
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="8" id="check_code" >
+		  <label class="form-check-label" for="check_code">
+			code
+		  </label>
+		</div> 
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="9" id="check_excel" >
+		  <label class="form-check-label" for="check_excel">
+			<a href= "#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research." >excel </a>
+		  </label>
+		</div> 
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="10" id="check_cloned-DNA" >
+		  <label class="form-check-label" for="check_cloned-DNA">
+			cloned DNA
+		  </label>
+		</div> 
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="11" id="check_phenotypic" >
+		  <label class="form-check-label" for="check_phenotypic">
+			phenotypic
+		  </label>
+		</div> 
+
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" >
+		  <label class="form-check-label" for="check_genetic">
+			genetics
+		  </label>
+		</div> 
+
+
+
+		<br>
+		<input class="btn btn-primary btn-sm" type="button" id="check_box1"
+						   value="submit data type" data-checkbox = "checkbox_2"
+						   onclick="get_option(this)" class=> 
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  </div>
+		  <div class="tab-pane fade  " id="nav-data_volumn" role="tabpanel" aria-labelledby="nav-data_volumn-tab">
+		  
+		  <p >3. How much data do you think you will generate:</p>
+			<form >
+				<br>
+				<input type="text"
+					   id="raw_data"
+					   name="$_RAWDATA"
+					   placeholder="raw data volume (in GB)"> GB
+					<input class="btn btn-primary btn-sm" type="button" id="raw_data_submit"
+						   value="replace"
+						   onclick="replace(this)">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+						   <br>
+				
+				<br>
+				<input type="text"
+					   id="derived_data"
+					   name="$_DERIVEDDATA"
+					   placeholder="derived data volume (in GB)"> GB
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="replace" id="derived_data_submit"
+						   onclick="replace(this)">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+		  
+		  </div>
+		   
+		   
+		   <div class="tab-pane fade   " id="nav-relevant_standards" role="tabpanel" aria-labelledby="nav-relevant_standards-tab">
+			<p>4. are there any standards that are relevant for you?</p>
+			<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" >
+		  <label class="form-check-label" for="check_MIAPPE">
+			MIAPPE
+		  </label>
+		</div> 
+		<div class="form-data_type  form-check-inline">
+		  <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeqE" >
+		  <label class="form-check-label" for="check_MinSeqE">
+			MinSeqE
+		  </label>
+		</div> 
+			 <p>4.1 Will you adhere to any high level metadata submission standards?</p>
+		<div class="form-data_type form-check-inline">
+		  <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_dublin_core" checked>
+		  <label class="form-check-label" for="check_dublin_core">
+			Dublin Core
+		  </label>
+		</div> 
+		<div class="form-data_type form-check-inline">
+		  <input class="form-check-input checkbox_3" type="checkbox" value="2" id="check_marc_21" >
+		  <label class="form-check-label" for="check_marc_21">
+			MARC 21
+		  </label>
+		</div> 	 
+			 <p>4.2 When will you make your data public?</p> 
+
+			<div class="form-data_type form-check-inline">
+			 <input class="form-check-input  checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" checked >
+		  <label class="form-check-label" for="publish_early">Will you publish your data early?</label>
+		</div>
+		 
+		<div class="collapse" id="q6_2">
+			<div class="form-data_type form-check-inline">
+			<input class="form-check-input  checkbox_3" type="checkbox" id="check_ipissue"  >
+		  <label class="form-check-label" for="ip_issue">Are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account</label>
+			</div>
+		
+		</div> 
+			<input class="btn btn-primary form-check-inline btn-sm" type="button" id="form-check-input" value="submit" data-checkbox= "checkbox_3" onclick="get_option(this)">
+								   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+			</div>
+		   
+		   
+			 <div class="tab-pane fade   " id="nav-data_analysis" role="tabpanel" aria-labelledby="nav-data_analysis-tab">
+			 
+			 <p> Do you need visualization in the project? </p>
+				<input type="text"
+					   id="raw_data"
+					   name="$_VISUALIZATION"
+					   placeholder=" " class="d-none" value= "visualization" >
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="yes"
+						   onclick="replace(this)">
+				<input type="text"
+					   id="raw_data"
+					   name="$_VISUALIZATION"
+					   placeholder=" " class="d-none" value= "" >	
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="no"
+						   onclick="replace(this)">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+		  
+			</form>
+			 </div>
+
+		<br>
+		<div class="btn-group" >
+		<button btn type="button" class="btn-primary  btn-sm " value= "previous" style= "" onclick = "nav_previous()">←previous</button>
+		<button  type="button" class="btn-primary btn-sm " value= "next" style= "" onclick= "nav_next()">next→</button>
+		 <br>
+		</div>
+
+		</div>
+		
+		<div id= "warningText">
+		</div>
+		</div>	
+		
+		
+		
+		
+		<div class ="row " style="  position: absolute;
+		  bottom: 2px;background:lightgrey;" >
+		
+
+		  <div style="height:200px; padding: 0px; width : 34vw;">
+			<div class="progress"  style= "padding: 0px;">
+				<div class="progress-bar progress-bar-striped" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar" style= "padding: 0px;">  
+				</div>
+			</div>
+			
+			
+			
+			<div class="form-group  justify-content-center " style= "padding-left: 0px; padding-right: 0px;">
+			<form>
+			
+			<input type="file" class="form-control-file btn-sm " value= "load" id="upload" >
 
 		  
 
-		</div>
-
-	 
-	 
-	 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab">
-	  <p>2. What kind of data will you handle:</p>
-	  <div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="1" id="check_image" >
-	  <label class="form-check-label" for="check_image">
-		image
-	  </label>
-	</div> 
-	<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="2" id="check_RNAseq" >
-	  <label class="form-check-label" for="check_RNAseq">
-		RNAseq
-	  </label>
-	</div> 
-	<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="3" id="check_genomic" >
-	  <label class="form-check-label" for="check_genomic">
-		other NGS (genomics)
-	  </label>
-	</div>  
-	  
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="4" id="check_metabolomic" >
-	  <label class="form-check-label" for="check_Metabolomic">
-		metabolomics
-	  </label>
-	</div> 
-
-
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="5" id="check_proteomic" >
-	  <label class="form-check-label" for="check_Proteomic">
-		proteomics
-	  </label>
-	</div> 
-
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="6" id="check_targeted" >
-	  <label class="form-check-label" for="check_targeted">
-		targeted assays (e.g. glucose and fructose content)
-	  </label>
-	</div> 
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="7" id="check_models" >
-	  <label class="form-check-label" for="check_models">
-		models
-	  </label>
-	</div> 
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="8" id="check_code" >
-	  <label class="form-check-label" for="check_code">
-		code
-	  </label>
-	</div> 
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="9" id="check_excel" >
-	  <label class="form-check-label" for="check_excel">
-		<a href= "#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research." >excel </a>
-	  </label>
-	</div> 
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="10" id="check_cloned-DNA" >
-	  <label class="form-check-label" for="check_cloned-DNA">
-		cloned DNA
-	  </label>
-	</div> 
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="11" id="check_phenotypic" >
-	  <label class="form-check-label" for="check_phenotypic">
-		phenotypic
-	  </label>
-	</div> 
-
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_2nd" type="checkbox" value="12" id="check_genetic" >
-	  <label class="form-check-label" for="check_genetic">
-		genetics
-	  </label>
-	</div> 
-
-
-
-	<br>
-	<input class="q_2nd btn btn-primary btn-sm" type="button" id="check_box1"
-					   value="submit data type"
-					   onclick="getOption(this)" class=> 
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  </div>
-	  <div class="tab-pane fade  " id="nav-data_volumn" role="tabpanel" aria-labelledby="nav-data_volumn-tab">
-	  
-	  <p >3. How much data do you think you will generate:</p>
-		<form >
-			<br>
-			<input type="text"
-				   id="raw_data"
-				   name="$_RAWDATA"
-				   placeholder="raw data volume (in GB)"> GB
-				<input class="btn btn-primary btn-sm" type="button" id="raw_data_submit"
-					   value="replace"
-					   onclick="replace(this)">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-					   <br>
+			</form>
+			</div>	
+		
+		
+			<div style= "padding: 0px">
+				 <button id="json_save" class="btn-sm btn-secondary" onclick = "save_json()" >save json</button>
+			  <button id="odt_save" class="btn-sm btn-secondary d-none" onclick = "save()">export document</button>
+			  <button id="guide_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/guide.html")'>practice guide</button>
+			  <button id="proposal_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/proposalh2020.html")'>proposal</button>
+			  
+			  <button id="copy_doc" class=" btn-sm btn-secondary" onclick = 'copy_doc()'>copy</button>
+			  <br>
+			  <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" class="d-flex justify-content-center text-center" >for questions, please check our wiki here</a>
+			  <button id="test" class="d-none btn-sm btn-secondary" onclick = "test()">debug test</button>
 			
-			<br>
-			<input type="text"
-				   id="derived_data"
-				   name="$_DERIVEDDATA"
-				   placeholder="derived data volume (in GB)"> GB
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="replace" id="derived_data_submit"
-					   onclick="replace(this)">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-	  
-	  </div>
-	   
-	   
-	   <div class="tab-pane fade   " id="nav-relevant_standards" role="tabpanel" aria-labelledby="nav-relevant_standards-tab">
-		<p>4. are there any standards that are relevant for you?</p>
-		<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_5th_b" type="checkbox" value="9" id="check_MIAPPE" >
-	  <label class="form-check-label" for="check_MIAPPE">
-		MIAPPE
-	  </label>
-	</div> 
-	<div class="form-data_type  form-check-inline">
-	  <input class="form-check-input q_5th_b" type="checkbox" value="10" id="check_MinSeqE" >
-	  <label class="form-check-label" for="check_MinSeqE">
-		MinSeqE
-	  </label>
-	</div> 
-		 <p>4.1 Will you adhere to any high level metadata submission standards?</p>
-	<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_5th" type="checkbox" value="1" id="check_dublin_core" checked>
-	  <label class="form-check-label" for="check_dublin_core">
-		Dublin Core
-	  </label>
-	</div> 
-	<div class="form-data_type form-check-inline">
-	  <input class="form-check-input q_5th" type="checkbox" value="2" id="check_marc_21" >
-	  <label class="form-check-label" for="check_marc_21">
-		MARC 21
-	  </label>
-	</div> 	 
-		 <p>4.2 When will you make your data public?</p> 
-
-		<div class="form-check form-switch form-check-inline">
-		 <input class="form-check-input  " type="checkbox" id="publish_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" checked >
-	  <label class="form-check-label" for="publish_early">Will you publish your data early?</label>
-	</div>
-
-	<div class="collapse" id="q6_2">
-
-		<p>are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account</p>
-		
-
-	</div> 
-		
+						<!-- Button trigger modal -->
+				<button type="button" id="modal_button" class="btn btn-primary " data-toggle="modal" data-target="#finalmodal">
+				  Launch demo modal
+				</button>
+				
+			
+			</div>
+			
 		</div>
-	   
-	   
-		 <div class="tab-pane fade   " id="nav-data_analysis" role="tabpanel" aria-labelledby="nav-data_analysis-tab">
-		 
-		 <p> Do you need visualization in the project? </p>
-			<input type="text"
-				   id="raw_data"
-				   name="$_VISUALIZATION"
-				   placeholder=" " class="d-none" value= "visualization" >
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="yes"
-					   onclick="replace(this)">
-			<input type="text"
-				   id="raw_data"
-				   name="$_VISUALIZATION"
-				   placeholder=" " class="d-none" value= "" >	
-				<input class="btn btn-primary btn-sm" type="button"
-					   value="no"
-					   onclick="replace(this)">
-					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo"
-					   onclick="undo(this);">
-	  
-		</form>
-		 </div>
+			
+		</div>
+			
+			  
+		</div>
+			   
+			   
+			
 
-	<br>
-	<div class="btn-group" >
-	<button btn type="button" class="btn-primary  btn-sm " value= "previous" style= "" onclick = "nav_previous()">←previous</button>
-	<button  type="button" class="btn-primary btn-sm " value= "next" style= "" onclick= "nav_next()">next→</button>
-	 <br>
-	</div>
+		<br>
 
-	</div>
-	
-	<div id= "warningText">
-	</div>
-	</div>	
-	
-	
-	
-	
-	<div class ="row " style="  position: absolute;
-	  bottom: 2px;background:lightgrey;" >
-	
 
-	  <div style="height:200px; padding: 0px; width : 34vw;">
-		<div class="progress"  style= "padding: 0px;">
-			<div class="progress-bar progress-bar-striped" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar" style= "padding: 0px;">  
+			
+		</div>	
+
+			
+
+
+			  
+
+
+
 			</div>
 		</div>
-		
-		
-		
-		<div class="form-group  justify-content-center " style= "padding-left: 0px; padding-right: 0px;">
-		<form>
-		
-		<input type="file" class="form-control-file btn-sm " value= "load" id="upload" >
 
-	  
-
-		</form>
-		</div>	
-	
-	
-		<div style= "padding: 0px">
-			 <button id="json_save" class="btn-sm btn-secondary" onclick = "save_json()" >save json</button>
-		  <button id="odt_save" class="btn-sm btn-secondary d-none" onclick = "save()">export document</button>
-		  <button id="guide_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/guide.html")'>practice guide</button>
-		  <button id="proposal_save" class=" btn-sm btn-secondary" onclick = 'load_dmp(reload_answers,name="docs/proposalh2020.html")'>proposal</button>
-		  
-		  <button id="copy_doc" class=" btn-sm btn-secondary" onclick = 'copy_doc()'>copy</button>
-		  <br>
-		  <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" class="d-flex justify-content-center text-center" >for questions, please check our wiki here</a>
-		  <button id="test" class="d-none btn-sm btn-secondary" onclick = "test()">debug test</button>
-		</div>
-		
-	</div>
-		
-	</div>
-		
-		  
-	</div>
-		   
-		   
-			
-
-	<br>
-
-
-		
-	</div>	
-
-		
-
-
-		  
-
-
-
-		</div>
-		</div>
-		
-		
 
 	  </body>
 </html>

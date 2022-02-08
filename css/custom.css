@@ -139,10 +139,17 @@ padding:0;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
+.form-data_type {
+	
+	
+}
 
-
+label {
+   display:inline;
+}
 
 .form-check-input:checked {
+	
     background-color: #1FC2A7;
     border-color: #1FC2A7;
 }
