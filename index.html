@@ -115,7 +115,7 @@
 					function compare_answers(old_a, new_a){
 						let unreplaced_keys = [];
 						let unsubmitted_checkbox = [];
-						let total_keywords = 0, changed_keywords = 0, total_checkboxes = 0, changed_checkboxes = 0 ;
+						let total_keywords = 0, changed_keywords = 1, total_checkboxes = 0, changed_checkboxes = 0 ;
 						for (const [key,value] of Object.entries(old_a["replace"]) ){
 							total_keywords ++;
 							if ((new_a["replace"][key] != value) && (new_a["replace"][key]!= "") ){
@@ -820,7 +820,7 @@
 						<!-- x = x+20 ; -->
 						let ele = document.getElementById("nav-tab")
 							<!-- console.log(ele); -->
-						let tabs = ele.querySelector('[class="nav-link active"]');
+						let tabs = ele.querySelector('[class="nav-link col-auto active"]');
 						<!-- let p_bar = document.getElementById("p-bar"); -->
 						
 						let nexts = tabs.nextElementSibling;
@@ -849,7 +849,7 @@
 
 						let ele = document.getElementById("nav-tab")
 							<!-- console.log(ele); -->
-						let tabs = ele.querySelector('[class="nav-link active"]');
+						let tabs = ele.querySelector('[class="nav-link col-auto active"]');
 						<!-- let p_bar = document.getElementById("p-bar"); -->
 						
 						let nexts = tabs.previousElementSibling;
@@ -993,11 +993,58 @@
 				
 				}
 				
+				function printDiv(){
+				issue_warning();
 				
+				
+				let undefined = compare_answers(temp_a ,saved_a);
+				
+				
+				if ((undefined[2] == undefined[0]) && (undefined[3] == undefined[1]) ) {
+								try {
+					return printDiv1();  // Security exception may be thrown by some browsers.
+					const selection = window.getSelection();
+					
+				}
+				catch (error) {
+					console.warn("Copy to clipboard failed.", error);
+					return false;
+				} 
+				} else {
+				
+					var reminders = [
+					{
+							title: "you have "+ String (undefined[1]+undefined[0]-undefined[2]-undefined[3]) +" answer not answered",
+							content: ''
+							//
+						}
+					];
+					var reminder = new Tour(reminders);
+				
+				
+					reminder.show();
+				
+				}
+				
+				
+
+				
+				}
+				
+		function printDiv1() {
+            var divContents = document.getElementById("doc3").innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write('<html>');
+            a.document.write('<body > <h1>Div contents are <br>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }		
 		</script>			
-		<body  class="overflow-hidden" style=" height:100vh;width:100vw;  "  >
-		<div class="container-fluid">	
-		<div class=" row g-3 overflow-auto" style= "  padding-left:12px ">
+		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
+		<div class="container-fluid" style=" height:100vh;width:100vw; padding-right: 0px ">	
+		<div class=" row g-3 " style= "  padding-left:12px; height:100vh;width:100vw; ">
 
 			<div   class="col-8" id="doc"  style="   overflow-x: hidden;overflow-y: hidden;  ">
 				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden; overflow-y: scroll;   ">
@@ -1005,22 +1052,23 @@
 					</div>
 				</div>
 			</div>
-			<div   class="col-4 overflow-auto container"  id="interface"  style="overflow-y: scroll;overflow-x: hidden;">
+			<div   class="col-4 "  id="interface"  style="height:calc(100% - 80px); padding-right: 0px;  overflow-x: hidden; overflow-y: scroll;">
 
-				
-					<div class="nav nav-tabs col h-auto h6" id="nav-tab" role="tablist" aria-label="page-nav" >
+					<div class=" "   style=" overflow-x: hidden; padding-right: 0px; height: calc(100vh -900px);"	>
+					
+					<div class="nav nav-tabs justify-content-around" id="nav-tab" role="tablist" aria-label="page-nav"   style="padding :0px; width : 33vw" 	>
 			  
-						<button class="nav-link active col-auto" id="nav-information-tab" data-bs-toggle="tab" value ="1" data-bs-target="#nav-information" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-information" aria-selected="true">General <br> info</button>
-						<button class="nav-link col-auto" id="nav-data_type-tab" data-bs-toggle="tab" value ="2" data-bs-target="#nav-data_type" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_type" aria-selected="false">Data <br> type</button>
-						<button class="nav-link col-auto" id="nav-data_volumn-tab" data-bs-toggle="tab" value ="3" data-bs-target="#nav-data_volumn" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_volumn" aria-selected="false">Data <br> volume</button>
-						<button class="nav-link col-auto" id="nav-relevant_standards-tab" data-bs-toggle="tab" value ="4" data-bs-target="#nav-relevant_standards" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-relevant_standards" aria-selected="false">Standards</button>
-						<button class="nav-link col-auto" id="nav-nav-data_analysis-tab" data-bs-toggle="tab" value ="5" data-bs-target="#nav-data_analysis" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_analysis" aria-selected="false">Data <br> analysis</button>
+						<button class="nav-link col-auto active" id="nav-information-tab" data-bs-toggle="tab" value ="1" data-bs-target="#nav-information" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-information" aria-selected="true" style="padding: 8px;">General <br> info</button>
+						<button class="nav-link col-auto" id="nav-data_type-tab" data-bs-toggle="tab" value ="2" data-bs-target="#nav-data_type" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_type" aria-selected="false" style="padding: 8px;">Data <br> type</button>
+						<button class="nav-link col-auto" id="nav-data_volumn-tab" data-bs-toggle="tab" value ="3" data-bs-target="#nav-data_volumn" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_volumn" aria-selected="false" style="padding: 8px;">Data <br> volume</button>
+						<button class="nav-link col-auto" id="nav-relevant_standards-tab" data-bs-toggle="tab" value ="4" data-bs-target="#nav-relevant_standards" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-relevant_standards" aria-selected="false" style="padding: 8px;">Standards</button>
+						<button class="nav-link col-auto" id="nav-nav-data_analysis-tab" data-bs-toggle="tab" value ="5" data-bs-target="#nav-data_analysis" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_analysis" aria-selected="false" style="padding: 8px;">Data <br> analysis</button>
 
 							
 					</div>  
 				
 				
-				<div class="tab-content  h6 col h-auto  w-auto" id="nav-tabContent" style="overflow-y: scroll;overflow-x: hidden;">
+				<div class="tab-content " id="nav-tabContent" style=" overflow-x: hidden; padding-right: 0px; "; 	>
 			
 				<div class="tab-pane fade show active" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab test" " >
 				<p >1.1 Give the project name or acronym to be used:</p>
@@ -1431,6 +1479,7 @@
 			</div>
 		
 		</div> 
+		<br>
 			<input class="btn btn-primary form-check-inline btn-sm" type="button" id="form-check-input" value="submit" data-checkbox= "checkbox_3" onclick="get_option(this)">
 								   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
@@ -1472,14 +1521,14 @@
 		</div>
 		
 		</div>
+		</div>
 		
 		
 		
 		
 		
 		
-		
-		<div class ="col h-auto position-absolute bottom-0" style="background:lightgrey;" >
+		<div class ="col position-absolute bottom-0 " style="background:lightgrey; height:80px" >
 		
 
 
@@ -1493,11 +1542,11 @@
 				
 		
 		
-			<div class= "justify-content-center row gx-2 pt-2">
+			<div class= "justify-content-center row gx-2 pt-2 ">
 			
 			<div class="btn-group-sm dropup col-auto" style= "padding-left: 12px;">
 			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"  >
-				switch documents
+				templates
 			  </button>
 			  <ul class="dropdown-menu">
 				<li>
@@ -1531,24 +1580,26 @@
 			  </ul>
 			</div>
 			
-			<div class="btn-group-sm dropup col-auto">
+			<div class="btn-group-sm dropup col-auto ">
 			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 				save
 			  </button>
 			  <ul class="dropdown-menu">
 				<li>
 				  <button id="copy_doc" class=" btn-sm dropdown-item" onclick = 'copy_doc()'>copy</button>
-				  <br>
+				
 				  
 				  <button id="test" class="d-none dropdown-item" onclick = "test()">debug test</button>
 				  </li>
 				  <li>
 				  <button id="json_save" class="dropdown-item" onclick = "save_json()" >save json</button>
+				  <button id="print" class="dropdown-item" onclick = "printDiv();" >print</button>
+					
 					<button id="odt_save" class="dropdown-item d-none" onclick = "save()">export document</button>
 				  </li>
 			  </ul>
 			</div>
-			<a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" class=" justify-content-center text-center " >for questions, please check our wiki here</a>	
+			<a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" style="font-size:small" class=" justify-content-center text-center " >for questions, please check our wiki here</a>	
 			  
 			   
 			  
