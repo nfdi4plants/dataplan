@@ -186,12 +186,21 @@ Tour.prototype.show = function() {
 Tour.prototype.updateActiveElement = function() {
 
     for (var i = 0; i < this.steps.length; i++) {
-        var e = this.getContainerByIndex(i);;
-
+        var e = this.getContainerByIndex(i);
+		
         if (i === this.currentTab) {
             e.classList.add("tour-active-element");
+			let nearest_panel = e.closest(" .tab-pane");
+			try {nearest_panel.classList.add("active");} catch (e){console.log(e)}
+			e.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+
+        });
         } else {
-            e.classList.remove("tour-active-element");
+			try {let nearest_panel = e.closest(".tab-pane  div" );} catch (e){console.log(e)}
+            e.classList.remove("tour-active-element"); 
+			try {nearest_panel.classList.remove("active");} catch (e){console.log(e)}
         }
 
     }

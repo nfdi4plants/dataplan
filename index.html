@@ -43,10 +43,10 @@
 				.then(html => document.getElementById('doc3').innerHTML = html)
 				.then(setTimeout(()=> { callback()} , 500));}
 					// template answers
-					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 					
 					// saved answers
-					let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 					// initialization
 
 					
@@ -78,29 +78,24 @@
 							id: "nav-tabContent",
 							content: "<p>Each page has a few questions</p>"
 						}, {
-							id: "project_name",
+							id: "input_project",
 							content: "<p>Answer the first question by type your project name</p>"
 						}, {
-							id: "project_name_submit",
+							id: "input_project_submit",
 							content: "<p>Then press submit</p>"
 						}, {
 							id: "doc",
 							content: "<p>Now the document's content has included your project name</p>"
 						}, {
-							id: "json_save",
-							content: "<p>You can save your answers</p>"
+							id: "save_button",
+							content: "<p>You can save your answers to json or copy the document</p>"
 						}, {
-							id: "upload",
-							content: "<p>and then upload it to continue your generation</p>"
-						}, {
-							id: "copy_doc",
-							content: '<p>after answering all questions, you can export your document<br>' 
-						}, {
-							id: "proposal_save",
-							content: '<p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/proposalh2020.html")\' >short proposal </a> can also be downloaded. To go back to the main document, you can simply click replace.<br></p>' 
-						}, {
-							id: "guide_save",
-							content: '<p> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/guide.html")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>'
+							id: "upload_button",
+							content: "<p> if you saved the json document, you can also upload it any time to resume your DMP generating </p>"
+						}, 
+						{
+							id: "change_template",
+							content: '<p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/proposalh2020.html")\' >short proposal </a> can also be downloaded. To go back to the main document, you can simply click replace.<br> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/guide.html")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>' 
 						}
 					];
 					
@@ -115,14 +110,14 @@
 					function compare_answers(old_a, new_a){
 						let unreplaced_keys = [];
 						let unsubmitted_checkbox = [];
-						let total_keywords = 0, changed_keywords = 1, total_checkboxes = 0, changed_checkboxes = 0 ;
+						let total_keywords = 0, changed_keywords = 0, total_checkboxes = 0, changed_checkboxes = 0 ;
 						for (const [key,value] of Object.entries(old_a["replace"]) ){
 							total_keywords ++;
 							if ((new_a["replace"][key] != value) && (new_a["replace"][key]!= "") ){
 							changed_keywords ++;
-							unreplaced_keys.push(key);
+							
 							console.log(new_a["replace"][key]);
-							}
+							}else {unreplaced_keys.push(key);}
 						
 						}
 					for (const [key,value] of Object.entries(old_a["checkbox"]) ){
@@ -131,10 +126,16 @@
 							console.log(new_a["checkbox"][key]);
 							console.log(value);
 							changed_checkboxes ++;
-							unsubmitted_checkbox.push(key);
-							}
+							
+							}else{unsubmitted_checkbox.push(key);}
 						}
-					console.log( "total_keys: " + total_keywords + "; unreplaced_keys: " + changed_keywords +"\n ;  total_box  " + total_checkboxes + ", unsubmitted_checkbox: " + changed_checkboxes )
+					const unchecked_options = new_a["checkbox"]["checkbox_1"]["unchecked"];
+					const check_update =  unchecked_options.includes("check_update") ;
+					const check_previousprojects = unchecked_options.includes("check_previousprojects") ;
+					const check_proprietary = unchecked_options.includes("check_proprietary") ;
+					let no_need_to_answer = check_update + check_previousprojects + check_proprietary;
+					changed_keywords = changed_keywords +no_need_to_answer;
+					console.log( "total_keys: " + total_keywords + "; changed_keywords: " + changed_keywords +"\n ;  total_box  " + total_checkboxes + ", changed_checkbox: " + changed_checkboxes + "unreplaced_keys " + unreplaced_keys)
 					return [total_keywords,  total_checkboxes, changed_keywords, changed_checkboxes, unreplaced_keys, unsubmitted_checkbox];
 					}
 					
@@ -327,6 +328,7 @@
 								let div = document.createElement('div');
 								div.setAttribute("class", "alert alert-danger");
 								div.setAttribute("role", "alert");
+								div.setAttribute("role", "alert");
 								let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
 
 								div.innerHTML = html1;
@@ -357,7 +359,7 @@
 						// remove ranges, very important. took me long time to find this function
 						const selection = window.getSelection();
 						selection.removeAllRanges();
-						// all ojects which first class name is the option name
+						// all objects which first class name is the option name
 						const class_name = Object.keys(options)[0];
 						console.log(class_name);
 						const checked = options[class_name]["checked"];
@@ -959,14 +961,15 @@
 				range.selectNodeContents(text);
 				selection.removeAllRanges();
 				selection.addRange(range);
-				let undefined = compare_answers(temp_a ,saved_a);
-				
-				
-				if ((undefined[2] == undefined[0]) && (undefined[3] == undefined[1]) ) {
+				const compared_list = compare_answers(temp_a ,saved_a);
+				const warning_element_children = document.getElementById("warningText").children;
+				console.log("warning_element_children " + warning_element_children);
+				if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]) && warning_element_children[0]== undefined ) {
 								try {
 					return document.execCommand("copy");  // Security exception may be thrown by some browsers.
 					const selection = window.getSelection();
 					selection.removeAllRanges();
+					
 				}
 				catch (error) {
 					console.warn("Copy to clipboard failed.", error);
@@ -974,14 +977,42 @@
 				} 
 				} else {
 				
-					var reminders = [
+					let reminders = [
 					{
-							title: "you have "+ String (undefined[1]+undefined[0]-undefined[2]-undefined[3]) +" answer not answered",
-							content: ''
+							title: "please check again the questions and warnings",
+							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" answer not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
+							
+							
 							//
 						}
 					];
-					var reminder = new Tour(reminders);
+					console.log(compared_list[4].entries());
+					for (const [index, element] of compared_list[4].entries()){
+						const ele = document.getElementsByName(element)[0];
+						console.log("element is " + element); // ,
+						
+						const id_and_content= {id: String(ele.getAttribute("id")), content : "this question was default value or empty, please revise it "  };
+						reminders.push(id_and_content);
+						console.log("id_is " + Object.values(id_and_content));
+						
+					
+					
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					let reminder = new Tour(reminders);
 				
 				
 					reminder.show();
@@ -997,29 +1028,29 @@
 				issue_warning();
 				
 				
-				let undefined = compare_answers(temp_a ,saved_a);
+				let compared_list = compare_answers(temp_a ,saved_a);
+				const warning_element_children = document.getElementById("warningText").children;
 				
-				
-				if ((undefined[2] == undefined[0]) && (undefined[3] == undefined[1]) ) {
+				if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]  && warning_element_children[0]== undefined) ) {
 								try {
 					return printDiv1();  // Security exception may be thrown by some browsers.
 					const selection = window.getSelection();
 					
 				}
 				catch (error) {
-					console.warn("Copy to clipboard failed.", error);
+					console.warn("print failed.", error);
 					return false;
 				} 
 				} else {
 				
-					var reminders = [
+					let reminders = [
 					{
-							title: "you have "+ String (undefined[1]+undefined[0]-undefined[2]-undefined[3]) +" answer not answered",
-							content: ''
+							title: "please check again the questions and warnings",
+							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" answer not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
 							//
 						}
 					];
-					var reminder = new Tour(reminders);
+					let reminder = new Tour(reminders);
 				
 				
 					reminder.show();
@@ -1054,7 +1085,7 @@
 			</div>
 			<div   class="col-4 "  id="interface"  style="height:calc(100% - 80px); padding-right: 0px;  overflow-x: hidden; overflow-y: scroll;">
 
-					<div class=" "   style=" overflow-x: hidden; padding-right: 0px; height: calc(100vh -900px);"	>
+					<div class=" "   style=" overflow-x: hidden; padding-right: 0px; "	>
 					
 					<div class="nav nav-tabs justify-content-around" id="nav-tab" role="tablist" aria-label="page-nav"   style="padding :0px; width : 33vw" 	>
 			  
@@ -1068,33 +1099,33 @@
 					</div>  
 				
 				
-				<div class="tab-content " id="nav-tabContent" style=" overflow-x: hidden; padding-right: 0px; "; 	>
+				<div class="tab-content " id="nav-tabContent" style=" overflow-x: hidden; padding-right: 0px; " 	>
 			
 				<div class="tab-pane fade show active" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab test" " >
 				<p >1.1 Give the project name or acronym to be used:</p>
 				<br>
 			 
-					<form class="row"  style="margin-left:0px">
-					<label for="project_name"></label>
+					<form class="row"  style="margin-left:0px" id="form_project">
+					<label for="input_project"></label>
 					<input class="col-auto" type="text"
-					   id="project_name"
+					   id="input_project"
 					   name="$_PROJECT"
 					   placeholder="project name" >
-					<input  class="btn btn-primary btn-sm col-auto"" type="button" id="project_name_submit"
+					<input  class="btn btn-primary btn-sm col-auto"" type="button" id="input_project_submit"
 					   value="replace"
 					   onclick="replace(this)" >
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
-					   value="undo" id="project_name_undo"
+					   value="undo" id="input_project_undo"
 					   onclick="undo(this);" >
 			  
 					</form>
 					<br>
 					<p >1.2 Give the object to be studied and the project aim:</p>
-					<form >
-					<label for="study_object"></label>
+					<form id="form_studyobject">
+					<label for="input_studyobject"></label>
 
-					<textarea type="text"
-						   id="study_object"
+					<textarea class= "" type="text"
+						   id="input_studyobject"
 						   name="$_STUDYOBJECT"
 						   placeholder="study object"rows="3" style="width: 95%;"></textarea>
 					<input class="btn btn-primary btn-sm " type="button"
@@ -1106,10 +1137,10 @@
 			  
 					</form>
 					<br>
-					<form >
-					<label for="project_aim"></label>
+					<form id="form_projectaim">
+					<label class= "" for="input_projectaim"> Project Aim </label>
 					<textarea type="text"
-					   id="project_aim"
+					   id="input_projectaim"
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 95%;">
 					</textarea>
@@ -1123,14 +1154,14 @@
 				</form>
 			<br>
 			<p >1.3 Give the data officer name:</p>
-			<form class="row" style="margin-left:0px">
-				<label for="dataofficer"></label>
+			<form class="row" style="margin-left:0px" id="form_dataofficer">
+				<label for="input_dataofficer"></label>
 				<input class="col-auto"
 					   type="text"
-					   id="dataofficer"
+					   id="input_dataofficer"
 					   name="$_dataofficer"
 					   placeholder="data officer name">
-					<input class="btn btn-primary btn-sm col-auto" type="button" id="dataofficer_submit"
+					<input class="btn btn-primary btn-sm col-auto" type="button" id="input_dataofficer_submit"
 						   value="replace"
 						   onclick="replace(this)">
 					<input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1141,7 +1172,7 @@
 			<br>
 			 <p >1.4 Chose some additional information</p>
 			 
-				<div class="form-data_type form-check-inline ">
+				<div class="form-data_type form-check-inline  " id = "checkbox_1">
 				  <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" >
 				  <label class="form-check-label" for="check_protect">
 					The data is protected
@@ -1153,7 +1184,7 @@
 				  </label>
 
 				  <br>
-				  <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_update_month" aria-expanded="false" aria-controls="q_update_month"  >
+				  <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_updatemonth" aria-expanded="false" aria-controls="q_updatemonth"  >
 				  <label class="form-check-label" for="check_update">
 					This project will be updated
 				  </label>
@@ -1210,7 +1241,7 @@
 			<p>Where will you submit your data as endpoints? (no #if in text)</p>
 			
 			ENA, GEO, NCBI, genbank, pride, proteomexchange, zenodo, dataDyrad
-			<div class="form-data_type form-check-inline">
+			<div class="form-data_type form-check-inline" >
 		  <input class="form-check-input q_5th_b" type="checkbox" value="1" id="check_ena" >
 		  <label class="form-check-label" for="check_ena">
 			ENA
@@ -1240,13 +1271,13 @@
 
 
 
-					<div class="collapse" id="q_update_month">
+					<div class="collapse" id="q_updatemonth">
 					  <br>
-					<form >
+					<form id="form_updatemonth>
 
-							<label for="q_update_month">At which month will your project updated?</label>
+							<label for="intput_updatemonth">At which month will your project updated?</label>
 							<input type="text"
-								   id="update_month"
+								   id="intput_updatemonth"
 								   name="$_UPDATMONTH"
 								   placeholder="month of update">
 								  <input class="btn btn-primary btn-sm" type="button"
@@ -1262,10 +1293,10 @@
 
 					  <div class="collapse" id="q_previousprojects">
 					  <br>
-					<form >
-							<label for="previousprojects">The name of your previous project is:</label>
+					<form id="form_previousprojects">
+							<label for="intput_previousprojects">The name of your previous project is:</label>
 							<input type="text"
-								   id="previousprojects"
+								   id="intput_previousprojects"
 								   name="$_PREVIOUSPROJECTS"
 								   placeholder="previous project here">
 								<input class="btn btn-primary btn-sm" type="button"
@@ -1281,11 +1312,11 @@
 
 				  <div class="collapse" id="q_proprietary">
 				  <br>
-				<form >
-						<label for="proprietary">The name of your proprietary software is:</label>
+				<form id ="form_proprietary" >
+						<label for="input_proprietary">The name of your proprietary software is:</label>
 						
 						<input type="text"
-							   id="proprietary"
+							   id="input_proprietary"
 							   name="$_proprietary"
 							   placeholder=" proprietary software ">
 							<input class="btn btn-primary btn-sm" type="button"
@@ -1306,7 +1337,7 @@
 
 		 
 		 
-		 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab">
+		 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab" id="checkbox_2">
 		  <p>2. What kind of data will you handle:</p>
 		  <div class="form-data_type form-check-inline">
 		  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
@@ -1402,31 +1433,31 @@
 		  
 		  <p >3. How much data do you think you will generate:</p>
 		  <br>
-			<form class="row"  style="margin-left:0px">
+			<form class="row"  style="margin-left:0px" id="form_rawdata">
 				<br>
 				<div class= "align-bottom">
 				<input type="text" class="col-auto "
-					   id="raw_data"
+					   id="input_rawdata"
 					   name="$_RAWDATA"
 					   placeholder="raw data volume (in GB)"> 
 					   GB
-					<input class="btn btn-primary btn-sm col-auto ms-4 " type="button" id="raw_data_submit"
+					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle" type="button" id="raw_data_submit"
 						   value="replace"
 						   onclick="replace(this)">
-						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						   <input class="btn btn-secondary btn-sm d-none align-middle" type="button"
 						   value="undo"
 						   onclick="undo(this);">
 				</div>
 			</form>
 			<br>
-			<form class="row"  style="margin-left:0px">
+			<form class="row"  style="margin-left:0px" id="form_deriveddata">
 				<br>
 				<div class= "align-bottom">
 				<input type="text" class="col-auto "
-					   id="derived_data"
+					   id="input_deriveddata"
 					   name="$_DERIVEDDATA"
 					   placeholder="derived data volume (in GB)"> GB
-					<input class="btn btn-primary btn-sm col-auto ms-4" type="button"
+					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle" type="button"
 						   value="replace" id="derived_data_submit"
 						   onclick="replace(this)">
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1440,7 +1471,7 @@
 		   
 		   <div class="tab-pane fade   " id="nav-relevant_standards" role="tabpanel" aria-labelledby="nav-relevant_standards-tab">
 			<p>4. are there any standards that are relevant for you?</p>
-			<div class="form-data_type  form-check-inline">
+			<div class="form-data_type  form-check-inline" id="checkbox_4">
 		  <input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" >
 		  <label class="form-check-label" for="check_MIAPPE">
 			MIAPPE
@@ -1467,7 +1498,7 @@
 		</div> 	 
 			 <p>4.2 When will you make your data public?</p> 
 
-			<div class="form-data_type form-check-inline">
+			<div class="form-data_type form-check-inline" id = "checkbox_3">
 			 <input class="form-check-input  checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" checked >
 		  <label class="form-check-label" for="publish_early">Will you publish your data early?</label>
 		</div>
@@ -1545,7 +1576,7 @@
 			<div class= "justify-content-center row gx-2 pt-2 ">
 			
 			<div class="btn-group-sm dropup col-auto" style= "padding-left: 12px;">
-			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"  >
+			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "change_template" >
 				templates
 			  </button>
 			  <ul class="dropdown-menu">
@@ -1562,7 +1593,7 @@
 			</div>
 			
 			<div class="btn-group-sm dropup col-auto">
-			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "upload_button" >
 				load 
 			  </button>
 			  <ul class="dropdown-menu">
@@ -1580,8 +1611,9 @@
 			  </ul>
 			</div>
 			
+			
 			<div class="btn-group-sm dropup col-auto ">
-			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="save_button">
 				save
 			  </button>
 			  <ul class="dropdown-menu">
