@@ -187,20 +187,24 @@ Tour.prototype.updateActiveElement = function() {
 
     for (var i = 0; i < this.steps.length; i++) {
         var e = this.getContainerByIndex(i);
-		
+		console.log("using id to find element " + e.id); // ,
         if (i === this.currentTab) {
             e.classList.add("tour-active-element");
-			let nearest_panel = e.closest(" .tab-pane");
-			try {nearest_panel.classList.add("active");} catch (e){console.log(e)}
+			let nearest_panel = e.closest(".tab-pane");
+			try {nearest_panel.classList.add("active", "show");
+			} catch (e){console.log(e)}
 			e.scrollIntoView({
             behavior: 'auto',
             block: 'center',
 
         });
         } else {
-			try {let nearest_panel = e.closest(".tab-pane  div" );} catch (e){console.log(e)}
+			try {let nearest_panel = e.closest(".tab-pane" );
+			} catch (e){console.log(e)}
+			
             e.classList.remove("tour-active-element"); 
-			try {nearest_panel.classList.remove("active");} catch (e){console.log(e)}
+			try {nearest_panel.classList.remove("active", "show");
+			} catch (e){console.log(e)}
         }
 
     }

@@ -43,10 +43,10 @@
 				.then(html => document.getElementById('doc3').innerHTML = html)
 				.then(setTimeout(()=> { callback()} , 500));}
 					// template answers
-					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 					
 					// saved answers
-					let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"],"unchecked":[]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 					// initialization
 
 					
@@ -988,10 +988,12 @@
 					];
 					console.log(compared_list[4].entries());
 					for (const [index, element] of compared_list[4].entries()){
-						const ele = document.getElementsByName(element)[0];
-						console.log("element is " + element); // ,
+						const ele_id = "form_" + element.split("_")[1];
 						
-						const id_and_content= {id: String(ele.getAttribute("id")), content : "this question was default value or empty, please revise it "  };
+						//const ele = document.getElementById(ele_id);
+						console.log("element id is " + ele_id); // ,
+						
+						const id_and_content= {id: String(ele_id.toLowerCase()), content : "this question was default value or empty, please revise it "  };
 						reminders.push(id_and_content);
 						console.log("id_is " + Object.values(id_and_content));
 						
@@ -1273,12 +1275,12 @@
 
 					<div class="collapse" id="q_updatemonth">
 					  <br>
-					<form id="form_updatemonth>
+					<form class=" row " id="form_updatemonth">
 
 							<label for="intput_updatemonth">At which month will your project updated?</label>
 							<input type="text"
 								   id="intput_updatemonth"
-								   name="$_UPDATMONTH"
+								   name="$_UPDATEMONTH"
 								   placeholder="month of update">
 								  <input class="btn btn-primary btn-sm" type="button"
 									   value="replace"
@@ -1293,7 +1295,7 @@
 
 					  <div class="collapse" id="q_previousprojects">
 					  <br>
-					<form id="form_previousprojects">
+					<form class=" row " id="form_previousprojects">
 							<label for="intput_previousprojects">The name of your previous project is:</label>
 							<input type="text"
 								   id="intput_previousprojects"
@@ -1312,7 +1314,7 @@
 
 				  <div class="collapse" id="q_proprietary">
 				  <br>
-				<form id ="form_proprietary" >
+				<form class=" row " id ="form_proprietary" >
 						<label for="input_proprietary">The name of your proprietary software is:</label>
 						
 						<input type="text"
@@ -1518,22 +1520,23 @@
 			</div>
 		   
 		   
-			 <div class="tab-pane fade   " id="nav-data_analysis" role="tabpanel" aria-labelledby="nav-data_analysis-tab">
+			 <div class="tab-pane fade   " id="nav-data_analysis" role="tabpanel" aria-labelledby="nav-data_analysis-tab" >
 			 
 			 <p> Do you need visualization in the project? </p>
-				<input type="text"
-					   id="raw_data"
+			 <form class="col-12"  style="margin-left:0px" id="form_visualization">
+				<input type="text" 
+					   id="input_visiualization"
 					   name="$_VISUALIZATION"
 					   placeholder=" " class="d-none" value= "visualization" >
 					<input class="btn btn-primary btn-sm" type="button"
-						   value="yes"
+						   value="yes" class="col-auto"
 						   onclick="replace(this)">
-				<input type="text"
-					   id="raw_data"
+				<input type="text" 
+					   id="submit_VISUALIZATION"
 					   name="$_VISUALIZATION"
 					   placeholder=" " class="d-none" value= "" >	
 					<input class="btn btn-primary btn-sm" type="button"
-						   value="no"
+						   value="no" class="col-auto"
 						   onclick="replace(this)">
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
