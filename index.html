@@ -130,9 +130,13 @@
 							}else{unsubmitted_checkbox.push(key);}
 						}
 					const unchecked_options = new_a["checkbox"]["checkbox_1"]["unchecked"];
+					
 					const check_update =  unchecked_options.includes("check_update") ;
+					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_UPDATEMONTH") ;  }
 					const check_previousprojects = unchecked_options.includes("check_previousprojects") ;
+					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_PREVIOUSPROJECTS") ;  }
 					const check_proprietary = unchecked_options.includes("check_proprietary") ;
+					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_proprietary") ;  }
 					let no_need_to_answer = check_update + check_previousprojects + check_proprietary;
 					changed_keywords = changed_keywords +no_need_to_answer;
 					console.log( "total_keys: " + total_keywords + "; changed_keywords: " + changed_keywords +"\n ;  total_box  " + total_checkboxes + ", changed_checkbox: " + changed_checkboxes + "unreplaced_keys " + unreplaced_keys)
@@ -738,6 +742,19 @@
 						right_range.detach();
 
 					}
+					
+					
+					function HtmlEncode(s)
+						{
+						  var el = document.createElement("div");
+						  el.innerText = el.textContent = s;
+						  s = el.innerHTML;
+						  return s;
+						}
+					
+					
+					
+					
 					/**
 					 * replace a keyword by its formal meaning.
 					 * @param {string} before - the keyword need to be replaced.
@@ -761,7 +778,7 @@
 						{
 						
 						console.log("window.find is: " + window.find );
-						
+
 							while (window.find(before, aCaseSensitive =0, aBackwards =is_firefox, aWrapAround =is_firefox,
 								aWholeWord =0, aSearchInFrames =0, aShowDialog =0 )) {
 								
@@ -799,8 +816,7 @@
 									range.deleteContents();
 									console.log(encodeURIComponent(after));
 									let newText = document.createElement(before.split("_")[1] + "-to-");
-									newText.innerHTML = '<span class = "text-warning">' +
-										first_letter + after + last_letter + '</span>';
+									newText.innerHTML= newText.textContent = '<span class = "text-warning"> '  + first_letter + HtmlEncode(after) + last_letter + '</span>';
 									range.insertNode(newText);
 
 								}
@@ -912,7 +928,23 @@
 							uploadJson.files[0].text().then(text =>saved_a = JSON.parse(text));
 
 							console.log(JSON.stringify(saved_a));
-							setTimeout(()=> { load_dmp(reload_answers)} , 500);
+							setTimeout(()=> { 
+							load_dmp(reload_answers);
+							for (const [key, value] of Object.entries(saved_a["replace"])){
+								let element = document.getElementsByName(key)[0];
+								element.value = value  ;
+								
+
+							
+							}
+
+							
+							
+							
+							} , 500);
+							
+							
+							
 						}
 						//document.getElementById("nav-tab").addEventListener("click", function (e) {
 							//const tgt = e.target;
@@ -976,48 +1008,8 @@
 					return false;
 				} 
 				} else {
-				
-					let reminders = [
-					{
-							title: "please check again the questions and warnings",
-							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" answer not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
-							
-							
-							//
-						}
-					];
-					console.log(compared_list[4].entries());
-					for (const [index, element] of compared_list[4].entries()){
-						const ele_id = "form_" + element.split("_")[1];
-						
-						//const ele = document.getElementById(ele_id);
-						console.log("element id is " + ele_id); // ,
-						
-						const id_and_content= {id: String(ele_id.toLowerCase()), content : "this question was default value or empty, please revise it "  };
-						reminders.push(id_and_content);
-						console.log("id_is " + Object.values(id_and_content));
-						
-					
-					
-					}
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					let reminder = new Tour(reminders);
-				
-				
-					reminder.show();
+				update_reminder(compared_list, warning_element_children)
+
 				
 				}
 				
@@ -1044,18 +1036,9 @@
 					return false;
 				} 
 				} else {
+				update_reminder(compared_list, warning_element_children)
 				
-					let reminders = [
-					{
-							title: "please check again the questions and warnings",
-							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" answer not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
-							//
-						}
-					];
-					let reminder = new Tour(reminders);
-				
-				
-					reminder.show();
+
 				
 				}
 				
@@ -1068,12 +1051,61 @@
             var divContents = document.getElementById("doc3").innerHTML;
             var a = window.open('', '', 'height=500, width=500');
             a.document.write('<html>');
-            a.document.write('<body > <h1>Div contents are <br>');
+            a.document.write('<body > ');
             a.document.write(divContents);
             a.document.write('</body></html>');
             a.document.close();
             a.print();
-        }		
+        }
+
+		function update_reminder(compared_list, warning_element_children) {
+		
+							let reminders = [
+					{
+							title: "please check again the questions and warnings",
+							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" answer not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
+							
+							
+							//
+						}
+					];
+					//console.log(compared_list[4].entries());
+					for (const [index, element] of compared_list[4].entries()){
+						const ele_id = "form_" + element.split("_")[1];
+						
+						//const ele = document.getElementById(ele_id);
+						console.log("element id is " + ele_id); // ,
+						
+						const id_and_content= {id: String(ele_id.toLowerCase()), content : "this question was default value or empty, please revise it "  };
+						reminders.push(id_and_content);
+						console.log("id_is " + Object.values(id_and_content));
+						
+					
+					
+					}
+					
+					console.log(compared_list[5].entries());
+					for (const [index, element] of compared_list[5].entries()){
+						const ele_id = "form_" + element;
+						
+						//const ele = document.getElementById(ele_id);
+						console.log("element id is " + ele_id); // ,
+						
+						const id_and_content= {id: String(ele_id.toLowerCase()), content : "this question was default value or empty, please revise it "  };
+						reminders.push(id_and_content);
+						console.log("id_is " + Object.values(id_and_content));
+						
+					
+					
+					}
+					
+					
+					let reminder = new Tour(reminders);
+				
+				
+					reminder.show();
+		
+		}
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
 		<div class="container-fluid" style=" height:100vh;width:100vw; padding-right: 0px ">	
@@ -1122,7 +1154,7 @@
 			  
 					</form>
 					<br>
-					<p >1.2 Give the object to be studied and the project aim:</p>
+					<p >1.2 Give the object to be studied :</p>
 					<form id="form_studyobject">
 					<label for="input_studyobject"></label>
 
@@ -1140,12 +1172,11 @@
 					</form>
 					<br>
 					<form id="form_projectaim">
-					<label class= "" for="input_projectaim"> Project Aim </label>
+					<label class= "" for="input_projectaim"> and the project aim </label>
 					<textarea type="text"
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
-					   placeholder="project aim" rows="3" style="width: 95%;">
-					</textarea>
+					   placeholder="project aim" rows="3" style="width: 95%;"></textarea>
 					<input class="btn btn-primary btn-sm" type="button"
 					   value="replace"
 					   onclick="replace(this)">
@@ -1174,7 +1205,7 @@
 			<br>
 			 <p >1.4 Chose some additional information</p>
 			 
-				<div class="form-data_type form-check-inline  " id = "checkbox_1">
+				<div class="form-data_type form-check-inline  " id = "form_checkbox_1">
 				  <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" >
 				  <label class="form-check-label" for="check_protect">
 					The data is protected
@@ -1339,7 +1370,8 @@
 
 		 
 		 
-		 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab" id="checkbox_2">
+		 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab" >
+		 <div class=" "  id="form_checkbox_2" >
 		  <p>2. What kind of data will you handle:</p>
 		  <div class="form-data_type form-check-inline">
 		  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
@@ -1429,7 +1461,7 @@
 						   value="undo"
 						   onclick="undo(this);">
 		  </div>
-		  
+		  </div>
 		  
 		  <div class="tab-pane fade  " id="nav-data_volumn" role="tabpanel" aria-labelledby="nav-data_volumn-tab">
 		  
@@ -1472,8 +1504,10 @@
 		   
 		   
 		   <div class="tab-pane fade   " id="nav-relevant_standards" role="tabpanel" aria-labelledby="nav-relevant_standards-tab">
+		   <div class=" "  id="form_checkbox_3" >
 			<p>4. are there any standards that are relevant for you?</p>
-			<div class="form-data_type  form-check-inline" id="checkbox_4">
+			
+			<div class="form-data_type  form-check-inline" >
 		  <input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" >
 		  <label class="form-check-label" for="check_MIAPPE">
 			MIAPPE
@@ -1500,7 +1534,7 @@
 		</div> 	 
 			 <p>4.2 When will you make your data public?</p> 
 
-			<div class="form-data_type form-check-inline" id = "checkbox_3">
+			<div class="form-data_type form-check-inline" >
 			 <input class="form-check-input  checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" checked >
 		  <label class="form-check-label" for="publish_early">Will you publish your data early?</label>
 		</div>
@@ -1518,7 +1552,7 @@
 						   value="undo"
 						   onclick="undo(this);">
 			</div>
-		   
+		   </div>
 		   
 			 <div class="tab-pane fade   " id="nav-data_analysis" role="tabpanel" aria-labelledby="nav-data_analysis-tab" >
 			 

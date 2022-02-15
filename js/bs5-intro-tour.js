@@ -184,27 +184,52 @@ Tour.prototype.show = function() {
 
 //Moves current HTML element before backdrop (by changing z-index)
 Tour.prototype.updateActiveElement = function() {
-
+const target_nodes = document.getElementById("nav-tabContent").querySelectorAll(".tab-pane");
+		var target_nodes_array = [...target_nodes];
+		 target_nodes.forEach( ele=> 
+		 {console.log(" disable all tab-pane " +ele);
+		 
+		 ele.classList.remove("active","show") ;
+		 });
     for (var i = 0; i < this.steps.length; i++) {
         var e = this.getContainerByIndex(i);
-		console.log("using id to find element " + e.id); // ,
+		
+		
+		 
+		//
+		
+
+		
+		//console.log("using id to find element " + e.id); // ,
         if (i === this.currentTab) {
             e.classList.add("tour-active-element");
-			let nearest_panel = e.closest(".tab-pane");
-			try {nearest_panel.classList.add("active", "show");
-			} catch (e){console.log(e)}
+			
+			if (e.closest(".tab-pane") != undefined) {
+				
+			try {let nearest_panel = e.closest(".tab-pane");
+				nearest_panel.classList.add("active", "show");
+			} catch (e){console.log(e)}	
+			} else 
+			{ document.getElementById("nav-information").classList.add("active", "show"); }
 			e.scrollIntoView({
             behavior: 'auto',
-            block: 'center',
-
-        });
-        } else {
-			try {let nearest_panel = e.closest(".tab-pane" );
-			} catch (e){console.log(e)}
+            block: 'center',});
 			
-            e.classList.remove("tour-active-element"); 
-			try {nearest_panel.classList.remove("active", "show");
-			} catch (e){console.log(e)}
+        } else {
+			
+			
+			
+            e.classList.remove("tour-active-element");
+
+			// if (e.closest(".tab-pane") != undefined) {
+
+			// try {let nearest_panel = e.closest(".tab-pane" );
+			// nearest_panel.classList.remove("active", "show");
+			// } catch (e){console.log(e)}	
+			
+			
+			
+			// }
         }
 
     }
