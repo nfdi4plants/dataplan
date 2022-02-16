@@ -159,6 +159,7 @@ Tour.prototype.show = function() {
         o.removeBackdrop();
         o.removeActiveElement();
         o.popover.dispose();
+		document.getElementById("nav-information").classList.add("active", "show");
     }
     e.btnFinish.addEventListener("click", function() {
         onExit();
@@ -191,29 +192,22 @@ const target_nodes = document.getElementById("nav-tabContent").querySelectorAll(
 		 
 		 ele.classList.remove("active","show") ;
 		 });
-    for (var i = 0; i < this.steps.length; i++) {
-        var e = this.getContainerByIndex(i);
-		
-		
-		 
-		//
-		
-
-		
+		for (var i = 0; i < this.steps.length; i++) {
+			var e = this.getContainerByIndex(i);
 		//console.log("using id to find element " + e.id); // ,
         if (i === this.currentTab) {
             e.classList.add("tour-active-element");
 			
 			if (e.closest(".tab-pane") != undefined) {
 				
-			try {let nearest_panel = e.closest(".tab-pane");
-				nearest_panel.classList.add("active", "show");
-			} catch (e){console.log(e)}	
-			} else 
-			{ document.getElementById("nav-information").classList.add("active", "show"); }
-			e.scrollIntoView({
-            behavior: 'auto',
-            block: 'center',});
+				try {let nearest_panel = e.closest(".tab-pane");
+					nearest_panel.classList.add("active", "show");
+				} catch (e){console.log(e)}	
+			} else {
+				document.getElementById("nav-information").classList.add("active", "show"); }
+				e.scrollIntoView({
+				behavior: 'auto',
+				block: 'center',});
 			
         } else {
 			
