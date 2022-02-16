@@ -13,9 +13,9 @@ body.tour-active-element {
 
 .popover-tour {
   padding: 5px 10px;
-  min-width: 300px;
-  width: 500px;
-  max-width: 100%;
+  min-width: 200px;
+  width: 33vw;
+  max-width: 50%;
   font-size: 14px;
   z-index: 1051;
   text-align: justify;
@@ -38,19 +38,20 @@ body.tour-active-element {
   position: absolute;
   cursor: pointer;
   font-size: 20px;
-  top: 6px;
+  top: 0px;
   right: 10px;
   padding: 3px;
 }
 
 .popover-tour .popover-header {
   background: none;
-  padding: 5px 0;
+  padding: 5px 80px 5px 0px;
   margin: 0;
+  font-size: 14pt;
 }
 
 .popover-tour .popover-body {
-  padding: 20px 0 10px;
+  padding: 30px 20px 30px 10px;
 }
 
 .popover-tour .popover-body .tour-tabs > div {
@@ -73,14 +74,15 @@ body.tour-active-element {
 
 .popover-tour .popover-body .tour-tab-links li a {
   padding: 4px;
-  margin: 0 2px;
+  margin: 0px 2px;
   background: #ced4da;
-  font-size: 10px;
+  font-size: 12px;
   border-radius: 4px;
 }
 
 .popover-tour .popover-body .tour-tab-links li a.active {
   padding: 4px 10px;
+  color:black;
   background: #adb5bd;
 }
 
