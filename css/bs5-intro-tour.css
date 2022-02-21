@@ -92,12 +92,13 @@ body.tour-active-element {
 
 .popover-tour .popover-footer .btn {
   border: 1px solid gray;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 .popover-tour .popover-footer .tour-finish,
 .popover-tour .popover-footer .tour-next {
   float: right;
+  font-size: 14px;
 }
 /*# sourceMappingURL=bs5-intro-tour.css.map */
 
