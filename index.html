@@ -72,7 +72,7 @@
 					var steps = [
 					{
 							title: "Data Management Plan Generator (DMPG) ",
-							content: '<p> Welcome! let&#39;s generate a DMP in 5 minutes<br>1. For European <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/dmp1.html")\' >DMP </a>. It is a very detailed, completed DMP around 7 pages;<br>2.  <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/proposalh2020.html")\' >proposal DMP</a> for funding applications; <br>3. A <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/guide.html")\' >Detailed practical guide </a> which can be followed throughout your projects</p>'
+							content: '<p> Welcome! let&#39;s generate a DMP and related documents in 5 minutes<br>1. A European <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/dmp1.html")\' >DMP</a> in detail (11 pages);<br>2. A <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/proposalh2020.html")\' >proposal DMP</a> (2 pages); <br>3. A <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="docs/guide.html")\' >practical guide</a> in detail throughout the project</p>'
 							//
 						}, {
 							id: "interface",
@@ -272,7 +272,7 @@
 
 					}
 
-					// go to the high lighted lockation
+					// go to the highlighted location
 					function go_to(element1) {
 						const warning = element1.value;
 						console.log("the warning text tag is " + warning);
@@ -1602,7 +1602,7 @@
 		
 		
 		
-		<div class ="col position-absolute bottom-0 " style="background:lightgrey; height:80px" >
+		<div class ="row-12 position-absolute bottom-0 " style="background:lightgrey; height:80px; width:32.6vw" >
 		
 
 
@@ -1624,7 +1624,7 @@
 			  </button>
 			  <ul class="dropdown-menu">
 				<li>
-				<button id="detailed_dmp" class=" dropdown-item" onclick = 'load_dmp(reload_answers,name="docs/dmp1.html")'>Detailed DMP</button>
+				<button id="detailed_dmp" class=" dropdown-item" onclick = 'load_dmp(reload_answers,name="docs/dmp1.html")'>detailed DMP (EU)</button>
 				</li>
 				<li>
 				<button id="guide_save" class=" dropdown-item" onclick = 'load_dmp(reload_answers,name="docs/guide.html")'>practice guide</button>
@@ -1661,14 +1661,14 @@
 			  </button>
 			  <ul class="dropdown-menu">
 				<li>
-				  <button id="copy_doc" class=" btn-sm dropdown-item" onclick = 'copy_doc()'>copy</button>
+				  <button id="copy_doc" class=" dropdown-item" onclick = 'copy_doc()'>copy document</button>
 				
 				  
 				  <button id="test" class="d-none dropdown-item" onclick = "test()">debug test</button>
 				  </li>
 				  <li>
-				  <button id="json_save" class="dropdown-item" onclick = "save_json()" >save json</button>
-				  <button id="print" class="dropdown-item" onclick = "printDiv();" >print</button>
+				  <button id="json_save" class="dropdown-item" onclick = "save_json()" >save answers to json</button>
+				  <button id="print" class="dropdown-item" onclick = "printDiv();" >print document</button>
 					
 					<button id="odt_save" class="dropdown-item d-none" onclick = "save()">export document</button>
 				  </li>
