@@ -1,0 +1,14 @@
+cff-version: 0.1.0
+message: "Thank you for using this software. You are invited to use citations as below."
+authors:
+- family-names: "Zhou"
+  given-names: "Xiaoran"
+  orcid: "https://orcid.org/0000-0002-5622-3348"
+- family-names: "Usadel"
+  given-names: "Björn"
+  orcid: "https://orcid.org/0000-0003-0921-8041"
+title: "DMP Generator"
+version: 0.1.0
+doi: 10.5281/zenodo.1234
+date-released: 2022-03-20
+url: "https://github.com/nfdi4plants/dmpg"

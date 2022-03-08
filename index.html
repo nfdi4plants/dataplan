@@ -7,13 +7,16 @@
 		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 		<meta http-equiv="Pragma" content="no-cache" />	
 		<meta http-equiv="Expires" content="0" />
+		<title>Data Management Plan Generator</title>
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" >
 		<link href="css/custom.css" rel="stylesheet">
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
-		<title>Data Management Plan Generator</title>
+		
+		
+		<!-- loading javascript scripts -->
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
@@ -35,9 +38,12 @@
 		</script>
 			</head>
 			<script>
+			// check if the browser is firefox. For firefox, an argument in window.find() function is different
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-			console.log("is firefox ?"+is_firefox);
+			var doc_name = 'docs/dmp1.html';
+			//console.log("is firefox ?"+is_firefox);
 			function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
+			 doc_name = name;
 			 fetch(name)
 				.then(data => data.text())
 				.then(html => document.getElementById('doc3').innerHTML = html)
@@ -168,7 +174,7 @@
 						saved_a["replace"][before] = after;
 						let singleOption = {};
 						singleOption[before] = after;
-						load_dmp();
+						load_dmp(reload_answers, name = doc_name);
 						//find_replace(singleOption);
 					}
 
@@ -261,7 +267,7 @@
 
 						//}catch (e)
 						//{ alert("you have submitted, please use undo if you want to change your input");}
-						load_dmp();
+						load_dmp(reload_answers,name = doc_name);
 						//checkbox(singleOption);
 
 					}
@@ -902,7 +908,7 @@
 					// initialization
 					window.addEventListener("load", function () {
 						tour.show();
-						load_dmp(reload_answers);
+						load_dmp(reload_answers, name = doc_name);
 						console.log("current url is: " + window.location.href);
 						const urls = window.location.href.split("?");
 						if (urls.length > 1) {
@@ -929,7 +935,7 @@
 
 							console.log(JSON.stringify(saved_a));
 							setTimeout(()=> { 
-							load_dmp(reload_answers);
+							load_dmp(reload_answers, name = doc_name);
 							for (const [key, value] of Object.entries(saved_a["replace"])){
 								let element = document.getElementsByName(key)[0];
 								element.value = value  ;
