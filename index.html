@@ -85,7 +85,7 @@
 							content: "<p>Each page has a few questions</p>"
 						}, {
 							id: "input_project",
-							content: "<p>Answer the first question by type your project name</p>"
+							content: "<p>type your project name here, for example type: \"your awesome project\" to the highlighted input box</p>"
 						}, {
 							id: "input_project_submit",
 							content: "<p>Then press submit</p>"
@@ -841,28 +841,22 @@
 					//progress-bar
 					var x = 0;
 					function nav_next() {
-						<!-- x = x+20 ; -->
+
 						let ele = document.getElementById("nav-tab")
-							<!-- console.log(ele); -->
+
 						let tabs = ele.querySelector('[class="nav-link col-auto active"]');
-						<!-- let p_bar = document.getElementById("p-bar"); -->
+
 						
 						let nexts = tabs.nextElementSibling;
-						//console.log(nexts);
+
 						try {
 							nexts.click();
 
-							<!-- console.log(p_bar); -->
-							<!-- p_bar.style.setProperty("width", x + "%"); -->
-							<!-- p_bar.innerHTML =  x + "%"; -->
-							<!-- p_bar.setAttribute("aria-valuenow", x); -->
 
 						} catch (e) {
-							<!-- x = 100; -->
+
 							alert("you have reached the end of the document, please save the document");
-							<!-- p_bar.style.setProperty("width", 100 + "%"); -->
-							<!-- p_bar.innerHTML = "finished!"; -->
-							<!-- p_bar.setAttribute("aria-valuenow", 100); -->
+
 							issue_warning();
 						}
 						console.log(tabs);
@@ -872,27 +866,20 @@
 					function nav_previous() {
 
 						let ele = document.getElementById("nav-tab")
-							<!-- console.log(ele); -->
+
 						let tabs = ele.querySelector('[class="nav-link col-auto active"]');
-						<!-- let p_bar = document.getElementById("p-bar"); -->
+
 						
 						let nexts = tabs.previousElementSibling;
 						console.log(nexts);
 						try {
 							nexts.click();
-							<!-- x = x - 20; -->
-							<!-- console.log(p_bar); -->
-							<!-- p_bar.style.setProperty("width", x + "%"); -->
-							<!-- p_bar.innerHTML =  x + "%"; -->
-							<!-- p_bar.setAttribute("aria-valuenow", x); -->
+
 
 						} catch (e) {
 							alert("you have reached the beginning of the document, please start editing");
 
-							<!-- p_bar.style.setProperty("width", 0 + "%"); -->
-							<!-- p_bar.innerHTML =  0 + "%"; -->
-							<!-- p_bar.setAttribute("aria-valuenow", 0); -->
-							<!-- x = 0; -->
+
 						}
 						console.log("progress bar value is" + x);
 
@@ -917,7 +904,13 @@
 							.then(response => response.json())
 							.then(json => {
 								saved_a = json;
+								for (const [key, value] of Object.entries(saved_a["replace"])){
+								let element = document.getElementsByName(key)[0];
+								element.value = value  ;
 								
+
+							
+							}
 								//setTimeout(() => reload_all(),1000);
 
 							})
@@ -936,6 +929,7 @@
 							console.log(JSON.stringify(saved_a));
 							setTimeout(()=> { 
 							load_dmp(reload_answers, name = doc_name);
+							//load the value of element.value
 							for (const [key, value] of Object.entries(saved_a["replace"])){
 								let element = document.getElementsByName(key)[0];
 								element.value = value  ;
@@ -952,18 +946,7 @@
 							
 							
 						}
-						//document.getElementById("nav-tab").addEventListener("click", function (e) {
-							//const tgt = e.target;
-							//if (tgt.classList.contains("nav-link")) {
-								//e.preventDefault();
-								//let x = (tgt.value-1) * 20;
-								//let p_bar = document.getElementById("p-bar");
-								//p_bar.style.setProperty("width", x + "%");
-								//p_bar.innerHTML=x+"%";
-								//p_bar.setAttribute("aria-valuenow", x);
 
-							//}
-						//});
 						
 
 						
