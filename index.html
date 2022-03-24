@@ -4,8 +4,8 @@
 		<meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 		
 		<!-- disable cache accross browsers for testing purpose -->
-		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-		<meta http-equiv="Pragma" content="no-cache" />	
+
+		
 		<meta http-equiv="Expires" content="0" />
 		<title>Data Management Plan Generator</title>
 		
@@ -41,6 +41,9 @@
 			// check if the browser is firefox. For firefox, an argument in window.find() function is different
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 			var doc_name = 'docs/dmp1.html';
+			var user_info = window.localStorage.getItem("user_info");
+			var cached_a = window.localStorage.getItem("saved_a");
+
 			//console.log("is firefox ?"+is_firefox);
 			function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
 			 doc_name = name;
@@ -50,11 +53,24 @@
 				.then(setTimeout(()=> { callback()} , 500));}
 					// template answers
 					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
-					
+					if (cached_a !== null){
+					var saved_a = JSON.parse(cached_a);
+					}else {
+					var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					}
 					// saved answers
-					let saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+					
 					// initialization
-
+					
+					function consent() {
+					window.localStorage.setItem("cookie_consent", "yes");
+						if (user_info == null){
+						setTimeout(function(){
+							tour.show();
+						}, 500);
+						
+						}
+					}
 					
 					const prefix = '$_';
 					
@@ -208,7 +224,15 @@
 						const selection = window.getSelection();
 						selection.removeAllRanges();
 						
+						window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 						
+						for (const [key, value] of Object.entries(saved_a["replace"])){
+								let element = document.getElementsByName(key)[0];
+								element.value = value  ;
+								
+
+							
+							}
 						console.log("answers is reloading");
 						
 
@@ -237,6 +261,8 @@
 						p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
 						p_bar.innerHTML =  Math.ceil(percentage) + "%";
 						p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
+						
+						
 						
 						
 					}
@@ -894,7 +920,15 @@
 					
 					// initialization
 					window.addEventListener("load", function () {
-						tour.show();
+
+						if (window.localStorage.getItem("cookie_consent") !== "yes"){
+						
+						document.getElementById("modal-button").click();
+						
+						
+						}
+						
+						window.localStorage.setItem("user_info", "visited" );
 						load_dmp(reload_answers, name = doc_name);
 						console.log("current url is: " + window.location.href);
 						const urls = window.location.href.split("?");
@@ -904,13 +938,7 @@
 							.then(response => response.json())
 							.then(json => {
 								saved_a = json;
-								for (const [key, value] of Object.entries(saved_a["replace"])){
-								let element = document.getElementsByName(key)[0];
-								element.value = value  ;
-								
 
-							
-							}
 								//setTimeout(() => reload_all(),1000);
 
 							})
@@ -930,13 +958,7 @@
 							setTimeout(()=> { 
 							load_dmp(reload_answers, name = doc_name);
 							//load the value of element.value
-							for (const [key, value] of Object.entries(saved_a["replace"])){
-								let element = document.getElementsByName(key)[0];
-								element.value = value  ;
-								
-
 							
-							}
 
 							
 							
@@ -1097,9 +1119,11 @@
 		}
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
-		<div class="container-fluid" style=" height:100vh;width:100vw; padding-right: 0px ">	
-		<div class=" row g-3 " style= "  padding-left:12px; height:100vh;width:100vw; ">
 
+		<div class="container-fluid" style=" height:100vh;width:100vw; padding-right: 0px ">
+			
+		<div class=" row g-3 " style= "  padding-left:12px; height:100vh;width:100vw; ">
+            
 			<div   class="col-8" id="doc"  style="   overflow-x: hidden;overflow-y: hidden; padding-right: 0px; ">
 				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden; overflow-y: scroll; padding-right: 0px;  ">
 					<div id = "doc3" class="overflow-auto">
@@ -1151,9 +1175,12 @@
 						   id="input_studyobject"
 						   name="$_STUDYOBJECT"
 						   placeholder="study object"rows="3" style="width: 95%;"></textarea>
+					
 					<input class="btn btn-primary btn-sm " type="button"
 						   value="replace"
 						   onclick="replace(this)">
+						   
+					
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
 						   onclick="undo(this);">
@@ -1569,10 +1596,12 @@
 			 </div>
 
 		<br>
-		<div class="btn-group" >
+		<div class="text-center">
+		<div class=" btn-group" >
 		<button btn type="button" class="btn-primary  btn-sm " value= "previous" style= "" onclick = "nav_previous()">←previous</button>
 		<button  type="button" class="btn-primary btn-sm " value= "next" style= "" onclick= "nav_next()">next→</button>
 		 <br>
+		</div>
 		</div>
 		<div  id= "warningText">
 		</div>
@@ -1656,8 +1685,15 @@
 					<button id="odt_save" class="dropdown-item d-none" onclick = "save()">export document</button>
 				  </li>
 			  </ul>
+			  <!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal"  data-bs-target="#staticBackdrop" id= "modal-button">
+				modal
+				</button>
 			</div>
-			<a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" style="font-size:small" class=" justify-content-center text-center " >for questions, please check our wiki here</a>	
+			<div class ="inline text-center" >
+			<a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" style="font-size:small"  >for questions, please check our wiki here</a>	<a href="javascript:void(0);" style="font-size:small" onclick="tour.show()" >restart the intro tour</a>
+			</div>
+			
 			  
 			   
 			  
@@ -1686,7 +1722,24 @@
 		</div>	
 			
 
-
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">we need your consent</h5>
+					<button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				  </div>
+				  <div class="modal-body">
+					we use minimal local storage and cookies to help you save your input and content. Your information is not shared with any third parties except minimal usage of google analytics.
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" onclick="consent()" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="consent()">consent</button>
+				  </div>
+				</div>
+			  </div>
+			</div>
 			  
 
 
