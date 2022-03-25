@@ -227,8 +227,12 @@
 						window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 						
 						for (const [key, value] of Object.entries(saved_a["replace"])){
+								if (key !== "$_VISUALIZATION")
+								{
 								let element = document.getElementsByName(key)[0];
 								element.value = value  ;
+								}
+								
 								
 
 							
@@ -1584,7 +1588,7 @@
 				<input type="text" 
 					   id="submit_VISUALIZATION"
 					   name="$_VISUALIZATION"
-					   placeholder=" " class="d-none" value= "" >	
+					   placeholder=" " class="d-none" value= " " >	
 					<input class="btn btn-primary btn-sm" type="button"
 						   value="no" class="col-auto"
 						   onclick="replace(this)">
