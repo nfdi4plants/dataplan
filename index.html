@@ -103,7 +103,7 @@
 							content: "<p>Each part has a few questions</p>"
 						}, {
 							id: "form_project",
-							content: "<p>type your project name here, for example type: \"your awesome project\" to the highlighted input box</p>, then click submit"
+							content: "<p>type your project name here, for example type: \"your awesome project\" to the highlighted input box</p>, then click anywhere else"
 						}, {
 							id: "doc",
 							content: "<p>Now the document's content has included your project name</p>"
@@ -1146,7 +1146,7 @@
 					</nav>					
 			
 			
-		<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="700" class="scrollspy-example" tabindex="0"  data-bs-method="auto"	>
+		<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="400" class="scrollspy-example" tabindex="0"  data-bs-method="auto"	>
 		<div id="intro-tour-input">
 		<div  id= "warningText">
 		</div>
@@ -1157,7 +1157,7 @@
 			 
 					<form class="row"  style="margin-left:0px" id="form_project">
 					<label for="input_project"></label>
-					<input class="col-auto" type="text" onfocusout="this.nextElementSibling.click()"
+					<input style="width: 80%;" class="col-auto" type="text" onfocusout="this.nextElementSibling.click()"
 					   id="input_project"
 					   name="$_PROJECT"
 					   placeholder="project name" >
@@ -1177,7 +1177,7 @@
 					<textarea class= "" type="text"
 						   id="input_studyobject"  onfocusout="this.nextElementSibling.click()"
 						   name="$_STUDYOBJECT"
-						   placeholder="study object"rows="3" style="width: 95%;"></textarea>
+						   placeholder="study object"rows="3" style="width: 80%;"></textarea>
 					
 					<input class="btn btn-primary btn-sm d-none" type="button"
 						   value="submit"
@@ -1195,7 +1195,7 @@
 					<textarea type="text" onfocusout="this.nextElementSibling.click()"
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
-					   placeholder="project aim" rows="3" style="width: 95%;"></textarea>
+					   placeholder="project aim" rows="3" style="width: 80%;"></textarea>
 					<input class="btn btn-primary btn-sm d-none" type="button"
 					   value="submit"
 					   onclick="replace(this)">
@@ -1210,7 +1210,7 @@
 			<p >1.3 Give the data officer name:</p>
 			<form class="row" style="margin-left:0px" id="form_dataofficer">
 				<label for="input_dataofficer"></label>
-				<input class="col-auto" onfocusout="this.nextElementSibling.click()"
+				<input style="width: 80%;" class="col-auto" onfocusout="this.nextElementSibling.click()"
 					   type="text"
 					   id="input_dataofficer"
 					   name="$_dataofficer"
@@ -1333,7 +1333,7 @@
 					<form class=" row " id="form_updatemonth">
 
 							<label for="intput_updatemonth">At which month will your project updated?</label>
-							<input type="text" onfocusout="this.nextElementSibling.click()"
+							<input style="width: 80%;" type="text" onfocusout="this.nextElementSibling.click()"
 								   id="intput_updatemonth"
 								   name="$_UPDATEMONTH"
 								   placeholder="month of update">
@@ -1352,7 +1352,7 @@
 					  <br>
 					<form class=" row " id="form_previousprojects">
 							<label for="intput_previousprojects">The name of your previous project is:</label>
-							<input type="text" onfocusout="this.nextElementSibling.click()"
+							<input style="width: 80%;" type="text" onfocusout="this.nextElementSibling.click()"
 								   id="intput_previousprojects"
 								   name="$_PREVIOUSPROJECTS"
 								   placeholder="previous project here">
@@ -1372,7 +1372,7 @@
 				<form class=" row " id ="form_proprietary" >
 						<label for="input_proprietary">The name of your proprietary software is:</label>
 						
-						<input type="text" onfocusout="this.nextElementSibling.click()"
+						<input style="width: 80%;" type="text" onfocusout="this.nextElementSibling.click()"
 							   id="input_proprietary"
 							   name="$_proprietary"
 							   placeholder=" proprietary software ">
@@ -1495,7 +1495,7 @@
 			<form class="row"  style="margin-left:0px" id="form_rawdata">
 				<br>
 				<div class= "align-bottom">
-				<input type="text" class="col-auto "
+				<input style="width: 80%;" type="text" class="col-auto "
 					   id="input_rawdata" onfocusout="this.nextElementSibling.click()"
 					   name="$_RAWDATA"
 					   placeholder="raw data volume (in GB)"> 
@@ -1512,7 +1512,7 @@
 			<form class="row"  style="margin-left:0px" id="form_deriveddata">
 				<br>
 				<div class= "align-bottom">
-				<input type="text" class="col-auto "
+				<input style="width: 80%;" type="text" class="col-auto "
 					   id="input_deriveddata" onfocusout="this.nextElementSibling.click()"
 					   name="$_DERIVEDDATA"
 					   placeholder="derived data volume (in GB)"> GB
@@ -1588,7 +1588,7 @@
 			 
 			 <form class="col-12"  style="margin-left:0px" id="form_visualization">
 
-				<input type="text" 
+				<input  type="text" 
 					   id="input_visiualization"
 					   name="$_VISUALIZATION"
 					   placeholder=" " class="d-none" value= "visualization" >
