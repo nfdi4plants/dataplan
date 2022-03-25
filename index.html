@@ -127,16 +127,7 @@
 					
 					// event listener for text input (no need to press submit button anymore)
 					
-					const text_input_forms = document.querySelectorAll("[data-input-type]");
-					//.getElementById("scrollspy-element").querySelectorAll("[data-input-type]");
-					text_input_forms.forEach(function(input) {
-					input.addEventListener('focusout', (event) => {
-						  event.target.nextElementSibling.click();
-						  
-						});
-					
-					}
-					);
+
 					// compare updated answers and the original answers
 					
 					function compare_answers(old_a, new_a){
@@ -164,11 +155,11 @@
 					const unchecked_options = new_a["checkbox"]["checkbox_1"]["unchecked"];
 					
 					const check_update =  unchecked_options.includes("check_update") ;
-					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_UPDATEMONTH") ;  }
+					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_UPDATEMONTH") ; new_a["replace"]["$_UPDATEMONTH"]="";  }
 					const check_previousprojects = unchecked_options.includes("check_previousprojects") ;
-					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_PREVIOUSPROJECTS") ;  }
+					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_PREVIOUSPROJECTS") ;  new_a["replace"]["$_PREVIOUSPROJECTS"]="";}
 					const check_proprietary = unchecked_options.includes("check_proprietary") ;
-					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_proprietary") ;  }
+					if (check_update) { unreplaced_keys= unreplaced_keys.filter(item => item !== "$_proprietary") ; new_a["replace"]["$_proprietary"]="" }
 					let no_need_to_answer = check_update + check_previousprojects + check_proprietary;
 					total_keywords = total_keywords - no_need_to_answer;
 					console.log( "total_keys: " + total_keywords + "; changed_keywords: " + changed_keywords +"\n ;  total_box  " + total_checkboxes + ", changed_checkbox: " + changed_checkboxes + "unreplaced_keys " + unreplaced_keys)
@@ -232,7 +223,7 @@
 					}
 
 					function reload_answers() {
-							document.getElementById("doc3").focus();
+							
 						const selection = window.getSelection();
 						selection.removeAllRanges();
 						
@@ -981,26 +972,12 @@
 				function copy_doc(){
 				issue_warning();
 				
-				const text= document.getElementById("doc3");
-				const selection = window.getSelection();
-				const range = document.createRange();
-				range.selectNodeContents(text);
-				selection.removeAllRanges();
-				selection.addRange(range);
+				
 				const compared_list = compare_answers(temp_a ,saved_a);
 				const warning_element_children = document.getElementById("warningText").children;
 				console.log("warning_element_children " + warning_element_children);
 				if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]) && warning_element_children[0]== undefined ) {
-								try {
-					return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-					const selection = window.getSelection();
-					selection.removeAllRanges();
-					
-				}
-				catch (error) {
-					console.warn("Copy to clipboard failed.", error);
-					return false;
-				} 
+							copy_doc1();	 
 				} else {
 				update_reminder(compared_list, warning_element_children)
 
@@ -1009,6 +986,27 @@
 				
 				
 
+				
+				}
+				
+				function copy_doc1(){
+				const text= document.getElementById("doc3");
+				const selection = window.getSelection();
+				const range = document.createRange();
+				range.selectNodeContents(text);
+				selection.removeAllRanges();
+				selection.addRange(range);
+				try {
+					return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+					const selection = window.getSelection();
+					selection.removeAllRanges();
+					
+				}
+				catch (error) {
+					console.warn("Copy to clipboard failed.", error);
+					return false;
+				}
+				
 				
 				}
 				
@@ -1057,7 +1055,7 @@
 							let reminders = [
 					{
 							title: "please check again the questions and warnings",
-							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" questions not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
+							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +"questions not answered. <br> and " + String (warning_element_children.length)+'warning not resolved <br> you can also <a href="#" onclick="copy_doc1()">copy</a> or <a href="#" onclick="printDiv1()">print</a> it anyway'
 							
 							
 							//
@@ -1102,11 +1100,11 @@
 		}
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
-
+		
 		<div class="container-fluid" style=" height:100vh;width:100vw; padding-right: 0px ">
-			
+
 		<div class=" row g-3 " style= "  padding-left:12px; height:100vh;width:100vw; ">
-            
+			
 			<div   class="col-8" id="doc"  style="   overflow-x: hidden;overflow-y: hidden; padding-right: 0px; ">
 				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden;  padding-right: 0px;  ">
 					<div id = "doc3" class="overflow-auto">
@@ -1157,7 +1155,7 @@
 			 
 					<form class="row"  style="margin-left:0px" id="form_project">
 					<label for="input_project"></label>
-					<input style="width: 80%;" class="col-auto" type="text" onfocusout="this.nextElementSibling.click()"
+					<input style="width: 80%;" class="col-auto" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();" 
 					   id="input_project"
 					   name="$_PROJECT"
 					   placeholder="project name" >
@@ -1175,7 +1173,7 @@
 					<label for="input_studyobject"></label>
 
 					<textarea class= "" type="text"
-						   id="input_studyobject"  onfocusout="this.nextElementSibling.click()"
+						   id="input_studyobject"  onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 						   name="$_STUDYOBJECT"
 						   placeholder="study object"rows="3" style="width: 80%;"></textarea>
 					
@@ -1192,7 +1190,7 @@
 					<br>
 					<form id="form_projectaim">
 					<label class= "" for="input_projectaim"> and the project aim </label>
-					<textarea type="text" onfocusout="this.nextElementSibling.click()"
+					<textarea type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 80%;"></textarea>
@@ -1210,7 +1208,7 @@
 			<p >1.3 Give the data officer name:</p>
 			<form class="row" style="margin-left:0px" id="form_dataofficer">
 				<label for="input_dataofficer"></label>
-				<input style="width: 80%;" class="col-auto" onfocusout="this.nextElementSibling.click()"
+				<input style="width: 80%;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 					   type="text"
 					   id="input_dataofficer"
 					   name="$_dataofficer"
@@ -1226,7 +1224,7 @@
 			<br>
 			 <p >1.4 Chose some additional information</p>
 			 
-				<div class="form-data_type form-check-inline  " id = "form_checkbox_1" onfocusout="this.nextElementSibling.click()">
+				<div class="form-data_type form-check-inline  " id = "form_checkbox_1"  onfocusout="this.nextElementSibling.click();">
 				  <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" >
 				  <label class="form-check-label" for="check_protect">
 					The data is protected
@@ -1290,7 +1288,7 @@
 		
 
 
-		  <div class="collapse" id="q_5th_a" onfocusout="this.nextElementSibling.click()">
+		  <div class="collapse" id="q_5th_a"  onfocusout="this.nextElementSibling.click();">
 
 			<p>Where will you submit your data as endpoints? (no #if in text)</p>
 			
@@ -1333,7 +1331,7 @@
 					<form class=" row " id="form_updatemonth">
 
 							<label for="intput_updatemonth">At which month will your project updated?</label>
-							<input style="width: 80%;" type="text" onfocusout="this.nextElementSibling.click()"
+							<input style="width: 80%;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 								   id="intput_updatemonth"
 								   name="$_UPDATEMONTH"
 								   placeholder="month of update">
@@ -1352,7 +1350,7 @@
 					  <br>
 					<form class=" row " id="form_previousprojects">
 							<label for="intput_previousprojects">The name of your previous project is:</label>
-							<input style="width: 80%;" type="text" onfocusout="this.nextElementSibling.click()"
+							<input style="width: 80%;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 								   id="intput_previousprojects"
 								   name="$_PREVIOUSPROJECTS"
 								   placeholder="previous project here">
@@ -1372,7 +1370,7 @@
 				<form class=" row " id ="form_proprietary" >
 						<label for="input_proprietary">The name of your proprietary software is:</label>
 						
-						<input style="width: 80%;" type="text" onfocusout="this.nextElementSibling.click()"
+						<input style="width: 80%;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 							   id="input_proprietary"
 							   name="$_proprietary"
 							   placeholder=" proprietary software ">
@@ -1396,7 +1394,7 @@
 		 <br>
 		 <h3 id="scrollspyHeading2">2. What kind of data will you handle:</h3>
 				
-		 <div class=" "  id="form_checkbox_2"  onfocusout="this.nextElementSibling.click()">
+		 <div class=" "  id="form_checkbox_2"   onfocusout="this.nextElementSibling.click();">
 
 		  <div class="form-data_type form-check-inline">
 		  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
@@ -1496,7 +1494,7 @@
 				<br>
 				<div class= "align-bottom">
 				<input style="width: 80%;" type="text" class="col-auto "
-					   id="input_rawdata" onfocusout="this.nextElementSibling.click()"
+					   id="input_rawdata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 					   name="$_RAWDATA"
 					   placeholder="raw data volume (in GB)"> 
 					   GB
@@ -1513,7 +1511,7 @@
 				<br>
 				<div class= "align-bottom">
 				<input style="width: 80%;" type="text" class="col-auto "
-					   id="input_deriveddata" onfocusout="this.nextElementSibling.click()"
+					   id="input_deriveddata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 10);" onfocusout="this.nextElementSibling.click();"
 					   name="$_DERIVEDDATA"
 					   placeholder="derived data volume (in GB)"> GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button"
@@ -1529,7 +1527,7 @@
 		   
 		   
 		   </p>
-		   <div class=" "  id="form_checkbox_3" onfocusout="this.nextElementSibling.click()" >
+		   <div class=" "  id="form_checkbox_3"  onfocusout="this.nextElementSibling.click();" >
 		   <h3 id="scrollspyHeading4">4. are there any standards that are relevant for you?</h3>
 			<p></p>
 			
@@ -1753,9 +1751,7 @@
 			  </div>
 			</div>
 			  
-
-
-
+			
 			
 		
 
