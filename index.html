@@ -194,19 +194,7 @@
 						//find_replace(singleOption);
 					}
 					
-					function replace1(child) {
-
-						const before = child.previousElementSibling.name;
-
-						const after = child.previousElementSibling.data-value;
-						console.log(before, after);
-						//undo(child.nextElementSibling);
-						saved_a["replace"][before] = after;
-						let singleOption = {};
-						singleOption[before] = after;
-						load_dmp(reload_answers, name = doc_name);
-						//find_replace(singleOption);
-					}
+					
 
 					function undo(this_element) {
 						
@@ -241,8 +229,12 @@
 						window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 						
 						for (const [key, value] of Object.entries(saved_a["replace"])){
+								if (key !== "$_VISUALIZATION")
+								{
 								let element = document.getElementsByName(key)[0];
 								element.value = value  ;
+								}
+								
 								
 
 							
@@ -343,10 +335,19 @@
 
 					function issue_warning()
 					{
+					//remove all elements by the name of warning notification
+						const warning_notification= document.getElementsByName("_warning_notification");
+						    while(warning_notification.length > 0){
+							console.log(warning_notification[0] + " is removed");
+							warning_notification[0].remove();
+						}
+						
+						
 						const selection = window.getSelection();
 						selection.removeAllRanges();
 						let text;
 						if (window.find) {
+							
 							ns = window.find("#issuewarning", aWrapAround = 1);
 							let warning_number = 0;
 							while (ns) {
@@ -375,10 +376,11 @@
 								full_range.insertNode(newText);
 								
 								const warning_no = "warning_number" + warning_number;
+								
 								let div = document.createElement('div');
 								div.setAttribute("class", "alert alert-danger");
 								div.setAttribute("role", "alert");
-								div.setAttribute("role", "alert");
+								div.setAttribute("name", "_warning_notification");
 								let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
 
 								div.innerHTML = html1;
@@ -1588,26 +1590,28 @@
 			 
 			 <p> Do you need visualization in the project? </p>
 			 <form class="col-12"  style="margin-left:0px" id="form_visualization">
-			 
-			 			<input div name="$_VISUALIZATION" value="vs2" data-value=" " class="d-none" >		</input>
+
+				<input type="text" 
+					   id="input_visiualization"
+					   name="$_VISUALIZATION"
+					   placeholder=" " class="d-none" value= "visualization" >
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="yes" class="col-auto"
+						   onclick="replace(this)">
+				<input type="text" 
+					   id="submit_VISUALIZATION"
+					   name="$_VISUALIZATION"
+					   placeholder=" " class="d-none" value= " " >	
+
 					<input class="btn btn-primary btn-sm" type="button"
 						   value="no" class="col-auto"
-						   onclick="replace1(this)">
+						   onclick="replace(this)">
 						   </input>
 						   <input class="btn btn-secondary btn-sm d-none" data-value="visualization" type="button"
 						   value="undo"
 						   onclick="undo(this);">
 						
-				<input div name="$_VISUALIZATION" value="vs2"  class="d-none">			
-
-					<input class="btn btn-primary btn-sm" type="button"
-						   value="yes" class="col-auto"
-						   onclick="replace1(this)">
-						   </input>
-						   <input class="btn btn-secondary btn-sm d-none" type="button"
-						   value="undo"
-						   onclick="undo(this);">
-					
+				
 
 		  
 			</form>
