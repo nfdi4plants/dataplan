@@ -43,7 +43,9 @@
 			var doc_name = 'docs/dmp1.html';
 			var user_info = window.localStorage.getItem("user_info");
 			var cached_a = window.localStorage.getItem("saved_a");
-
+			//var scrollSpyContentEl = document.getElementById('scrollspy-element')
+			//var scrollSpy = bootstrap.ScrollSpy.getInstance(scrollSpyContentEl)
+			
 			//console.log("is firefox ?"+is_firefox);
 			function load_dmp(callback=reload_answers, name='docs/dmp1.html') {
 			 doc_name = name;
@@ -94,17 +96,14 @@
 							id: "interface",
 							content: "<p>Here is the main area for answering questions here</p>"
 						}, {
-							id: "nav-tab",
-							content: "<p>Five pages of questions in total</p>"
+							id: "navbar-example2",
+							content: "<p>Five parts of questions in total</p>"
 						}, {
-							id: "nav-tabContent",
-							content: "<p>Each page has a few questions</p>"
+							id: "intro-tour-input",
+							content: "<p>Each part has a few questions</p>"
 						}, {
-							id: "input_project",
-							content: "<p>type your project name here, for example type: \"your awesome project\" to the highlighted input box</p>"
-						}, {
-							id: "input_project_submit",
-							content: "<p>Then press submit</p>"
+							id: "form_project",
+							content: "<p>type your project name here, for example type: \"your awesome project\" to the highlighted input box</p>, then click submit"
 						}, {
 							id: "doc",
 							content: "<p>Now the document's content has included your project name</p>"
@@ -126,7 +125,18 @@
 					var tour = new Tour(steps);
 					/*============== tutorial initialization ends ==============*/
 					
+					// event listener for text input (no need to press submit button anymore)
 					
+					const text_input_forms = document.querySelectorAll("[data-input-type]");
+					//.getElementById("scrollspy-element").querySelectorAll("[data-input-type]");
+					text_input_forms.forEach(function(input) {
+					input.addEventListener('focusout', (event) => {
+						  event.target.nextElementSibling.click();
+						  
+						});
+					
+					}
+					);
 					// compare updated answers and the original answers
 					
 					function compare_answers(old_a, new_a){
@@ -882,50 +892,7 @@
 					
 					//progress-bar
 					var x = 0;
-					function nav_next() {
-
-						let ele = document.getElementById("nav-tab")
-
-						let tabs = ele.querySelector('[class="nav-link col-auto active"]');
-
-						
-						let nexts = tabs.nextElementSibling;
-
-						try {
-							nexts.click();
-
-
-						} catch (e) {
-
-							alert("you have reached the end of the document, please save the document");
-
-							issue_warning();
-						}
-						console.log(tabs);
-
-					}
-
-					function nav_previous() {
-
-						let ele = document.getElementById("nav-tab")
-
-						let tabs = ele.querySelector('[class="nav-link col-auto active"]');
-
-						
-						let nexts = tabs.previousElementSibling;
-						console.log(nexts);
-						try {
-							nexts.click();
-
-
-						} catch (e) {
-							alert("you have reached the beginning of the document, please start editing");
-
-
-						}
-						console.log("progress bar value is" + x);
-
-					}
+					
 					
 					window.addEventListener('beforeunload', function (e) {
 					  // Cancel the event
@@ -1090,7 +1057,7 @@
 							let reminders = [
 					{
 							title: "please check again the questions and warnings",
-							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" answer not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
+							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" questions not answered. <br> and " + String (warning_element_children.length)+" warning not resolved"
 							
 							
 							//
@@ -1141,40 +1108,60 @@
 		<div class=" row g-3 " style= "  padding-left:12px; height:100vh;width:100vw; ">
             
 			<div   class="col-8" id="doc"  style="   overflow-x: hidden;overflow-y: hidden; padding-right: 0px; ">
-				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden; overflow-y: scroll; padding-right: 0px;  ">
+				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden;  padding-right: 0px;  ">
 					<div id = "doc3" class="overflow-auto">
 					</div>
 				</div>
 			</div>
-			<div   class="col-4 "  id="interface"  style="height:calc(100% - 80px); padding-right: 0px;  padding-left: 0px;overflow-x: hidden; overflow-y: scroll;">
+			<div   class="col-4 "  id="interface"  style="height:calc(100% - 80px); padding-right: 0px;  padding-left: 0px;overflow-x: hidden;overflow-y: hidden; ">
 
-					<div class=" "   style=" overflow-x: hidden; padding-right: 0px;padding-left: 10px; "	>
 					
-					<div class="nav nav-tabs justify-content-around" id="nav-tab" role="tablist" aria-label="page-nav"   style="padding :0px; width : 33vw" 	>
-			  
-						<button class="nav-link col-auto active" id="nav-information-tab" data-bs-toggle="tab" value ="1" data-bs-target="#nav-information" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-information" aria-selected="true" style="padding: 8px;">General <br> info</button>
-						<button class="nav-link col-auto" id="nav-data_type-tab" data-bs-toggle="tab" value ="2" data-bs-target="#nav-data_type" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_type" aria-selected="false" style="padding: 8px;">Data <br> type</button>
-						<button class="nav-link col-auto" id="nav-data_volumn-tab" data-bs-toggle="tab" value ="3" data-bs-target="#nav-data_volumn" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_volumn" aria-selected="false" style="padding: 8px;">Data <br> volume</button>
-						<button class="nav-link col-auto" id="nav-relevant_standards-tab" data-bs-toggle="tab" value ="4" data-bs-target="#nav-relevant_standards" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-relevant_standards" aria-selected="false" style="padding: 8px;">Standards</button>
-						<button class="nav-link col-auto" id="nav-nav-data_analysis-tab" data-bs-toggle="tab" value ="5" data-bs-target="#nav-data_analysis" class="btn btn-primary btn-sm" type="button" role="tab" aria-controls="nav-data_analysis" aria-selected="false" style="padding: 8px;">Data <br> analysis</button>
+				
+				
 
-							
-					</div>  
-				
-				
-				<div class="tab-content " id="nav-tabContent" style=" overflow-x: hidden; padding-right: 0px; " 	>
+	
+					
+			<div class=" "   style=" overflow-x: hidden; padding-right: 0px;padding-left: 10px; "	>
+
+			<nav id="navbar-example2" class="navbar navbar-light bg-light px-3 " style="height:100px;" >
+					  
+					  <ul class="nav nav-pills">
+						<li class="nav-item">
+						  <a class="nav-link" href="#scrollspyHeading1">basic <br> info</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="#scrollspyHeading2">data <br> type</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="#scrollspyHeading3">data <br> volume</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="#scrollspyHeading4">data <br> standard</a>
+						</li>
+						<li class="nav-item">
+						  <a class="nav-link" href="#scrollspyHeading5">data <br> analysis</a>
+						</li>
+
+					  </ul>
+					</nav>					
 			
-				<div class="tab-pane fade show active" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab test" " >
-				<p >1.1 Give the project name or acronym to be used:</p>
+			
+		<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="700" class="scrollspy-example" tabindex="0"  data-bs-method="auto"	>
+		<div id="intro-tour-input">
+		<div  id= "warningText">
+		</div>
+		
+				<h3 id="scrollspyHeading1">1.1 Give the project name or acronym to be used:</h3>
+				<p>
 				<br>
 			 
 					<form class="row"  style="margin-left:0px" id="form_project">
 					<label for="input_project"></label>
-					<input class="col-auto" type="text"
+					<input class="col-auto" type="text" onfocusout="this.nextElementSibling.click()"
 					   id="input_project"
 					   name="$_PROJECT"
 					   placeholder="project name" >
-					<input  class="btn btn-primary btn-sm col-auto"" type="button" id="input_project_submit"
+					<input  class="btn btn-primary btn-sm col-auto d-none"" type="button" id="input_project_submit"
 					   value="submit"
 					   onclick="replace(this)" >
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1188,11 +1175,11 @@
 					<label for="input_studyobject"></label>
 
 					<textarea class= "" type="text"
-						   id="input_studyobject"
+						   id="input_studyobject"  onfocusout="this.nextElementSibling.click()"
 						   name="$_STUDYOBJECT"
 						   placeholder="study object"rows="3" style="width: 95%;"></textarea>
 					
-					<input class="btn btn-primary btn-sm " type="button"
+					<input class="btn btn-primary btn-sm d-none" type="button"
 						   value="submit"
 						   onclick="replace(this)">
 						   
@@ -1205,11 +1192,11 @@
 					<br>
 					<form id="form_projectaim">
 					<label class= "" for="input_projectaim"> and the project aim </label>
-					<textarea type="text"
+					<textarea type="text" onfocusout="this.nextElementSibling.click()"
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 95%;"></textarea>
-					<input class="btn btn-primary btn-sm" type="button"
+					<input class="btn btn-primary btn-sm d-none" type="button"
 					   value="submit"
 					   onclick="replace(this)">
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1218,15 +1205,17 @@
 		  
 				</form>
 			<br>
+			</p>
+			
 			<p >1.3 Give the data officer name:</p>
 			<form class="row" style="margin-left:0px" id="form_dataofficer">
 				<label for="input_dataofficer"></label>
-				<input class="col-auto"
+				<input class="col-auto" onfocusout="this.nextElementSibling.click()"
 					   type="text"
 					   id="input_dataofficer"
 					   name="$_dataofficer"
 					   placeholder="data officer name">
-					<input class="btn btn-primary btn-sm col-auto" type="button" id="input_dataofficer_submit"
+					<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
 						   value="submit"
 						   onclick="replace(this)">
 					<input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1237,7 +1226,7 @@
 			<br>
 			 <p >1.4 Chose some additional information</p>
 			 
-				<div class="form-data_type form-check-inline  " id = "form_checkbox_1">
+				<div class="form-data_type form-check-inline  " id = "form_checkbox_1" onfocusout="this.nextElementSibling.click()">
 				  <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" >
 				  <label class="form-check-label" for="check_protect">
 					The data is protected
@@ -1289,19 +1278,19 @@
 				  
 				</div> 
 
-		<p>
-			<input class=" btn btn-primary form-check-inline btn-sm" type="button" id="form-check-input"
+		
+			<input class=" btn btn-primary form-check-inline btn-sm d-none" type="button" id="form-check-input"
 							data-checkbox = "checkbox_1"
-						   value="submit "
+						   value="submit"
 						   onclick="get_option(this)" > 
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
 						   onclick="undo(this);">
 
-		</p>
+		
 
 
-		  <div class="collapse" id="q_5th_a">
+		  <div class="collapse" id="q_5th_a" onfocusout="this.nextElementSibling.click()">
 
 			<p>Where will you submit your data as endpoints? (no #if in text)</p>
 			
@@ -1332,7 +1321,10 @@
 		  </label>
 		</div> 
 			  </div>
-
+			<input class=" btn btn-primary form-check-inline btn-sm d-none" type="button" id="small-form-check-input"
+							data-checkbox = "checkbox_5"
+						   value="submit"
+						   onclick="get_option(this)" > 
 
 
 
@@ -1341,11 +1333,11 @@
 					<form class=" row " id="form_updatemonth">
 
 							<label for="intput_updatemonth">At which month will your project updated?</label>
-							<input type="text"
+							<input type="text" onfocusout="this.nextElementSibling.click()"
 								   id="intput_updatemonth"
 								   name="$_UPDATEMONTH"
 								   placeholder="month of update">
-								  <input class="btn btn-primary btn-sm" type="button"
+								  <input class="btn btn-primary btn-sm d-none" type="button"
 									   value="submit"
 									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
 									   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1360,11 +1352,11 @@
 					  <br>
 					<form class=" row " id="form_previousprojects">
 							<label for="intput_previousprojects">The name of your previous project is:</label>
-							<input type="text"
+							<input type="text" onfocusout="this.nextElementSibling.click()"
 								   id="intput_previousprojects"
 								   name="$_PREVIOUSPROJECTS"
 								   placeholder="previous project here">
-								<input class="btn btn-primary btn-sm" type="button"
+								<input class="btn btn-primary btn-sm d-none" type="button"
 									   value="submit"
 									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
 									   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1380,11 +1372,11 @@
 				<form class=" row " id ="form_proprietary" >
 						<label for="input_proprietary">The name of your proprietary software is:</label>
 						
-						<input type="text"
+						<input type="text" onfocusout="this.nextElementSibling.click()"
 							   id="input_proprietary"
 							   name="$_proprietary"
 							   placeholder=" proprietary software ">
-							<input class="btn btn-primary btn-sm" type="button"
+							<input class="btn btn-primary btn-sm d-none" type="button"
 								   value="submit"
 								   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
 								   <input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1398,13 +1390,14 @@
 
 			  
 
-			</div>
+			
 
 		 
-		 
-		 <div class="tab-pane fade  " id="nav-data_type" role="tabpanel" aria-labelledby="nav-data_type-tab" >
-		 <div class=" "  id="form_checkbox_2" >
-		  <p>2. What kind of data will you handle:</p>
+		 <br>
+		 <h3 id="scrollspyHeading2">2. What kind of data will you handle:</h3>
+				
+		 <div class=" "  id="form_checkbox_2"  onfocusout="this.nextElementSibling.click()">
+
 		  <div class="form-data_type form-check-inline">
 		  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
 		  <label class="form-check-label" for="check_image">
@@ -1482,32 +1475,32 @@
 			genetics
 		  </label>
 		</div> 
+		</div> 
 
+			
 
-
-		<br>
-		<input class="btn btn-primary btn-sm" type="button" id="check_box1"
+		<input class="btn btn-primary btn-sm d-none" type="button" id="check_box1"
 						   value="submit data type" data-checkbox = "checkbox_2"
 						   onclick="get_option(this)" class=> 
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
 						   onclick="undo(this);">
 		  </div>
-		  </div>
+		 <br>
 		  
-		  <div class="tab-pane fade  " id="nav-data_volumn" role="tabpanel" aria-labelledby="nav-data_volumn-tab">
 		  
-		  <p >3. How much data do you think you will generate:</p>
+		 <h3 id="scrollspyHeading3">3. How much data you will probably generate:</h3>
+			<p>
 		  <br>
 			<form class="row"  style="margin-left:0px" id="form_rawdata">
 				<br>
 				<div class= "align-bottom">
 				<input type="text" class="col-auto "
-					   id="input_rawdata"
+					   id="input_rawdata" onfocusout="this.nextElementSibling.click()"
 					   name="$_RAWDATA"
 					   placeholder="raw data volume (in GB)"> 
 					   GB
-					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle" type="button" id="raw_data_submit"
+					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button" id="input_rawdata_submit" 
 						   value="submit"
 						   onclick="replace(this)">
 						   <input class="btn btn-secondary btn-sm d-none align-middle" type="button"
@@ -1520,11 +1513,11 @@
 				<br>
 				<div class= "align-bottom">
 				<input type="text" class="col-auto "
-					   id="input_deriveddata"
+					   id="input_deriveddata" onfocusout="this.nextElementSibling.click()"
 					   name="$_DERIVEDDATA"
 					   placeholder="derived data volume (in GB)"> GB
-					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle" type="button"
-						   value="submit" id="derived_data_submit"
+					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button"
+						   value="submit" id="input_deriveddata_submit"
 						   onclick="replace(this)">
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
@@ -1532,12 +1525,13 @@
 				</div>
 			</form>
 		  
-		  </div>
+		 
 		   
 		   
-		   <div class="tab-pane fade   " id="nav-relevant_standards" role="tabpanel" aria-labelledby="nav-relevant_standards-tab">
-		   <div class=" "  id="form_checkbox_3" >
-			<p>4. are there any standards that are relevant for you?</p>
+		   </p>
+		   <div class=" "  id="form_checkbox_3" onfocusout="this.nextElementSibling.click()" >
+		   <h3 id="scrollspyHeading4">4. are there any standards that are relevant for you?</h3>
+			<p></p>
 			
 			<div class="form-data_type  form-check-inline" >
 		  <input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" >
@@ -1546,11 +1540,12 @@
 		  </label>
 		</div> 
 		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeqE" >
+		  <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeq" >
 		  <label class="form-check-label" for="check_MinSeqE">
-			MinSeqE
+			MinSeq
 		  </label>
 		</div> 
+		<br>
 			 <p>4.1 Will you adhere to any high level metadata submission standards?</p>
 		<div class="form-data_type form-check-inline">
 		  <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_dublin_core" checked>
@@ -1563,7 +1558,8 @@
 		  <label class="form-check-label" for="check_marc_21">
 			MARC 21
 		  </label>
-		</div> 	 
+		</div> 	
+<br>		
 			 <p>4.2 When will you make your data public?</p> 
 
 			<div class="form-data_type form-check-inline" >
@@ -1579,16 +1575,17 @@
 		
 		</div> 
 		<br>
-			<input class="btn btn-primary form-check-inline btn-sm" type="button" id="form-check-input" value="submit" data-checkbox= "checkbox_3" onclick="get_option(this)">
+		</div>
+			<input class="btn btn-primary form-check-inline btn-sm d-none" type="button" id="form-check-input" value="submit" data-checkbox= "checkbox_3" onclick="get_option(this)">
 								   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
 						   onclick="undo(this);">
-			</div>
-		   </div>
+			
 		   
-			 <div class="tab-pane fade   " id="nav-data_analysis" role="tabpanel" aria-labelledby="nav-data_analysis-tab" >
+		   
+			
+			  <h3 id="scrollspyHeading5">5. Do you need visualization in the project?</h3>
 			 
-			 <p> Do you need visualization in the project? </p>
 			 <form class="col-12"  style="margin-left:0px" id="form_visualization">
 
 				<input type="text" 
@@ -1615,21 +1612,13 @@
 
 		  
 			</form>
-			 </div>
+			
 
 		<br>
-		<div class="text-center">
-		<div class=" btn-group" >
-		<button btn type="button" class="btn-primary  btn-sm " value= "previous" style= "" onclick = "nav_previous()">←previous</button>
-		<button  type="button" class="btn-primary btn-sm " value= "next" style= "" onclick= "nav_next()">next→</button>
-		 <br>
+<br><br><br><br><br>
 		</div>
-		</div>
-		<div  id= "warningText">
 		</div>
 		
-		</div>
-		</div>
 		
 		
 		
@@ -1671,7 +1660,7 @@
 			
 			<div class="btn-group-sm dropup col-auto">
 			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "upload_button" >
-				load 
+				(re)load 
 			  </button>
 			  <ul class="dropdown-menu">
 				<li>
@@ -1679,6 +1668,7 @@
 						<label for="upload" class="form-label dropdown-item">upload json
 						<input class="form-control d-none" type="file" id="upload">
 						</label>
+						<button id="clear_cache" class=" dropdown-item" onclick = 'window.localStorage.clear();document.location.reload()'>clear cache</button>
 						
 
 			  
@@ -1724,7 +1714,7 @@
 
 				
 			
-					</div>
+					
 			
 		
 			

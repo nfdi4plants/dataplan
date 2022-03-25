@@ -72,9 +72,8 @@ Tour.prototype.createTabLinks = function() {
     var html = '<ul class="tour-tab-links">';
 
     for (var i = 0; i < this.steps.length; i++) {
-		const x = i+1;
         var cssClass = i === 0 ? "active" : "";
-        html += '<li><a role="button" class="' + cssClass + '" data-tour-step="' + i + '">' + x +' </a></li>';
+        html += '<li><a role="button" class="' + cssClass + '" data-tour-step="' + i + '">'+i+'</a></li>';
     }
 
     html += '</ul>';
@@ -159,7 +158,6 @@ Tour.prototype.show = function() {
         o.removeBackdrop();
         o.removeActiveElement();
         o.popover.dispose();
-		document.getElementById("nav-information").classList.add("active", "show");
     }
     e.btnFinish.addEventListener("click", function() {
         onExit();
@@ -185,45 +183,15 @@ Tour.prototype.show = function() {
 
 //Moves current HTML element before backdrop (by changing z-index)
 Tour.prototype.updateActiveElement = function() {
-const target_nodes = document.getElementById("nav-tabContent").querySelectorAll(".tab-pane");
-		var target_nodes_array = [...target_nodes];
-		 target_nodes.forEach( ele=> 
-		 {console.log(" disable all tab-pane " +ele);
-		 
-		 ele.classList.remove("active","show") ;
-		 });
-		for (var i = 0; i < this.steps.length; i++) {
-			var e = this.getContainerByIndex(i);
-		//console.log("using id to find element " + e.id); // ,
+
+    for (var i = 0; i < this.steps.length; i++) {
+        var e = this.getContainerByIndex(i);;
+
         if (i === this.currentTab) {
+			e.scrollIntoView();
             e.classList.add("tour-active-element");
-			
-			if (e.closest(".tab-pane") != undefined) {
-				
-				try {let nearest_panel = e.closest(".tab-pane");
-					nearest_panel.classList.add("active", "show");
-				} catch (e){console.log(e)}	
-			} else {
-				document.getElementById("nav-information").classList.add("active", "show"); }
-				e.scrollIntoView({
-				behavior: 'auto',
-				block: 'center',});
-			
         } else {
-			
-			
-			
             e.classList.remove("tour-active-element");
-
-			// if (e.closest(".tab-pane") != undefined) {
-
-			// try {let nearest_panel = e.closest(".tab-pane" );
-			// nearest_panel.classList.remove("active", "show");
-			// } catch (e){console.log(e)}	
-			
-			
-			
-			// }
         }
 
     }
