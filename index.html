@@ -186,7 +186,21 @@
 
 						const after = child.previousElementSibling.value;
 						console.log(before, after);
-						undo(child.nextElementSibling);
+						//undo(child.nextElementSibling);
+						saved_a["replace"][before] = after;
+						let singleOption = {};
+						singleOption[before] = after;
+						load_dmp(reload_answers, name = doc_name);
+						//find_replace(singleOption);
+					}
+					
+					function replace1(child) {
+
+						const before = child.previousElementSibling.name;
+
+						const after = child.previousElementSibling.data-value;
+						console.log(before, after);
+						//undo(child.nextElementSibling);
 						saved_a["replace"][before] = after;
 						let singleOption = {};
 						singleOption[before] = after;
@@ -1159,7 +1173,7 @@
 					   name="$_PROJECT"
 					   placeholder="project name" >
 					<input  class="btn btn-primary btn-sm col-auto"" type="button" id="input_project_submit"
-					   value="replace"
+					   value="submit"
 					   onclick="replace(this)" >
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
 					   value="undo" id="input_project_undo"
@@ -1177,7 +1191,7 @@
 						   placeholder="study object"rows="3" style="width: 95%;"></textarea>
 					
 					<input class="btn btn-primary btn-sm " type="button"
-						   value="replace"
+						   value="submit"
 						   onclick="replace(this)">
 						   
 					
@@ -1194,7 +1208,7 @@
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 95%;"></textarea>
 					<input class="btn btn-primary btn-sm" type="button"
-					   value="replace"
+					   value="submit"
 					   onclick="replace(this)">
 					   <input class="btn btn-secondary btn-sm d-none" type="button"
 					   value="undo"
@@ -1211,7 +1225,7 @@
 					   name="$_dataofficer"
 					   placeholder="data officer name">
 					<input class="btn btn-primary btn-sm col-auto" type="button" id="input_dataofficer_submit"
-						   value="replace"
+						   value="submit"
 						   onclick="replace(this)">
 					<input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
@@ -1330,7 +1344,7 @@
 								   name="$_UPDATEMONTH"
 								   placeholder="month of update">
 								  <input class="btn btn-primary btn-sm" type="button"
-									   value="replace"
+									   value="submit"
 									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
 									   <input class="btn btn-secondary btn-sm d-none" type="button"
 									   value="undo"
@@ -1349,7 +1363,7 @@
 								   name="$_PREVIOUSPROJECTS"
 								   placeholder="previous project here">
 								<input class="btn btn-primary btn-sm" type="button"
-									   value="replace"
+									   value="submit"
 									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
 									   <input class="btn btn-secondary btn-sm d-none" type="button"
 									   value="undo"
@@ -1369,7 +1383,7 @@
 							   name="$_proprietary"
 							   placeholder=" proprietary software ">
 							<input class="btn btn-primary btn-sm" type="button"
-								   value="replace"
+								   value="submit"
 								   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
 								   <input class="btn btn-secondary btn-sm d-none" type="button"
 								   value="undo"
@@ -1492,7 +1506,7 @@
 					   placeholder="raw data volume (in GB)"> 
 					   GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle" type="button" id="raw_data_submit"
-						   value="replace"
+						   value="submit"
 						   onclick="replace(this)">
 						   <input class="btn btn-secondary btn-sm d-none align-middle" type="button"
 						   value="undo"
@@ -1508,7 +1522,7 @@
 					   name="$_DERIVEDDATA"
 					   placeholder="derived data volume (in GB)"> GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle" type="button"
-						   value="replace" id="derived_data_submit"
+						   value="submit" id="derived_data_submit"
 						   onclick="replace(this)">
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
@@ -1574,23 +1588,27 @@
 			 
 			 <p> Do you need visualization in the project? </p>
 			 <form class="col-12"  style="margin-left:0px" id="form_visualization">
-				<input type="text" 
-					   id="input_visiualization"
-					   name="$_VISUALIZATION"
-					   placeholder=" " class="d-none" value= "visualization" >
-					<input class="btn btn-primary btn-sm" type="button"
-						   value="yes" class="col-auto"
-						   onclick="replace(this)">
-				<input type="text" 
-					   id="submit_VISUALIZATION"
-					   name="$_VISUALIZATION"
-					   placeholder=" " class="d-none" value= "" >	
+			 
+			 			<input div name="$_VISUALIZATION" value="vs2" data-value=" " class="d-none" >		</input>
 					<input class="btn btn-primary btn-sm" type="button"
 						   value="no" class="col-auto"
-						   onclick="replace(this)">
+						   onclick="replace1(this)">
+						   </input>
+						   <input class="btn btn-secondary btn-sm d-none" data-value="visualization" type="button"
+						   value="undo"
+						   onclick="undo(this);">
+						
+				<input div name="$_VISUALIZATION" value="vs2"  class="d-none">			
+
+					<input class="btn btn-primary btn-sm" type="button"
+						   value="yes" class="col-auto"
+						   onclick="replace1(this)">
+						   </input>
 						   <input class="btn btn-secondary btn-sm d-none" type="button"
 						   value="undo"
 						   onclick="undo(this);">
+					
+
 		  
 			</form>
 			 </div>
