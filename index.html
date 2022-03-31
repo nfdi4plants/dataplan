@@ -75,6 +75,7 @@
 			var user_info = window.localStorage.getItem("user_info");
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
+			var initialed = false;
 			if (cached_template==null){
 			cached_template = doc_name;
 			}
@@ -89,8 +90,9 @@
 				let frame = document.getElementById("doc3");
 				frame.innerHTML = content.innerHTML;
 				 callback();
-				 
-				 						var inputs = document.querySelectorAll("input","select");
+				
+				if (!initialed){
+						var inputs = document.querySelectorAll("input");
 						for (var i = 0 ; i < inputs.length; i++) {
 						   inputs[i].addEventListener("keypress", function(e){
 								console.log("added event listener");
@@ -105,6 +107,8 @@
 							  }
 						   })
 						}
+				}
+				initialed = true;
 				 }
 					// template answers
 					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"XXX","$_DERIVEDDATA":"XXX","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
