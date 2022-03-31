@@ -90,7 +90,7 @@
 				frame.innerHTML = content.innerHTML;
 				 callback();
 				 
-				 						var inputs = document.querySelectorAll("input");
+				 						var inputs = document.querySelectorAll("input","select");
 						for (var i = 0 ; i < inputs.length; i++) {
 						   inputs[i].addEventListener("keypress", function(e){
 								console.log("added event listener");
