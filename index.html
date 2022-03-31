@@ -75,6 +75,9 @@
 			var user_info = window.localStorage.getItem("user_info");
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
+			if (cached_template==null){
+			cached_template = doc_name;
+			}
 			//var scrollSpyContentEl = document.getElementById('scrollspy-element')
 			//var scrollSpy = bootstrap.ScrollSpy.getInstance(scrollSpyContentEl)
 			
