@@ -15,6 +15,23 @@ padding:0;
  margin:0; 
 }
 
+.clip:hover {
+    color: #1FC2A7;
+    
+    border-color: #1FC2A7
+}
+.clip {
+    color: #4FB3D9;
+   
+    border-color: #1FC2A7
+}
+
+.bg-primary {
+    color: #FEFEFE;
+    background-color: #1FC2A7;
+    border-color: #B4CE82
+}
+
 .btn-primary {
     color: #FEFEFE;
     background-color: #1FC2A7;
@@ -27,13 +44,13 @@ padding:0;
     border-color: #1FC2A7
 }
 
-.btn-previous {
-    color: #FFC000;
-    background-color: #2D3E50;
+.btn-tutorial {
+    color:  #4FB3D9;
+    background-color:  #4FB3D9;
     border-color: #B4CE82
 }
 
-.btn-previous:hover {
+.btn-tutorial:hover {
     color: #FEFEFE;
     background-color: #FFC000;
     border-color: #ffecb3

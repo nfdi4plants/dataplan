@@ -1164,11 +1164,14 @@
 			
 			<div   class="col-8" id="doc"  style="   overflow-x: hidden;overflow-y: hidden; padding-right: 0px; ">
 				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden;  padding-right: 0px;  ">					
-				<a href="javascript:void(0);" style="font-size:large" onclick="copy_doc()" ><span class="badge bg-primary text-light sticky-top float-end"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-					  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-					  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-					</svg></span></a>
-					<div id = "doc3" class="overflow-auto">
+								<a href="javascript:void(0);" style="top:2vh;
+left:63vw;position:fixed; text-shadow: 2px 2px 4px 16px;border-radius: 2px; onclick="copy_doc()" ><span class="clip sticky-top float-end"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+</svg>
+					</span></a>
+					<div id = "doc3" class="row-auto overflow-auto" style="margin-right:0px">
 
 					
 					
@@ -1214,7 +1217,7 @@
 		<div id="intro-tour-input" >
 		<div  id= "warningText">
 		</div>
-		<a href="javascript:void(0);" style="font-size:small" onclick="tour.show()" ><span class="badge bg-info text-dark sticky-top float-end">tutorial</span></a>
+		<a href="javascript:void(0);" style="font-size:small" onclick="tour.show()" ><span class="badge btn-tutorial text-dark sticky-top float-end">tutorial</span></a>
 		<h2 id="scrollspyHeading1">1 Basic Information:</h2>
 				<h3 >1.1 Give the project name or acronym to be used:</h3>
 				
@@ -1237,9 +1240,12 @@
 					<br>
 					
 					<form id="form_studyobject">
-					<label for="input_studyobject"><h3 >1.2 Give the object to be studied  :</h3> </label>
+					<label for="input_studyobject"><h3 >1.2 Give the object <span class=" text-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+					  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+					  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+					</svg> </span> to be studied  :</h3> </label>
 
-					<label for="input_studyobject"></label>
+					
 					<input style="width: 26vw;" class="col-auto" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();" 
 					   id="input_studyobject"
 					   name="$_STUDYOBJECT"
@@ -1828,7 +1834,7 @@
 				</button>
 			</div>
 			<div class ="inline text-center" >
-			<a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" style="font-size:small"  > <span class="badge btn-secondary">wiki </span></a>	<a href="javascript:void(0);" style="font-size:small" onclick="tour.show()" ><span class="badge bg-info text-dark">tutorial</span></a>
+			<a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" style="font-size:small"  > <span class="badge btn-secondary">wiki </span></a>	<a href="javascript:void(0);" style="font-size:small" onclick="tour.show()" ><span class="badge btn-tutorial text-dark">tutorial</span></a>
 			</div>
 			
 			  
@@ -1870,6 +1876,17 @@
 			  </div>
 			</div>
 			
+			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-obj" aria-labelledby="offcanvasScrollingLabel">
+			  <div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasScrollingLabel">The project object = target.</h5>
+				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			  </div>
+			  <div class="offcanvas-body">
+				<p><b> Example 1: </b> carbon and water flow in plants </p>
+				<br>
+				<p><b> Example 2: </b> data management plan</p>
+			  </div>
+			</div>
 
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
