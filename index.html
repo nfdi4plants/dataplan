@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 		<head>
 		<meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 		
@@ -1326,14 +1326,14 @@
 					The data is protected
 				  </label>
 				  <br>
-					<input class="form-check-input checkbox_1" type="checkbox" value="2" id="check_dataplant"  data-bs-toggle="collapse" data-bs-target="#q_5th_a" aria-expanded="false" aria-controls="q_5th_a" checked>
+					<input class="form-check-input checkbox_1" type="checkbox" value="2" id="check_dataplant"  data-bs-toggle="collapse" data-bs-target="#no_dataplant" aria-expanded="false" aria-controls="no_dataplant" role="button" checked>
 					
 				  <label class="form-check-label" for="check_dataplant">
 					Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
 				  </label>
 
 				  <br>
-				  <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_updatemonth" aria-expanded="false" aria-controls="q_updatemonth"  >
+				  <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_updatemonth" aria-expanded="false" aria-controls="q_updatemonth" role="button"  >
 				  <label class="form-check-label" for="check_update">
 					This project will be updated
 				  </label>
@@ -1341,7 +1341,7 @@
 				  
 
 				  <input class="form-check-input checkbox_1" type="checkbox" value="4" id="check_previousprojects" 
-				  data-bs-toggle="collapse" data-bs-target="#q_previousprojects" aria-expanded="false" aria-controls="q_previousprojects"  >
+				  data-bs-toggle="collapse" data-bs-target="#q_previousprojects" aria-expanded="false" aria-controls="q_previousprojects" role="button"  >
 				  <label class="form-check-label" for="check_previousprojects">
 					This project has previous projects.
 				  </label>
@@ -1354,7 +1354,7 @@
 					<br>
 				  
 				  <input class="form-check-input checkbox_1" type="checkbox" value="6" id="check_proprietary" 
-				  data-bs-toggle="collapse" data-bs-target="#q_proprietary" aria-expanded="false" aria-controls="q_proprietary"  >
+				  data-bs-toggle="collapse" data-bs-target="#q_proprietary" aria-expanded="false" aria-controls="q_proprietary" role="button"  >
 				  <label class="form-check-label" for="check_proprietary">
 					This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
 				  </label>
@@ -1385,7 +1385,7 @@
 		
 
 
-		  <div class="collapse" id="q_5th_a"  onfocusout="this.nextElementSibling.click();">
+		  <div class="collapse" id="no_dataplant"  onfocusout="this.nextElementSibling.click();">
 
 			<p>Where will you submit your data as endpoints? (no #if in text)</p>
 			
@@ -1513,16 +1513,17 @@
 		</div>  
 		  
 		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" >
-		  <label class="form-check-label" for="check_Metabolomic">
+				  <label class="form-check-label" for="check_metabolomic">
 			metabolomics
 		  </label>
+		  <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" >
+
 		</div> 
 
 
 		<div class="form-data_type  form-check-inline">
 		  <input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" >
-		  <label class="form-check-label" for="check_Proteomic">
+		  <label class="form-check-label" for="check_proteomic">
 			proteomics
 		  </label>
 		</div> 
@@ -1636,7 +1637,7 @@
 		</div> 
 		<div class="form-data_type  form-check-inline">
 		  <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeq" >
-		  <label class="form-check-label" for="check_MinSeqE">
+		  <label class="form-check-label" for="check_MinSeq">
 			MinSeq
 		  </label>
 		</div> 
@@ -1658,8 +1659,8 @@
 			 <h3>4.2 When will you make your data public?</h3> 
 
 			<div class="form-data_type form-check-inline" >
-			 <input class="form-check-input  checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" checked >
-		  <label class="form-check-label" for="publish_early">Will you publish your data early?</label>
+			 <input class="form-check-input  checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" role="button" checked >
+		  <label class="form-check-label" for="check_early">Will you publish your data early?</label>
 		</div>
 		 
 		<div class="collapse" id="q6_2">
@@ -1725,7 +1726,7 @@
 
 
 			<div class="progress"  style= "padding: 0px;">
-				<div class="progress-bar progress-bar-striped" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar" style= "padding: 0px;">  
+				<div name="progress_bar" class="progress-bar progress-bar-striped" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar" style= "padding: 0px;">  
 				</div>
 			</div>
 			
