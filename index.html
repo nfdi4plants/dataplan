@@ -286,40 +286,44 @@
 					}
 
 					function reload_answers() {
-							
 						const selection = window.getSelection();
 						selection.removeAllRanges();
-						
 						window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 						
 						for (const [key, value] of Object.entries(saved_a["replace"])){
-								if (key !== "$_VISUALIZATION")
-								{
+							if (key !== "$_VISUALIZATION"){
 								let element = document.getElementsByName(key)[0];
 								element.value = value  ;
-								}
-								
-								
-
-							
 							}
+						}
 						for (const [key, value] of Object.entries(saved_a["checkbox"])){
 							let checkboxes = value;
-								 
-									
-									
-									
-									try{
-									for (const [key, value]of Object.entries(checkboxes["checked"])) {
+							try{
+								for (const [key, value]of Object.entries(checkboxes["checked"])) {
 									let element = document.getElementById(value);
-								element.checked = true;  
-								if (value != "check_dataplant"){
-								try{document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
-								}catch(e){console.log("error is"+value)}
-								}
+									element.checked = true;  
+									// the check box of dataplant is opposite to others. It will collapse when dataplant is checked. That is why here is an exception.
+									if (value != "check_dataplant"){
+										try{
+											document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
+										
+										}
+										catch(e){
+											console.log("error is"+value)
+										}
+									}else {
+									
+										try{
+											document.getElementById(element.getAttribute("aria-controls")).classList.remove("show");
+									
+										}catch(e){
+											console.log("error is"+value)
+										}
+									
+									}
 								
-									};
-									}catch(e ){
+								};
+							}catch(e ){
 									console.log("checked is null");
 									
 									}
@@ -330,7 +334,15 @@
 								element.checked = false; 
 								if (value == "check_dataplant"){
 								try {document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
-								}catch(e){console.log(e)}	
+								
+								}catch(e){//console.log(e)
+								}	
+								
+								} else {
+									try {
+									document.getElementById(element.getAttribute("aria-controls")).classList.remove("show");
+									}catch(e){//console.log(e)
+										}
 								
 								}
 															
@@ -348,7 +360,7 @@
 								
 
 							
-							}
+						}
 						console.log("answers is reloading");
 						
 
