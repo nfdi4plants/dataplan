@@ -115,7 +115,9 @@
 				frame.innerHTML = content.innerHTML;
 				callback();
 				initialed = true;
-				 }
+				
+				
+			}
 					// template answers
 					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 					if (cached_a !== null){
@@ -157,29 +159,29 @@
 							//
 						}, {
 							id: "interface",
-							content: "<p>Here is the main area for answering questions here</p>"
+							content: "<p>Questions are listed here.</p>"
 						}, {
 							id: "navbar-example2",
-							content: "<p>Five parts of questions in total</p>"
+							content: "<p>There are five sections of questions.</p>"
 						}, {
 							id: "intro-tour-input",
-							content: "<p>Each part has a few questions</p>"
+							content: "<p>Each section has a few questions</p>"
 						}, {
 							id: "form_project",
-							content: "<p>type your project name here, for example type: \"your awesome project\" to the highlighted input box</p>, then click anywhere else or use tab to go to next question, the answers are submitted automatically."
+							content: "<p>Please type your project name here. For example, you can type: \"your awesome project\" to the highlighted input box, then click anywhere else or use tab key to go to next question. The answers will be submitted automatically.</p>"
 						}, {
 							id: "doc",
-							content: "<p>Now the document's content has included your project name</p>"
+							content: "<p>Now the document's content has been updated.</p>"
 						}, {
 							id: "save_button",
-							content: "<p>You can save your answers to json or copy the document</p>"
+							content: "<p>You can save the answers to json or copy the document on the left side.</p>"
 						}, {
 							id: "upload_button",
-							content: "<p> if you saved the json document, you can also upload it any time, to resume your DMP generation process </p>"
+							content: "<p> If you have saved the \"json\" file, you can also upload it any time, to resume your DMP generation process </p>"
 						}, 
 						{
 							id: "change_template",
-							content: '<p> one DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>; </p><p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. To go back to the main document, you can simply click replace.<br> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>' 
+							content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>; </p><br><p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>' 
 						}
 					];
 					
@@ -390,6 +392,14 @@
 						p_bar.innerHTML =  Math.ceil(percentage) + "%";
 						p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
 						
+						if (is_firefox){
+						
+						setTimeout(()=>{document.getElementById("doc3").children[0].scrollIntoView();
+						//console.log("")
+						;},0
+						
+						)
+						}
 						
 						
 						
@@ -720,6 +730,7 @@
 							}
 
 							console.log("check for loop, ends " + match_name);
+							
 						}
 
 						for (let i = 0; i < unchecked.length; i++) {
@@ -890,7 +901,7 @@
 
 							console.log("uncheck for loop, ends " + match_name);
 						}
-
+				
 					}
 
 					/**
@@ -1675,7 +1686,7 @@
 		   
 		   
 		   <div class=" "  id="form_checkbox_3"  onfocusout="this.nextElementSibling.click();" >
-		   <h2 id="scrollspyHeading4">4. are there any standards that are relevant for you?</h2>
+		   <h2 id="scrollspyHeading4">4. Are there any standards that are relevant for you?</h2>
 			
 			
 			<div class="form-data_type  form-check-inline" >
