@@ -97,6 +97,15 @@
 					}
 				}
 			}
+			
+			function enter2tab() {
+				
+				
+				if (window.event && window.event.keyCode == 13) {
+				
+					window.event.keyCode = 9;
+				}
+			}
 			//console.log("is firefox ?"+is_firefox);
 			function load_dmp(callback=reload_answers, name=cached_template) {
 				doc_name = name;
@@ -105,23 +114,6 @@
 				let frame = document.getElementById("doc3");
 				frame.innerHTML = content.innerHTML;
 				callback();
-				
-				if (!initialed){
-						var inputs = document.querySelectorAll("input");
-						for (var i = 0 ; i < inputs.length; i++) {
-						   inputs[i].addEventListener("keypress", function(e){
-								console.log("added event listener");
-							  if (e.which == 13) {
-								e.preventDefault();
-								try{this.dispatchEvent(new KeyboardEvent('keydown', {'key': '9'}));console.log("tab pressed")
-								this.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':'9'} ));}catch(e){console.log("error")}
-								
-								
-							    
-							  }
-						   })
-						}
-				}
 				initialed = true;
 				 }
 					// template answers
@@ -1292,7 +1284,9 @@
 					<input style="width: 26vw;" class="col-auto" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();" 
 					   id="input_project"
 					   name="$_PROJECT"
-					   placeholder="project name" >
+					   placeholder="project name" 
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.nextElementSibling.children[1]);this.parentElement.nextElementSibling.nextElementSibling.children[1].focus();return false;}'
+					   >
 					<input  class="btn btn-primary btn-sm col-auto d-none"" type="button" id="input_project_submit"
 					   value="submit"
 					   onclick="replace(this)" >
@@ -1309,13 +1303,14 @@
 					<span class=" text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj"> <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
 					  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 					  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-					</svg> </label> </span></a> to be studied:</h3>
+					</svg> </span></a> to be studied:</h3> </label>
 
 					
 					<input style="width: 26vw;" class="col-auto" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);"  onfocusout="this.nextElementSibling.click();" 
 					   id="input_studyobject"
 					   name="$_STUDYOBJECT"
-					   placeholder="project name" >
+					   placeholder="project name" 
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.children[1]);this.parentElement.nextElementSibling.children[1].focus();return false;}'>
 					
 					<input class="btn btn-primary btn-sm d-none" type="button"
 						   value="submit" id="input_studyobject_submit"
@@ -1337,7 +1332,8 @@
 					<textarea type="text" style="width: 26vw;" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
-					   placeholder="project aim" rows="3" style="width: 26vw;"></textarea>
+					   placeholder="project aim" rows="3" style="width: 26vw;"
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.children[1]);this.parentElement.nextElementSibling.children[1].focus();return false;}'></textarea>
 					<input class="btn btn-primary btn-sm d-none" type="button"
 					   value="submit"
 					   onclick="replace(this)">
@@ -1356,7 +1352,8 @@
 					   type="text"
 					   id="input_dataofficer"
 					   name="$_dataofficer"
-					   placeholder="data officer name">
+					   placeholder="data officer name"
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0]);this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}'>
 					<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
 						   value="submit"
 						   onclick="replace(this)">
@@ -1472,21 +1469,22 @@
 
 
 					<div class="collapse" id="q_updatemonth">
-					  <br>
+					<br>
 					<form class="" id="form_updatemonth">
 
-							<label for="intput_updatemonth">At which month will your project updated?</label>
-							<input style="width: 26vw;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
-								   id="intput_updatemonth"
-								   name="$_UPDATEMONTH"
-								   placeholder="month of update">
-								  <input class="btn btn-primary btn-sm d-none" type="button"
-									   value="submit" id="intput_updatemonth_submit"
-									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
-									   <input class="btn btn-secondary btn-sm d-none" type="button"
-									   value="undo"
-									   onclick="undo(this);">
-								   </form>
+					    <label for="intput_updatemonth">At which month will your project updated?</label>
+						<input style="width: 26vw;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+						    id="intput_updatemonth"
+						    name="$_UPDATEMONTH"
+						    placeholder="month of update"
+						    onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[1]);this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
+						   <input class="btn btn-primary btn-sm d-none" type="button"
+						    value="submit" id="intput_updatemonth_submit"
+						    onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
+						   <input class="btn btn-secondary btn-sm d-none" type="button"
+						    value="undo"
+						    onclick="undo(this);">
+					</form>
 									
 					</div>
 
@@ -1498,7 +1496,8 @@
 							<input style="width: 26vw;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 								   id="intput_previousprojects"
 								   name="$_PREVIOUSPROJECTS"
-								   placeholder="previous project here">
+								   placeholder="previous project here"
+								   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[1]);this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
 								<input class="btn btn-primary btn-sm d-none" type="button"
 									   value="submit" id="intput_previousprojects_submit"
 									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
@@ -1518,7 +1517,8 @@
 						<input style="width: 26vw;" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 							   id="input_proprietary"
 							   name="$_proprietary"
-							   placeholder=" proprietary software ">
+							   placeholder=" proprietary software "
+							   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[1]);this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
 							<input class="btn btn-primary btn-sm d-none" type="button"
 								   value="submit" id="input_proprietary_submit"
 								   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
@@ -1536,91 +1536,90 @@
 			
 
 		 
-		 <br>
-		 <h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
+		 
+		 
 				
-		 <div class=" "  id="form_checkbox_2"   onfocusout="this.nextElementSibling.click();">
+			<div class=" "  id="form_checkbox_2"   onfocusout="this.nextElementSibling.click();">
+			<h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
+				  <div class="form-data_type form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
+				  <label class="form-check-label" for="check_image">
+					image
+				  </label>
+				</div> 
+				<div class="form-data_type form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="2" id="check_RNAseq" >
+				  <label class="form-check-label" for="check_RNAseq">
+					RNAseq
+				  </label>
+				</div> 
+				<div class="form-data_type form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="3" id="check_genomic" >
+				  <label class="form-check-label" for="check_genomic">
+					other NGS (genomics)
+				  </label>
+				</div>  
+				  
+				<div class="form-data_type  form-check-inline">
+						  <label class="form-check-label" for="check_metabolomic">
+					metabolomics
+				  </label>
+				  <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" >
 
-		  <div class="form-data_type form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
-		  <label class="form-check-label" for="check_image">
-			image
-		  </label>
-		</div> 
-		<div class="form-data_type form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="2" id="check_RNAseq" >
-		  <label class="form-check-label" for="check_RNAseq">
-			RNAseq
-		  </label>
-		</div> 
-		<div class="form-data_type form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="3" id="check_genomic" >
-		  <label class="form-check-label" for="check_genomic">
-			other NGS (genomics)
-		  </label>
-		</div>  
-		  
-		<div class="form-data_type  form-check-inline">
-				  <label class="form-check-label" for="check_metabolomic">
-			metabolomics
-		  </label>
-		  <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" >
-
-		</div> 
+				</div> 
 
 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" >
-		  <label class="form-check-label" for="check_proteomic">
-			proteomics
-		  </label>
-		</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" >
+				  <label class="form-check-label" for="check_proteomic">
+					proteomics
+				  </label>
+				</div> 
 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="6" id="check_targeted" >
-		  <label class="form-check-label" for="check_targeted">
-			targeted assays (e.g. glucose and fructose content)
-		  </label>
-		</div> 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="7" id="check_models" >
-		  <label class="form-check-label" for="check_models">
-			models
-		  </label>
-		</div> 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="8" id="check_code" >
-		  <label class="form-check-label" for="check_code">
-			code
-		  </label>
-		</div> 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="9" id="check_excel" >
-		  <label class="form-check-label" for="check_excel">
-			<a href= "#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research." >excel </a>
-		  </label>
-		</div> 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="10" id="check_cloned-DNA" >
-		  <label class="form-check-label" for="check_cloned-DNA">
-			cloned DNA
-		  </label>
-		</div> 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="11" id="check_phenotypic" >
-		  <label class="form-check-label" for="check_phenotypic">
-			phenotypic
-		  </label>
-		</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="6" id="check_targeted" >
+				  <label class="form-check-label" for="check_targeted">
+					targeted assays (e.g. glucose and fructose content)
+				  </label>
+				</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="7" id="check_models" >
+				  <label class="form-check-label" for="check_models">
+					models
+				  </label>
+				</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="8" id="check_code" >
+				  <label class="form-check-label" for="check_code">
+					code
+				  </label>
+				</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="9" id="check_excel" >
+				  <label class="form-check-label" for="check_excel">
+					<a href= "#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research." >excel </a>
+				  </label>
+				</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="10" id="check_cloned-DNA" >
+				  <label class="form-check-label" for="check_cloned-DNA">
+					cloned DNA
+				  </label>
+				</div> 
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="11" id="check_phenotypic" >
+				  <label class="form-check-label" for="check_phenotypic">
+					phenotypic
+				  </label>
+				</div> 
 
-		<div class="form-data_type  form-check-inline">
-		  <input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" >
-		  <label class="form-check-label" for="check_genetic">
-			genetics
-		  </label>
-		</div> 
-		</div> 
-
+				<div class="form-data_type  form-check-inline">
+				  <input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" >
+				  <label class="form-check-label" for="check_genetic"> genetics
+				  </label>
+				</div> 
+			</div> 
+		
 			
 
 		<input class="btn btn-primary btn-sm d-none" type="button" id="check_box1"
@@ -1642,7 +1641,8 @@
 				<input style="width: 24vw;" type="text" class="col-auto "
 					   id="input_rawdata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 					   name="$_RAWDATA"
-					   placeholder="raw data volume (in GB)"> 
+					   placeholder="raw data volume (in GB)"
+					   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0]);this.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0].focus();return false;}'> 
 					   GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button" id="input_rawdata_submit" 
 						   value="submit"
@@ -1659,7 +1659,8 @@
 				<input style="width: 24vw;" type="text" class="col-auto "
 					   id="input_deriveddata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 					   name="$_DERIVEDDATA"
-					   placeholder="derived data volume (in GB)"> GB
+					   placeholder="derived data volume (in GB)"
+					   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[0]);this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}'> GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button"
 						   value="submit" id="input_deriveddata_submit"
 						   onclick="replace(this)">
@@ -1675,7 +1676,7 @@
 		   
 		   <div class=" "  id="form_checkbox_3"  onfocusout="this.nextElementSibling.click();" >
 		   <h2 id="scrollspyHeading4">4. are there any standards that are relevant for you?</h2>
-			<p></p>
+			
 			
 			<div class="form-data_type  form-check-inline" >
 		  <input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" >
