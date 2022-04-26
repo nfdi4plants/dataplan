@@ -87,7 +87,16 @@
 			}
 			//var scrollSpyContentEl = document.getElementById('scrollspy-element')
 			//var scrollSpy = bootstrap.ScrollSpy.getInstance(scrollSpyContentEl)
-			
+			function nextField(current){
+				for (i = 0; i < current.form.elements.length; i++){
+					if (current.form.elements[i].tabIndex - current.tabIndex == 1){
+						current.form.elements[i].focus();
+						if (current.form.elements[i].type == "text"){
+							current.form.elements[i].select();
+						}
+					}
+				}
+			}
 			//console.log("is firefox ?"+is_firefox);
 			function load_dmp(callback=reload_answers, name=cached_template) {
 				doc_name = name;
@@ -103,13 +112,12 @@
 						   inputs[i].addEventListener("keypress", function(e){
 								console.log("added event listener");
 							  if (e.which == 13) {
-								 e.preventDefault();
-								 console.log("enter is pressed");
-								console.log(document.activeElement.id);
-								const button_id = "#" + document.activeElement.id + "_submit";
-								console.log(button_id);
-								const submit_button = document.querySelector(button_id);
-								submit_button.click();
+								e.preventDefault();
+								try{this.dispatchEvent(new KeyboardEvent('keydown', {'key': '9'}));console.log("tab pressed")
+								this.dispatchEvent(new KeyboardEvent( 'keyup' , {'key':'9'} ));}catch(e){console.log("error")}
+								
+								
+							    
 							  }
 						   })
 						}
@@ -1168,8 +1176,8 @@
 		
 							let reminders = [
 					{
-							title: "please check again the questions and warnings",
-							content: "you have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +"questions not answered. <br> and " + String (warning_element_children.length)+'warning not resolved <br> please click the next button to finish the answering the questions. <br> if you need a <b>unchecked</b> or <b>unfinished</b> DMP <br> you can <a href="#" onclick="copy_doc1()">copy</a> or <a href="#" onclick="printDiv1()">print</a> it anyway'
+							title: "Please check again the questions and warnings.",
+							content: "You have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" question(s) not answered and " + String (warning_element_children.length)+' warning(s) not resolved. <br> Please click the next button to finish answering the questions. <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP <br> you can also <a href="#" onclick="copy_doc1()">copy</a> or <a href="#" onclick="printDiv1()">print</a> it anyway.'
 							
 							
 							//
