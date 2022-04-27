@@ -181,7 +181,7 @@
 						}, 
 						{
 							id: "change_template",
-							content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>; </p><br><p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed. To go back to the main document, you can simply click replace.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>' 
+							content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>; </p><br><p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>' 
 						}
 					];
 					
@@ -470,8 +470,20 @@
 						let warning_no = element.value;
 						let warning = document.getElementById(warning_no);
 						try {warning.remove();} catch (error) {
-						alert("warning issue is already resolved, this warning will be closed");
+						
 						console.error("element not found");
+						}
+
+					}
+					
+					function remove_all_warnings(){
+							
+							const warning_notification= document.getElementsByName("_warning_notification");
+
+							while(warning_notification.length > 0){
+							console.log(warning_notification[0] + " is removed");
+							warning_notification[0].remove();
+							remove_warning( warning_notification[0].childeren[2]);
 						}
 
 					}
@@ -1095,18 +1107,24 @@
 					});
 
 				function copy_doc(){
-				issue_warning();
+				
 				
 				
 				const compared_list = compare_answers(temp_a ,saved_a);
-				const warning_element_children = document.getElementById("warningText").children;
-				console.log("warning_element_children " + warning_element_children);
-				if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]) && warning_element_children[0]== undefined ) {
-							copy_doc1();	 
-				} else {
-				update_reminder(compared_list, warning_element_children)
-
+				let warning_element_children =Array.from(Array(99).keys());
 				
+				if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]) ) {
+					issue_warning();
+					 warning_element_children = document.getElementById("warningText").children;
+						if (warning_element_children[0]== undefined){
+						copy_doc1();
+						}else{
+						update_reminder(compared_list, warning_element_children);
+						}
+								 
+				} else{
+				
+				update_reminder(compared_list, warning_element_children);
 				}
 				
 				
@@ -1136,51 +1154,76 @@
 				}
 				
 				function printDiv(){
-				issue_warning();
-				
-				
-				let compared_list = compare_answers(temp_a ,saved_a);
-				const warning_element_children = document.getElementById("warningText").children;
-				
-				if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]  && warning_element_children[0]== undefined) ) {
-								try {
-					return printDiv1();  // Security exception may be thrown by some browsers.
-					const selection = window.getSelection();
+					const compared_list = compare_answers(temp_a ,saved_a);
+					let warning_element_children =Array.from(Array(99).keys());
 					
-				}
-				catch (error) {
-					console.warn("print failed.", error);
-					return false;
-				} 
-				} else {
-				update_reminder(compared_list, warning_element_children)
-				
-
-				
-				}
-				
-				
-
+					if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1]) ) {
+						issue_warning();
+						 warning_element_children = document.getElementById("warningText").children;
+							if (warning_element_children[0]== undefined){
+								try {
+									return printDiv1();  // Security exception may be thrown by some browsers.
+									const selection = window.getSelection();
+									
+								}
+								catch (error) {
+									console.warn("print failed.", error);
+									return false;
+								}
+							}else{
+							update_reminder(compared_list, warning_element_children);
+							}
+									 
+					} else{
+					
+					update_reminder(compared_list, warning_element_children);
+					}
+					
 				
 				}
 				
 		function printDiv1() {
-            var divContents = document.getElementById("doc3").innerHTML;
-            var a = window.open('', '', 'height=800, width=600');
-            a.document.write('<html>');
-            a.document.write('<body > ');
-            a.document.write(divContents);
-            a.document.write('</body></html>');
-            a.document.close();
-            a.print();
-        }
+			var divContents = document.getElementById("doc3").innerHTML;
+			var a = window.open('', '', 'height=800, width=600');
+			a.document.write('<html>');
+			a.document.write('<body > ');
+			a.document.write(divContents);
+			a.document.write('</body></html>');
+			a.document.close();
+			a.print();
+		}
 
 		function update_reminder(compared_list, warning_element_children) {
-		
+					const question_n = compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3];
+					const issue_n = warning_element_children.length;
+					let question_reminder, issue_reminder;
+					switch (question_n){
+						case 0: question_reminder = "Congrats, all questions are answered.";
+						break;
+						case 1: question_reminder = "Only 1 question is left to be answered. <br> Please click the next button to finish answering the questions.";
+						break;
+						default: 
+						question_reminder = "There are "+ String(question_n) +" questions need to be answered. <br> Please click the next button to finish answering the questions.";
+							
+					
+					}
+					switch (issue_n){
+						case 0: issue_reminder = "Congrats, all warnings are resolved.";
+						break;
+						case 1: issue_reminder = "Only 1 issue left.";
+						break;
+						// 99 means that there are questions not answered.
+						case 99: issue_reminder = " ";
+						break;
+						default: 
+						issue_reminder = "There are "+ String(issue_n) +" issues need to be resolved." +' If you are ware of all the issues, please click here to remove all warnings <button type="button" class="btn btn-secondary"  onclick="remove_all_warnings()" ></button>';
+							
+					
+					}
 							let reminders = [
 					{
-							title: "Please check again the questions and warnings.",
-							content: "You have "+ String (compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3]) +" question(s) not answered and " + String (warning_element_children.length)+' warning(s) not resolved. <br> Please click the next button to finish answering the questions. <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP <br> you can also <a href="#" onclick="copy_doc1()">copy</a> or <a href="#" onclick="printDiv1()">print</a> it anyway.'
+							title: "Question reminders",
+							content:  question_reminder +" <br> " + issue_reminder+ ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a href="#" onclick="copy_doc1()">copy</a> or <a href="#" onclick="printDiv1()">print</a> it anyway.'
 							
 							
 							//
@@ -1232,11 +1275,11 @@
 			
 			<div   class="col-8" id="doc"  style="   overflow-x: hidden;overflow-y: hidden; padding-right: 0px; ">
 				<div  class="col-12" id="doc2" style="height:100vh; overflow-x: hidden;  padding-right: 0px;  ">					
-			<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" style="top:2vh;left:63vw;position:fixed; text-shadow: 2px 2px 4px 16px;border-radius: 2px;"  ><span  class="clip sticky-top float-end"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
-  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-</svg>
+			    <a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" style="top:2vh;left:63vw;position:fixed; text-shadow: 2px 2px 4px 16px;border-radius: 2px;"  ><span  class="clip sticky-top float-end"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+				<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+				<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+				</svg>
 					</span></a>
 					<div id = "doc3" class="row-auto overflow-auto" style="margin-right:0px">
 
