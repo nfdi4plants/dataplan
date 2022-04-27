@@ -482,8 +482,9 @@
 
 							while(warning_notification.length > 0){
 							console.log(warning_notification[0] + " is removed");
+							remove_warning(warning_notification[0].children[2]);
 							warning_notification[0].remove();
-							remove_warning( warning_notification[0].childeren[2]);
+							
 						}
 
 					}
@@ -1203,7 +1204,7 @@
 						case 1: question_reminder = "Only 1 question is left to be answered. <br> Please click the next button to finish answering the questions.";
 						break;
 						default: 
-						question_reminder = "There are "+ String(question_n) +" questions need to be answered. <br> Please click the next button to finish answering the questions.";
+						question_reminder = "There are "+ String(question_n) +" questions need to be answered. <br> Please click the \"next\" button to finish answering the questions.";
 							
 					
 					}
@@ -1216,14 +1217,14 @@
 						case 99: issue_reminder = " ";
 						break;
 						default: 
-						issue_reminder = "There are "+ String(issue_n) +" issues need to be resolved." +' If you are ware of all the issues, please click here to remove all warnings <button type="button" class="btn btn-secondary"  onclick="remove_all_warnings()" ></button>';
+						issue_reminder = "There are "+ String(issue_n) +" issues need to be resolved." +' If you are aware of all the issues and you want to remove all the warnings, please click:  <button type="button" class="badge btn-secondary"  onclick="remove_all_warnings()" > remove all the warnings</button>';
 							
 					
 					}
 							let reminders = [
 					{
 							title: "Question reminders",
-							content:  question_reminder +" <br> " + issue_reminder+ ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a href="#" onclick="copy_doc1()">copy</a> or <a href="#" onclick="printDiv1()">print</a> it anyway.'
+							content:  question_reminder +" <br> " + issue_reminder+ ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> it anyway.'
 							
 							
 							//
