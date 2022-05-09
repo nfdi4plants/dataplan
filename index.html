@@ -2,10 +2,13 @@
 <html lang="en">
 		<head>
 		<meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Generate a data management plan in minutes. Registration-free and FAIR."/>
+		<meta name="keywords" content="FAIR, data, management, plan, DMP, free, open source">
 		
 		<!-- disable cache accross browsers for testing purpose -->
+		
 		<meta http-equiv="Expires" content="0" />
-		<title>Data Management Plan Generator</title>
+		<title>Data Management Plan Generator -- a user-centered FAIR tool</title>
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
@@ -515,16 +518,13 @@
 							while (ns) {
 							// text range is the text between #issuewarning and #endissuewarning without the tag
 								let text_range = window.getSelection().getRangeAt(0).cloneRange();
-							// full range is the text between #issuewarning and #endissuewarning with the tag
+							// full range is the text between #issuewarning and #endissuewarning include the tag
 								let full_range = window.getSelection().getRangeAt(0).cloneRange();
 							// relate range is the text related to the warning.
-
-								//let relate_range = ;
 								text_range.setStart(window.getSelection().focusNode, window.getSelection().focusOffset);
 								window.find("#endissuewarning");
 								let end_range = window.getSelection().getRangeAt(0).cloneRange();
 								text_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
-								
 								full_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
 								text = text_range.toString();
 								console.log("full range text is" + full_range.toString());
