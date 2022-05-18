@@ -19,6 +19,10 @@
 		
 		<!-- loading javascript scripts -->
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
+		<script src="https://d3js.org/d3.v4.min.js" type="text/javascript" charset="utf-8"> </script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js" type="text/javascript" charset="utf-8"> </script>
+		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" data-style-name="dmp1" >
@@ -82,7 +86,66 @@
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
 			var initialed = false;
+			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+			if (cached_a !== null){
+				var saved_a = JSON.parse(cached_a);
+			}else {
+				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+			}
+			var fill = d3.scaleOrdinal(d3.schemeCategory20);
 			
+
+			function draw(words) {
+				d3.select("#demo1")
+					.attr("width", layout.size()[0])
+					.attr("height", layout.size()[1])
+					.append("g")
+					.attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+					.selectAll("text")
+					.data(words)
+					.enter().append("text")
+					
+					.style("font-size", (d) => d.size + "px")
+					.style("font-family",  "Impact")
+					.style("fill", (d, i) => fill(i))
+					.attr("text-anchor", "middle")
+					.attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
+					.text((d) => d.key)
+					;
+			}
+			var layout = d3.layout.cloud()
+										.size([600, 600])
+										
+										.on("end", draw);
+			var stopWords = /^(will|the|eg|also|using|might|my|myself|we|us|our|ours|ourselves|you|your|yours|yourself|yourselves|he|him|his|himself|she|her|hers|herself|it|its|itself|they|them|their|theirs|themselves|what|which|who|whom|whose|this|that|these|those|am|is|are|was|were|be|been|being|have|has|had|having|do|does|did|doing|will|would|should|can|could|ought|i'm|you're|he's|she's|it's|we're|they're|i've|you've|we've|they've|i'd|you'd|he'd|she'd|we'd|they'd|i'll|you'll|he'll|she'll|we'll|they'll|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|doesn't|don't|didn't|won't|wouldn't|shan't|shouldn't|can't|cannot|couldn't|mustn't|let's|that's|who's|what's|here's|there's|when's|where's|why's|how's|a|an|the|and|but|if|or|because|as|until|while|of|at|by|for|with|about|against|between|into|through|during|before|after|above|below|to|from|up|upon|down|in|out|on|off|over|under|again|further|then|once|here|there|when|where|why|how|all|any|both|each|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|say|says|said|shall)$/, punctuation = new RegExp("[" + unicodePunctuationRe + "]", "g"), wordSeparators = /[ \u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\u3031-\u3035\u309b\u309c\u30a0\u30fc\uff70]+/g, discard = /^(@|https?:|\/\/)/, htmlTags = /(<[^>]*?>|<script.*?<\/script>|<style.*?<\/style>|<head.*?><\/head>)/g, matchTwitter = /^https?:\/\/([^\.]*\.)?twitter\.com/;
+			var unicodePunctuationRe = "!-#%-*,-/:;?@\\[-\\]_{}\xa1\xa7\xab\xb6\xb7\xbb\xbf\u037e\u0387\u055a-\u055f\u0589\u058a\u05be\u05c0\u05c3\u05c6\u05f3\u05f4\u0609\u060a\u060c\u060d\u061b\u061e\u061f\u066a-\u066d\u06d4\u0700-\u070d\u07f7-\u07f9\u0830-\u083e\u085e\u0964\u0965\u0970\u0af0\u0df4\u0e4f\u0e5a\u0e5b\u0f04-\u0f12\u0f14\u0f3a-\u0f3d\u0f85\u0fd0-\u0fd4\u0fd9\u0fda\u104a-\u104f\u10fb\u1360-\u1368\u1400\u166d\u166e\u169b\u169c\u16eb-\u16ed\u1735\u1736\u17d4-\u17d6\u17d8-\u17da\u1800-\u180a\u1944\u1945\u1a1e\u1a1f\u1aa0-\u1aa6\u1aa8-\u1aad\u1b5a-\u1b60\u1bfc-\u1bff\u1c3b-\u1c3f\u1c7e\u1c7f\u1cc0-\u1cc7\u1cd3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205e\u207d\u207e\u208d\u208e\u2329\u232a\u2768-\u2775\u27c5\u27c6\u27e6-\u27ef\u2983-\u2998\u29d8-\u29db\u29fc\u29fd\u2cf9-\u2cfc\u2cfe\u2cff\u2d70\u2e00-\u2e2e\u2e30-\u2e3b\u3001-\u3003\u3008-\u3011\u3014-\u301f\u3030\u303d\u30a0\u30fb\ua4fe\ua4ff\ua60d-\ua60f\ua673\ua67e\ua6f2-\ua6f7\ua874-\ua877\ua8ce\ua8cf\ua8f8-\ua8fa\ua92e\ua92f\ua95f\ua9c1-\ua9cd\ua9de\ua9df\uaa5c-\uaa5f\uaade\uaadf\uaaf0\uaaf1\uabeb\ufd3e\ufd3f\ufe10-\ufe19\ufe30-\ufe52\ufe54-\ufe61\ufe63\ufe68\ufe6a\ufe6b\uff01-\uff03\uff05-\uff0a\uff0c-\uff0f\uff1a\uff1b\uff1f\uff20\uff3b-\uff3d\uff3f\uff5b\uff5d\uff5f-\uff65";
+			function parseText(t) {
+				tags = {};
+				var e = {},
+				n = false;
+				t.forEach(function (t) {
+					discard.test(t) || ( stopWords.test(t.toLowerCase()) || (t = t.substr(0, 30), e[t.toLowerCase()] = t, tags[t = t.toLowerCase()] = (tags[t] || 0) + 1))
+				}),
+				tags = d3.entries(tags).sort(function (t, e) {
+					return e.value - t.value
+				}),
+				tags.forEach(function (t) {
+					t.key = e[t.key]
+				});
+				
+							layout = d3.layout.cloud()
+										.size([400, 400])
+										.words(tags.slice(0,300))
+										.padding(3)
+										.rotate(function() { return ~~(Math.random() * 2) * 90; })
+										.font("Impact")
+										.fontSize(function(d) { return Math.sqrt(d.value)*6; })
+										.spiral('archimedean')
+										.on("end", draw);
+										
+							layout.start();
+						
+			}
 			//if (window.localStorage.getItem("fulltext_user")==null){
 			//window.localStorage.setItem("fulltext_user", document.getElementById("dmp1").//innerHTML)
 			//}
@@ -119,14 +182,10 @@
 				initialed = true;
 				
 				
+				
 			}
 					// template answers
-					let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
-					if (cached_a !== null){
-					var saved_a = JSON.parse(cached_a);
-					}else {
-					var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
-					}
+
 					// saved answers
 					
 					// initialization
@@ -403,6 +462,7 @@
 						)
 						}
 						
+						parseText(document.getElementById("doc3").innerText.replace(/(\r\n|\n|\r)/gm, "").replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" "))
 						
 						
 					}
@@ -2090,6 +2150,27 @@
 			  
 			
 			<div id="dmp1" class="d-none">
+			
+			<div class=" container content-page d-flex flex-column">
+			
+			
+			<br>
+			<div class="p-2 " style="margin: auto;">
+			<figure style="max-width: 600 px; margin: 1em auto">
+			<svg id="demo1"  viewBox="0 0 400 400"  width="100%" height="100%"></svg>
+			</figure>
+			</div>
+			<div class="p-2 " style="margin: auto;">
+			<h1 style="" class="c13 row align-middle"  ><span class="c15 ">    </span><span class="c2">Data Management Plan of $_PROJECT</span></h1>
+			
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			</div>
+			</div>
 			<div class="content-page">
 			<h1 class="c13" ><span class="c2">1</span><span class="c15">    </span><span class="c2">Introduction</span></h1><p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data initiative of the EU. #endif$_EU</span></p><p class="c0"><span class="c1">To best profit from open data, it is necessary to not only store data but to make data findable, accessible, interoperable and reusable (FAIR). #if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT</span></p><p class="c0"><span class="c1">The aim of this document is to provide guidelines on principles guiding the data management in $_PROJECT and what data will be stored by using the answers to the EU questionnaire on Data Management Plan (DMP) as a DMP document. </span></p><p class="c0"><span class="c1">The detailed DMP instructs how data is to be handled during and after the project. The $_PROJECT DMP is modelled according to the H2020 Online Manual. #if$_UPDATE It will be updated/its validity checked during the $_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE</span></p><h1 class="c13" id="h.wup0l4f7jl9k"><span class="c2">2</span><span class="c15">    </span><span class="c2 c12">Data Management Plan EU Template</span></h1><p class="c0"><span class="c1">#if$_DATAPLANT Currently data management relies on the annotated research context ARC. It is password protected, so before any data can be obtained or samples generated an authentication needs to take place. #endif$_DATAPLANT</span></p><h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1. Data Summary</span></h2><p class="c0"><span class="c3">What is the purpose of the data collection/generation and its relation to the objectives of the project?</span></p><p class="c0"><span class="c3"></span></p><p class="c0"><span class="c0">For $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT as data is not only used to understand principles, but it is also used for analyzing data and in the end stakeholder involvement, which need to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata using open standards, as it is laid out in the following section. As $_PROJECT aims at $_PROJECTAIM.<p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p><p class="c0"><span class="c1">We foresee that the following data will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts#if$_DATAPLANT and these pipelines will be tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise in the DataPLANT consortium #endif$_DATAPLANT.</span></p><p class="c0"><span class="c3"></span></p><p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p><p class="c0"><span class="c1">The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT but of course also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). In addition, prior “unstructured” data in the form of publications and data contained therein will be used for decision making.</span></p>
 			</div>
