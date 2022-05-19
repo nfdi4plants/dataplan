@@ -15,17 +15,31 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet" >
 		<link href="css/custom.css" rel="stylesheet">
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
-		
+		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
 		
 		<!-- loading javascript scripts -->
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
-		<script src="https://d3js.org/d3.v4.min.js" type="text/javascript" charset="utf-8"> </script>
 		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js" type="text/javascript" charset="utf-8"> </script>
 		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" data-style-name="dmp1" >
+
+			#presets a { border-left: solid #666 1px; padding: 0 10px; }
+			#presets a.first { border-left: none; }
+			#keyword { width: 300px; }
+			#fetcher { width: 500px; }
+			#keyword, #go { font-size: 1.5em; }
+			#text { width: 100%; height: 100px; }
+			p.copy { font-size: small; }
+			#form { font-size: small; position: relative; }
+			hr { border: none; border-bottom: solid #ccc 1px; }
+			a.active { text-decoration: none; color: #000; font-weight: bold; cursor: text; }
+			#angles line, #angles path, #angles circle { stroke: #666; }
+			#angles text { fill: #333; }
+			#angles path.drag { fill: #666; cursor: move; }
+			#angles { text-align: center; margin: 0 auto; width: 350px; }
+			#angles input, #max { width: 42px; }
 		ol{margin:0;padding:0}table td,table th{padding:0}
 		.c1{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:normal}
 		.c3{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal; color:#0088CC;}
@@ -92,60 +106,12 @@
 			}else {
 				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 			}
-			var fill = d3.scaleOrdinal(d3.schemeCategory20);
+			
 			
 
-			function draw(words) {
-				d3.select("#demo1")
-					.attr("width", layout.size()[0])
-					.attr("height", layout.size()[1])
-					.append("g")
-					.attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-					.selectAll("text")
-					.data(words)
-					.enter().append("text")
-					
-					.style("font-size", (d) => d.size + "px")
-					.style("font-family",  "Impact")
-					.style("fill", (d, i) => fill(i))
-					.attr("text-anchor", "middle")
-					.attr("transform", (d) => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
-					.text((d) => d.key)
-					;
-			}
-			var layout = d3.layout.cloud()
-										.size([600, 600])
-										
-										.on("end", draw);
-			var stopWords = /^(will|the|eg|also|using|might|my|myself|we|us|our|ours|ourselves|you|your|yours|yourself|yourselves|he|him|his|himself|she|her|hers|herself|it|its|itself|they|them|their|theirs|themselves|what|which|who|whom|whose|this|that|these|those|am|is|are|was|were|be|been|being|have|has|had|having|do|does|did|doing|will|would|should|can|could|ought|i'm|you're|he's|she's|it's|we're|they're|i've|you've|we've|they've|i'd|you'd|he'd|she'd|we'd|they'd|i'll|you'll|he'll|she'll|we'll|they'll|isn't|aren't|wasn't|weren't|hasn't|haven't|hadn't|doesn't|don't|didn't|won't|wouldn't|shan't|shouldn't|can't|cannot|couldn't|mustn't|let's|that's|who's|what's|here's|there's|when's|where's|why's|how's|a|an|the|and|but|if|or|because|as|until|while|of|at|by|for|with|about|against|between|into|through|during|before|after|above|below|to|from|up|upon|down|in|out|on|off|over|under|again|further|then|once|here|there|when|where|why|how|all|any|both|each|few|more|most|other|some|such|no|nor|not|only|own|same|so|than|too|very|say|says|said|shall)$/, punctuation = new RegExp("[" + unicodePunctuationRe + "]", "g"), wordSeparators = /[ \u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000\u3031-\u3035\u309b\u309c\u30a0\u30fc\uff70]+/g, discard = /^(@|https?:|\/\/)/, htmlTags = /(<[^>]*?>|<script.*?<\/script>|<style.*?<\/style>|<head.*?><\/head>)/g, matchTwitter = /^https?:\/\/([^\.]*\.)?twitter\.com/;
-			var unicodePunctuationRe = "!-#%-*,-/:;?@\\[-\\]_{}\xa1\xa7\xab\xb6\xb7\xbb\xbf\u037e\u0387\u055a-\u055f\u0589\u058a\u05be\u05c0\u05c3\u05c6\u05f3\u05f4\u0609\u060a\u060c\u060d\u061b\u061e\u061f\u066a-\u066d\u06d4\u0700-\u070d\u07f7-\u07f9\u0830-\u083e\u085e\u0964\u0965\u0970\u0af0\u0df4\u0e4f\u0e5a\u0e5b\u0f04-\u0f12\u0f14\u0f3a-\u0f3d\u0f85\u0fd0-\u0fd4\u0fd9\u0fda\u104a-\u104f\u10fb\u1360-\u1368\u1400\u166d\u166e\u169b\u169c\u16eb-\u16ed\u1735\u1736\u17d4-\u17d6\u17d8-\u17da\u1800-\u180a\u1944\u1945\u1a1e\u1a1f\u1aa0-\u1aa6\u1aa8-\u1aad\u1b5a-\u1b60\u1bfc-\u1bff\u1c3b-\u1c3f\u1c7e\u1c7f\u1cc0-\u1cc7\u1cd3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205e\u207d\u207e\u208d\u208e\u2329\u232a\u2768-\u2775\u27c5\u27c6\u27e6-\u27ef\u2983-\u2998\u29d8-\u29db\u29fc\u29fd\u2cf9-\u2cfc\u2cfe\u2cff\u2d70\u2e00-\u2e2e\u2e30-\u2e3b\u3001-\u3003\u3008-\u3011\u3014-\u301f\u3030\u303d\u30a0\u30fb\ua4fe\ua4ff\ua60d-\ua60f\ua673\ua67e\ua6f2-\ua6f7\ua874-\ua877\ua8ce\ua8cf\ua8f8-\ua8fa\ua92e\ua92f\ua95f\ua9c1-\ua9cd\ua9de\ua9df\uaa5c-\uaa5f\uaade\uaadf\uaaf0\uaaf1\uabeb\ufd3e\ufd3f\ufe10-\ufe19\ufe30-\ufe52\ufe54-\ufe61\ufe63\ufe68\ufe6a\ufe6b\uff01-\uff03\uff05-\uff0a\uff0c-\uff0f\uff1a\uff1b\uff1f\uff20\uff3b-\uff3d\uff3f\uff5b\uff5d\uff5f-\uff65";
-			function parseText(t) {
-				tags = {};
-				var e = {},
-				n = false;
-				t.forEach(function (t) {
-					discard.test(t) || ( stopWords.test(t.toLowerCase()) || (t = t.substr(0, 30), e[t.toLowerCase()] = t, tags[t = t.toLowerCase()] = (tags[t] || 0) + 1))
-				}),
-				tags = d3.entries(tags).sort(function (t, e) {
-					return e.value - t.value
-				}),
-				tags.forEach(function (t) {
-					t.key = e[t.key]
-				});
-				
-							layout = d3.layout.cloud()
-										.size([400, 400])
-										.words(tags.slice(0,300))
-										.padding(3)
-										.rotate(function() { return ~~(Math.random() * 2) * 90; })
-										.font("Impact")
-										.fontSize(function(d) { return Math.sqrt(d.value)*6; })
-										.spiral('archimedean')
-										.on("end", draw);
-										
-							layout.start();
-						
-			}
+			
+			
+			
 			//if (window.localStorage.getItem("fulltext_user")==null){
 			//window.localStorage.setItem("fulltext_user", document.getElementById("dmp1").//innerHTML)
 			//}
@@ -347,10 +313,25 @@
 						console.log("json is " + saved_a);
 						
 					}
-
+					
+					// trim the "$_" to avoid infinite loops
+					function trim_saved_a(saved_a) {
+						for (const [key, value] of Object.entries(saved_a["replace"])){
+							saved_a["replace"][key] = value.replace("$_", "")
+						}
+					
+					
+					
+					}
+					
+					
+					// reload all the answers and save the answers to local storage
+				
 					function reload_answers() {
 						const selection = window.getSelection();
 						selection.removeAllRanges();
+						trim_saved_a(saved_a);
+						
 						window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 						
 						for (const [key, value] of Object.entries(saved_a["replace"])){
@@ -460,9 +441,9 @@
 						;},0
 						
 						)
-						}
+						};
 						
-						parseText(document.getElementById("doc3").innerText.replace(/(\r\n|\n|\r)/gm, "").replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").split(" "))
+						parseText(document.getElementById("doc3"));
 						
 						
 					}
@@ -1142,6 +1123,8 @@
 						
 						window.localStorage.setItem("user_info", "visited" );
 						load_dmp(reload_answers, name = cached_template);
+						
+						
 						console.log("current url is: " + window.location.href);
 						const urls = window.location.href.split("?");
 						if (urls.length > 1) {
@@ -1172,6 +1155,7 @@
 							console.log(JSON.stringify(saved_a));
 				
 						}
+						
 					});
 
 				function copy_doc(){
@@ -1340,10 +1324,10 @@
 		<div class="container-fluid" style="overflow-y: hidden;overflow-x: hidden; height:100vh;width:100vw; padding-right: 0px;padding-left: 0px ">
 		
 		
-		<div class="row"  style="height:5vh;" >
-		<div class ="col-7  " style="background:WhiteSmoke;  height:5vh; z-index:99; margin:0 0 0 0px; padding:0 0 0 0;" >
+		<div class="row"  style="height:7vh;" >
+		<div class ="col-7  " style="background:Gainsboro;  height:7vh; z-index:99; margin:0 0 0 0px; padding:0 0 0 0;" >
 		
-				<div class= "justify-content-center row d-flex align-items-center " style="margin:0 0 0 0; padding:0 0 0 0;height:5vh;">
+				<div class= "justify-content-center row d-flex align-items-center " style="margin:0 0 0 0; padding:0 0 0 0;height:7vh;">
 			
 			
 			<div class="btn-group-sm  d-md-none dropdown col-auto d-flex align-items-center" style= "padding-left: 12px; ">
@@ -1499,8 +1483,8 @@
 			   
 			
 			</div>
-		<div class="col-5"  style="margin:0 0 0 0; padding:0 0 0 0px; " >
-		<nav id="navbar-interface" class=" nav-fill navbar navbar-light bg-light " style="margin:0 0 0 0; padding:0 0 0 0px; height:5vh; background-color: WhiteSmoke">
+		<div class="col-5"  style="margin:0 0 0 0; padding:0 0 0 0px; background-color: Gainsboro" >
+		<nav id="navbar-interface" class=" nav-fill navbar navbar-light " style="margin:0 0 0 0; padding:0 0 0 0px; height:7vh;">
 					  
 					  <ul class="nav nav-fill nav-pills col-12" >
 						<li class="nav-item">
@@ -1525,9 +1509,9 @@
 					</div>
 
 			</div>
-		<div class=" row g-3 " style= "margin:0 0 0 0; padding:0 0 0 0;  height:95vh; width:100vw; overflow-x: hidden;overflow-y: hidden;">
+		<div class=" row g-3 " style= "margin:0 0 0 0; padding:0 0 0 0;  height:93vh; width:100vw; overflow-x: hidden;overflow-y: hidden;">
 			
-			<div   class="col-7 " id="doc"  style=" height:95vh;  overflow-x: hidden; margin:0 0 0 0; padding: 0 0 0 0; ">
+			<div   class="col-7 " id="doc"  style=" height:93vh;  overflow-x: hidden; margin:0 0 0 0; padding: 0 0 0 0; ">
 			
 				<div  class="col-12 parallax" id="doc2" style=" overflow-x: hidden; overflow-y: hidden; padding-right: 0px;background-color:WhiteSmoke; ">					
 			    <a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" style="top:2vh;left:63vw;position:fixed; text-shadow: 2px 2px 4px 16px;border-radius: 2px;"  ><span  class="d-none clip sticky-top float-end"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -1544,7 +1528,7 @@
 					</div>
 				</div>
 			</div>
-			<div   class="col-5 "  id="interface"  style="padding-right: 0px;  padding-left: 0px;overflow-x: hidden;overflow-y: hidden;  height:95vh; margin:0 0 0 0; padding:0 0 0 0;">
+			<div   class="col-5 "  id="interface"  style="padding-right: 0px;  padding-left: 0px;overflow-x: hidden;overflow-y: hidden;  height:93vh; margin:0 0 0 0; padding:0 0 0 0;">
 
 					
 				
@@ -1557,7 +1541,7 @@
 				
 			
 			
-		<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="100" class="scrollspy-example" tabindex="0"   style=" height:95vh;margin:0 0 0 0; padding:0px 0px 0px 20px;" 	>
+		<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="100" class="scrollspy-example" tabindex="0"   style=" height:93vh;margin:0 0 0 0; padding:0px 0px 0px 20px;" 	>
 		<div id="intro-tour-input" >
 		
 		<div  id= "warningText">
@@ -2156,8 +2140,8 @@
 			
 			<br>
 			<div class="p-2 " style="margin: auto;">
-			<figure style="max-width: 600 px; margin: 1em auto">
-			<svg id="demo1"  viewBox="0 0 400 400"  width="100%" height="100%"></svg>
+			<figure id="vis" style="max-width: 800 px; margin: 1em auto">
+			
 			</figure>
 			</div>
 			<div class="p-2 " style="margin: auto;">
@@ -2664,6 +2648,9 @@
 			a document template
 			</div>
 			</div>
-
+		
 	  </body>
+	  
+		
+		<script src="js/cloud.min.js" charset="utf-8"> </script>
 </html>
