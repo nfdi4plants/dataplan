@@ -12,17 +12,23 @@
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
-		<link href="css/bootstrap.min.css" rel="stylesheet" >
+
+		
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		
 		<link href="css/custom.css" rel="stylesheet">
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
-		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
+
+
 		
 		<!-- loading javascript scripts -->
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
 		
 		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
+		
+		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"/></script>
 		<style type="text/css" data-style-name="dmp1" >
 
 			#presets a { border-left: solid #666 1px; padding: 0 10px; }
@@ -443,8 +449,10 @@
 						)
 						};
 						
-						parseText(document.getElementById("doc3"));
 						
+						
+						//parseText(document.getElementById("doc3"));
+
 						
 					}
 
@@ -516,7 +524,7 @@
 						
 						console.error("element not found");
 						}
-
+						
 					}
 					
 					function remove_all_warnings(){
@@ -953,8 +961,10 @@
 							}
 
 							console.log("uncheck for loop, ends " + match_name);
+							
+						
 						}
-				
+						
 					}
 
 					/**
@@ -1155,7 +1165,7 @@
 							console.log(JSON.stringify(saved_a));
 				
 						}
-						
+						parseText(document.getElementById("doc3"));
 					});
 
 				function copy_doc(){
@@ -1406,7 +1416,7 @@
 			
 			<div class="btn-group-sm  d-none d-md-block dropdown col-auto">
 			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "upload_button" >
-				(re)load 
+				up(re)load 
 			  </button>
 			  <ul class="dropdown-menu">
 				<li>
@@ -1422,7 +1432,15 @@
 			  
 
 					
-				</li>
+						</li>
+						<li>
+						<button id="word_cloud" class=" dropdown-item" onclick = 'parseText(document.getElementById("doc3"));load_dmp(reload_answers, doc_name) '>word cloud</button>
+						
+
+			  
+
+					
+						</li>
 			  </ul>
 			</div>
 			
@@ -2135,14 +2153,14 @@
 			
 			<div id="dmp1" class="d-none">
 			
-			<div class=" container content-page d-flex flex-column">
+			<div class="content-page">
 			
 			
 			<br>
-			<div class="p-2 " style="margin: auto;">
-			<figure id="vis" style="max-width: 800 px; margin: 1em auto">
+			<div class="p-2" id="vis-parent"  style="margin: auto;">
+			<div id="vis" style="width: 35vw; margin:auto">
 			
-			</figure>
+			</div>
 			</div>
 			<div class="p-2 " style="margin: auto;">
 			<h1 style="" class="c13 row align-middle"  ><span class="c15 ">    </span><span class="c2">Data Management Plan of $_PROJECT</span></h1>
@@ -2153,6 +2171,7 @@
 			<br>
 			<br>
 			<br>
+			
 			</div>
 			</div>
 			<div class="content-page">
@@ -2650,7 +2669,7 @@
 			</div>
 		
 	  </body>
-	  
+	  <script src="js/cloud.min.js" charset="utf-8"> </script>
 		
-		<script src="js/cloud.min.js" charset="utf-8"> </script>
+		
 </html>
