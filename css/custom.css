@@ -99,6 +99,10 @@ padding:0;
     border-color: #B4CE82
 }
 
+.row{
+	bs-gutter-x:0;
+	
+}
 .btn-nav {
     color:  white;
     background-color:  rgb(45, 62, 80);
@@ -200,22 +204,19 @@ padding:0;
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #FEFEFE;
-    background-color: #1FC2A7;
+    background-color: rgba(255,255,255,0.3);
 }
 .nav-pills .nav-link {
-    background: 0 0;
-    border: 0;
-    border-radius: .25rem;
+margin:auto;
 }
 [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
     cursor: pointer;
 }
 .nav-link {
-    display: block;
-    padding: .5rem 1rem;
-    color: #4FB3D9;
+	display:inline;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+	height:7vh;
 }
 
 .scrollspy-example {
