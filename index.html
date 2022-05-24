@@ -113,16 +113,9 @@
 				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 			}
 			
-			
 
-			
-			
-			
-			//if (window.localStorage.getItem("fulltext_user")==null){
-			//window.localStorage.setItem("fulltext_user", document.getElementById("dmp1").//innerHTML)
-			//}
-			//var scrollSpyContentEl = document.getElementById('scrollspy-element')
-			//var scrollSpy = bootstrap.ScrollSpy.getInstance(scrollSpyContentEl)
+				
+
 			function nextField(current){
 				for (i = 0; i < current.form.elements.length; i++){
 					if (current.form.elements[i].tabIndex - current.tabIndex == 1){
@@ -455,7 +448,27 @@
 
 						
 					}
+					
+					
+					function upload_image() {
+							document.getElementById('vis').children[0].remove();
+							
+						    document.getElementById('vis').innerHTML= '<img id="front_page" src="" width="100%" height="100%" viewBox="0 0 600 600 alt="Image preview..." >';
+							let front_page = document.getElementById('front_page');
+						    let image    = document.getElementById('image_upload').files[0];
+						    let reader  = new FileReader();
 
+						    reader.addEventListener("load", function () {
+
+							front_page.src = reader.result;
+						    }, false);
+
+
+						  if (image) {
+							reader.readAsDataURL(image);
+						  }
+						}
+					
 					function get_option(this_element) {
 						undo(this_element.nextElementSibling);
 						const class_name = this_element.dataset.checkbox;
@@ -1165,7 +1178,15 @@
 							console.log(JSON.stringify(saved_a));
 				
 						}
+						
 						parseText(document.getElementById("doc3"));
+						
+						
+						document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
+					
+					
+					
+					
 					});
 
 				function copy_doc(){
@@ -1335,13 +1356,13 @@
 		
 		
 		<div class="row"  style="height:7vh;" >
-		<div class ="col-7  " style="background:Gainsboro;  height:7vh; z-index:99; margin:0 0 0 0px; padding:0 0 0 0;" >
+		<div class ="col-7  " style="background:rgb(45, 62, 80);  height:7vh; z-index:99; margin:0 0 0 0px; padding:0 0 0 0;" >
 		
 				<div class= "justify-content-center row d-flex align-items-center " style="margin:0 0 0 0; padding:0 0 0 0;height:7vh;">
 			
 			
-			<div class="btn-group-sm  d-md-none dropdown col-auto d-flex align-items-center" style= "padding-left: 12px; ">
-			<button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "menu" >
+			<div class="btn-group  d-md-none dropdown col-auto d-flex align-items-center" style= "; ">
+			<button type="button" class="btn rounded-0 border-0 btn-nav dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "menu" >
 				menu
 			  </button>
 				<ul class="dropdown-menu">
@@ -1391,8 +1412,8 @@
 			
 			</div>
 			
-			<div class="btn-group-sm d-none d-md-block dropdown col-auto" style= "padding-left: 12px; ">
-			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "change_template" >
+			<div class="btn-group d-none d-md-block dropdown col-auto" style= "padding-left: 12px; ">
+			  <button type="button" class="btn border-0 rounded-0 btn-nav dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "change_template" >
 				templates
 			  </button>
 			  <ul class="dropdown-menu">
@@ -1414,8 +1435,8 @@
 			  </ul>
 			</div>
 			
-			<div class="btn-group-sm  d-none d-md-block dropdown col-auto">
-			  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "upload_button" >
+			<div class="btn-group  d-none rounded-0 d-md-block dropdown col-auto">
+			  <button type="button" class="btn border-0 btn-nav rounded-0 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id= "upload_button" >
 				up(re)load 
 			  </button>
 			  <ul class="dropdown-menu">
@@ -1434,7 +1455,17 @@
 					
 						</li>
 						<li>
-						<button id="word_cloud" class=" dropdown-item" onclick = 'parseText(document.getElementById("doc3"));load_dmp(reload_answers, doc_name) '>word cloud</button>
+						<button id="word_cloud" class=" dropdown-item" onclick ='parseText(document.getElementById("doc3"));load_dmp(reload_answers, doc_name) '>word cloud</button>
+						
+
+			  
+
+					
+						</li>
+						<li>
+						<label for="image_upload" class="form-label dropdown-item">upload front page image
+						<input class="form-control d-none" type="file" id="image_upload" onchange='upload_image()'>
+						</label>
 						
 
 			  
@@ -1445,8 +1476,8 @@
 			</div>
 			
 			
-			<div class="btn-group-sm d-none d-md-block dropdown col-auto ">
-			  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="save_button">
+			<div class="btn-group d-none d-md-block dropdown col-auto ">
+			  <button type="button" class="btn  border-0 btn-nav rounded-0 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="save_button">
 				save
 			  </button>
 			  <ul class="dropdown-menu">
@@ -1501,24 +1532,24 @@
 			   
 			
 			</div>
-		<div class="col-5"  style="margin:0 0 0 0; padding:0 0 0 0px; background-color: Gainsboro" >
+		<div class="col-5"  style="margin:0 0 0 0; padding:0 0 0 0px; background-color: rgb(45, 62, 80)" >
 		<nav id="navbar-interface" class=" nav-fill navbar navbar-light " style="margin:0 0 0 0; padding:0 0 0 0px; height:7vh;">
 					  
 					  <ul class="nav nav-fill nav-pills col-12" >
 						<li class="nav-item">
-						  <a class="nav-link text-center" style="font-size: calc( 1.3vw);padding:4px 8px 4px 8px" href="#scrollspyHeading1">basic  info</a>
+						  <a class="nav-link text-center" style="font-size: calc( 1.3vw);padding:4px 8px 4px 8px; color:white;" href="#scrollspyHeading1">basic  info</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link text-center" style="font-size: calc(1.3vw); padding:4px 8px 4px 8px;" href="#scrollspyHeading2">data  type</a>
+						  <a class="nav-link text-center" style="font-size: calc(1.3vw); padding:4px 8px 4px 8px;color:white;" href="#scrollspyHeading2">data  type</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link text-center" style="font-size: calc(1.3vw);padding:4px 8px 4px 8px;" href="#scrollspyHeading3">data volume</a>
+						  <a class="nav-link text-center" style="font-size: calc(1.3vw);padding:4px 8px 4px 8px;color:white;" href="#scrollspyHeading3">data volume</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link text-center" style="font-size: calc(1.3vw);padding:4px 8px 4px 8px;" href="#scrollspyHeading4">data  standard</a>
+						  <a class="nav-link text-center" style="font-size: calc(1.3vw);padding:4px 8px 4px 8px;color:white;" href="#scrollspyHeading4">data  standard</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link text-center" style="font-size: calc(1.3vw);padding:4px 8px 4px 8px;" href="#scrollspyHeading5">data analysis</a>
+						  <a class="nav-link text-center" style="font-size: calc(1.3vw);padding:4px 8px 4px 8px;color:white;" href="#scrollspyHeading5">data analysis</a>
 						</li>
 					
 					  </ul>
@@ -2667,7 +2698,9 @@
 			a document template
 			</div>
 			</div>
-		
+			<div id="word_cloud_sample" class="d-none" >
+			<svg width="100%" height="100%" viewBox="0 0 600 600"><g></g><g transform="translate(300,300)"><text text-anchor="middle" transform="translate(140,-132)rotate(-59.99999999999999)" style="font-size: 100px; font-family: Impact; fill: rgb(57, 59, 121);">Data</text><text text-anchor="middle" transform="translate(-7,-73)rotate(59.99999999999999)" style="font-size: 59px; font-family: Impact; fill: rgb(82, 84, 163);">used</text><text text-anchor="middle" transform="translate(-36,126)rotate(59.99999999999999)" style="font-size: 56px; font-family: Impact; fill: rgb(156, 158, 222);">repositories</text><text text-anchor="middle" transform="translate(22,-162)rotate(-29.999999999999993)" style="font-size: 55px; font-family: Impact; fill: rgb(99, 121, 57);">open</text><text text-anchor="middle" transform="translate(-101,-10)rotate(-29.999999999999993)" style="font-size: 55px; font-family: Impact; fill: rgb(140, 162, 82);">metadata</text><text text-anchor="middle" transform="translate(155,-43)rotate(59.99999999999999)" style="font-size: 55px; font-family: Impact; fill: rgb(181, 207, 107);">made</text><text text-anchor="middle" transform="translate(22,114)rotate(59.99999999999999)" style="font-size: 53px; font-family: Impact; fill: rgb(206, 219, 156);">project</text><text text-anchor="middle" transform="translate(-36,-196)rotate(0)" style="font-size: 53px; font-family: Impact; fill: rgb(140, 109, 49);">sets</text><text text-anchor="middle" transform="translate(-97,-109)rotate(59.99999999999999)" style="font-size: 53px; font-family: Impact; fill: rgb(189, 158, 57);">use</text><text text-anchor="middle" transform="translate(86,67)rotate(0)" style="font-size: 52px; font-family: Impact; fill: rgb(231, 186, 82);">case</text><text text-anchor="middle" transform="translate(-157,105)rotate(29.999999999999993)" style="font-size: 52px; font-family: Impact; fill: rgb(231, 203, 148);">possible</text><text text-anchor="middle" transform="translate(164,91)rotate(-59.99999999999999)" style="font-size: 52px; font-family: Impact; fill: rgb(173, 73, 74);">access</text><text text-anchor="middle" transform="translate(107,-16)rotate(29.999999999999993)" style="font-size: 48px; font-family: Impact; fill: rgb(214, 97, 107);">EU</text><text text-anchor="middle" transform="translate(-197,-80)rotate(-59.99999999999999)" style="font-size: 45px; font-family: Impact; fill: rgb(123, 65, 115);">specific</text><text text-anchor="middle" transform="translate(195,-100)rotate(29.999999999999993)" style="font-size: 42px; font-family: Impact; fill: rgb(165, 81, 148);">stored</text><text text-anchor="middle" transform="translate(196,111)rotate(-59.99999999999999)" style="font-size: 42px; font-family: Impact; fill: rgb(206, 109, 189);">need</text><text text-anchor="middle" transform="translate(216,-156)rotate(59.99999999999999)" style="font-size: 42px; font-family: Impact; fill: rgb(222, 158, 214);">reuse</text><text text-anchor="middle" transform="translate(47,74)" style="font-size: 42px; font-family: Impact; fill: rgb(57, 59, 121);"></text><text text-anchor="middle" transform="translate(-217,9)rotate(-29.999999999999993)" style="font-size: 42px; font-family: Impact; fill: rgb(107, 110, 207);">Plant</text><text text-anchor="middle" transform="translate(-113,48)rotate(-59.99999999999999)" style="font-size: 42px; font-family: Impact; fill: rgb(156, 158, 222);">ENA</text><text text-anchor="middle" transform="translate(-193,130)rotate(29.999999999999993)" style="font-size: 39px; font-family: Impact; fill: rgb(140, 162, 82);">DMP</text><text text-anchor="middle" transform="translate(123,30)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(181, 207, 107);">raw</text><text text-anchor="middle" transform="translate(-76,-168)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(189, 158, 57);">line</text><text text-anchor="middle" transform="translate(87,99)rotate(59.99999999999999)" style="font-size: 39px; font-family: Impact; fill: rgb(132, 60, 57);">IP</text><text text-anchor="middle" transform="translate(234,48)rotate(29.999999999999993)" style="font-size: 39px; font-family: Impact; fill: rgb(173, 73, 74);">long</text><text text-anchor="middle" transform="translate(-245,95)rotate(0)" style="font-size: 35px; font-family: Impact; fill: rgb(206, 109, 189);">like</text><text text-anchor="middle" transform="translate(-235,-103)rotate(-59.99999999999999)" style="font-size: 35px; font-family: Impact; fill: rgb(57, 59, 121);">part</text><text text-anchor="middle" transform="translate(-154,-38)rotate(0)" style="font-size: 35px; font-family: Impact; fill: rgb(82, 84, 163);">via</text><text text-anchor="middle" transform="translate(-138,-87)rotate(29.999999999999993)" style="font-size: 45px; font-family: Impact; fill: rgb(156, 158, 222);">Plan</text><text text-anchor="middle" transform="translate(-241,138)rotate(-59.99999999999999)" style="font-size: 30px; font-family: Impact; fill: rgb(181, 207, 107);">free</text><text text-anchor="middle" transform="translate(250,122)rotate(29.999999999999993)" style="font-size: 30px; font-family: Impact; fill: rgb(206, 219, 156);">get</text><text text-anchor="middle" transform="translate(42,-135)rotate(-59.99999999999999)" style="font-size: 30px; font-family: Impact; fill: rgb(231, 186, 82);">etc</text><text text-anchor="middle" transform="translate(-19,-26)" style="font-size: 22px; font-family: Impact; fill: rgb(165, 81, 148);">least</text><text text-anchor="middle" transform="translate(-46,149)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(82, 84, 163);">EBI</text><text text-anchor="middle" transform="translate(-62,-133)rotate(59.99999999999999)" style="font-size: 22px; font-family: Impact; fill: rgb(107, 110, 207);">DNA</text><text text-anchor="middle" transform="translate(70,-163)rotate(-29.999999999999993)" style="font-size: 22px; font-family: Impact; fill: rgb(140, 162, 82);">size</text><text text-anchor="middle" transform="translate(95,126)rotate(-29.999999999999993)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">SRA</text><text text-anchor="middle" transform="translate(-94,59)rotate(-59.99999999999999)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 203, 148);">ie</text><text text-anchor="middle" transform="translate(81,-36)rotate(-59.99999999999999)" style="font-size: 22px; font-family: Impact; fill: rgb(132, 60, 57);">text</text><text text-anchor="middle" transform="translate(33,-218)rotate(-29.999999999999993)" style="font-size: 22px; font-family: Impact; fill: rgb(173, 73, 74);">set</text><text text-anchor="middle" transform="translate(-126,-126)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">2020</text><text text-anchor="middle" transform="translate(-110,-155)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">best</text><text text-anchor="middle" transform="translate(121,-68)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">profit</text><text text-anchor="middle" transform="translate(-162,39)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">reusable</text><text text-anchor="middle" transform="translate(-84,-275)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">FAIRThe</text><text text-anchor="middle" transform="translate(-66,-15)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">aim</text><text text-anchor="middle" transform="translate(191,-85)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">guidelines</text><text text-anchor="middle" transform="translate(-255,-52)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(99, 121, 57);">guiding</text><text text-anchor="middle" transform="translate(35,277)rotate(-29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(140, 162, 82);">answers</text><text text-anchor="middle" transform="translate(262,17)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(181, 207, 107);">instructs</text><text text-anchor="middle" transform="translate(-181,-32)rotate(59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 219, 156);">handled</text><text text-anchor="middle" transform="translate(24,27)rotate(0)" style="font-size: 58px; font-family: Impact; fill: rgb(140, 109, 49);">DMPG</text><text text-anchor="middle" transform="translate(88,-241)" style="font-size: 53px; font-family: Impact; fill: rgb(189, 158, 57);">Management</text><text text-anchor="middle" transform="translate(168,204)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(231, 186, 82);">software</text><text text-anchor="middle" transform="translate(-122,-164)rotate(-59.99999999999999)" style="font-size: 30px; font-family: Impact; fill: rgb(123, 65, 115);">last</text><text text-anchor="middle" transform="translate(156,-278)" style="font-size: 22px; font-family: Impact; fill: rgb(206, 109, 189);">document</text><text text-anchor="middle" transform="translate(-221,205)rotate(-29.999999999999993)" style="font-size: 22px; font-family: Impact; fill: rgb(140, 109, 49);">due</text><text text-anchor="middle" transform="translate(-125,-58)rotate(29.999999999999993)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">DMPG1</text><text text-anchor="middle" transform="translate(-261,-121)rotate(-59.99999999999999)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">questionnaire</text><text text-anchor="middle" transform="translate(-82,200)rotate(29.999999999999993)" style="font-size: 48px; font-family: Impact; fill: rgb(231, 150, 156);">addition</text><text text-anchor="middle" transform="translate(-163,205)rotate(29.999999999999993)" style="font-size: 45px; font-family: Impact; fill: rgb(214, 97, 107);">standards</text><text text-anchor="middle" transform="translate(-203,247)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 186, 82);">useful</text><text text-anchor="middle" transform="translate(222,-214)" style="font-size: 30px; font-family: Impact; fill: rgb(189, 158, 57);">Pride</text><text text-anchor="middle" transform="translate(-167,-71)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(57, 59, 121);">NCBI</text><text text-anchor="middle" transform="translate(88,-215)rotate(-29.999999999999993)" style="font-size: 22px; font-family: Impact; fill: rgb(82, 84, 163);">Bank</text><text text-anchor="middle" transform="translate(-265,49)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(99, 121, 57);">form</text><text text-anchor="middle" transform="translate(-77,94)rotate(59.99999999999999)" style="font-size: 22px; font-family: Impact; fill: rgb(206, 219, 156);">see</text><text text-anchor="middle" transform="translate(-146,-196)rotate(-30)" style="font-size: 52px; font-family: Impact; fill: rgb(132, 60, 57);">available</text><text text-anchor="middle" transform="translate(169,245)rotate(0)" style="font-size: 42px; font-family: Impact; fill: rgb(231, 203, 148);">consortium</text><text text-anchor="middle" transform="translate(-188,-261)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(206, 219, 156);">National</text><text text-anchor="middle" transform="translate(222,-30)rotate(60)" style="font-size: 35px; font-family: Impact; fill: rgb(123, 65, 115);">make</text><text text-anchor="middle" transform="translate(-217,-213)rotate(-30)" style="font-size: 35px; font-family: Impact; fill: rgb(99, 121, 57);">foresee</text><text text-anchor="middle" transform="translate(127,271)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(140, 162, 82);">Genomic</text><text text-anchor="middle" transform="translate(-22,268)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(181, 207, 107);">platform</text><text text-anchor="middle" transform="translate(-116,271)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(206, 219, 156);">files</text><text text-anchor="middle" transform="translate(248,156)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(132, 60, 57);">term</text><text text-anchor="middle" transform="translate(236,271)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(140, 109, 49);">Nagoya</text><text text-anchor="middle" transform="translate(-245,196)rotate(-60)" style="font-size: 22px; font-family: Impact; fill: rgb(173, 73, 74);">store</text><text text-anchor="middle" transform="translate(44,-278)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(214, 97, 107);">findable</text><text text-anchor="middle" transform="translate(250,-164)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(123, 65, 115);">detailed</text><text text-anchor="middle" transform="translate(-194,270)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">informed</text><text text-anchor="middle" transform="translate(249,-257)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 186, 82);">domain</text><text text-anchor="middle" transform="translate(-244,-233)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 203, 148);">type</text><text text-anchor="middle" transform="translate(215,172)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(181, 207, 107);">reasons</text><text text-anchor="middle" transform="translate(188,-161)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">given</text><text text-anchor="middle" transform="translate(266,-52)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 186, 82);">thus</text><text text-anchor="middle" transform="translate(-39,175)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(132, 60, 57);">soon</text></g></svg>
+			</div>
 	  </body>
 	  <script src="js/cloud.min.js" charset="utf-8"> </script>
 		

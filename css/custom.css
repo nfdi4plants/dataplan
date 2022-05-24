@@ -74,6 +74,7 @@ padding:0;
     border-color: #1FC2A7
 }
 
+
 .bg-primary {
     color: #FEFEFE;
     background-color: #1FC2A7;
@@ -96,6 +97,23 @@ padding:0;
     color:  #4FB3D9;
     background-color:  #4FB3D9;
     border-color: #B4CE82
+}
+
+.btn-nav {
+    color:  white;
+    background-color:  rgb(45, 62, 80);
+    border-color: rgb(45, 62, 80);
+	height: 7vh;
+	border-radius: 0 ;
+	
+}
+
+.btn-nav:hover {
+    color:  black;
+    background-color:  rgba(255, 255, 255, 0.6);
+    border-color: rgb(45, 62, 80);
+	height: 7vh;
+	
 }
 
 .btn-tutorial:hover {
