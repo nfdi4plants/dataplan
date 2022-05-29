@@ -106,11 +106,11 @@
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
 			var initialed = false;
-			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim", "$_USERNAME": "Example User", "$_EMAIL":"email" ,"$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 			if (cached_a !== null){
 				var saved_a = JSON.parse(cached_a);
 			}else {
-				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_USERNAME": "Example User", "$_EMAIL":"email" ,"$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
 			}
 			
 
@@ -1455,7 +1455,7 @@
 					
 						</li>
 						<li>
-						<button id="word_cloud" class=" dropdown-item" onclick ='parseText(document.getElementById("doc3"));load_dmp(reload_answers, doc_name) '>word cloud</button>
+						<button id="word_cloud" class=" dropdown-item" onclick ='d3.svg;parseText(document.getElementById("doc3"));load_dmp(reload_answers, doc_name) '>word cloud</button>
 						
 
 			  
@@ -1536,20 +1536,20 @@
 		<nav id="navbar-interface" class=" nav-fill navbar " style="margin:0; padding:0 0 0 0px; height:7vh;">
 					  
 					  <ul class="nav nav-fill nav-pills col-12 " >
-						<li class="nav-item">
-						  <a class="nav-link  border-0 btn-nav rounded-0 " style="font-size: calc( 1.2vw); color:white; " href="#scrollspyHeading1">basic  info</a>
+						<li class="nav-item border-0">
+						  <a class="nav-link border-0 rounded-0 " style="font-size: calc( 1vw); color:white; padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading1">basic  info</a>
 						</li>
 						<li class="nav-item ">
-						  <a class="  nav-link  border-0 btn-nav rounded-0" style="font-size: calc(1.2vw);color:white; " href="#scrollspyHeading2">data  type</a>
+						  <a class="  nav-link  border-0 rounded-0" style="font-size: calc(1vw);color:white;padding-top: 2.6vh;padding-bottom: 2.6vh; " href="#scrollspyHeading2">data  type</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link  border-0 btn-nav rounded-0" style="font-size: calc(1.2vw);color:white; " href="#scrollspyHeading3">data volume</a>
+						  <a class="nav-link  border-0 rounded-0" style="font-size: calc(1vw);color:white; padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading3">data volume</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link  border-0 btn-nav rounded-0" style="font-size: calc(1.2vw);color:white; " href="#scrollspyHeading4">data  standard</a>
+						  <a class="nav-link  border-0 rounded-0" style="font-size: calc(1vw);color:white; padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading4">data  standard</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link  border-0 btn-nav rounded-0" style="font-size: calc(1.2vw);color:white;  " href="#scrollspyHeading5">data analysis</a>
+						  <a class="nav-link  border-0  rounded-0" style="font-size: calc(1vw);color:white; padding-top: 2.6vh;padding-bottom: 2.6vh; " href="#scrollspyHeading5">data analysis</a>
 						</li>
 					
 					  </ul>
@@ -1605,7 +1605,7 @@
 					   id="input_project"
 					   name="$_PROJECT"
 					   placeholder="the project name" 
-					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.nextElementSibling.children[1]);this.parentElement.nextElementSibling.nextElementSibling.children[1].focus();return false;}'
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[1].focus();return false;}'
 					   >
 					<input  class="btn btn-primary btn-sm col-auto d-none"" type="button" id="input_project_submit"
 					   value="submit"
@@ -1630,7 +1630,7 @@
 					   id="input_studyobject"
 					   name="$_STUDYOBJECT"
 					   placeholder="the research object/target" 
-					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.children[1]);this.parentElement.nextElementSibling.children[1].focus();return false;}'>
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}'>
 					
 					<input class="btn btn-primary btn-sm d-none" type="button"
 						   value="submit" id="input_studyobject_submit"
@@ -1653,7 +1653,7 @@
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 26vw;"
-					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.children[1]);this.parentElement.nextElementSibling.children[1].focus();return false;}'></textarea>
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}'></textarea>
 					<input class="btn btn-primary btn-sm d-none" type="button"
 					   value="submit"
 					   onclick="replace(this)">
@@ -1663,25 +1663,55 @@
 		  
 				</form>
 			
+				<form class="" style="margin-left:0px" id="form_contact">
+					<label for="input_username"><h3 >1.3 Contact info of user</h3></label>
+					<h3 >name of the user</h3>
+					<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+						   type="text"
+						   id="input_username"
+						   name="$_USERNAME"
+						   placeholder="type your name here"
+						   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.focus();return false;}'>
+						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
+							   value="submit"
+							   onclick="replace(this)">
+						<input class="btn btn-secondary btn-sm d-none" type="button"
+							   value="undo"
+							   onclick="undo(this);">
+					<h3>Email of the user</h3>
+					<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+						   type="text"
+						   id="input_email"
+						   name="$_EMAIL"
+						   placeholder="user email address"
+						   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}'>
+						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
+							   value="submit"
+							   onclick="replace(this)">
+						<input class="btn btn-secondary btn-sm d-none" type="button"
+							   value="undo"
+							   onclick="undo(this);">
+			  
+				</form>
+
 			
 			
-			
-			<form class="" style="margin-left:0px" id="form_dataofficer">
-				<label for="input_dataofficer"><h3 >1.3 Give the data officer name:</h3></label>
-				<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
-					   type="text"
-					   id="input_dataofficer"
-					   name="$_dataofficer"
-					   placeholder="data officer name"
-					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0]);this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}'>
-					<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
-						   value="submit"
-						   onclick="replace(this)">
-					<input class="btn btn-secondary btn-sm d-none" type="button"
-						   value="undo"
-						   onclick="undo(this);">
-		  
-			</form>
+				<form class="" style="margin-left:0px" id="form_dataofficer">
+					<label for="input_dataofficer"><h3 >1.4 Give the data officer name:</h3></label>
+					<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+						   type="text"
+						   id="input_dataofficer"
+						   name="$_dataofficer"
+						   placeholder="data officer name"
+						   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}'>
+						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
+							   value="submit"
+							   onclick="replace(this)">
+						<input class="btn btn-secondary btn-sm d-none" type="button"
+							   value="undo"
+							   onclick="undo(this);">
+			  
+				</form>
 			
 			 <br>
 			 <h3 >1.4 Chose some additional information</h3>
@@ -1823,7 +1853,7 @@
 						    id="intput_updatemonth"
 						    name="$_UPDATEMONTH"
 						    placeholder="month of update"
-						    onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[1]);this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
+						    onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
 						   <input class="btn btn-primary btn-sm d-none" type="button"
 						    value="submit" id="intput_updatemonth_submit"
 						    onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
@@ -1843,7 +1873,7 @@
 								   id="intput_previousprojects"
 								   name="$_PREVIOUSPROJECTS"
 								   placeholder="previous project here"
-								   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[1]);this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
+								   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
 								<input class="btn btn-primary btn-sm d-none" type="button"
 									   value="submit" id="intput_previousprojects_submit"
 									   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
@@ -1864,7 +1894,7 @@
 							   id="input_proprietary"
 							   name="$_proprietary"
 							   placeholder=" proprietary software "
-							   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[1]);this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
+							   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}'>
 							<input class="btn btn-primary btn-sm d-none" type="button"
 								   value="submit" id="input_proprietary_submit"
 								   onclick="replace(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="submit the checkbox first">
@@ -1988,7 +2018,7 @@
 					   id="input_rawdata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 					   name="$_RAWDATA"
 					   placeholder="raw data volume (in GB)"
-					   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0]);this.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0].focus();return false;}'> 
+					   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0].focus();return false;}'> 
 					   GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button" id="input_rawdata_submit" 
 						   value="submit"
@@ -2006,7 +2036,7 @@
 					   id="input_deriveddata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 					   name="$_DERIVEDDATA"
 					   placeholder="derived data volume (in GB)"
-					   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();console.log(this.parentElement.parentElement.nextElementSibling.children[1].children[0]);this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}'> GB
+					   onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}'> GB
 					<input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button"
 						   value="submit" id="input_deriveddata_submit"
 						   onclick="replace(this)">
@@ -2067,7 +2097,7 @@
 		<div class="collapse" id="q6_2">
 			<div class="form-data_type form-check">
 			<input class="form-check-input  checkbox_3" type="checkbox" id="check_ipissue"  >
-		  <label class="form-check-label" for="ip_issue">Are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account</label>
+		  <label class="form-check-label" for="check_ipissue">Are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account</label>
 			</div>
 		
 		</div> 
@@ -2128,10 +2158,12 @@
 
 			
 		</div>
-			<div class="progress position-absolute bottom-0 "  style= "margin:0 0 0 0; padding:0 0 0 0;">
-				<div name="progress_bar" class="progress-bar progress-bar-striped" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar" style= "margin:0 0 0 0; padding:0 0 0 0;z-index:99">  
+		
+		</div>
+					<div class="progress position-absolute bottom-0"  style= "margin:0 0 0 0; padding:0 0 0 0; width:100vw">
+				<div name="progress_bar" class="progress-bar progress-bar-striped" aria-label="a progress bar to show how many questions have been answered" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id= "p-bar" style= "margin:0 0 0 0; padding:0 0 0 0;z-index:99">  
 				</div>
-			</div>			
+			</div>	
 		</div>
 	
 			<!-- offcanvas for  study objects-->
@@ -2189,11 +2221,11 @@
 			  <div class="modal-dialog">
 				<div class="modal-content">
 				  <div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Cookie consent</h5>
+					<h5 class="modal-title" id="staticBackdropLabel">Not a cookie consent yet</h5>
 					<button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				  </div>
 				  <div class="modal-body">
-					Currently, we don't use any cookie that needs your consent. This banner is only a mock-up. Your data is saved in local storage of the browser and is not shared with anyone.
+					Currently, we don't use any cookie that needs your consent. This banner is only a mock-up. Your data is saved in local storage of the browser and is not shared with anyone. You can save the webpage by control + S and use it offline. 
 				  </div>
 				  <div class="modal-footer">
 					<button type="button" class="btn btn-secondary" onclick="consent()" data-bs-dismiss="modal">Close</button>
@@ -2268,7 +2300,7 @@
 	<span class="c2">Data description</span>
 </h2>
 <h3 >
-	<span class="c3">1.1 Project introduction</span>
+	<span class="c3">1.1 Introduction</span>
 </h3>
 
 	#if$_EU <p class="c0"> <span class="c1"> $_PROJECT is part of the Open Data initiative of the EU. </span> </p>#endif$_EU
@@ -2285,10 +2317,12 @@
 
 <p class="c0">
 	<span class="c3">1.2 How does your project generate new data?</span>
+
 </p>
 <p class="c0">
-	<span class="c1">Public data will be extracted as described in the paragraph 1.3. For $_PROJECT, specific data sets will be generated by the consortium partners.</span>
-</p>#if$_RNASEQ 
+	<span class="c1"> Data with different type or from different domain will be generated differently. For example:</span>
+</p>
+#if$_RNASEQ 
 <p class="c0">
 	<span class="c1"> Short read sequencing will either be collected or outsourced and raw data will be received. </span>
 </p> #endif$_RNASEQ #if$_METABOLOMIC 
@@ -2302,11 +2336,14 @@
 	<span class="c1"> Data from previous projects such as $_PREVIOUSPROJECTS will be considered. </span>
 </p> #endif$_PREVIOUSPROJECTS <p class="c0">
 <p class="c0">
-	<span class="c1">For $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT as data is not only used to understand principles, but it is also used for analyzing data and in the end stakeholder involvement, which need to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata using </span>
+	<span class="c1">In addition to the conventional data generation, for $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT as data is not only used to understand principles, but it is also used for analyzing data and in the end stakeholder involvement, which need to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata using </span>
 	<span class="c5">open standards</span>
 	<span class="c1">as it is laid out in the following section. As $_PROJECT aims at $_PROJECTAIM.</span>
 </p>
 
+<p class="c0">
+	<span class="c1">Public data will be extracted as described in the paragraph 1.3. For $_PROJECT, specific data sets will be generated by the consortium partners.</span>
+</p>
 
 <p class="c0">
 	<span class="c3">1.3 Is existing data reused?</span>
@@ -2320,9 +2357,9 @@
 	<span class="c3">1.4 Which data types (in terms of data formats like image data, text data or measurement data) arise in your project and in what way are they further processed?</span>
 </p>
 <p class="c0">
-	<span class="c1">We foresee that the following data about $_STUDYOBJECT will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, and result data. In addition, derived data from the original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include </span>
+	<span class="c1">We foresee that the following data about $_STUDYOBJECT will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, $_IMAGE, $_PROTEOMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA, $_GENETIC  and result data. In addition, derived data from the original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include </span>
 	<span class="c5">ad-hoc</span>
-	<span class="c1">data analysis parts#if$_DATAPLANT and these pipelines will be tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise in the DataPLANT consortium #endif$_DATAPLANT.</span>
+	<span class="c1">data analysis parts#if$_DATAPLANT and these pipelines will be tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken, to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise in the DataPLANT consortium #endif$_DATAPLANT.</span>
 </p>
 
 
@@ -2349,12 +2386,10 @@
 	<span class="c0">2.1. What approaches are being taken to describe the data in a comprehensible manner (such as the use of available metadata, documentation standards or ontologies)? </span>
 </h3>
 
-<p class="c0">
-	<span class="c1">#if$_DATAPLANT Currently data management relies on the annotated research context ARC. It is password protected, so before any data can be obtained or samples generated an authentication needs to take place. #endif$_DATAPLANT</span>
-</p>
+
 
 <p class="c0">
-	<span class="c1">All data sets will receive unique identifiers and they will be annotated with Metadata.#if$_MIAPPE $_PROJECT will rely on community standards plus additional recommendations necessary in the plant field adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE)#endif$_MIAPPE. These -unlike across domain minimal sets such as Dublin core which mostly defines submitter and what general type of data is being dealt with (e.g. images) - allow reusability by other researchers as it also defines properties of the plant (see preceding section). However, of course minimal cross domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a digital object identifier (DOI). #endif$_DATAPLANT</span>
+	<span class="c1">All data sets will receive unique identifiers and they will be annotated with Metadata.#if$_MIAPPE $_PROJECT will rely on community standards plus additional recommendations necessary in the plant field adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE)#endif$_MIAPPE. These -unlike across domain minimal sets such as Dublin core which mostly defines submitter and what general type of data is being dealt with (e.g. images) - allow reusability by other researchers as it also defines properties of the plant (see preceding section). However, of course minimal cross domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a Digital Object Identifier (DOI). #endif$_DATAPLANT</span>
 </p>
 
 <p class="c0">
@@ -2389,7 +2424,7 @@
 </h3>
 
 <p class="c0">
-	<span class="c1">Data will be checked and curated through the project period. #if$_DATAPLANT In addition data, will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT</span> Phd students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling.  #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.
+	<span class="c1">Data will be checked and curated through the project period. #if$_DATAPLANT In addition data, will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Phd students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling.  #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.</span>
 </p>
 
 
@@ -2397,6 +2432,9 @@
 <h3 class="c0">
 	<span class="c3">2.4 Which digital methods and tools (e.g. software) are required to use the data?</span>
 </h3>
+<p class="c0">
+	<span class="c1"> $_PROJECT will use common DMP tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span>
+</p>
 <p class="c0">
 	<span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY</span>
 </p>
@@ -2414,9 +2452,7 @@
 <p class="c0">
 
 </p>
-<p class="c0">
-	<span class="c1"> $_PROJECT will use common DMP tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span>
-</p>
+
 
 
 
@@ -2444,6 +2480,9 @@
 <h3 class="c0">
 	<span class="c3">3.2 What is in place to secure sensitive data throughout the project duration (access and usage rights)? </span>
 </h3>
+<p class="c0">
+	<span class="c1">#if$_DATAPLANT In DataPLANT, data management relies on the Annotated Research Context (ARC). It is password protected, so before any data can be obtained or samples generated an authentication needs to take place. #endif$_DATAPLANT</span>
+</p>
 <p class="c20">
 	<span class="c1">In case data is only shared within the consortium, if the data is not yet finished or under IP checks, the data is hosted internally and username and password will be required (see also our GDPR rules). In the case data is made public under final EU or US repositories, completely anonymous access is normally allowed this is the case for ENA as well and both are in line with GDPR requirements.</span>
 </p>
@@ -2469,21 +2508,22 @@
 <h3 class="c0">
 	<span class="c3">4.2 Do you anticipate any implications or restrictions regarding subsequent publication or accessibility? </span>
 </h3>
-<p class="c0">
-	<span class="c1">Open licenses will be used whenever possible, such as CC.</span>
+<p class="c20">
+	<span class="c1">Once data is transferred to the $_PROJECT platform #if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage and the use of passwords and usernames are generally transferred via separate safe media.</span>
 </p>
+
 <h3 class="c0">
 	<span class="c3">4.3 What is in place to consider aspects of use and copyright law as well as ownership issues?  </span>
 </h3>
-<p class="c20">
-	<span class="c1">Once data is transferred to the $_PROJECT platform #if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage and the use of passwords and usernames are generally transferred via separate safe media.</span>
+<p class="c0">
+	<span class="c1">Open licenses will be used whenever possible, such as Creative Common (CC).</span>
 </p>
 <h3 class="c0">
 	<span class="c3">4.4 Are there any significant research codes or professional standards to be taken into account? </span>
 </h3>
 
 <p class="c0">
-	<span class="c1">Whenever possible, data will be stored in common and openly defined formats including all necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used, however Microsoft Excel files (According to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium #if$_DATAPLANT and by some ARC components in form #endif$_DATAPLANT. In addition, text files might be edited in text processor files but will be shared as pdf.</span>
+	<span class="c1">Whenever possible, data will be stored in common and openly defined formats including all necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used, however, Microsoft Excel files (According to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium #if$_DATAPLANT and by some ARC components in form #endif$_DATAPLANT. In addition, text files might be edited in text processor files but will be shared as pdf.</span>
 </p>
 
 
@@ -2728,7 +2768,7 @@
 			
 			<div id="proposal" class="d-none">
 			<div id="proposal1" class="content-page">
-			<p class="c0"><span class="c1">Datenmanagementplan</span></p><p class="c0"><span class="c1">Projektname: $_PROJECT</span></p><p class="c0"><span class="c1">Forschungsf&ouml;rderer: Bundesministerium f&uuml;r Bildung und Forschung</span></p><p class="c0"><span class="c1">F&ouml;rderprogramm: </span></p><p class="c0"><span class="c1">FKZ: </span></p><p class="c0"><span class="c1">Prim&auml;rforscher/Wissenschaftler: </span></p><p class="c0"><span class="c1">ID Prim&auml;rforscher/Wissenschaftler: </span></p><p class="c0"><span class="c1">Kontaktperson Datenmanagement: $_DATAOFFICER</span></p><p class="c0"><span class="c1">ID Kontaktperson Datenmanagement: </span></p><p class="c0"><span class="c1">Kontakt: </span></p><p class="c0"><span class="c1">Projektbeschreibung: </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Erstellungsdatum: </span></p><p class="c0"><span class="c1">&Auml;nderungsdatum: </span></p><p class="c0"><span class="c1">Zu beachtende Vorgaben: </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Datenspeicherung</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Die Dateibenennung erfolgt nach folgendem Standard:</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Dateien werden in m&ouml;glichst offenen, standardisierten Formaten gespeichert. </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Datendokumentation</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Folgende Dokumente werden erstellt:</span></p><p class="c3"><span class="c1">Public data will be extracted as described in the previous paragraph. For $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>#if$_RNASEQ <p class="c3"><span class="c1"> Short read sequencing will be outsourced and raw data will be received. </span></p> #endif$_RNASEQ#if$_METABOLOMIC <p class="c3"><span class="c1"> Metabolomic data will be generated using chromatography coupled to mass spectrometry and from enzyme platforms mostly. </span></p> #endif$_METABOLOMIC#if$_PROTEOMIC <p class="c3"><span class="c1"> proteomic data will be generated using an EU platform which are in line with community standards. </span></p> #endif$_PROTEOMIC<p class="c3"><span class="c1">#if$_PREVIOUSPROJECTS data from previous projects such as $_PREVIOUSPROJECTS will be considered. #endif$_PREVIOUSPROJECTS </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Legitimit&auml;t</span></p><p class="c0"><span class="c1">Data Sharing</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Datenerhalt</span></p><p class="c0 c2"><span class="c1"></span></p>
+			<p class="c0"><span class="c1">Datenmanagementplan</span></p><p class="c0"><span class="c1">Projektname: $_PROJECT</span></p><p class="c0"><span class="c1">Forschungsf&ouml;rderer: Bundesministerium f&uuml;r Bildung und Forschung</span></p><p class="c0"><span class="c1">F&ouml;rderprogramm: </span></p><p class="c0"><span class="c1">FKZ: </span></p><p class="c0"><span class="c1">Prim&auml;rforscher/Wissenschaftler: </span></p><p class="c0"><span class="c1">ID Prim&auml;rforscher/Wissenschaftler: $_USERNAME</span></p><p class="c0"><span class="c1">Kontaktperson Datenmanagement: $_DATAOFFICER</span></p><p class="c0"><span class="c1">ID Kontaktperson Datenmanagement: </span></p><p class="c0"><span class="c1">Kontakt: $_EMAIL</span></p><p class="c0"><span class="c1">Projektbeschreibung: </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Erstellungsdatum: </span></p><p class="c0"><span class="c1">&Auml;nderungsdatum: </span></p><p class="c0"><span class="c1">Zu beachtende Vorgaben: </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Datenspeicherung</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Die Dateibenennung erfolgt nach folgendem Standard:</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Dateien werden in m&ouml;glichst offenen, standardisierten Formaten gespeichert. </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Datendokumentation</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Folgende Dokumente werden erstellt:</span></p><p class="c3"><span class="c1">Public data will be extracted as described in the previous paragraph. For $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>#if$_RNASEQ <p class="c3"><span class="c1"> Short read sequencing will be outsourced and raw data will be received. </span></p> #endif$_RNASEQ#if$_METABOLOMIC <p class="c3"><span class="c1"> Metabolomic data will be generated using chromatography coupled to mass spectrometry and from enzyme platforms mostly. </span></p> #endif$_METABOLOMIC#if$_PROTEOMIC <p class="c3"><span class="c1"> proteomic data will be generated using an EU platform which are in line with community standards. </span></p> #endif$_PROTEOMIC<p class="c3"><span class="c1">#if$_PREVIOUSPROJECTS data from previous projects such as $_PREVIOUSPROJECTS will be considered. #endif$_PREVIOUSPROJECTS </span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Legitimit&auml;t</span></p><p class="c0"><span class="c1">Data Sharing</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">Datenerhalt</span></p><p class="c0 c2"><span class="c1"></span></p>
 			</div></div>
 			
 			<div id="user-defined" class="d-none">

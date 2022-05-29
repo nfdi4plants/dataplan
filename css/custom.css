@@ -38,7 +38,9 @@
 	left: 2vw;
 	display: block;
 	box-shadow: 15px 25px #E8E8E8;
-	
+	border-width: 2px;
+	border-color: #F0F0F0;
+	border-style: solid;
 	
 }
 
@@ -219,11 +221,18 @@ margin:auto;
 	height:7vh;
 }
 
+.nav-item {
+	display:inline;
+    text-decoration: none;
+	flex:none;
+	flex-warp:no-warp;
+}
+
 .scrollspy-example {
     position: relative;
     height: calc(100vh - 180px);
     overflow-x: hidden;
-
+	
 }
 
 .form-data_type {
