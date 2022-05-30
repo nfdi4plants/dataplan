@@ -185,7 +185,7 @@
 							//
 						}, {
 							id: "interface",
-							content: "<p>Questions are listed here.</p>"
+							content: "<p>Questions are listed on the right hand side of the window.</p>"
 						}, {
 							id: "navbar-interface",
 							content: "<p>There are five sections of questions.</p>"
@@ -1314,7 +1314,7 @@
 					];
 					//console.log(compared_list[4].entries());
 					for (const [index, element] of compared_list[4].entries()){
-						const ele_id = "form_" + element.split("_")[1];
+						const ele_id = "input_" + element.split("_")[1];
 						
 						//const ele = document.getElementById(ele_id);
 						console.log("element id is " + ele_id); // ,
@@ -1455,7 +1455,7 @@
 					
 						</li>
 						<li>
-						<button id="word_cloud" class=" dropdown-item" onclick ='d3.svg;parseText(document.getElementById("doc3"));load_dmp(reload_answers, doc_name) '>word cloud</button>
+						<button id="word_cloud" class=" dropdown-item" onclick ='load_dmp(reload_answers, doc_name);parseText(document.getElementById("doc3")); '>word cloud</button>
 						
 
 			  
@@ -1537,19 +1537,19 @@
 					  
 					  <ul class="nav nav-fill nav-pills col-12 " >
 						<li class="nav-item border-0">
-						  <a class="nav-link border-0 rounded-0 " style="font-size: calc( 1vw); color:white; padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading1">basic  info</a>
+						  <a class="nav-link border-0 rounded-0 " style="font-size: calc( 1vw); padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading1">basic  info</a>
 						</li>
 						<li class="nav-item ">
-						  <a class="  nav-link  border-0 rounded-0" style="font-size: calc(1vw);color:white;padding-top: 2.6vh;padding-bottom: 2.6vh; " href="#scrollspyHeading2">data  type</a>
+						  <a class="  nav-link  border-0 rounded-0" style="font-size: calc(1vw);padding-top: 2.6vh;padding-bottom: 2.6vh; " href="#scrollspyHeading2">data  type</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link  border-0 rounded-0" style="font-size: calc(1vw);color:white; padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading3">data volume</a>
+						  <a class="nav-link  border-0 rounded-0" style="font-size: calc(1vw); padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading3">data volume</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link  border-0 rounded-0" style="font-size: calc(1vw);color:white; padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading4">data  standard</a>
+						  <a class="nav-link  border-0 rounded-0" style="font-size: calc(1vw); padding-top: 2.6vh;padding-bottom: 2.6vh;" href="#scrollspyHeading4">data  standard</a>
 						</li>
 						<li class="nav-item">
-						  <a class="nav-link  border-0  rounded-0" style="font-size: calc(1vw);color:white; padding-top: 2.6vh;padding-bottom: 2.6vh; " href="#scrollspyHeading5">data analysis</a>
+						  <a class="nav-link  border-0  rounded-0" style="font-size: calc(1vw); padding-top: 2.6vh;padding-bottom: 2.6vh; " href="#scrollspyHeading5">data analysis</a>
 						</li>
 					
 					  </ul>
@@ -1666,7 +1666,7 @@
 				<form class="" style="margin-left:0px" id="form_contact">
 					<label for="input_username"><h3 >1.3 Contact info of user</h3></label>
 					<h3 >name of the user</h3>
-					<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+					<input style="width: 26vw;" class="" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 						   type="text"
 						   id="input_username"
 						   name="$_USERNAME"
@@ -1679,7 +1679,7 @@
 							   value="undo"
 							   onclick="undo(this);">
 					<h3>Email of the user</h3>
-					<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+					<input style="width: 26vw;" class="" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 						   type="text"
 						   id="input_email"
 						   name="$_EMAIL"
@@ -1698,7 +1698,7 @@
 			
 				<form class="" style="margin-left:0px" id="form_dataofficer">
 					<label for="input_dataofficer"><h3 >1.4 Give the data officer name:</h3></label>
-					<input style="width: 26vw;" class="col-auto" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
+					<input style="width: 26vw;" class="" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 						   type="text"
 						   id="input_dataofficer"
 						   name="$_dataofficer"
@@ -2289,10 +2289,15 @@
 			<div id="dfg-dmp" class="d-none">
 			<div id="dfg-dmp1" class="content-page">
 			
+<br>
+			<div class="p-2" id="vis-parent"  style="margin: auto;">
+			<div id="vis" style="width: 35vw; margin:auto">
+			
+			</div>
+			</div>
 
-<h1 class="c2">DFG dmp (answers reorganized)</h1>
-<h2 
-    >
+<h1 class="c2">Data Management Plan required by DFG</h1>
+<h2>
 	
 	<span class="c2" >1</span>
 	<span class="c2">.     </span>
