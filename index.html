@@ -106,11 +106,40 @@
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
 			var initialed = false;
-			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim", "$_USERNAME": "Example User", "$_EMAIL":"email" ,"$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+			let temp_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim", "$_USERNAME": "Example User", "$_EMAIL":"email" ,"$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_protect","check_dataplant","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]},"checkbox_5": {
+			"checked": [
+				"check_GEO",
+				"check_GenBank",
+				"check_Proteomexchange",
+				"check_Zenodo",
+				"check_dataDyrad"
+			],
+			"unchecked": [
+				"check_ENA",
+				"check_NCBI",
+				"check_Pride"
+			]
+		}
+			
+			
+			}};
 			if (cached_a !== null){
 				var saved_a = JSON.parse(cached_a);
 			}else {
-				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_USERNAME": "Example User", "$_EMAIL":"email" ,"$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]} }};
+				var saved_a = {"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Objective","$_PROJECTAIM":"Example Aim","$_USERNAME": "Example User", "$_EMAIL":"email" ,"$_dataofficer":"Example data officer name","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_VISUALIZATION":"visualization or not"},"checkbox":{"checkbox_1":{"checked":[],"unchecked":["check_dataplant","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":[]},"checkbox_3":{"checked":["check_MIAPPE", "check_MinSeqE", "check_dublin_core","check_marc_21", "check_early", "check_ipissue"  ],"unchecked":[]},"checkbox_5": {
+			"checked": [
+				"check_GEO",
+				"check_GenBank",
+				"check_Proteomexchange",
+				"check_Zenodo",
+				"check_dataDyrad"
+			],
+			"unchecked": [
+				"check_ENA",
+				"check_NCBI",
+				"check_Pride"
+			]
+		} }};
 			}
 			
 
@@ -1275,7 +1304,7 @@
 			a.document.close();
 			a.print();
 		}
-
+		var reminders
 		function update_reminder(compared_list, warning_element_children) {
 					const question_n = compared_list[1]+compared_list[0]-compared_list[2]-compared_list[3];
 					const issue_n = warning_element_children.length;
@@ -1286,7 +1315,7 @@
 						case 1: question_reminder = "Only 1 question is left to be answered. <br> Please click the next button to finish answering the questions.";
 						break;
 						default: 
-						question_reminder = "There are "+ String(question_n) +" questions need to be answered. <br> Please click the \"next\" button to finish answering the questions.";
+						question_reminder = "There are "+ String(question_n) +" questions not answered. <br> Please click the \"next\" button to finish answering the questions.";
 							
 					
 					}
@@ -1299,11 +1328,11 @@
 						case 99: issue_reminder = " ";
 						break;
 						default: 
-						issue_reminder = "There are "+ String(issue_n) +" issues need to be resolved." +' If you are aware of all the issues and you want to remove all the warnings, please click:  <button type="button" class="badge btn-secondary"  onclick="remove_all_warnings()" > remove all the warnings</button>';
+						issue_reminder = "There are "+ String(issue_n) +" issues not resolved." +' If you are aware of all the issues and you want to remove all the warnings, please click:  <button type="button" class="badge btn-secondary"  onclick="remove_all_warnings()" > remove all the warnings</button>';
 							
 					
 					}
-							let reminders = [
+							reminders = [
 					{
 							title: "Question reminders",
 							content:  question_reminder +" <br> " + issue_reminder+ ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> it anyway.'
@@ -1314,7 +1343,7 @@
 					];
 					//console.log(compared_list[4].entries());
 					for (const [index, element] of compared_list[4].entries()){
-						const ele_id = "input_" + element.split("_")[1];
+						const ele_id = "form_" + element.split("_")[1];
 						
 						//const ele = document.getElementById(ele_id);
 						console.log("element id is " + ele_id); // ,
@@ -1345,8 +1374,9 @@
 					
 					let reminder = new Tour(reminders);
 				
-				
+					
 					reminder.show();
+					return reminders;
 		
 		}
 		</script>			
@@ -1597,9 +1627,10 @@
 		</div>
 	
 		<h2 id="scrollspyHeading1">1 Basic Information:</h2>
-				<h3 >1.1 Give the project name or acronym to be used:</h3>
+				
 			 
 					<form class=""  style="margin-left:0px" id="form_project">
+					<h3 >1.1 Give the project name or acronym to be used:</h3>
 					<label for="input_project"></label>
 					<input style="width: 26vw;" class="col-auto" type="text" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();" 
 					   id="input_project"
@@ -1653,7 +1684,7 @@
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 26vw;"
-					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[0].focus();return false;}'></textarea>
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}'></textarea>
 					<input class="btn btn-primary btn-sm d-none" type="button"
 					   value="submit"
 					   onclick="replace(this)">
@@ -1663,7 +1694,7 @@
 		  
 				</form>
 			
-				<form class="" style="margin-left:0px" id="form_contact">
+				<form class="" style="margin-left:0px" id="form_username">
 					<label for="input_username"><h3 >1.3 Your contact information</h3></label>
 					<h3 >name </h3>
 					<input style="width: 26vw;" class="" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
@@ -1671,13 +1702,15 @@
 						   id="input_username"
 						   name="$_USERNAME"
 						   placeholder="type your name here"
-						   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.focus();return false;}'>
-						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
+						   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}'>
+						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_username_submit"
 							   value="submit"
 							   onclick="replace(this)">
 						<input class="btn btn-secondary btn-sm d-none" type="button"
 							   value="undo"
 							   onclick="undo(this);">
+				</form>
+				<form class="" style="margin-left:0px" id="form_email">
 					<h3>Email of the user</h3>
 					<input style="width: 26vw;" class="" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 						   type="text"
@@ -1685,7 +1718,7 @@
 						   name="$_EMAIL"
 						   placeholder="user email address"
 						   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}'>
-						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit"
+						<input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_email_submit"
 							   value="submit"
 							   onclick="replace(this)">
 						<input class="btn btn-secondary btn-sm d-none" type="button"
@@ -1714,14 +1747,15 @@
 				</form>
 			
 			 <br>
-			 <h3 >1.4 Chose some additional information</h3>
+			
 				<div class="form-data_type form-check  " id = "form_checkbox_1"  onfocusout="this.nextElementSibling.click();">
+				 <h3 >1.4 Chose some additional information</h3>
 				  <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" >
 				  <label class="form-check-label" for="check_protect">
 					The data is protected.
 				  </label>
 				  <br>
-					<input class="form-check-input checkbox_1" type="checkbox" value="2" id="check_dataplant"  data-bs-toggle="collapse" data-bs-target="#no_dataplant" aria-expanded="false" aria-controls="no_dataplant" role="button" checked>
+					<input class="form-check-input checkbox_1" type="checkbox" value="2" id="check_dataplant"  data-bs-toggle="collapse" data-bs-target="#form_checkbox_5" aria-expanded="false" aria-controls="form_checkbox_5" role="button" checked>
 					
 				  <label class="form-check-label" for="check_dataplant">
 					Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
@@ -1781,7 +1815,7 @@
 		
 
 
-		  <div class="collapse" id="no_dataplant"  onfocusout="this.nextElementSibling.click();">
+		  <div class="collapse" id="form_checkbox_5"  onfocusout="this.nextElementSibling.click();">
 
 			<p>
 			Where will you submit your data as endpoints? </p>
@@ -1915,7 +1949,7 @@
 		 
 		 
 				
-			<div class=" "  id="form_checkbox_2"   onfocusout="this.nextElementSibling.click();">
+			<div class  id="form_checkbox_2"   onfocusout="this.nextElementSibling.click();">
 			<h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
 				  <div class="form-data_type form-check">
 				  <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" >
@@ -2010,9 +2044,9 @@
 		  
 		 <h2 id="scrollspyHeading3">3. How much data you will probably generate:</h2>
 		
-		  <label for="input_rawdata"><h3 >3.1 Raw data volume is :</h3> </label>
+		  
 			<form class=""  style="margin-left:0px" id="form_rawdata">
-				
+				<label for="input_rawdata"><h3 >3.1 Raw data volume is :</h3> </label>
 				<div class= "align-bottom">
 				<input style="width: 24vw;" type="text" class="col-auto "
 					   id="input_rawdata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
@@ -2028,9 +2062,9 @@
 						   onclick="undo(this);">
 				</div>
 			</form>
-			<label for="input_deriveddata"><h3 >3.2 Derived data volume is :</h3> </label>
+			
 			<form class=""  style="margin-left:0px" id="form_deriveddata">
-				
+				<label for="input_deriveddata"><h3 >3.2 Derived data volume is :</h3> </label>
 				<div class= "align-bottom">
 				<input style="width: 24vw;" type="text" class="col-auto "
 					   id="input_deriveddata" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
@@ -2111,19 +2145,19 @@
 		   
 		   
 			
-			  <h2 id="scrollspyHeading5">5. Do you need visualization in the project?</h2>
+			  
 			 
 			 <form class="col-12"  style="margin-left:0px" id="form_visualization">
-
+			<h2 id="scrollspyHeading5">5. Do you need visualization in the project?</h2>
 				<input  type="text" 
-					   id="input_visiualization"
+					   id="input_visiualization1"
 					   name="$_VISUALIZATION"
 					   placeholder=" " class="d-none" value= "and visualization" >
 					<input class="btn btn-primary btn-sm" type="button"
 						   value="yes" class="col-auto"
 						   onclick="replace(this)">
 				<input type="text" 
-					   id="submit_VISUALIZATION"
+					   id="input_visiualization2"
 					   name="$_VISUALIZATION"
 					   placeholder=" " class="d-none" value= " " >	
 
