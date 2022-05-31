@@ -1653,7 +1653,7 @@
 					   id="input_projectaim"
 					   name="$_PROJECTAIM"
 					   placeholder="project aim" rows="3" style="width: 26vw;"
-					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}'></textarea>
+					   onkeydown=' if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[0].focus();return false;}'></textarea>
 					<input class="btn btn-primary btn-sm d-none" type="button"
 					   value="submit"
 					   onclick="replace(this)">
@@ -1664,8 +1664,8 @@
 				</form>
 			
 				<form class="" style="margin-left:0px" id="form_contact">
-					<label for="input_username"><h3 >1.3 Contact info of user</h3></label>
-					<h3 >name of the user</h3>
+					<label for="input_username"><h3 >1.3 Your contact information</h3></label>
+					<h3 >name </h3>
 					<input style="width: 26vw;" class="" onfocusin="const oldele = this;setTimeout(() => {oldele.select();}, 0);" onfocusout="this.nextElementSibling.click();"
 						   type="text"
 						   id="input_username"
@@ -2194,19 +2194,21 @@
 			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
 			  <div class="offcanvas-header">
 				<h1 class="offcanvas-title" id="offcanvasScrolling3" style="padding-bottom:0px;">User-defined template</h1>
-				<button  class="btn btn-primary position-static bottom-0 start-50" data-bs-dismiss="offcanvas" aria-label="Close" onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(() => {
-					 load_dmp(reload_answers,name = doc_name);
-					}, 1000) ;'>submit  </button>
+				
 				<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			  </div>
 			  
 			  <div class="offcanvas-body" style="padding-top:0px;">
-			  <h2 style="padding-top:0px;">You can click the following text to edit or load our prepared template as a starting point
+			  <h2 style="padding-top:0px;">You can click the following dotted box to edit. 
+			  <br> All prepared templates can be reused, click the following buttons to try them <br> When you finished the editing, use submit to see the results.
+			  <br>
 			  <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '> H2020 DMP </button>
 			  <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dfg-dmp").innerHTML; '> DFG DMP </button>
 			  <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("practical-guide").innerHTML; '> Practical Guide </button>
-			  <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("proposal").innerHTML; '> Proposal </button></h2>
-			  
+			  <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("proposal").innerHTML; '> Proposal </button>
+			  <button  class="btn btn-primary position-static bottom-0 start-50" data-bs-dismiss="offcanvas" aria-label="Close" onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(() => {
+					 load_dmp(reload_answers,name = doc_name);
+					}, 1000) ;'>submit  </button></h2>
 					<div id="template-input-content" contenteditable="true" style="border: 3px dotted black;">
 					
 					</div>
