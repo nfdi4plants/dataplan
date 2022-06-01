@@ -1195,12 +1195,12 @@
 
 						}
 						
-						const uploadJson = document.getElementById("upload");
-						uploadJson.addEventListener("change", reloadJson, false);
+						const upload_json = document.getElementById("upload");
+						upload_json.addEventListener("change", reloadJson, false);
 
 						function reloadJson() {
 
-							uploadJson.files[0].text().then(text => (saved_a = JSON.parse(text))
+							upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))
 							
 							
 							).then( saved_a => ( load_dmp(reload_answers, name = cached_template) ) );
@@ -1209,7 +1209,7 @@
 				
 						}
 						
-						parseText(document.getElementById("doc3"));
+						//
 						
 						
 						document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
@@ -1486,7 +1486,10 @@
 					
 						</li>
 						<li>
-						<button id="word_cloud" class=" dropdown-item" onclick ='load_dmp(reload_answers, doc_name);parseText(document.getElementById("doc3")); '>word cloud</button>
+						<button id="word_cloud" class=" dropdown-item" onclick = ' parseText(document.getElementById("doc3")); setTimeout(()=>{
+						load_dmp(reload_answers, doc_name);
+						
+						}, "300" ) ;'>word cloud</button>
 						
 
 			  
