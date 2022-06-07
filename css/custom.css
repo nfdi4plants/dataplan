@@ -109,7 +109,7 @@ padding:0;
     color:  white;
     background-color:  rgb(45, 62, 80);
     border-color: rgb(45, 62, 80);
-	height: 7vh;
+	height: 3.25rem;
 	border-radius: 0 ;
 	
 }
@@ -118,7 +118,7 @@ padding:0;
     color:  black;
     background-color:  rgba(255, 255, 255, 0.6);
     border-color: rgb(45, 62, 80);
-	height: 7vh;
+	height: 3.25rem;
 	
 }
 
@@ -218,7 +218,7 @@ margin:auto;
 	display:inline;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-	height:7vh;
+	height:3.25rem;
 }
 
 .nav-item {
