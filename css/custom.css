@@ -203,6 +203,12 @@ padding:0;
     box-shadow: 0 0 0 .2rem rgba(119, 204, 204, 0.5)
 }
 
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{ display: block;  }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #FEFEFE;
