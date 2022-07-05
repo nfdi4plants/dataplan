@@ -1403,23 +1403,29 @@
 			function add_date_div(){
 			
 			const parent=document.querySelector("#dmp-update-content");
-			const length=parent.childElementCount; 
+			const length=datepicker_list.length; 
 			let reminder_row = document.createElement("div");
-			const id = (length+2)/2;
+			const id = length+1;
 			const reminder_id = "reminder"+id;
 			reminder_row.setAttribute("id",reminder_id );
 			reminder_row.innerText=reminder_id;
 			
 			const date_label = document.createElement("label");
-			date_label.setAttribute("for", "" );
+			date_label.setAttribute("for", "update_date_input" );
 			date_label.setAttribute("class", "form-label"  );
 			date_label.innerText="Type or select the date for";
 			const date_input = document.createElement("input");
-			
-			
+			date_label.setAttribute("id", "update_date_input");
+			reminder_row.appendChild(date_label);
+			reminder_row.appendChild(date_input);
 			
 			parent.appendChild(reminder_row);
-			var asd = datepicker(reminder_row, { id: id })
+			var asd = datepicker(date_input,  {
+				  formatter: (input, date, instance) => {
+					const value = date.toLocaleDateString()
+					input.value = value // => '1/1/2099'
+				  }
+				} )
 			datepicker_list.push(asd)
 			}
 			
