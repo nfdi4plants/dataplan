@@ -2,7 +2,7 @@
 <html lang="en">
 		<head>
 		<meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Generate a data management plan in minutes. Registration-free and FAIR."/>
+		<meta name="description" content="Generate a data management plan in minutes. Registration-free and FAIR. Try our DataPLAN now and enjoy it.">
 		<meta name="keywords" content="FAIR, data, management, plan, DMP, free, open source">
 		
 		<!-- disable cache accross browsers for testing purpose -->
@@ -15,7 +15,7 @@
 
 		
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		
+		<link href="css/datepicker.min.css" rel="stylesheet" >
 		<link href="css/custom.css" rel="stylesheet">
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
 
@@ -27,7 +27,7 @@
 		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
-		
+		<script src="js/datepicker.min.js"></script>
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"/></script>
 		<style type="text/css" data-style-name="dmp1" >
 
@@ -101,12 +101,43 @@
 			<script>
 			// check if the browser is firefox. For firefox, an argument in window.find() function is different
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-			var doc_name = 'dmp1';
+			var doc_name = 'dmp1'; // default document to use at the first page load
 			var user_info = window.localStorage.getItem("user_info");
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
+			var datepicker_list=[];
 			var initialed = false;
 			let temp_a = {
+				"dmp": {
+			                "title": "Minimal DMP",
+			                "contact": {
+			                    "contact_id": {
+			                        "identifier": "http://orcid.org/0000-0000-0000-0000",
+			                        "type": "orcid"
+			                    },
+			                    "mbox": "cc@example.com",
+			                    "name": "Charlie Chaplin"
+			                },
+			                "created": "2018-07-23T10:10:23.6",
+			                "dmp_id": {
+			                    "identifier": "https://doi.org/10.0000/00.0.1234",
+			                    "type": "doi"
+			                },
+			                "dataset": [{
+			                        "dataset_id": {
+			                            "identifier": "https://doi.org/10.0000/00.0.5678",
+			                            "type": "doi"
+			                        },
+			                        "title": "Placeholder dataset",
+			                        "personal_data": "unknown",
+			                        "sensitive_data": "unknown"
+			                    }
+			                ],
+			                "ethical_issues_exist": "unknown",
+			                "language": "eng",
+			                "modified": "2019-02-06T15:30:42.1",
+							
+			            },
 			    "replace": {
 			        "$_PROJECT": "Example Project",
 			        "$_STUDYOBJECT": "Example Objective",
@@ -156,7 +187,23 @@
 			        }
 
 			    },
-				   "dmp": {
+				   
+						
+						"update":{"timeline":[],"storage":[
+						{"name":"first_update", "dead_line":"1", "answer":{} },
+						{"name":"second_update", "dead_line":"2", "answer":{} },
+						{"name":"third_update", "dead_line":"3", "answer":{} },
+						{"name":"fourth_update", "dead_line":"4" , "answer":{}},
+						{"name":"fifth_update", "dead_line":"5", "answer":{} },
+						
+						]}
+					
+			};
+			if (cached_a !== null) {
+			    var saved_a = JSON.parse(cached_a);
+			} else {
+			    var saved_a = {
+						"dmp": {
 			                "title": "Minimal DMP",
 			                "contact": {
 			                    "contact_id": {
@@ -183,13 +230,13 @@
 			                ],
 			                "ethical_issues_exist": "unknown",
 			                "language": "eng",
-			                "modified": "2019-02-06T15:30:42.1"
-			            }
-			};
-			if (cached_a !== null) {
-			    var saved_a = JSON.parse(cached_a);
-			} else {
-			    var saved_a = {
+			                "modified": "2019-02-06T15:30:42.1",
+							"submission" :{"time": "2022-07-06T15:30:42.1",
+							"funding": "H2020", 
+							 },
+							 
+							
+			            },
 			        "replace": {
 			            "$_PROJECT": "Example Project",
 			            "$_STUDYOBJECT": "Example Objective",
@@ -232,35 +279,15 @@
 			                    "check_dataDyrad"
 			                ]
 			            }
-			        },"dmp": {
-			                "title": "Minimal DMP",
-			                "contact": {
-			                    "contact_id": {
-			                        "identifier": "http://orcid.org/0000-0000-0000-0000",
-			                        "type": "orcid"
-			                    },
-			                    "mbox": "cc@example.com",
-			                    "name": "Charlie Chaplin"
-			                },
-			                "created": "2018-07-23T10:10:23.6",
-			                "dmp_id": {
-			                    "identifier": "https://doi.org/10.0000/00.0.1234",
-			                    "type": "doi"
-			                },
-			                "dataset": [{
-			                        "dataset_id": {
-			                            "identifier": "https://doi.org/10.0000/00.0.5678",
-			                            "type": "doi"
-			                        },
-			                        "title": "Placeholder dataset",
-			                        "personal_data": "unknown",
-			                        "sensitive_data": "unknown"
-			                    }
-			                ],
-			                "ethical_issues_exist": "unknown",
-			                "language": "eng",
-			                "modified": "2019-02-06T15:30:42.1"
-			            }
+			        },
+						"update":{"timeline":[],"storage":[
+						{"name":"first_update", "dead_line":"1", "answer":{} },
+						{"name":"second_update", "dead_line":"2", "answer":{} },
+						{"name":"third_update", "dead_line":"3", "answer":{} },
+						{"name":"fourth_update", "dead_line":"4" , "answer":{}},
+						{"name":"fifth_update", "dead_line":"5", "answer":{} },
+						
+						]}
 			    };
 			}
 
@@ -361,7 +388,7 @@
 
 
 			// compare updated answers and the original answers
-
+				
 			function compare_answers(old_a, new_a) {
 			    let unreplaced_keys = [];
 			    let unsubmitted_checkbox = [];
@@ -1349,7 +1376,55 @@
 			    }
 
 			}
-
+			
+			function dmp_update(saved_a, callback = 'console.log("sfa")'){
+			
+				if (saved_a["update"]["timeline"].length==0){
+					document.getElementById("dmp-update-modal").click();
+					
+					
+				
+				}
+				
+			
+			
+			
+			}
+			
+			function clear_dmp_updates(){
+			
+			document.querySelector("#dmp-update-content").innerText = "";
+			datepicker_list.forEach(e => e.remove());
+			datepicker_list=[];
+			}
+			
+			
+			
+			function add_date_div(){
+			
+			const parent=document.querySelector("#dmp-update-content");
+			const length=parent.childElementCount; 
+			let reminder_row = document.createElement("div");
+			const id = (length+2)/2;
+			const reminder_id = "reminder"+id;
+			reminder_row.setAttribute("id",reminder_id );
+			reminder_row.innerText=reminder_id;
+			
+			const date_label = document.createElement("label");
+			date_label.setAttribute("for", "" );
+			date_label.setAttribute("class", "form-label"  );
+			date_label.innerText="Type or select the date for";
+			const date_input = document.createElement("input");
+			
+			
+			
+			parent.appendChild(reminder_row);
+			var asd = datepicker(reminder_row, { id: id })
+			datepicker_list.push(asd)
+			}
+			
+			
+			
 			function printDiv1() {
 			    var divContents = document.getElementById("doc3").innerHTML;
 			    var a = window.open('', '', 'height=800, width=600');
@@ -1493,6 +1568,7 @@
                             <button id="print" class="dropdown-item" onclick="printDiv();">print document</button>
 
                             <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
+							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
                         </li>
                     </ul>
                 </div>
@@ -1586,6 +1662,7 @@
                             <button id="print" class="dropdown-item" onclick="printDiv();">print document</button>
 
                             <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
+							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
                         </li>
                     </ul>
                     <!-- Button trigger modal -->
@@ -2270,7 +2347,39 @@
             <div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
         </div>
     </div>
+	<!-- Button trigger modal -->
+	<button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#dmp_update">
+	  dmp update modal
+	</button>
 
+	<!-- Modal -->
+	<div class="modal" id="dmp_update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-label" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="update-label">Reminders setups</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		    </div>
+		    <div class="modal-body">
+			<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an update appointment </button> 
+			<button  type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16">
+			  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+			  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> 
+			</svg> remove all update appointment </button> 
+		    <div id="dmp-update-content" >
+			List of reminders
+			
+			</div>
+			
+			
+			</div>
+		    <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Understood</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
