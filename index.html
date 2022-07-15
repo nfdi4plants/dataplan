@@ -15,7 +15,8 @@
 
 		
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/datepicker.min.css" rel="stylesheet" >
+
+
 		<link href="css/custom.css" rel="stylesheet">
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
 
@@ -27,7 +28,7 @@
 		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
-		<script src="js/datepicker.min.js"></script>
+
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"/></script>
 		<style type="text/css" data-style-name="dmp1" >
 
@@ -106,6 +107,7 @@
 			var cached_a = window.localStorage.getItem("saved_a");
 			var cached_template = window.localStorage.getItem("template");
 			var datepicker_list=[];
+			var datepicker_list_total=[];
 			var initialed = false;
 			let temp_a = {
 				"dmp": {
@@ -190,17 +192,26 @@
 				   
 						
 						"update":{"timeline":[],"storage":[
-						{"name":"first_update", "dead_line":"1", "answer":{} },
-						{"name":"second_update", "dead_line":"2", "answer":{} },
-						{"name":"third_update", "dead_line":"3", "answer":{} },
-						{"name":"fourth_update", "dead_line":"4" , "answer":{}},
-						{"name":"fifth_update", "dead_line":"5", "answer":{} },
+						
 						
 						]}
 					
 			};
 			if (cached_a !== null) {
+			
+				
+				
+			
 			    var saved_a = JSON.parse(cached_a);
+				try {saved_a["update"]["timeline"] }
+				catch(e){
+				saved_a["update"]={"timeline":[],"storage":[
+						
+						
+						]}
+				}
+				
+				
 			} else {
 			    var saved_a = {
 						"dmp": {
@@ -280,12 +291,10 @@
 			                ]
 			            }
 			        },
-						"update":{"timeline":[],"storage":[
-						{"name":"first_update", "dead_line":"1", "answer":{} },
-						{"name":"second_update", "dead_line":"2", "answer":{} },
-						{"name":"third_update", "dead_line":"3", "answer":{} },
-						{"name":"fourth_update", "dead_line":"4" , "answer":{}},
-						{"name":"fifth_update", "dead_line":"5", "answer":{} },
+						"update":{"timeline":[
+						],"storage":[
+						{  },
+
 						
 						]}
 			    };
@@ -1278,7 +1287,7 @@
 
 			    window.localStorage.setItem("user_info", "visited");
 			    load_dmp(reload_answers, name = cached_template);
-
+				
 			    console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
 			    if (urls.length > 1) {
@@ -1319,6 +1328,7 @@
 			        issue_warning();
 			        warning_element_children = document.getElementById("warningText").children;
 			        if (warning_element_children[0] == undefined) {
+						dmp_update(saved_a);
 			            copy_doc1();
 			        } else {
 			            update_reminder(compared_list, warning_element_children);
@@ -1359,6 +1369,7 @@
 			        warning_element_children = document.getElementById("warningText").children;
 			        if (warning_element_children[0] == undefined) {
 			            try {
+							dmp_update(saved_a);
 			                return printDiv1(); // Security exception may be thrown by some browsers.
 			                const selection = window.getSelection();
 
@@ -1377,11 +1388,41 @@
 
 			}
 			
-			function dmp_update(saved_a, callback = 'console.log("sfa")'){
+			function save_to_cache(id, name=" "){
+				const now = new Date();
+				saved_a["update"]["storage"][id]["answer"]= {"replace":JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox":JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp":now.toISOString()};
+				saved_a["update"]["storage"][id]["name"]= name;
+				trim_saved_a(saved_a);
+			    window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+				let update_element = document.querySelector("#load_from_cache_menu_"+id);
+				update_element.innerHTML = now.toISOString();
+			}
+			
+			function load_from_cache(id){
+			
+				 saved_a["replace"]= saved_a["update"]["storage"][id]["answer"]["replace"]
+				 saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
+				load_dmp(reload_answers, doc_name);
+			
+			}
+			function dmp_update(saved_a){
 			
 				if (saved_a["update"]["timeline"].length==0){
+					clear_dmp_updates();
 					document.getElementById("dmp-update-modal").click();
 					
+					
+					} else {
+					clear_dmp_updates();
+					document.getElementById("dmp-update-modal").click();
+					saved_a["update"]["timeline"].forEach(
+					function(e){
+					add_date_div(e["name"], e["date"])
+					
+					}
+					
+					
+					)
 					
 				
 				}
@@ -1394,42 +1435,115 @@
 			function clear_dmp_updates(){
 			
 			document.querySelector("#dmp-update-content").innerText = "";
-			datepicker_list.forEach(e => e.remove());
+			
+			try {datepicker_list.forEach(e => e.remove());}
+			catch(e){}
 			datepicker_list=[];
+			
 			}
 			
 			
 			
-			function add_date_div(){
+			function add_date_div(name="", date1="2022-07-18" ){
 			
 			const parent=document.querySelector("#dmp-update-content");
 			const length=datepicker_list.length; 
 			let reminder_row = document.createElement("div");
+			reminder_row.setAttribute("class", "input-group");
 			const id = length+1;
 			const reminder_id = "reminder"+id;
 			reminder_row.setAttribute("id",reminder_id );
-			reminder_row.innerText=reminder_id;
+			//reminder_row.innerText=reminder_id;
 			
-			const date_label = document.createElement("label");
-			date_label.setAttribute("for", "update_date_input" );
-			date_label.setAttribute("class", "form-label"  );
-			date_label.innerText="Type or select the date for";
+			const name_input = document.createElement("input");
+			name_input.setAttribute("id", "name_" + reminder_id );
+			name_input.setAttribute("placeholder", "name your reminder" );
+			name_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["name"]= this.value' );
+			name_input.setAttribute("value", name);
+			
 			const date_input = document.createElement("input");
-			date_label.setAttribute("id", "update_date_input");
-			reminder_row.appendChild(date_label);
+			date_input.setAttribute("type", "date");
+			date_input.setAttribute("id", "update_date_input"+reminder_id);
+			date_input.setAttribute("placeholder", "click to select date");
+			date_input.setAttribute("data-list", length);
+			date_input.setAttribute("value", date1);
+			date_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["date"]= this.value' );
+			
+			const delete_button = document.createElement("button");
+			delete_button.innerHTML = "- delete";
+			delete_button.setAttribute("class", "btn btn-primary");
+			delete_button.setAttribute("onclick", "this.parentElement.remove();datepicker_list[" + length +"]=null");
+			
+			const br = document.createElement("BR");
+			reminder_row.appendChild(name_input);
 			reminder_row.appendChild(date_input);
+			reminder_row.appendChild(delete_button);
 			
 			parent.appendChild(reminder_row);
-			var asd = datepicker(date_input,  {
-				  formatter: (input, date, instance) => {
-					const value = date.toLocaleDateString()
-					input.value = value // => '1/1/2099'
-				  }
-				} )
-			datepicker_list.push(asd)
+			parent.appendChild(br);
+			
+			
+			datepicker_list.push({ "name": name_input.value, "date":date_input.value, } );
+
 			}
 			
+			function datepicker_list_to_JSON(){
+				
+				const filtered_list = datepicker_list.filter(function(i){ return i != null; });
+				
+				
+				try {saved_a["update"]["timeline"]=filtered_list;}
+				catch(e){saved_a["update"]["timeline"]=[]}
+				trim_saved_a(saved_a);
+
+			    window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+				generate_vcal(saved_a);
+				document.querySelector("#update_date_close").click();
+			}
 			
+			function generate_vcal(saved_a){
+				
+				const vcal_begin = `
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//DataPLAN//NONSGML Reminder of DMP update//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH`;
+				const vcal_end ="END:VCALENDAR";
+				const filtered_list = datepicker_list.filter(function(i){ return i != null; });
+				let vcal = vcal_begin +" ";
+				now = new Date();
+				filtered_list.forEach( function callback(e, index)
+				{
+				const cal_date = new Date(e["date"]) ; 
+				const current_time = `${cal_date.getFullYear()}${String(cal_date.getMonth()+1).padStart(2, '0')}${String(cal_date.getDate()+1).padStart(2, '0')}T${String(cal_date.getHours()+1).padStart(2, '0')}${String(cal_date.getMinutes()+1).padStart(2, '0')}${String(cal_date.getSeconds()+1).padStart(2, '0')}Z`;
+				vcal += `
+BEGIN:VEVENT
+DTSTART:${cal_date.getFullYear()}${String(cal_date.getMonth()+1).padStart(2, '0')}${String(cal_date.getDate()).padStart(2, '0')}T080000Z
+DTEND:${cal_date.getFullYear()}${String(cal_date.getMonth()+1).padStart(2, '0')}${String(cal_date.getDate()+1).padStart(2, '0')}T110000Z
+DTSTAMP:${current_time}
+UID:${current_time}@nfdi4plants.org
+CREATED:${cal_date.getFullYear()}${String(cal_date.getMonth()+1).padStart(2, '0')}${String(cal_date.getDate()).padStart(2, '0')}T000000Z
+DESCRIPTION:Name of the reminder: ${e["name"]}; 
+LAST-MODIFIED:${cal_date.getFullYear()}${String(cal_date.getMonth()+1).padStart(2, '0')}${String(cal_date.getDate()).padStart(2, '0')}T000000Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:No. ${index +1} Reminder to write DMP of ${saved_a["replace"]["$_PROJECT"]} (created by DataPLAN)
+TRANSP:OPAQUE
+END:VEVENT`;
+				
+				}
+				
+				);
+			
+				vcal += vcal_end;
+				
+				var blob = new Blob([vcal], {
+					type: "text/plain;charset=utf-8;",
+				});
+				saveAs(blob, "calendar.ics");
+				return vcal;
+			}
 			
 			function printDiv1() {
 			    var divContents = document.getElementById("doc3").innerHTML;
@@ -1578,7 +1692,7 @@
                         </li>
                     </ul>
                 </div>
-
+// wide screen menu
                 <div class="btn-group d-none d-md-block dropdown col-auto" style="padding-left: 12px;">
                     <button type="button" class="btn border-0 rounded-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" style="">
                         Templates &nbsp;
@@ -1648,12 +1762,33 @@
                                 <input class="form-control d-none" type="file" id="image_upload" onchange="upload_image()" />
                             </label>
                         </li>
+						<li>
+							<button id="load_from_cache" class="dropdown-item" >load_from_cache &raquo;</button>
+							<ul class="dropdown-menu dropdown-submenu">
+								<li>
+								  <a class="dropdown-item" id="load_from_cache_menu_0" onclick="load_from_cache(0)" href="#">slot 1</a>
+								</li>
+								<li>
+								  <a class="dropdown-item" id="load_from_cache_menu_1" onclick="load_from_cache(1)" href="#">slot 2</a>
+								</li>
+								<li>
+								  <a class="dropdown-item" id="load_from_cache_menu_2" onclick="load_from_cache(2)" href="#">slot 3</a>
+								  
+								</li>
+								<li>
+								  <a class="dropdown-item" id="load_from_cache_menu_3" onclick="load_from_cache(3)" href="#">slot 4</a>
+								</li>
+								<li>
+								  <a class="dropdown-item" id="load_from_cache_menu_4" onclick="load_from_cache(4)" href="#">slot 5</a>
+								</li>
+							  </ul>
+							</li>
                     </ul>
                 </div>
 
                 <div class="btn-group d-none d-md-block dropdown col-auto">
                     <button type="button" class="btn border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button">
-                        Save&nbsp;
+                        Save
 
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
@@ -1662,11 +1797,32 @@
                             <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">copy the text</button>
 
                             <button id="test" class="d-none dropdown-item" onclick="test()">debug test</button>
-                        </li>
-                        <li>
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">save answers to json</button>
+                        
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">download json</button>
                             <button id="print" class="dropdown-item" onclick="printDiv();">print document</button>
-
+							<li>
+							<button id="save_to_cache" class="dropdown-item" >save_to_cache &raquo;</button>
+							<ul class="dropdown-menu dropdown-submenu">
+								<li>
+								  <a class="dropdown-item" onclick="save_to_cache(0)" href="#">slot 1</a>
+								</li>
+								<li>
+								  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">slot 2</a>
+								</li>
+								<li>
+								  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">slot 3</a>
+								  
+								</li>
+								<li>
+								  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">slot 4</a>
+								</li>
+								<li>
+								  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">slot 5</a>
+								</li>
+							  </ul>
+							</li>
+							
+							
                             <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
 							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
                         </li>
@@ -2363,15 +2519,18 @@
 	  <div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
-			<h5 class="modal-title" id="update-label">Reminders setups</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<h5 class="modal-title" id="update-label">You can set up several reminders to help you remember the updates of the DMP. The downloaded ics file can be imported to outlook or other calenar files</h5>
+			<button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		    </div>
 		    <div class="modal-body">
-			<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an update appointment </button> 
+			<div class="input-group">
+			<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an reminder </button> 
 			<button  type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16">
 			  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
 			  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> 
-			</svg> remove all update appointment </button> 
+			</svg> remove all reminders </button> 
+			</div>
+			<br>
 		    <div id="dmp-update-content" >
 			List of reminders
 			
@@ -2381,7 +2540,8 @@
 			</div>
 		    <div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Understood</button>
+			
+			<button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Submit</button>
 		  </div>
 		</div>
 	  </div>
