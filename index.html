@@ -379,6 +379,7 @@
 			    frame.innerHTML = content.innerHTML;
 			    callback();
 			    initialed = true;
+				syn_load_cache();
 
 			}
 			// template answers
@@ -1334,7 +1335,7 @@
 				
 			    window.localStorage.setItem("user_info", "visited");
 			    load_dmp(reload_answers, name = cached_template);
-				syn_load_cache();
+				
 			    console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
 			    if (urls.length > 1) {
@@ -1349,13 +1350,13 @@
 			    }
 
 			    const upload_json = document.getElementById("upload");
-			    upload_json.addEventListener("change", reloadJson, false);
+			    upload_json.addEventListener("change", reload_json, false);
 
-			    function reloadJson() {
+			    function reload_json() {
 
 			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
-					syn_load_cache();
-			        console.log(JSON.stringify(saved_a));
+					
+			        //console.log(JSON.stringify(saved_a));
 					
 
 			    }
@@ -1368,14 +1369,14 @@
 			});
 			
 			function syn_load_cache(){
-				try {
-				const cached_timestamp = saved_a["update"]["storage"].map((e)=> e["answer"]["timestamp"]);
+				
+				const cached_timestamp = saved_a["update"]["storage"].map((e)=> e["answer"]);
 					const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
-					saved_timestamp.forEach((e, index) =>{ e.innerHTML = cached_timestamp[index]  }  );
-				} catch(e){
+					saved_timestamp.forEach((e, index) =>{ try {e.innerHTML = cached_timestamp[index]["timestamp"]} catch(b){
+				e.innerHTML = "empty slot";
 				
+				}  }  );
 				
-				}
 					
 			
 			}
@@ -1753,15 +1754,15 @@ END:VEVENT`;
                             </button>
                         </li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li>
+                        
                             <label for="upload-dropdown" class="form-label dropdown-item">
                                 upload json
                                 <input class="form-control d-none" type="file" id="upload-dropdown" />
                             </label>
-                        </li>
-                        <li>
+                        
+                        
                             <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">clear cache</button>
-                        </li>
+                        
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">copy the text</button>
@@ -2574,9 +2575,9 @@ END:VEVENT`;
 
         <div class="offcanvas-body" style="padding-top: 0px;">
             <h2 style="padding-top: 0px;">
-                You can click the following dotted box to edit. <br />
-                All prepared templates can be reused, click the following buttons to try them <br />
-                When you finished the editing, use submit to see the results.
+                You can click the dotted box to start editing. <br />
+                Click the grey buttons to reuse templates. <br />
+                Click submit when you finished.
                 <br />
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '>H2020 DMP</button>
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dfg-dmp").innerHTML; '>DFG DMP</button>
