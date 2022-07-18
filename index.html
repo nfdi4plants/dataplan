@@ -192,6 +192,12 @@
 				   
 						
 						"update":{"timeline":[],"storage":[
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 
 						
 						
 						]}
@@ -203,12 +209,53 @@
 				
 			
 			    var saved_a = JSON.parse(cached_a);
-				try {saved_a["update"]["timeline"] }
+				try {saved_a["update"];saved_a["update"]["timeline"];saved_a["dmp"]  }
 				catch(e){
-				saved_a["update"]={"timeline":[],"storage":[
+				saved_a["update"]={"timeline":[
+						],"storage":[
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+
 						
+						]};
 						
-						]}
+				saved_a["dmp"] = {
+			                "title": "Minimal DMP",
+			                "contact": {
+			                    "contact_id": {
+			                        "identifier": "http://orcid.org/0000-0000-0000-0000",
+			                        "type": "orcid"
+			                    },
+			                    "mbox": "cc@example.com",
+			                    "name": "Charlie Chaplin"
+			                },
+			                "created": "2018-07-23T10:10:23.6",
+			                "dmp_id": {
+			                    "identifier": "https://doi.org/10.0000/00.0.1234",
+			                    "type": "doi"
+			                },
+			                "dataset": [{
+			                        "dataset_id": {
+			                            "identifier": "https://doi.org/10.0000/00.0.5678",
+			                            "type": "doi"
+			                        },
+			                        "title": "Placeholder dataset",
+			                        "personal_data": "unknown",
+			                        "sensitive_data": "unknown"
+			                    }
+			                ],
+			                "ethical_issues_exist": "unknown",
+			                "language": "eng",
+			                "modified": "2019-02-06T15:30:42.1",
+							"submission" :{"time": "2022-07-06T15:30:42.1",
+							"funding": "H2020", 
+							 },
+							
+			            };
+				
 				}
 				
 				
@@ -293,7 +340,11 @@
 			        },
 						"update":{"timeline":[
 						],"storage":[
-						{  },
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
 
 						
 						]}
@@ -637,12 +688,12 @@
 			}
 
 			function get_option(this_element) {
+			
 			    undo(this_element.nextElementSibling);
 			    const class_name = this_element.dataset.checkbox;
 			    console.log("class name for question is " + class_name);
 			    const checked = document.querySelectorAll(`.${class_name}:checked`);
 			    const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
-			    //console.log([...checked]);
 			    const checked_list = [];
 			    checked.forEach(element => checked_list.push(element.id));
 			    const unchecked_list = [];
@@ -657,16 +708,15 @@
 			        "checked": checked_list,
 			        "unchecked": unchecked_list
 			    };
-			    //try {
+
 			    console.log("+++++++++++++++++" + checked_list);
 
-			    //}catch (e)
-			    //{ alert("you have submitted, please use undo if you want to change your input");}
+			   
 			    load_dmp(reload_answers, name = doc_name);
-			    //checkbox(singleOption);
+
 
 			}
-
+			
 			// go to the highlighted location
 			function go_to(element1) {
 			    const warning = element1.value;
@@ -1277,17 +1327,14 @@
 			    } else if (cached_template == "user-defined") {
 			        doc_name = "user-defined";
 			        document.getElementById("user-defined").innerHTML = window.localStorage.getItem("fulltext_user");
-
 			    }
 			    if (window.localStorage.getItem("cookie_consent") !== "yes") {
-
 			        document.getElementById("modal-button").click();
-
 			    }
-
+				
 			    window.localStorage.setItem("user_info", "visited");
 			    load_dmp(reload_answers, name = cached_template);
-				
+				syn_load_cache();
 			    console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
 			    if (urls.length > 1) {
@@ -1307,8 +1354,9 @@
 			    function reloadJson() {
 
 			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
-
+					syn_load_cache();
 			        console.log(JSON.stringify(saved_a));
+					
 
 			    }
 
@@ -1318,7 +1366,21 @@
 			    document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
 
 			});
-
+			
+			function syn_load_cache(){
+				try {
+				const cached_timestamp = saved_a["update"]["storage"].map((e)=> e["answer"]["timestamp"]);
+					const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
+					saved_timestamp.forEach((e, index) =>{ e.innerHTML = cached_timestamp[index]  }  );
+				} catch(e){
+				
+				
+				}
+					
+			
+			}
+			
+			
 			function copy_doc() {
 
 			    const compared_list = compare_answers(temp_a, saved_a);
@@ -1389,6 +1451,25 @@
 			}
 			
 			function save_to_cache(id, name=" "){
+				if (saved_a["update"]["storage"][id]["answer"].length != 0 ){
+				    let confirm_overwrite = confirm("Overwrite saved answer here?");
+					if (confirm_overwrite) {
+					 save_to_cache1(id, name);
+					} else {
+					  alert("Current answer is not saved");
+					}
+				
+				
+				} else {
+				
+				save_to_cache1(id, name);
+						}
+			
+			
+			
+			}
+			
+			function save_to_cache1(id, name=" "){
 				const now = new Date();
 				saved_a["update"]["storage"][id]["answer"]= {"replace":JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox":JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp":now.toISOString()};
 				saved_a["update"]["storage"][id]["name"]= name;
@@ -1400,8 +1481,8 @@
 			
 			function load_from_cache(id){
 			
-				 saved_a["replace"]= saved_a["update"]["storage"][id]["answer"]["replace"]
-				 saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
+				saved_a["replace"]= saved_a["update"]["storage"][id]["answer"]["replace"]
+				saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
 				load_dmp(reload_answers, doc_name);
 			
 			}
@@ -1541,7 +1622,11 @@ END:VEVENT`;
 				var blob = new Blob([vcal], {
 					type: "text/plain;charset=utf-8;",
 				});
+				if ( filtered_list.length != 0 ){ // no need to download file without calendar event
 				saveAs(blob, "calendar.ics");
+				
+				}
+				
 				return vcal;
 			}
 			
@@ -1692,7 +1777,7 @@ END:VEVENT`;
                         </li>
                     </ul>
                 </div>
-// wide screen menu
+
                 <div class="btn-group d-none d-md-block dropdown col-auto" style="padding-left: 12px;">
                     <button type="button" class="btn border-0 rounded-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" style="">
                         Templates &nbsp;
@@ -1763,23 +1848,23 @@ END:VEVENT`;
                             </label>
                         </li>
 						<li>
-							<button id="load_from_cache" class="dropdown-item" >load_from_cache &raquo;</button>
+							<button id="load_from_cache" class="dropdown-item" >load from cache &raquo;</button>
 							<ul class="dropdown-menu dropdown-submenu">
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_0" onclick="load_from_cache(0)" href="#">slot 1</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_0" name="load_from_cache" onclick="load_from_cache(0)" href="#">slot 1</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_1" onclick="load_from_cache(1)" href="#">slot 2</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">slot 2</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_2" onclick="load_from_cache(2)" href="#">slot 3</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">slot 3</a>
 								  
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_3" onclick="load_from_cache(3)" href="#">slot 4</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">slot 4</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_4" onclick="load_from_cache(4)" href="#">slot 5</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">slot 5</a>
 								</li>
 							  </ul>
 							</li>
@@ -1801,7 +1886,12 @@ END:VEVENT`;
                             <button id="json_save" class="dropdown-item" onclick="save_json()">download json</button>
                             <button id="print" class="dropdown-item" onclick="printDiv();">print document</button>
 							<li>
-							<button id="save_to_cache" class="dropdown-item" >save_to_cache &raquo;</button>
+							
+							
+							
+                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
+							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
+							<button id="save_to_cache" class="dropdown-item" >save to cache &raquo;</button>
 							<ul class="dropdown-menu dropdown-submenu">
 								<li>
 								  <a class="dropdown-item" onclick="save_to_cache(0)" href="#">slot 1</a>
@@ -1821,10 +1911,6 @@ END:VEVENT`;
 								</li>
 							  </ul>
 							</li>
-							
-							
-                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
-							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
                         </li>
                     </ul>
                     <!-- Button trigger modal -->
@@ -2519,7 +2605,7 @@ END:VEVENT`;
 	  <div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
-			<h5 class="modal-title" id="update-label">You can set up several reminders to help you remember the updates of the DMP. The downloaded ics file can be imported to outlook or other calenar files</h5>
+			<h5 class="modal-title" id="update-label">Set up several reminders before deadline. You will download ".ics" files after click "submit" button</h5>
 			<button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		    </div>
 		    <div class="modal-body">
