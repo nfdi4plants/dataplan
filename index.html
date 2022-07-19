@@ -849,342 +849,9 @@
 			    const unchecked = options[class_name]["unchecked"];
 
 			    //console.log([...unchecked]);
-			    for (let i = 0; i < checked.length; i++) {
-			        let check_box_item = checked[i];
-			        //console.log(check_box );
-			        let name = check_box_item.split('_')[1];
-			        // here the ________ should not match anything, make sure not to use it as a real placeholder
-			        let match_name = "_________";
-			        try {
-			            match_name = prefix.concat(name.toUpperCase());
-			            console.log("check for loop, starts " + match_name + " " + checked.length);
-			        } catch (e) {}
-
-			        selection.removeAllRanges();
-			        if (window.find) //for chrome, firefox
-			        {
-			            selection.removeAllRanges();
-
-			            let ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-			                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-			            while (ns) {
-			                // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
-			                console.log("found");
-			                let left_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let right_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let original_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let if_range = window.getSelection().getRangeAt(0).cloneRange();
-
-			                let extended_begin_node;
-			                let extended_begin_focus;
-			                let extended_end_node;
-			                let extended_end_focus;
-			                let begin_node;
-			                let begin_focus;
-
-			                if (window.getSelection().anchorOffset < 3) {
-			                    begin_node = window.getSelection().anchorNode.previousSibling;
-			                    begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-			                    console.log("begin extended through focus " + begin_node);
-			                } else {
-
-			                    begin_node = window.getSelection().anchorNode;
-
-			                    begin_focus = window.getSelection().anchorOffset - 3;
-			                    console.log("begin extended through node " + begin_node.data);
-
-			                }
-
-			                if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
-			                    extended_end_node = window.getSelection().focusNode.nextSibling;
-			                    extended_end_focus = 1;
-			                    console.log("end extended through next node ");
-
-			                } else {
-			                    extended_end_node = window.getSelection().focusNode;
-			                    extended_end_focus = window.getSelection().focusOffset + 1;
-			                    console.log("end extended through focus " + extended_end_node.data);
-
-			                }
-
-			                right_range.setEnd(extended_end_node, extended_end_focus);
-
-			                if_range.setStart(begin_node, begin_focus);
-			                let if_text = if_range.toString();
-			                const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
-			                const right_text = right_range.toString();
-			                console.log("if_text: " + if_text);
-			                console.log("if_cha: " + if_cha);
-
-			                const right_cha = right_text.slice(-1);
-			                console.log("right_text: " + right_text);
-			                console.log("right_cha: " + right_cha);
-
-			                if (if_cha == "|") {
-			                    if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
-			                        extended_begin_node = window.getSelection().anchorNode.previousSibling;
-			                        extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
-			                        console.log("begin extended through focus " + extended_begin_node);
-
-			                    } else {
-
-			                        extended_begin_node = window.getSelection().anchorNode;
-
-			                        extended_begin_focus = window.getSelection().anchorOffset - 13;
-			                        console.log("begin extended through node " + extended_begin_node.data);
-
-			                    }
-
-			                    left_range.setStart(extended_begin_node, extended_begin_focus);
-			                    const left_text = left_range.toString();
-
-			                    console.log("left_text: " + left_text);
-			                    place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-			                    console.log("place holder: " + place_holder);
-			                    selection.removeAllRanges();
-			                    window.find(place_holder);
-			                    if_range = window.getSelection().getRangeAt(0);
-			                    if_text = if_range.toString();
-
-			                    console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-
-			                    match_mod(if_range);
-			                    selection.removeAllRanges();
-			                    // to match different conditions
-			                } else if (if_cha == "f") {
-			                    if (right_cha == "|") {
-			                        window.find(" ");
-
-			                        if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-			                        match_mod(if_range);
-			                        if_range.detach();
-			                    } else {
-			                        match_mod(if_range);
-			                        if_range.detach();
-			                    }
-
-			                } else if (if_cha == "," || if_cha == " ") {
-			                    console.log("!!!! replace match text");
-
-			                    original_range.deleteContents();
-			                    original_range.insertNode(document.createTextNode(name));
-			                    original_range.detach();
-			                } else if (if_cha == "!") {
-			                    if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
-			                        extended_begin_node = window.getSelection().anchorNode.previousSibling;
-			                        extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-			                        console.log("begin extended through focus " + extended_begin_node);
-
-			                    } else {
-
-			                        extended_begin_node = window.getSelection().anchorNode;
-
-			                        extended_begin_focus = window.getSelection().anchorOffset - 4;
-			                        console.log("begin extended through node " + extended_begin_node.data);
-
-			                    }
-
-			                    left_range.setStart(extended_begin_node, extended_begin_focus);
-			                    const left_text = left_range.toString();
-
-			                    console.log("left_text with <!>: " + left_text);
-			                    match_remove(left_range);
-
-			                } else {
-
-			                    console.log("_____other cases");
-			                    console.log("last character is: ", right_cha);
-			                    match_mod(if_range);
-			                    if_range.detach();
-			                }
-
-			                //window.find("#endif");
-
-			                if_range.detach();
-			                ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-			                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-			            }
-			        } else if (document.body.createTextRange) //for ie etc.
-			        {
-			            let range_if = document.body.createTextRange();
-			            while (range_if.findText(match_name)) {
-			                range_if.pasteHTML('atest');
-			            }
-			        }
-
-			        console.log("check for loop, ends " + match_name);
-
-			    }
-
-			    for (let i = 0; i < unchecked.length; i++) {
-			        // here starts the unchecked box, it is basically as same as the checked options. It should be warped in a more general function, so no copy-paste is used. but I am too lazy to warp it and it only shows twice, so I think it is OK.
-			        let check_box_item = unchecked[i];
-			        //console.log(check_box );
-			        let name = check_box_item.split('_')[1];
-			        let match_name = "_________";
-			        try {
-			            match_name = prefix.concat(name.toUpperCase());
-			            console.log("uncheck for loop, starts " + match_name);
-			        } catch (e) {
-			            match_name = "__________"
-			        }
-
-			        const selection = window.getSelection();
-
-			        selection.removeAllRanges();
-			        if (window.find) //for chrome, firefox
-			        {
-
-			            let ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-			                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-			            while (ns) {
-
-			                console.log("unchecked found");
-			                let left_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let right_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let original_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let if_range = window.getSelection().getRangeAt(0).cloneRange();
-			                let remove_range = window.getSelection().getRangeAt(0).cloneRange();
-
-			                let extended_begin_node;
-			                let extended_begin_focus;
-			                let extended_end_node;
-			                let extended_end_focus;
-
-			                if (window.getSelection().anchorOffset < 3) {
-			                    extended_begin_node = window.getSelection().anchorNode.previousSibling;
-			                    extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-			                    console.log("begin extended through focus " + extended_begin_node);
-			                } else {
-
-			                    extended_begin_node = window.getSelection().anchorNode;
-
-			                    extended_begin_focus = window.getSelection().anchorOffset - 3;
-			                    console.log("begin extended through node " + extended_begin_node.data);
-
-			                }
-
-			                if (window.getSelection().anchorOffset < 3) {
-			                    begin_node = window.getSelection().anchorNode.previousSibling;
-			                    begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-			                    console.log("begin extended through focus " + extended_begin_node);
-			                } else {
-
-			                    begin_node = window.getSelection().anchorNode;
-
-			                    begin_focus = window.getSelection().anchorOffset - 3;
-			                    console.log("begin extended through node " + extended_begin_node.data);
-
-			                }
-
-			                if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
-			                    extended_end_node = window.getSelection().focusNode.nextSibling;
-			                    extended_end_focus = 1;
-			                    console.log("end extended through next node ");
-
-			                } else {
-			                    extended_end_node = window.getSelection().focusNode;
-			                    extended_end_focus = window.getSelection().focusOffset + 1;
-			                    console.log("end extended through focus " + extended_end_node.data);
-
-			                }
-
-			                right_range.setEnd(extended_end_node, extended_end_focus);
-			                left_range.setStart(extended_begin_node, extended_begin_focus);
-			                if_range.setStart(begin_node, begin_focus);
-			                let if_text = if_range.toString();
-			                const right_text = right_range.toString();
-			                console.log("if_text: " + if_text);
-
-			                const right_cha = right_text.slice(-1);
-			                console.log("right_text: " + right_text);
-			                console.log("right_cha: " + right_cha);
-
-			                const left_text = left_range.toString();
-			                const if_cha = left_text.slice(-match_name.length - 1, -match_name.length);
-			                console.log("left_text: " + left_text);
-			                console.log("if_cha: " + if_cha);
-
-			                place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-			                console.log("place holder: " + place_holder);
-
-			                if (if_cha == "|") {
-
-			                    selection.removeAllRanges();
-			                    window.find(place_holder);
-			                    if_range = window.getSelection().getRangeAt(0);
-			                    if_text = if_range.toString();
-
-			                    console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-
-			                    match_remove(if_range);
-			                    selection.removeAllRanges();
-			                } else if (if_cha == "f") {
-			                    if (right_cha == "|") {
-			                        window.find(" ");
-
-			                        if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-			                        match_remove(if_range);
-			                        if_range.detach();
-			                    } else {
-			                        match_remove(if_range);
-			                        if_range.detach();
-			                    }
-
-			                } else if (if_cha == "," || if_cha == " ") {
-			                    console.log("!!!! remove the matched text");
-			                    remove_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
-
-			                    remove_range.deleteContents();
-
-			                    remove_range.detach();
-			                } else if (if_cha == "!") {
-
-			                    if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
-			                        extended_begin_node = window.getSelection().anchorNode.previousSibling;
-			                        extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-			                        console.log("begin extended through focus " + extended_begin_node);
-
-			                    } else {
-
-			                        extended_begin_node = window.getSelection().anchorNode;
-
-			                        extended_begin_focus = window.getSelection().anchorOffset - 4;
-			                        console.log("begin extended through node " + extended_begin_node.data);
-
-			                    }
-
-			                    left_range.setStart(extended_begin_node, extended_begin_focus);
-			                    const left_text = left_range.toString();
-
-			                    console.log("left_text with <!>: " + left_text);
-			                    match_mod(left_range);
-
-			                } else {
-
-			                    console.log("_____other cases");
-			                    console.log("last character is: ", right_cha);
-			                    match_remove(if_range);
-			                    if_range.detach();
-			                }
-
-			                //window.find("#endif");
-
-			                if_range.detach();
-			                ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-			                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-			            }
-			        } else if (document.body.createTextRange) //for ie etc.
-			        {
-			            let range_if = document.body.createTextRange();
-			            while (range_if.findText(match_name)) {
-			                range_if.pasteHTML('');
-			            }
-			        }
-
-			        console.log("uncheck for loop, ends " + match_name);
-
-			    }
+			    check_uncheck(unchecked, match_remove, match_mod, "uncheck");
+				check_uncheck(checked, match_mod, match_remove, "check");
+				
 
 			}
 
@@ -1207,6 +874,228 @@
 			    end_if_range.detach();
 
 			}
+			
+			
+			
+
+		function check_uncheck( checked, callback1, callback2, check_or_uncheck  ){
+
+			for (let i = 0; i < checked.length; i++) {
+																														   
+				let check_box_item = checked[i];
+				//console.log(check_box );
+				let name = check_box_item.split('_')[1];
+				// here the ________ should not match anything, make sure not to use it as a real placeholder
+				let match_name = "_________";
+				try {
+					match_name = prefix.concat(name.toUpperCase());
+					console.log("check for loop, starts " + match_name + " " + checked.length);
+				} catch (e) {}
+														
+
+				
+											   
+				// this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
+				
+				if (window.find) //for chrome, firefox
+				{
+
+
+					let ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+							aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+					while (ns) {
+						// this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
+						console.log("found");
+						
+						let remove_range = window.getSelection().getRangeAt(0).cloneRange();
+						let left_range = window.getSelection().getRangeAt(0).cloneRange();
+						let right_range = window.getSelection().getRangeAt(0).cloneRange();
+						let original_range = window.getSelection().getRangeAt(0).cloneRange();
+						let if_range = window.getSelection().getRangeAt(0).cloneRange();
+																																																									
+
+						let extended_begin_node;
+						let extended_begin_focus;
+						let extended_end_node;
+						let extended_end_focus;
+						let begin_node;
+						let begin_focus;
+
+						if (window.getSelection().anchorOffset < 3) {
+																									  
+							begin_node = window.getSelection().anchorNode.previousSibling;
+							begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
+							console.log("begin extended through focus " + begin_node);
+						} else {
+
+							begin_node = window.getSelection().anchorNode;
+
+							begin_focus = window.getSelection().anchorOffset - 3;
+							console.log("begin extended through node " + begin_node.data);
+
+						}
+
+						if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
+							extended_end_node = window.getSelection().focusNode.nextSibling;
+							extended_end_focus = 1;
+							console.log("end extended through next node ");
+
+						} else {
+							extended_end_node = window.getSelection().focusNode;
+							extended_end_focus = window.getSelection().focusOffset + 1;
+							console.log("end extended through focus " + extended_end_node.data);
+
+						}
+
+						right_range.setEnd(extended_end_node, extended_end_focus);
+					
+						if_range.setStart(begin_node, begin_focus);
+						let if_text = if_range.toString();
+						const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
+						const right_text = right_range.toString();
+
+
+						const right_cha = right_text.slice(-1);
+
+						
+						const left_text = left_range.toString();
+
+																						  
+
+						place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
+						console.log("place holder: " + place_holder);
+
+						if (if_cha == "|" && check_or_uncheck=="check" ) {
+							if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
+								extended_begin_node = window.getSelection().anchorNode.previousSibling;
+								extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
+								console.log("begin extended through focus " + extended_begin_node);
+
+							
+							
+							} else 
+							
+							{
+
+								extended_begin_node = window.getSelection().anchorNode;
+
+								extended_begin_focus = window.getSelection().anchorOffset - 13;
+								console.log("begin extended through node " + extended_begin_node.data);
+
+							}
+																																									
+
+							left_range.setStart(extended_begin_node, extended_begin_focus);
+							const left_text = left_range.toString();
+
+							console.log("left_text: " + left_text);
+							place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
+							console.log("place holder: " + place_holder);
+							selection.removeAllRanges();
+							window.find(place_holder);
+							if_range = window.getSelection().getRangeAt(0);
+							if_text = if_range.toString();
+
+							console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+
+							callback1(if_range);
+							selection.removeAllRanges();
+							}
+							// to match different conditions} 
+						else if (if_cha == "|" && check_or_uncheck=="uncheck") {
+										                    selection.removeAllRanges();
+			                    window.find(place_holder);
+			                    if_range = window.getSelection().getRangeAt(0);
+			                    if_text = if_range.toString();
+
+			                    console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+
+			                    match_remove(if_range);
+			                    selection.removeAllRanges();} 
+						else if (if_cha == "f") {
+							if (right_cha == "|") {
+								window.find(" ");
+
+								if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
+								callback1(if_range);
+								if_range.detach();
+							} else {
+								callback1(if_range);
+								if_range.detach();
+							}
+
+						} else if (if_cha == "," || if_cha == " ") {
+							if (check_or_uncheck == "check"){
+								
+									console.log("!!!! replace match text");					
+									original_range.deleteContents();
+									original_range.insertNode(document.createTextNode(name));
+									original_range.detach();} 
+							else if (check_or_uncheck == "uncheck")
+									
+								{
+									console.log("!!!! remove the matched text");
+									remove_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
+									remove_range.deleteContents();
+									remove_range.detach();
+									
+							}
+							
+							
+							
+							
+							
+						} else if (if_cha == "!") {
+
+							if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
+								extended_begin_node = window.getSelection().anchorNode.previousSibling;
+								extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
+								console.log("begin extended through focus " + extended_begin_node);
+
+							} else {
+
+								extended_begin_node = window.getSelection().anchorNode;
+
+								extended_begin_focus = window.getSelection().anchorOffset - 4;
+								console.log("begin extended through node " + extended_begin_node.data);
+
+							}
+
+							left_range.setStart(extended_begin_node, extended_begin_focus);
+							const left_text = left_range.toString();
+
+							console.log("left_text with <!>: " + left_text);
+							callback2(left_range);
+
+						} else {
+
+							console.log("_____other cases");
+							console.log("last character is: ", right_cha);
+							callback1(if_range);
+							if_range.detach();
+						}
+
+						//window.find("#endif");
+
+						if_range.detach();
+						ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+								aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+					}
+				} else if (document.body.createTextRange) //for ie etc.
+				{
+					let range_if = document.body.createTextRange();
+					while (range_if.findText(match_name)) {
+						range_if.pasteHTML('atest');
+					}
+				}
+
+				console.log("check for loop, ends " + match_name);
+
+			}
+		}
+			
+			
+			
 			/**
 			 * match a place holder and then remove it.
 			 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be removed.
