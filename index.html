@@ -361,7 +361,67 @@
 			        }
 			    }
 			}
+			
+			function slist(target) {
 
+			  
+			  let items = target.getElementsByTagName("li"), current = null;
+
+			  // (B) MAKE ITEMS DRAGGABLE + SORTABLE
+			  for (let i of items) {				
+				
+				// (B2) DRAG START - YELLOW HIGHLIGHT DROPZONES
+				i.ondragstart = (ev) => {
+				  current = i;
+				  for (let it of items) {
+					if (it != current) { it.classList.add("hint"); }
+				  }
+				};
+				
+				// (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
+				i.ondragenter = (ev) => {
+				  if (i != current) { setTimeout(()=>{i.classList.add("active"), "10"}); console.log("entering and adding active"); }
+				  
+				};
+				
+
+				// (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
+				i.ondragleave = () => {
+				  i.classList.remove("active");console.log("leaving and removing active");
+				};
+
+				// (B5) DRAG END - REMOVE ALL HIGHLIGHTS
+				i.ondragend = () => { for (let it of items) {
+					it.classList.remove("hint");
+					it.classList.remove("active");
+				}};
+			 
+				// (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
+				i.ondragover = (evt) => { evt.preventDefault(); };
+				[].slice.call(i.children).forEach( (e) => e.ondragover = (evt) => {
+				   evt.preventDefault(); }
+				 ) ;
+				
+				
+				// (B7) ON DROP - DO SOMETHING
+				i.ondrop = (evt) => {
+				  evt.preventDefault();
+				  if (i != current) {
+					let currentpos = 0, droppedpos = 0;
+					for (let it=0; it<items.length; it++) {
+					  if (current == items[it]) { currentpos = it; }
+					  if (i == items[it]) { droppedpos = it; }
+					}
+					if (currentpos < droppedpos) {
+					  i.parentNode.insertBefore(current, i.nextSibling);
+					} else {
+					  i.parentNode.insertBefore(current, i);
+					}
+				  }
+				};
+			  }
+			}
+			
 			function enter2tab() {
 
 			    if (window.event && window.event.keyCode == 13) {
@@ -1237,7 +1297,10 @@
 			        })
 
 			    }
-
+				
+					  
+					
+					
 			    const upload_json = document.getElementById("upload");
 			    upload_json.addEventListener("change", reload_json, false);
 
@@ -1261,7 +1324,8 @@
 				
 				const cached_timestamp = saved_a["update"]["storage"].map((e)=> e["answer"]);
 					const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
-					saved_timestamp.forEach((e, index) =>{ try {e.innerHTML = cached_timestamp[index]["timestamp"]} catch(b){
+					
+					saved_timestamp.forEach((e, index) =>{ if ( cached_timestamp[index]["timestamp"] != undefined) {e.innerHTML = cached_timestamp[index]["timestamp"]} else{
 				e.innerHTML = "empty slot";
 				
 				}  }  );
@@ -1370,10 +1434,14 @@
 			}
 			
 			function load_from_cache(id){
-			
+				if (Object.keys(saved_a["update"]["storage"][id]["answer"]).length > 0){
 				saved_a["replace"]= saved_a["update"]["storage"][id]["answer"]["replace"]
 				saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
 				load_dmp(reload_answers, doc_name);
+				} else {
+				window.alert("this slot is empty");
+				}
+				
 			
 			}
 			function dmp_update(saved_a){
@@ -1415,50 +1483,63 @@
 			
 			
 			
-			function add_date_div(name="", date1="2022-07-18" ){
+			function add_date_div(name="", date1=Date() ){
 			
 			const parent=document.querySelector("#dmp-update-content");
 			const length=datepicker_list.length; 
-			let reminder_row = document.createElement("div");
+			let reminder_row = document.createElement("li");
 			reminder_row.setAttribute("class", "input-group");
+			reminder_row.setAttribute("draggable", "true");
 			const id = length+1;
 			const reminder_id = "reminder"+id;
 			reminder_row.setAttribute("id",reminder_id );
 			//reminder_row.innerText=reminder_id;
 			
+			const svg = document.createElement("svg");
+			svg.innerHTML= '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+			
 			const name_input = document.createElement("input");
 			name_input.setAttribute("id", "name_" + reminder_id );
 			name_input.setAttribute("placeholder", "name your reminder" );
+			name_input.setAttribute("name", "update_name_input");
+			name_input.setAttribute("onfocusin", "this.select()");
+			
 			name_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["name"]= this.value' );
 			name_input.setAttribute("value", name);
 			
 			const date_input = document.createElement("input");
 			date_input.setAttribute("type", "date");
 			date_input.setAttribute("id", "update_date_input"+reminder_id);
+			date_input.setAttribute("name", "update_date_input");
 			date_input.setAttribute("placeholder", "click to select date");
 			date_input.setAttribute("data-list", length);
 			date_input.setAttribute("value", date1);
 			date_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["date"]= this.value' );
 			
 			const delete_button = document.createElement("button");
-			delete_button.innerHTML = "- delete";
-			delete_button.setAttribute("class", "btn btn-primary");
+			
+			delete_button.setAttribute("class", "btn-close m-2");
 			delete_button.setAttribute("onclick", "this.parentElement.remove();datepicker_list[" + length +"]=null");
 			
-			const br = document.createElement("BR");
+			
+			reminder_row.appendChild(svg);
 			reminder_row.appendChild(name_input);
 			reminder_row.appendChild(date_input);
 			reminder_row.appendChild(delete_button);
 			
+			
 			parent.appendChild(reminder_row);
-			parent.appendChild(br);
+
 			
-			
+			slist(document.getElementById("dmp-update-content"));
 			datepicker_list.push({ "name": name_input.value, "date":date_input.value, } );
 
 			}
 			
 			function datepicker_list_to_JSON(){
+				
+				datepicker_list = [];
+				[].slice.call(document.querySelectorAll("#dmp-update-content li")).forEach((e) => datepicker_list.push({ "name": e.children[0].value, "date":e.children[1].value, }) );
 				
 				const filtered_list = datepicker_list.filter(function(i){ return i != null; });
 				
@@ -1569,11 +1650,11 @@ END:VEVENT`;
 			            //
 			        }
 			    ];
-			    //console.log(compared_list[4].entries());
+
 			    for (const[index, element]of compared_list[4].entries()) {
 			        const ele_id = "form_" + element.split("_")[1];
 
-			        //const ele = document.getElementById(ele_id);
+
 			        console.log("element id is " + ele_id); // ,
 
 			        const id_and_content = {
@@ -1650,7 +1731,7 @@ END:VEVENT`;
                             </label>
                         
                         
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">clear cache</button>
+                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">restore default (clear input)</button>
                         
                         <li><hr class="dropdown-divider" /></li>
                         <li>
@@ -1717,7 +1798,7 @@ END:VEVENT`;
                             </label>
                         </li>
                         <li>
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">clear cache</button>
+                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">restore default (clear input)</button>
                         </li>
                         <li>
                             <button
@@ -1728,7 +1809,7 @@ END:VEVENT`;
 						
 						}, "300" ) ;'
                             >
-                                word cloud
+                               generate word cloud
                             </button>
                         </li>
                         <li>
@@ -2496,11 +2577,11 @@ END:VEVENT`;
 	  <div class="modal-dialog">
 		<div class="modal-content">
 		  <div class="modal-header">
-			<h5 class="modal-title" id="update-label">Set up several reminders before deadline. You will download ".ics" files after click "submit" button</h5>
+			<h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "submit" button</h5>
 			<button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		    </div>
 		    <div class="modal-body">
-			<div class="input-group">
+			<div class="input-group justify-content-center">
 			<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an reminder </button> 
 			<button  type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16">
 			  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -2508,10 +2589,10 @@ END:VEVENT`;
 			</svg> remove all reminders </button> 
 			</div>
 			<br>
-		    <div id="dmp-update-content" >
+		    <ul id="dmp-update-content" class="slist" >
 			List of reminders
 			
-			</div>
+			</ul>
 			
 			
 			</div>
