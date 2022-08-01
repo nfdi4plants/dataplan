@@ -100,16 +100,16 @@
 		</script>
 			</head>
 			<script>
-			// check if the browser is firefox. For firefox, an argument in window.find() function is different
-			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+			
+			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
 			var doc_name = 'dmp1'; // default document to use at the first page load
-			var user_info = window.localStorage.getItem("user_info");
-			var cached_a = window.localStorage.getItem("saved_a");
-			var cached_template = window.localStorage.getItem("template");
-			var datepicker_list=[];
-			var datepicker_list_total=[];
-			var initialed = false;
-			let temp_a = {
+			var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
+			var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
+			var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
+			var datepicker_list=[]; // initialization a list to store dmp update reminder
+
+			var initialed = false; // set the initialed status to false
+			let temp_a = { // template answers used to compare with saved answers 
 				"dmp": {
 			                "title": "Minimal DMP",
 			                "contact": {
@@ -203,7 +203,8 @@
 						]}
 					
 			};
-			if (cached_a !== null) {
+			
+			if (cached_a !== null) { // if there is no answer saved in local storage
 			
 				
 				
@@ -351,26 +352,17 @@
 			    };
 			}
 
-			function nextField(current) {
-			    for (i = 0; i < current.form.elements.length; i++) {
-			        if (current.form.elements[i].tabIndex - current.tabIndex == 1) {
-			            current.form.elements[i].focus();
-			            if (current.form.elements[i].type == "text") {
-			                current.form.elements[i].select();
-			            }
-			        }
-			    }
-			}
+
 			
 			function slist(target) {
 
 			  
 			  let items = target.getElementsByTagName("li"), current = null;
 
-			  // (B) MAKE ITEMS DRAGGABLE + SORTABLE
+			
 			  for (let i of items) {				
 				
-				// (B2) DRAG START - YELLOW HIGHLIGHT DROPZONES
+				// Drag start
 				i.ondragstart = (ev) => {
 				  current = i;
 				  for (let it of items) {
@@ -378,32 +370,32 @@
 				  }
 				};
 				
-				// (B3) DRAG ENTER - RED HIGHLIGHT DROPZONE
+				// Drag enter
 				i.ondragenter = (ev) => {
 				  if (i != current) { setTimeout(()=>{i.classList.add("active"), "10"}); console.log("entering and adding active"); }
 				  
 				};
 				
 
-				// (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
+				// drag leave
 				i.ondragleave = () => {
 				  i.classList.remove("active");console.log("leaving and removing active");
 				};
 
-				// (B5) DRAG END - REMOVE ALL HIGHLIGHTS
+				// drag end
 				i.ondragend = () => { for (let it of items) {
 					it.classList.remove("hint");
 					it.classList.remove("active");
 				}};
 			 
-				// (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
+				// drag over stop default
 				i.ondragover = (evt) => { evt.preventDefault(); };
 				[].slice.call(i.children).forEach( (e) => e.ondragover = (evt) => {
 				   evt.preventDefault(); }
 				 ) ;
 				
 				
-				// (B7) ON DROP - DO SOMETHING
+				// when drop, insert the element
 				i.ondrop = (evt) => {
 				  evt.preventDefault();
 				  if (i != current) {
@@ -422,7 +414,7 @@
 			  }
 			}
 			
-			function enter2tab() {
+			function enter2tab() { // let enter function like tab
 
 			    if (window.event && window.event.keyCode == 13) {
 
@@ -1539,7 +1531,7 @@
 			function datepicker_list_to_JSON(){
 				
 				datepicker_list = [];
-				[].slice.call(document.querySelectorAll("#dmp-update-content li")).forEach((e) => datepicker_list.push({ "name": e.children[0].value, "date":e.children[1].value, }) );
+				[].slice.call(document.querySelectorAll("#dmp-update-content li")).forEach((e) => datepicker_list.push({ "name": e.children[1].value, "date":e.children[2].value, }) );
 				
 				const filtered_list = datepicker_list.filter(function(i){ return i != null; });
 				
