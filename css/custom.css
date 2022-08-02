@@ -272,9 +272,9 @@ label {
   margin: 0;
 }
 .slist li {
-  margin: 10px;
-  padding: 15px 0px 15px 15px;
-  border-radius: 10px;
+  margin: 5px;
+  /*padding: 0px 0px 0px 0px;*/
+  #border-radius: 10px;
   border: 1px solid #d5d8dc;
   background: #eaecee;
 }

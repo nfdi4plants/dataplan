@@ -100,7 +100,7 @@
 		</script>
 			</head>
 			<script>
-			
+			/********** Section variables and data structures ***********/
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
 			var doc_name = 'dmp1'; // default document to use at the first page load
 			var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
@@ -351,118 +351,9 @@
 						]}
 			    };
 			}
-
-
 			
-			function slist(target) {
-
-			  
-			  let items = target.getElementsByTagName("li"), current = null;
-
-			
-			  for (let i of items) {				
-				
-				// Drag start
-				i.ondragstart = (ev) => {
-				  current = i;
-				  for (let it of items) {
-					if (it != current) { it.classList.add("hint"); }
-				  }
-				};
-				
-				// Drag enter
-				i.ondragenter = (ev) => {
-				  if (i != current) { setTimeout(()=>{i.classList.add("active"), "10"}); console.log("entering and adding active"); }
-				  
-				};
-				
-
-				// drag leave
-				i.ondragleave = () => {
-				  i.classList.remove("active");console.log("leaving and removing active");
-				};
-
-				// drag end
-				i.ondragend = () => { for (let it of items) {
-					it.classList.remove("hint");
-					it.classList.remove("active");
-				}};
-			 
-				// drag over stop default
-				i.ondragover = (evt) => { evt.preventDefault(); };
-				[].slice.call(i.children).forEach( (e) => e.ondragover = (evt) => {
-				   evt.preventDefault(); }
-				 ) ;
-				
-				
-				// when drop, insert the element
-				i.ondrop = (evt) => {
-				  evt.preventDefault();
-				  if (i != current) {
-					let currentpos = 0, droppedpos = 0;
-					for (let it=0; it<items.length; it++) {
-					  if (current == items[it]) { currentpos = it; }
-					  if (i == items[it]) { droppedpos = it; }
-					}
-					if (currentpos < droppedpos) {
-					  i.parentNode.insertBefore(current, i.nextSibling);
-					} else {
-					  i.parentNode.insertBefore(current, i);
-					}
-				  }
-				};
-			  }
-			}
-			
-			function enter2tab() { // let enter function like tab
-
-			    if (window.event && window.event.keyCode == 13) {
-
-			        window.event.keyCode = 9;
-			    }
-			}
-			//console.log("is firefox ?"+is_firefox);
-			function load_dmp(callback = reload_answers, name = cached_template) {
-			    doc_name = name;
-			    window.localStorage.setItem("template", doc_name);
-			    let content = document.getElementById(name);
-			    content.classList.add("content-page");
-			    let frame = document.getElementById("doc3");
-			    frame.innerHTML = content.innerHTML;
-			    callback();
-			    initialed = true;
-				syn_load_cache();
-
-			}
-			// template answers
-
-			// saved answers
-
-			// initialization
-
-			function consent() {
-			    window.localStorage.setItem("cookie_consent", "yes");
-			    if (user_info == null) {
-			        setTimeout(function () {
-			            tour.show();
-			        }, 500);
-
-			    }
-			}
-
-			const prefix = '$_';
-
-			function save_json() {
-
-			    aJSONString = JSON.stringify(saved_a);
-			    const blob = new Blob([aJSONString], {
-			        type: "application/json"
-			    });
-			    saveAs(blob);
-
-			}
 			/*============== tutorial ==============*/
-
+			
 			var steps = [{
 			        title: "Data Management Plan Generator (DMPG) ",
 			        content: '<p> Welcome! let&#39;s generate a DMP and related documents in 5 minutes<br><p>1. A DFG compatible detailed DMP is availabe <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here   </a><br>2. A European <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >DMP</a> in detail (11 pages);<br>3. A <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >proposal DMP</a> (2 pages); <br>4. A <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide</a> in detail throughout the project</p>'
@@ -495,6 +386,65 @@
 			];
 
 			var tour = new Tour(steps);
+			
+			
+			
+			/********** functions ***********/
+			
+			
+			function load_dmp(callback = reload_answers, name = cached_template) {
+			    doc_name = name;
+			    window.localStorage.setItem("template", doc_name);
+			    let content = document.getElementById(name);
+			    content.classList.add("content-page");
+			    let frame = document.getElementById("doc3");
+			    frame.innerHTML = content.innerHTML;
+			    callback();
+			    initialed = true;
+				syn_load_cache();
+
+			}
+			
+			
+			
+			
+			function enter2tab() { // let enter function like tab
+
+			    if (window.event && window.event.keyCode == 13) {
+
+			        window.event.keyCode = 9;
+			    }
+			}
+			//console.log("is firefox ?"+is_firefox); // check if the firefox check works
+			
+			// template answers
+
+			// saved answers
+
+			// initialization
+
+			function consent() {
+			    window.localStorage.setItem("cookie_consent", "yes");
+			    if (user_info == null) {
+			        setTimeout(function () {
+			            tour.show();
+			        }, 500);
+
+			    }
+			}
+
+			const prefix = '$_';
+			
+			function save_json() {
+
+			    aJSONString = JSON.stringify(saved_a);
+			    const blob = new Blob([aJSONString], {
+			        type: "application/json"
+			    });
+			    saveAs(blob);
+
+			}
+			
 			/*============== tutorial initialization ends ==============*/
 
 			// event listener for text input (no need to press submit button anymore)
@@ -739,7 +689,10 @@
 			        reader.readAsDataURL(image);
 			    }
 			}
-
+			
+			
+			
+			
 			function get_option(this_element) {
 			
 			    undo(this_element.nextElementSibling);
@@ -1474,13 +1427,74 @@
 			}
 			
 			
+			function slist(target) {
+
+			  
+			  let items = target.getElementsByTagName("li"), current = null;
+
+			
+			  for (let i of items) {				
+				
+				// Drag start
+				i.ondragstart = (ev) => {
+				  current = i;
+				  for (let it of items) {
+					if (it != current) { it.classList.add("hint"); }
+				  }
+				};
+				
+				// Drag enter
+				i.ondragenter = (ev) => {
+				  if (i != current) { setTimeout(()=>{i.classList.add("active"), "10"}); console.log("entering and adding active"); }
+				  
+				};
+				
+
+				// drag leave
+				i.ondragleave = () => {
+				  i.classList.remove("active");console.log("leaving and removing active");
+				};
+
+				// drag end
+				i.ondragend = () => { for (let it of items) {
+					it.classList.remove("hint");
+					it.classList.remove("active");
+				}};
+			 
+				// drag over stop default
+				i.ondragover = (evt) => { evt.preventDefault(); };
+				[].slice.call(i.children).forEach( (e) => e.ondragover = (evt) => {
+				   evt.preventDefault(); }
+				 ) ;
+				
+				
+				// when drop, insert the element
+				i.ondrop = (evt) => {
+				  evt.preventDefault();
+				  if (i != current) {
+					let currentpos = 0, droppedpos = 0;
+					for (let it=0; it<items.length; it++) {
+					  if (current == items[it]) { currentpos = it; }
+					  if (i == items[it]) { droppedpos = it; }
+					}
+					if (currentpos < droppedpos) {
+					  i.parentNode.insertBefore(current, i.nextSibling);
+					} else {
+					  i.parentNode.insertBefore(current, i);
+					}
+				  }
+				};
+			  }
+			}
+			
+			
 			
 			function add_date_div(name="", date1=Date() ){
 			
 			const parent=document.querySelector("#dmp-update-content");
 			const length=datepicker_list.length; 
 			let reminder_row = document.createElement("li");
-			reminder_row.setAttribute("class", "input-group");
+			reminder_row.setAttribute("class", "input-group justify-content-between");
 			reminder_row.setAttribute("draggable", "true");
 			const id = length+1;
 			const reminder_id = "reminder"+id;
@@ -1495,7 +1509,7 @@
 			name_input.setAttribute("placeholder", "name your reminder" );
 			name_input.setAttribute("name", "update_name_input");
 			name_input.setAttribute("onfocusin", "this.select()");
-			
+			name_input.setAttribute("class","bg-transparent border-light")
 			name_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["name"]= this.value' );
 			name_input.setAttribute("value", name);
 			
@@ -1506,6 +1520,7 @@
 			date_input.setAttribute("placeholder", "click to select date");
 			date_input.setAttribute("data-list", length);
 			date_input.setAttribute("value", date1);
+			date_input.setAttribute("class","bg-transparent border-light")
 			date_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["date"]= this.value' );
 			
 			const delete_button = document.createElement("button");
@@ -1518,8 +1533,6 @@
 			reminder_row.appendChild(name_input);
 			reminder_row.appendChild(date_input);
 			reminder_row.appendChild(delete_button);
-			
-			
 			parent.appendChild(reminder_row);
 
 			
@@ -2627,7 +2640,7 @@ END:VEVENT`;
                 <div id="vis" style="width: 35vw; margin: auto;"></div>
             </div>
             <div class="p-2" style="margin: auto;">
-                <h1 style="" class="c13 row align-middle"><span class="c15"> </span><span class="c2">Data Management Plan of $_PROJECT</span></h1>
+                <h1 style="" class="c13 row align-middle"><span class="c15"> </span><center  class="c2">Data Management Plan of $_PROJECT</center></h1>
 
                 <br />
                 <br />
