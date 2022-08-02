@@ -1509,7 +1509,7 @@
 			name_input.setAttribute("placeholder", "name your reminder" );
 			name_input.setAttribute("name", "update_name_input");
 			name_input.setAttribute("onfocusin", "this.select()");
-			name_input.setAttribute("class","bg-transparent border-light")
+			name_input.setAttribute("class","bg-transparent border-white")
 			name_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["name"]= this.value' );
 			name_input.setAttribute("value", name);
 			
@@ -1520,7 +1520,7 @@
 			date_input.setAttribute("placeholder", "click to select date");
 			date_input.setAttribute("data-list", length);
 			date_input.setAttribute("value", date1);
-			date_input.setAttribute("class","bg-transparent border-light")
+			date_input.setAttribute("class","bg-transparent border-white")
 			date_input.setAttribute("onfocusout", 'datepicker_list[' + length +']["date"]= this.value' );
 			
 			const delete_button = document.createElement("button");

@@ -274,7 +274,7 @@ label {
 .slist li {
   margin: 5px;
   /*padding: 0px 0px 0px 0px;*/
-  #border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid #d5d8dc;
   background: #eaecee;
 }
