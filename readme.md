@@ -7,7 +7,7 @@ This is a very simple way to make a DMP. By using this Generator, you can create
 4. a customized practical guide throughout your projects
 5. a user defined template that you can edit freely
 
-[click to test](https://nfdi4plants.github.io/dmpg/)  
+[click to test](https://nfdi4plants.github.io/dataplan)  
 
 
 ### folder structure:
