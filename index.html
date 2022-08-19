@@ -386,7 +386,7 @@
 			];
 
 			var tour = new Tour(steps);
-			
+			var upload_json,current_input_answer, uploaded_input_answer;
 			
 			
 			/********** functions ***********/
@@ -821,7 +821,7 @@
 
 			            let div = document.createElement('div');
 			            div.setAttribute("class", "alert alert-danger");
-			            div.setAttribute("role", "alert");
+			            div.setAttribute("role", "alert");	
 			            div.setAttribute("name", "_warning_notification");
 			            let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
 
@@ -1224,7 +1224,10 @@
 			        document.getElementById("user-defined").innerHTML = window.localStorage.getItem("fulltext_user");
 			    }
 			    if (window.localStorage.getItem("cookie_consent") !== "yes") {
-			        document.getElementById("modal-button").click();
+					var cookie_modal = new bootstrap.Modal(document.getElementById('cookie_modal'), {
+					  keyboard: false
+					})
+			        cookie_modal.show();
 			    }
 				
 			    window.localStorage.setItem("user_info", "visited");
@@ -1243,20 +1246,58 @@
 
 			    }
 				
-					  
+				var cache_management = new bootstrap.Modal(document.getElementById('cache_management'), {
+					  keyboard: false
+					})
+			        	  
 					
 					
-			    const upload_json = document.getElementById("upload");
-			    upload_json.addEventListener("change", reload_json, false);
+			    upload_json = document.getElementById("upload");
+			    upload_json.addEventListener("change", open_storage_modal, false);
+				
+				function open_storage_modal(){
+					var a = saved_a;
+					for	(let [key, value] of Object.entries(a["update"]["storage"]))	{
+						if (value["answer"].length != 0){
+							const list = document.getElementById("current_input");
+							const new_option = document.createElement("li");
+							const option_link = document.createElement("a");
+							
+							option_link.setAttribute("class", "dropdown-item");
+							option_link.setAttribute("href", "#");
+							option_link.setAttribute("onclick", "assign_current_input(this)");
+							option_link.setAttribute("data-option-no", key);
+							option_link.innerHTML= "Cache" + key;
+							new_option.appendChild(option_link);
+						
+							list.appendChild(new_option);
+						}
+					}
+					upload_json.files[0].text().then(text => (a = JSON.parse(text)));
+					for	(let [key, value] of Object.entries(a["update"]["storage"]))	{
+							if (value["answer"].length != 0){
+								const list = document.getElementById("uploaded_input");
+								const new_option = document.createElement("li");
+								const option_link = document.createElement("a");
+								
+								option_link.setAttribute("class", "dropdown-item");
+								option_link.setAttribute("href", "#");
+								option_link.setAttribute("onclick", "assign_uploaded_input(this)");
+								option_link.setAttribute("data-option-no", key);
+								option_link.innerHTML= "Cache " + key;
+								new_option.appendChild(option_link);
+							
+								list.appendChild(new_option);
+							}
+						}
 
-			    function reload_json() {
+					cache_management.toggle();
+				}
+				
+				
+				
+				
 
-			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
-					
-			        //console.log(JSON.stringify(saved_a));
-					
-
-			    }
 
 			    //
 
@@ -1265,6 +1306,65 @@
 
 			});
 			
+			function assign_current_input(element){
+			let a = saved_a;
+			
+			const no = element.getAttribute("data-option-no");
+			current_input_answer = a["update"]["storage"][no]["answer"];
+			update_table();
+			}
+			function assign_uploaded_input(element){
+			const no = element.getAttribute("data-option-no");
+			let a;
+			
+			upload_json.files[0].text().then(text => (a = JSON.parse(text))).then(a => (uploaded_input_answer = a["update"]["storage"][no]["answer"]));
+			
+			update_table();
+			}
+			
+			function update_table(){
+			try {document.querySelectorAll('[name="input_table_row"]').forEach(e => e.remove());;  }
+			catch(e){}
+			const compare_list = compare_answers(current_input_answer, uploaded_input_answer);
+				for (let [key, value] of Object.entries(current_input_answer["replace"]))	{
+					const body = document.getElementById("cache_management_modal_body");
+					const row = document.createElement("div");
+					row.setAttribute("class", "row");
+					row.setAttribute("name", "input_table_row");
+					const col1 = document.createElement("div");
+					col1.setAttribute("class", "col-2");
+					const col2 = document.createElement("div");
+					col2.innerHTML = value; 
+					col2.setAttribute("class", "col-4");
+					const col3 = document.createElement("div");
+					col3.setAttribute("class", "col-4");
+					const col4 = document.createElement("div");
+					col4.setAttribute("class", "col-2");
+					row.append(col1, col2, col3, col4);
+					body.append(row);
+					
+					
+				}
+			}
+			
+			function reload_json() {
+					
+					
+			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
+					
+			        //console.log(JSON.stringify(saved_a));
+					
+
+			    }
+			function reload_json_selection(current, uploaded) {
+					
+					
+			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
+					
+			        //console.log(JSON.stringify(saved_a));
+					
+
+			    }
 			function syn_load_cache(){
 				
 				const cached_timestamp = saved_a["update"]["storage"].map((e)=> e["answer"]);
@@ -2577,7 +2677,7 @@ END:VEVENT`;
 	  dmp update modal
 	</button>
 
-	<!-- Modal -->
+	<!-- Modal dmp update reminder-->
 	<div class="modal" id="dmp_update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-label" aria-hidden="true">
 	  <div class="modal-dialog">
 		<div class="modal-content">
@@ -2609,8 +2709,65 @@ END:VEVENT`;
 		</div>
 	  </div>
 	</div>
+	<!-- Modal dmp storage management-->
+	<div class="modal fade" id="cache_management" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Compare and overwrite caches</h5>
+                    <button type="button" onclick="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="cache_management_modal_body">
+					<div class="row ">
+						<div class="dropdown col-2">
+						Question No.
+						</div>
+						<div class="dropdown col-4 ">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+							Current Input
+						  </a>
+
+						  <ul class="dropdown-menu" id="current_input" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item" href="#">Action</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						  </ul>
+						</div>
+						
+						<div class="dropdown col-4">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+							Uploaded Input
+						  </a>
+
+						  <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item" href="#">Action</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						  </ul>
+						</div>
+					
+						<div class="dropdown col-2">
+						another column
+						</div>
+					
+					
+					</div>
+				
+				
+				
+				
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="reload_json()">Overwrite current</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="reload_json()">Overwrite all</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="cookie_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2625,10 +2782,7 @@ END:VEVENT`;
                     <button type="button" class="btn btn-secondary" onclick="consent()" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="consent()">consent</button>
                 </div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="modal-button">
-                    modal
-                </button>
+
             </div>
         </div>
     </div>
