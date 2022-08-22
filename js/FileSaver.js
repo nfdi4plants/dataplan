@@ -25,7 +25,7 @@ var saveAs = saveAs
 		}
 		, URL = view.URL || view.webkitURL || view
 		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
-		, can_use_save_link = "download" in save_link
+		, can_use_save_link =  "download" in save_link
 		, click = function(node) {
 			var event = doc.createEvent("MouseEvents");
 			event.initMouseEvent(
@@ -112,7 +112,7 @@ var saveAs = saveAs
 			;
 			filesaver.readyState = filesaver.INIT;
 			if (!name) {
-				name = "download";
+				name =  "download";
 			}
 			if (can_use_save_link) {
 				object_url = get_object_url(blob);
@@ -134,7 +134,7 @@ var saveAs = saveAs
 			// Since I can't be sure that the guessed media type will trigger a download
 			// in WebKit, I append .download to the filename.
 			// https://bugs.webkit.org/show_bug.cgi?id=65440
-			if (webkit_req_fs && name !== "download") {
+			if (webkit_req_fs && name !==  "download") {
 				name += ".download";
 			}
 			if (type === force_saveable_type || webkit_req_fs) {

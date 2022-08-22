@@ -197,6 +197,7 @@
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
 						 
 						
 						
@@ -214,6 +215,7 @@
 				catch(e){
 				saved_a["update"]={"timeline":[
 						],"storage":[
+						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
@@ -386,7 +388,7 @@
 			];
 
 			var tour = new Tour(steps);
-			var upload_json,current_input_answer, uploaded_input_answer;
+			var upload_json,current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
 			
 			
 			/********** functions ***********/
@@ -441,7 +443,7 @@
 			    const blob = new Blob([aJSONString], {
 			        type: "application/json"
 			    });
-			    saveAs(blob);
+			    saveAs(blob, "DataPLAN_DMP");
 
 			}
 			
@@ -1257,9 +1259,20 @@
 				
 				function open_storage_modal(){
 					var a = saved_a;
+					const list1 = document.getElementById("current_input");
+					current_input_answer= saved_a;
+
+					list1.innerHTML = "";
+					
+					
+					updated_origin = 0;
+					current_origin = 0;
+					upload_json.files[0].text().then(text => (uploaded_input_all = JSON.parse(text)));
+						
+
 					for	(let [key, value] of Object.entries(a["update"]["storage"]))	{
-						if (value["answer"].length != 0){
-							const list = document.getElementById("current_input");
+						if (value["answer"].length != 0 && key>0 ){
+							
 							const new_option = document.createElement("li");
 							const option_link = document.createElement("a");
 							
@@ -1270,28 +1283,38 @@
 							option_link.innerHTML= "Cache" + key;
 							new_option.appendChild(option_link);
 						
-							list.appendChild(new_option);
+							list1.appendChild(new_option);
 						}
 					}
 					upload_json.files[0].text().then(text => (a = JSON.parse(text)));
+					const list2 = document.getElementById("uploaded_input");
+					list2.innerHTML = "";
+					
+					
 					for	(let [key, value] of Object.entries(a["update"]["storage"]))	{
-							if (value["answer"].length != 0){
-								const list = document.getElementById("uploaded_input");
-								const new_option = document.createElement("li");
-								const option_link = document.createElement("a");
+						if (value["answer"].length != 0 && key >0){
 								
-								option_link.setAttribute("class", "dropdown-item");
-								option_link.setAttribute("href", "#");
-								option_link.setAttribute("onclick", "assign_uploaded_input(this)");
-								option_link.setAttribute("data-option-no", key);
-								option_link.innerHTML= "Cache " + key;
-								new_option.appendChild(option_link);
+							const new_option = document.createElement("li");
+							const option_link = document.createElement("a");
 							
-								list.appendChild(new_option);
+							option_link.setAttribute("class", "dropdown-item");
+							option_link.setAttribute("href", "#");
+							option_link.setAttribute("onclick", "assign_uploaded_input(this)");
+							option_link.setAttribute("data-option-no", key);
+							option_link.innerHTML= "Cache " + key;
+							new_option.appendChild(option_link);
+						
+							list2.appendChild(new_option);
 							}
 						}
-
-					cache_management.toggle();
+						
+					current_input_answer = saved_a;	
+					let a2;
+					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2,cache_management.toggle(),
+					update_table() ));
+					
+					
+					
 				}
 				
 				
@@ -1308,38 +1331,43 @@
 			
 			function assign_current_input(element){
 			let a = saved_a;
-			
 			const no = element.getAttribute("data-option-no");
-			current_input_answer = a["update"]["storage"][no]["answer"];
+			current_origin = no;
+			current_input_answer = saved_a["update"]["storage"][no]["answer"];
 			update_table();
 			}
 			function assign_uploaded_input(element){
 			const no = element.getAttribute("data-option-no");
-			let a;
 			
-			upload_json.files[0].text().then(text => (a = JSON.parse(text))).then(a => (uploaded_input_answer = a["update"]["storage"][no]["answer"]));
 			
-			update_table();
+			upload_json.files[0].text().then(text => (uploaded_input_all = JSON.parse(text)) ), update_table();
+			uploaded_origin = no;
+			
 			}
 			
 			function update_table(){
-			try {document.querySelectorAll('[name="input_table_row"]').forEach(e => e.remove());;  }
+			try {document.querySelectorAll('[name="input_table_row"]').forEach(e => e.remove());  }
 			catch(e){}
 			const compare_list = compare_answers(current_input_answer, uploaded_input_answer);
 				for (let [key, value] of Object.entries(current_input_answer["replace"]))	{
 					const body = document.getElementById("cache_management_modal_body");
 					const row = document.createElement("div");
-					row.setAttribute("class", "row");
+					
+					const key_pool = compare_list["4"];
+					Object.values(key_pool).includes(key) ?  row.setAttribute("style", "background-color: green") :row.setAttribute("style", "background-color: red");
+					row.setAttribute("class", "row border-bottom border border-1 mb-1");
 					row.setAttribute("name", "input_table_row");
 					const col1 = document.createElement("div");
-					col1.setAttribute("class", "col-2");
+					col1.setAttribute("class", "col-3");
+					col1.innerHTML = key.toUpperCase().split("_")[1];
 					const col2 = document.createElement("div");
 					col2.innerHTML = value; 
 					col2.setAttribute("class", "col-4");
 					const col3 = document.createElement("div");
 					col3.setAttribute("class", "col-4");
+					col3.innerHTML = uploaded_input_answer["replace"][key]
 					const col4 = document.createElement("div");
-					col4.setAttribute("class", "col-2");
+					col4.setAttribute("class", "col-1");
 					row.append(col1, col2, col3, col4);
 					body.append(row);
 					
@@ -1347,7 +1375,7 @@
 				}
 			}
 			
-			function reload_json() {
+			function overwrite_all() {
 					
 					
 			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
@@ -1356,10 +1384,14 @@
 					
 
 			    }
-			function reload_json_selection(current, uploaded) {
+			function overwrite_current() {
 					
+					saved_a["replace"]  =saved_a["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][updated_origin]["answer"]["replace"];
+					saved_a["checkbox"] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][updated_origin]["answer"]["checkbox"];
+
+					load_dmp(reload_answers, name = cached_template);
 					
-			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
+			        
 					
 			        //console.log(JSON.stringify(saved_a));
 					
@@ -1368,9 +1400,9 @@
 			function syn_load_cache(){
 				
 				const cached_timestamp = saved_a["update"]["storage"].map((e)=> e["answer"]);
-					const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
+				const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
 					
-					saved_timestamp.forEach((e, index) =>{ if ( cached_timestamp[index]["timestamp"] != undefined) {e.innerHTML = cached_timestamp[index]["timestamp"]} else{
+					saved_timestamp.forEach((e, index) =>{ if ( cached_timestamp[index+1]["timestamp"] != undefined) {e.innerHTML = cached_timestamp[index+1]["timestamp"]} else{
 				e.innerHTML = "empty slot";
 				
 				}  }  );
@@ -1450,6 +1482,24 @@
 			}
 			
 			function save_to_cache(id, name=" "){
+				if (saved_a["update"]["storage"].length == 0){
+				saved_a["update"]["storage"] = [
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 
+						
+						
+						];
+						
+				
+				}else if (saved_a["update"]["storage"].length == 5){
+				saved_a["update"]["storage"].push({"answer":[],"name":[],});
+				
+				}
 				if (saved_a["update"]["storage"][id]["answer"].length != 0 ){
 				    let confirm_overwrite = confirm("Overwrite saved answer here?");
 					if (confirm_overwrite) {
@@ -1927,20 +1977,20 @@ END:VEVENT`;
 							<button id="load_from_cache" class="dropdown-item" >load from cache &raquo;</button>
 							<ul class="dropdown-menu dropdown-submenu">
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_0" name="load_from_cache" onclick="load_from_cache(0)" href="#">slot 1</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">slot 1</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">slot 2</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">slot 2</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">slot 3</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">slot 3</a>
 								  
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">slot 4</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">slot 4</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">slot 5</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache" onclick="load_from_cache(5)" href="#">slot 5</a>
 								</li>
 							  </ul>
 							</li>
@@ -1971,20 +2021,20 @@ END:VEVENT`;
 							<button id="save_to_cache" class="dropdown-item" >save to cache &raquo;</button>
 							<ul class="dropdown-menu dropdown-submenu">
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(0)" href="#">slot 1</a>
+								  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">slot 1</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">slot 2</a>
+								  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">slot 2</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">slot 3</a>
+								  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">slot 3</a>
 								  
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">slot 4</a>
+								  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">slot 4</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">slot 5</a>
+								  <a class="dropdown-item" onclick="save_to_cache(5)" href="#">slot 5</a>
 								</li>
 							  </ul>
 							</li>
@@ -2710,8 +2760,8 @@ END:VEVENT`;
 	  </div>
 	</div>
 	<!-- Modal dmp storage management-->
-	<div class="modal fade" id="cache_management" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+	<div class="modal fade " id="cache_management" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Compare and overwrite caches</h5>
@@ -2719,35 +2769,31 @@ END:VEVENT`;
                 </div>
                 <div class="modal-body" id="cache_management_modal_body">
 					<div class="row ">
-						<div class="dropdown col-2">
-						Question No.
+						<div class="dropdown col-3">
+						Question
 						</div>
 						<div class="dropdown col-4 ">
 						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-							Current Input
+							Current Answer
 						  </a>
 
 						  <ul class="dropdown-menu" id="current_input" aria-labelledby="dropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else here</a></li>
+							
 						  </ul>
 						</div>
 						
 						<div class="dropdown col-4">
 						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-							Uploaded Input
+							Uploaded Answer
 						  </a>
 
 						  <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="dropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><a class="dropdown-item" href="#">Something else here</a></li>
+							
 						  </ul>
 						</div>
 					
-						<div class="dropdown col-2">
-						another column
+						<div class="dropdown col-1">
+						Over <br>write
 						</div>
 					
 					
@@ -2759,8 +2805,8 @@ END:VEVENT`;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="reload_json()">Overwrite current</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="reload_json()">Overwrite all</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="overwrite_current()">Overwrite current</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="overwrite_all()">Overwrite all</button>
                 </div>
 
             </div>
