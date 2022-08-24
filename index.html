@@ -1254,24 +1254,24 @@
 			        	  
 					
 					
-			    upload_json = document.getElementById("upload");
+			    var upload_json = document.getElementById("upload");
 			    upload_json.addEventListener("change", open_storage_modal, false);
 				
 				function open_storage_modal(){
-					var a = saved_a;
+					
 					const list1 = document.getElementById("current_input");
 					current_input_answer= saved_a;
-
+					
 					list1.innerHTML = "";
 					
 					
-					updated_origin = 0;
+					uploaded_origin = 0;
 					current_origin = 0;
-					upload_json.files[0].text().then(text => (uploaded_input_all = JSON.parse(text)));
-						
-
-					for	(let [key, value] of Object.entries(a["update"]["storage"]))	{
-						if (value["answer"].length != 0 && key>0 ){
+					
+					document.getElementById("current_answer_link").innerHTML= "Current input";	
+					document.getElementById("uploaded_answer_link").innerHTML= "Uploaded input";
+					for	(let [key, value] of Object.entries(saved_a["update"]["storage"]))	{
+						if (value["answer"].length != 0  ){
 							
 							const new_option = document.createElement("li");
 							const option_link = document.createElement("a");
@@ -1280,46 +1280,30 @@
 							option_link.setAttribute("href", "#");
 							option_link.setAttribute("onclick", "assign_current_input(this)");
 							option_link.setAttribute("data-option-no", key);
-							option_link.innerHTML= "Cache" + key;
+							if (key ==0){
+								option_link.innerHTML= "Default cache";
+								} else {
+								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"];
+								
+								}
 							new_option.appendChild(option_link);
 						
 							list1.appendChild(new_option);
 						}
 					}
-					upload_json.files[0].text().then(text => (a = JSON.parse(text)));
-					const list2 = document.getElementById("uploaded_input");
-					list2.innerHTML = "";
 					
 					
-					for	(let [key, value] of Object.entries(a["update"]["storage"]))	{
-						if (value["answer"].length != 0 && key >0){
-								
-							const new_option = document.createElement("li");
-							const option_link = document.createElement("a");
-							
-							option_link.setAttribute("class", "dropdown-item");
-							option_link.setAttribute("href", "#");
-							option_link.setAttribute("onclick", "assign_uploaded_input(this)");
-							option_link.setAttribute("data-option-no", key);
-							option_link.innerHTML= "Cache " + key;
-							new_option.appendChild(option_link);
-						
-							list2.appendChild(new_option);
-							}
-						}
-						
-					current_input_answer = saved_a;	
-					let a2;
-					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2,cache_management.toggle(),
+					
+
+				
+				let a2;
+					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.toggle(),
 					update_table() ));
-					
-					
-					
+				
+				this.value=null; 
+				return false;
+				
 				}
-				
-				
-				
-				
 
 
 			    //
@@ -1329,19 +1313,58 @@
 
 			});
 			
+				function update_storage_dropdown(a2) {
+					const list2 = document.getElementById("uploaded_input");
+					list2.innerHTML = "";
+					uploaded_input_all = a2; 
+					for	(let [key, value] of Object.entries(a2["update"]["storage"]))	{
+						if (value["answer"].length != 0 ){
+							
+							const new_option = document.createElement("li");
+							const option_link = document.createElement("a");
+							option_link.setAttribute("class", "dropdown-item");
+							option_link.setAttribute("href", "#");
+							option_link.setAttribute("onclick", "assign_uploaded_input(this)");
+							option_link.setAttribute("data-option-no", key);
+								if (key ==0){
+								option_link.innerHTML= "Default cache";
+								} else {
+								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"]
+								
+								}
+							new_option.appendChild(option_link);
+							list2.appendChild(new_option);
+										
+								
+								
+								
+							}
+						}
+					// at the initiation, the top level answer is used.	
+					
+					
+					
+					
+					
+				}
+			
 			function assign_current_input(element){
-			let a = saved_a;
-			const no = element.getAttribute("data-option-no");
-			current_origin = no;
-			current_input_answer = saved_a["update"]["storage"][no]["answer"];
-			update_table();
+				let a = saved_a;
+				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split("T")[0];
+				const no = element.getAttribute("data-option-no");
+				current_origin = no;
+				current_input_answer = saved_a["update"]["storage"][no]["answer"];
+				update_table();
 			}
+			
+			
 			function assign_uploaded_input(element){
-			const no = element.getAttribute("data-option-no");
+				const no = element.getAttribute("data-option-no");
+				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split("T")[0];
+				uploaded_origin = no;
+				uploaded_input_answer = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"] ;
+				update_table();
 			
-			
-			upload_json.files[0].text().then(text => (uploaded_input_all = JSON.parse(text)) ), update_table();
-			uploaded_origin = no;
 			
 			}
 			
@@ -1354,7 +1377,7 @@
 					const row = document.createElement("div");
 					
 					const key_pool = compare_list["4"];
-					Object.values(key_pool).includes(key) ?  row.setAttribute("style", "background-color: green") :row.setAttribute("style", "background-color: red");
+					Object.values(key_pool).includes(key) ?  row.setAttribute("style", "background-color: #f0f5e6") :row.setAttribute("style", "background-color: #E6A5B0");
 					row.setAttribute("class", "row border-bottom border border-1 mb-1");
 					row.setAttribute("name", "input_table_row");
 					const col1 = document.createElement("div");
@@ -1368,6 +1391,12 @@
 					col3.innerHTML = uploaded_input_answer["replace"][key]
 					const col4 = document.createElement("div");
 					col4.setAttribute("class", "col-1");
+					
+					const col4_button = document.createElement("button");
+					col4_button.setAttribute("onclick", 'saved_a["update"]["storage"]["'+current_origin+'"]["answer"]["replace"]["'+key+'"] = uploaded_input_all["update"]["storage"]["'+uploaded_origin+'"]["answer"]["replace"]["'+key+'"]; current_input_answer["replace"]["'+key+'"] = uploaded_input_all["update"]["storage"]["'+uploaded_origin+'"]["answer"]["replace"]["'+key+'"]; update_table()' );
+					col4_button.setAttribute("class", "btn btn-primary");
+					col4_button.innerHTML= "Replace";
+					col4.append(col4_button)
 					row.append(col1, col2, col3, col4);
 					body.append(row);
 					
@@ -1378,7 +1407,8 @@
 			function overwrite_all() {
 					
 					
-			        upload_json.files[0].text().then(text => (saved_a = JSON.parse(text))).then(saved_a => (load_dmp(reload_answers, name = cached_template)));
+			        saved_a = uploaded_input_all;
+					load_dmp(reload_answers, name = cached_template);
 					
 			        //console.log(JSON.stringify(saved_a));
 					
@@ -1386,11 +1416,15 @@
 			    }
 			function overwrite_current() {
 					
-					saved_a["replace"]  =saved_a["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][updated_origin]["answer"]["replace"];
-					saved_a["checkbox"] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][updated_origin]["answer"]["checkbox"];
+					saved_a["replace"]  = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+					saved_a["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+					saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["timestamp"];
+					
+					saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
+					saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
 
 					load_dmp(reload_answers, name = cached_template);
-					
+					syn_load_cache();
 			        
 					
 			        //console.log(JSON.stringify(saved_a));
@@ -1975,7 +2009,7 @@ END:VEVENT`;
                         </li>
 						<li>
 							<button id="load_from_cache" class="dropdown-item" >load from cache &raquo;</button>
-							<ul class="dropdown-menu dropdown-submenu">
+							<ul class="dropdown-menu  dropdown-submenu">
 								<li>
 								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">slot 1</a>
 								</li>
@@ -2773,21 +2807,21 @@ END:VEVENT`;
 						Question
 						</div>
 						<div class="dropdown col-4 ">
-						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="current_answer_link" data-bs-toggle="dropdown" aria-expanded="false">
 							Current Answer
 						  </a>
 
-						  <ul class="dropdown-menu" id="current_input" aria-labelledby="dropdownMenuLink">
+						  <ul class="dropdown-menu" id="current_input" aria-labelledby="current_answer_link">
 							
 						  </ul>
 						</div>
 						
 						<div class="dropdown col-4">
-						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link" data-bs-toggle="dropdown" aria-expanded="false">
 							Uploaded Answer
 						  </a>
 
-						  <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="dropdownMenuLink">
+						  <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
 							
 						  </ul>
 						</div>
@@ -2806,7 +2840,7 @@ END:VEVENT`;
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="overwrite_current()">Overwrite current</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="overwrite_all()">Overwrite all</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="save_json();overwrite_all()">Overwrite all</button>
                 </div>
 
             </div>
