@@ -1235,6 +1235,7 @@
 			    window.localStorage.setItem("user_info", "visited");
 			    load_dmp(reload_answers, name = cached_template);
 				
+				
 			    console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
 			    if (urls.length > 1) {
@@ -1252,7 +1253,7 @@
 					  keyboard: false
 					})
 			        	  
-					
+				saved_a = update_saved_json(saved_a);
 					
 			    var upload_json = document.getElementById("upload");
 			    upload_json.addEventListener("change", open_storage_modal, false);
@@ -1294,11 +1295,15 @@
 					
 					
 					
-
+					
 				
 				let a2;
-					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.toggle(),
+					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.toggle(),uploaded_input_all = update_saved_json(uploaded_input_all),
+				
+				
+				
 					update_table() ));
+				
 				
 				this.value=null; 
 				return false;
@@ -1312,7 +1317,55 @@
 			    document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
 
 			});
-			
+			function update_saved_json(answers){
+				try {answers["update"];
+				answers["update"]["storage"];
+				
+				
+				}catch(e){
+				answers.update= {};
+							answers.update.storage = [
+							 {"answer":[],"name":[],},
+							 {"answer":[],"name":[],},
+							 {"answer":[],"name":[],},
+							 {"answer":[],"name":[],},
+							 {"answer":[],"name":[],},
+							 {"answer":[],"name":[],},
+							 
+							
+							
+							];
+							answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
+							answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];};
+				if (answers["update"]["storage"].length == 0){
+				answers["update"]["storage"] = [
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 
+						
+						
+						];
+						answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
+						answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
+						
+				
+				}else if (answers["update"]["storage"].length == 5){
+				answers["update"]["storage"].push({"answer":[],"name":[],});
+				answers["update"]["storage"][5] = answers["update"]["storage"][4]; 
+				answers["update"]["storage"][4] = answers["update"]["storage"][3];
+				answers["update"]["storage"][3] = answers["update"]["storage"][2];
+				answers["update"]["storage"][2] = answers["update"]["storage"][1];
+				answers["update"]["storage"][1] = answers["update"]["storage"][0];
+				answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
+				answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
+				
+				}
+				return answers;
+			}
 				function update_storage_dropdown(a2) {
 					const list2 = document.getElementById("uploaded_input");
 					list2.innerHTML = "";
@@ -1532,7 +1585,11 @@
 				
 				}else if (saved_a["update"]["storage"].length == 5){
 				saved_a["update"]["storage"].push({"answer":[],"name":[],});
-				
+				saved_a["update"]["storage"][5] = saved_a["update"]["storage"][4]; 
+				saved_a["update"]["storage"][4] = saved_a["update"]["storage"][3];
+				saved_a["update"]["storage"][3] = saved_a["update"]["storage"][2];
+				saved_a["update"]["storage"][2] = saved_a["update"]["storage"][1];
+				saved_a["update"]["storage"][1] = saved_a["update"]["storage"][0];
 				}
 				if (saved_a["update"]["storage"][id]["answer"].length != 0 ){
 				    let confirm_overwrite = confirm("Overwrite saved answer here?");
