@@ -192,7 +192,53 @@
 				   
 						
 						"update":{"timeline":[],"storage":[
-						 {"answer":[],"name":[],},
+						 {"answer":{"replace":{
+			        "$_PROJECT": "Example Project",
+			        "$_STUDYOBJECT": "Example Objective",
+			        "$_PROJECTAIM": "Example Aim",
+			        "$_USERNAME": "Example User",
+			        "$_EMAIL": "email",
+			        "$_dataofficer": "Example data officer name",
+			        "$_UPDATEMONTH": "Example Month",
+			        "$_PREVIOUSPROJECTS": "Previous Project Name",
+			        "$_proprietary": "Proprietary Software",
+			        "$_RAWDATA": "???",
+			        "$_DERIVEDDATA": "???",
+			        "$_VISUALIZATION": "visualization or not"
+			    },
+			    "checkbox": {
+			        "checkbox_1": {
+			            "checked": [],
+			            "unchecked": ["check_protect",
+			                "check_dataplant", "check_update",
+			                "check_previousprojects",
+			                "check_industry",
+			                "check_proprietary",
+			                "check_partners", "check_EU"]
+			        },
+			        "checkbox_2": {
+			            "checked": ["check_image", "check_RNAseq", "check_genomic", "check_metabolomic", "check_proteomic", "check_targeted", "check_models", "check_code", "check_excel", "check_cloned-DNA", "check_phenotypic", "check_genetic"],
+			            "unchecked": []
+			        },
+			        "checkbox_3": {
+			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue"],
+			            "unchecked": []
+			        },
+			        "checkbox_5": {
+			            "checked": [
+			                "check_GEO",
+			                "check_GenBank",
+			                "check_Proteomexchange",
+			                "check_Zenodo",
+			                "check_dataDyrad"
+			            ],
+			            "unchecked": [
+			                "check_ENA",
+			                "check_NCBI",
+			                "check_Pride"
+			            ]
+			         
+						 }}},"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
@@ -211,16 +257,17 @@
 				
 			
 			    var saved_a = JSON.parse(cached_a);
-				try {saved_a["update"];saved_a["update"]["timeline"];saved_a["dmp"]  }
+				try {saved_a["update"];saved_a["update"]["timeline"];saved_a["dmp"];saved_a["update"]["storage"]["0"]["answer"]["$_PROJECT"]  }
 				catch(e){
 				saved_a["update"]={"timeline":[
 						],"storage":[
+						{"answer":{"replace":saved_a["replace"],"checkbox":saved_a["checkbox"] },"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
-						{"answer":[],"name":[],},
+						
 
 						
 						]};
@@ -343,7 +390,53 @@
 			        },
 						"update":{"timeline":[
 						],"storage":[
-						{"answer":[],"name":[],},
+						{"answer":{"replace": {
+			        "$_PROJECT": "Example Project",
+			        "$_STUDYOBJECT": "Example Objective",
+			        "$_PROJECTAIM": "Example Aim",
+			        "$_USERNAME": "Example User",
+			        "$_EMAIL": "email",
+			        "$_dataofficer": "Example data officer name",
+			        "$_UPDATEMONTH": "Example Month",
+			        "$_PREVIOUSPROJECTS": "Previous Project Name",
+			        "$_proprietary": "Proprietary Software",
+			        "$_RAWDATA": "???",
+			        "$_DERIVEDDATA": "???",
+			        "$_VISUALIZATION": "visualization or not"
+			    },
+			    "checkbox": {
+			        "checkbox_1": {
+			            "checked": [],
+			            "unchecked": ["check_protect",
+			                "check_dataplant", "check_update",
+			                "check_previousprojects",
+			                "check_industry",
+			                "check_proprietary",
+			                "check_partners", "check_EU"]
+			        },
+			        "checkbox_2": {
+			            "checked": ["check_image", "check_RNAseq", "check_genomic", "check_metabolomic", "check_proteomic", "check_targeted", "check_models", "check_code", "check_excel", "check_cloned-DNA", "check_phenotypic", "check_genetic"],
+			            "unchecked": []
+			        },
+			        "checkbox_3": {
+			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue"],
+			            "unchecked": []
+			        },
+			        "checkbox_5": {
+			            "checked": [
+			                "check_GEO",
+			                "check_GenBank",
+			                "check_Proteomexchange",
+			                "check_Zenodo",
+			                "check_dataDyrad"
+			            ],
+			            "unchecked": [
+			                "check_ENA",
+			                "check_NCBI",
+			                "check_Pride"
+			            ]
+			         
+						}}},"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
@@ -1250,9 +1343,7 @@
 
 			    }
 				
-				var cache_management = new bootstrap.Modal(document.getElementById('cache_management'), {
-					  keyboard: false
-					})
+				var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'))
 			        	  
 				
 					
@@ -1262,7 +1353,8 @@
 				function open_storage_modal(){
 					
 					const list1 = document.getElementById("current_input");
-					current_input_answer= saved_a;
+					current_input_answer= 
+											JSON.parse(JSON.stringify(saved_a));
 					
 					list1.innerHTML = "";
 					
@@ -1277,16 +1369,16 @@
 							
 							const new_option = document.createElement("li");
 							const option_link = document.createElement("a");
-							try {
+							
 							option_link.setAttribute("class", "dropdown-item");
 							option_link.setAttribute("href", "#");
 							option_link.setAttribute("onclick", "assign_current_input(this)");
 							option_link.setAttribute("data-option-no", key);
-							if (key ==0 && value["answer"]["timestamp"]!= undefined){
+							if (key ==0 ){
 								option_link.innerHTML= "Default cache";
 								new_option.appendChild(option_link);
 								list1.appendChild(new_option);
-								} else {
+								} else if (value["answer"]["timestamp"]!= undefined){
 								
 								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"];								
 								new_option.appendChild(option_link);
@@ -1294,7 +1386,7 @@
 
 								}
 							
-							}catch(e){};
+							
 
 							
 						
@@ -1330,17 +1422,15 @@
 				answers["update"]["storage"];
 				answers["update"]["storage"][0];
 				}catch(e){
-							answers.update= {};
-							answers.update.storage = [
-							 {"answer":[],"name":[],},
-							 {"answer":[],"name":[],},
-							 {"answer":[],"name":[],},
-							 {"answer":[],"name":[],},
-							 {"answer":[],"name":[],},
-							 {"answer":[],"name":[],},
-							 
-							
-							
+						answers.update= {};
+						answers.update.storage = [
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+						 {"answer":[],"name":[],},
+
 							];
 							answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
 							answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];};
@@ -1352,9 +1442,7 @@
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
-						 
-						
-						
+
 						];
 						answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
 						answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
@@ -1371,7 +1459,8 @@
 				answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
 				
 				}else{
-						
+				answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
+				answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];	
 				
 				}	
 				
@@ -1389,26 +1478,29 @@
 							const new_option = document.createElement("li");
 							const option_link = document.createElement("a");
 							
-							try {
+							
 							option_link.setAttribute("class", "dropdown-item");
 							option_link.setAttribute("href", "#");
 							option_link.setAttribute("onclick", "assign_uploaded_input(this)");
 							option_link.setAttribute("data-option-no", key);
-							if (key ==0){
+							if (key ==0 ){
 								option_link.innerHTML= "Default cache";
 								new_option.appendChild(option_link);
 								list2.appendChild(new_option);
 
-								} else {
+								} else if (value["answer"]["timestamp"] === undefined  ) {
 								
+								
+
+								}else{
 								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"];
 								new_option.appendChild(option_link);
 								list2.appendChild(new_option);
-
+								
 								}
 								
 							
-							}catch(e){};
+							
 							
 										
 								
@@ -1429,8 +1521,9 @@
 				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split("T")[0];
 				const no = element.getAttribute("data-option-no");
 				current_origin = no;
-				current_input_answer = saved_a["update"]["storage"][no]["answer"];
+				
 				update_table();
+				saved_a["replace"]= saved_a["update"]["storage"][current_origin]["answer"]["replace"];
 			}
 			
 			
@@ -1445,15 +1538,23 @@
 			}
 			
 			function update_table(){
-			try {document.querySelectorAll('[name="input_table_row"]').forEach(e => e.remove());  }
-			catch(e){}
-			const compare_list = compare_answers(current_input_answer, uploaded_input_answer);
-				for (let [key, value] of Object.entries(current_input_answer["replace"]))	{
-					const body = document.getElementById("cache_management_modal_body");
+			
+			const compare_list = compare_answers(saved_a["update"]["storage"][current_origin]["answer"], uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]);
+				const body = document.getElementById("cache_management_modal_body");
+				const table = document.createElement("div");
+				for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["replace"]))	{
+					
+					
+					
 					const row = document.createElement("div");
 					
 					const key_pool = compare_list["4"];
-					Object.values(key_pool).includes(key) ?  row.setAttribute("style", "background-color: #f0f5e6") :row.setAttribute("style", "background-color: #E6A5B0");
+					checkbox_ele = document.getElementById("storage_checkbox_"+key);
+
+					
+
+					
+					
 					row.setAttribute("class", "row border-bottom border border-1 mb-1");
 					row.setAttribute("name", "input_table_row");
 					const col1 = document.createElement("div");
@@ -1468,16 +1569,58 @@
 					const col4 = document.createElement("div");
 					col4.setAttribute("class", "col-1");
 					
-					const col4_button = document.createElement("button");
-					col4_button.setAttribute("onclick", 'saved_a["update"]["storage"]["'+current_origin+'"]["answer"]["replace"]["'+key+'"] = uploaded_input_all["update"]["storage"]["'+uploaded_origin+'"]["answer"]["replace"]["'+key+'"]; current_input_answer["replace"]["'+key+'"] = uploaded_input_all["update"]["storage"]["'+uploaded_origin+'"]["answer"]["replace"]["'+key+'"]; update_table()' );
-					col4_button.setAttribute("class", "btn btn-primary");
-					col4_button.innerHTML= "Replace";
-					col4.append(col4_button)
+					const col4_button = document.createElement("input");
+					
+					col4_button.setAttribute("class", "form-check-input");
+					col4_button.setAttribute("type", "checkbox");
+					col4_button.setAttribute("aria-label", "...");
+					col4_button.setAttribute("id", "storage_checkbox_"+key );
+					console.log(key);
+					
+
+					
+					col4_button.addEventListener("change", function() {
+					  if (this.checked) {
+						saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = 
+						uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
+						row.setAttribute("style", "background-color: #f0f5e6") ;
+						 col2.innerHTML = uploaded_input_answer["replace"][key];  this.checked = true;
+						 saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+						 load_dmp(reload_answers, name = cached_template);
+					  } else {
+					  saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
+					  row.setAttribute("style", "background-color: #E6A5B0");
+					  col2.innerHTML = value;
+					  saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+						 load_dmp(reload_answers, name = cached_template);
+					  
+					  
+					  
+					  }
+					}
+					
+					);
+					
+					
+					if (Object.values(key_pool).includes(key) )
+						{
+						row.setAttribute("style", "background-color: #f0f5e6")
+						
+						}else{
+						col4.append(col4_button);
+						row.setAttribute("style", "background-color: #E6A5B0");
+						}		
+					
 					row.append(col1, col2, col3, col4);
-					body.append(row);
+					value=="" ? console.log("empty input") : table.append(row);
+					
 					
 					
 				}
+				try {document.querySelectorAll('[name="input_table_row"]').forEach(e => e.remove());  }
+				catch(e){};
+				body.append(table);
+				
 			}
 			
 			function overwrite_all() {
@@ -2873,15 +3016,15 @@ END:VEVENT`;
 		</div>
 	  </div>
 	</div>
-	<!-- Modal dmp storage management-->
-	<div class="modal fade " id="cache_management" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-        <div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Compare and overwrite caches</h5>
-                    <button type="button" onclick="" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	<!-- offcanvas dmp storage management-->
+	<div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false" data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas" aria-hidden="true" style="width:43vw" >
+        <!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
+		 <div class="offcanvas-header">
+            
+                    <h5 class="offcanvas-title" id="storage_offcanvas">Compare and overwrite caches</h5>
+                    <button type="button" onclick="" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="cache_management_modal_body">
+                <div class="offcanvas-body" id="cache_management_modal_body">
 					<div class="row ">
 						<div class="dropdown col-3">
 						Question
@@ -2917,10 +3060,10 @@ END:VEVENT`;
 				
 				
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="overwrite_current()">Overwrite current</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="save_json();overwrite_all()">Overwrite all</button>
+                <div class="offcanvas-footer">
+                    <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="offcanvas">Close</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas" onclick="overwrite_current()">Single page overwrite</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas" onclick="save_json();overwrite_all()">All cache overwrite</button>
                 </div>
 
             </div>
