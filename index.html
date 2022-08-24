@@ -1233,6 +1233,7 @@
 			    }
 				
 			    window.localStorage.setItem("user_info", "visited");
+				saved_a = update_saved_json(saved_a);
 			    load_dmp(reload_answers, name = cached_template);
 				
 				
@@ -1253,7 +1254,7 @@
 					  keyboard: false
 					})
 			        	  
-				saved_a = update_saved_json(saved_a);
+				
 					
 			    var upload_json = document.getElementById("upload");
 			    upload_json.addEventListener("change", open_storage_modal, false);
