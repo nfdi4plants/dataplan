@@ -1273,25 +1273,31 @@
 					document.getElementById("current_answer_link").innerHTML= "Current input";	
 					document.getElementById("uploaded_answer_link").innerHTML= "Uploaded input";
 					for	(let [key, value] of Object.entries(saved_a["update"]["storage"]))	{
-						if (value["answer"].length != 0  ){
+						
 							
 							const new_option = document.createElement("li");
 							const option_link = document.createElement("a");
-							
+							try {
 							option_link.setAttribute("class", "dropdown-item");
 							option_link.setAttribute("href", "#");
 							option_link.setAttribute("onclick", "assign_current_input(this)");
 							option_link.setAttribute("data-option-no", key);
-							if (key ==0){
+							if (key ==0 && value["answer"]["timestamp"]!= undefined){
 								option_link.innerHTML= "Default cache";
+								new_option.appendChild(option_link);
+								list1.appendChild(new_option);
 								} else {
-								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"];
 								
+								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"];								
+								new_option.appendChild(option_link);
+								list1.appendChild(new_option);
+
 								}
-							new_option.appendChild(option_link);
+							
+							}catch(e){};
+
+							
 						
-							list1.appendChild(new_option);
-						}
 					}
 					
 					
@@ -1299,7 +1305,7 @@
 					
 				
 				let a2;
-					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.toggle(),uploaded_input_all = update_saved_json(uploaded_input_all),
+					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.toggle(),
 				
 				
 				
@@ -1319,12 +1325,12 @@
 
 			});
 			function update_saved_json(answers){
-				try {answers["update"];
+				try {
+				answers["update"];
 				answers["update"]["storage"];
-				
-				
+				answers["update"]["storage"][0];
 				}catch(e){
-				answers.update= {};
+							answers.update= {};
 							answers.update.storage = [
 							 {"answer":[],"name":[],},
 							 {"answer":[],"name":[],},
@@ -1338,8 +1344,8 @@
 							];
 							answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
 							answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];};
-				if (answers["update"]["storage"].length == 0){
-				answers["update"]["storage"] = [
+				if (	answers["update"]["storage"].length < 5  ){
+						answers["update"]["storage"] = [
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
@@ -1364,35 +1370,51 @@
 				answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
 				answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
 				
-				}
+				}else{
+						
+				
+				}	
+				
+				
+				
 				return answers;
 			}
 				function update_storage_dropdown(a2) {
 					const list2 = document.getElementById("uploaded_input");
 					list2.innerHTML = "";
-					uploaded_input_all = a2; 
-					for	(let [key, value] of Object.entries(a2["update"]["storage"]))	{
-						if (value["answer"].length != 0 ){
-							
+					
+					uploaded_input_all = update_saved_json(a2);
+					for	(let [key, value] of Object.entries(uploaded_input_all["update"]["storage"]))	{
+						
 							const new_option = document.createElement("li");
 							const option_link = document.createElement("a");
+							
+							try {
 							option_link.setAttribute("class", "dropdown-item");
 							option_link.setAttribute("href", "#");
 							option_link.setAttribute("onclick", "assign_uploaded_input(this)");
 							option_link.setAttribute("data-option-no", key);
-								if (key ==0){
+							if (key ==0){
 								option_link.innerHTML= "Default cache";
+								new_option.appendChild(option_link);
+								list2.appendChild(new_option);
+
 								} else {
-								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"]
 								
+								option_link.innerHTML= "Slot " + key + " " + value["answer"]["timestamp"];
+								new_option.appendChild(option_link);
+								list2.appendChild(new_option);
+
 								}
-							new_option.appendChild(option_link);
-							list2.appendChild(new_option);
+								
+							
+							}catch(e){};
+							
 										
 								
 								
 								
-							}
+							
 						}
 					// at the initiation, the top level answer is used.	
 					
