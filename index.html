@@ -1588,6 +1588,9 @@
 						row.setAttribute("style", "background-color: #f0f5e6") ;
 						 col2.innerHTML = uploaded_input_answer["replace"][key];  this.checked = true;
 						 saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+						 
+						 const now = new Date();
+						saved_a["update"]["storage"][current_origin]["answer"]["timestamp"]=now.toLocaleString();
 						 load_dmp(reload_answers, name = cached_template);
 					  } else {
 					  saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
@@ -1636,14 +1639,14 @@
 
 			    }
 			function overwrite_current() {
-					
-					saved_a["replace"]  = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+					const now = new Date();
+ 					saved_a["replace"]  = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
 					saved_a["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
 					saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["timestamp"];
 					
 					saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
 					saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
-
+					saved_a["update"]["storage"][current_origin]["answer"]["timestamp"]=now.toLocaleString();
 					load_dmp(reload_answers, name = cached_template);
 					syn_load_cache();
 			        
@@ -1780,12 +1783,12 @@
 			
 			function save_to_cache1(id, name=" "){
 				const now = new Date();
-				saved_a["update"]["storage"][id]["answer"]= {"replace":JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox":JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp":now.toISOString()};
+				saved_a["update"]["storage"][id]["answer"]= {"replace":JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox":JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp":now.toLocaleString()};
 				saved_a["update"]["storage"][id]["name"]= name;
 				trim_saved_a(saved_a);
 			    window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 				let update_element = document.querySelector("#load_from_cache_menu_"+id);
-				update_element.innerHTML = now.toISOString();
+				update_element.innerHTML = now.toLocaleString();
 			}
 			
 			function load_from_cache(id){
