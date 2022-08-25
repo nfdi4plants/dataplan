@@ -1,6 +1,6 @@
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px ;
 }
 
 /* Track */
@@ -26,12 +26,12 @@
 
 .content-page{
 	
-	padding-top:60px;
-	padding-bottom:40px;
-	padding-left:40px;
-	padding-right:40px;					
+	padding-top:5vw;
+	padding-bottom:5vw;
+	padding-left:4vw;
+	padding-right:4vw;					
 	background-color:white;
-	margin-bottom: 80px;
+	margin-bottom: 8vw;
 	width:52vw;
 	position: relative;
 	top: 40px; 
@@ -219,7 +219,7 @@ margin:auto;
 	display:inline;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-	height:3.25rem;
+	
 }
 
 .nav-item {
