@@ -1354,8 +1354,7 @@
 				function open_storage_modal(){
 					
 					const list1 = document.getElementById("current_input");
-					current_input_answer= 
-											JSON.parse(JSON.stringify(saved_a));
+					current_input_answer= JSON.parse(JSON.stringify(saved_a));
 					
 					list1.innerHTML = "";
 					
@@ -1488,6 +1487,7 @@
 								option_link.innerHTML= "Default cache";
 								new_option.appendChild(option_link);
 								list2.appendChild(new_option);
+								
 
 								} else if (value["answer"]["timestamp"] === undefined  ) {
 								
@@ -1525,6 +1525,7 @@
 				
 				update_table();
 				saved_a["replace"]= saved_a["update"]["storage"][current_origin]["answer"]["replace"];
+				
 			}
 			
 			
@@ -1589,7 +1590,7 @@
 						 saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
 						 load_dmp(reload_answers, name = cached_template);
 					  } else {
-					  saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
+					  saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
 					  row.setAttribute("style", "background-color: #E6A5B0");
 					  col2.innerHTML = value;
 					  saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
