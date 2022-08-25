@@ -441,6 +441,7 @@
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
 						{"answer":[],"name":[],},
+						{"answer":[],"name":[],},
 
 						
 						]}
@@ -1397,7 +1398,7 @@
 					
 				
 				let a2;
-					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.toggle(),
+					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.show(),
 				
 				
 				
@@ -1735,9 +1736,9 @@
 			}
 			
 			function save_to_cache(id, name=" "){
-				if (saved_a["update"]["storage"].length == 0){
+				if (saved_a["update"]["storage"].length < 5){
 				saved_a["update"]["storage"] = [
-						 {"answer":[],"name":[],},
+						 {"answer":{"replace":saved_a["replace"],"checkbox":saved_a["checkbox"] },"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
 						 {"answer":[],"name":[],},
@@ -1756,6 +1757,7 @@
 				saved_a["update"]["storage"][3] = saved_a["update"]["storage"][2];
 				saved_a["update"]["storage"][2] = saved_a["update"]["storage"][1];
 				saved_a["update"]["storage"][1] = saved_a["update"]["storage"][0];
+				saved_a["update"]["storage"][0] = {"answer":{"replace":saved_a["replace"],"checkbox":saved_a["checkbox"] },"name":[],};
 				}
 				if (saved_a["update"]["storage"][id]["answer"].length != 0 ){
 				    let confirm_overwrite = confirm("Overwrite saved answer here?");
