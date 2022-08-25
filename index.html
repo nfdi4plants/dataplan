@@ -1542,8 +1542,10 @@
 			function update_table(){
 			
 			const compare_list = compare_answers(saved_a["update"]["storage"][current_origin]["answer"], uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]);
+				
 				const body = document.getElementById("cache_management_modal_body");
 				const table = document.createElement("div");
+				
 				for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["replace"]))	{
 					
 					
@@ -1551,7 +1553,7 @@
 					const row = document.createElement("div");
 					
 					const key_pool = compare_list["4"];
-					checkbox_ele = document.getElementById("storage_checkbox_"+key);
+					
 
 					
 
@@ -1567,7 +1569,7 @@
 					col2.setAttribute("class", "col-4");
 					const col3 = document.createElement("div");
 					col3.setAttribute("class", "col-4");
-					col3.innerHTML = uploaded_input_answer["replace"][key]
+					col3.innerHTML = uploaded_input_answer["replace"][key];
 					const col4 = document.createElement("div");
 					col4.setAttribute("class", "col-1");
 					
@@ -1581,24 +1583,101 @@
 					
 
 					
-					col4_button.addEventListener("change", function() {
-					  if (this.checked) {
-						saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = 
-						uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
-						row.setAttribute("style", "background-color: #f0f5e6") ;
-						 col2.innerHTML = uploaded_input_answer["replace"][key];  this.checked = true;
-						 saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
-						 
-						 const now = new Date();
-						saved_a["update"]["storage"][current_origin]["answer"]["timestamp"]=now.toLocaleString();
-						 load_dmp(reload_answers, name = cached_template);
-					  } else {
-					  saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
-					  row.setAttribute("style", "background-color: #E6A5B0");
-					  col2.innerHTML = value;
-					  saved_a["replace"][key] =saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
-						 load_dmp(reload_answers, name = cached_template);
+					col4_button.addEventListener("change", function () {
+					    if (this.checked) {
+					        saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] =
+					            uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
+					        row.setAttribute("style", "background-color: #f0f5e6");
+					        col2.innerHTML = uploaded_input_answer["replace"][key];
+					        
+					        saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+
+					        const now = new Date();
+					        saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+					        load_dmp(reload_answers, name = cached_template);
+					    } else {
+					        saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
+					        row.setAttribute("style", "background-color: #E6A5B0");
+					        col2.innerHTML = value;
+					        saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+					        load_dmp(reload_answers, name = cached_template);
 					  
+					  
+					  
+					  }
+					}
+					
+					);
+					
+					
+					if (Object.values(key_pool).includes(key) )
+						{
+						row.setAttribute("style", "background-color: #f0f5e6")
+						
+						}else{
+						col4.append(col4_button);
+						row.setAttribute("style", "background-color: #E6A5B0");
+						}		
+					
+					row.append(col1, col2, col3, col4);
+					value=="" ? console.log("empty input") : table.append(row);
+					
+					
+					
+				}
+				
+				for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["checkbox"]))	{
+					
+					
+					
+					const row = document.createElement("div");
+					
+					const key_pool = compare_list["5"];
+					
+
+
+					row.setAttribute("class", "row border-bottom border border-1 mb-1");
+					row.setAttribute("name", "input_table_row");
+					const col1 = document.createElement("div");
+					col1.setAttribute("class", "col-3");
+					col1.innerHTML = key.toUpperCase().split("_")[1];
+					const col2 = document.createElement("div");
+					col2.innerHTML = JSON.stringify(value, null, "\t"); 
+					col2.setAttribute("class", "col-4");
+					const col3 = document.createElement("div");
+					col3.setAttribute("class", "col-4");
+					col3.innerHTML = JSON.stringify(uploaded_input_answer["checkbox"][key], null, "\t");
+					const col4 = document.createElement("div");
+					col4.setAttribute("class", "col-1");
+					
+					const col4_button = document.createElement("input");
+					
+					col4_button.setAttribute("class", "form-check-input");
+					col4_button.setAttribute("type", "checkbox");
+					col4_button.setAttribute("aria-label", "...");
+					col4_button.setAttribute("id", "storage_checkbox_checkbox_"+key );
+					console.log(key);
+					
+
+					
+					col4_button.addEventListener("change", function () {
+					    if (this.checked) {
+					        saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] =
+					            uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"][key];
+					        row.setAttribute("style", "background-color: #f0f5e6");
+					        col2.innerHTML = JSON.stringify(uploaded_input_answer["checkbox"][key], null, "\t");
+					        this.checked = true;
+					        saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+
+					        const now = new Date();
+					        saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+					        load_dmp(reload_answers, name = cached_template);
+					    } else {
+					        saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+					        row.setAttribute("style", "background-color: #E6A5B0");
+					        col2.innerHTML = JSON.stringify(value, null, "\t");
+					        saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+					        load_dmp(reload_answers, name = cached_template);
 					  
 					  
 					  }
@@ -3076,8 +3155,9 @@ END:VEVENT`;
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="cookie_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="cookie_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+        <div class="modal-dialog" style="inset: 50% auto auto 50% !important;
+  position: fixed !important;transform: translate(-50%, -50%) !important;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Not a cookie consent yet</h5>
