@@ -1519,7 +1519,7 @@
 			
 			function assign_current_input(element){
 				let a = saved_a;
-				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split("T")[0];
+				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split(",")[0];
 				const no = element.getAttribute("data-option-no");
 				current_origin = no;
 				
@@ -1531,7 +1531,7 @@
 			
 			function assign_uploaded_input(element){
 				const no = element.getAttribute("data-option-no");
-				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split("T")[0];
+				element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split(",")[0];
 				uploaded_origin = no;
 				uploaded_input_answer = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"] ;
 				update_table();
@@ -2191,22 +2191,23 @@ END:VEVENT`;
                 <img src="https://nfdi4plants.org/images/logo.svg" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
             </a>
             <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 3.25rem;">
-                <div class="btn-group d-md-none dropdown col-auto d-flex align-items-center" style="">
-                    <button type="button" class="btn rounded-0 border-0 btn-nav dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="menu">
-                        menu
+                <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="">
+                    <button type="button" class="btn rounded-0 border-0 g-0 btn-nav " data-bs-toggle="dropdown" aria-expanded="false" id="menu">
+                        Menu &nbsp;
+                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>detailed DMP (EU)</button>
+                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
                         </li>
                         <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>DFG DMP (DE)</button>
+                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German DMP</button>
                         </li>
                         <li>
-                            <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>practice guide</button>
+                            <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
                         </li>
                         <li>
-                            <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>proposal</button>
+                            <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
                         </li>
                         <li>
                             <button
@@ -2223,47 +2224,47 @@ END:VEVENT`;
                         <li><hr class="dropdown-divider" /></li>
                         
                             <label for="upload-dropdown" class="form-label dropdown-item">
-                                upload json
+                                Upload JSON
                                 <input class="form-control d-none" type="file" id="upload-dropdown" />
                             </label>
                         
                         
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">restore default (clear input)</button>
+                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore default (clear input)</button>
                         
                         <li><hr class="dropdown-divider" /></li>
                         <li>
-                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">copy the text</button>
+                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
 
-                            <button id="test" class="d-none dropdown-item" onclick="test()">debug test</button>
+                            <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
                         </li>
                         <li>
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">save answers to json</button>
-                            <button id="print" class="dropdown-item" onclick="printDiv();">print document</button>
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">save answers to JSON</button>
+                            <button id="print" class="dropdown-item" onclick="printDiv();">Print document</button>
 
-                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
-							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
+                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export document</button>
+							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
                         </li>
                     </ul>
                 </div>
 
-                <div class="btn-group d-none d-md-block dropdown col-auto" style="padding-left: 12px;">
-                    <button type="button" class="btn border-0 rounded-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;">
+                <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+                    <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
                         Templates &nbsp;
 
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>detailed DMP (EU)</button>
+                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
                         </li>
                         <li>
-                            <button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>DFG DMP (DE)</button>
+                            <button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German DMP</button>
                         </li>
                         <li>
-                            <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>practice guide</button>
+                            <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
                         </li>
                         <li>
-                            <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>proposal</button>
+                            <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
                         </li>
                         <li>
                             <a
@@ -2275,15 +2276,15 @@ END:VEVENT`;
                                 onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
                                 href="#"
                             >
-                                user defined template
+                                User Defined Template
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="btn-group d-none rounded-0 d-md-block dropdown col-auto">
-                    <button type="button" class="btn border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="upload_button" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;">
-                        Up(re)load &nbsp;
+                <div class="btn-group d-none rounded-0 g-0 d-md-block dropdown col-auto">
+                    <button type="button" class="btn border-0  btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="upload_button" >
+                        Upload &nbsp;
 
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
@@ -2295,7 +2296,7 @@ END:VEVENT`;
                             </label>
                         </li>
                         <li>
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">restore default (clear input)</button>
+                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore Default (Clear Input)</button>
                         </li>
                         <li>
                             <button
@@ -2339,10 +2340,9 @@ END:VEVENT`;
                     </ul>
                 </div>
 
-                <div class="btn-group d-none d-md-block dropdown col-auto">
-                    <button type="button" class="btn border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;">
-                        Save
-
+                <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+                    <button type="button" class="btn   border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button" >
+                        Save &nbsp;
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
                     <ul class="dropdown-menu">
@@ -2394,19 +2394,19 @@ END:VEVENT`;
             <nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem;">
                 <ul class="nav nav-fill nav-pills col-12 justify-content-center">
                     <li class="nav-item border-0">
-                        <a class="nav-link border-0 rounded-0" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;" href="#scrollspyHeading1">Basic Info</a>
+                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading1">Basic Info</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;" href="#scrollspyHeading2">Data Type</a>
+                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading2">Data Type</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;" href="#scrollspyHeading3">Data Volume</a>
+                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading3">Data Volume</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;" href="#scrollspyHeading4">Data Standards<a>
+                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading4">Data Standards<a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0" style="font-size: calc(0.7vw); padding-top: 0.3rem; padding-bottom: 0.3rem;" href="#scrollspyHeading5">Data Analysis</a>
+                        <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
                     </li>
                 </ul>
             </nav>
@@ -2573,12 +2573,12 @@ END:VEVENT`;
                     
 
                     <div class="form-data_type form-check" id="form_checkbox_1" onfocusout="this.nextElementSibling.click();">
-                        <h3>1.4 Chose some additional information</h3>
+                        <h3>1.5 Chose some additional information</h3>
                         <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" />
                         <label class="form-check-label" for="check_protect">
                             The data is protected.
                         </label>
-                        
+                        <br>
                         <input
                             class="form-check-input checkbox_1"
                             type="checkbox"
