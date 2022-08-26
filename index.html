@@ -82,7 +82,7 @@
 		h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
 		h3{padding-top:8pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
 		h4{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
-		h5{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+		h5{padding-top:4pt;color:#666666;font-size:12pt;padding-bottom:2pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
 		h6{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
 	    
 
@@ -2238,7 +2238,7 @@ END:VEVENT`;
                             <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
                         </li>
                         <li>
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">save answers to JSON</button>
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">Save Answers to JSON</button>
                             <button id="print" class="dropdown-item" onclick="printDiv();">Print document</button>
 
                             <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export document</button>
@@ -2291,7 +2291,7 @@ END:VEVENT`;
                     <ul class="dropdown-menu">
                         <li>
                             <label for="upload" class="form-label dropdown-item">
-                                upload json
+                                Upload JSON
                                 <input class="form-control d-none" type="file" id="upload" />
                             </label>
                         </li>
@@ -2307,17 +2307,17 @@ END:VEVENT`;
 						
 						}, "300" ) ;'
                             >
-                               generate word cloud
+                               Generate Word Cloud
                             </button>
                         </li>
                         <li>
                             <label for="image_upload" class="form-label dropdown-item">
-                                upload front page image
+                                Upload Frontpage Image
                                 <input class="form-control d-none" type="file" id="image_upload" onchange="upload_image()" />
                             </label>
                         </li>
 						<li>
-							<button id="load_from_cache" class="dropdown-item" >load from cache &raquo;</button>
+							<button id="load_from_cache" class="dropdown-item" >Load From Cache &raquo;</button>
 							<ul class="dropdown-menu  dropdown-submenu">
 								<li>
 								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">slot 1</a>
@@ -2339,7 +2339,7 @@ END:VEVENT`;
 							</li>
                     </ul>
                 </div>
-
+				
                 <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                     <button type="button" class="btn   border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button" >
                         Save &nbsp;
@@ -2382,11 +2382,24 @@ END:VEVENT`;
 							</li>
                         </li>
                     </ul>
-                    <!-- Button trigger modal -->
+					
+                    
                 </div>
-                <div class="col-auto">
-                    <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" style="font-size: small;"> <span class="badge btn-secondary">wiki </span></a>
-                    <a href="javascript:void(0);" style="font-size: small;" onclick="tour.show()"><span class="badge btn-tutorial text-dark">tutorial</span></a>
+                <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+                    <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
+                        Help &nbsp;
+
+                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button id="detailed_dmp" class="dropdown-item" onclick="tour.show()">Tutorial</button>
+                        </li>
+                        <li>
+                            <button id="detailed_dfg-dmp" class="dropdown-item" href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96">wiki</button>
+                        </li>
+                        
+                    </ul>
                 </div>
             </div>
         </div>
@@ -2428,7 +2441,7 @@ END:VEVENT`;
             </div>
         </div>
         <div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;">
-            <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="100" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;">
+            <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;">
                 <div id="intro-tour-input">
                     <div id="warningText"></div>
 
@@ -2520,8 +2533,8 @@ END:VEVENT`;
                     </form>
 
                     <form class="" style="margin-left: 0px;" id="form_username">
-                        <label for="input_username"><h3>1.3 Your contact information</h3></label>
-                        <h3>Name</h3>
+                        <h3>1.3 Your contact information</h3>
+                        <label for="input_username"><h5>Name:</h5></label>
                         <input
                             style="width: 26vw;"
                             class=""
@@ -2537,7 +2550,7 @@ END:VEVENT`;
                         <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     </form>
                     <form class="" style="margin-left: 0px;" id="form_email">
-                        <h3>Email of the user</h3>
+                        <label for="input_email"><h5>Email:</h5>         </label>
                         <input
                             style="width: 26vw;"
                             class=""
@@ -2554,7 +2567,7 @@ END:VEVENT`;
                     </form>
 
                     <form class="" style="margin-left: 0px;" id="form_dataofficer">
-                        <label for="input_dataofficer"><h3>1.4 Give the data officer name:</h3></label>
+                        <label for="input_dataofficer"><h5>Data officer name:</h5></label>
                         <input
                             style="width: 26vw;"
                             class=""
@@ -2571,9 +2584,9 @@ END:VEVENT`;
                     </form>
 
                     
-
+					<h3>1.4 Chose some additional information</h3>
                     <div class="form-data_type form-check" id="form_checkbox_1" onfocusout="this.nextElementSibling.click();">
-                        <h3>1.5 Chose some additional information</h3>
+                        
                         <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" />
                         <label class="form-check-label" for="check_protect">
                             The data is protected.
