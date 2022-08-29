@@ -82,7 +82,7 @@
 		h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
 		h3{padding-top:8pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
 		h4{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
-		h5{padding-top:4pt;color:#666666;font-size:12pt;padding-bottom:2pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
+		h5{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:2pt; margin-bottom:0rem;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}
 		h6{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style>
 	    
 
@@ -462,7 +462,7 @@
 			        content: "<p>There are five sections of questions.</p>"
 			    }, {
 			        id: "intro-tour-input",
-			        content: "<p>Each section has a few questions</p>"
+			        content: "<p>Each section has a few questions.</p>"
 			    }, {
 			        id: "form_project",
 			        content: "<p>Please type your project name here. For example, you can type: \"your awesome project\" to the highlighted input box, then click anywhere else or use tab key to go to next question. The answers will be submitted automatically.</p>"
@@ -477,7 +477,7 @@
 			        content: "<p> If you have saved the \"json\" file, you can also upload it any time, to resume your DMP generation process </p>"
 			    }, {
 			        id: "change_template",
-			        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>; </p><br><p>beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> you can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a></p>'
+			        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>: </p><br><p>Beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> You can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96" >If you have more questions, please check our wiki</a>.</p>'
 			    }
 			];
 
@@ -919,7 +919,7 @@
 			            div.setAttribute("class", "alert alert-danger");
 			            div.setAttribute("role", "alert");	
 			            div.setAttribute("name", "_warning_notification");
-			            let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
+			            let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class=" btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
 
 			            div.innerHTML = html1;
 			            warning_text_location.appendChild(div);
@@ -1740,7 +1740,7 @@
 				const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
 					
 					saved_timestamp.forEach((e, index) =>{ if ( cached_timestamp[index+1]["timestamp"] != undefined) {e.innerHTML = cached_timestamp[index+1]["timestamp"]} else{
-				e.innerHTML = "empty slot";
+				e.innerHTML = "Empty Slot";
 				
 				}  }  );
 				
@@ -2317,23 +2317,23 @@ END:VEVENT`;
                             </label>
                         </li>
 						<li>
-							<button id="load_from_cache" class="dropdown-item" >Load From Cache &raquo;</button>
+							<button id="load_from_cache" class="dropdown-item" >Load from Cache &raquo;</button>
 							<ul class="dropdown-menu  dropdown-submenu">
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">slot 1</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">Slot 1</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">slot 2</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">Slot 2</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">slot 3</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">Slot 3</a>
 								  
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">slot 4</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">Slot 4</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache" onclick="load_from_cache(5)" href="#">slot 5</a>
+								  <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache" onclick="load_from_cache(5)" href="#">Slot 5</a>
 								</li>
 							  </ul>
 							</li>
@@ -2347,36 +2347,36 @@ END:VEVENT`;
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">copy the text</button>
+                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
 
-                            <button id="test" class="d-none dropdown-item" onclick="test()">debug test</button>
+                            <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
                         
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">download json</button>
-                            <button id="print" class="dropdown-item" onclick="printDiv();">print document</button>
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">Download JSON</button>
+                            <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 							
 							
 							
 							
-                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">export document</button>
-							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">update reminder</button>
+                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
+							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update reminder</button>
 							<li>
-							<button id="save_to_cache" class="dropdown-item" >save to cache &raquo;</button>
+							<button id="save_to_cache" class="dropdown-item" >Save to Cache &raquo;</button>
 							<ul class="dropdown-menu dropdown-submenu">
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">slot 1</a>
+								  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Slot 1</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">slot 2</a>
+								  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Slot 2</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">slot 3</a>
+								  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Slot 3</a>
 								  
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">slot 4</a>
+								  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Slot 4</a>
 								</li>
 								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(5)" href="#">slot 5</a>
+								  <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Slot 5</a>
 								</li>
 							  </ul>
 							</li>
@@ -2396,7 +2396,7 @@ END:VEVENT`;
                             <button id="detailed_dmp" class="dropdown-item" onclick="tour.show()">Tutorial</button>
                         </li>
                         <li>
-                            <button id="detailed_dfg-dmp" class="dropdown-item" href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96">wiki</button>
+                            <button id="detailed_dfg-dmp" class="dropdown-item" href="https://github.com/nfdi4plants/plan-generator/wiki/Home--%F0%9F%A4%96">WIKI</button>
                         </li>
                         
                     </ul>
