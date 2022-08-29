@@ -3227,18 +3227,13 @@ END:VEVENT`;
                 </span>
             </p>
             <h1 class="c13" id="h.wup0l4f7jl9k"><span class="c2">2</span><span class="c15"> </span><span class="c2 c12">Data Management Plan EU Template</span></h1>
-            <p class="c0">
-                <span class="c1">
-                    #if$_DATAPLANT Currently data management relies on the annotated research context ARC. It is password protected, so before any data can be obtained or samples generated an authentication needs to take place.
-                    #endif$_DATAPLANT
-                </span>
-            </p>
+
             <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1. Data Summary</span></h2>
             <p class="c0"><span class="c3">What is the purpose of the data collection/generation and its relation to the objectives of the project?</span></p>
             <p class="c0"><span class="c3"></span></p>
             <p class="c0">
                 <span class="c0">
-                    For $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT as data is not only used to understand principles, but it is also
+                    For $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
                     used for analyzing data and in the end stakeholder involvement, which need to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata
                     using open standards, as it is laid out in the following section. As $_PROJECT aims at $_PROJECTAIM.
                     <p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p>
@@ -3422,6 +3417,12 @@ END:VEVENT`;
                                 the case data is made public under final EU or US repositories, completely anonymous access is normally allowed this is the case for ENA as well and both are in line with GDPR requirements.
                             </span>
                         </p>
+						            <p class="c0">
+                <span class="c1">
+                    #if$_DATAPLANT Currently data management relies on the annotated research context ARC. It is password protected, so before any data can be obtained or samples generated an authentication needs to take place.
+                    #endif$_DATAPLANT
+                </span>
+            </p>
                         <h3 class="c14" id="h.514g6glbmw6i"><span class="c3">Making data interoperable</span></h3>
                         <p class="c10">
                             <span class="c3">
