@@ -301,7 +301,7 @@
 			                "language": "eng",
 			                "modified": "2019-02-06T15:30:42.1",
 							"submission" :{"time": "2022-07-06T15:30:42.1",
-							"funding": "H2020", 
+							"funding": "Horizon Europe ", 
 							 },
 							
 			            };
@@ -340,7 +340,7 @@
 			                "language": "eng",
 			                "modified": "2019-02-06T15:30:42.1",
 							"submission" :{"time": "2022-07-06T15:30:42.1",
-							"funding": "H2020", 
+							"funding": "Horizon Europe ", 
 							 },
 							 
 							
@@ -2198,7 +2198,7 @@ END:VEVENT`;
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European (H2020) DMP</button>
+                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
                         </li>
                         <li>
                             <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
@@ -2255,7 +2255,7 @@ END:VEVENT`;
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European (H2020) DMP</button>
+                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
                         </li>
                         <li>
                             <button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
@@ -3057,7 +3057,7 @@ END:VEVENT`;
                 Click the grey buttons to reuse templates. <br />
                 Click submit when you finished.
                 <br />
-                <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '>H2020 DMP</button>
+                <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '>European DMP</button>
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dfg-dmp").innerHTML; '>DFG DMP</button>
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("practical-guide").innerHTML; '>Practical Guide</button>
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("proposal").innerHTML; '>Proposal</button>
@@ -4003,7 +4003,13 @@ END:VEVENT`;
                             <p class="c0">
                                 <span class="c1">A large part of the cost is covered by $_PROJECT #if$_DATAPLANT and the structures, tools and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span>
                             </p>
-
+							                            <h3 class="c0">
+                                <span class="c3">6.3 Who is responsible for curating the data once the project has ended? </span>
+                            </h3>
+							<p class="c0">
+                                <span class="c1">As applicable, $_DATAOFFICER, who is responsible for ongoing data maintenance will also take care of it after the finish of $_PROJECT.  #if$_DATAPLANT DataPLANT as external data archives may provide such services in some cases. #endif$_DATAPLANT</span>
+                            </p>
+							
                             <p class="c0">
                                 <span class="c1"></span>
                             </p>
