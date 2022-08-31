@@ -2584,7 +2584,7 @@ END:VEVENT`;
 
                     
 					<h3>1.4 Chose some additional information</h3>
-                    <div class="form-data_type form-check" id="form_checkbox_1" onfocusout="this.nextElementSibling.click();">
+                    <div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
                         
                         <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" />
                         <label class="form-check-label" for="check_protect">
@@ -2667,12 +2667,10 @@ END:VEVENT`;
                     <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
                     <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
 
-                    <div class="collapse" id="form_checkbox_5" onfocusout="this.nextElementSibling.click();">
+                    <div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
                         
                            <h3> Where will you submit your data as endpoints?</h3> 
-                       
 
-                        ENA, GEO, NCBI, genbank, pride, proteomexchange, zenodo, dataDyrad
                         <br />
                         <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
                         <label class="form-check-label" for="check_ENA">
@@ -2808,7 +2806,7 @@ END:VEVENT`;
                         </form>
                     </div>
 
-                    <div class id="form_checkbox_2" onfocusout="this.nextElementSibling.click();">
+                    <div class id="form_checkbox_2" onchange="this.nextElementSibling.click();">
                         <h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
                         <div class="form-data_type form-check">
                             <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" />
@@ -2933,7 +2931,7 @@ END:VEVENT`;
                         </div>
                     </form>
 
-                    <div class=" " id="form_checkbox_3" onfocusout="this.nextElementSibling.click();">
+                    <div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
                         <h2 id="scrollspyHeading4">4. Are there any standards that are relevant for you?</h2>
 
                         <div class="form-data_type form-check">
@@ -2948,8 +2946,7 @@ END:VEVENT`;
                                 MinSEQe
                             </label>
                         </div>
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox = "checkbox_3" onclick="get_option(this)" class=>
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                         <br />
                         <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
                         <div class="form-data_type form-check">
@@ -2982,6 +2979,8 @@ END:VEVENT`;
                         </div>
                         <br />
                     </div>
+					<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox = "checkbox_3" onclick="get_option(this)" class=>
+                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" value="submit" data-checkbox="checkbox_3" onclick="get_option(this)" />
                     <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
 
