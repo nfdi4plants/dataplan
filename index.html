@@ -1773,21 +1773,31 @@
 
 			function copy_doc1() {
 			    const text = document.getElementById("doc3");
-			    const selection = window.getSelection();
+				const text_start = text.querySelector("#text_start");
+			    
+				const selection = window.getSelection();
 			    const range = document.createRange();
 			    range.selectNodeContents(text);
 			    selection.removeAllRanges();
+				range.setStart(text_start,0);
 			    selection.addRange(range);
 			    try {
-			        return document.execCommand("copy"); // Security exception may be thrown by some browsers.
-			        const selection = window.getSelection();
-			        selection.removeAllRanges();
+			        
+					
+					
+					document.execCommand("copy");  // Security exception may be thrown by some browsers.
+					
+					
+					
+					
 
 			    } catch (error) {
 			        console.warn("Copy to clipboard failed.", error);
+					
+
 			        return false;
 			    }
-
+			
 			}
 
 			function printDiv() {
@@ -3194,7 +3204,7 @@ END:VEVENT`;
                 <div id="vis" style="width: 35vw; margin: auto;"></div>
             </div>
             <div class="p-2" style="margin: auto;">
-                <h1 style="" class="c13 row align-middle"><span class="c15"> </span><center  class="c2">Data Management Plan of $_PROJECT</center></h1>
+                <h1 style="" id="text_start" class="c13 row align-middle"><span class="c15"> </span><center  class="c2">Data Management Plan of $_PROJECT</center></h1>
 
                 <br />
                 <br />
@@ -3205,7 +3215,7 @@ END:VEVENT`;
             </div>
         </div>
         <div class="content-page">
-            <h1 class="c13"><span class="c2">1</span><span class="c15"> </span><span class="c2">Introduction</span></h1>
+            <h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
             <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data initiative of the EU. #endif$_EU</span></p>
             <p class="c0">
                 <span class="c1">
@@ -3225,9 +3235,9 @@ END:VEVENT`;
                     $_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE
                 </span>
             </p>
-            <h1 class="c13" id="h.wup0l4f7jl9k"><span class="c2">2</span><span class="c15"> </span><span class="c2 c12">Data Management Plan EU Template</span></h1>
+            <h1 class="c13" id="h.wup0l4f7jl9k"><span class="c2">2&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2 c12">Data Management Plan EU Template</span></h1>
 
-            <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1. Data Summary</span></h2>
+            <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1&nbsp;&nbsp;&nbsp;&nbsp;Data Summary</span></h2>
             <p class="c0"><span class="c3">What is the purpose of the data collection/generation and its relation to the objectives of the project?</span></p>
             <p class="c0"><span class="c3"></span></p>
             <p class="c0">
@@ -3278,7 +3288,7 @@ END:VEVENT`;
                                 likely form of dissemination.
                             </span>
                         </p>
-                        <h2 class="c9" id="h.8sk9nau3ts35"><span class="c4">2.2. FAIR data</span></h2>
+                        <h2 class="c9" id="h.8sk9nau3ts35"><span class="c4">2.2&nbsp;&nbsp;&nbsp;&nbsp;FAIR data</span></h2>
                         <h3 class="c14" id="h.gtd4kdf6hncf"><span class="c3">Making data findable, including provisions for metadata</span></h3>
                         <p class="c0">
                             <span class="c3">
@@ -3485,7 +3495,7 @@ END:VEVENT`;
                                 Data will be checked and curated. #if$_DATAPLANT In addition, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT
                             </span>
                         </p>
-                        <h2 class="c9" id="h.w5pimtt9qf6p"><span class="c4">2.3. Allocation of resources</span></h2>
+                        <h2 class="c9" id="h.w5pimtt9qf6p"><span class="c4">2.3&nbsp;&nbsp;&nbsp;&nbsp;Allocation of resources</span></h2>
                         <p class="c10"><span class="c3">What are the costs for making data FAIR in your project?</span></p>
                         <p class="c0"><span class="c1">The costs comprise data curation, #if$_DATAPLANT Arc consistency checks #endif$_DATAPLANT and maintenance on $_PROJECT´s side.</span></p>
                         <p class="c0">
@@ -3506,7 +3516,7 @@ END:VEVENT`;
                                 project end. This will be in line with EU, institute policies and data sharing based on EU and international standards.
                             </span>
                         </p>
-                        <h2 class="c9" id="h.of351jlpnl2l"><span class="c4">2.4. Data security</span></h2>
+                        <h2 class="c9" id="h.of351jlpnl2l"><span class="c4">2.4&nbsp;&nbsp;&nbsp;&nbsp;Data security</span></h2>
                         <p class="c10"><span class="c3">What provisions are in place for data security (including data recovery as well as secure storage and transfer of sensitive data)?</span></p>
                         <p class="c20">
                             <span class="c1">
@@ -3523,7 +3533,7 @@ END:VEVENT`;
                                 do not support deep plant specific metadata hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
                             </span>
                         </p>
-                        <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">2.5. Ethical aspects</span></h2>
+                        <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">2.5&nbsp;&nbsp;&nbsp;&nbsp;Ethical aspects</span></h2>
                         <p class="c10">
                             <span class="c3">
                                 Are there any ethical or legal issues that can have an impact on data sharing? These can also be discussed in the context of the ethics review. If relevant, include references to ethics deliverables and
@@ -3546,14 +3556,14 @@ END:VEVENT`;
                                 names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t invent them #endissuewarning
                             </span>
                         </p>
-                        <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6. Other issues</span></h2>
+                        <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
                         <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures for data management? If yes, which ones?</span></p>
                         <p class="c0"><span class="c1">Yes, $_PROJECT will use common RDM tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span></p>
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c6"><span class="c1"></span></p>
-                        <h1 class="c13" id="h.f589zyp9ll5e"><span class="c2">3</span><span class="c15"> </span><span class="c12 c2">Annexes</span></h1>
+                        <h1 class="c13" id="h.f589zyp9ll5e"><span class="c2">3&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"> </span><span class="c12 c2">Annexes</span></h1>
                         <p class="c0"><span class="c1"></span></p>
-                        <h2 class="c9" id="h.vrmh31avvatp"><span class="c11 c18">3.1</span><span class="c15"> </span><span class="c4">Abbreviations</span></h2>
+                        <h2 class="c9" id="h.vrmh31avvatp"><span class="c11 c18">3.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"> </span><span class="c4">Abbreviations</span></h2>
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c0"><span class="c11">CC</span><span class="c1"> Creative Commons</span></p>
                         <p class="c0"><span class="c11">DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
@@ -3587,10 +3597,10 @@ END:VEVENT`;
                         <div id="dfg-dmp1" class="content-page">
                             <br />
                             <div class="p-2" id="vis-parent" style="margin: auto;">
-                                <div id="vis" style="width: 35vw; margin: auto;"></div>
+                                <div id="vis-parent" style="width: 35vw; margin: auto;"></div>
                             </div>
 
-                            <h1 class="c2">Data Management Plan required by DFG</h1>
+                            <h1 id="text_start" class="c2">Data Management Plan required by DFG</h1>
                             <h2>
                                 <span class="c2">1.</span>
                                 
@@ -4136,7 +4146,7 @@ END:VEVENT`;
                         </div>
                     </div>
                     <div id="practical-guide" class="d-none">
-                        <div id="practical-guide1" class="content-page">
+                        <div id="practical-guide1" class="content-page" id="text_start">
                             <h1 dir="ltr" style="line-height: 1.38; text-align: center; margin-top: 20pt; margin-bottom: 6pt;">
                                 <span
                                     style="
@@ -6643,7 +6653,7 @@ END:VEVENT`;
                     </div>
 
                     <div id="proposal" class="d-none">
-                        <div id="proposal1" class="content-page">
+                        <div id="proposal1" class="content-page" id="text_start">
                             <p class="c0"><span class="c1">Datenmanagementplan</span></p>
                             <p class="c0"><span class="c1">Projektname: $_PROJECT</span></p>
                             <p class="c0"><span class="c1">Forschungsf&ouml;rderer: Bundesministerium f&uuml;r Bildung und Forschung</span></p>
