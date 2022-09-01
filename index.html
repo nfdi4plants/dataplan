@@ -8,7 +8,7 @@
 		<!-- disable cache accross browsers for testing purpose -->
 		
 		<meta http-equiv="Expires" content="0" />
-		<title>Data Management Plan Generator -- a user-centered FAIR tool</title>
+		<title>Data Management Plan Generator -- a user-centered FAIR tool. Save your time and effort by using our DMP tool to create data management documents in minutes.</title>
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
@@ -2192,6 +2192,11 @@ END:VEVENT`;
 			    reminder.show();
 			    return reminders;
 			}
+			function word_cloud_callback(){
+			document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
+			
+			
+			}
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
 		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; padding-right: 0px; padding-left: 0px;">
@@ -2312,10 +2317,7 @@ END:VEVENT`;
                             <button
                                 id="word_cloud"
                                 class="dropdown-item"
-                                onclick=' parseText(document.getElementById("doc3")); setTimeout(()=>{
-						load_dmp(reload_answers, doc_name);
-						
-						}, "300" ) ;'
+                                onclick='parseText(word_cloud_callback)'
                             >
                                Generate Word Cloud
                             </button>
@@ -3596,9 +3598,9 @@ END:VEVENT`;
                     <div id="dfg-dmp" class="d-none">
                         <div id="dfg-dmp1" class="content-page">
                             <br />
-                            <div class="p-2" id="vis-parent" style="margin: auto;">
-                                <div id="vis-parent" style="width: 35vw; margin: auto;"></div>
-                            </div>
+							<div class="p-2" id="vis-parent" style="margin: auto;">
+								<div id="vis" style="width: 35vw; margin: auto;"></div>
+							</div>
 
                             <h1 id="text_start" class="c2">Data Management Plan required by DFG</h1>
                             <h2>
