@@ -2,33 +2,24 @@
 <html lang="en">
 		<head>
 		<meta http-equiv="Content-Type" charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="Generate a data management plan in minutes. Registration-free and FAIR. Try our DataPLAN now and enjoy it.">
+		<meta name="description" content="DataPLAN can generate a data management plan in minutes. We promise to be free and FAIR. Save your time and effort by using our DMP tool to create data management documents in minutes.">
 		<meta name="keywords" content="FAIR, data, management, plan, DMP, free, open source">
 		
 		<!-- disable cache accross browsers for testing purpose -->
 		
 		<meta http-equiv="Expires" content="0" />
-		<title>Data Management Plan Generator -- a user-centered FAIR tool. Save your time and effort by using our DMP tool to create data management documents in minutes.</title>
+		<title>DataPLAN, generate DMP easy</title>
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
 
-		
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-
-
 		<link href="css/custom.css" rel="stylesheet">
-		<link href="css/bs5-intro-tour.css" rel="stylesheet" />
-
-
-		
+		<link href="css/bs5-intro-tour.css" rel="stylesheet" />		
 		<!-- loading javascript scripts -->
-		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>
-		
-		
+		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
-
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"/></script>
 		<style type="text/css" data-style-name="dmp1" >
 
@@ -152,7 +143,8 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        "$_VISUALIZATION": "visualization or not",
+					"$_DMPVERSION": "1.0"
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -204,7 +196,8 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        "$_VISUALIZATION": "visualization or not",
+					"$_DMPVERSION": "1.0"
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -357,7 +350,8 @@
 			            "$_proprietary": "Proprietary Software",
 			            "$_RAWDATA": "???",
 			            "$_DERIVEDDATA": "???",
-			            "$_VISUALIZATION": "visualization or not"
+			            "$_VISUALIZATION": "visualization or not",
+						"$_DMPVERSION": "1.0"
 			        },
 			        "checkbox": {
 			            "checkbox_1": {
@@ -402,7 +396,8 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        "$_VISUALIZATION": "visualization or not",
+					"$_DMPVERSION": "1.0"
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -489,16 +484,31 @@
 			
 			
 			function load_dmp(callback = reload_answers, name = cached_template) {
-			    doc_name = name;
+			    const date = new Date();
+				doc_name = name;
+				const doc = document.getElementById("doc");
+				const scroll_y = doc.scrollTop+"";
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
 			    content.classList.add("content-page");
 			    let frame = document.getElementById("doc3");
 			    frame.innerHTML = content.innerHTML;
+				const options = {  year: 'numeric', month: 'long', day: 'numeric' };
+				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('de-DE', options)+"</h3>";
+				document.getElementById("dmp_version").innerHTML = "<h3>"+saved_a["replace"]["$_DMPVERSION"]+"</h3>";
 			    callback();
 			    initialed = true;
 				syn_load_cache();
-
+				
+				saved_a["dmp"]["title"] = "DMP of "+ saved_a["replace"]["$_PROJECT"];
+				saved_a["dmp"]["contact"]["name"] = "DMP of "+ saved_a["replace"]["$_USERNAME"];
+				saved_a["dmp"]["contact"]["mbox"] = "DMP of "+ saved_a["replace"]["$_EMAIL"];
+				saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = date.toISOString().slice(0,-3): {};
+				saved_a["dmp"]["modified"] = date.toISOString().slice(0,-3);
+				saved_a["dmp"]["submission"]  = date.toISOString().slice(0,-3);
+				saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"] ;
+				
+				doc.scroll(0,scroll_y)
 			}
 			
 			
@@ -1313,6 +1323,7 @@
 
 			// initialization
 			window.addEventListener("load", function () {
+			 
 			    if (cached_template == null) {
 			        cached_template = doc_name;
 			    } else if (cached_template == "user-defined") {
@@ -1409,7 +1420,11 @@
 				
 				}
 
+			
+			
+			
 			document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
+			
 				const dmp1_vis = document.getElementById("dmp1").querySelector("#vis").childNodes[0].childNodes[1];
 				// Options for the observer (which mutations to observe)
 				const config = { attributes: true, childList: false, subtree: false };
@@ -2560,8 +2575,8 @@ END:VEVENT`;
                     </form>
 
                     <form class="" style="margin-left: 0px;" id="form_username">
-                        <h3>1.3 Your contact information</h3>
-                        <label for="input_username"><h5>Name:</h5></label>
+                        <h3>1.3 Other DMP Metadata</h3>
+                        <label for="input_username"><h5>User Name:</h5></label>
                         <input
                             style="width: 26vw;"
                             class=""
@@ -2577,7 +2592,7 @@ END:VEVENT`;
                         <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     </form>
                     <form class="" style="margin-left: 0px;" id="form_email">
-                        <label for="input_email"><h5>Email:</h5>         </label>
+                        <label for="input_email"><h5>User Email:</h5>         </label>
                         <input
                             style="width: 26vw;"
                             class=""
@@ -2604,12 +2619,29 @@ END:VEVENT`;
                             id="input_dataofficer"
                             name="$_dataofficer"
                             placeholder="data officer name"
+                            onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+                        />
+                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit" value="submit" onclick="replace(this)" />
+                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                    </form>
+					
+					
+					<form class="" style="margin-left: 0px;" id="form_dmpversion">
+                        <label for="input_dmpversion"><h5>DMP version:</h5></label>
+                        <input
+                            style="width: 26vw;"
+                            class=""
+                            onfocusin="this.select();"
+                            onfocusout="this.nextElementSibling.click();"
+                            type="text"
+                            id="input_dmpversion"
+                            name="$_DMPVERSION"
+                            placeholder="Version of the DMP"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                         />
                         <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit" value="submit" onclick="replace(this)" />
                         <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     </form>
-
                     
 					<h3>1.4 Chose some additional information</h3>
                     <div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
@@ -3223,8 +3255,38 @@ END:VEVENT`;
             </div>
             <div class="p-2" style="margin: auto;">
                 <h1 style="" id="text_start" class="c13 row align-middle"><span class="c15"> </span><center  class="c2">Data Management Plan of $_PROJECT</center></h1>
-
+				<div class="d-flex justify-content-center">
+				
+				
+			
                 <br />
+				<table  >
+					<tr>
+						<td><h3>Action Number: </h3></td>
+						<td><h3>  $_PROJECT</h3></td>
+					</tr>
+					<tr>
+						<td><h3>Action Acronym:</h3></td>
+						<td><h3>  $_PROJECT</h3></td>
+					</tr>
+					<tr>
+						<td><h3>Action title:</h3></td>
+						<td> <h3>  $_PROJECT</h3></td>
+		
+					</tr>
+					<tr>
+						<td><h3>Date:</h2></td>
+						<td id="today_date" ><h3></h3></td>
+
+					</tr>
+					<tr>
+						<td><h3>DMP version:</h3></td>
+						<td id="dmp_version" ><h3></h3></td>
+
+					</tr>
+				</table>
+
+				</div>
                 <br />
                 <br />
                 <br />
