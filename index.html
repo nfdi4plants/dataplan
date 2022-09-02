@@ -1409,11 +1409,31 @@
 				
 				}
 
+			document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
+				const dmp1_vis = document.getElementById("dmp1").querySelector("#vis").childNodes[0].childNodes[1];
+				// Options for the observer (which mutations to observe)
+				const config = { attributes: true, childList: false, subtree: false };
+				
+				// Callback function to execute when mutations are observed
+				const callback = (mutationList, observer) => {
+				  for (const mutation of mutationList) {
+					if (mutation.type === 'childList') {
+					  console.log('A child node has been added or removed.');
+					  document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
+					} else if (mutation.type === 'attributes') {
+					  console.log(`The ${mutation.attributeName} attribute was modified.`);document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
+					}else if (mutation.type === 'subtree') {
+					  console.log(`subtree`);document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
+					}
+				  }
+				
+				};
+				
+				// Create an observer instance linked to the callback function
+				const observer = new MutationObserver(callback);
 
-			    //
-
-
-			    document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
+				// Start observing the target node for configured mutations
+				observer.observe(dmp1_vis, config);
 
 			});
 			function update_saved_json(answers){
@@ -2193,8 +2213,12 @@ END:VEVENT`;
 			    return reminders;
 			}
 			function word_cloud_callback(){
-			document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
 			
+
+
+				// Later, you can stop observing
+				
+				//observer.disconnect();
 			
 			}
 		</script>			
@@ -2317,7 +2341,7 @@ END:VEVENT`;
                             <button
                                 id="word_cloud"
                                 class="dropdown-item"
-                                onclick='parseText(word_cloud_callback)'
+                                onclick='parseText(word_cloud_callback())'
                             >
                                Generate Word Cloud
                             </button>
