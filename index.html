@@ -40,10 +40,11 @@
 			#angles input, #max { width: 42px; }
 		ol{margin:0;padding:0}table td,table th{padding:0}
 		.c1{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:normal}
-		.c3{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal; color:#0088CC;}
-		.c7{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Times New Roman";font-style:normal}
-		.c22{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left;height:12pt}
+		.c3{;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal; color:#0088CC;}
 		.c4{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:17pt;font-family:"Arial";font-style:normal}
+		.c7{color:#000000;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:15pt;font-family:"Arial";font-style:normal}
+		.c22{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left;height:12pt}
+		
 		.c14{padding-top:14pt;padding-bottom:4pt;line-height:1.15;orphans:2;widows:2;text-align:left}
 		.c13{padding-top:24pt;padding-bottom:6pt;line-height:1.15;orphans:2;widows:2;text-align:left}
 		.c10{padding-top:12pt;padding-bottom:3pt;line-height:1.15;orphans:2;widows:2;text-align:left}
@@ -145,7 +146,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        
 					
 					
 			    },
@@ -164,7 +165,7 @@
 			            "unchecked": []
 			        },
 			        "checkbox_3": {
-			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue"],
+			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue", "check_vvisualization"],
 			            "unchecked": []
 			        },
 			        "checkbox_5": {
@@ -201,7 +202,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -218,7 +219,7 @@
 			            "unchecked": []
 			        },
 			        "checkbox_3": {
-			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue"],
+			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue", "check_vvisualization"],
 			            "unchecked": []
 			        },
 			        "checkbox_5": {
@@ -356,7 +357,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        
 			        },
 			        "checkbox": {
 			            "checkbox_1": {
@@ -368,7 +369,7 @@
 			                "unchecked": []
 			            },
 			            "checkbox_3": {
-			                "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue"],
+			                "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue", "check_vvisualization"],
 			                "unchecked": []
 			            },
 			            "checkbox_5": {
@@ -403,7 +404,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not"
+			        
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -420,7 +421,7 @@
 			            "unchecked": []
 			        },
 			        "checkbox_3": {
-			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue"],
+			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue", "check_vvisualization"],
 			            "unchecked": []
 			        },
 			        "checkbox_5": {
@@ -513,7 +514,8 @@
 				saved_a["dmp"]["submission"]  = date.toISOString().slice(0,-3);
 				saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"] ;
 				
-				
+				try {delete saved_a["replace"]["$_VISUALIZATION"]}
+				catch(e){}
 			}
 			
 			
@@ -572,7 +574,7 @@
 			    changed_checkboxes = 0;
 			    for (const[key, value]of Object.entries(old_a["replace"])) {
 			        total_keywords++;
-			        if ((new_a["replace"][key] != value) && (new_a["replace"][key] != "")) {
+			        if ((new_a["replace"][key] != value) && (new_a["replace"][key] != "")&& (new_a["replace"][key] != undefined)) {
 			            changed_keywords++;
 
 			            console.log(new_a["replace"][key]);
@@ -898,7 +900,7 @@
 			const all_warning_text = document.querySelectorAll('[name="warning_elements"]');
 			all_warning_alert.forEach( (element) => { element.classList.remove("d-none")}  );
 			//all_warning_text.forEach( (element) => { element.classList.remove("d-none")}  );
-			all_warning_alert[0].scrollIntoView();
+			document.getElementById("warningText").scrollIntoView();
 			}
 			
 			
@@ -3072,22 +3074,21 @@ END:VEVENT`;
                             </div>
                         </div>
                         <br />
+						 <h2 id="scrollspyHeading5">5. Do you use visualization in the project?</h2>
+						                    <div class="form-check form-switch"  >
+					<input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization"  >
+                       <label class="form-check-label" for="check_vvisualization">Do you use visualization? </label>
+
+                        
+						
+                    </div>
                     </div>
 					<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox = "checkbox_3" onclick="get_option(this)" class=>
                         <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" value="submit" data-checkbox="checkbox_3" onclick="get_option(this)" />
                     <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
 
-                    <form class="col-12" style="margin-left: 0px;" id="form_visualization">
-                        <h2 id="scrollspyHeading5">5. Do you need visualization in the project?</h2>
-                        <input type="text" id="input_visiualization1" name="$_VISUALIZATION" placeholder=" " class="d-none" value="and visualization" />
-                        <input class="btn btn-primary btn-sm" type="button" value="yes" class="col-auto" onclick="replace(this)" />
-                        <input type="text" id="input_visiualization2" name="$_VISUALIZATION" placeholder=" " class="d-none" value=" " />
 
-                        <input class="btn btn-primary btn-sm" type="button" value="no" class="col-auto" onclick="replace(this)" />
-
-                        <input class="btn btn-secondary btn-sm d-none" data-value="visualization" type="button" value="undo" onclick="undo(this);" />
-                    </form>
 
                     <br />
                     <br />
@@ -3352,7 +3353,7 @@ END:VEVENT`;
             <p class="c0"><span class="c3"></span></p>
             <p class="c0">
                 <span class="c0">
-                    For $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
+                    For $_PROJECT, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
                     used for analyzing data. In the end, stakeholder's involvement need to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata
                     using open standards, as it is laid out in the following section. As $_PROJECT aims at $_PROJECTAIM.
                     <p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p>
@@ -3404,7 +3405,7 @@ END:VEVENT`;
 							</span>
                         </p>
                         <h2 class="c9" id="h.8sk9nau3ts35"><span class="c4">2.2&nbsp;&nbsp;&nbsp;&nbsp;FAIR data</span></h2>
-                        <h3 class="c14" id="h.gtd4kdf6hncf"><span class="c3">Making data findable, including provisions for metadata</span></h3>
+                        <h3 class="c14" id="h.gtd4kdf6hncf"><span class="c7">Making data findable, including provisions for metadata</span></h3>
                         <p class="c0">
                             <span class="c3">
                                 Are the data produced and/or used in the project discoverable with metadata, identifiable and locatable by means of a standard identification mechanism (e.g. persistent and unique identifiers such as Digital
@@ -3455,7 +3456,7 @@ END:VEVENT`;
                         </p>
                     </div>
                     <div class="content-page">
-                        <h3 class="c14" id="h.8wrxcmaxl0hv"><span class="c3">Making data openly accessible</span></h3>
+                        <h3 class="c14" id="h.8wrxcmaxl0hv"><span class="c7">Making data openly accessible</span></h3>
                         <p class="c0">
                             <span class="c3">
                                 Which data produced and/or used in the project will be made openly available as the default? If certain datasets cannot be shared (or need to be shared under restrictions), explain why, clearly separating
@@ -3546,7 +3547,7 @@ END:VEVENT`;
                     #endif$_DATAPLANT
                 </span>
             </p>
-                        <h3 class="c14" id="h.514g6glbmw6i"><span class="c3">Making data interoperable</span></h3>
+                        <h3 class="c14" id="h.514g6glbmw6i"><span class="c7">Making data interoperable</span></h3>
                         <p class="c10">
                             <span class="c3">
                                 Are the data produced in the project interoperable, that is allowing data exchange and re-use between researchers, institutions, organizations, countries, etc. (i.e. adhering to standards for formats, as much
@@ -3577,7 +3578,7 @@ END:VEVENT`;
                         </p>
                         <p class="c10"><span class="c3">In case it is unavoidable that you use uncommon or generate project specific ontologies or vocabularies, will you provide mappings to more commonly used ontologies?</span></p>
                         <p class="c0"><span class="c1">Common and open ontologies will be used thus this question does not apply.</span></p>
-                        <h3 class="c14" id="h.fs2sjyqtlku7"><span class="c3">Increase data reuse (through clarifying licences)</span></h3>
+                        <h3 class="c14" id="h.fs2sjyqtlku7"><span class="c7">Increase data reuse (through clarifying licences)</span></h3>
                         <p class="c10"><span class="c12 c17 c11"></span></p>
                         <p class="c10"><span class="c3">How will the data be licensed to permit the widest re-use possible?</span></p>
                         <p class="c0"><span class="c1">Open licenses will be used whenever possible, such as CC.</span></p>
@@ -3767,7 +3768,7 @@ END:VEVENT`;
                             <p class="c0"></p>
                             <p class="c0">
                                 <span class="c1">
-                                    In addition to the conventional data generation, for $_PROJECT, data collection, integration $_VISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT as
+                                    For $_PROJECT, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure is absolutely necessary #endif$_DATAPLANT as
                                     data is not only used to understand principles, but it is also used for analyzing data and in the end stakeholder involvement, which need to be informed about data provenance. It is therefore of
                                     importance that not only data is well generated, but also well annotated with metadata using
                                 </span>
