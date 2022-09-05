@@ -135,16 +135,19 @@
 			        "$_PROJECT": "Example Project",
 			        "$_STUDYOBJECT": "Example Objective",
 			        "$_PROJECTAIM": "Example Aim",
+					"$_DMPVERSION": "1.0",
 			        "$_USERNAME": "Example User",
 			        "$_EMAIL": "email",
 			        "$_dataofficer": "Example data officer name",
+					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
 			        "$_UPDATEMONTH": "Example Month",
 			        "$_PREVIOUSPROJECTS": "Previous Project Name",
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not",
-					"$_DMPVERSION": "1.0"
+			        "$_VISUALIZATION": "visualization or not"
+					
+					
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -185,19 +188,20 @@
 						
 						"update":{"timeline":[],"storage":[
 						 {"answer":{"replace":{
-			        "$_PROJECT": "Example Project",
+			        			        "$_PROJECT": "Example Project",
 			        "$_STUDYOBJECT": "Example Objective",
 			        "$_PROJECTAIM": "Example Aim",
+					"$_DMPVERSION": "1.0",
 			        "$_USERNAME": "Example User",
 			        "$_EMAIL": "email",
 			        "$_dataofficer": "Example data officer name",
+					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
 			        "$_UPDATEMONTH": "Example Month",
 			        "$_PREVIOUSPROJECTS": "Previous Project Name",
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not",
-					"$_DMPVERSION": "1.0"
+			        "$_VISUALIZATION": "visualization or not"
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -339,19 +343,20 @@
 							
 			            },
 			        "replace": {
-			            "$_PROJECT": "Example Project",
-			            "$_STUDYOBJECT": "Example Objective",
-			            "$_PROJECTAIM": "Example Aim",
-			            "$_USERNAME": "Example User",
-			            "$_EMAIL": "email",
-			            "$_dataofficer": "Example data officer name",
-			            "$_UPDATEMONTH": "Example Month",
-			            "$_PREVIOUSPROJECTS": "Previous Project Name",
-			            "$_proprietary": "Proprietary Software",
-			            "$_RAWDATA": "???",
-			            "$_DERIVEDDATA": "???",
-			            "$_VISUALIZATION": "visualization or not",
-						"$_DMPVERSION": "1.0"
+			            			        "$_PROJECT": "Example Project",
+			        "$_STUDYOBJECT": "Example Objective",
+			        "$_PROJECTAIM": "Example Aim",
+					"$_DMPVERSION": "1.0",
+			        "$_USERNAME": "Example User",
+			        "$_EMAIL": "email",
+			        "$_dataofficer": "Example data officer name",
+					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
+			        "$_UPDATEMONTH": "Example Month",
+			        "$_PREVIOUSPROJECTS": "Previous Project Name",
+			        "$_proprietary": "Proprietary Software",
+			        "$_RAWDATA": "???",
+			        "$_DERIVEDDATA": "???",
+			        "$_VISUALIZATION": "visualization or not"
 			        },
 			        "checkbox": {
 			            "checkbox_1": {
@@ -385,19 +390,20 @@
 						"update":{"timeline":[
 						],"storage":[
 						{"answer":{"replace": {
-			        "$_PROJECT": "Example Project",
+			        			        "$_PROJECT": "Example Project",
 			        "$_STUDYOBJECT": "Example Objective",
 			        "$_PROJECTAIM": "Example Aim",
+					"$_DMPVERSION": "1.0",
 			        "$_USERNAME": "Example User",
 			        "$_EMAIL": "email",
 			        "$_dataofficer": "Example data officer name",
+					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
 			        "$_UPDATEMONTH": "Example Month",
 			        "$_PREVIOUSPROJECTS": "Previous Project Name",
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-			        "$_VISUALIZATION": "visualization or not",
-					"$_DMPVERSION": "1.0"
+			        "$_VISUALIZATION": "visualization or not"
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
@@ -486,8 +492,7 @@
 			function load_dmp(callback = reload_answers, name = cached_template) {
 			    const date = new Date();
 				doc_name = name;
-				const doc = document.getElementById("doc");
-				const scroll_y = doc.scrollTop+"";
+				
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
 			    content.classList.add("content-page");
@@ -508,7 +513,7 @@
 				saved_a["dmp"]["submission"]  = date.toISOString().slice(0,-3);
 				saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"] ;
 				
-				doc.scroll(0,scroll_y)
+				
 			}
 			
 			
@@ -670,6 +675,9 @@
 			// reload all the answers and save the answers to local storage
 
 			function reload_answers() {
+				const doc = document.getElementById("doc");
+				const scroll_y = doc.scrollTop+"";
+				
 			    const selection = window.getSelection();
 			    selection.removeAllRanges();
 			    trim_saved_a(saved_a);
@@ -757,21 +765,23 @@
 			        checkbox(singleOption);
 			    }
 			    console.log("answer reload is finished");
+				issue_warning();
 			    let unfinished = compare_answers(temp_a, saved_a);
 			    let p_bar = document.getElementById("p-bar");
 			    let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
 			    p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
 			    p_bar.innerHTML = Math.ceil(percentage) + "%";
 			    p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
+				
+			    //if (is_firefox) {
 
-			    if (is_firefox) {
-
-			        setTimeout(() => {
-			            document.getElementById("doc3").children[0].scrollIntoView();
+			        //setTimeout(() => {
+					doc.scroll(0,scroll_y)
+			        //    document.getElementById("doc3").children[0].scrollIntoView();
 			            //console.log("")
-			        ;
-			        }, 0)
-			    };
+			        //;
+			        //}, 0)
+			    //};
 
 			    //parseText(document.getElementById("doc3"));
 
@@ -882,7 +892,16 @@
 			    }
 
 			}
-
+			
+			function issue_warning_show(){
+			const all_warning_alert = document.querySelectorAll('[name="_warning_notification"]');
+			const all_warning_text = document.querySelectorAll('[name="warning_elements"]');
+			all_warning_alert.forEach( (element) => { element.classList.remove("d-none")}  );
+			//all_warning_text.forEach( (element) => { element.classList.remove("d-none")}  );
+			all_warning_alert[0].scrollIntoView();
+			}
+			
+			
 			function issue_warning() {
 
 			    const warning_notification = document.getElementsByName("_warning_notification");
@@ -920,15 +939,16 @@
 
 			            let newText = document.createElement("warning_number" + warning_number);
 
-			            newText.innerHTML = '<span id= "warning_number' + warning_number + '" class = "text-warning"><--pay attention to the sentence before because' + text + '</span>';
+			            newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--pay attention to the sentence before because' + text + '</span>';
 			            full_range.insertNode(newText);
 
 			            const warning_no = "warning_number" + warning_number;
 
 			            let div = document.createElement('div');
-			            div.setAttribute("class", "alert alert-danger");
+			            div.setAttribute("class", "alert alert-danger d-none");
 			            div.setAttribute("role", "alert");	
 			            div.setAttribute("name", "_warning_notification");
+						
 			            let html1 = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>' + text + '<button type="button" value = "' + warning_no + '" class="btn btn-primary"  onclick ="go_to(this)" >click to check what caused the warning</button><button type="button" value = "' + warning_no + '" class=" btn-close" data-bs-dismiss="alert" aria-label="Close" onclick=remove_warning(this) ></button>';
 
 			            div.innerHTML = html1;
@@ -939,7 +959,7 @@
 
 			    }
 
-			    warning_text_location.scrollIntoView();
+			    //warning_text_location.scrollIntoView();
 			}
 
 			/**
@@ -1790,7 +1810,7 @@
 			    let warning_element_children = Array.from(Array(99).keys());
 
 			    if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
-			        issue_warning();
+			        issue_warning_show();
 			        warning_element_children = document.getElementById("warningText").children;
 			        if (warning_element_children[0] == undefined) {
 						dmp_update(saved_a);
@@ -1840,7 +1860,7 @@
 			    let warning_element_children = Array.from(Array(99).keys());
 
 			    if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
-			        issue_warning();
+			        issue_warning_show();
 			        warning_element_children = document.getElementById("warningText").children;
 			        if (warning_element_children[0] == undefined) {
 			            try {
@@ -2519,9 +2539,7 @@ END:VEVENT`;
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path
                                                 d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
-                                            />
-                                        </svg>
-                                    </span></a>
+                                            /></svg></span></a>
                                 to be studied:
                             </h3>
                         </label>
@@ -2568,12 +2586,28 @@ END:VEVENT`;
                             placeholder="project aim"
                             rows="3"
                             style="width: 26vw;"
-                            onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
+                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
                         ></textarea>
                         <input class="btn btn-primary btn-sm d-none" type="button" value="submit" onclick="replace(this)" />
                         <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     </form>
-
+					<form class="" style="margin-left: 0px;" id="form_datautility">
+                        <h3>To whom data will be useful? (data utility) :</h3>
+                        <label for="input_datautility"></label>
+                        <textarea
+                            style="width: 26vw;"
+                            class="col-auto"
+                            type="text"
+                            onfocusin="this.select();"
+                            onfocusout="this.nextElementSibling.click();"
+                            id="input_datautility"
+                            name="$_DATAUTILITY"
+                            placeholder="Data utilities"
+                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} ">
+                        </textarea>
+                        <input class="btn btn-primary btn-sm col-auto d-none"" type="button" id="input_datautility_submit" value="submit" onclick="replace(this)" />
+                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo"  onclick="undo(this);" />
+                    </form>
                     <form class="" style="margin-left: 0px;" id="form_username">
                         <h3>1.3 Other DMP Metadata</h3>
                         <label for="input_username"><h5>User Name:</h5></label>
@@ -2639,7 +2673,7 @@ END:VEVENT`;
                             placeholder="Version of the DMP"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                         />
-                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit" value="submit" onclick="replace(this)" />
+                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dmpversion_submit" value="submit" onclick="replace(this)" />
                         <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
                     </form>
                     
@@ -3296,11 +3330,7 @@ END:VEVENT`;
         </div>
         <div class="content-page">
             <h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data initiative of the EU. #endif$_EU</span></p>
-            <p class="c0">
-                <span class="c1">
-                    To best profit from open data, it is necessary to not only store data but to make data findable, accessible, interoperable and reusable (FAIR). #if$_PROTECT Open and FAIR data, however, considers the need to protect
-                    individual data sets. #endif$_PROTECT
+            <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data initiative of the EU. #endif$_EU To best profit from open data, it is necessary to not only store data but to make data findable, accessible, interoperable and reusable (FAIR). #if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT
                 </span>
             </p>
             <p class="c0">
@@ -3364,9 +3394,14 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">
                                 The data will be useful for the $_PROJECT partners to the scientific community working on $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, $_PROJECT also strives to collect the data
-                                that has been disseminated and potentially advertise it #if$_DATAPLANT e.g. through the DataPLANT platform or other means#endif$_DATAPLANT, if it is not included in a publication anyway which is the most
+                                that has been disseminated and potentially advertise it#if$_DATAPLANT e.g. through the DataPLANT platform or other means#endif$_DATAPLANT, if it is not included in a publication anyway which is the most
                                 likely form of dissemination.
                             </span>
+						</p>
+						<p class="c0">
+							<span class="c1">
+								$_DATAUTILITY
+							</span>
                         </p>
                         <h2 class="c9" id="h.8sk9nau3ts35"><span class="c4">2.2&nbsp;&nbsp;&nbsp;&nbsp;FAIR data</span></h2>
                         <h3 class="c14" id="h.gtd4kdf6hncf"><span class="c3">Making data findable, including provisions for metadata</span></h3>
@@ -3378,10 +3413,10 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                All data sets will receive unique identifiers and they will be annotated with Metadata. $_PROJECT will rely on community standards plus additional recommendations necessary. #if$_MIAPPE In the plant field,
-                                the data will be adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE These -unlike across domain minimal sets such as Dublin core which
+                                All data sets will receive unique identifiers and they will be annotated with Metadata. $_PROJECT will rely on community standards plus additional recommendations necessary. #if$_MIAPPE In plant science,
+                                the data will be adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE These unlike cross-domain minimal sets such as Dublin core which
                                 mostly defines submitter and what general type of data is being dealt with (e.g. images) - allow reusability by other researchers as it also defines properties of the plant (see preceding section). However,
-                                of course minimal cross domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a digital object identifier (DOI).
+                                of course minimal cross-domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a digital object identifier (DOI).
                                 #endif$_DATAPLANT
                             </span>
                         </p>
@@ -3413,8 +3448,8 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">We foresee to use #if$_RNASEQ|$_GENOMIC e.g. </span><span class="c16">#if$_MINSEQE MinSEQe Minimum Information About a Next-generation Sequencing Experiment</span>
                             <span class="c1">
-                                for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards for metabolites #issuewarning Some Metabolomics partners considers Metabolights
-                                not an accepted standard. #endissuewarning #endif$_METABOLOMIC #if$_MIAPPE as well as MIAPPE for phenotyping data in the broadest sense, but will also be relying on #endif$_MIAPPE specific SOPs for additional
+                                for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards for metabolites. #issuewarning Some Metabolomics partners considers Metabolights
+                                not an accepted standard#endissuewarning #endif$_METABOLOMIC. The plant community#if$_METABOLOMIC also#endif$_METABOLOMIC use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but will also be relying on #endif$_MIAPPE specific SOPs for additional
                                 annotations #if$_DATAPLANT relying on advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
                             </span>
                         </p>
@@ -3445,7 +3480,7 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">
                                 Data will be made available via the $_PROJECT platform using a user-friendly front end which allows data visualization. Besides this it will be ensured that data which can be stored in international
-                                specialized technical discipline related repositories (Sequencing at the national US center NCBI, SRA; Sequencing and sequence data for the EU center: EBI, ENA; Proteome database: PRIDE), will be stored and
+                                discipline related repositories which use specialized technologies (Sequencing at the national US center NCBI, SRA; Sequencing and sequence data for the EU center: EBI, ENA; Proteome database: PRIDE), will be stored and
                                 processed there as well.
                             </span>
                         </p>
@@ -3500,12 +3535,11 @@ END:VEVENT`;
                         <p class="c0"><span class="c3">Are there well described conditions for access (i.e. a machine-readable license)?</span></p>
                         <p class="c0"><span class="c1">Yes, where possible e.g. CC REL will be used for data not submitted to specialized repositories such as ENA.</span></p>
                         <p class="c0"><span class="c3">How will the identity of the person accessing the data be ascertained?</span></p>
-                        <p class="c20">
                             <span class="c1">
                                 In case data is only shared within the consortium, if the data is not yet finished or under IP checks, the data is hosted internally and username and password will be required (see also our GDPR rules). In
-                                the case data is made public under final EU or US repositories, completely anonymous access is normally allowed this is the case for ENA as well and both are in line with GDPR requirements.
+                                the case data is made public under final EU or US repositories, completely anonymous access is normally allowed. This is the case for ENA as well and both are in line with GDPR requirements.
                             </span>
-                        </p>
+                        
 						            <p class="c0">
                 <span class="c1">
                     #if$_DATAPLANT Currently data management relies on the annotated research context ARC. It is password protected, so before any data can be obtained or samples generated an authentication needs to take place.
@@ -3515,7 +3549,7 @@ END:VEVENT`;
                         <h3 class="c14" id="h.514g6glbmw6i"><span class="c3">Making data interoperable</span></h3>
                         <p class="c10">
                             <span class="c3">
-                                Are the data produced in the project interoperable, that is allowing data exchange and re-use between researchers, institutions, organisations, countries, etc. (i.e. adhering to standards for formats, as much
+                                Are the data produced in the project interoperable, that is allowing data exchange and re-use between researchers, institutions, organizations, countries, etc. (i.e. adhering to standards for formats, as much
                                 as possible compliant with available (open) software applications, and in particular facilitating re-combinations with different datasets from different origins)?
                             </span>
                         </p>
@@ -3567,12 +3601,12 @@ END:VEVENT`;
                         <p class="c10"><span class="c3">How long is it intended that the data remains re-usable?</span></p>
                         <p class="c0"><span class="c1">Data will be made available for many years#if$_DATAPLANT and potentially indefinitely after the end of the project#endif$_DATAPLANT.</span></p>
                         <p class="c0">
-                            <span class="c1">In any case data submitted to specific community accepted public subject area repositories (as detailed above) e.g. ENA /Pride would be subject to local data storage regulation.</span>
+                            <span class="c1">In any case data submitted to  repositories (as detailed above) e.g. ENA /Pride would be subject to local data storage regulation.</span>
                         </p>
                         <p class="c10"><span class="c3">Are data quality assurance processes described?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                Data will be checked and curated. #if$_DATAPLANT In addition, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT
+                                Data will be checked and curated. #if$_DATAPLANT In addition, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation #endif$_DATAPLANT.
                             </span>
                         </p>
                         <h2 class="c9" id="h.w5pimtt9qf6p"><span class="c4">2.3&nbsp;&nbsp;&nbsp;&nbsp;Allocation of resources</span></h2>
@@ -3592,7 +3626,7 @@ END:VEVENT`;
                         <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential value, who decides and how/what data will be kept and for how long)?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                The datao fficer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS decides on preservation of data not submitted to last level subject area repositories #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after
+                                The data responsible(s) (data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS) decides on preservation of data not submitted to end-point subject area repositories #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after
                                 project end. This will be in line with EU, institute policies and data sharing based on EU and international standards.
                             </span>
                         </p>
@@ -3600,17 +3634,17 @@ END:VEVENT`;
                         <p class="c10"><span class="c3">What provisions are in place for data security (including data recovery as well as secure storage and transfer of sensitive data)?</span></p>
                         <p class="c20">
                             <span class="c1">
-                                Once data is transferred to the $_PROJECT platform #if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage and the use of
+                                Once data is transferred to the $_PROJECT platform#if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage and the use of
                                 passwords and usernames are generally transferred via separate safe media.
                             </span>
                         </p>
                         <p class="c10"><span class="c3">Is the data safely stored in certified repositories for long term preservation and curation?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                Wherever there are certified repositories these will be used as last level repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
-                                ENA/SRA. #endif$_RNASEQ #if$_METABOLOMIC Metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI the French INRAe). #endif$_METABOLOMIC #if$_PROTEOMIC Proteomics data in
-                                e.g. Pride/Proteomexchange. #endif$_PROTEOMIC In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
-                                do not support deep plant specific metadata hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
+                                Wherever there are certified repositories these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
+                                ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC proteomics data in
+                                e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
+                                do not support deep plant specific metadata, hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
                             </span>
                         </p>
                         <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">2.5&nbsp;&nbsp;&nbsp;&nbsp;Ethical aspects</span></h2>
@@ -3624,7 +3658,7 @@ END:VEVENT`;
                             <span class="c1">
                                 At the moment, we do not foresee ethical or legal issues with data sharing. In terms of ethics, as this is plant data, there is no need for an ethics committee, however diligence for plant resource benefit
                                 sharing is considered (🡺see Nagoya protocol). #issuewarning You have to check here and enter any due diligence here at the moment we are awaiting if Nagoya gets also part of sequence information. In any case
-                                if you use material not from your (partner) country and characterize this physically e.g, metabolites, proteome, biochemically RNASeq etc this might represent a Nagoya relevant action unless this is from e.g.
+                                if you use material not from your (partner) country and characterize this physically e.g., metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action unless this is from e.g.
                                 US (non partner), Ireland (not signed still contact them) etc but other laws might apply…. #endissuewarning
                             </span>
                         </p>
@@ -3689,12 +3723,8 @@ END:VEVENT`;
                             </h3>
 
                             #if$_EU
-                            <p class="c0"><span class="c1"> $_PROJECT is part of the Open Data initiative of the EU. </span></p>
-                            #endif$_EU
-
-                            <p class="c0">
-                                <span class="c1">
-                                    To best profit from open data, it is necessary to not only store data but to make data findable, accessible, interoperable and reusable (FAIR). #if$_PROTECT Open and FAIR data, however, considers the need
+                            <p class="c0"><span class="c1"> $_PROJECT is part of the Open Data initiative of the EU. 
+                            #endif$_EU To best profit from open data, it is necessary to not only store data but to make data findable, accessible, interoperable and reusable (FAIR). #if$_PROTECT Open and FAIR data, however, considers the need
                                     to protect individual data sets. #endif$_PROTECT
                                 </span>
                             </p>
@@ -3755,8 +3785,7 @@ END:VEVENT`;
                             <p class="c0">
                                 <span class="c1">
                                     The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important
-                                    to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT but of course also on existing characterization and the background knowledge. #if$_PARTNERS of the partners.
-                                    #endif$_PARTNERS Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics
+                                    to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT but of course also on existing characterization and the background knowledge#if$_PARTNERS of the partners#endif$_PARTNERS. Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics
                                     Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). In addition, prior “unstructured” data in the form of publications and data contained therein will be used for decision making.
                                 </span>
                             </p>
@@ -3792,10 +3821,10 @@ END:VEVENT`;
 
                             <p class="c0">
                                 <span class="c1">
-                                    All data sets will receive unique identifiers and they will be annotated with Metadata.#if$_MIAPPE $_PROJECT will rely on community standards plus additional recommendations necessary in the plant field
-                                    adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE)#endif$_MIAPPE. These -unlike across domain minimal sets such as Dublin core which mostly
+                                    All data sets will receive unique identifiers and they will be annotated with Metadata.#if$_MIAPPE $_PROJECT will rely on community standards plus additional recommendations necessary in plant science
+                                    adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE)#endif$_MIAPPE. These unlike cross-domain minimal sets such as Dublin core which mostly
                                     defines submitter and what general type of data is being dealt with (e.g. images) - allow reusability by other researchers as it also defines properties of the plant (see preceding section). However, of
-                                    course minimal cross domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a Digital Object Identifier (DOI).
+                                    course minimal cross-domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a Digital Object Identifier (DOI).
                                     #endif$_DATAPLANT
                                 </span>
                             </p>
@@ -3899,17 +3928,18 @@ END:VEVENT`;
                             </h3>
                             <p class="c0">
                                 <span class="c1">
-                                    Wherever there are certified repositories these will be used as last level repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the
-                                    standards ENA/SRA. #endif$_RNASEQ #if$_METABOLOMIC Metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI the French INRAe). #endif$_METABOLOMIC #if$_PROTEOMIC 
-                                    Proteomics data in e.g. Pride/Proteomexchange. #endif$_PROTEOMIC In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases
-                                    like e.g. Proteomexchange do not support deep plant specific metadata hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
+                                Wherever there are certified repositories these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
+                                ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC proteomics data in
+                                e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
+                                do not support deep plant specific metadata, hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
                                 </span>
                             </p>
                             <p class="c0">
                                 <span class="c1">Data will be made available for many years#if$_DATAPLANT and potentially indefinitely after the end of the project#endif$_DATAPLANT.</span>
                             </p>
                             <p class="c0">
-                                <span class="c1">In any case data submitted to specific community accepted public subject area repositories (as detailed above) e.g. ENA /Pride would be subject to local data storage regulation.</span>
+                                <span class="c1">In any case data submitted to international
+                                discipline related repositories which use specialized technologies (as detailed above) e.g. ENA /Pride would be subject to local data storage regulation.</span>
                             </p>
                             <h3 class="c0">
                                 <span class="c3">3.2&nbsp;&nbsp;&nbsp;&nbsp;What is in place to secure sensitive data throughout the project duration (access and usage rights)? </span>
@@ -3942,7 +3972,7 @@ END:VEVENT`;
                                 <span class="c1">
                                     At the moment, we do not foresee ethical or legal issues with data sharing. In terms of ethics, as this is plant data, there is no need for an ethics committee, however diligence for plant resource
                                     benefit sharing is considered (🡺see Nagoya protocol). #issuewarning You have to check here and enter any due diligence here at the moment we are awaiting if Nagoya gets also part of sequence information.
-                                    In any case if you use material not from your (partner) country and characterize this physically e.g, metabolites, proteome, biochemically RNASeq etc this might represent a Nagoya relevant action unless
+                                    In any case if you use material not from your (partner) country and characterize this physically e.g., metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action unless
                                     this is from e.g. US (non partner), Ireland (not signed still contact them) etc but other laws might apply…. #endissuewarning
                                 </span>
                             </p>
@@ -3958,7 +3988,7 @@ END:VEVENT`;
                             </h3>
                             <p class="c20">
                                 <span class="c1">
-                                    Once data is transferred to the $_PROJECT platform #if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage and the use of
+                                    Once data is transferred to the $_PROJECT platform#if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage and the use of
                                     passwords and usernames are generally transferred via separate safe media.
                                 </span>
                             </p>
@@ -4024,7 +4054,7 @@ END:VEVENT`;
                             <p class="c0">
                                 <span class="c1">
                                     #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end which allows data visualization. Besides this it will be ensured that data which can be stored in
-                                    international specialized technical discipline related repositories (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data for the EU center: EBI, $_ENA; Proteome database:
+                                    international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data for the EU center: EBI, $_ENA; Proteome database:
                                     $_PRIDE), will be stored and processed there as well. #endif!$_DATAPLANT
                                 </span>
                             </p>
@@ -4049,7 +4079,7 @@ END:VEVENT`;
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    The $_PARTNERS decides on preservation of data not submitted to last level subject area repositories #if$_DATAPLANT or ARCs in DataPLANT#endif$_DATAPLANT after project end. This will be in line with EU,
+                                    The $_PARTNERS decides on preservation of data not submitted to end-point subject area repositories #if$_DATAPLANT or ARCs in DataPLANT#endif$_DATAPLANT after project end. This will be in line with EU,
                                     institute policies and data sharing based on EU and international standards.
                                 </span>
                             </p>
@@ -4082,7 +4112,7 @@ END:VEVENT`;
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    Additionally, last level costs for storage are incurred by last-level repositories (e.g. ENA) but not charged against $_PROJECT or its members but by the operation budget of these repositories.
+                                    Additionally, last level costs for storage are incurred by end-point repositories (e.g. ENA) but not charged against $_PROJECT or its members but by the operation budget of these repositories.
                                 </span>
                             </p>
                             <p class="c0">
