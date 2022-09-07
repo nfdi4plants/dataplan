@@ -3267,10 +3267,7 @@ END:VEVENT`;
 
 				</div>
                 <br />
-                <br />
-                <br />
-                <br />
-                <br />
+
             </div>
         </div>
         <div class="content-page">
@@ -3644,7 +3641,7 @@ END:VEVENT`;
                         <p class="c10"><span class="c3">How long is it intended that the data remains re-usable?</span></p>
                         <p class="c0"><span class="c1">Data will be made available for many years#if$_DATAPLANT and potentially indefinitely after the end of the project#endif$_DATAPLANT.</span></p>
                         <p class="c0">
-                            <span class="c1">In any case data submitted to  repositories (as detailed above) e.g. ENA /Pride would be subject to local data storage regulation.</span>
+                            <span class="c1">In any case data submitted to  repositories (as detailed above) e.g. ENA /PRIDE would be subject to local data storage regulation.</span>
                         </p>
                         <p class="c10"><span class="c3">Are data quality assurance processes described?</span></p>
                         <p class="c0">
@@ -3715,31 +3712,39 @@ END:VEVENT`;
                         </p>
                         <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
                         <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures for data management? If yes, which ones?</span></p>
-                        <p class="c0"><span class="c1">Yes, $_PROJECT will use common RDM tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span></p>
+                        <p class="c0"><span class="c1">Yes, $_PROJECT will use common Research Data Management (RDM) tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span></p>
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c6"><span class="c1"></span></p>
                         <h1 class="c13" id="h.f589zyp9ll5e"><span class="c2">3&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"> </span><span class="c12 c2">Annexes</span></h1>
                         <p class="c0"><span class="c1"></span></p>
                         <h2 class="c9" id="h.vrmh31avvatp"><span class="c11 c18">3.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"> </span><span class="c4">Abbreviations</span></h2>
                         <p class="c0"><span class="c1"></span></p>
+                        #if$_DATAPLANT<p class="c0"><span class="c11">ARC</span><span class="c1"> Annotated Research Context</span></p> #endif$_DATAPLANT
+                        
                         <p class="c0"><span class="c11">CC</span><span class="c1"> Creative Commons</span></p>
+                        <p class="c0"><span class="c11">CC CEL</span><span class="c1"> Creative Commons Rights Expression Language</span></p>
                         <p class="c0"><span class="c11">DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
                         <p class="c0"><span class="c11">DMP</span><span class="c1"> Data Management Plan</span></p>
+                        <p class="c0"><span class="c11">DoA</span><span class="c1"> Description of Action</span></p>
                         <p class="c0"><span class="c11">DOI</span><span class="c1"> Digital Object Identifier</span></p>
                         <p class="c0"><span class="c11">EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
                         <p class="c0"><span class="c11">ENA</span><span class="c1"> European Nucleotide Archive</span></p>
                         <p class="c0"><span class="c11">EU </span><span class="c1">European Union</span></p>
+                        <p class="c0"><span class="c11">FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
                         <p class="c0"><span class="c11">GDPR</span><span class="c1"> General data protection regulation (of the EU)</span></p>
                         <p class="c0"><span class="c11">IP</span><span class="c1"> Intellectual Property</span></p>
+                        <p class="c0"><span class="c11">ISO</span><span class="c1"> International Organization for Standardization</span></p>
                         <p class="c0"><span class="c11">MIAMET</span><span class="c1"> Minimal Information about Metabolite experiment</span></p>
                         <p class="c0"><span class="c11">MIAPPE</span><span class="c1"> Minimal Information about Plant Phenotyping Experiment</span></p>
                         <p class="c0"><span class="c11">MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span></p>
                         <p class="c0"><span class="c11">NCBI</span><span class="c1"> National Center for Biotechnology Information</span></p>
                         <p class="c0"><span class="c11">NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span></p>
                         <p class="c0"><span class="c11">NGS</span><span class="c1"> Next Generation Sequencing</span></p>
+                        <p class="c0"><span class="c11">RDM</span><span class="c1"> Research Data Management</span></p>
                         <p class="c0"><span class="c11">RNASeq</span><span class="c1"> RNA Sequencing</span></p>
                         <p class="c0"><span class="c11">SOP</span><span class="c1"> Standard Operating Procedures</span></p>
                         <p class="c0"><span class="c11">SRA</span><span class="c1"> Short Read Archive</span></p>
+					#if$_DATAPLANT<p class="c0"><span class="c11">SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span></p> #endif$_DATAPLANT
                         <p class="c0"><span class="c11">ONP</span><span class="c1"> Oxford Nanopore</span></p>
                         <p class="c0"><span class="c11">qRT</span><span class="c11">PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span></p>
                         <p class="c0"><span class="c11">WP</span><span class="c1"> Work Package</span></p>
@@ -4015,7 +4020,7 @@ END:VEVENT`;
                                 <span class="c3">2.4&nbsp;&nbsp;&nbsp;&nbsp;Which digital methods and tools (e.g. software) are required to use the data?</span>
                             </h3>
                             <p class="c0">
-                                <span class="c1"> $_PROJECT will use common RDM tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span>
+                                <span class="c1"> $_PROJECT will use common Research Data Management (RDM) tools#if$_DATAPLANT and in particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span>
                             </p>
                             <p class="c0">
                                 <span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY</span>
@@ -4269,107 +4274,40 @@ END:VEVENT`;
                             <p class="c0">
                                 <span class="c1"></span>
                             </p>
-                            <p class="c0">
-                                <span class="c11">CC</span>
-                                <span class="c1"> Creative Commons</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">DDBJ</span>
-                                <span class="c1"> DNA Data Bank of Japan</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">DMP</span>
-                                <span class="c1"> Data Management Plan</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">DOI</span>
-                                <span class="c1"> Digital Object Identifier</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">EBI</span>
-                                <span class="c1"> European Bioinformatics Institute</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">ENA</span>
-                                <span class="c1"> European Nucleotide Archive</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">EU </span>
-                                <span class="c1">European Union</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">GDPR</span>
-                                <span class="c1"> General data protection regulation (of the EU)</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">IP</span>
-                                <span class="c1"> Intellectual Property</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">MIAMET</span>
-                                <span class="c1"> Minimal Information about Metabolite experiment</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">MIAPPE</span>
-                                <span class="c1"> Minimal Information about Plant Phenotyping Experiment</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">MinSEQe</span>
-                                <span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">NCBI</span>
-                                <span class="c1"> National Center for Biotechnology Information</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">NFDI</span>
-                                <span class="c1"> National Research Data Infrastructure (of Germany)</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">NGS</span>
-                                <span class="c1"> Next Generation Sequencing</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">RNASeq</span>
-                                <span class="c1"> RNA Sequencing</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">SOP</span>
-                                <span class="c1"> Standard Operating Procedures</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">SRA</span>
-                                <span class="c1"> Short Read Archive</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">ONP</span>
-                                <span class="c1"> Oxford Nanopore</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">qRT</span>
-
-                                <span class="c11">PCR</span>
-                                <span class="c1"> quantitative real time polymerase chain reaction</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c11">WP</span>
-                                <span class="c1"> Work Package</span>
-                            </p>
-                            <p class="c0">
-                                <span class="c1"></span>
-                            </p>
-                            <p class="c0">
-                                <span class="c1"></span>
-                            </p>
-                            <p class="c0">
-                                <span class="c1"></span>
-                            </p>
-                            <p class="c0">
-                                <span class="c1"></span>
-                            </p>
-                            <p class="c22">
-                                <span class="c1" />
-                            </p>
+#if$_DATAPLANT<p class="c0"><span class="c11">ARC</span><span class="c1"> Annotated Research Context</span></p> #endif$_DATAPLANT
+                        
+                        <p class="c0"><span class="c11">CC</span><span class="c1"> Creative Commons</span></p>
+                        <p class="c0"><span class="c11">CC CEL</span><span class="c1"> Creative Commons Rights Expression Language</span></p>
+                        <p class="c0"><span class="c11">DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
+                        <p class="c0"><span class="c11">DMP</span><span class="c1"> Data Management Plan</span></p>
+                        <p class="c0"><span class="c11">DoA</span><span class="c1"> Description of Action</span></p>
+                        <p class="c0"><span class="c11">DOI</span><span class="c1"> Digital Object Identifier</span></p>
+                        <p class="c0"><span class="c11">EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
+                        <p class="c0"><span class="c11">ENA</span><span class="c1"> European Nucleotide Archive</span></p>
+                        <p class="c0"><span class="c11">EU </span><span class="c1">European Union</span></p>
+                        <p class="c0"><span class="c11">FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
+                        <p class="c0"><span class="c11">GDPR</span><span class="c1"> General data protection regulation (of the EU)</span></p>
+                        <p class="c0"><span class="c11">IP</span><span class="c1"> Intellectual Property</span></p>
+                        <p class="c0"><span class="c11">ISO</span><span class="c1"> International Organization for Standardization</span></p>
+                        <p class="c0"><span class="c11">MIAMET</span><span class="c1"> Minimal Information about Metabolite experiment</span></p>
+                        <p class="c0"><span class="c11">MIAPPE</span><span class="c1"> Minimal Information about Plant Phenotyping Experiment</span></p>
+                        <p class="c0"><span class="c11">MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span></p>
+                        <p class="c0"><span class="c11">NCBI</span><span class="c1"> National Center for Biotechnology Information</span></p>
+                        <p class="c0"><span class="c11">NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span></p>
+                        <p class="c0"><span class="c11">NGS</span><span class="c1"> Next Generation Sequencing</span></p>
+                        <p class="c0"><span class="c11">RDM</span><span class="c1"> Research Data Management</span></p>
+                        <p class="c0"><span class="c11">RNASeq</span><span class="c1"> RNA Sequencing</span></p>
+                        <p class="c0"><span class="c11">SOP</span><span class="c1"> Standard Operating Procedures</span></p>
+                        <p class="c0"><span class="c11">SRA</span><span class="c1"> Short Read Archive</span></p>
+					#if$_DATAPLANT<p class="c0"><span class="c11">SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span></p> #endif$_DATAPLANT
+                        <p class="c0"><span class="c11">ONP</span><span class="c1"> Oxford Nanopore</span></p>
+                        <p class="c0"><span class="c11">qRT</span><span class="c11">PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span></p>
+                        <p class="c0"><span class="c11">WP</span><span class="c1"> Work Package</span></p>
+                        <p class="c0"><span class="c1"></span></p>
+                        <p class="c0"><span class="c1"></span></p>
+                        <p class="c0"><span class="c1"></span></p>
+                        <p class="c0"><span class="c1"></span></p>
+                        <p class="c22"><span class="c1"></span></p>
                         </div>
                     </div>
                     <div id="practical-guide" class="d-none">
