@@ -146,7 +146,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-					"$_OTHERSTANDARDINPUT": "Completed sentences of other adhered standard"
+					"$_OTHERSTANDARDINPUT": "Other standards are also adhered."
 			        
 					
 					
@@ -310,7 +310,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-					"$_OTHERSTANDARDINPUT": "Completed sentences of other adhered standard"
+					"$_OTHERSTANDARDINPUT": "Other standards are also adhered."
 			        
 			        },
 			        "checkbox": {
@@ -406,10 +406,14 @@
 			    let frame = document.getElementById("doc3");
 			    frame.innerHTML = content.innerHTML;
 				const options = {  year: 'numeric', month: 'long', day: 'numeric' };
+				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
 				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('de-DE', options)+"</h3>";
 				document.getElementById("dmp_version").innerHTML = "<h3>"+saved_a["replace"]["$_DMPVERSION"]+"</h3>";
 								try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")}
-				catch(e){}
+				catch(e){};
+				Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
+				
+				Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered.";
 			    callback();
 			    initialed = true;
 				syn_load_cache();
@@ -421,6 +425,8 @@
 				saved_a["dmp"]["modified"] = date.toISOString().slice(0,-3);
 				saved_a["dmp"]["submission"]  = date.toISOString().slice(0,-3);
 				saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"] ;
+				
+				
 				
 				saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
@@ -2675,8 +2681,6 @@ END:VEVENT`;
                     <div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
                         
                            <h3> Where will you submit your data as endpoints?</h3> 
-
-                        <br />
                         <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
                         <label class="form-check-label" for="check_ENA">
                             ENA
@@ -3363,7 +3367,7 @@ END:VEVENT`;
                                 the data will be adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE These unlike cross-domain minimal sets such as Dublin core which
                                 mostly defines submitter and what general type of data is being dealt with (e.g. images) - allow reusability by other researchers as it also defines properties of the plant (see preceding section). However,
                                 of course minimal cross-domain annotations are part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow to tag individual releases with a digital object identifier (DOI).
-                                #endif$_DATAPLANT
+                                #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
                             </span>
                         </p>
                         <p class="c0"><span class="c3">What naming conventions do you follow?</span></p>
@@ -4013,7 +4017,7 @@ END:VEVENT`;
                                 <span class="c1">
                                     As noted above specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when adequate. In the case of unstructured less standardized data (e.g. experimental
                                     phenotypic measurements) these will be metadata annotated and if complete given a digital object identifier (DOI). #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well.
-                                    #endif$_DATAPLANT
+                                    #endif$_DATAPLANT 
                                 </span>
                             </p>
                             <p class="c0">
