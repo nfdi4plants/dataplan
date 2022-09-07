@@ -1218,8 +1218,12 @@
 			                console.log(range.toString(), "last letter is comma: " + last_letter);
 			                range.deleteContents();
 			                console.log(encodeURIComponent(after));
-			                let newText = document.createElement(before.split("_")[1] + "-to-");
-			                newText.innerHTML = newText.textContent = '<span class = "text-warning"> ' + first_letter + HtmlEncode(after) + last_letter + '</span>';
+							let newText = document.createElement("span");
+			               
+							newText.setAttribute("class", "text-warning d-inline-block text-center");
+							newText.setAttribute("name", before.split("_")[1] + "-to-");
+
+			                newText.innerHTML =  first_letter + HtmlEncode(after) + last_letter ;
 			                range.insertNode(newText);
 
 			            } else if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
@@ -1231,8 +1235,12 @@
 			                console.log(range.toString(), "deleted with last letter: " + last_letter);
 			                range.deleteContents();
 			                console.log(encodeURIComponent(after));
-			                let newText = document.createElement(before.split("_")[1] + "-to-");
-			                newText.innerHTML = newText.textContent = '<span class = "text-warning"> ' + first_letter + HtmlEncode(after) + last_letter + '</span>';
+			                let newText = document.createElement("span");
+			                
+							newText.setAttribute("class", "text-warning d-inline-block text-center");
+							newText.setAttribute("name", before.split("_")[1] + "-to-");
+							
+			                newText.innerHTML  ="&hairsp;"+ first_letter + HtmlEncode(after) + last_letter+ "&hairsp;";
 			                range.insertNode(newText);
 
 			            }
@@ -3222,7 +3230,10 @@ END:VEVENT`;
                 <div id="vis" style="width: 35vw; margin: auto;"></div>
             </div>
             <div class="p-2" style="margin: auto;">
-                <h1 style="" id="text_start" class="c13 row align-middle"><span class="c15"> </span><center  class="c2">Data Management Plan of $_PROJECT</center></h1>
+                <h1 style="" id="text_start" class="d-flex justify-content-center ">
+				
+				<div  class="c2 text-center ">Data Management Plan of $_PROJECT  </div>  
+				</h1>
 				<div class="d-flex justify-content-center">
 				
 				
@@ -3652,7 +3663,7 @@ END:VEVENT`;
                         <p class="c10">
                             <span class="c3">How will these be covered? Note that costs related to open access to research data are eligible as part of the Horizon 2020 grant (if compliant with the Grant Agreement conditions).</span>
                         </p>
-                        <p class="c0"><span class="c1">A large part of the cost is covered by $_PROJECT #if$_DATAPLANT and the structures tools and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span></p>
+                        <p class="c0"><span class="c1">A large part of the cost is covered by $_PROJECT. #if$_DATAPLANT The structures tools and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span></p>
                         <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
                         <p class="c0"><span class="c1">The responsible will be $_DATAOFFICER.</span></p>
                         <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential value, who decides and how/what data will be kept and for how long)?</span></p>
