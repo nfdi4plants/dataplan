@@ -414,6 +414,9 @@
 				Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
 				
 				Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered to.";
+				
+				//Object.keys(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards") || Object.keys(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards") ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards");
+				
 			    callback();
 			    initialed = true;
 				syn_load_cache();
@@ -1311,6 +1314,10 @@
 					
 					const list1 = document.getElementById("current_input");
 					current_input_answer= JSON.parse(JSON.stringify(saved_a));
+					
+					current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a["replace"]));
+					current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a["checkbox"]));
+					
 					
 					list1.innerHTML = "";
 					
