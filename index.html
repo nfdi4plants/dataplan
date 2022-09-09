@@ -136,7 +136,7 @@
 			        "$_PROJECT": "Example Project",
 			        "$_STUDYOBJECT": "Example Objective",
 			        "$_PROJECTAIM": "Example Aim",
-					"$_DMPVERSION": "1.0",
+					"$_DMPVERSION": "0.0",
 			        "$_USERNAME": "Example User",
 			        "$_EMAIL": "email",
 			        "$_dataofficer": "Example data officer name",
@@ -1226,7 +1226,7 @@
 							newText.setAttribute("class", "text-warning d-inline-block text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
 
-			                newText.innerHTML =  first_letter + HtmlEncode(after) + last_letter ;
+			                newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter ;
 			                range.insertNode(newText);
 
 			            } else if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
