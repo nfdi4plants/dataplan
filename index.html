@@ -8,19 +8,19 @@
 		<!-- disable cache accross browsers for testing purpose -->
 		
 		<meta http-equiv="Expires" content="0" />
-		<title>DataPLAN, generate DMP easy</title>
+		<title>DataPLAN, generate a data management plan DMP easily</title>
 		
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 		<!-- loading css styleSheets -->
 
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/custom.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/custom.css" rel="stylesheet"/>
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />		
 		<!-- loading javascript scripts -->
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
-		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"/></script>
+		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" data-style-name="dmp1" >
 
 			#presets a { border-left: solid #666 1px; padding: 0 10px; }
@@ -93,7 +93,19 @@
 			</head>
 			<script>
 			/********** Section variables and data structures ***********/
+			
+			/** @global is_firefox to detect if the browser is firefox **/
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
+			/** @global is_ie to detect if the browser is ie **/
+			var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
+			if (is_ie > 0) // If Internet Explorer, return version number
+			{
+				alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))) + ", this browser is not supported");
+			}
+			else  // If another browser, return 0
+			{
+				console.log("browser is supported");
+			}
 			var doc_name = 'dmp1'; // default document to use at the first page load
 			var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
 			var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
@@ -395,7 +407,11 @@
 			
 			/********** functions ***********/
 			
-			
+			/**
+			 * General function for replace place holders in the document text.
+			 * @param {reload_answers} a callback function that reloads all the answers.
+			 * @param {string} the name of the template used for replacement.
+			 */
 			function load_dmp(callback = reload_answers, name = cached_template) {
 			    const date = new Date();
 				doc_name = name;
@@ -695,7 +711,7 @@
 				
 			    //if (is_firefox) {
 
-			        //setTimeout(() => {
+			        //setTimeout(()=> {
 					doc.scroll(0,scroll_y)
 			        //    document.getElementById("doc3").children[0].scrollIntoView();
 			            //console.log("")
@@ -778,7 +794,7 @@
 			        const caused_ele = element.parentElement.parentElement;
 			        caused_ele.setAttribute("class", "c1 border-highlight");
 			        console.log("highlited");
-			        setTimeout(() => {
+			        setTimeout(()=> {
 			            caused_ele.setAttribute("class", "c1")
 			        }, 3000);
 			        console.log("back to normal");
@@ -1940,12 +1956,12 @@
 				
 
 				// drag leave
-				i.ondragleave = () => {
+				i.ondragleave = ()=> {
 				  i.classList.remove("active");console.log("leaving and removing active");
 				};
 
 				// drag end
-				i.ondragend = () => { for (let it of items) {
+				i.ondragend = ()=> { for (let it of items) {
 					it.classList.remove("hint");
 					it.classList.remove("active");
 				}};
@@ -2392,6 +2408,9 @@ END:VEVENT`;
                         </li>
                         <li>
                             <a id="wiki_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/wiki">Wiki</a>
+                        </li>
+						<li>
+                            <a id="github_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip" data-bs-placement="top" title="bugs, suggestions or comments are welcom here">GitHub</a>
                         </li>
                         
                     </ul>
@@ -3108,10 +3127,7 @@ END:VEVENT`;
                     class="btn btn-primary position-static bottom-0 start-50"
                     data-bs-dismiss="offcanvas"
                     aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(() => {
-					 load_dmp(reload_answers,name = doc_name);
-					}, 1000) ;'
-                >
+                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(()=> {load_dmp(reload_answers,name = doc_name);}, 1000) ;'>
                     submit
                 </button>
             </h2>
