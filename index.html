@@ -81,6 +81,7 @@
 		<link href="favicon.png" rel="icon">
 		
 		<script>
+
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
@@ -104,8 +105,9 @@
 			}
 			else  // If another browser, return 0
 			{
-				console.log("browser is supported");
+				//verbose  console.log("browser is supported");
 			}
+
 			var doc_name = 'dmp1'; // default document to use at the first page load
 			var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
 			var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
@@ -403,7 +405,7 @@
 
 			var tour = new Tour(steps);
 			var upload_json,current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
-			
+
 			
 			/********** functions ***********/
 			
@@ -413,6 +415,11 @@
 			 * @param {string} the name of the template used for replacement.
 			 */
 			function load_dmp(callback = reload_answers, name = cached_template) {
+				const marker_init = "init";
+				performance.mark(marker_init);
+
+
+
 			    const date = new Date();
 				doc_name = name;
 				
@@ -449,7 +456,13 @@
 				
 				saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
+				const marker_load = "load_dmp";
+				performance.mark(marker_load);
+				performance.measure("measure init to load_dmp", marker_init, marker_load);
+				performance.measure("measure start to load_dmp", undefined, marker_init);
+				console.log(performance.getEntriesByType("measure"));
 
+				
 			}
 			
 			
@@ -462,7 +475,7 @@
 			        window.event.keyCode = 9;
 			    }
 			}
-			//console.log("is firefox ?"+is_firefox); // check if the firefox check works
+			////verbose  console.log("is firefox ?"+is_firefox); // check if the firefox check works
 			
 			// template answers
 
@@ -511,7 +524,7 @@
 			        if ((new_a["replace"][key] != value) && (new_a["replace"][key] != "")&& (new_a["replace"][key] != undefined)) {
 			            changed_keywords++;
 
-			            console.log(new_a["replace"][key]);
+			            //verbose  console.log(new_a["replace"][key]);
 			        } else {
 			            unreplaced_keys.push(key);
 			        }
@@ -520,7 +533,7 @@
 			    for (const[key, value]of Object.entries(old_a["checkbox"])) {
 			        total_checkboxes++;
 			        if (JSON.stringify(new_a["checkbox"][key]) != JSON.stringify(value)) {
-			            console.log(new_a["checkbox"][key]);
+			            //verbose  console.log(new_a["checkbox"][key]);
 
 			            changed_checkboxes++;
 
@@ -547,7 +560,7 @@
 			    }
 			    let no_need_to_answer = uncheck_update + check_previousprojects + check_proprietary;
 			    total_keywords = total_keywords - no_need_to_answer;
-			    console.log("total_keys: " + total_keywords + "; changed_keywords: " + changed_keywords + "\n ;  total_box  " + total_checkboxes + ", changed_checkbox: " + changed_checkboxes + ", unreplaced_keys " + unreplaced_keys)
+			    //verbose  console.log("total_keys: " + total_keywords + "; changed_keywords: " + changed_keywords + "\n ;  total_box  " + total_checkboxes + ", changed_checkbox: " + changed_checkboxes + ", unreplaced_keys " + unreplaced_keys);
 			    return [total_keywords, total_checkboxes, changed_keywords, changed_checkboxes, unreplaced_keys, unsubmitted_checkbox];
 			}
 
@@ -566,7 +579,7 @@
 			    const before = child.previousElementSibling.name;
 
 			    const after = child.previousElementSibling.value;
-			    console.log(before, after);
+			    //verbose  console.log(before, after);
 			    //undo(child.nextElementSibling);
 			    saved_a["replace"][before] = after;
 			    let singleOption = {};
@@ -580,23 +593,23 @@
 			    const selection = window.getSelection();
 			    selection.removeAllRanges();
 			    const previous_element = this_element.previousElementSibling;
-			    console.log(previous_element.getAttribute('onclick'));
+			    //verbose  console.log(previous_element.getAttribute('onclick'));
 			    if (previous_element.getAttribute('onclick') == "replace(this)") {
 			        try {
 			            delete saved_a["replace"][previous_element.previousElementSibling.getAttribute('name')];
 			        } catch (e) {
-			            console.log("no such content, already undo");
+			            //verbose  console.log("no such content, already undo");
 			        }
 
 			    } else {
 			        try {
 			            delete saved_a["checkbox"][previous_element.classList[0]];
 			        } catch (e) {
-			            console.log("no such content, already undo");
+			            //verbose  console.log("no such content, already undo");
 			        }
 			    }
 
-			    console.log("json is " + saved_a);
+			    //verbose  console.log("json is " + saved_a);
 
 			}
 
@@ -638,7 +651,7 @@
 			                        document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
 
 			                    } catch (e) {
-			                        console.log("error is" + value)
+			                        //verbose  console.log("error is" + value)
 			                    }
 			                } else {
 
@@ -646,14 +659,14 @@
 			                        document.getElementById(element.getAttribute("aria-controls")).classList.remove("show");
 
 			                    } catch (e) {
-			                        console.log("error is" + value)
+			                        //verbose  console.log("error is" + value)
 			                    }
 
 			                }
 
 			            };
 			        } catch (e) {
-			            console.log("checked is null");
+			            //verbose  console.log("checked is null");
 
 			        }
 
@@ -665,30 +678,30 @@
 			                    try {
 			                        document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
 
-			                    } catch (e) { //console.log(e)
+			                    } catch (e) { ////verbose  console.log(e)
 			                    }
 
 			                } else {
 			                    try {
 			                        document.getElementById(element.getAttribute("aria-controls")).classList.remove("show");
-			                    } catch (e) { //console.log(e)
+			                    } catch (e) { ////verbose  console.log(e)
 			                    }
 
 			                }
 
 			            };
 			        } catch (e) {
-			            console.log("unchecked is null");
+			            //verbose  console.log("unchecked is null");
 
 			        }
 
 			    }
-			    console.log("answers is reloading");
+			    //verbose  console.log("answers is reloading");
 
 			    for (let answers in saved_a["replace"]) {
 			        let singleOption = {};
 			        singleOption[answers] = saved_a["replace"][answers]
-			            console.log(singleOption);
+			            //verbose  console.log(singleOption);
 			        find_replace(singleOption);
 			    }
 			    for (let answers in saved_a["checkbox"]) {
@@ -697,10 +710,10 @@
 			            "checked": saved_a["checkbox"][answers]["checked"],
 			            "unchecked": saved_a["checkbox"][answers]["unchecked"]
 			        }
-			        console.log(singleOption);
+			        //verbose  console.log(singleOption);
 			        checkbox(singleOption);
 			    }
-			    console.log("answer reload is finished");
+			    //verbose  console.log("answer reload is finished");
 				issue_warning();
 			    let unfinished = compare_answers(temp_a, saved_a);
 			    let p_bar = document.getElementById("p-bar");
@@ -714,7 +727,7 @@
 			        //setTimeout(()=> {
 					doc.scroll(0,scroll_y)
 			        //    document.getElementById("doc3").children[0].scrollIntoView();
-			            //console.log("")
+			            ////verbose  console.log("")
 			        //;
 			        //}, 0)
 			    //};
@@ -749,14 +762,14 @@
 			
 			    undo(this_element.nextElementSibling);
 			    const class_name = this_element.dataset.checkbox;
-			    console.log("class name for question is " + class_name);
+			    //verbose  console.log("class name for question is " + class_name);
 			    const checked = document.querySelectorAll(`.${class_name}:checked`);
 			    const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
 			    const checked_list = [];
 			    checked.forEach(element => checked_list.push(element.id));
 			    const unchecked_list = [];
 			    unchecked.forEach(element => unchecked_list.push(element.id));
-			    console.log("uncheck and checked" + checked_list, unchecked_list)
+			    //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
 			    saved_a["checkbox"][class_name] = {
 			        "checked": checked_list,
 			        "unchecked": unchecked_list
@@ -767,7 +780,7 @@
 			        "unchecked": unchecked_list
 			    };
 
-			    console.log("+++++++++++++++++" + checked_list);
+			    //verbose  console.log("+++++++++++++++++" + checked_list);
 
 			   
 			    load_dmp(reload_answers, name = doc_name);
@@ -778,7 +791,7 @@
 			// go to the highlighted location
 			function go_to(element1) {
 			    const warning = element1.value;
-			    console.log("the warning text tag is " + warning);
+			    //verbose  console.log("the warning text tag is " + warning);
 			    const element = document.getElementById(warning);
 			    try {
 			        element.scrollIntoView({
@@ -793,11 +806,11 @@
 			    try {
 			        const caused_ele = element.parentElement.parentElement;
 			        caused_ele.setAttribute("class", "c1 border-highlight");
-			        console.log("highlited");
+			        //verbose  console.log("highlited");
 			        setTimeout(()=> {
 			            caused_ele.setAttribute("class", "c1")
 			        }, 3000);
-			        console.log("back to normal");
+			        //verbose  console.log("back to normal");
 			    } catch (error) {
 
 			        consloe.log(error);
@@ -821,7 +834,7 @@
 
 			    const warning_notification = document.getElementsByName("_warning_notification");
 			    while (warning_notification.length > 0) {
-			        console.log(warning_notification[0] + " is removed");
+			        //verbose  console.log(warning_notification[0] + " is removed");
 			        remove_warning(warning_notification[0].children[2]);
 			        warning_notification[0].remove();
 
@@ -853,7 +866,7 @@
 			        if (ns) {
 			            //remove all elements by the name of warning notification
 			            while (warning_notification.length > 0) {
-			                console.log(warning_notification[0] + " is removed");
+			                //verbose  console.log(warning_notification[0] + " is removed");
 			                warning_notification[0].remove();
 			            }
 
@@ -870,7 +883,7 @@
 			            text_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
 			            full_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
 			            text = text_range.toString();
-			            console.log("full range text is" + full_range.toString());
+			            //verbose  console.log("full range text is" + full_range.toString());
 			            full_range.deleteContents();
 
 			            let newText = document.createElement("warning_number" + warning_number);
@@ -911,11 +924,11 @@
 			    selection.removeAllRanges();
 			    // all objects which first class name is the option name
 			    const class_name = Object.keys(options)[0];
-			    console.log(class_name);
+			    //verbose  console.log(class_name);
 			    const checked = options[class_name]["checked"];
 			    const unchecked = options[class_name]["unchecked"];
 
-			    //console.log([...unchecked]);
+			    ////verbose  console.log([...unchecked]);
 			    check_uncheck(unchecked, match_remove, match_mod, "uncheck");
 				check_uncheck(checked, match_mod, match_remove, "check");
 				
@@ -931,7 +944,7 @@
 			function match_mod(in_range) {
 
 			    const text_after_if = (in_range.toString().slice(3));
-			    console.log("mach_mod function: after_endif: " + text_after_if);
+			    //verbose  console.log("mach_mod function: after_endif: " + text_after_if);
 			    in_range.deleteContents();
 
 			    window.find("#endif" + text_after_if);
@@ -950,13 +963,13 @@
 			for (let i = 0; i < checked.length; i++) {
 																														   
 				let check_box_item = checked[i];
-				//console.log(check_box );
+				////verbose  console.log(check_box );
 				let name = check_box_item.split('_')[1];
 				// here the ________ should not match anything, make sure not to use it as a real placeholder
 				let match_name = "_________";
 				try {
 					match_name = prefix.concat(name.toUpperCase());
-					console.log("check for loop, starts " + match_name + " " + checked.length);
+					//verbose  console.log("check for loop, starts " + match_name + " " + checked.length);
 				} catch (e) {}
 														
 
@@ -972,7 +985,7 @@
 							aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
 					while (ns) {
 						// this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
-						console.log("found");
+						//verbose  console.log("found");
 						
 						let remove_range = window.getSelection().getRangeAt(0).cloneRange();
 						let left_range = window.getSelection().getRangeAt(0).cloneRange();
@@ -992,25 +1005,25 @@
 																									  
 							begin_node = window.getSelection().anchorNode.previousSibling;
 							begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-							console.log("begin extended through focus " + begin_node);
+							//verbose  console.log("begin extended through focus " + begin_node);
 						} else {
 
 							begin_node = window.getSelection().anchorNode;
 
 							begin_focus = window.getSelection().anchorOffset - 3;
-							console.log("begin extended through node " + begin_node.data);
+							//verbose  console.log("begin extended through node " + begin_node.data);
 
 						}
 
 						if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
 							extended_end_node = window.getSelection().focusNode.nextSibling;
 							extended_end_focus = 1;
-							console.log("end extended through next node ");
+							//verbose  console.log("end extended through next node ");
 
 						} else {
 							extended_end_node = window.getSelection().focusNode;
 							extended_end_focus = window.getSelection().focusOffset + 1;
-							console.log("end extended through focus " + extended_end_node.data);
+							//verbose  console.log("end extended through focus " + extended_end_node.data);
 
 						}
 
@@ -1030,13 +1043,13 @@
 																						  
 
 						place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-						console.log("place holder: " + place_holder);
+						//verbose  console.log("place holder: " + place_holder);
 
 						if (if_cha == "|" && check_or_uncheck=="check" ) {
 							if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
 								extended_begin_node = window.getSelection().anchorNode.previousSibling;
 								extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
-								console.log("begin extended through focus " + extended_begin_node);
+								//verbose  console.log("begin extended through focus " + extended_begin_node);
 
 							
 							
@@ -1047,7 +1060,7 @@
 								extended_begin_node = window.getSelection().anchorNode;
 
 								extended_begin_focus = window.getSelection().anchorOffset - 13;
-								console.log("begin extended through node " + extended_begin_node.data);
+								//verbose  console.log("begin extended through node " + extended_begin_node.data);
 
 							}
 																																									
@@ -1055,15 +1068,15 @@
 							left_range.setStart(extended_begin_node, extended_begin_focus);
 							const left_text = left_range.toString();
 
-							console.log("left_text: " + left_text);
+							//verbose  console.log("left_text: " + left_text);
 							place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-							console.log("place holder: " + place_holder);
+							//verbose  console.log("place holder: " + place_holder);
 							selection.removeAllRanges();
 							window.find(place_holder);
 							if_range = window.getSelection().getRangeAt(0);
 							if_text = if_range.toString();
 
-							console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+							//verbose  console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
 							callback1(if_range);
 							selection.removeAllRanges();
@@ -1075,7 +1088,7 @@
 			                    if_range = window.getSelection().getRangeAt(0);
 			                    if_text = if_range.toString();
 
-			                    console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+			                    //verbose  console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
 			                    match_remove(if_range);
 			                    window.getSelection().removeAllRanges();} 
@@ -1094,14 +1107,14 @@
 						} else if (if_cha == "," || if_cha == " ") {
 							if (check_or_uncheck == "check"){
 								
-									console.log("!!!! replace match text");					
+									//verbose  console.log("!!!! replace match text");					
 									original_range.deleteContents();
 									original_range.insertNode(document.createTextNode(name));
 									original_range.detach();} 
 							else if (check_or_uncheck == "uncheck")
 									
 								{
-									console.log("!!!! remove the matched text");
+									//verbose  console.log("!!!! remove the matched text");
 									remove_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
 									remove_range.deleteContents();
 									remove_range.detach();
@@ -1117,27 +1130,27 @@
 							if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
 								extended_begin_node = window.getSelection().anchorNode.previousSibling;
 								extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-								console.log("begin extended through focus " + extended_begin_node);
+								//verbose  console.log("begin extended through focus " + extended_begin_node);
 
 							} else {
 
 								extended_begin_node = window.getSelection().anchorNode;
 
 								extended_begin_focus = window.getSelection().anchorOffset - 4;
-								console.log("begin extended through node " + extended_begin_node.data);
+								//verbose  console.log("begin extended through node " + extended_begin_node.data);
 
 							}
 
 							left_range.setStart(extended_begin_node, extended_begin_focus);
 							const left_text = left_range.toString();
 
-							console.log("left_text with <!>: " + left_text);
+							//verbose  console.log("left_text with <!>: " + left_text);
 							callback2(left_range);
 
 						} else {
 
-							console.log("_____other cases");
-							console.log("last character is: ", right_cha);
+							//verbose  console.log("_____other cases");
+							//verbose  console.log("last character is: ", right_cha);
 							callback1(if_range);
 							if_range.detach();
 						}
@@ -1156,7 +1169,7 @@
 					}
 				}
 
-				console.log("check for loop, ends " + match_name);
+				//verbose  console.log("check for loop, ends " + match_name);
 
 			}
 		}
@@ -1171,7 +1184,7 @@
 			function match_remove(right_range) {
 
 			    const text_after_if = (right_range.toString().slice(3));
-			    console.log("mach_remove function: after_endif: " + text_after_if);
+			    //verbose  console.log("mach_remove function: after_endif: " + text_after_if);
 
 			    window.find("#endif" + text_after_if);
 
@@ -1200,12 +1213,12 @@
 
 			    const before = Object.keys(option)[0];
 			    const after = option[before];
-			    console.log("before: " + before + ", after: " + after);
+			    //verbose  console.log("before: " + before + ", after: " + after);
 
 			    if (window.find) //for chrome, firefox
 			    {
 
-			        console.log("window.find is: " + window.find);
+			        //verbose  console.log("window.find is: " + window.find);
 			        while (window.find(before, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = is_firefox,
 			                aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
 
@@ -1214,7 +1227,7 @@
 			            let range = window.getSelection().getRangeAt(0);
 			            window.getSelection().focusNode;
 			            if (window.getSelection().focusNode.length == window.getSelection().focusOffset) {
-			                console.log("first if : " + window.getSelection().focusNode.length);
+			                //verbose  console.log("first if : " + window.getSelection().focusNode.length);
 			                last_letter = "";
 
 			            } else {
@@ -1224,19 +1237,19 @@
 
 			            if (window.getSelection().anchorOffset == 0) {
 			                const old_offset = window.getSelection().anchorOffset;
-			                console.log("no enough range");
+			                //verbose  console.log("no enough range");
 			                range.setStart(window.getSelection().anchorNode.previousSibling, window.getSelection().anchorNode.previousSibling.length - 1);
 			                first_letter = range.toString().slice(0, 1);
 			            } else {
-			                console.log("enough range" + window.getSelection().anchorOffset);
+			                //verbose  console.log("enough range" + window.getSelection().anchorOffset);
 			                range.setStart(window.getSelection().anchorNode, window.getSelection().anchorOffset - 1);
 			                first_letter = range.toString().slice(0, 1);
 			            }
 
 			            if (/[,]/.test(last_letter)) {
-			                console.log(range.toString(), "last letter is comma: " + last_letter);
+			                //verbose  console.log(range.toString(), "last letter is comma: " + last_letter);
 			                range.deleteContents();
-			                console.log(encodeURIComponent(after));
+			                //verbose  console.log(encodeURIComponent(after));
 							let newText = document.createElement("span");
 			               
 							newText.setAttribute("class", "text-warning d-inline-block text-center");
@@ -1246,14 +1259,14 @@
 			                range.insertNode(newText);
 
 			            } else if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
-			                console.log(range.toString(), "last letter " + last_letter);
+			                //verbose  console.log(range.toString(), "last letter " + last_letter);
 
 			            } else if (/[a-zA-Z\|\$\!]/.test(first_letter)) {
-			                console.log(range.toString(), "first letter " + first_letter);
+			                //verbose  console.log(range.toString(), "first letter " + first_letter);
 			            } else {
-			                console.log(range.toString(), "deleted with last letter: " + last_letter);
+			                //verbose  console.log(range.toString(), "deleted with last letter: " + last_letter);
 			                range.deleteContents();
-			                console.log(encodeURIComponent(after));
+			                //verbose  console.log(encodeURIComponent(after));
 			                let newText = document.createElement("span");
 			                
 							newText.setAttribute("class", "text-warning d-inline-block text-center");
@@ -1306,7 +1319,7 @@
 			    load_dmp(reload_answers, name = cached_template);
 				
 				
-			    console.log("current url is: " + window.location.href);
+			    //verbose  console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
 			    if (urls.length > 1) {
 
@@ -1401,12 +1414,14 @@
 				const callback = (mutationList, observer) => {
 				  for (const mutation of mutationList) {
 					if (mutation.type === 'childList') {
-					  console.log('A child node has been added or removed.');
+					  //verbose  console.log('A child node has been added or removed.');
 					  document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
 					} else if (mutation.type === 'attributes') {
-					  console.log(`The ${mutation.attributeName} attribute was modified.`);document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
+					  //verbose  console.log(`The ${mutation.attributeName} attribute was modified.`);
+					  document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
 					}else if (mutation.type === 'subtree') {
-					  console.log(`subtree`);document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
+					  //verbose  console.log(`subtree`);
+					  document.getElementById("vis").innerHTML= document.getElementById("dmp1").querySelector("#vis").innerHTML;
 					}
 				  }
 				
@@ -1582,7 +1597,7 @@
 					col4_button.setAttribute("type", "checkbox");
 					col4_button.setAttribute("aria-label", "...");
 					col4_button.setAttribute("id", "storage_checkbox_"+key );
-					console.log(key);
+					//verbose  console.log(key);
 					
 
 					
@@ -1623,7 +1638,7 @@
 						}		
 					
 					row.append(col1, col2, col3, col4);
-					value=="" ? console.log("empty input") : table.append(row);
+					value=="" ?   console.log("empty input") : table.append(row);
 					
 					
 					
@@ -1659,7 +1674,7 @@
 					col4_button.setAttribute("type", "checkbox");
 					col4_button.setAttribute("aria-label", "...");
 					col4_button.setAttribute("id", "storage_checkbox_checkbox_"+key );
-					console.log(key);
+					//verbose  console.log(key);
 					
 
 					
@@ -1716,7 +1731,7 @@
 			        saved_a = uploaded_input_all;
 					load_dmp(reload_answers, name = cached_template);
 					
-			        //console.log(JSON.stringify(saved_a));
+			        ////verbose  console.log(JSON.stringify(saved_a));
 					
 
 			    }
@@ -1733,7 +1748,7 @@
 					syn_load_cache();
 			        
 					
-			        //console.log(JSON.stringify(saved_a));
+			        ////verbose  console.log(JSON.stringify(saved_a));
 					
 
 			    }
@@ -1950,14 +1965,17 @@
 				
 				// Drag enter
 				i.ondragenter = (ev) => {
-				  if (i != current) { setTimeout(()=>{i.classList.add("active"), "10"}); console.log("entering and adding active"); }
+				  if (i != current) { setTimeout(()=>{i.classList.add("active"), "10"}); 
+				  //verbose  console.log("entering and adding active"); 
+				  }
 				  
 				};
 				
 
 				// drag leave
 				i.ondragleave = ()=> {
-				  i.classList.remove("active");console.log("leaving and removing active");
+				  i.classList.remove("active");
+				  //verbose  console.log("leaving and removing active");
 				};
 
 				// drag end
@@ -2165,30 +2183,30 @@ END:VEVENT`;
 			        const ele_id = "form_" + element.split("_")[1];
 
 
-			        console.log("element id is " + ele_id); // ,
+			        //verbose  console.log("element id is " + ele_id); // ,
 
 			        const id_and_content = {
 			            id: String(ele_id.toLowerCase()),
 			            content: "this question was default value or empty, please revise it "
 			        };
 			        reminders.push(id_and_content);
-			        console.log("id_is " + Object.values(id_and_content));
+			        //verbose  console.log("id_is " + Object.values(id_and_content));
 
 			    }
 
-			    console.log(compared_list[5].entries());
+			    //verbose  console.log(compared_list[5].entries());
 			    for (const[index, element]of compared_list[5].entries()) {
 			        const ele_id = "form_" + element;
 
 			        //const ele = document.getElementById(ele_id);
-			        console.log("element id is " + ele_id); // ,
+			        //verbose  console.log("element id is " + ele_id); // ,
 
 			        const id_and_content = {
 			            id: String(ele_id.toLowerCase()),
 			            content: "this question was default value or empty, please revise it "
 			        };
 			        reminders.push(id_and_content);
-			        console.log("id_is " + Object.values(id_and_content));
+			        //verbose  console.log("id_is " + Object.values(id_and_content));
 
 			    }
 			    let reminder = new Tour(reminders);
@@ -2202,7 +2220,7 @@ END:VEVENT`;
     <div class="row" style="height: 3.25rem;">
         <div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; z-index: 99; margin: 0 0 0 0px; padding: 0 0 0 0;">
             <a class="" href="https://nfdi4plants.org/" style="">
-                <img src="https://nfdi4plants.org/images/logo.svg" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
+                <img src="images/logo.png" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
             </a>
             <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 3.25rem;">
                 <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="">
@@ -2430,7 +2448,7 @@ END:VEVENT`;
                         <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading3">Data Volume</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading4">Data Standards<a>
+                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading4">Data Standards</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
@@ -4871,7 +4889,7 @@ END:VEVENT`;
                                                  
                                             "
                                         >
-                                            Raw data collected in previous steps are stored immediately by using#if$_DATAPLANT the infrastructure of DataPLANT #endif$_DATAPLANT #if!$_DATAPLANT in a secure infrastructure. ARC (Annotated
+                                            Raw data collected in previous steps are stored immediately by using#if$_DATAPLANT the infrastructure of DataPLANT #endif$_DATAPLANT #if!$_DATAPLANT in a secure infrastructure. <a href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a> (Annotated
                                             Research Context) are used as a container to store the raw data as well as metadata and workflow.#endif!$_DATAPLANT
                                         </span>
                                     </p>
@@ -5426,7 +5444,7 @@ END:VEVENT`;
                                                                 "
                                                             >
                                                                 #if$_DATAPLANT The sample SWATE template will be used to document the sample metadata. A part of sample metadata which can be retrieved from the raw data will be updated
-                                                                afterwards using the ARC parsers #endif$_DATAPLANT&nbsp;
+                                                                afterwards using the <a href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a> parsers #endif$_DATAPLANT&nbsp;
                                                             </span>
                                                         </p>
                                                     </th>
@@ -5582,7 +5600,7 @@ END:VEVENT`;
                                                                 "
                                                             >
                                                                 Workflow annotation will be conducted during the computational analysis phrase. #if$_DATAPLANT The workflow metadata will be stored in the assay folder of the
-                                                                ARC.#endif$_DATAPLANT&nbsp;
+                                                                <a href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a>.#endif$_DATAPLANT&nbsp;
                                                             </span>
                                                         </p>
                                                     </td>
@@ -5649,7 +5667,7 @@ END:VEVENT`;
                                                                 "
                                                             >
                                                                 The metadata of results are collected after all modifications and should not be changed after publication. #if$_DATAPLANT Collection of result metadata before publication and
-                                                                the conversion from ARC to the repositories will be taken care of by the ARC2REPO converter and done with minimal efforts. #endif$_DATAPLANT&nbsp;
+                                                                the conversion from <a href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a> to the repositories will be taken care of by the ARC2REPO converter and done with minimal efforts. #endif$_DATAPLANT&nbsp;
                                                             </span>
                                                         </p>
                                                     </td>
