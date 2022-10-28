@@ -458,10 +458,12 @@
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 				const marker_load = "load_dmp";
 				performance.mark(marker_load);
-				performance.measure("measure init to load_dmp", marker_init, marker_load);
-				performance.measure("measure start to load_dmp", undefined, marker_init);
-				console.log(performance.getEntriesByType("measure"));
-
+				//performance.measure("measure init to load_dmp", marker_init, marker_load);
+				//performance.measure("measure start to load_dmp", undefined, marker_init);
+				//console.log(performance.getEntriesByType("measure"));
+				performance.clearMeasures();
+				performance.clearMarks();
+				
 				
 			}
 			
@@ -2229,11 +2231,11 @@ END:VEVENT`;
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>
+                    <li>
                             <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
                         </li>
                         <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
+                            <button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
                         </li>
                         <li>
                             <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
@@ -2242,39 +2244,56 @@ END:VEVENT`;
                             <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
                         </li>
                         <li>
-                            <button
+                            <a
                                 id="template-input"
                                 class="dropdown-item"
                                 data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvas-template-input"
                                 aria-controls="offcanvas-template-input"
                                 onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
+                                href="#"
                             >
-                                user defined template
+                                User Defined Template
+                            </a>
+                        </li>
+						<li>
+                            <label for="upload" class="form-label dropdown-item">
+                                Upload JSON
+                                <input class="form-control d-none" type="file" id="upload" />
+                            </label>
+                        </li>
+                        <li>
+                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore Default (Clear Input)</button>
+                        </li>
+                        <li>
+                            <button
+                                id="word_cloud"
+                                class="dropdown-item"
+                                onclick='parseText()'
+                            >
+                               Generate Word Cloud
                             </button>
                         </li>
-                        <li><hr class="dropdown-divider" /></li>
-                        
-                            <label for="upload-dropdown" class="form-label dropdown-item">
-                                Import JSON
-                                <input class="form-control d-none" type="file" id="upload-dropdown" />
-                            </label>
-                        
-                        
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore default (clear input)</button>
-                        
-                        <li><hr class="dropdown-divider" /></li>
                         <li>
+                            <label for="image_upload" class="form-label dropdown-item">
+                                Upload Frontpage Image
+                                <input class="form-control d-none" type="file" id="image_upload" onchange="upload_image()" />
+                            </label>
+                        </li>
+						<li>
                             <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
 
                             <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
-                        </li>
-                        <li>
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">Save Answers to JSON</button>
-                            <button id="print" class="dropdown-item" onclick="printDiv();">Print document</button>
-
-                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export document</button>
+                        
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">Download JSON</button>
+                            <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
+							
+							
+							
+							
+                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
 							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
+							
                         </li>
                     </ul>
                 </div>
@@ -2415,7 +2434,7 @@ END:VEVENT`;
                     
                 </div>
                 <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
-                    <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
+                    <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="help_menu" >
                         Help &nbsp;
 
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
