@@ -259,6 +259,20 @@ label {
    display:inline;
 }
 
+span{
+	color:inherit;
+	
+}
+
+
+.c1{
+	color:inherit;
+	
+}
+p{
+	color:inherit;
+	
+}
 .form-check-input:checked {
 	
     background-color: #1FC2A7;
