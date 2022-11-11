@@ -82,14 +82,6 @@
 		
 		<script>
 
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'G-2BBTS3ZDF7', {
-				client_storage: 'none',
-				client_id: 'G-2BBTS3ZDF7',
-		});
 		</script>
 			</head>
 			<script>
@@ -431,7 +423,7 @@
 				const options = {  year: 'numeric', month: 'long', day: 'numeric' };
 				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
 				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('de-DE', options)+"</h3>";
-				document.getElementById("dmp_version").innerHTML = "<h3>"+saved_a["replace"]["$_DMPVERSION"]+"</h3>";
+				
 								try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")}
 				catch(e){};
 				Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
@@ -951,7 +943,7 @@
 			function match_mod(in_range, check_box_item) {
 
 			    const text_after_if = (in_range.toString().slice(3));
-			    console.log("mach_mod function: after_endif: " + text_after_if);
+			    //console.log("mach_mod function: after_endif: " + text_after_if);
 			    const before = check_box_item;
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary", "d-inline-block");
@@ -3358,7 +3350,7 @@ END:VEVENT`;
 					</tr>
 					<tr>
 						<td><h3>DMP version:</h3></td>
-						<td id="dmp_version" ><h3></h3></td>
+						<td id="dmp_version" ><h3> $_DMPVERSION</h3></td>
 
 					</tr>
 				</table>

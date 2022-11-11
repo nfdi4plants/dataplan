@@ -288,8 +288,9 @@ p{
 }
 
 .border-highlight{
-    border:2px dashed red;  
+    border:2px dashed #c21f3a;  
 	padding:0.03em 0.25em;
+	box-shadow: 3px 3px 1px 2px #1fc2a7;
 }
 
 /* (A) LIST STYLES */
