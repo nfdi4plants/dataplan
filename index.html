@@ -948,16 +948,16 @@
 			 *
 			 */
 
-			function match_mod(in_range) {
+			function match_mod(in_range, check_box_item) {
 
 			    const text_after_if = (in_range.toString().slice(3));
 			    console.log("mach_mod function: after_endif: " + text_after_if);
-			    const before = "check_" +(in_range.toString().slice(5)).toLowerCase();
+			    const before = check_box_item;
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary", "d-inline-block");
-				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").scrollIntoView();document.getElementById("'+before+'").classList.add("border-highlight");  ');
-							parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").classList.remove("border-highlight");  ');
-							parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").focus(); ');
+				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").parentElement.classList.add("border-highlight");  ');
+							parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
+							parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.focus(); ');
 			                
 				let text_range = document.createRange(); 
 				text_range.setStart(in_range.endContainer, in_range.endOffset);
@@ -1069,7 +1069,7 @@
 						const left_text = left_range.toString();
 
 																						  
-
+						
 						place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
 						//verbose  console.log("place holder: " + place_holder);
 
@@ -1106,7 +1106,7 @@
 
 							//verbose  console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
-							callback1(if_range);
+							callback1(if_range,check_box_item);
 							selection.removeAllRanges();
 							}
 							// to match different conditions} 
@@ -1125,10 +1125,10 @@
 								window.find(" ");
 
 								if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-								callback1(if_range);
+								callback1(if_range, check_box_item);
 								if_range.detach();
 							} else {
-								callback1(if_range);
+								callback1(if_range, check_box_item);
 								if_range.detach();
 							}
 
@@ -1179,7 +1179,7 @@
 
 							//verbose  console.log("_____other cases");
 							//verbose  console.log("last character is: ", right_cha);
-							callback1(if_range);
+							callback1(if_range, check_box_item);
 							if_range.detach();
 						}
 
@@ -2552,7 +2552,7 @@ END:VEVENT`;
                         <label for="input_studyobject">
                             <h3>
                                 1.2 Give the object
-                                <a href="#" data-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
+                                <a href="#"  data-bs-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
                                     <span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">
                                         <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -2577,22 +2577,24 @@ END:VEVENT`;
 
                         <input class="btn btn-primary btn-sm d-none" type="button" value="submit" id="input_studyobject_submit" onclick="replace(this)" />
 
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     </form>
 
                     <form id="form_projectaim">
                         <label class="" for="input_projectaim">
                             <h3>
                                 and the project aim
-                                <span class="text-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim">
+								 <a href="#"  data-bs-toggle="tooltip" title="click to see some example project aim" tabindex="-1">
+                                <span class="text-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" >
                                     (what do you want to achieve?)
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                         <path
                                             d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
                                         />
                                     </svg>
                                 </span>
+								</a>
                             </h3>
                         </label>
                         <textarea
@@ -2608,7 +2610,7 @@ END:VEVENT`;
                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
                         ></textarea>
                         <input class="btn btn-primary btn-sm d-none" type="button" value="submit" onclick="replace(this)" />
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     </form>
 					<form class="" style="margin-left: 0px;" id="form_datautility">
                         <h3>To whom data will be useful? (data utility) :</h3>
@@ -2642,7 +2644,7 @@ END:VEVENT`;
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
                         <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_username_submit" value="submit" onclick="replace(this)" />
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     </form>
                     <form class="" style="margin-left: 0px;" id="form_email">
                         <label for="input_email"><h5>User Email:</h5>         </label>
@@ -2658,7 +2660,7 @@ END:VEVENT`;
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
                         <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_email_submit" value="submit" onclick="replace(this)" />
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     </form>
 
                     <form class="" style="margin-left: 0px;" id="form_dataofficer">
@@ -2675,7 +2677,7 @@ END:VEVENT`;
                             onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
                         <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit" value="submit" onclick="replace(this)" />
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     </form>
 					
 					
@@ -2693,17 +2695,18 @@ END:VEVENT`;
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                         />
                         <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dmpversion_submit" value="submit" onclick="replace(this)" />
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     </form>
                     
 					<h3>1.4 Chose some additional information</h3>
                     <div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
-                        
+                        <div>
                         <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" />
                         <label class="form-check-label" for="check_protect">
                             The data is protected.
                         </label>
-                        <br>
+						</div>
+                        <div>
                         <input
                             class="form-check-input checkbox_1"
                             type="checkbox"
@@ -2718,15 +2721,16 @@ END:VEVENT`;
                         />
 
                         <label class="form-check-label" for="check_dataplant">
+						
                             Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
                         </label>
-
-                        <br />
+						</div>
+                        <div>
                         <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_updatemonth" aria-expanded="false" aria-controls="q_updatemonth" role="button" />
                         <label class="form-check-label" for="check_update">
                             This project will be updated.
                         </label>
-                        <br />
+                        </div><div>
 
                         <input
                             class="form-check-input checkbox_1"
@@ -2743,12 +2747,12 @@ END:VEVENT`;
                             This project has previous projects.
                         </label>
 
-                        <br />
+                        </div><div>
                         <input class="form-check-input checkbox_1" type="checkbox" value="5" id="check_industry" />
                         <label class="form-check-label" for="check_industry">
                             This is an industry project.
                         </label>
-                        <br />
+                        </div><div>
 
                         <input
                             class="form-check-input checkbox_1"
@@ -2764,71 +2768,74 @@ END:VEVENT`;
                         <label class="form-check-label" for="check_proprietary">
                             This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_1" type="checkbox" value="7" id="check_partners" />
                         <label class="form-check-label" for="check_partners">
                             This project has partners.
                         </label>
-                        <br />
+                        </div><div>
                         <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_EU" />
                         <label class="form-check-label" for="check_EU">
                             EU project.
                         </label>
+						 </div>
                     </div>
 
                     <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
-                    <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                    
 
                     <div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
                         
                            <h3> Where will you submit your data as endpoints?</h3> 
+						<div>   
                         <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
                         <label class="form-check-label" for="check_ENA">
                             ENA
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
                         <label class="form-check-label" for="check_GEO">
                             GEO
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_NCBI" checked />
                         <label class="form-check-label" for="check_NCBI">
                             NCBI
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
                         <label class="form-check-label" for="check_GenBank">
                             genbank
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
                         <label class="form-check-label" for="check_Pride">
                             pride
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
                         <label class="form-check-label" for="check_Proteomexchange">
                             proteomexchange
                         </label>
-                        <br />
+                        </div><div>
 
                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
                         <label class="form-check-label" for="check_Zenodo">
                             zenodo
                         </label>
 
-                        <br />
+                        </div><div>
                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
                         <label class="form-check-label" for="check_dataDyrad">
                             dataDyrad
                         </label>
+						</div>
                     </div>
                     <input class="btn btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick="get_option(this)" />
 
@@ -2856,7 +2863,7 @@ END:VEVENT`;
                                 data-bs-placement="top"
                                 title="submit the checkbox first"
                             />
-                            <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                            
                         </form>
                     </div>
 
@@ -2884,7 +2891,7 @@ END:VEVENT`;
                                 data-bs-placement="top"
                                 title="submit the checkbox first"
                             />
-                            <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                            
                         </form>
                     </div>
 
@@ -2913,7 +2920,7 @@ END:VEVENT`;
                                 data-bs-placement="top"
                                 title="submit the checkbox first"
                             />
-                            <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                            
                         </form>
                     </div>
 
@@ -2996,7 +3003,7 @@ END:VEVENT`;
                     </div>
 
                     <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox = "checkbox_2" onclick="get_option(this)" class=>
-                    <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                    
 
                     <br />
 
@@ -3038,7 +3045,7 @@ END:VEVENT`;
                             />
                             GB
                             <input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button" value="submit" id="input_deriveddata_submit" onclick="replace(this)" />
-                            <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                            
                         </div>
                     </form>
 
@@ -3052,9 +3059,9 @@ END:VEVENT`;
                             </label>
                         </div>
                         <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSEQe" />
-                            <label class="form-check-label" for="check_MinSEQe">
-                                MinSEQe
+                            <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeqE" />
+                            <label class="form-check-label" for="check_MinSeqE">
+                                MinSeqE
                             </label>
                         </div>
 						<div class="form-data_type form-check">
@@ -3073,7 +3080,7 @@ END:VEVENT`;
                                 placeholder="complete sentence of the other standards"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                             /><input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none"   type="button" value="submit"  onclick="replace(this)" id="input_otherstandardinput_submit" />
-							<input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+							
 							
                             </label>
                         </div>
@@ -3119,9 +3126,9 @@ END:VEVENT`;
                     </div>
                     </div>
 					<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox = "checkbox_3" onclick="get_option(this)" class=>
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                        
                     <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" value="submit" data-checkbox="checkbox_3" onclick="get_option(this)" />
-                    <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" onclick="undo(this);" />
+                    
 
 
 
@@ -3466,13 +3473,6 @@ END:VEVENT`;
 							</li>
                             #endif$_TARGETED 
 							
-							#if$_MODELS
-                            <li>
-								<p class="c0">
-									<span class="c1"> Models data will be generated by software simulations. The complete workflow, which includes the source code, runtime, parameter and results will be documented and achieved. </span>
-								</p>
-							</li>
-							#endif$_MODELS
 							
 							#if$_MODELS
 							<li>
@@ -3637,7 +3637,7 @@ END:VEVENT`;
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Is it possible to include the relevant software (e.g. in open-source code)?</span></p>
-                        <p class="c0"><span class="c1">As stated above, here we use publicly available open-source and well-documented certified software#if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.</span></p>
+                        <p class="c0"><span class="c1">As stated above, here we use publicly available open-source and well-documented certified software #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.</span></p>
                         <p class="c0"><span class="c12 c11 c17"></span></p>
                         <p class="c0">
                             <span class="c3">Where will the data and associated metadata, documentation and code be deposited? Preference should be given to certified repositories that support open access, where possible.</span>
