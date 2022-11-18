@@ -87,9 +87,19 @@
 			<script>
 			/********** Section variables and data structures ***********/
 			
-			/** @global is_firefox to detect if the browser is firefox **/
+			/**  
+			 * @name is_ie  
+			 * @global
+			 * @static
+			 * @description to log if the broswer is ie
+			 **/
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
-			/** @global is_ie to detect if the browser is ie **/
+			/**  
+			 * @name is_ie  
+			 * @global
+			 * @static
+			 * @description to log if the broswer is ie
+			 **/
 			var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
 			if (is_ie > 0) // If Internet Explorer, return version number
 			{
@@ -213,8 +223,8 @@
 				
 				
 			
-			    var saved_a = JSON.parse(cached_a);
-				try {saved_a["update"];saved_a["update"]["timeline"];saved_a["dmp"];saved_a["update"]["storage"]["0"]["answer"]["$_PROJECT"]  }
+			    var saved_a = JSON.parse(cached_a); // load the cached answers to webpage
+				try {saved_a["update"];saved_a["update"]["timeline"];saved_a["dmp"];saved_a["update"]["storage"]["0"]["answer"]["$_PROJECT"]  } // if some answers are missing, reinitialize the answers.
 				catch(e){
 				saved_a["update"]={"timeline":[
 						],"storage":[
@@ -266,7 +276,7 @@
 				}
 				
 				
-			} else {
+			} else { // if there is already a cache saved locally
 			    var saved_a = {
 						"dmp": {
 			                "title": "Minimal DMP",
@@ -363,7 +373,7 @@
 			}
 			
 			/*============== tutorial ==============*/
-			
+			// a tutoial to help users get familiar with the DataPLAN tool.
 			var steps = [{
 			        title: "Data Management Plan Generator (DMPG) ",
 			        content: '<p> Welcome! let&#39;s generate a DMP and related documents in 5 minutes<br><p>1. A DFG compatible detailed DMP is availabe <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here   </a><br>2. A European <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >DMP</a> in detail (11 pages);<br>3. A <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >proposal DMP</a> (2 pages); <br>4. A <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide</a> in detail throughout the project</p>'
@@ -395,25 +405,27 @@
 			    }
 			];
 
-			var tour = new Tour(steps);
-			var upload_json,current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
+			var tour = new Tour(steps); // initialize the guided tour
+			var upload_json, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
 
 			
 			/********** functions ***********/
 			
 			/**
-			 * General function for replace place holders in the document text.
+			 * @function load_dmp
+			 * @description General function for replace place holders in the document text.
 			 * @param {reload_answers} a callback function that reloads all the answers.
 			 * @param {string} the name of the template used for replacement.
+			 * @global
 			 */
 			function load_dmp(callback = reload_answers, name = cached_template) {
-				const marker_init = "init";
+				const marker_init = "init"; // preformance check: set the starting point
 				performance.mark(marker_init);
 
 
 
-			    const date = new Date();
-				doc_name = name;
+			    const date = new Date(); // record the time
+				const doc_name = name; 
 				
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
@@ -424,18 +436,20 @@
 				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
 				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('de-DE', options)+"</h3>";
 				
-								try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")}
-				catch(e){};
+				try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")}
+					catch(e){}; 
+				// check if the newly added answers are there, to be backward compatible
 				Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
 				
 				Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered to.";
 				
-				//Object.keys(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards") || Object.keys(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards") ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards");
+				((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards"): {} ;
 				
-			    callback();
+			    callback(); // reload all answers
 			    initialed = true;
 				syn_load_cache();
 				
+				// update dmp meta data
 				saved_a["dmp"]["title"] = "DMP of "+ saved_a["replace"]["$_PROJECT"];
 				saved_a["dmp"]["contact"]["name"] = "DMP of "+ saved_a["replace"]["$_USERNAME"];
 				saved_a["dmp"]["contact"]["mbox"] = "DMP of "+ saved_a["replace"]["$_EMAIL"];
@@ -460,7 +474,12 @@
 			}
 			
 			
-			
+			/**
+			 * @function enter2tab
+			 * @description press enter is equal to press tab
+			 * 
+			 * @global
+			 */
 			
 			function enter2tab() { // let enter function like tab
 
@@ -471,11 +490,12 @@
 			}
 			////verbose  console.log("is firefox ?"+is_firefox); // check if the firefox check works
 			
-			// template answers
-
-			// saved answers
-
-			// initialization
+			/**
+			 * @function consent
+			 * @description show cookie consent page
+			 * 
+			 * @global
+			 */
 
 			function consent() {
 			    window.localStorage.setItem("cookie_consent", "yes");
@@ -488,7 +508,12 @@
 			}
 
 			const prefix = '$_';
-			
+			/**
+			 * @function save_json
+			 * @description save answers to JSON
+			 * 
+			 * @global
+			 */
 			function save_json() {
 
 			    aJSONString = JSON.stringify(saved_a);
@@ -505,9 +530,15 @@
 
 
 			// compare updated answers and the original answers
-				
+			/**
+			 * @function compare_answers
+			 * @description compare the previous answers and new answers
+			 * @param old_a old answers
+			 * @param new_a new answers
+			 * @global
+			 */	
 			function compare_answers(old_a, new_a) {
-			    let unreplaced_keys = [];
+			    let unreplaced_keys = []; 
 			    let unsubmitted_checkbox = [];
 			    let total_keywords = 0,
 			    changed_keywords = 0,
@@ -560,55 +591,26 @@
 			    return [total_keywords, total_checkboxes, changed_keywords, changed_checkboxes, unreplaced_keys, unsubmitted_checkbox];
 			}
 
-			// reload all answers
-			function reload_all(path) {
-
-			    const selection = window.getSelection();
-			    selection.removeAllRanges();
-
-			    reload_answers();
-
-			}
-
-			function replace(child) {
-
-			    const before = child.previousElementSibling.name;
-
-			    const after = child.previousElementSibling.value;
-			    //verbose  console.log(before, after);
-			    //undo(child.nextElementSibling);
+			/**
+			 * @function onchange_replace
+			 * @description old replace based on buttons
+			 * @param child the element it was in
+			 * @global
+			 */	
+			function onchange_replace(child) {
+			    const before = child.name;
+			    const after = child.value;
 			    saved_a["replace"][before] = after;
-			    let singleOption = {};
-			    singleOption[before] = after;
 			    load_dmp(reload_answers, name = doc_name);
-			    //find_replace(singleOption);
+			    
 			}
 
-			function undo(this_element) {
-
-			    const selection = window.getSelection();
-			    selection.removeAllRanges();
-			    const previous_element = this_element.previousElementSibling;
-			    //verbose  console.log(previous_element.getAttribute('onclick'));
-			    if (previous_element.getAttribute('onclick') == "replace(this)") {
-			        try {
-			            delete saved_a["replace"][previous_element.previousElementSibling.getAttribute('name')];
-			        } catch (e) {
-			            //verbose  console.log("no such content, already undo");
-			        }
-
-			    } else {
-			        try {
-			            delete saved_a["checkbox"][previous_element.classList[0]];
-			        } catch (e) {
-			            //verbose  console.log("no such content, already undo");
-			        }
-			    }
-
-			    //verbose  console.log("json is " + saved_a);
-
-			}
-
+			/**
+			 * @function trim_saved_a
+			 * @description function to remove the "$_" of the text to avoid replace errors
+			 * @param saved_a the element it was in
+			 * @global
+			 */	
 			// trim the "$_" to avoid infinite loops
 			function trim_saved_a(saved_a) {
 				const replace = Object.entries(saved_a["replace"]);
@@ -619,7 +621,11 @@
 			}
 
 			// reload all the answers and save the answers to local storage
-
+			/**
+			 * @function reload_answers	
+			 * @description function to reload all answers and refresh the document
+			 * @global
+			 */	
 			function reload_answers() {
 				const doc = document.getElementById("doc");
 				const scroll_y = doc.scrollTop+"";
@@ -720,22 +726,13 @@
 			    p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
 			    p_bar.innerHTML = Math.ceil(percentage) + "%";
 			    p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
-				
-			    //if (is_firefox) {
-
-			        //setTimeout(()=> {
-					doc.scroll(0,scroll_y)
-			        //    document.getElementById("doc3").children[0].scrollIntoView();
-			            ////verbose  console.log("")
-			        //;
-			        //}, 0)
-			    //};
-
-			    //parseText(document.getElementById("doc3"));
-
-
+				doc.scroll(0,scroll_y)
 			}
-
+						/**
+			 * @function upload_image
+			 * @description function to upload an image
+			 * @global
+			 */	
 			function upload_image() {
 			    document.getElementById('vis').children[0].remove();
 
@@ -755,11 +752,15 @@
 			}
 			
 			
-			
+			/** 
+			 * @function get_option	
+			 * @description checkbox submission function, 
+			 * @global
+			 */	
 			
 			function get_option(this_element) {
 			
-			    // undo(this_element.nextElementSibling);
+
 			    const class_name = this_element.dataset.checkbox;
 			    //verbose  console.log("class name for question is " + class_name);
 			    const checked = document.querySelectorAll(`.${class_name}:checked`);
@@ -2529,14 +2530,15 @@ END:VEVENT`;
                             class="col-auto"
                             type="text"
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
+							
                             id="input_project"
                             name="$_PROJECT"
                             placeholder="the project name"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
-                        <input class="btn btn-primary btn-sm col-auto d-none"" type="button" id="input_project_submit" value="submit" onclick="replace(this)" >
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo" id="input_project_undo" onclick="undo(this);" />
+                        
+                        
                     </form>
                     
 
@@ -2560,14 +2562,14 @@ END:VEVENT`;
                             class="col-auto"
                             type="text"
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             id="input_studyobject"
                             name="$_STUDYOBJECT"
                             placeholder="the research object/target"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
 
-                        <input class="btn btn-primary btn-sm d-none" type="button" value="submit" id="input_studyobject_submit" onclick="replace(this)" />
+                        
 
                         
                     </form>
@@ -2593,7 +2595,7 @@ END:VEVENT`;
                             type="text"
                             style="width: 26vw;"
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             id="input_projectaim"
                             name="$_PROJECTAIM"
                             placeholder="project aim"
@@ -2601,7 +2603,7 @@ END:VEVENT`;
                             style="width: 26vw;"
                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
                         ></textarea>
-                        <input class="btn btn-primary btn-sm d-none" type="button" value="submit" onclick="replace(this)" />
+                        
                         
                     </form>
 					<form class="" style="margin-left: 0px;" id="form_datautility">
@@ -2612,14 +2614,14 @@ END:VEVENT`;
                             class="col-auto"
                             type="text"
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             id="input_datautility"
                             name="$_DATAUTILITY"
                             placeholder="Data utilities"
                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} ">
                         </textarea>
-                        <input class="btn btn-primary btn-sm col-auto d-none"" type="button" id="input_datautility_submit" value="submit" onclick="replace(this)" />
-                        <input class="btn btn-secondary btn-sm d-none" type="button" value="undo"  onclick="undo(this);" />
+                        
+                      
                     </form>
                     <form class="" style="margin-left: 0px;" id="form_username">
                         <h3>1.3 Other DMP Metadata</h3>
@@ -2628,14 +2630,14 @@ END:VEVENT`;
                             style="width: 26vw;"
                             class=""
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             type="text"
                             id="input_username"
                             name="$_USERNAME"
                             placeholder="type your name here"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
-                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_username_submit" value="submit" onclick="replace(this)" />
+                        
                         
                     </form>
                     <form class="" style="margin-left: 0px;" id="form_email">
@@ -2644,14 +2646,14 @@ END:VEVENT`;
                             style="width: 26vw;"
                             class=""
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             type="text"
                             id="input_email"
                             name="$_EMAIL"
                             placeholder="user email address"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
-                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_email_submit" value="submit" onclick="replace(this)" />
+                        
                         
                     </form>
 
@@ -2661,14 +2663,14 @@ END:VEVENT`;
                             style="width: 26vw;"
                             class=""
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             type="text"
                             id="input_dataofficer"
                             name="$_dataofficer"
                             placeholder="data officer name"
                             onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                         />
-                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dataofficer_submit" value="submit" onclick="replace(this)" />
+                        
                         
                     </form>
 					
@@ -2679,14 +2681,14 @@ END:VEVENT`;
                             style="width: 26vw;"
                             class=""
                             onfocusin="this.select();"
-                            onfocusout="this.nextElementSibling.click();"
+                            onchange="onchange_replace(this);"
                             type="text"
                             id="input_dmpversion"
                             name="$_DMPVERSION"
                             placeholder="Version of the DMP"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                         />
-                        <input class="btn btn-primary btn-sm col-auto d-none" type="button" id="input_dmpversion_submit" value="submit" onclick="replace(this)" />
+                        
                         
                     </form>
                     
@@ -2839,22 +2841,13 @@ END:VEVENT`;
                                 style="width: 26vw;"
                                 type="text"
                                 onfocusin="this.select();"
-                                onfocusout="this.nextElementSibling.click();"
+                                onchange="onchange_replace(this);"
                                 id="intput_updatemonth"
                                 name="$_UPDATEMONTH"
                                 placeholder="month of update"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}"
                             />
-                            <input
-                                class="btn btn-primary btn-sm d-none"
-                                type="button"
-                                value="submit"
-                                id="intput_updatemonth_submit"
-                                onclick="replace(this)"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="submit the checkbox first"
-                            />
+
                             
                         </form>
                     </div>
@@ -2867,22 +2860,13 @@ END:VEVENT`;
                                 style="width: 26vw;"
                                 type="text"
                                 onfocusin="this.select();"
-                                onfocusout="this.nextElementSibling.click();"
+                                onchange="onchange_replace(this);"
                                 id="intput_previousprojects"
                                 name="$_PREVIOUSPROJECTS"
                                 placeholder="previous project here"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}"
                             />
-                            <input
-                                class="btn btn-primary btn-sm d-none"
-                                type="button"
-                                value="submit"
-                                id="intput_previousprojects_submit"
-                                onclick="replace(this)"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="submit the checkbox first"
-                            />
+
                             
                         </form>
                     </div>
@@ -2896,22 +2880,13 @@ END:VEVENT`;
                                 style="width: 26vw;"
                                 type="text"
                                 onfocusin="this.select();"
-                                onfocusout="this.nextElementSibling.click();"
+                                onchange="onchange_replace(this);"
                                 id="input_proprietary"
                                 name="$_proprietary"
                                 placeholder=" proprietary software "
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}"
                             />
-                            <input
-                                class="btn btn-primary btn-sm d-none"
-                                type="button"
-                                value="submit"
-                                id="input_proprietary_submit"
-                                onclick="replace(this)"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="submit the checkbox first"
-                            />
+
                             
                         </form>
                     </div>
@@ -2994,7 +2969,7 @@ END:VEVENT`;
                         </div>
                     </div>
 
-                    <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox = "checkbox_2" onclick="get_option(this)" class=>
+                    <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
                     
 
                     <br />
@@ -3010,14 +2985,14 @@ END:VEVENT`;
                                 class="col-auto"
                                 id="input_rawdata"
                                 onfocusin="this.select();"
-                                onfocusout="this.nextElementSibling.click();"
+                                onchange="onchange_replace(this);"
                                 name="$_RAWDATA"
                                 placeholder="raw data volume (in GB)"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
                             />
                             GB
-                            <input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button" id="input_rawdata_submit" value="submit" onclick="replace(this)" />
-                            <input class="btn btn-secondary btn-sm d-none align-middle" type="button" value="undo" onclick="undo(this);" />
+
+                          
                         </div>
                     </form>
 
@@ -3030,13 +3005,13 @@ END:VEVENT`;
                                 class="col-auto"
                                 id="input_deriveddata"
                                 onfocusin="this.select();"
-                                onfocusout="this.nextElementSibling.click();"
+                                onchange="onchange_replace(this);"
                                 name="$_DERIVEDDATA"
                                 placeholder="derived data volume (in GB)"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
                             />
                             GB
-                            <input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none" type="button" value="submit" id="input_deriveddata_submit" onclick="replace(this)" />
+
                             
                         </div>
                     </form>
@@ -3066,12 +3041,12 @@ END:VEVENT`;
                                 class="col-auto"
                                 id="input_otherstandardinput"
                                 onfocusin="this.select();"
-                                onfocusout="this.nextElementSibling.click();"
+                                onchange="onchange_replace(this);"
                                 name="$_OTHERSTANDARDINPUT"
 								onchange= ' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
                                 placeholder="complete sentence of the other standards"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                            /><input class="btn btn-primary btn-sm col-auto ms-4 align-middle d-none"   type="button" value="submit"  onclick="replace(this)" id="input_otherstandardinput_submit" />
+
 							
 							
                             </label>
@@ -3109,7 +3084,7 @@ END:VEVENT`;
                         </div>
                         <br />
 						 <h2 id="scrollspyHeading5">5. Do you use visualization in the project?</h2>
-						                    <div class="form-check form-switch"  >
+					<div class="form-check form-switch"  >
 					<input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization"  >
                        <label class="form-check-label" for="check_vvisualization">Do you use visualization? </label>
 
@@ -3117,9 +3092,9 @@ END:VEVENT`;
 						
                     </div>
                     </div>
-					<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox = "checkbox_3" onclick="get_option(this)" class=>
+					<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox="checkbox_3" onclick="get_option(this)" >
                         
-                    <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" value="submit" data-checkbox="checkbox_3" onclick="get_option(this)" />
+
                     
 
 
@@ -3362,7 +3337,7 @@ END:VEVENT`;
         </div>
         <div class="content-page">
             <h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR). #if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT
+            <p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT
                 </span>
             </p>
             <p class="c0">
