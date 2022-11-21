@@ -1021,8 +1021,10 @@
 						let extended_end_focus;
 						let begin_node;
 						let begin_focus;
-
-						if (window.getSelection().anchorOffset < 3) {
+						if ((window.getSelection().anchorOffset < 3)&& (window.getSelection().anchorNode.previousSibling === null)){
+							begin_node = window.getSelection().anchorNode;
+							begin_focus = window.getSelection().anchorOffset;
+						}else if (window.getSelection().anchorOffset < 3) {
 																									  
 							begin_node = window.getSelection().anchorNode.previousSibling;
 							begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
@@ -1035,8 +1037,12 @@
 							//verbose  console.log("begin extended through node " + begin_node.data);
 
 						}
+						if ((window.getSelection().focusOffset == window.getSelection().focusNode.length) && (window.getSelection().focusNode.nextSibling === null)) {
+							extended_end_node = window.getSelection().focusNode;
+							extended_end_focus = window.getSelection().focusOffset;
+							//verbose  console.log("end extended through focus " + extended_end_node.data);
 
-						if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
+						}else if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
 							extended_end_node = window.getSelection().focusNode.nextSibling;
 							extended_end_focus = 1;
 							//verbose  console.log("end extended through next node ");
@@ -1255,8 +1261,10 @@
 			                range.setEnd(w_selection.focusNode, w_selection.focusOffset + 1);
 			                last_letter = range.toString().slice(-1);
 			            }
-
-			            if (w_selection.anchorOffset == 0) {
+						if ((w_selection.anchorOffset == 0) && (w_selection.anchorNode.previousSibling===null)) {
+						
+						first_letter = "";
+						} else if ((w_selection.anchorOffset == 0) ) {
 			                const old_offset = w_selection.anchorOffset;
 			                //verbose  console.log("no enough range");
 			                range.setStart(w_selection.anchorNode.previousSibling, w_selection.anchorNode.previousSibling.length - 1);
@@ -1330,7 +1338,7 @@
 			    if (cached_template == null) {
 			        cached_template = doc_name;
 			    } else if (cached_template == "user-defined") {
-			        doc_name = "user-defined";
+			        //doc_name = "user-defined";
 			        document.getElementById("user-defined").innerHTML = window.localStorage.getItem("fulltext_user");
 			    }
 			    if (window.localStorage.getItem("cookie_consent") !== "yes") {
