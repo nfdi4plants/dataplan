@@ -422,10 +422,10 @@
 				const marker_init = "init"; // preformance check: set the starting point
 				performance.mark(marker_init);
 
-
+				
 
 			    const date = new Date(); // record the time
-				const doc_name = name; 
+				doc_name = name; 
 				
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
@@ -734,7 +734,8 @@
 			 * @global
 			 */	
 			function upload_image() {
-			    document.getElementById('vis').children[0].remove();
+			    try{document.getElementById('vis').children[0].remove();}catch(e){}
+				
 
 			    document.getElementById('vis').innerHTML = '<img id="front_page" src="" width="100%" height="100%" viewBox="0 0 600 600 alt="Image preview..." >';
 			    let front_page = document.getElementById('front_page');
