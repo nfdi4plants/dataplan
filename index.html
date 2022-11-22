@@ -218,6 +218,8 @@
 					
 			};
 			
+			
+			
 			if (cached_a !== null) { // if there is no answer saved in local storage
 			
 				
@@ -408,7 +410,7 @@
 			var tour = new Tour(steps); // initialize the guided tour
 			var upload_json, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
 
-			
+
 			/********** functions ***********/
 			
 			/**
@@ -442,6 +444,10 @@
 				Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered to.";
 				
 				((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards"): {} ;
+				
+				((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep"): {} ;
+				
+				((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights"): {} ;
 				
 			    callback(); // reload all answers
 			    initialed = true;
@@ -2247,6 +2253,12 @@ END:VEVENT`;
 			    return reminders;
 			}
 			
+			function tab_next(ele) {
+				var total_list = document.querySelectorAll('form[class~="show"] input:not([class~="d-none"])');
+				//var list = Array.from(total_list).filter( single => single.tabIndex >= "0" );
+				var index = Array.from(total_list).indexOf(ele);
+				return total_list[index + 1] || total_list[0];
+			  }
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
 		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; padding-right: 0px; padding-left: 0px;">
@@ -2727,7 +2739,7 @@ END:VEVENT`;
                         </label>
 						</div>
                         <div>
-                        <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#q_updatemonth" aria-expanded="false" aria-controls="q_updatemonth" role="button" />
+                        <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#form_updatemonth" aria-expanded="false" aria-controls="form_updatemonth" role="button" />
                         <label class="form-check-label" for="check_update">
                             This project will be updated.
                         </label>
@@ -2739,9 +2751,9 @@ END:VEVENT`;
                             value="4"
                             id="check_previousprojects"
                             data-bs-toggle="collapse"
-                            data-bs-target="#q_previousprojects"
+                            data-bs-target="#form_previousprojects"
                             aria-expanded="false"
-                            aria-controls="q_previousprojects"
+                            aria-controls="form_previousprojects"
                             role="button"
                         />
                         <label class="form-check-label" for="check_previousprojects">
@@ -2761,9 +2773,9 @@ END:VEVENT`;
                             value="6"
                             id="check_proprietary"
                             data-bs-toggle="collapse"
-                            data-bs-target="#q_proprietary"
+                            data-bs-target="#form_proprietary"
                             aria-expanded="false"
-                            aria-controls="q_proprietary"
+                            aria-controls="form_proprietary"
                             role="button"
                         />
                         <label class="form-check-label" for="check_proprietary">
@@ -2783,7 +2795,7 @@ END:VEVENT`;
 						 </div>
                     </div>
 
-                    <input class="btn btn-primary form-check btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
+                    <input class="btn btn-primary form-check collapse btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
                     
 
                     <div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
@@ -2831,18 +2843,44 @@ END:VEVENT`;
                             zenodo
                         </label>
 
-                        </div><div>
+                        </div>
+						<div>
                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
                         <label class="form-check-label" for="check_dataDyrad">
                             dataDyrad
                         </label>
 						</div>
+						
+						<div>
+                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
+                        <label class="form-check-label" for="check_metabolights">
+                            Metabolights
+                        </label>
+						</div>
+						
+						<div>
+                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_otherep" checked />
+                        <label class="form-check-label" for="check_otherep">
+                            Other Endpoint Repositories:
+							<input
+                                style="width: 24vw;"
+                                type="text"
+                                class="col-auto"
+                                id="input_otherep"
+                                onfocusin="this.select();"
+                                onchange="onchange_replace(this);"
+                                name="$_OTHEREP"
+								onchange= ' saved_a["replace"]["$_OTHEREP"]= this.value '
+                                placeholder="complete sentence of the other endpoint repositories"
+                                onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }'
+								/>
+                        </label>
+						</div>
                     </div>
-                    <input class="btn btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick="get_option(this)" />
-
-                    <div class="collapse" id="q_updatemonth">
-                        <br />
-                        <form class="" id="form_updatemonth">
+                    <input class="btn collapse btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick='get_option(this)' />
+					
+                    
+                        <form class="collapse" id="form_updatemonth">
                             <label for="intput_updatemonth">At which month will your project be updated?</label>
                             <input
                                 style="width: 26vw;"
@@ -2852,16 +2890,16 @@ END:VEVENT`;
                                 id="intput_updatemonth"
                                 name="$_UPDATEMONTH"
                                 placeholder="month of update"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}"
+                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
                             />
 
                             
                         </form>
-                    </div>
+                    
 
-                    <div class="collapse" id="q_previousprojects">
-                        <br />
-                        <form class="" id="form_previousprojects">
+                    
+                        
+                        <form class="collapse" id="form_previousprojects">
                             <label for="intput_previousprojects">The name of your previous project is:</label>
                             <input
                                 style="width: 26vw;"
@@ -2871,16 +2909,16 @@ END:VEVENT`;
                                 id="intput_previousprojects"
                                 name="$_PREVIOUSPROJECTS"
                                 placeholder="previous project here"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}"
+                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
                             />
 
                             
                         </form>
-                    </div>
+                   
 
-                    <div class="collapse" id="q_proprietary">
-                        <br />
-                        <form class="" id="form_proprietary">
+                    
+                     
+                        <form class="collapse" id="form_proprietary">
                             <label for="input_proprietary">The name of your proprietary software is:</label>
 
                             <input
@@ -2891,14 +2929,14 @@ END:VEVENT`;
                                 id="input_proprietary"
                                 name="$_proprietary"
                                 placeholder=" proprietary software "
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[1].focus();return false;}"
+                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
                             />
 
                             
                         </form>
-                    </div>
+                    
 
-                    <div class id="form_checkbox_2" onchange="this.nextElementSibling.click();">
+                    <form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
                         <h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
                         <div class="form-data_type form-check">
                             <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" />
@@ -2974,7 +3012,7 @@ END:VEVENT`;
                             <input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" />
                             <label class="form-check-label" for="check_genetic"> genetics </label>
                         </div>
-                    </div>
+                    </form>
 
                     <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
                     
@@ -3053,6 +3091,7 @@ END:VEVENT`;
 								onchange= ' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
                                 placeholder="complete sentence of the other standards"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
+								/>
 
 							
 							
@@ -4248,7 +4287,7 @@ END:VEVENT`;
                                 <span class="c1">
                                     #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
                                     international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
-                                    $_PRIDE), will be stored and processed there as well. #endif!$_DATAPLANT
+                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
                                 </span>
                             </p>
                             <p class="c0">
