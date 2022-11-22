@@ -467,8 +467,10 @@
 				saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 				const marker_load = "load_dmp";
+				document.getElementById("vis").innerHTML ="";
 				performance.mark(marker_load);
 				performance.measure("measure init to load_dmp", marker_init, marker_load);
+				
 				//performance.measure("measure start to load_dmp", undefined, marker_init);
 				console.log(performance.getEntriesByType("measure")[0]["duration"]);
 				performance.clearMeasures();
@@ -1470,7 +1472,7 @@
 				const observer = new MutationObserver(callback);
 
 				// Start observing the target node for configured mutations
-				observer.observe(dmp1_vis, config);
+			observer.observe(dmp1_vis, config);
 
 			});
 			function update_saved_json(answers){
