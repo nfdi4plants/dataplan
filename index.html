@@ -422,10 +422,8 @@
 				const marker_init = "init"; // preformance check: set the starting point
 				performance.mark(marker_init);
 
-				
-
 			    const date = new Date(); // record the time
-				doc_name = name; 
+				doc_name = name; // overwrite global variable doc_name
 				
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
@@ -942,11 +940,11 @@
 			 *
 			 */
 
-			function match_mod(in_range, check_box_item) {
+			function match_mod(in_range, before) {
 
 			    const text_after_if = (in_range.toString().slice(3));
-			    //console.log("mach_mod function: after_endif: " + text_after_if);
-			    const before = check_box_item;
+			    console.log("mach_mod function: check_box_item: " + before);
+			    
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary", "d-inline-block");
 				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").parentElement.classList.add("border-highlight");  ');
@@ -984,7 +982,7 @@
 
 			for (let i = 0; i < checked.length; i++) {
 																														   
-				let check_box_item = checked[i];
+				var check_box_item = checked[i];
 				////verbose  console.log(check_box );
 				let name = check_box_item.split('_')[1];
 				// here the ________ should not match anything, make sure not to use it as a real placeholder
@@ -1173,7 +1171,7 @@
 							const left_text = left_range.toString();
 
 							//verbose  console.log("left_text with <!>: " + left_text);
-							callback2(left_range);
+							callback2(left_range, check_box_item);
 
 						} else {
 
@@ -1209,7 +1207,7 @@
 			 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be removed.
 			 *
 			 */
-			function match_remove(right_range) {
+			function match_remove(right_range, check_box_item) {
 
 			    const text_after_if = (right_range.toString().slice(3));
 			    //verbose  console.log("mach_remove function: after_endif: " + text_after_if);
@@ -1284,7 +1282,7 @@
 			               
 							newText.setAttribute("class", "text-warning d-inline-block text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
-							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
+							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
 							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].focus(); ');
 			                newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter ;
@@ -1303,7 +1301,7 @@
 			                
 							newText.setAttribute("class", "text-warning d-inline-block text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
-							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
+							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
 							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].focus(); ');
 							
