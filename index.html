@@ -1869,7 +1869,7 @@
 			        if (warning_element_children[0] == undefined) {
 			            try {
 							dmp_update(saved_a);
-			                return printDiv1(); // Security exception may be thrown by some browsers.
+			                return printDiv1("doc3"); // Security exception may be thrown by some browsers.
 			                const selection = window.getSelection();
 
 			            } catch (error) {
@@ -2170,8 +2170,8 @@ END:VEVENT`;
 				return vcal;
 			}
 			
-			function printDiv1() {
-			    var divContents = document.getElementById("doc3").innerHTML;
+			function printDiv1(id) {
+			    var divContents = document.getElementById(id).innerHTML;
 			    var a = window.open('', '', 'height=800, width=600');
 			    a.document.write('<html>');
 			    a.document.write('<body > ');
@@ -2214,7 +2214,7 @@ END:VEVENT`;
 			    }
 			    reminders = [{
 			            title: "Question reminders",
-			            content: question_reminder + " <br> " + issue_reminder + ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> it anyway.'
+			            content: question_reminder + " <br> " + issue_reminder + ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1("doc3")">print</a> it anyway.'
 
 			            //
 			        }
@@ -2494,6 +2494,7 @@ END:VEVENT`;
 						<li>
                             <a id="github_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip" data-bs-placement="top" title="bugs, suggestions or comments are welcom here">GitHub</a>
                         </li>
+						<button id="print" class="dropdown-item" onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print Questions</button>
                         
                     </ul>
                 </div>
@@ -3198,8 +3199,14 @@ END:VEVENT`;
 
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
         <div class="offcanvas-header">
-            <h1 class="offcanvas-title" id="offcanvasScrolling3" style="padding-bottom: 0px;">User-defined template</h1>
-
+            <h1 class="offcanvas-title" id="offcanvasScrolling3" style="padding-bottom: 0px;">User-defined template <button
+                    class="badge btn-primary"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(()=> {load_dmp(reload_answers,name = doc_name);}, 1000) ;'>
+                    submit
+                </button></h1>
+			
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
@@ -3213,13 +3220,7 @@ END:VEVENT`;
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dfg-dmp").innerHTML; '>DFG DMP</button>
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("practical-guide").innerHTML; '>Practical Guide</button>
                 <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("proposal").innerHTML; '>Proposal</button>
-                <button
-                    class="btn btn-primary position-static bottom-0 start-50"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(()=> {load_dmp(reload_answers,name = doc_name);}, 1000) ;'>
-                    submit
-                </button>
+                
             </h2>
             <div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
         </div>
