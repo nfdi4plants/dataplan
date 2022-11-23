@@ -1368,7 +1368,7 @@
 			        .then(response => response.json())
 			        .then(json => {
 			            saved_a = json;
-
+load_dmp(reload_answers, name = cached_template);
 			        })
 
 			    }
@@ -3624,11 +3624,20 @@ END:VEVENT`;
                         <p class="c0"><span class="c3"></span></p>
                         <p class="c0"><span class="c3">How will the data be made accessible (e.g. by deposition in a repository)?</span></p>
                         <p class="c0">
-                            <span class="c1">
-                                Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. In addition to this, data is ensured to be stored in international
-                                discipline-related repositories that use specialized technologies (Sequencing at the national US center NCBI, SRA; Sequencing and sequence data at the EU center: EBI, ENA; Proteome database: PRIDE), will be stored and
-                                processed there as well.
-                            </span>
+                             <p class="c0">
+                                <span class="c1">
+                                    #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
+                                    international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
+                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
+                                </span>
+                            </p>
+                            <p class="c0">
+                                <span class="c1">
+                                    As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. In the case of unstructured less standardized data (e.g. experimental
+                                    phenotypic measurements), these will be metadata annotated and if complete given a digital object identifier (DOI). #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.
+                                    #endif$_DATAPLANT 
+                                </span>
+                            </p>
                         </p>
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c0"><span class="c3">What methods or software tools are needed to access the data?</span></p>
@@ -4289,7 +4298,7 @@ END:VEVENT`;
                                 <span class="c1">
                                     #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
                                     international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
-                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
+                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.#endif!$_DATAPLANT
                                 </span>
                             </p>
                             <p class="c0">
