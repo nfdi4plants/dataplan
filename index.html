@@ -112,10 +112,14 @@
 
 			var doc_name = 'dmp1'; // default document to use at the first page load
 			var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
+			var scroll_y = window.localStorage.getItem("scroll_y");
 			var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
 			var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
 			var datepicker_list=[]; // initialization a list to store dmp update reminder
-
+			var toast_list;
+			var cookie_modal;
+			var old_percentage;
+			
 			var initialed = false; // set the initialed status to false
 			let temp_a = { // template answers used to compare with saved answers 
 				"dmp": {
@@ -421,8 +425,7 @@
 			 * @global
 			 */
 			function load_dmp(callback = reload_answers, name = cached_template) {
-				const marker_init = "init"; // preformance check: set the starting point
-				performance.mark(marker_init);
+
 
 			    const date = new Date(); // record the time
 				doc_name = name; // overwrite global variable doc_name
@@ -466,16 +469,10 @@
 				
 				saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
-				const marker_load = "load_dmp";
+				
+				
+				
 				document.getElementById("vis").innerHTML ="";
-				performance.mark(marker_load);
-				performance.measure("measure init to load_dmp", marker_init, marker_load);
-				
-				//performance.measure("measure start to load_dmp", undefined, marker_init);
-				console.log(performance.getEntriesByType("measure")[0]["duration"]);
-				performance.clearMeasures();
-				performance.clearMarks();
-				
 				
 			}
 			
@@ -544,6 +541,9 @@
 			 * @global
 			 */	
 			function compare_answers(old_a, new_a) {
+			
+				
+
 			    let unreplaced_keys = []; 
 			    let unsubmitted_checkbox = [];
 			    let total_keywords = 0,
@@ -595,6 +595,8 @@
 			    total_keywords = total_keywords - no_need_to_answer;
 			    //verbose  console.log("total_keys: " + total_keywords + "; changed_keywords: " + changed_keywords + "\n ;  total_box  " + total_checkboxes + ", changed_checkbox: " + changed_checkboxes + ", unreplaced_keys " + unreplaced_keys);
 			    return [total_keywords, total_checkboxes, changed_keywords, changed_checkboxes, unreplaced_keys, unsubmitted_checkbox];
+			
+			    
 			}
 
 			/**
@@ -635,12 +637,15 @@
 			function reload_answers() {
 				const doc = document.getElementById("doc");
 				const scroll_y = doc.scrollTop+"";
-				
+				window.localStorage.setItem("scroll_y", scroll_y);
 			    const selection = window.getSelection();
 			    selection.removeAllRanges();
 			    trim_saved_a(saved_a);
-
+				
 			    window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+				
+				
+
 				const replace_input = Object.entries(saved_a["replace"]);
 			    for (const[key, value]of replace_input) {
 			        if (key !== "$_VISUALIZATION") {
@@ -708,12 +713,15 @@
 
 			    }
 			    //verbose  console.log("answers is reloading");
-
+				
+				
 			    for (let answers in saved_a["replace"]) {
 			        let singleOption = {};
 			        singleOption[answers] = saved_a["replace"][answers]
 			            //verbose  console.log(singleOption);
+				
 			        find_replace(singleOption);
+
 			    }
 			    for (let answers in saved_a["checkbox"]) {
 			        let singleOption = {};
@@ -722,17 +730,25 @@
 			            "unchecked": saved_a["checkbox"][answers]["unchecked"]
 			        }
 			        //verbose  console.log(singleOption);
+
 			        checkbox(singleOption);
+
 			    }
 			    //verbose  console.log("answer reload is finished");
 				issue_warning();
+				
 			    let unfinished = compare_answers(temp_a, saved_a);
 			    let p_bar = document.getElementById("p-bar");
+				
 			    let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
-			    p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
+			    if (percentage === 100 && old_percentage != 100){
+					toast_list[6].show();
+				}
+				old_percentage=percentage ;
+				p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
 			    p_bar.innerHTML = Math.ceil(percentage) + "%";
 			    p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
-				doc.scroll(0,scroll_y)
+				doc.scroll(0,scroll_y);
 			}
 						/**
 			 * @function upload_image
@@ -936,6 +952,7 @@
 			    const unchecked = options[class_name]["unchecked"];
 
 			    ////verbose  console.log([...unchecked]);
+				
 			    check_uncheck(unchecked, match_remove, match_mod, "uncheck");
 				check_uncheck(checked, match_mod, match_remove, "check");
 				
@@ -949,9 +966,9 @@
 			 */
 
 			function match_mod(in_range, before) {
-
+			
 			    const text_after_if = (in_range.toString().slice(3));
-			    console.log("mach_mod function: check_box_item: " + before);
+			    //verbose console.log("mach_mod function: check_box_item: " + before);
 			    
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary", "d-inline-block");
@@ -1028,6 +1045,8 @@
 						let extended_end_focus;
 						let begin_node;
 						let begin_focus;
+													
+														
 						if ((window.getSelection().anchorOffset < 3)&& (window.getSelection().anchorNode.previousSibling === null)){
 							begin_node = window.getSelection().anchorNode;
 							begin_focus = window.getSelection().anchorOffset;
@@ -1060,7 +1079,7 @@
 							//verbose  console.log("end extended through focus " + extended_end_node.data);
 
 						}
-
+						
 						right_range.setEnd(extended_end_node, extended_end_focus);
 					
 						if_range.setStart(begin_node, begin_focus);
@@ -1078,7 +1097,7 @@
 						
 						place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
 						//verbose  console.log("place holder: " + place_holder);
-
+										
 						if (if_cha == "|" && check_or_uncheck=="check" ) {
 							if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
 								extended_begin_node = window.getSelection().anchorNode.previousSibling;
@@ -1195,13 +1214,16 @@
 						ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
 								aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
 					}
-				} else if (document.body.createTextRange) //for ie etc.
-				{
-					let range_if = document.body.createTextRange();
-					while (range_if.findText(match_name)) {
-						range_if.pasteHTML('atest');
-					}
-				}
+				} 
+				
+				
+				//else if (document.body.createTextRange) //for ie etc.
+				//{
+				//	let range_if = document.body.createTextRange();
+				//	while (range_if.findText(match_name)) {
+				//		range_if.pasteHTML('atest');
+				//	}
+				//}
 
 				//verbose  console.log("check for loop, ends " + match_name);
 
@@ -1341,7 +1363,9 @@
 
 			// initialization
 			window.addEventListener("load", function () {
-			 
+				cookie_modal = new bootstrap.Modal(document.getElementById('cookie_modal'), {
+					  keyboard: false
+					})
 			    if (cached_template == null) {
 			        cached_template = doc_name;
 			    } else if (cached_template == "user-defined") {
@@ -1349,12 +1373,13 @@
 			        document.getElementById("user-defined").innerHTML = window.localStorage.getItem("fulltext_user");
 			    }
 			    if (window.localStorage.getItem("cookie_consent") !== "yes") {
-					var cookie_modal = new bootstrap.Modal(document.getElementById('cookie_modal'), {
-					  keyboard: false
-					})
+					
 			        cookie_modal.show();
 			    }
-				
+				var toast_el_list = [].slice.call(document.querySelectorAll('.toast'));
+				toast_list = toast_el_list.map(function (toast_el) {
+					return new bootstrap.Toast(toast_el, {animation:true, dely:0})
+				});
 			    window.localStorage.setItem("user_info", "visited");
 				saved_a = update_saved_json(saved_a);
 			    load_dmp(reload_answers, name = cached_template);
@@ -1373,12 +1398,11 @@
 
 			    }
 				
-				var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'))
-			        	  
-				
-					
+				var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'));
 			    var upload_json = document.getElementById("upload");
 			    upload_json.addEventListener("change", open_storage_modal, false);
+				
+				
 				
 				function open_storage_modal(){
 					
@@ -1442,7 +1466,7 @@
 				
 				}
 
-			
+
 			
 			
 			document.getElementById("vis").innerHTML = document.getElementById('word_cloud_sample').innerHTML;
@@ -1473,7 +1497,9 @@
 
 				// Start observing the target node for configured mutations
 			observer.observe(dmp1_vis, config);
-
+			const doc = document.getElementById("doc");
+			doc.scroll(0,scroll_y);
+				
 			});
 			function update_saved_json(answers){
 				try {
@@ -1768,7 +1794,7 @@
 			
 			function overwrite_all() {
 					
-					
+					toast_list[2].show();
 			        saved_a = uploaded_input_all;
 					load_dmp(reload_answers, name = cached_template);
 					
@@ -1787,7 +1813,7 @@
 					saved_a["update"]["storage"][current_origin]["answer"]["timestamp"]=now.toLocaleString();
 					load_dmp(reload_answers, name = cached_template);
 					syn_load_cache();
-			        
+			        toast_list[1].show();
 					
 			        ////verbose  console.log(JSON.stringify(saved_a));
 					
@@ -1845,7 +1871,7 @@
 					
 					
 					document.execCommand("copy");  // Security exception may be thrown by some browsers.
-					
+					toast_list[0].show();
 					
 					
 					
@@ -1912,11 +1938,12 @@
 				saved_a["update"]["storage"][0] = {"answer":{"replace":saved_a["replace"],"checkbox":saved_a["checkbox"] },"name":[],};
 				}
 				if (saved_a["update"]["storage"][id]["answer"].length != 0 ){
-				    let confirm_overwrite = confirm("Overwrite saved answer here?");
+				    let confirm_overwrite = confirm("There is already a saved answer, do you want to overwrite saved answer here?");
 					if (confirm_overwrite) {
 					 save_to_cache1(id, name);
+					 toast_list[3].show();
 					} else {
-					  alert("Current answer is not saved");
+					  toast_list[4].show();
 					}
 				
 				
@@ -1937,6 +1964,7 @@
 			    window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 				let update_element = document.querySelector("#load_from_cache_menu_"+id);
 				update_element.innerHTML = now.toLocaleString();
+				toast_list[3].show();
 			}
 			
 			function load_from_cache(id){
@@ -1945,9 +1973,9 @@
 				saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
 				load_dmp(reload_answers, doc_name);
 				} else {
-				window.alert("this slot is empty");
+				toast_list[7].show();
 				}
-				
+				toast_list[5].show();
 			
 			}
 			function dmp_update(saved_a){
@@ -1957,14 +1985,14 @@
 					document.getElementById("dmp-update-modal").click();
 					
 					
-					} else {
-					clear_dmp_updates();
-					document.getElementById("dmp-update-modal").click();
-					saved_a["update"]["timeline"].forEach(
-					function(e){
-					add_date_div(e["name"], e["date"])
-					
-					}
+						} else {
+						clear_dmp_updates();
+						document.getElementById("dmp-update-modal").click();
+						saved_a["update"]["timeline"].forEach(
+						function(e){
+							add_date_div(e["name"], e["date"])
+						
+						}
 					
 					
 					)
@@ -2494,7 +2522,13 @@ END:VEVENT`;
 						<li>
                             <a id="github_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip" data-bs-placement="top" title="bugs, suggestions or comments are welcom here">GitHub</a>
                         </li>
-						<button id="print" class="dropdown-item" onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print Questions</button>
+						<li>
+						<button id="print_q" class="dropdown-item" onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print Questions</button>
+						</li>
+						<li>
+						<button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog <span class="badge bg-secondary">4</span>
+  </span></button>
+						</li>
                         
                     </ul>
                 </div>
@@ -2525,6 +2559,94 @@ END:VEVENT`;
     <div class="row g-3" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y: hidden;">
         <div class="col-7" id="doc" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0;">
             <div class="col-12 parallax" id="doc2" style="overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
+			<div aria-live="polite" aria-atomic="true" class="position-relative">
+				<div class="toast-container position-absolute top-5 start-50 translate-middle-x" style="z-index: 1200">
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+						Copied to clipboard
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+						Current saved answers updated
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+						All saved answers updated
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+						Save to cache is successful
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+					 	Current answer is NOT saved
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+					 	Load from cache successful
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+					 	Congrats! You finished all the answers.
+						You can click the icon 
+						<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
+							<span class=" clip ">
+								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+								<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+								<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+								</svg>
+							</span>
+						</a> to copy the text or <a href="#" onclick="save_json()" >save to json</a>
+						
+						
+					    </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+					  <div class="d-flex">
+						<div class="toast-body">
+					 	Load from cache failed, slot is empty
+					   </div>
+						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+						</button>
+					    </div>
+					</div>
+				</div>
+			</div>
                 <a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" style="top: 2vh; left: 63vw; position: fixed; text-shadow: 2px 2px 4px 16px; border-radius: 2px;">
                     <span class="d-none clip sticky-top float-end">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -2534,7 +2656,11 @@ END:VEVENT`;
                         </svg>
                     </span>
                 </a>
-                <div id="doc3" class="row-auto col-10"></div>
+                <div id="doc3" class="row-auto col-10">
+				
+				
+				
+				</div>
             </div>
         </div>
         <div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;">
@@ -3321,12 +3447,30 @@ END:VEVENT`;
   position: fixed !important;transform: translate(-50%, -50%) !important;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Not a cookie consent yet</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">News and changelog</h5>
                     <button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Currently, we don't use any cookie that needs your consent. This banner is only a mock-up. Your data is saved in local storage of the browser and is not shared with anyone. You can save the webpage by control + S and use
-                    it offline.
+				Thanks for using and testing our tool. Please keep bearing with us. The tool will be continuously developed and improved. Any feedback is welcome. We don't use cookie to trace user and the tool can be used offline. Disconnect the internet or save it by "ctrl + S" will not affect the usage.
+				<br>
+				<br>
+				<span><b> 24th November 2022</b></span>
+                    <ul>
+					
+					<li><span class="badge bg-primary">New feature</span> A "news" pannel is added in "Help" menu </li>
+					<li><span class="badge bg-primary">New feature</span> Notifications about save caches are added</li>
+					<li><span class="badge bg-primary">New feature</span> New options in endpoint repositories </li>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> User-defined template has no more bugs </li>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Next question can be reached without bugs</li>
+					</ul>
+				<br>
+				<span><b> 15th November 2022</b></span>
+                    <ul>					
+					<li><span class="badge bg-primary">New feature</span> New "scroll to" and "hightlight" feature when hover on the replaced text </li>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Improved the lag of text replacement </li>
+					</ul>
+					
+					
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="consent()" data-bs-dismiss="modal">Close</button>
