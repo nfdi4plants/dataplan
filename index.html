@@ -1972,10 +1972,11 @@
 				saved_a["replace"]= saved_a["update"]["storage"][id]["answer"]["replace"]
 				saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
 				load_dmp(reload_answers, doc_name);
+				toast_list[5].show();
 				} else {
 				toast_list[7].show();
 				}
-				toast_list[5].show();
+				
 			
 			}
 			function dmp_update(saved_a){
@@ -3457,8 +3458,8 @@ END:VEVENT`;
 				<span><b> 25th November 2022</b></span>
                     <ul>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Float "toast" fixed to top</li>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Save to cache toast bug fixed</li>
 					</ul>
-				<br>
 				<br>
 				<span><b> 24th November 2022</b></span>
                     <ul>
