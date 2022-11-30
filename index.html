@@ -113,6 +113,7 @@
 			var doc_name = 'dmp1'; // default document to use at the first page load
 			var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
 			var scroll_y = window.localStorage.getItem("scroll_y");
+			console.log("scroll_y read from cache is " +scroll_y );
 			var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
 			var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
 			var datepicker_list=[]; // initialization a list to store dmp update reminder
@@ -429,7 +430,7 @@
 
 			    const date = new Date(); // record the time
 				doc_name = name; // overwrite global variable doc_name
-				
+				initialed ? scroll_y = document.getElementById("doc").scrollTop: {};
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
 			    content.classList.add("content-page");
@@ -451,8 +452,10 @@
 				((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep"): {} ;
 				
 				((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights"): {} ;
+
 				
-			    callback(); // reload all answers
+			    callback();
+
 			    initialed = true;
 				syn_load_cache();
 				
@@ -471,8 +474,8 @@
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 				
 				
-				
 				document.getElementById("vis").innerHTML ="";
+				document.getElementById("doc").scrollTop= scroll_y;
 				
 			}
 			
@@ -636,8 +639,8 @@
 			 */	
 			function reload_answers() {
 				const doc = document.getElementById("doc");
-				const scroll_y = doc.scrollTop+"";
-				window.localStorage.setItem("scroll_y", scroll_y);
+				
+				
 			    const selection = window.getSelection();
 			    selection.removeAllRanges();
 			    trim_saved_a(saved_a);
@@ -645,7 +648,6 @@
 			    window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 				
 				
-
 				const replace_input = Object.entries(saved_a["replace"]);
 			    for (const[key, value]of replace_input) {
 			        if (key !== "$_VISUALIZATION") {
@@ -748,7 +750,9 @@
 				p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
 			    p_bar.innerHTML = Math.ceil(percentage) + "%";
 			    p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
-				doc.scroll(0,scroll_y);
+				document.getElementById("doc").scroll(0,scroll_y)
+				
+				
 			}
 						/**
 			 * @function upload_image
@@ -1359,8 +1363,15 @@
 			    e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
 			    // Chrome requires returnValue to be set
 			    e.returnValue = '';
-			});
 
+			});
+				
+			addEventListener('pagehide', (event) => {
+				scroll_y = document.getElementById("doc").scrollTop+"";
+				window.localStorage.setItem("scroll_y", scroll_y); 
+				console.log("scroll_y page hide to cache is " +scroll_y );
+				});	
+				
 			// initialization
 			window.addEventListener("load", function () {
 				cookie_modal = new bootstrap.Modal(document.getElementById('cookie_modal'), {
@@ -1383,7 +1394,7 @@
 			    window.localStorage.setItem("user_info", "visited");
 				saved_a = update_saved_json(saved_a);
 			    load_dmp(reload_answers, name = cached_template);
-				
+				document.getElementById("doc").scrollTop= scroll_y;
 				
 			    //verbose  console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
@@ -1497,8 +1508,7 @@
 
 				// Start observing the target node for configured mutations
 			observer.observe(dmp1_vis, config);
-			const doc = document.getElementById("doc");
-			doc.scroll(0,scroll_y);
+
 				
 			});
 			function update_saved_json(answers){
@@ -2289,6 +2299,9 @@ END:VEVENT`;
 				//var list = Array.from(total_list).filter( single => single.tabIndex >= "0" );
 				var index = Array.from(total_list).indexOf(ele);
 				return total_list[index + 1] || total_list[0];
+				
+
+			
 			  }
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
