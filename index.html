@@ -430,7 +430,8 @@
 
 			    const date = new Date(); // record the time
 				doc_name = name; // overwrite global variable doc_name
-				initialed ? scroll_y = document.getElementById("doc").scrollTop: {};
+				initialed ? scroll_y = document.getElementById("doc").scrollTop+"": {};
+				
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
 			    content.classList.add("content-page");
@@ -474,8 +475,9 @@
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 				
 				
-				document.getElementById("vis").innerHTML ="";
-				document.getElementById("doc").scrollTop= scroll_y;
+				document.getElementById("vis").innerHTML ="",
+				document.getElementById("doc").scrollTop = scroll_y,
+				console.log("the window is scrolled to: "+ scroll_y);
 				
 			}
 			
@@ -750,7 +752,6 @@
 				p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
 			    p_bar.innerHTML = Math.ceil(percentage) + "%";
 			    p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
-				document.getElementById("doc").scroll(0,scroll_y)
 				
 				
 			}
@@ -1366,8 +1367,8 @@
 
 			});
 				
-			addEventListener('pagehide', (event) => {
-				scroll_y = document.getElementById("doc").scrollTop+"";
+			window.addEventListener('pagehide', (event) => {
+				scroll_y = document.getElementById("doc").scrollTop-537;
 				window.localStorage.setItem("scroll_y", scroll_y); 
 				console.log("scroll_y page hide to cache is " +scroll_y );
 				});	
@@ -1394,7 +1395,7 @@
 			    window.localStorage.setItem("user_info", "visited");
 				saved_a = update_saved_json(saved_a);
 			    load_dmp(reload_answers, name = cached_template);
-				document.getElementById("doc").scrollTop= scroll_y;
+				//document.getElementById("doc").scrollTop= scroll_y;
 				
 			    //verbose  console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
