@@ -56,6 +56,7 @@
 			margin-left:0cm;
 			line-height:115%;
 			text-autospace:ideograph-other; 
+			white-space: normal;
 			}
 		.c6{padding-top:12pt;padding-bottom:10pt;line-height:1.1500000000000001;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		.c12{text-decoration:none;vertical-align:baseline;font-family:"Arial";font-style:normal}
@@ -69,7 +70,7 @@
 		.title{padding-top:0pt;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		
-		p{margin:0;font-size:12pt;font-family:"Arial"}
+		p{margin:0;font-size:12pt;font-family:"Arial"; white-space: normal}
 		h1{padding-top:20pt;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		h2{padding-top:18pt;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		h3{padding-top:8pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
@@ -976,7 +977,7 @@
 			    //verbose console.log("mach_mod function: check_box_item: " + before);
 			    
 				const parent_node= document.createElement("span");
-				parent_node.classList.add("text-primary", "d-inline-block");
+				parent_node.classList.add("text-primary");
 				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").parentElement.classList.add("border-highlight");  ');
 							parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
 							parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.focus(); ');
@@ -1315,7 +1316,7 @@
 			                //verbose  console.log(encodeURIComponent(after));
 							let newText = document.createElement("span");
 			               
-							newText.setAttribute("class", "text-warning d-inline-block text-center");
+							newText.setAttribute("class", "text-warning text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
 							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
@@ -1334,7 +1335,7 @@
 			                //verbose  console.log(encodeURIComponent(after));
 			                let newText = document.createElement("span");
 			                
-							newText.setAttribute("class", "text-warning d-inline-block text-center");
+							newText.setAttribute("class", "text-warning text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
 							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
@@ -2249,7 +2250,7 @@ END:VEVENT`;
 			        issue_reminder = " ";
 			        break;
 			    default:
-			        issue_reminder = "There are " + String(issue_n) + " issues not resolved." + ' If you are aware of all the issues and you want to remove all the warnings, please click:  <button type="button" class="badge btn-secondary"  onclick="remove_all_warnings()" > remove all the warnings</button>';
+			        issue_reminder = "There are " + String(issue_n) + " issues not resolved." + ' If you are aware of all the issues and you want to remove all the warnings, please click:  <button type="button" class="badge btn-secondary"  onclick="remove_all_warnings(), toast_list[6].show()" > remove all the warnings</button>';
 
 			    }
 			    reminders = [{
@@ -2633,8 +2634,8 @@ END:VEVENT`;
 					<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
 					  <div class="d-flex">
 						<div class="toast-body">
-					 	Congrats! You finished all the answers.
-						You can click the icon 
+					 	Congrats! All questions are answers.
+						You can click this clipboard 
 						<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
 							<span class=" clip ">
 								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -2654,7 +2655,7 @@ END:VEVENT`;
 					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
 					  <div class="d-flex">
 						<div class="toast-body">
-					 	Load from cache failed, because the slot selected is empty
+					 	Load from cache failed, because the slot selected is empty.
 					   </div>
 						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
 						</button>
@@ -2681,7 +2682,7 @@ END:VEVENT`;
         <div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;">
             <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;">
                 <div id="intro-tour-input">
-                    <div id="warningText"></div>
+                    <div id="warningText" ></div>
 
                     <h2 id="scrollspyHeading1">1 Basic Information:</h2>
 
@@ -4236,10 +4237,8 @@ END:VEVENT`;
 
                             <p class="c0">
                                 <span class="c1">
-                                    All data sets will receive unique identifiers, and they will be annotated with metadata.#if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations necessary in plant science
-                                    adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE)#endif$_MIAPPE. These unlike cross-domain minimal sets such as Dublin core, which mostly
-                                    defines the submitter and what general type of data is being dealt with (e.g. images), allow reusability by other researchers as it also defines properties of the plant (see the preceding section). However, of
-                                    course minimal cross-domain annotations are part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow one to tag individual releases with a Digital Object Identifier (DOI).
+                                    All data sets will receive unique identifiers, and they will be annotated with metadata.#if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations necessary in plant science adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE </span>
+									<span class="c1">These unlike cross-domain minimal sets such as Dublin core, which mostly defines the submitter and what general type of data is being dealt with (e.g. images), allow reusability by other researchers as it also defines properties of the plant (see the preceding section). However, of course minimal cross-domain annotations are part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow one to tag individual releases with a Digital Object Identifier (DOI).
                                     #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
                                 </span>
                             </p>
