@@ -974,7 +974,7 @@
 			function match_mod(in_range, before) {
 			
 			    const text_after_if = (in_range.toString().slice(3));
-			    console.log("mach_mod function: check_box_item: " + before);
+			    //verbose   console.log("mach_mod function: check_box_item: " + before);
 			    
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary");
@@ -998,15 +998,15 @@
 				text_range.setEnd(end_if_range.startContainer, end_if_range.startOffset);
 			    const doc_frag = text_range.cloneContents();
 				parent_node.appendChild(doc_frag);
-				console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
+				//verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
 				
-				console.log("1in_range is :" + in_range.toString());
+				
 				end_if_range.deleteContents();
 			    end_if_range.detach();
 				text_range.deleteContents();
 				in_range.insertNode(parent_node);
 				text_range.detach();
-				console.log("2in_range is :" + in_range.toString());
+				//verbose   console.log("in_range is :" + in_range.toString());
 
 			}
 			
@@ -1065,29 +1065,29 @@
 																									  
 							begin_node = window.getSelection().anchorNode.previousSibling;
 							begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-							console.log("anchor case 2 begin extended through focus " + begin_node);
+							//verbose    console.log("anchor case 2 begin extended through focus " + begin_node);
 						} else {
 
 							begin_node = window.getSelection().anchorNode;
 
 							begin_focus = window.getSelection().anchorOffset - 3;
-							console.log("anchor case 3 begin extended through node " + begin_node.data);
+							//verbose console.log("anchor case 3 begin extended through node " + begin_node.data);
 
 						}
 						if ((window.getSelection().focusOffset == window.getSelection().focusNode.length) && (window.getSelection().focusNode.nextSibling === null)) {
 							extended_end_node = window.getSelection().focusNode;
 							extended_end_focus = window.getSelection().focusOffset;
-							console.log("focus case 1 end extended through focus " + extended_end_node.data);
+							//verbose     console.log("focus case 1 end extended through focus " + extended_end_node.data);
 
 						}else if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
 							extended_end_node = window.getSelection().focusNode.nextSibling;
 							extended_end_focus = 1;
-							console.log("focus case 2 end extended through next node ");
+							//verbose     console.log("focus case 2 end extended through next node ");
 
 						} else {
 							extended_end_node = window.getSelection().focusNode;
 							extended_end_focus = window.getSelection().focusOffset + 1;
-							console.log("focus case 3 end extended through focus " + extended_end_node.data);
+							//verbose     console.log("focus case 3 end extended through focus " + extended_end_node.data);
 
 						}
 						
@@ -1107,7 +1107,8 @@
 																						  
 						
 						place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-						//verbose  console.log("place holder: " + place_holder);
+						console.log("place holder: " + place_holder);
+						//verbose console.log("if_cha: " + if_cha);
 										
 						if (if_cha == "|" && check_or_uncheck=="check" ) {
 							if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
@@ -1157,16 +1158,31 @@
 			                    match_remove(if_range);
 			                    window.getSelection().removeAllRanges();} 
 						else if (if_cha == "f") {
+						
 							if (right_cha == "|") {
+							
+								if (check_or_uncheck == "check"){
 								window.find(" ");
 
 								if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-								callback1(if_range, check_box_item);
-								if_range.detach();
-							} else {
-								callback1(if_range, check_box_item);
-								if_range.detach();
-							}
+									callback1(if_range, check_box_item);
+									if_range.detach();
+								 
+								 
+								}else if (check_or_uncheck == "uncheck"){ 
+								console.log("uncheck with |, the right_range will be remove: " + right_range.toString());
+
+								right_range.deleteContents();
+								right_range.detach;
+								
+								
+								}
+							
+							}else {
+									callback1(if_range, check_box_item);
+									if_range.detach();
+								}
+
 
 						} else if (if_cha == "," || if_cha == " ") {
 							if (check_or_uncheck == "check"){
