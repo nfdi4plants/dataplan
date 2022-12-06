@@ -442,19 +442,29 @@
 				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
 				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('de-DE', options)+"</h3>";
 				
-				try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")}
+				try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
+				}
 					catch(e){}; 
 				// check if the newly added answers are there, to be backward compatible
-				Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
+				try {Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
+				}
+					catch(e){};
+				try {Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered to.";
+				}
+					catch(e){};
+				try {((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards"): {} ;
+				}
+					catch(e){};
+				try {((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep"): {} ;
+				}
+					catch(e){};
+				try {((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights"): {} ;
+				}
+					catch(e){};
+				try {(!Object.values(saved_a["checkbox"]).includes("checkbox_5") ) ? saved_a["checkbox"]["checkbox_5"]= {"checked":["check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad"],"unchecked": ["check_ENA","check_NCBI","check_Pride"] }: {} ;
+				}
+					catch(e){};
 				
-				Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered to.";
-				
-				((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards"): {} ;
-				
-				((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep"): {} ;
-				
-				((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights"): {} ;
-
 				
 			    callback();
 
@@ -2563,7 +2573,7 @@ END:VEVENT`;
 						<button id="print_q" class="dropdown-item" onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print Questions</button>
 						</li>
 						<li>
-						<button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog <span class="badge bg-secondary">4</span>
+						<button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog <span class="badge bg-secondary">1</span>
   </span></button>
 						</li>
                         
@@ -3490,6 +3500,12 @@ END:VEVENT`;
                 <div class="modal-body">
 				Thanks for using and testing our tool. Please keep bearing with us. The tool will be continuously developed and improved. Any feedback is welcome. We don't use cookie to trace user and the tool can be used offline. Disconnect the internet or save it by "ctrl + S" will not affect the usage.
 				<br>
+				<br>
+				<span><b> 6th December 2022</b></span>
+                    <ul>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Checkbox function fixed</li>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Compatibility on old saved questions improved</li>
+					</ul>
 				<br>
 				<span><b> 30th November 2022</b></span>
                     <ul>
