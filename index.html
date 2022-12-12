@@ -457,11 +457,11 @@
 					catch(e){};
 				try {((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep"): {} ;
 				}
-					catch(e){};
+					catch(e){console.log("other ep error");};
 				try {((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights"): {} ;
 				}
-					catch(e){};
-				try {(!Object.values(saved_a["checkbox"]).includes("checkbox_5") ) ? saved_a["checkbox"]["checkbox_5"]= {"checked":["check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad"],"unchecked": ["check_ENA","check_NCBI","check_Pride"] }: {} ;
+					catch(e){console.log("metabolights error");};
+				try {(!Object.keys(saved_a["checkbox"]).includes("checkbox_5") ) ? saved_a["checkbox"]["checkbox_5"]= {"checked":["check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad"],"unchecked": ["check_ENA","check_NCBI","check_Pride"] }: {} ;
 				}
 					catch(e){};
 				
