@@ -2378,7 +2378,7 @@ END:VEVENT`;
                         </li>
 						<li>
                             <label for="upload" class="form-label dropdown-item">
-                                Upload JSON
+                                Import Answers
                                 <input class="form-control d-none" type="file" id="upload_menu" />
                             </label>
                         </li>
@@ -2405,7 +2405,7 @@ END:VEVENT`;
 
                             <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
                         
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">Download JSON</button>
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
                             <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 							
 							
@@ -2462,7 +2462,7 @@ END:VEVENT`;
                     <ul class="dropdown-menu">
                         <li>
                             <label for="upload" class="form-label dropdown-item">
-                                Upload JSON
+                                Import Answers
                                 <input class="form-control d-none" type="file" id="upload" />
                             </label>
                         </li>
@@ -2519,7 +2519,7 @@ END:VEVENT`;
 
                             <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
                         
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">Download JSON</button>
+                            <button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
                             <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 							
 							
@@ -2675,7 +2675,7 @@ END:VEVENT`;
 								<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
 								</svg>
 							</span>
-						</a> to copy the text or <a href="#" onclick="save_json()" >save answers to json</a>
+						</a> to copy the text or <a href="#" onclick="save_json()" >export the answers</a>
 						
 						
 					    </div>
@@ -2853,7 +2853,7 @@ END:VEVENT`;
                     </form>
 
                     <form class="" style="margin-left: 0px;" id="form_dataofficer">
-                        <label for="input_dataofficer"><h5>Data officer name:</h5></label>
+                        <label for="input_dataofficer"><h5>Data Officer Name:</h5></label>
                         <input
                             style="width: 26vw;"
                             class=""
@@ -3864,7 +3864,7 @@ END:VEVENT`;
                         <p class="c0"><span class="c3">Is documentation about the software needed to access the data included?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                As no software is needed, no documentation needs to be provided. #if$_DATAPLANT However, DataPLANT resources are well described, and their setup is documented on their github project pages. #endif$_DATAPLANT
+                                #if$_DATAPLANT However, DataPLANT resources are well described, and their setup is documented on their github project pages. #endif$_DATAPLANT
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Is it possible to include the relevant software (e.g. in open-source code)?</span></p>
@@ -4348,12 +4348,12 @@ END:VEVENT`;
                             <p class="c0">
                                 <span class="c1">
                                     #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern browser. Access will be possible through web interfaces. For data processing after obtaining raw data,
-                                    typical open-source software can be used. #endif!$_PROPRIETARY
+                                    typical open-source software can be used. As no proprietary software is needed, no documentation needs to be provided. #endif!$_PROPRIETARY
                                 </span>
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    As no software is needed, no documentation needs to be provided. #if$_DATAPLANT However, DataPLANT resources are well described, and their setup is documented on their github project pages.
+                                     #if$_DATAPLANT However, DataPLANT resources are well described, and their setup is documented on their github project pages.
                                     #endif$_DATAPLANT
                                 </span>
                             </p>
