@@ -2344,8 +2344,8 @@ END:VEVENT`;
             <a class="" href="https://nfdi4plants.org/" style="">
                 <img src="images/logo.png" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
             </a>
-            <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 3.25rem;">
-                <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="">
+            <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; z-index:1070; padding: 0 0 0 0; height: 3.25rem;">
+                <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="z-index:1070; ">
                     <button type="button" class="btn rounded-0 border-0 g-0 btn-nav " data-bs-toggle="dropdown" aria-expanded="false" id="menu">
                         Menu &nbsp;
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
@@ -2418,13 +2418,13 @@ END:VEVENT`;
                     </ul>
                 </div>
 
-                <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+                <div class="btn-group d-none g-0 d-md-block dropdown col-auto"  ">
                     <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
                         Templates &nbsp;
 
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" >
                         <li>
                             <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
                         </li>
@@ -2579,7 +2579,7 @@ END:VEVENT`;
             </div>
         </div>
         <div class="col-5" style="margin: 0 0 0 0; padding: 0 0 0 0px; background-color: rgb(45, 62, 80);">
-            <nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem;">
+            <nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80);">
                 <ul class="nav nav-fill nav-pills col-12 justify-content-center">
                     <li class="nav-item border-0">
                         <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading1">Basic Info</a>
