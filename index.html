@@ -2340,7 +2340,7 @@ END:VEVENT`;
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
 		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; padding-right: 0px; padding-left: 0px;">
     <div class="row" style="height: 3.25rem;">
-        <div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; z-index: 99; margin: 0 0 0 0px; padding: 0 0 0 0;">
+        <div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; margin: 0 0 0 0px; padding: 0 0 0 0;">
             <a class="" href="https://nfdi4plants.org/" style="">
                 <img src="images/logo.png" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
             </a>
@@ -2377,7 +2377,7 @@ END:VEVENT`;
                             </a>
                         </li>
 						<li>
-                            <label for="upload" class="form-label dropdown-item">
+                            <label for="Import" class="form-label dropdown-item">
                                 Import Answers
                                 <input class="form-control d-none" type="file" id="upload_menu" />
                             </label>
@@ -2455,7 +2455,7 @@ END:VEVENT`;
 
                 <div class="btn-group d-none rounded-0 g-0 d-md-block dropdown col-auto">
                     <button type="button" class="btn border-0  btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="upload_button" >
-                        Upload &nbsp;
+                        Import &nbsp;
 
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
@@ -2510,15 +2510,12 @@ END:VEVENT`;
 				
                 <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                     <button type="button" class="btn   border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button" >
-                        Save &nbsp;
+                        Export &nbsp;
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
-
-                            <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
-                        
+                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>         
                             <button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
                             <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 							
@@ -3460,7 +3457,7 @@ END:VEVENT`;
 						
 						<div class="dropdown col-4">
 						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link" data-bs-toggle="dropdown" aria-expanded="false">
-							Uploaded Answer
+							Import Answer
 						  </a>
 
 						  <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
@@ -3500,6 +3497,11 @@ END:VEVENT`;
                 <div class="modal-body">
 				Thanks for using and testing our tool. Please keep bearing with us. The tool will be continuously developed and improved. Any feedback is welcome. We don't use cookie to trace user and the tool can be used offline. Disconnect the internet or save it by "ctrl + S" will not affect the usage.
 				<br>
+				<span><b> 16th January 2023</b></span>
+                    <ul>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Model data duplication fixed</li>
+					<li><span class="badge bg-primary">Improvement</span> Change "Upload" menu to "Import" </li>
+					</ul>
 				<br>
 				<span><b> 6th December 2022</b></span>
                     <ul>
