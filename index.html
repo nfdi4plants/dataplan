@@ -121,6 +121,7 @@
 			var toast_list;
 			var cookie_modal;
 			var old_percentage;
+			var scroll_marker;
 			
 			var initialed = false; // set the initialed status to false
 			let temp_a = { // template answers used to compare with saved answers 
@@ -485,8 +486,10 @@
 				saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 				
+
+
 				
-				document.getElementById("vis").innerHTML ="",
+
 				document.getElementById("doc").scrollTop = scroll_y,
 				console.log("the window is scrolled to: "+ scroll_y);
 				
@@ -988,10 +991,10 @@
 			    
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary");
-				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").parentElement.classList.add("border-highlight");  ');
+				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").parentElement.classList.add("border-highlight");  ');
 							parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
-							parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.focus(); ');
-			                
+							parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").parentElement.focus(); ');
+			    parent_node.setAttribute("name",before+"-to-");            
 				let text_range = document.createRange(); 
 				text_range.setStart(in_range.endContainer, in_range.endOffset);
 				
@@ -1349,9 +1352,9 @@
 			               
 							newText.setAttribute("class", "text-warning text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
-							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
+							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
-							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].focus(); ');
+							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].focus(); ');
 			                newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter ;
 			                range.insertNode(newText);
 
@@ -1368,9 +1371,9 @@
 			                
 							newText.setAttribute("class", "text-warning text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
-							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
+							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
-							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].focus(); ');
+							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].focus(); ');
 							
 			                newText.innerHTML  ="&hairsp;"+ first_letter + HtmlEncode(after) + last_letter+ "&hairsp;";
 			                range.insertNode(newText);
@@ -1400,7 +1403,7 @@
 			});
 				
 			window.addEventListener('pagehide', (event) => {
-				scroll_y = document.getElementById("doc").scrollTop-537;
+				scroll_y = document.getElementById("doc").scrollTop;
 				window.localStorage.setItem("scroll_y", scroll_y); 
 				console.log("scroll_y page hide to cache is " +scroll_y );
 				});	
@@ -1540,10 +1543,15 @@
 				const observer = new MutationObserver(callback);
 
 				// Start observing the target node for configured mutations
+					
+			
 			observer.observe(dmp1_vis, config);
-
+			
 				
 			});
+			
+			
+			
 			function update_saved_json(answers){
 				try {
 				answers["update"];
@@ -2336,16 +2344,45 @@ END:VEVENT`;
 
 			
 			  }
+			  
+			function set_scrollbar_marker( scroll_marker, elements ){
+				scroll_marker= document.querySelector('.scroll-marker');
+				const doc = document.getElementById("doc");
+				let doc_height = doc.offsetHeight;
+				let doc_top = doc.scrollHeight;
+				
+				
+				
+				elements.forEach( e =>{
+					let e_top = e.offsetTop;
+					let e_bot = e_top + e.offsetHeight;
+					let parent_top = e.offsetParent.offsetTop ;
+					let marker_top = Math.ceil((e_top +parent_top) /doc_top * doc_height);
+					let marker_bot = Math.ceil((e_bot +parent_top) /doc_top * doc_height);
+					let marker_e = document.createElement("span");
+					marker_e.style.backgroundColor = "#E08F9C";
+					marker_e.style.top = marker_top+"px";
+					marker_e.style.height = (marker_bot-marker_top)+"px";
+					marker_e.setAttribute("name","scroll-bar-span");
+					scroll_marker.appendChild(marker_e);
+				
+					}
+
+				)
+
+			}  
+			  
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
-		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; padding-right: 0px; padding-left: 0px;">
-    <div class="row" style="height: 3.25rem;">
-        <div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; margin: 0 0 0 0px; padding: 0 0 0 0;">
+		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; padding-right: 0px; padding-left: 0px; position:absolute; ">
+    <div class="row" style="height: 3.25rem; ">
+        <div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; margin: 0 0 0 0px; padding: 0 0 0 0; ">
             <a class="" href="https://nfdi4plants.org/" style="">
                 <img src="images/logo.png" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
             </a>
-            <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; z-index:1070; padding: 0 0 0 0; height: 3.25rem;">
-                <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="z-index:1070; ">
+			
+            <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; ; padding: 0 0 0 0; height: 3.25rem;  ">
+                <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="">
                     <button type="button" class="btn rounded-0 border-0 g-0 btn-nav " data-bs-toggle="dropdown" aria-expanded="false" id="menu">
                         Menu &nbsp;
                         <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
@@ -2418,7 +2455,7 @@ END:VEVENT`;
                     </ul>
                 </div>
 
-                <div class="btn-group d-none g-0 d-md-block dropdown col-auto"  ">
+                <div class="btn-group d-none g-0 d-md-block dropdown col-auto"  >
                     <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
                         Templates &nbsp;
 
@@ -2579,7 +2616,7 @@ END:VEVENT`;
             </div>
         </div>
         <div class="col-5" style="margin: 0 0 0 0; padding: 0 0 0 0px; background-color: rgb(45, 62, 80);">
-            <nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80);">
+            <nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80); position:absolute">
                 <ul class="nav nav-fill nav-pills col-12 justify-content-center">
                     <li class="nav-item border-0">
                         <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading1">Basic Info</a>
@@ -2600,9 +2637,11 @@ END:VEVENT`;
             </nav>
         </div>
     </div>
-    <div class="row g-3" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y: hidden;">
-        <div class="col-7" id="doc" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0;">
-            <div class="col-12 parallax" id="doc2" style="overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
+    <div class="row g-3" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y: hidden; position:absolute; top:52px">
+        <div class="col-7" id="doc" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
+            <div class="col-12" id="doc2" style="top:7vh;overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
+			<div class="scroll-marker"> </div>
+			<button onclick="go_top()" id="up-to-top" title="Go to top">⭱</button>
 			<div aria-live="polite" aria-atomic="true" class="position-static" >
 				<div class="toast-container position-absolute translate-middle-x" style="z-index: 1200; left:28vw; ">
 					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
@@ -2700,15 +2739,15 @@ END:VEVENT`;
                         </svg>
                     </span>
                 </a>
-                <div id="doc3" class="row-auto col-10">
+                <div id="doc3" class="row-auto col-12" >
 				
 				
 				
 				</div>
             </div>
         </div>
-        <div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;">
-            <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;">
+        <div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;position:relative">
+            <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;" >
                 <div id="intro-tour-input">
                     <div id="warningText" ></div>
 
@@ -2728,6 +2767,8 @@ END:VEVENT`;
                             name="$_PROJECT"
                             placeholder="the project name"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                         />
                         
                         
@@ -2759,6 +2800,8 @@ END:VEVENT`;
                             name="$_STUDYOBJECT"
                             placeholder="the research object/target"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                         />
 
                         
@@ -2794,7 +2837,9 @@ END:VEVENT`;
                             rows="3"
                             style="width: 26vw;"
                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
-                        ></textarea>
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+						></textarea>
                         
                         
                     </form>
@@ -2810,8 +2855,14 @@ END:VEVENT`;
                             id="input_datautility"
                             name="$_DATAUTILITY"
                             placeholder="Data utilities"
-                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} ">
-                        </textarea>
+                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+							
+							
+							>
+                        
+						</textarea>
                         
                       
                     </form>
@@ -2828,7 +2879,9 @@ END:VEVENT`;
                             name="$_USERNAME"
                             placeholder="type your name here"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                        />
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+						/>
                         
                         
                     </form>
@@ -2844,7 +2897,9 @@ END:VEVENT`;
                             name="$_EMAIL"
                             placeholder="user email address"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                        />
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+						/>
                         
                         
                     </form>
@@ -2861,7 +2916,9 @@ END:VEVENT`;
                             name="$_dataofficer"
                             placeholder="data officer name"
                             onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                        />
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+						/>
                         
                         
                     </form>
@@ -2879,7 +2936,9 @@ END:VEVENT`;
                             name="$_DMPVERSION"
                             placeholder="Version of the DMP"
                             onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                        />
+							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+						/>
                         
                         
                     </form>
@@ -2887,8 +2946,10 @@ END:VEVENT`;
 					<h3>1.4 Chose some additional information</h3>
                     <div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
                         <div>
-                        <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" />
-                        <label class="form-check-label" for="check_protect">
+                        <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" 
+						 />
+                        <label class="form-check-label" id="check_protect_label" for="check_protect" 
+						>
                             The data is protected.
                         </label>
 						</div>
@@ -2903,7 +2964,8 @@ END:VEVENT`;
                             aria-expanded="false"
                             aria-controls="form_checkbox_5"
                             role="button"
-                            checked
+
+							
                         />
 
                         <label class="form-check-label" for="check_dataplant">
@@ -3064,6 +3126,8 @@ END:VEVENT`;
                                 name="$_UPDATEMONTH"
                                 placeholder="month of update"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
+								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                             />
 
                             
@@ -3083,6 +3147,8 @@ END:VEVENT`;
                                 name="$_PREVIOUSPROJECTS"
                                 placeholder="previous project here"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
+								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                             />
 
                             
@@ -3103,6 +3169,8 @@ END:VEVENT`;
                                 name="$_proprietary"
                                 placeholder=" proprietary software "
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
+								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                             />
 
                             
@@ -3207,6 +3275,8 @@ END:VEVENT`;
                                 name="$_RAWDATA"
                                 placeholder="raw data volume (in GB)"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
+								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                             />
                             GB
 
@@ -3227,6 +3297,8 @@ END:VEVENT`;
                                 name="$_DERIVEDDATA"
                                 placeholder="derived data volume (in GB)"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
+								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
                             />
                             GB
 
@@ -3635,7 +3707,7 @@ END:VEVENT`;
                     <p class="c0">
                         <span class="c1">
                             The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to
-                            include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT but, of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
+                            include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT, but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
                             Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data
                             Bank of Japan: DDBJ (JP). Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
                         </span>
@@ -5173,7 +5245,7 @@ END:VEVENT`;
                                             "
                                         >
                                             Raw data collected in previous steps are stored immediately by using#if$_DATAPLANT the infrastructure of DataPLANT #endif$_DATAPLANT #if!$_DATAPLANT in a secure infrastructure. <a href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a> (Annotated
-                                            Research Context) are used as a container to store the raw data as well as metadata and workflow.#endif!$_DATAPLANT
+                                            Research Context) is used as a container to store the raw data as well as metadata and workflow.#endif!$_DATAPLANT
                                         </span>
                                     </p>
                                     <ol style="margin-top: 0; margin-bottom: 0; padding-inline-start: 48px;" start="2">
@@ -7201,8 +7273,32 @@ END:VEVENT`;
     </div>
 </div>
 
-
+		<script>
+		let up_to_top = document.getElementById("up-to-top");
+		let doc = document.getElementById("doc");
+			doc.onscroll = function(){scroll_function()};
+			function scroll_function(){
+			
+			if (doc.scrollTop >40){
+				up_to_top.style.display ="block";
+				} else {
+				up_to_top.style.display ="none";
+				}
+			
+			}
+			function go_top() {
+			  const doc = document.getElementById("doc");
+			  doc.scrollTop = 0;
+			}
 		
+		let checkboxes = document.querySelectorAll(".form-check-input");
+		checkboxes.forEach( e => {							
+			e.setAttribute("onmouseover", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )');
+			e.setAttribute("onmouseleave", 'const elem1 = document.getElementsByName(this.id+"-to-");elem1.forEach(e => e.classList.remove("border-highlight")); document.getElementsByName("scroll-bar-span").forEach(e => {e.remove()})');
+			}
+		);	
+			
+		</script>
 	  </body>
 	  <script src="js/cloud.min.js" charset="utf-8"> </script>
 		

@@ -289,9 +289,9 @@ p{
 }
 
 .border-highlight{
-    border:2px dashed #c21f3a;  
-	padding:0.03em 0.25em;
-	box-shadow: 3px 3px 1px 2px #1fc2a7;
+    background: ; 
+
+	box-shadow:  inset 0 0 3px 1px #c21f3a;
 }
 
 /* (A) LIST STYLES */
@@ -334,4 +334,51 @@ left: auto;
 }
 .dropdown-menu > li:hover > .dropdown-submenu {
 display: block;
+}
+
+.scroll-marker {
+    position: absolute;
+    
+    width: 8px;
+    pointer-events: none;
+	right:41.7vw;
+	
+	z-index:1200;
+	
+    
+}
+
+.scroll-marker span {
+    /* markers */
+	
+
+    position: absolute;
+	right:0;
+	width: 8px;
+}
+
+.modal-backdrop {
+	z-index:1000;
+	
+	
+}
+
+#up-to-top {
+  display: none;
+  position: absolute;
+  bottom: 50px;
+  right: 42.5vw;
+  z-index: 1020;
+  font-size: 34px;
+  border: none;
+  outline: none;
+	background: rgba(76, 175, 80, 0); 
+  color: #c21f3a;
+  cursor: pointer;
+  padding: 0px;
+  border-radius:0px;
+}
+
+#up-to-top:hover {
+  color: #8ad3d3;
 }

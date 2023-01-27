@@ -4,7 +4,7 @@
   color:green;
   border: 3px solid black;
   border-radius: 5px;
-  z-index: 1051;
+  z-index: 1051 !important; 
 }
 
 body.tour-active-element {
