@@ -7294,7 +7294,7 @@ END:VEVENT`;
 		let checkboxes = document.querySelectorAll(".form-check-input");
 		checkboxes.forEach( e => {							
 			e.setAttribute("onmouseover", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )');
-			e.setAttribute("onmouseleave", 'const elem1 = document.getElementsByName(this.id+"-to-");elem1.forEach(e => e.classList.remove("border-highlight")); document.getElementsByName("scroll-bar-span").forEach(e => {e.remove()})');
+			e.setAttribute("onmouseleave", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => e.classList.remove("border-highlight")); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
 			}
 		);	
 			
