@@ -980,7 +980,7 @@
 
 			/**
 			 * match a place holder and then modify it.
-			 * @param {string} right_range - the extended keyword (includes #if and #endif) need to be replaced.
+			 * @param {string} in_range - the extended keyword (includes #if and #endif) need to be replaced.
 			 *
 			 */
 
@@ -991,10 +991,12 @@
 			    
 				const parent_node= document.createElement("span");
 				parent_node.classList.add("text-primary");
-				parent_node.setAttribute("onmouseover", 'document.getElementById("'+before+'").parentElement.classList.add("border-highlight");  ');
-							parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
-							parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").parentElement.focus(); ');
-			    parent_node.setAttribute("name",before+"-to-");            
+				parent_node.setAttribute("onmouseover", 'const e = document.getElementById("'+before+'") ;e.parentElement.classList.add("border-highlight");e.focus({preventScroll: true})');
+				
+				
+				parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
+				parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").focus(); ');
+			    parent_node.setAttribute("name",before+"-to-");
 				let text_range = document.createRange(); 
 				text_range.setStart(in_range.endContainer, in_range.endOffset);
 				
@@ -1352,7 +1354,7 @@
 			               
 							newText.setAttribute("class", "text-warning text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
-							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
+							newText.setAttribute("onmouseover", 'const e = document.getElementsByName("'+before+'"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
 							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].focus(); ');
 			                newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter ;
@@ -1371,7 +1373,7 @@
 			                
 							newText.setAttribute("class", "text-warning text-center");
 							newText.setAttribute("name", before.split("_")[1] + "-to-");
-							newText.setAttribute("onmouseover", 'document.getElementsByName("'+before+'")[0].classList.add("border-highlight");  ');
+							newText.setAttribute("onmouseover", 'const e = document.getElementsByName("'+before+'"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
 							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].focus(); ');
 							
@@ -2250,11 +2252,11 @@ END:VEVENT`;
 				return vcal;
 			}
 			
-			function printDiv1(id) {
+			function printDiv1(id="doc3") {
 			    var divContents = document.getElementById(id).innerHTML;
 			    var a = window.open('', '', 'height=800, width=600');
 			    a.document.write('<html>');
-			    a.document.write('<body > ');
+			    a.document.write('<body> ');
 			    a.document.write(divContents);
 			    a.document.write('</body></html>');
 			    a.document.close();
@@ -2294,7 +2296,7 @@ END:VEVENT`;
 			    }
 			    reminders = [{
 			            title: "Question reminders",
-			            content: question_reminder + " <br> " + issue_reminder + ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1("doc3")">print</a> it anyway.'
+			            content: question_reminder + " <br> " + issue_reminder + ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> it anyway.'
 
 			            //
 			        }
@@ -2374,1140 +2376,1140 @@ END:VEVENT`;
 			  
 		</script>			
 		<body  class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px "  >
-		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; padding-right: 0px; padding-left: 0px; position:absolute; ">
-    <div class="row" style="height: 3.25rem; ">
-        <div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; margin: 0 0 0 0px; padding: 0 0 0 0; ">
-            <a class="" href="https://nfdi4plants.org/" style="">
-                <img src="images/logo.png" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
-            </a>
-			
-            <div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; ; padding: 0 0 0 0; height: 3.25rem;  ">
-                <div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="">
-                    <button type="button" class="btn rounded-0 border-0 g-0 btn-nav " data-bs-toggle="dropdown" aria-expanded="false" id="menu">
-                        Menu &nbsp;
-                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
-                    </button>
-                    <ul class="dropdown-menu">
-                    <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
-                        </li>
-                        <li>
-                            <button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
-                        </li>
-                        <li>
-                            <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
-                        </li>
-                        <li>
-                            <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
-                        </li>
-                        <li>
-                            <a
-                                id="template-input"
-                                class="dropdown-item"
-                                data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-template-input"
-                                aria-controls="offcanvas-template-input"
-                                onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
-                                href="#"
-                            >
-                                User Defined Template
-                            </a>
-                        </li>
-						<li>
-                            <label for="Import" class="form-label dropdown-item">
-                                Import Answers
-                                <input class="form-control d-none" type="file" id="upload_menu" />
-                            </label>
-                        </li>
-                        <li>
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore Default (Clear Input)</button>
-                        </li>
-                        <li>
-                            <button
-                                id="word_cloud"
-                                class="dropdown-item"
-                                onclick='parseText()'
-                            >
-                               Generate Word Cloud
-                            </button>
-                        </li>
-                        <li>
-                            <label for="image_upload" class="form-label dropdown-item">
-                                Upload Frontpage Image
-                                <input class="form-control d-none" type="file" id="image_upload" onchange="upload_image()" />
-                            </label>
-                        </li>
-						<li>
-                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
-
-                            <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
-                        
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
-                            <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
-							
-							
-							
-							
-                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
-							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
-							
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="btn-group d-none g-0 d-md-block dropdown col-auto"  >
-                    <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
-                        Templates &nbsp;
-
-                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
-                    </button>
-                    <ul class="dropdown-menu" >
-                        <li>
-                            <button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
-                        </li>
-                        <li>
-                            <button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
-                        </li>
-                        <li>
-                            <button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
-                        </li>
-                        <li>
-                            <button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
-                        </li>
-                        <li>
-                            <a
-                                id="template-input"
-                                class="dropdown-item"
-                                data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-template-input"
-                                aria-controls="offcanvas-template-input"
-                                onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
-                                href="#"
-                            >
-                                User Defined Template
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="btn-group d-none rounded-0 g-0 d-md-block dropdown col-auto">
-                    <button type="button" class="btn border-0  btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="upload_button" >
-                        Import &nbsp;
-
-                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <label for="upload" class="form-label dropdown-item">
-                                Import Answers
-                                <input class="form-control d-none" type="file" id="upload" />
-                            </label>
-                        </li>
-                        <li>
-                            <button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore Default (Clear Input)</button>
-                        </li>
-                        <li>
-                            <button
-                                id="word_cloud"
-                                class="dropdown-item"
-                                onclick='parseText()'
-                            >
-                               Generate Word Cloud
-                            </button>
-                        </li>
-                        <li>
-                            <label for="image_upload" class="form-label dropdown-item">
-                                Upload Frontpage Image
-                                <input class="form-control d-none" type="file" id="image_upload_menu" onchange="upload_image()" />
-                            </label>
-                        </li>
-						<li>
-							<button id="load_from_cache" class="dropdown-item" >Load from Cache &raquo;</button>
-							<ul class="dropdown-menu  dropdown-submenu">
-								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">Slot 1</a>
-								</li>
-								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">Slot 2</a>
-								</li>
-								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">Slot 3</a>
-								  
-								</li>
-								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">Slot 4</a>
-								</li>
-								<li>
-								  <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache" onclick="load_from_cache(5)" href="#">Slot 5</a>
-								</li>
-							  </ul>
-							</li>
-                    </ul>
-                </div>
-				
-                <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
-                    <button type="button" class="btn   border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button" >
-                        Export &nbsp;
-                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>         
-                            <button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
-                            <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
-							
-							
-							
-							
-                            <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
-							<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
-							<li>
-							<button id="save_to_cache" class="dropdown-item" >Save to Cache &raquo;</button>
-							<ul class="dropdown-menu dropdown-submenu">
-								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Slot 1</a>
-								</li>
-								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Slot 2</a>
-								</li>
-								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Slot 3</a>
-								  
-								</li>
-								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Slot 4</a>
-								</li>
-								<li>
-								  <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Slot 5</a>
-								</li>
-							  </ul>
-							</li>
-                        </li>
-                    </ul>
+		<div class="container-fluid" style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; 		padding-right: 0px; padding-left: 0px; position:absolute; ">
+			<div class="row" style="height: 3.25rem; ">
+				<div class="col-7" style="background: rgb(45, 62, 80); height: 3.25rem; margin: 0 0 0 0px; padding: 0 0 0 0; ">
+					<a class="" href="https://nfdi4plants.org/" style="">
+						<img src="images/logo.png" alt="Logo" width="32" height="32" style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 4px;" />
+					</a>
 					
-                    
-                </div>
-                <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
-                    <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="help_menu" >
-                        Help &nbsp;
+					<div class="justify-content-center row d-flex align-items-center" style="margin: 0 0 0 0; ; padding: 0 0 0 0; height: 3.25rem;  ">
+						<div class="btn-group d-md-none g-0 dropdown col-auto d-flex align-items-center" style="">
+							<button type="button" class="btn rounded-0 border-0 g-0 btn-nav " data-bs-toggle="dropdown" aria-expanded="false" id="menu">
+								Menu &nbsp;
+								<a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
+							</button>
+							<ul class="dropdown-menu">
+							<li>
+									<button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
+								</li>
+								<li>
+									<button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
+								</li>
+								<li>
+									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
+								</li>
+								<li>
+									<button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
+								</li>
+								<li>
+									<a
+										id="template-input"
+										class="dropdown-item"
+										data-bs-toggle="offcanvas"
+										data-bs-target="#offcanvas-template-input"
+										aria-controls="offcanvas-template-input"
+										onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
+										href="#"
+									>
+										User Defined Template
+									</a>
+								</li>
+								<li>
+									<label for="Import" class="form-label dropdown-item">
+										Import Answers
+										<input class="form-control d-none" type="file" id="upload_menu" />
+									</label>
+								</li>
+								<li>
+									<button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore Default (Clear Input)</button>
+								</li>
+								<li>
+									<button
+										id="word_cloud"
+										class="dropdown-item"
+										onclick='parseText()'
+									>
+									   Generate Word Cloud
+									</button>
+								</li>
+								<li>
+									<label for="image_upload" class="form-label dropdown-item">
+										Upload Frontpage Image
+										<input class="form-control d-none" type="file" id="image_upload" onchange="upload_image()" />
+									</label>
+								</li>
+								<li>
+									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
 
-                        <a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <button id="tutorial_button" class="dropdown-item" onclick="tour.show()">Tutorial</button>
-                        </li>
-                        <li>
-                            <a id="wiki_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/wiki">Wiki</a>
-                        </li>
-						<li>
-                            <a id="github_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip" data-bs-placement="top" title="bugs, suggestions or comments are welcom here">GitHub</a>
-                        </li>
-						<li>
-						<button id="print_q" class="dropdown-item" onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print Questions</button>
-						</li>
-						<li>
-						<button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog <span class="badge bg-secondary">1</span>
-  </span></button>
-						</li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-5" style="margin: 0 0 0 0; padding: 0 0 0 0px; background-color: rgb(45, 62, 80);">
-            <nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80); position:absolute">
-                <ul class="nav nav-fill nav-pills col-12 justify-content-center">
-                    <li class="nav-item border-0">
-                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading1">Basic Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading2">Data Type</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading3">Data Volume</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0"  href="#scrollspyHeading4">Data Standards</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <div class="row g-3" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y: hidden; position:absolute; top:52px">
-        <div class="col-7" id="doc" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
-            <div class="col-12" id="doc2" style="top:7vh;overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
-			<div class="scroll-marker"> </div>
-			<button onclick="go_top()" id="up-to-top" title="Go to top">⭱</button>
-			<div aria-live="polite" aria-atomic="true" class="position-static" >
-				<div class="toast-container position-absolute translate-middle-x" style="z-index: 1200; left:28vw; ">
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-						Copied to clipboard
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
+									<button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
+								
+									<button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
+									<button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
+									
+									
+									
+									
+									<button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
+									<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
+									
+								</li>
+							</ul>
+						</div>
+
+						<div class="btn-group d-none g-0 d-md-block dropdown col-auto"  >
+							<button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="change_template" >
+								Templates &nbsp;
+
+								<a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
+							</button>
+							<ul class="dropdown-menu" >
+								<li>
+									<button id="detailed_dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dmp1")'>European DMP</button>
+								</li>
+								<li>
+									<button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
+								</li>
+								<li>
+									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
+								</li>
+								<li>
+									<button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
+								</li>
+								<li>
+									<a
+										id="template-input"
+										class="dropdown-item"
+										data-bs-toggle="offcanvas"
+										data-bs-target="#offcanvas-template-input"
+										aria-controls="offcanvas-template-input"
+										onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
+										href="#"
+									>
+										User Defined Template
+									</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="btn-group d-none rounded-0 g-0 d-md-block dropdown col-auto">
+							<button type="button" class="btn border-0  btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="upload_button" >
+								Import &nbsp;
+
+								<a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<label for="upload" class="form-label dropdown-item">
+										Import Answers
+										<input class="form-control d-none" type="file" id="upload" />
+									</label>
+								</li>
+								<li>
+									<button id="clear_cache" class="dropdown-item" onclick="window.localStorage.clear();document.location.reload()">Restore Default (Clear Input)</button>
+								</li>
+								<li>
+									<button
+										id="word_cloud"
+										class="dropdown-item"
+										onclick='parseText()'
+									>
+									   Generate Word Cloud
+									</button>
+								</li>
+								<li>
+									<label for="image_upload" class="form-label dropdown-item">
+										Upload Frontpage Image
+										<input class="form-control d-none" type="file" id="image_upload_menu" onchange="upload_image()" />
+									</label>
+								</li>
+								<li>
+									<button id="load_from_cache" class="dropdown-item" >Load from Cache &raquo;</button>
+									<ul class="dropdown-menu  dropdown-submenu">
+										<li>
+										  <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache" onclick="load_from_cache(1)" href="#">Slot 1</a>
+										</li>
+										<li>
+										  <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache" onclick="load_from_cache(2)" href="#">Slot 2</a>
+										</li>
+										<li>
+										  <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache" onclick="load_from_cache(3)" href="#">Slot 3</a>
+										  
+										</li>
+										<li>
+										  <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache" onclick="load_from_cache(4)" href="#">Slot 4</a>
+										</li>
+										<li>
+										  <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache" onclick="load_from_cache(5)" href="#">Slot 5</a>
+										</li>
+									  </ul>
+									</li>
+							</ul>
+						</div>
+						
+						<div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+							<button type="button" class="btn   border-0 btn-nav rounded-0" data-bs-toggle="dropdown" aria-expanded="false" id="save_button" >
+								Export &nbsp;
+								<a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>         
+									<button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
+									<button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
+									
+									
+									
+									
+									<button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
+									<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
+									<li>
+									<button id="save_to_cache" class="dropdown-item" >Save to Cache &raquo;</button>
+									<ul class="dropdown-menu dropdown-submenu">
+										<li>
+										  <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Slot 1</a>
+										</li>
+										<li>
+										  <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Slot 2</a>
+										</li>
+										<li>
+										  <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Slot 3</a>
+										  
+										</li>
+										<li>
+										  <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Slot 4</a>
+										</li>
+										<li>
+										  <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Slot 5</a>
+										</li>
+									  </ul>
+									</li>
+								</li>
+							</ul>
+							
+							
+						</div>
+						<div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+							<button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown" aria-expanded="false" id="help_menu" >
+								Help &nbsp;
+
+								<a style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </a>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<button id="tutorial_button" class="dropdown-item" onclick="tour.show()">Tutorial</button>
+								</li>
+								<li>
+									<a id="wiki_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/wiki">Wiki</a>
+								</li>
+								<li>
+									<a id="github_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip" data-bs-placement="top" title="bugs, suggestions or comments are welcom here">GitHub</a>
+								</li>
+								<li>
+								<button id="print_q" class="dropdown-item" onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print Questions</button>
+								</li>
+								<li>
+								<button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog <span class="badge bg-secondary">1</span>
+		  </span></button>
+								</li>
+								
+							</ul>
+						</div>
 					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-						This saved answers are updated
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
+				</div>
+				<div class="col-5" style="margin: 0 0 0 0; padding: 0 0 0 0px; background-color: rgb(45, 62, 80);">
+					<nav id="navbar-interface" class="nav-fill navbar" style="margin: 0; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80); position:absolute">
+						<ul class="nav nav-fill nav-pills col-12 justify-content-center">
+							<li class="nav-item border-0">
+								<a class="nav-link border-0 rounded-0"  href="#scrollspyHeading1">Basic Info</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link border-0 rounded-0"  href="#scrollspyHeading2">Data Type</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link border-0 rounded-0"  href="#scrollspyHeading3">Data Volume</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link border-0 rounded-0"  href="#scrollspyHeading4">Data Standards</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="row g-3" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y: hidden; position:absolute; top:52px">
+				<div class="col-7" id="doc" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
+					<div class="col-12" id="doc2" style="top:7vh;overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
+					<div class="scroll-marker"> </div>
+					<button onclick="go_top()" id="up-to-top" title="Go to top">⭱</button>
+					<div aria-live="polite" aria-atomic="true" class="position-static" >
+						<div class="toast-container position-absolute translate-middle-x" style="z-index: 1200; left:28vw; ">
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								Copied to clipboard
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								This saved answers are updated
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								All saved answers are updated
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								Save answers to cache is successful
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								Current answer is NOT saved
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								Load from cache successful
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								Congrats! All questions are answers.
+								You can click this clipboard 
+								<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
+									<span class=" clip ">
+										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+										<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+										<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+										</svg>
+									</span>
+								</a> to copy the text or <a href="#" onclick="save_json()" >export the answers</a>
+								
+								
+								</div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+							<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+								<div class="toast-body">
+								Load from cache failed, because the slot selected is empty.
+							   </div>
+								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								</button>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-						All saved answers are updated
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
-					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-						Save answers to cache is successful
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
-					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-					 	Current answer is NOT saved
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
-					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-					 	Load from cache successful
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
-					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-					 	Congrats! All questions are answers.
-						You can click this clipboard 
-						<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
-							<span class=" clip ">
+						<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" style="top: 2vh; left: 63vw; position: fixed; text-shadow: 2px 2px 4px 16px; border-radius: 2px;">
+							<span class="d-none clip sticky-top float-end">
 								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
-								<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-								<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-								<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+									<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+									<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+									<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
 								</svg>
 							</span>
-						</a> to copy the text or <a href="#" onclick="save_json()" >export the answers</a>
+						</a>
+						<div id="doc3" class="row-auto col-12" >
 						
 						
-					    </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
+						
+						</div>
 					</div>
-					<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-					  <div class="d-flex">
-						<div class="toast-body">
-					 	Load from cache failed, because the slot selected is empty.
-					   </div>
-						<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-						</button>
-					    </div>
+				</div>
+				<div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;position:relative">
+					<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;" >
+						<div id="intro-tour-input">
+							<div id="warningText" ></div>
+
+							<h2 id="scrollspyHeading1">1 Basic Information:</h2>
+
+							<form class="" style="margin-left: 0px;" id="form_project">
+								<h3>1.1 Give the project name or acronym to be used:</h3>
+								<label for="input_project"></label>
+								<input
+									style="width: 26vw;"
+									class="col-auto"
+									type="text"
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									
+									id="input_project"
+									name="$_PROJECT"
+									placeholder="the project name"
+									onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+							
+
+							<form id="form_studyobject">
+								<label for="input_studyobject">
+									<h3>
+										1.2 Give the object
+										<a href="#"  data-bs-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
+											<span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">
+												<svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+													<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+													<path
+														d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+													/></svg></span></a>
+										to be studied:
+									</h3>
+								</label>
+
+								<input
+									style="width: 26vw;"
+									class="col-auto"
+									type="text"
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									id="input_studyobject"
+									name="$_STUDYOBJECT"
+									placeholder="the research object/target"
+									onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+
+								
+
+								
+							</form>
+
+							<form id="form_projectaim">
+								<label class="" for="input_projectaim">
+									<h3>
+										and the project aim
+										 <a href="#"  data-bs-toggle="tooltip" title="click to see some example project aim" tabindex="-1">
+										<span class="text-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" >
+											(what do you want to achieve?)
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
+												<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+												<path
+													d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+												/>
+											</svg>
+										</span>
+										</a>
+									</h3>
+								</label>
+								<textarea
+									type="text"
+									style="width: 26vw;"
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									id="input_projectaim"
+									name="$_PROJECTAIM"
+									placeholder="project aim"
+									rows="3"
+									style="width: 26vw;"
+									onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								></textarea>
+								
+								
+							</form>
+							<form class="" style="margin-left: 0px;" id="form_datautility">
+								<h3>To whom data will be useful? (data utility) :</h3>
+								<label for="input_datautility"></label>
+								<textarea
+									style="width: 26vw;"
+									class="col-auto"
+									type="text"
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									id="input_datautility"
+									name="$_DATAUTILITY"
+									placeholder="Data utilities"
+									onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									
+									
+									>
+								
+								</textarea>
+								
+							  
+							</form>
+							<form class="" style="margin-left: 0px;" id="form_username">
+								<h3>1.3 Other DMP Metadata</h3>
+								<label for="input_username"><h5>User Name:</h5></label>
+								<input
+									style="width: 26vw;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="text"
+									id="input_username"
+									name="$_USERNAME"
+									placeholder="type your name here"
+									onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+							<form class="" style="margin-left: 0px;" id="form_email">
+								<label for="input_email"><h5>User Email:</h5>         </label>
+								<input
+									style="width: 26vw;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="text"
+									id="input_email"
+									name="$_EMAIL"
+									placeholder="user email address"
+									onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+
+							<form class="" style="margin-left: 0px;" id="form_dataofficer">
+								<label for="input_dataofficer"><h5>Data Officer Name:</h5></label>
+								<input
+									style="width: 26vw;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="text"
+									id="input_dataofficer"
+									name="$_dataofficer"
+									placeholder="data officer name"
+									onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+							
+							
+							<form class="" style="margin-left: 0px;" id="form_dmpversion">
+								<label for="input_dmpversion"><h5>DMP version:</h5></label>
+								<input
+									style="width: 26vw;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="text"
+									id="input_dmpversion"
+									name="$_DMPVERSION"
+									placeholder="Version of the DMP"
+									onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+							
+							<h3>1.4 Chose some additional information</h3>
+							<div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
+								<div>
+								<input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" 
+								 />
+								<label class="form-check-label" id="check_protect_label" for="check_protect" 
+								>
+									The data is protected.
+								</label>
+								</div>
+								<div>
+								<input
+									class="form-check-input checkbox_1"
+									type="checkbox"
+									value="2"
+									id="check_dataplant"
+									data-bs-toggle="collapse"
+									data-bs-target="#form_checkbox_5"
+									aria-expanded="false"
+									aria-controls="form_checkbox_5"
+									role="button"
+
+									
+								/>
+
+								<label class="form-check-label" for="check_dataplant">
+								
+									Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
+								</label>
+								</div>
+								<div>
+								<input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#form_updatemonth" aria-expanded="false" aria-controls="form_updatemonth" role="button" />
+								<label class="form-check-label" for="check_update">
+									This project will be updated.
+								</label>
+								</div><div>
+
+								<input
+									class="form-check-input checkbox_1"
+									type="checkbox"
+									value="4"
+									id="check_previousprojects"
+									data-bs-toggle="collapse"
+									data-bs-target="#form_previousprojects"
+									aria-expanded="false"
+									aria-controls="form_previousprojects"
+									role="button"
+								/>
+								<label class="form-check-label" for="check_previousprojects">
+									This project has previous projects.
+								</label>
+
+								</div><div>
+								<input class="form-check-input checkbox_1" type="checkbox" value="5" id="check_industry" />
+								<label class="form-check-label" for="check_industry">
+									This is an industry project.
+								</label>
+								</div><div>
+
+								<input
+									class="form-check-input checkbox_1"
+									type="checkbox"
+									value="6"
+									id="check_proprietary"
+									data-bs-toggle="collapse"
+									data-bs-target="#form_proprietary"
+									aria-expanded="false"
+									aria-controls="form_proprietary"
+									role="button"
+								/>
+								<label class="form-check-label" for="check_proprietary">
+									This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_1" type="checkbox" value="7" id="check_partners" />
+								<label class="form-check-label" for="check_partners">
+									This project has partners.
+								</label>
+								</div><div>
+								<input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_EU" />
+								<label class="form-check-label" for="check_EU">
+									EU project.
+								</label>
+								 </div>
+							</div>
+
+							<input class="btn btn-primary form-check collapse btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
+							
+
+							<div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
+								
+								   <h3> Where will you submit your data as endpoints?</h3> 
+								<div>   
+								<input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
+								<label class="form-check-label" for="check_ENA">
+									ENA
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
+								<label class="form-check-label" for="check_GEO">
+									GEO
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_NCBI" checked />
+								<label class="form-check-label" for="check_NCBI">
+									NCBI
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
+								<label class="form-check-label" for="check_GenBank">
+									genbank
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
+								<label class="form-check-label" for="check_Pride">
+									pride
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
+								<label class="form-check-label" for="check_Proteomexchange">
+									proteomexchange
+								</label>
+								</div><div>
+
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
+								<label class="form-check-label" for="check_Zenodo">
+									zenodo
+								</label>
+
+								</div>
+								<div>
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
+								<label class="form-check-label" for="check_dataDyrad">
+									dataDyrad
+								</label>
+								</div>
+								
+								<div>
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
+								<label class="form-check-label" for="check_metabolights">
+									Metabolights
+								</label>
+								</div>
+								
+								<div>
+								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_otherep" checked />
+								<label class="form-check-label" for="check_otherep">
+									Other Endpoint Repositories:
+									<input
+										style="width: 24vw;"
+										type="text"
+										class="col-auto"
+										id="input_otherep"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										name="$_OTHEREP"
+										onchange= ' saved_a["replace"]["$_OTHEREP"]= this.value '
+										placeholder="complete sentence of the other endpoint repositories"
+										onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }'
+										/>
+								</label>
+								</div>
+							</div>
+							<input class="btn collapse btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick='get_option(this)' />
+							
+							
+								<form class="collapse" id="form_updatemonth">
+									<label for="intput_updatemonth">At which month will your project be updated?</label>
+									<input
+										style="width: 26vw;"
+										type="text"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										id="intput_updatemonth"
+										name="$_UPDATEMONTH"
+										placeholder="month of update"
+										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
+										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									/>
+
+									
+								</form>
+							
+
+							
+								
+								<form class="collapse" id="form_previousprojects">
+									<label for="intput_previousprojects">The name of your previous project is:</label>
+									<input
+										style="width: 26vw;"
+										type="text"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										id="intput_previousprojects"
+										name="$_PREVIOUSPROJECTS"
+										placeholder="previous project here"
+										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
+										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									/>
+
+									
+								</form>
+						   
+
+							
+							 
+								<form class="collapse" id="form_proprietary">
+									<label for="input_proprietary">The name of your proprietary software is:</label>
+
+									<input
+										style="width: 26vw;"
+										type="text"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										id="input_proprietary"
+										name="$_proprietary"
+										placeholder=" proprietary software "
+										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
+										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									/>
+
+									
+								</form>
+							
+
+							<form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
+								<h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" />
+									<label class="form-check-label" for="check_image">
+										image
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="2" id="check_RNAseq" />
+									<label class="form-check-label" for="check_RNAseq">
+										RNAseq
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="3" id="check_genomic" />
+									<label class="form-check-label" for="check_genomic">
+										other NGS (genomics)
+									</label>
+								</div>
+
+								<div class="form-data_type form-check">
+									<label class="form-check-label" for="check_metabolomic">
+										metabolomics
+									</label>
+									<input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" />
+								</div>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" />
+									<label class="form-check-label" for="check_proteomic">
+										proteomics
+									</label>
+								</div>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="6" id="check_targeted" />
+									<label class="form-check-label" for="check_targeted">
+										targeted assays (e.g. glucose and fructose content)
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="7" id="check_models" />
+									<label class="form-check-label" for="check_models">
+										models
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="8" id="check_code" />
+									<label class="form-check-label" for="check_code">
+										code
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="9" id="check_excel" />
+									<label class="form-check-label" for="check_excel">
+										<a href="#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research.">excel </a>
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="10" id="check_cloned-DNA" />
+									<label class="form-check-label" for="check_cloned-DNA">
+										cloned DNA
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="11" id="check_phenotypic" />
+									<label class="form-check-label" for="check_phenotypic">
+										phenotypic
+									</label>
+								</div>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" />
+									<label class="form-check-label" for="check_genetic"> genetics </label>
+								</div>
+							</form>
+
+							<input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
+							
+
+							<br />
+
+							<h2 id="scrollspyHeading3">3. How much data you will probably generate:</h2>
+
+							<form class="" style="margin-left: 0px;" id="form_rawdata">
+								<label for="input_rawdata"><h3>3.1 Raw data volume is :</h3> </label>
+								<div class="align-bottom">
+									<input
+										style="width: 24vw;"
+										type="text"
+										class="col-auto"
+										id="input_rawdata"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										name="$_RAWDATA"
+										placeholder="raw data volume (in GB)"
+										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
+										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									/>
+									GB
+
+								  
+								</div>
+							</form>
+
+							<form class="" style="margin-left: 0px;" id="form_deriveddata">
+								<label for="input_deriveddata"><h3>3.2 Derived data volume is :</h3> </label>
+								<div class="align-bottom">
+									<input
+										style="width: 24vw;"
+										type="text"
+										class="col-auto"
+										id="input_deriveddata"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										name="$_DERIVEDDATA"
+										placeholder="derived data volume (in GB)"
+										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
+										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									/>
+									GB
+
+									
+								</div>
+							</form>
+
+							<div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
+								<h2 id="scrollspyHeading4">4. Are there any standards that are relevant for you?</h2>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" />
+									<label class="form-check-label" for="check_MIAPPE">
+										MIAPPE
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeqE" />
+									<label class="form-check-label" for="check_MinSeqE">
+										MinSeqE
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_otherstandards" />
+									<label class="form-check-label" for="check_otherstandards">
+									
+									<input
+										style="width: 24vw;"
+										type="text"
+										class="col-auto"
+										id="input_otherstandardinput"
+										onfocusin="this.select();"
+										onchange="onchange_replace(this);"
+										name="$_OTHERSTANDARDINPUT"
+										onchange= ' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
+										placeholder="complete sentence of the other standards"
+										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
+										/>
+
+									
+									
+									</label>
+								</div>
+								
+								<br />
+								<h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_dublin_core" checked />
+									<label class="form-check-label" for="check_dublin_core">
+										Dublin Core
+									</label>
+								</div>
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_3" type="checkbox" value="2" id="check_marc_21" />
+									<label class="form-check-label" for="check_marc_21">
+										MARC 21
+									</label>
+								</div>
+								<br />
+								<h3>4.2 When will you make your data public?</h3>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" role="button" checked />
+									<label class="form-check-label" for="check_early">Will you publish your data early?</label>
+								</div>
+
+								<div class="collapse" id="q6_2">
+									<div class="form-data_type form-check">
+										<input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
+										<label class="form-check-label" for="check_ipissue">
+											Are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account
+										</label>
+									</div>
+								</div>
+								<br />
+								 <h2 id="scrollspyHeading5">5. Do you use visualization in the project?</h2>
+							<div class="form-check form-switch"  >
+							<input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization"  >
+							   <label class="form-check-label" for="check_vvisualization">Do you use visualization? </label>
+
+								
+								
+							</div>
+							</div>
+							<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox="checkbox_3" onclick="get_option(this)" >
+								
+
+							
+
+
+
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+						</div>
 					</div>
+				</div>
+				<div class="progress position-absolute bottom-0" style="margin: 0 0 0 0; padding: 0 0 0 0; width: 100vw;">
+					<div
+						name="progress_bar"
+						class="progress-bar progress-bar-striped"
+						aria-label="a progress bar to show how many questions have been answered"
+						role="progressbar"
+						aria-valuenow="0"
+						aria-valuemin="0"
+						aria-valuemax="100"
+						id="p-bar"
+						style="margin: 0 0 0 0; padding: 0 0 0 0; z-index: 99;"
+					></div>
 				</div>
 			</div>
-                <a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" style="top: 2vh; left: 63vw; position: fixed; text-shadow: 2px 2px 4px 16px; border-radius: 2px;">
-                    <span class="d-none clip sticky-top float-end">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                        </svg>
-                    </span>
-                </a>
-                <div id="doc3" class="row-auto col-12" >
-				
-				
-				
+		</div>
+			<!-- offcanvas for  study objects-->
+			<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-aim" aria-labelledby="offcanvasScrolling1">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasScrolling1">The project aim should be a apart of a sentence.</h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
-            </div>
-        </div>
-        <div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;position:relative">
-            <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;" >
-                <div id="intro-tour-input">
-                    <div id="warningText" ></div>
+				<div class="offcanvas-body">
+					<p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant architecture</p>
+					<br />
+					<p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as open as possible</p>
+				</div>
+			</div>
 
-                    <h2 id="scrollspyHeading1">1 Basic Information:</h2>
+			<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-obj" aria-labelledby="offcanvasScrolling2">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasScrolling2">The project object = target.</h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<p><b> Example 1: </b> carbon and water flow in plants</p>
+					<br />
+					<p><b> Example 2: </b> data management plan</p>
+				</div>
+			</div>
 
-                    <form class="" style="margin-left: 0px;" id="form_project">
-                        <h3>1.1 Give the project name or acronym to be used:</h3>
-                        <label for="input_project"></label>
-                        <input
-                            style="width: 26vw;"
-                            class="col-auto"
-                            type="text"
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-							
-                            id="input_project"
-                            name="$_PROJECT"
-                            placeholder="the project name"
-                            onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                        />
-                        
-                        
-                    </form>
-                    
-
-                    <form id="form_studyobject">
-                        <label for="input_studyobject">
-                            <h3>
-                                1.2 Give the object
-                                <a href="#"  data-bs-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
-                                    <span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">
-                                        <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                            <path
-                                                d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
-                                            /></svg></span></a>
-                                to be studied:
-                            </h3>
-                        </label>
-
-                        <input
-                            style="width: 26vw;"
-                            class="col-auto"
-                            type="text"
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            id="input_studyobject"
-                            name="$_STUDYOBJECT"
-                            placeholder="the research object/target"
-                            onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                        />
-
-                        
-
-                        
-                    </form>
-
-                    <form id="form_projectaim">
-                        <label class="" for="input_projectaim">
-                            <h3>
-                                and the project aim
-								 <a href="#"  data-bs-toggle="tooltip" title="click to see some example project aim" tabindex="-1">
-                                <span class="text-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" >
-                                    (what do you want to achieve?)
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  viewBox="0 0 16 16">
-                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                        <path
-                                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
-                                        />
-                                    </svg>
-                                </span>
-								</a>
-                            </h3>
-                        </label>
-                        <textarea
-                            type="text"
-                            style="width: 26vw;"
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            id="input_projectaim"
-                            name="$_PROJECTAIM"
-                            placeholder="project aim"
-                            rows="3"
-                            style="width: 26vw;"
-                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-						></textarea>
-                        
-                        
-                    </form>
-					<form class="" style="margin-left: 0px;" id="form_datautility">
-                        <h3>To whom data will be useful? (data utility) :</h3>
-                        <label for="input_datautility"></label>
-                        <textarea
-                            style="width: 26vw;"
-                            class="col-auto"
-                            type="text"
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            id="input_datautility"
-                            name="$_DATAUTILITY"
-                            placeholder="Data utilities"
-                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-							
-							
-							>
-                        
-						</textarea>
-                        
-                      
-                    </form>
-                    <form class="" style="margin-left: 0px;" id="form_username">
-                        <h3>1.3 Other DMP Metadata</h3>
-                        <label for="input_username"><h5>User Name:</h5></label>
-                        <input
-                            style="width: 26vw;"
-                            class=""
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            type="text"
-                            id="input_username"
-                            name="$_USERNAME"
-                            placeholder="type your name here"
-                            onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-						/>
-                        
-                        
-                    </form>
-                    <form class="" style="margin-left: 0px;" id="form_email">
-                        <label for="input_email"><h5>User Email:</h5>         </label>
-                        <input
-                            style="width: 26vw;"
-                            class=""
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            type="text"
-                            id="input_email"
-                            name="$_EMAIL"
-                            placeholder="user email address"
-                            onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-						/>
-                        
-                        
-                    </form>
-
-                    <form class="" style="margin-left: 0px;" id="form_dataofficer">
-                        <label for="input_dataofficer"><h5>Data Officer Name:</h5></label>
-                        <input
-                            style="width: 26vw;"
-                            class=""
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            type="text"
-                            id="input_dataofficer"
-                            name="$_dataofficer"
-                            placeholder="data officer name"
-                            onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-						/>
-                        
-                        
-                    </form>
+			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
+				<div class="offcanvas-header">
+					<h1 class="offcanvas-title" id="offcanvasScrolling3" style="padding-bottom: 0px;">User-defined template <button
+							class="badge btn-primary"
+							data-bs-dismiss="offcanvas"
+							aria-label="Close"
+							onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(()=> {load_dmp(reload_answers,name = doc_name);}, 1000) ;'>
+							submit
+						</button></h1>
 					
-					
-					<form class="" style="margin-left: 0px;" id="form_dmpversion">
-                        <label for="input_dmpversion"><h5>DMP version:</h5></label>
-                        <input
-                            style="width: 26vw;"
-                            class=""
-                            onfocusin="this.select();"
-                            onchange="onchange_replace(this);"
-                            type="text"
-                            id="input_dmpversion"
-                            name="$_DMPVERSION"
-                            placeholder="Version of the DMP"
-                            onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-							onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-							onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-						/>
-                        
-                        
-                    </form>
-                    
-					<h3>1.4 Chose some additional information</h3>
-                    <div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
-                        <div>
-                        <input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" 
-						 />
-                        <label class="form-check-label" id="check_protect_label" for="check_protect" 
-						>
-                            The data is protected.
-                        </label>
-						</div>
-                        <div>
-                        <input
-                            class="form-check-input checkbox_1"
-                            type="checkbox"
-                            value="2"
-                            id="check_dataplant"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#form_checkbox_5"
-                            aria-expanded="false"
-                            aria-controls="form_checkbox_5"
-                            role="button"
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
 
-							
-                        />
-
-                        <label class="form-check-label" for="check_dataplant">
+				<div class="offcanvas-body" style="padding-top: 0px;">
+					<h2 style="padding-top: 0px;">
+						You can click the dotted box to start editing. <br />
+						Click the grey buttons to reuse templates. <br />
+						Click submit when you finished.
+						<br />
+						<button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '>European DMP</button>
+						<button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dfg-dmp").innerHTML; '>DFG DMP</button>
+						<button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("practical-guide").innerHTML; '>Practical Guide</button>
+						<button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("proposal").innerHTML; '>Proposal</button>
 						
-                            Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
-                        </label>
-						</div>
-                        <div>
-                        <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update" data-bs-toggle="collapse" data-bs-target="#form_updatemonth" aria-expanded="false" aria-controls="form_updatemonth" role="button" />
-                        <label class="form-check-label" for="check_update">
-                            This project will be updated.
-                        </label>
-                        </div><div>
-
-                        <input
-                            class="form-check-input checkbox_1"
-                            type="checkbox"
-                            value="4"
-                            id="check_previousprojects"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#form_previousprojects"
-                            aria-expanded="false"
-                            aria-controls="form_previousprojects"
-                            role="button"
-                        />
-                        <label class="form-check-label" for="check_previousprojects">
-                            This project has previous projects.
-                        </label>
-
-                        </div><div>
-                        <input class="form-check-input checkbox_1" type="checkbox" value="5" id="check_industry" />
-                        <label class="form-check-label" for="check_industry">
-                            This is an industry project.
-                        </label>
-                        </div><div>
-
-                        <input
-                            class="form-check-input checkbox_1"
-                            type="checkbox"
-                            value="6"
-                            id="check_proprietary"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#form_proprietary"
-                            aria-expanded="false"
-                            aria-controls="form_proprietary"
-                            role="button"
-                        />
-                        <label class="form-check-label" for="check_proprietary">
-                            This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_1" type="checkbox" value="7" id="check_partners" />
-                        <label class="form-check-label" for="check_partners">
-                            This project has partners.
-                        </label>
-                        </div><div>
-                        <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_EU" />
-                        <label class="form-check-label" for="check_EU">
-                            EU project.
-                        </label>
-						 </div>
-                    </div>
-
-                    <input class="btn btn-primary form-check collapse btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
-                    
-
-                    <div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
-                        
-                           <h3> Where will you submit your data as endpoints?</h3> 
-						<div>   
-                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
-                        <label class="form-check-label" for="check_ENA">
-                            ENA
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
-                        <label class="form-check-label" for="check_GEO">
-                            GEO
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_NCBI" checked />
-                        <label class="form-check-label" for="check_NCBI">
-                            NCBI
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
-                        <label class="form-check-label" for="check_GenBank">
-                            genbank
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
-                        <label class="form-check-label" for="check_Pride">
-                            pride
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
-                        <label class="form-check-label" for="check_Proteomexchange">
-                            proteomexchange
-                        </label>
-                        </div><div>
-
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
-                        <label class="form-check-label" for="check_Zenodo">
-                            zenodo
-                        </label>
-
-                        </div>
-						<div>
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
-                        <label class="form-check-label" for="check_dataDyrad">
-                            dataDyrad
-                        </label>
-						</div>
-						
-						<div>
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
-                        <label class="form-check-label" for="check_metabolights">
-                            Metabolights
-                        </label>
-						</div>
-						
-						<div>
-                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_otherep" checked />
-                        <label class="form-check-label" for="check_otherep">
-                            Other Endpoint Repositories:
-							<input
-                                style="width: 24vw;"
-                                type="text"
-                                class="col-auto"
-                                id="input_otherep"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                name="$_OTHEREP"
-								onchange= ' saved_a["replace"]["$_OTHEREP"]= this.value '
-                                placeholder="complete sentence of the other endpoint repositories"
-                                onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }'
-								/>
-                        </label>
-						</div>
-                    </div>
-                    <input class="btn collapse btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick='get_option(this)' />
-					
-                    
-                        <form class="collapse" id="form_updatemonth">
-                            <label for="intput_updatemonth">At which month will your project be updated?</label>
-                            <input
-                                style="width: 26vw;"
-                                type="text"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                id="intput_updatemonth"
-                                name="$_UPDATEMONTH"
-                                placeholder="month of update"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
-								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                            />
-
-                            
-                        </form>
-                    
-
-                    
-                        
-                        <form class="collapse" id="form_previousprojects">
-                            <label for="intput_previousprojects">The name of your previous project is:</label>
-                            <input
-                                style="width: 26vw;"
-                                type="text"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                id="intput_previousprojects"
-                                name="$_PREVIOUSPROJECTS"
-                                placeholder="previous project here"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
-								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                            />
-
-                            
-                        </form>
-                   
-
-                    
-                     
-                        <form class="collapse" id="form_proprietary">
-                            <label for="input_proprietary">The name of your proprietary software is:</label>
-
-                            <input
-                                style="width: 26vw;"
-                                type="text"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                id="input_proprietary"
-                                name="$_proprietary"
-                                placeholder=" proprietary software "
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
-								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                            />
-
-                            
-                        </form>
-                    
-
-                    <form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
-                        <h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" />
-                            <label class="form-check-label" for="check_image">
-                                image
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="2" id="check_RNAseq" />
-                            <label class="form-check-label" for="check_RNAseq">
-                                RNAseq
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="3" id="check_genomic" />
-                            <label class="form-check-label" for="check_genomic">
-                                other NGS (genomics)
-                            </label>
-                        </div>
-
-                        <div class="form-data_type form-check">
-                            <label class="form-check-label" for="check_metabolomic">
-                                metabolomics
-                            </label>
-                            <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" />
-                        </div>
-
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" />
-                            <label class="form-check-label" for="check_proteomic">
-                                proteomics
-                            </label>
-                        </div>
-
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="6" id="check_targeted" />
-                            <label class="form-check-label" for="check_targeted">
-                                targeted assays (e.g. glucose and fructose content)
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="7" id="check_models" />
-                            <label class="form-check-label" for="check_models">
-                                models
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="8" id="check_code" />
-                            <label class="form-check-label" for="check_code">
-                                code
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="9" id="check_excel" />
-                            <label class="form-check-label" for="check_excel">
-                                <a href="#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research.">excel </a>
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="10" id="check_cloned-DNA" />
-                            <label class="form-check-label" for="check_cloned-DNA">
-                                cloned DNA
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="11" id="check_phenotypic" />
-                            <label class="form-check-label" for="check_phenotypic">
-                                phenotypic
-                            </label>
-                        </div>
-
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" />
-                            <label class="form-check-label" for="check_genetic"> genetics </label>
-                        </div>
-                    </form>
-
-                    <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
-                    
-
-                    <br />
-
-                    <h2 id="scrollspyHeading3">3. How much data you will probably generate:</h2>
-
-                    <form class="" style="margin-left: 0px;" id="form_rawdata">
-                        <label for="input_rawdata"><h3>3.1 Raw data volume is :</h3> </label>
-                        <div class="align-bottom">
-                            <input
-                                style="width: 24vw;"
-                                type="text"
-                                class="col-auto"
-                                id="input_rawdata"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                name="$_RAWDATA"
-                                placeholder="raw data volume (in GB)"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                            />
-                            GB
-
-                          
-                        </div>
-                    </form>
-
-                    <form class="" style="margin-left: 0px;" id="form_deriveddata">
-                        <label for="input_deriveddata"><h3>3.2 Derived data volume is :</h3> </label>
-                        <div class="align-bottom">
-                            <input
-                                style="width: 24vw;"
-                                type="text"
-                                class="col-auto"
-                                id="input_deriveddata"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                name="$_DERIVEDDATA"
-                                placeholder="derived data volume (in GB)"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-								onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-								onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
-                            />
-                            GB
-
-                            
-                        </div>
-                    </form>
-
-                    <div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
-                        <h2 id="scrollspyHeading4">4. Are there any standards that are relevant for you?</h2>
-
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" />
-                            <label class="form-check-label" for="check_MIAPPE">
-                                MIAPPE
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_MinSeqE" />
-                            <label class="form-check-label" for="check_MinSeqE">
-                                MinSeqE
-                            </label>
-                        </div>
-						<div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" value="10" id="check_otherstandards" />
-                            <label class="form-check-label" for="check_otherstandards">
-                            
-							<input
-                                style="width: 24vw;"
-                                type="text"
-                                class="col-auto"
-                                id="input_otherstandardinput"
-                                onfocusin="this.select();"
-                                onchange="onchange_replace(this);"
-                                name="$_OTHERSTANDARDINPUT"
-								onchange= ' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
-                                placeholder="complete sentence of the other standards"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-								/>
-
-							
-							
-                            </label>
-                        </div>
-                        
-                        <br />
-                        <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_dublin_core" checked />
-                            <label class="form-check-label" for="check_dublin_core">
-                                Dublin Core
-                            </label>
-                        </div>
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" value="2" id="check_marc_21" />
-                            <label class="form-check-label" for="check_marc_21">
-                                MARC 21
-                            </label>
-                        </div>
-                        <br />
-                        <h3>4.2 When will you make your data public?</h3>
-
-                        <div class="form-data_type form-check">
-                            <input class="form-check-input checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" role="button" checked />
-                            <label class="form-check-label" for="check_early">Will you publish your data early?</label>
-                        </div>
-
-                        <div class="collapse" id="q6_2">
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
-                                <label class="form-check-label" for="check_ipissue">
-                                    Are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account
-                                </label>
-                            </div>
-                        </div>
-                        <br />
-						 <h2 id="scrollspyHeading5">5. Do you use visualization in the project?</h2>
-					<div class="form-check form-switch"  >
-					<input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization"  >
-                       <label class="form-check-label" for="check_vvisualization">Do you use visualization? </label>
-
-                        
-						
-                    </div>
-                    </div>
-					<input class="btn btn-primary btn-sm d-none" type="button" id="check_box3" value="submit data type" data-checkbox="checkbox_3" onclick="get_option(this)" >
-                        
-
-                    
-
-
-
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
-            </div>
-        </div>
-        <div class="progress position-absolute bottom-0" style="margin: 0 0 0 0; padding: 0 0 0 0; width: 100vw;">
-            <div
-                name="progress_bar"
-                class="progress-bar progress-bar-striped"
-                aria-label="a progress bar to show how many questions have been answered"
-                role="progressbar"
-                aria-valuenow="0"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                id="p-bar"
-                style="margin: 0 0 0 0; padding: 0 0 0 0; z-index: 99;"
-            ></div>
-        </div>
-    </div>
-
-    <!-- offcanvas for  study objects-->
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-aim" aria-labelledby="offcanvasScrolling1">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling1">The project aim should be a apart of a sentence.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant architecture</p>
-            <br />
-            <p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as open as possible</p>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-obj" aria-labelledby="offcanvasScrolling2">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling2">The project object = target.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b> carbon and water flow in plants</p>
-            <br />
-            <p><b> Example 2: </b> data management plan</p>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
-        <div class="offcanvas-header">
-            <h1 class="offcanvas-title" id="offcanvasScrolling3" style="padding-bottom: 0px;">User-defined template <button
-                    class="badge btn-primary"
-                    data-bs-dismiss="offcanvas"
-                    aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(()=> {load_dmp(reload_answers,name = doc_name);}, 1000) ;'>
-                    submit
-                </button></h1>
-			
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-
-        <div class="offcanvas-body" style="padding-top: 0px;">
-            <h2 style="padding-top: 0px;">
-                You can click the dotted box to start editing. <br />
-                Click the grey buttons to reuse templates. <br />
-                Click submit when you finished.
-                <br />
-                <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '>European DMP</button>
-                <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dfg-dmp").innerHTML; '>DFG DMP</button>
-                <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("practical-guide").innerHTML; '>Practical Guide</button>
-                <button class="badge btn-primary" onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("proposal").innerHTML; '>Proposal</button>
-                
-            </h2>
-            <div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
-        </div>
-    </div>
-	<!-- Button trigger modal -->
-	<button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#dmp_update">
-	  dmp update modal
-	</button>
+					</h2>
+					<div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
+				</div>
+			</div>
+			<!-- Button trigger modal -->
+			<button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#dmp_update">
+			  dmp update modal
+			</button>
 
 	<!-- Modal dmp update reminder-->
-	<div class="modal" id="dmp_update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-label" aria-hidden="true">
-	  <div class="modal-dialog">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "submit" button</h5>
-			<button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		    </div>
-		    <div class="modal-body">
-			<div class="input-group justify-content-center">
-			<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an reminder </button> 
-			<button  type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16">
-			  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-			  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> 
-			</svg> remove all reminders </button> 
+			<div class="modal" id="dmp_update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-label" aria-hidden="true">
+			  <div class="modal-dialog">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "submit" button</h5>
+					<button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+					<div class="input-group justify-content-center">
+					<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an reminder </button> 
+					<button  type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16">
+					  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+					  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> 
+					</svg> remove all reminders </button> 
+					</div>
+					<br>
+					<ul id="dmp-update-content" class="slist" >
+					List of reminders
+					
+					</ul>
+					
+					
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					
+					<button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">download</button>
+				  </div>
+				</div>
+			  </div>
 			</div>
-			<br>
-		    <ul id="dmp-update-content" class="slist" >
-			List of reminders
-			
-			</ul>
-			
-			
-			</div>
-		    <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			
-			<button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Submit</button>
-		  </div>
-		</div>
-	  </div>
-	</div>
-	<!-- offcanvas dmp storage management-->
-	<div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false" data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas" aria-hidden="true" style="width:43vw" >
-        <!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
-		 <div class="offcanvas-header">
+			<!-- offcanvas dmp storage management-->
+			<div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false" data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas" aria-hidden="true" style="width:43vw" >
+				<!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
+				<div class="offcanvas-header">
             
                     <h5 class="offcanvas-title" id="storage_offcanvas">Compare and overwrite caches</h5>
                     <button type="button" onclick="" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -3555,8 +3557,7 @@ END:VEVENT`;
                 </div>
 
             </div>
-        </div>
-    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="cookie_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-10" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-scrollable" style="inset: 50% auto auto 50% !important;
@@ -3568,6 +3569,12 @@ END:VEVENT`;
                 </div>
                 <div class="modal-body">
 				Thanks for using and testing our tool. Please keep bearing with us. The tool will be continuously developed and improved. Any feedback is welcome. We don't use cookie to trace user and the tool can be used offline. Disconnect the internet or save it by "ctrl + S" will not affect the usage.
+				<br>
+				<span><b> 01th February 2023</b></span>
+                    <ul>
+					<li><span class="badge bg-warning text-dark">Bug fix</span> Print function fixed</li>
+					<li><span class="badge bg-primary">Improvement</span> UI and content indicators are improved </li>
+					</ul>
 				<br>
 				<span><b> 16th January 2023</b></span>
                     <ul>
@@ -3619,101 +3626,103 @@ END:VEVENT`;
         </div>
     </div>
 
-    <div id="dmp1" class="d-none">
-        <div class="content-page">
-            <br />
-            <div class="p-2" id="vis-parent" style="margin: auto;">
-                <div id="vis" style="width: 35vw; margin: auto;"></div>
-            </div>
-            <div class="p-2" style="margin: auto;">
-                <h1 style="" id="text_start" class="d-flex justify-content-center ">
-				
-				<div  class="c2 text-center ">Data Management Plan of $_PROJECT  </div>  
-				</h1>
-				<div class="d-flex justify-content-center">
-				
-				
-			
-                <br />
-				<table  >
-					<tr>
-						<td><h3>Action Number: </h3></td>
-						<td><h3>  $_PROJECT</h3></td>
-					</tr>
-					<tr>
-						<td><h3>Action Acronym:</h3></td>
-						<td><h3>  $_PROJECT</h3></td>
-					</tr>
-					<tr>
-						<td><h3>Action Title:</h3></td>
-						<td> <h3>  $_PROJECT</h3></td>
-		
-					</tr>
-					<tr>
-						<td><h3>Date:</h2></td>
-						<td id="today_date" ><h3></h3></td>
+				<div id="dmp1" class="d-none">
+					<div class="content-page">
+						<br />
+						<div class="p-2" id="vis-parent" style="margin: auto;">
+							<div id="vis" style="width: 35vw; margin: auto;"></div>
+						</div>
+						<div class="p-2" style="margin: auto;">
+							<h1 style="" id="text_start" class="d-flex justify-content-center ">
+							
+							<div  class="c2 text-center ">Data Management Plan of $_PROJECT  </div>  
+							</h1>
+							<div class="d-flex justify-content-center">
+							
+							
+						
+							<br />
+							<table  >
+								<tr>
+									<td><h3>Action Number: </h3></td>
+									<td><h3>  $_PROJECT</h3></td>
+								</tr>
+								<tr>
+									<td><h3>Action Acronym:</h3></td>
+									<td><h3>  $_PROJECT</h3></td>
+								</tr>
+								<tr>
+									<td><h3>Action Title:</h3></td>
+									<td> <h3>  $_PROJECT</h3></td>
+					
+								</tr>
+								<tr>
+									<td><h3>Date:</h2></td>
+									<td id="today_date" ><h3></h3></td>
 
-					</tr>
-					<tr>
-						<td><h3>DMP version:</h3></td>
-						<td id="dmp_version" ><h3> $_DMPVERSION</h3></td>
+								</tr>
+								<tr>
+									<td><h3>DMP version:</h3></td>
+									<td id="dmp_version" ><h3> $_DMPVERSION</h3></td>
 
-					</tr>
-				</table>
+								</tr>
+							</table>
 
-				</div>
-                <br />
+							</div>
+							<br />
 
-            </div>
-        </div>
-        <div class="content-page">
-            <h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT
-                </span>
-            </p>
-            <p class="c0">
-                <span class="c1">
-                    The aim of this document is to provide guidelines on principles guiding the data management in the $_PROJECT and what data will be stored by using the responses to the EU questionnaire on Data Management Plan (DMP) as a DMP
-                    document.
-                </span>
-            </p>
-            <p class="c0">
-                <span class="c1">
-                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modelled according to the Horizon 2020 and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
-                    $_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE
-                </span>
-            </p>
-            <h1 class="c13" id="h.wup0l4f7jl9k"><span class="c2">2&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2 c12">Data Management Plan EU Template</span></h1>
-
-            <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1&nbsp;&nbsp;&nbsp;&nbsp;Data Summary</span></h2>
-            <p class="c0"><span class="c3">What is the purpose of the data collection/generation and its relation to the objectives of the project?</span></p>
-            <p class="c0"><span class="c3"></span></p>
-            <p class="c0">
-                <span class="c0">
-                    For the $_PROJECT, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
-                    used for analyzing data. In the end, stakeholder involvement needs to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata
-                    using open standards, as it is laid out in the following section. As the $_PROJECT aims at $_PROJECTAIM.
-                    <p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p>
-                    <p class="c0">
-                        <span class="c1">
-                            We foresee that the following data will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
-                            original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts,#if$_DATAPLANT and these pipelines will be
-                            tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise
-                            in the DataPLANT consortium#endif$_DATAPLANT.
-                        </span>
-                    </p>
-                    <p class="c0"><span class="c3"></span></p>
-                    <p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p>
-                    <p class="c0">
-                        <span class="c1">
-                            The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to
-                            include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT, but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
-                            Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data
-                            Bank of Japan: DDBJ (JP). Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
-                        </span>
-                    </p>
+						</div>
 					</div>
-                    <div class="content-page">
+	
+					<div class="content-page">
+					<h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
+					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT
+						</span>
+					</p>
+					<p class="c0">
+						<span class="c1">
+							The aim of this document is to provide guidelines on principles guiding the data management in the $_PROJECT and what data will be stored by using the responses to the EU questionnaire on Data Management Plan (DMP) as a DMP
+							document.
+						</span>
+					</p>
+					<p class="c0">
+						<span class="c1">
+							The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modelled according to the Horizon 2020 and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
+							$_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE
+						</span>
+					</p>
+					<h1 class="c13" id="h.wup0l4f7jl9k"><span class="c2">2&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2 c12">Data Management Plan EU Template</span></h1>
+
+					<h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1&nbsp;&nbsp;&nbsp;&nbsp;Data Summary</span></h2>
+					<p class="c0"><span class="c3">What is the purpose of the data collection/generation and its relation to the objectives of the project?</span></p>
+					<p class="c0"><span class="c3"></span></p>
+
+						<span class="c0">
+							For the $_PROJECT, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
+							used for analyzing data. In the end, stakeholder involvement needs to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata
+							using open standards, as it is laid out in the following section. As the $_PROJECT aims at $_PROJECTAIM.
+							<p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p>
+						   </span>
+							<p class="c0">
+								<span class="c1">
+									We foresee that the following data will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
+									original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts,#if$_DATAPLANT and these pipelines will be
+									tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise
+									in the DataPLANT consortium#endif$_DATAPLANT.
+								</span>
+							</p>
+							<p class="c0"><span class="c3"></span></p>
+							<p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p>
+							<p class="c0">
+								<span class="c1">
+									The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to
+									include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT, but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
+									Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data
+									Bank of Japan: DDBJ (JP). Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
+								</span>
+							</p>
+					</div>
+					<div class="content-page">
                         <p class="c0"><span class="c3">What is the origin of the data?</span></p>
                         <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For the $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>
                         
@@ -4150,7 +4159,7 @@ END:VEVENT`;
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c22"><span class="c1"></span></p>
-                    </div>
+           </div>
 				</div>
                     <div id="dfg-dmp" class="d-none">
                         <div id="dfg-dmp1" class="content-page">
@@ -7267,11 +7276,8 @@ END:VEVENT`;
                     <div id="word_cloud_sample" class="d-none">
                         <svg width="100%" height="100%" viewBox="0 0 600 600"><g></g><g transform="translate(300,300)"><text text-anchor="middle" transform="translate(36,96)rotate(0)" style="font-size: 100px; font-family: Impact; fill: rgb(57, 59, 121);">Data</text><text text-anchor="middle" transform="translate(93,174)rotate(-60)" style="font-size: 59px; font-family: Impact; fill: rgb(82, 84, 163);">used</text><text text-anchor="middle" transform="translate(-45,-99)rotate(30)" style="font-size: 58px; font-family: Impact; fill: rgb(107, 110, 207);">DataPLAN</text><text text-anchor="middle" transform="translate(-117,-16)rotate(0)" style="font-size: 57px; font-family: Impact; fill: rgb(156, 158, 222);">repositories</text><text text-anchor="middle" transform="translate(132,-149)rotate(-60)" style="font-size: 55px; font-family: Impact; fill: rgb(99, 121, 57);">open</text><text text-anchor="middle" transform="translate(161,-85)rotate(-60)" style="font-size: 55px; font-family: Impact; fill: rgb(140, 162, 82);">metadata</text><text text-anchor="middle" transform="translate(9,-157)rotate(60)" style="font-size: 55px; font-family: Impact; fill: rgb(181, 207, 107);">made</text><text text-anchor="middle" transform="translate(-30,142)rotate(0)" style="font-size: 53px; font-family: Impact; fill: rgb(206, 219, 156);">project</text><text text-anchor="middle" transform="translate(185,-19)rotate(-30)" style="font-size: 53px; font-family: Impact; fill: rgb(140, 109, 49);">sets</text><text text-anchor="middle" transform="translate(-104,74)rotate(30)" style="font-size: 53px; font-family: Impact; fill: rgb(189, 158, 57);">use</text><text text-anchor="middle" transform="translate(-110,182)rotate(0)" style="font-size: 52px; font-family: Impact; fill: rgb(231, 186, 82);">case</text><text text-anchor="middle" transform="translate(129,-219)rotate(-30)" style="font-size: 52px; font-family: Impact; fill: rgb(231, 203, 148);">possible</text><text text-anchor="middle" transform="translate(-155,-105)rotate(30)" style="font-size: 52px; font-family: Impact; fill: rgb(132, 60, 57);">available</text><text text-anchor="middle" transform="translate(-177,144)rotate(-30)" style="font-size: 52px; font-family: Impact; fill: rgb(173, 73, 74);">access</text><text text-anchor="middle" transform="translate(203,-78)rotate(0)" style="font-size: 48px; font-family: Impact; fill: rgb(214, 97, 107);">EU</text><text text-anchor="middle" transform="translate(-98,-192)rotate(30)" style="font-size: 48px; font-family: Impact; fill: rgb(231, 150, 156);">addition</text><text text-anchor="middle" transform="translate(-15,-255)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(123, 65, 115);">Management</text><text text-anchor="middle" transform="translate(191,87)rotate(60)" style="font-size: 45px; font-family: Impact; fill: rgb(165, 81, 148);">Example</text><text text-anchor="middle" transform="translate(69,256)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(206, 109, 189);">specific</text><text text-anchor="middle" transform="translate(-121,220)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(222, 158, 214);">Information</text><text text-anchor="middle" transform="translate(187,183)rotate(60)" style="font-size: 45px; font-family: Impact; fill: rgb(57, 59, 121);">software</text><text text-anchor="middle" transform="translate(-169,48)rotate(-30)" style="font-size: 42px; font-family: Impact; fill: rgb(82, 84, 163);">stored</text><text text-anchor="middle" transform="translate(-209,-200)rotate(-30)" style="font-size: 42px; font-family: Impact; fill: rgb(107, 110, 207);">need</text><text text-anchor="middle" transform="translate(-118,148)rotate(60)" style="font-size: 42px; font-family: Impact; fill: rgb(156, 158, 222);"></text><text text-anchor="middle" transform="translate(-225,38)rotate(-60)" style="font-size: 42px; font-family: Impact; fill: rgb(99, 121, 57);">ENA</text><text text-anchor="middle" transform="translate(-178,-74)rotate(30)" style="font-size: 39px; font-family: Impact; fill: rgb(140, 162, 82);">DMP</text><text text-anchor="middle" transform="translate(-34,14)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(181, 207, 107);">generated</text><text text-anchor="middle" transform="translate(140,177)rotate(-30)" style="font-size: 39px; font-family: Impact; fill: rgb(206, 219, 156);">raw</text><text text-anchor="middle" transform="translate(234,-5)rotate(-60)" style="font-size: 39px; font-family: Impact; fill: rgb(140, 109, 49);">line</text><text text-anchor="middle" transform="translate(-62,254)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(189, 158, 57);">useful</text><text text-anchor="middle" transform="translate(-186,102)rotate(-30)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 186, 82);">General</text><text text-anchor="middle" transform="translate(-204,-268)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 203, 148);">openly</text><text text-anchor="middle" transform="translate(-142,-168)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(132, 60, 57);">IP</text><text text-anchor="middle" transform="translate(159,228)rotate(30)" style="font-size: 39px; font-family: Impact; fill: rgb(173, 73, 74);">long</text><text text-anchor="middle" transform="translate(206,-213)rotate(-30)" style="font-size: 39px; font-family: Impact; fill: rgb(214, 97, 107);">costs</text><text text-anchor="middle" transform="translate(-202,259)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 150, 156);">sharing</text><text text-anchor="middle" transform="translate(4,172)rotate(0)" style="font-size: 35px; font-family: Impact; fill: rgb(123, 65, 115);">make</text><text text-anchor="middle" transform="translate(96,-68)rotate(-60)" style="font-size: 35px; font-family: Impact; fill: rgb(165, 81, 148);">end</text><text text-anchor="middle" transform="translate(-228,-68)rotate(30)" style="font-size: 35px; font-family: Impact; fill: rgb(206, 109, 189);">like</text><text text-anchor="middle" transform="translate(-237,-110)rotate(30)" style="font-size: 35px; font-family: Impact; fill: rgb(222, 158, 214);">via</text><text text-anchor="middle" transform="translate(225,71)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(57, 59, 121);">Plan</text><text text-anchor="middle" transform="translate(235,-109)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(82, 84, 163);">course</text><text text-anchor="middle" transform="translate(234,-171)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(107, 110, 207);">public</text><text text-anchor="middle" transform="translate(-61,-221)rotate(30)" style="font-size: 30px; font-family: Impact; fill: rgb(156, 158, 222);">allow</text><text text-anchor="middle" transform="translate(249,-235)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(99, 121, 57);">free</text><text text-anchor="middle" transform="translate(247,-49)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(140, 162, 82);">get</text><text text-anchor="middle" transform="translate(47,-229)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(181, 207, 107);">legal</text><text text-anchor="middle" transform="translate(248,9)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(206, 219, 156);">etc</text><text text-anchor="middle" transform="translate(-234,-229)rotate(-30)" style="font-size: 30px; font-family: Impact; fill: rgb(140, 109, 49);">last</text><text text-anchor="middle" transform="translate(247,40)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">store</text><text text-anchor="middle" transform="translate(248,208)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 186, 82);">findable</text><text text-anchor="middle" transform="translate(243,-271)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 203, 148);">types</text><text text-anchor="middle" transform="translate(56,-28)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(132, 60, 57);">least</text><text text-anchor="middle" transform="translate(94,272)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(173, 73, 74);">resources</text><text text-anchor="middle" transform="translate(-33,273)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(214, 97, 107);">reference</text><text text-anchor="middle" transform="translate(-36,-69)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 150, 156);">EBI</text><text text-anchor="middle" transform="translate(-186,-168)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(123, 65, 115);">DNA</text><text text-anchor="middle" transform="translate(-241,92)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(165, 81, 148);">Bank</text><text text-anchor="middle" transform="translate(92,-166)rotate(-60)" style="font-size: 22px; font-family: Impact; fill: rgb(206, 109, 189);">prior</text><text text-anchor="middle" transform="translate(-262,-57)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(222, 158, 214);">form</text><text text-anchor="middle" transform="translate(206,275)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(57, 59, 121);">described</text><text text-anchor="middle" transform="translate(-197,279)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(82, 84, 163);">Read</text><text text-anchor="middle" transform="translate(76,19)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(107, 110, 207);">size</text><text text-anchor="middle" transform="translate(-249,207)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(156, 158, 222);">see</text><text text-anchor="middle" transform="translate(-7,-137)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(99, 121, 57);">due</text><text text-anchor="middle" transform="translate(74,-98)rotate(-60)" style="font-size: 22px; font-family: Impact; fill: rgb(140, 162, 82);">ie</text><text text-anchor="middle" transform="translate(-171,10)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(181, 207, 107);">text</text><text text-anchor="middle" transform="translate(5,198)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(206, 219, 156);">thus</text><text text-anchor="middle" transform="translate(-264,-153)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(140, 109, 49);">set</text><text text-anchor="middle" transform="translate(125,123)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">area</text><text text-anchor="middle" transform="translate(-4,-231)rotate(-30)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">2020</text><text text-anchor="middle" transform="translate(264,-191)rotate(30)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">2950012016</text><text text-anchor="middle" transform="translate(-84,39)rotate(30)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">DataPLAN1</text><text text-anchor="middle" transform="translate(-121,257)rotate(60)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">IntroductionTo</text><text text-anchor="middle" transform="translate(69,-7)rotate(-60)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">best</text><text text-anchor="middle" transform="translate(125,26)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">profit</text><text text-anchor="middle" transform="translate(104,203)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">reusable</text><text text-anchor="middle" transform="translate(177,98)rotate(30)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">FAIRThe</text><text text-anchor="middle" transform="translate(123,-106)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">aim</text><text text-anchor="middle" transform="translate(264,-21)rotate(60)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">guidelines</text><text text-anchor="middle" transform="translate(170,-61)rotate(-30)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">guiding</text><text text-anchor="middle" transform="translate(66,119)rotate(-60)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">answers</text><text text-anchor="middle" transform="translate(264,120)rotate(60)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">questionnaire</text><text text-anchor="middle" transform="translate(167,7)rotate(-30)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">instructs</text></g></svg>
                     </div>
-                </span>
-            </p>
-        </div>
-    </div>
-</div>
+                
+          
 
 		<script>
 		let up_to_top = document.getElementById("up-to-top");
@@ -7293,8 +7299,9 @@ END:VEVENT`;
 		
 		let checkboxes = document.querySelectorAll(".form-check-input");
 		checkboxes.forEach( e => {							
-			e.setAttribute("onmouseover", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )');
-			e.setAttribute("onmouseleave", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => e.classList.remove("border-highlight")); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
+			e.setAttribute("onfocusin", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e =>{ e.classList.add("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.add("border-highlight")}  }); set_scrollbar_marker( scroll_marker,elem1 )');
+			e.setAttribute("onfocusout", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
+			e.setAttribute("onmouseover", 'this.focus()');
 			}
 		);	
 			
