@@ -39,7 +39,7 @@
 			#angles { text-align: center; margin: 0 auto; width: 350px; }
 			#angles input, #max { width: 42px; }
 		ol{margin:0;padding:0}table td,table th{padding:0}
-		.c1{;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:normal}
+		.c1{line-height: 150%;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:normal}
 		.c3{;font-weight:700;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal; color:#0088CC;}
 		.c4{font-weight:700;text-decoration:none;vertical-align:baseline;font-size:17pt;font-family:"Arial";font-style:normal}
 		.c7{font-weight:700;text-decoration:none;vertical-align:baseline;font-size:15pt;font-family:"Arial";font-style:normal}
@@ -3695,14 +3695,15 @@ END:VEVENT`;
 
 					<h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.1&nbsp;&nbsp;&nbsp;&nbsp;Data Summary</span></h2>
 					<p class="c0"><span class="c3">What is the purpose of the data collection/generation and its relation to the objectives of the project?</span></p>
-					<p class="c0"><span class="c3"></span></p>
+					<p class="c0">
 
-						<span class="c0">
+						<span class="c1">
 							For the $_PROJECT, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
 							used for analyzing data. In the end, stakeholder involvement needs to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata
 							using open standards, as it is laid out in the following section. As the $_PROJECT aims at $_PROJECTAIM.
 							<p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p>
 						   </span>
+						  </p>
 							<p class="c0">
 								<span class="c1">
 									We foresee that the following data will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
