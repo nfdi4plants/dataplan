@@ -2770,7 +2770,7 @@ END:VEVENT`;
 									placeholder="the project name"
 									onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
 									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+									
 								/>
 								
 								
@@ -3676,7 +3676,7 @@ END:VEVENT`;
 	
 					<div class="content-page">
 					<h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
-					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT Open and FAIR data, however, considers the need to protect individual data sets. #endif$_PROTECT
+					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
 						</span>
 					</p>
 					<p class="c0">
@@ -7303,6 +7303,7 @@ END:VEVENT`;
 			e.setAttribute("onfocusin", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e =>{ e.classList.add("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.add("border-highlight")}  }); set_scrollbar_marker( scroll_marker,elem1 )');
 			e.setAttribute("onfocusout", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
 			e.setAttribute("onmouseover", 'this.focus()');
+			e.setAttribute("onclick", 'this.blur(); setTimeout(()=> {this.focus()}, "100")');
 			}
 		);	
 			
