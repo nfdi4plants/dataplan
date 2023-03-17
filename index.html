@@ -17,6 +17,7 @@
 		<link href="css/custom.css" rel="stylesheet"/>
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />		
 		<!-- loading javascript scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 		<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"> </script>		
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
@@ -388,7 +389,7 @@
 			        content: '<p> Welcome! let&#39;s generate the following DMPs in 5 minutes<br><p>1. A <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >DFG DMP</a><br>2. A  <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >H2020 DMP</a> or a <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="horizon_europe")\' >Horizon Europe DMP</a> in detail (11 pages);<br>3. A <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >proposal DMP</a> (2 pages); <br>4. A <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide</a> in detail throughout the project</p>'
 			        //
 			    }, {
-			        id: "interface",
+			        id: "split-1",
 			        content: "<p>Questions are listed on the right hand side of the window.</p>"
 			    }, {
 			        id: "navbar-interface",
@@ -400,7 +401,7 @@
 			        id: "form_project",
 			        content: "<p>Please type your project name here. For example, you can type: \"your awesome project\" to the highlighted input box, then click anywhere else or use tab key to go to next question. The answers will be submitted automatically.</p>"
 			    }, {
-			        id: "doc",
+			        id: "split-0",
 			        content: "<p>Now the document's content has been updated.</p>"
 			    }, {
 			        id: "save_button",
@@ -432,7 +433,7 @@
 
 			    const date = new Date(); // record the time
 				doc_name = name; // overwrite global variable doc_name
-				initialed ? scroll_y = document.getElementById("doc").scrollTop+"": {};
+				initialed ? scroll_y = document.getElementById("split-0").scrollTop+"": {};
 				
 			    window.localStorage.setItem("template", doc_name);
 			    let content = document.getElementById(name);
@@ -490,7 +491,7 @@
 
 				
 
-				document.getElementById("doc").scrollTop = scroll_y,
+				document.getElementById("split-0").scrollTop = scroll_y,
 				console.log("the window is scrolled to: "+ scroll_y);
 				
 			}
@@ -654,7 +655,7 @@
 			 * @global
 			 */	
 			function reload_answers() {
-				const doc = document.getElementById("doc");
+				const doc = document.getElementById("split-0");
 				
 				
 			    const selection = window.getSelection();
@@ -1405,7 +1406,7 @@
 			});
 				
 			window.addEventListener('pagehide', (event) => {
-				scroll_y = document.getElementById("doc").scrollTop;
+				scroll_y = document.getElementById("split-0").scrollTop;
 				window.localStorage.setItem("scroll_y", scroll_y); 
 				console.log("scroll_y page hide to cache is " +scroll_y );
 				});	
@@ -1432,7 +1433,7 @@
 			    window.localStorage.setItem("user_info", "visited");
 				saved_a = update_saved_json(saved_a);
 			    load_dmp(reload_answers, name = cached_template);
-				//document.getElementById("doc").scrollTop= scroll_y;
+				//document.getElementById("split-0").scrollTop= scroll_y;
 				
 			    //verbose  console.log("current url is: " + window.location.href);
 			    const urls = window.location.href.split("?");
@@ -2349,7 +2350,7 @@ END:VEVENT`;
 			  
 			function set_scrollbar_marker( scroll_marker, elements ){
 				scroll_marker= document.querySelector('.scroll-marker');
-				const doc = document.getElementById("doc");
+				const doc = document.getElementById("split-0");
 				let doc_height = doc.offsetHeight;
 				let doc_top = doc.scrollHeight;
 				
@@ -2616,7 +2617,7 @@ END:VEVENT`;
 								</li>
 								<li>
 								<button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog <span class="badge bg-secondary">1</span>
-		  </span></button>
+		                        </span></button>
 								</li>
 								
 							</ul>
@@ -2645,10 +2646,11 @@ END:VEVENT`;
 					</nav>
 				</div>
 			</div>
-			<div class="row g-3" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y: hidden; position:absolute; top:52px">
-				<div class="col-7" id="doc" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
-					<div class="col-12" id="doc2" style="top:7vh;overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
-					<div class="scroll-marker"> </div>
+			<div class="row g-3 split" style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden;  position:fixed; top:52px">
+				<div class="col-7" id="split-0" style="height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
+                    
+					<div class="col-12" id="doc2" style="top:7vh; overflow-x: hidden; padding-right: 0px; background-color: WhiteSmoke;">
+					
 					<button onclick="go_top()" id="up-to-top" title="Go to top">⭱</button>
 					<div aria-live="polite" aria-atomic="true" class="position-static" >
 						<div class="toast-container position-absolute translate-middle-x" style="z-index: 1200; left:28vw; ">
@@ -2754,7 +2756,8 @@ END:VEVENT`;
 						</div>
 					</div>
 				</div>
-				<div class="col-5" id="interface" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden; height: 93vh; margin: 0 0 0 0; padding: 0 0 0 0;position:relative">
+				<div class="col" id="split-1" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden;  margin: 0 0 0 -24px; padding: 0 0 0 20px;position:static">
+                    <div class="scroll-marker" > </div>
 					<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;" >
 						<div id="intro-tour-input">
 							<div id="warningText" ></div>
@@ -4431,6 +4434,11 @@ END:VEVENT`;
                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
                                </span>
                            </p>
+                           <p class="c0">
+                            <span class="c1">
+                                As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. 
+                            </span>
+                        </p>
                            <p class="c0"><span class="c3">Have you explored appropriate arrangements with the identified repository where your data will be deposited? </span></p>
                            <p class="c0">
                                <span class="c1">
@@ -7866,7 +7874,7 @@ END:VEVENT`;
 
 		<script>
 		let up_to_top = document.getElementById("up-to-top");
-		let doc = document.getElementById("doc");
+		let doc = document.getElementById("split-0");
 			doc.onscroll = function(){scroll_function()};
 			function scroll_function(){
 			
@@ -7878,7 +7886,7 @@ END:VEVENT`;
 			
 			}
 			function go_top() {
-			  const doc = document.getElementById("doc");
+			  const doc = document.getElementById("split-0");
 			  doc.scrollTop = 0;
 			}
 		
@@ -7890,7 +7898,10 @@ END:VEVENT`;
 			e.setAttribute("onclick", 'this.blur(); setTimeout(()=> {this.focus()}, "100")');
 			}
 		);	
-			
+		var split = Split(["#split-0", "#split-1"], {sizes: [60, 40],direction: 'horizontal',
+    cursor: 'column-resize',
+    gutterSize: 5,
+});	
 		</script>
 	  </body>
 	  <script src="js/cloud.min.js" charset="utf-8"> </script>

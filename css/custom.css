@@ -35,7 +35,7 @@
 	padding-right:4vw;					
 	background-color:white;
 	margin-bottom: 8vw;
-	width:52vw;
+	width:90%;
 	position: relative;
 	top: 40px; 
 	left: 2vw;
@@ -337,11 +337,11 @@ display: block;
 }
 
 .scroll-marker {
-    position: absolute;
-    
-    width: 8px;
+    position: relative;
+    margin-left:-20px;
+  
     pointer-events: none;
-	right:41.7vw;
+	
 	
 	z-index:1200;
 	
@@ -351,10 +351,11 @@ display: block;
 .scroll-marker span {
     /* markers */
 	
-
+    
     position: absolute;
-	right:0;
+	
 	width: 8px;
+    z-index:1200;
 }
 
 .modal-backdrop {
@@ -381,4 +382,22 @@ display: block;
 
 #up-to-top:hover {
   color: #8ad3d3;
+}
+
+.split {
+    display: flex;
+    flex-direction: row;
+}
+
+.gutter {
+
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+    z-index:1200;
 }
