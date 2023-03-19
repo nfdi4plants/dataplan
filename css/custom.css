@@ -366,9 +366,10 @@ display: block;
 
 #up-to-top {
   display: none;
-  position: absolute;
+  position: fixed;
+  border: none;
+  left: 50px;
   bottom: 50px;
-  right: 42.5vw;
   z-index: 1020;
   font-size: 34px;
   border: none;
