@@ -9,6 +9,7 @@
 
 body.tour-active-element {
   border: none;
+  z-index: 1200 !important;
 }
 
 .popover-tour {
