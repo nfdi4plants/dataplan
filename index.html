@@ -1528,36 +1528,45 @@
 				// Callback function to execute when mutations are observed
 				const callback = (mutationList, observer) => {
 				  for (const mutation of mutationList) {
-                    var canvas = document.getElementById('canvas');
+                    var canvas = document.createElement('canvas');
+                    canvas.setAttribute("width", "500px");
+                    canvas.setAttribute("height", "500px");
+
                     var ctx = canvas.getContext('2d');
                     // instead of using raw xml text, XMLSerializer can produce better html text
                     var data = (new XMLSerializer()).serializeToString(document.getElementById("dmp1").querySelector("#vis").childNodes[0]);
-
+                    
                     var DOMURL = window.URL || window.webkitURL || window;
 
                     var img = new Image();
                     var svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
                     var url = DOMURL.createObjectURL(svg);
-
+                    var png = new Image();
                     img.onload = function () {
-                    ctx.drawImage(img, 0, 0);
+                    ctx.drawImage(img, 0, 0,canvas.width, canvas.height);
+
                     DOMURL.revokeObjectURL(url);
+                    
+                    const png_url = canvas.toDataURL('image/png');
+                    
+                    png.src = png_url;
+                             
                     }
 
                     img.src = url;
-                    
+                   
                     document.getElementById("vis").innerHTML="";
 					if (mutation.type === 'childList') {
 					  //verbose  console.log('A child node has been added or removed.');
-					  document.getElementById("vis").appendChild(img);
+					  document.getElementById("vis").appendChild(png);
                       img.setAttribute("style", "max-width:100%");
 					} else if (mutation.type === 'attributes') {
 					  //verbose  console.log(`The ${mutation.attributeName} attribute was modified.`);
-					  document.getElementById("vis").appendChild(img);
+					  document.getElementById("vis").appendChild(png);
                       img.setAttribute("style", "max-width:100%");
 					}else if (mutation.type === 'subtree') {
 					  //verbose  console.log(`subtree`);
-					  document.getElementById("vis").appendChild(img);
+					  document.getElementById("vis").appendChild(png);
                       img.setAttribute("style", "max-width:100%");
 					}
 				  }
@@ -2502,11 +2511,11 @@ END:VEVENT`;
 									</label>
 								</li>
 								<li>
-									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>
+									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>
 
 									<button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
 								
-									<button id="json_save" class="dropdown-item" onclick="save_json()">Export Answers</button>
+									<button id="json_save" class="dropdown-item" onclick="save_json()">Export JSON</button>
 									<button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 									
 									
@@ -2619,9 +2628,9 @@ END:VEVENT`;
 							</button>
 							<ul class="dropdown-menu">
 								<li>
-									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy the Text</button>         
-									<button id="json_save" class="dropdown-item" onclick="save_json()">Export User Input</button>
-                                    <button id="docx_save" class="dropdown-item" onclick='export2word("doc3", "DMP.docx")'>Export DMP to word</button>
+									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>         
+									<button id="json_save" class="dropdown-item" onclick="save_json()">Export JSON</button>
+                                    <button id="docx_save" class="dropdown-item" onclick='export2word("doc3", "DMP.docx")'>Export DOCX</button>
 									<button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 									
 									
@@ -3705,8 +3714,8 @@ END:VEVENT`;
 					<div class="content-page">
 						<br />
 						<div class="p-2" id="vis-parent" style="margin: auto;">
-							<div id="vis" style="width: 35vw; margin: auto;"></div>
-                            
+							<div id="vis" style="width: 35vw; margin: auto; display: block;"></div>
+                            <br />
 						<div class="p-2" style="margin: auto;">
 							<h1  id="text_start" class="d-flex justify-content-center ">
 							
@@ -3748,7 +3757,7 @@ END:VEVENT`;
 
 						</div>
 					</div>
-	
+                </div>
 					<div class="content-page">
 					<h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
 					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
@@ -7927,12 +7936,12 @@ END:VEVENT`;
                     <div id="word_cloud_sample" class="d-none">
                         <svg width="100%" height="100%" viewBox="0 0 600 600"><g></g><g transform="translate(300,300)"><text text-anchor="middle" transform="translate(36,96)rotate(0)" style="font-size: 100px; font-family: Impact; fill: rgb(57, 59, 121);">Data</text><text text-anchor="middle" transform="translate(93,174)rotate(-60)" style="font-size: 59px; font-family: Impact; fill: rgb(82, 84, 163);">used</text><text text-anchor="middle" transform="translate(-45,-99)rotate(30)" style="font-size: 58px; font-family: Impact; fill: rgb(107, 110, 207);">DataPLAN</text><text text-anchor="middle" transform="translate(-117,-16)rotate(0)" style="font-size: 57px; font-family: Impact; fill: rgb(156, 158, 222);">repositories</text><text text-anchor="middle" transform="translate(132,-149)rotate(-60)" style="font-size: 55px; font-family: Impact; fill: rgb(99, 121, 57);">open</text><text text-anchor="middle" transform="translate(161,-85)rotate(-60)" style="font-size: 55px; font-family: Impact; fill: rgb(140, 162, 82);">metadata</text><text text-anchor="middle" transform="translate(9,-157)rotate(60)" style="font-size: 55px; font-family: Impact; fill: rgb(181, 207, 107);">made</text><text text-anchor="middle" transform="translate(-30,142)rotate(0)" style="font-size: 53px; font-family: Impact; fill: rgb(206, 219, 156);">project</text><text text-anchor="middle" transform="translate(185,-19)rotate(-30)" style="font-size: 53px; font-family: Impact; fill: rgb(140, 109, 49);">sets</text><text text-anchor="middle" transform="translate(-104,74)rotate(30)" style="font-size: 53px; font-family: Impact; fill: rgb(189, 158, 57);">use</text><text text-anchor="middle" transform="translate(-110,182)rotate(0)" style="font-size: 52px; font-family: Impact; fill: rgb(231, 186, 82);">case</text><text text-anchor="middle" transform="translate(129,-219)rotate(-30)" style="font-size: 52px; font-family: Impact; fill: rgb(231, 203, 148);">possible</text><text text-anchor="middle" transform="translate(-155,-105)rotate(30)" style="font-size: 52px; font-family: Impact; fill: rgb(132, 60, 57);">available</text><text text-anchor="middle" transform="translate(-177,144)rotate(-30)" style="font-size: 52px; font-family: Impact; fill: rgb(173, 73, 74);">access</text><text text-anchor="middle" transform="translate(203,-78)rotate(0)" style="font-size: 48px; font-family: Impact; fill: rgb(214, 97, 107);">EU</text><text text-anchor="middle" transform="translate(-98,-192)rotate(30)" style="font-size: 48px; font-family: Impact; fill: rgb(231, 150, 156);">addition</text><text text-anchor="middle" transform="translate(-15,-255)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(123, 65, 115);">Management</text><text text-anchor="middle" transform="translate(191,87)rotate(60)" style="font-size: 45px; font-family: Impact; fill: rgb(165, 81, 148);">Example</text><text text-anchor="middle" transform="translate(69,256)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(206, 109, 189);">specific</text><text text-anchor="middle" transform="translate(-121,220)rotate(0)" style="font-size: 45px; font-family: Impact; fill: rgb(222, 158, 214);">Information</text><text text-anchor="middle" transform="translate(187,183)rotate(60)" style="font-size: 45px; font-family: Impact; fill: rgb(57, 59, 121);">software</text><text text-anchor="middle" transform="translate(-169,48)rotate(-30)" style="font-size: 42px; font-family: Impact; fill: rgb(82, 84, 163);">stored</text><text text-anchor="middle" transform="translate(-209,-200)rotate(-30)" style="font-size: 42px; font-family: Impact; fill: rgb(107, 110, 207);">need</text><text text-anchor="middle" transform="translate(-118,148)rotate(60)" style="font-size: 42px; font-family: Impact; fill: rgb(156, 158, 222);"></text><text text-anchor="middle" transform="translate(-225,38)rotate(-60)" style="font-size: 42px; font-family: Impact; fill: rgb(99, 121, 57);">ENA</text><text text-anchor="middle" transform="translate(-178,-74)rotate(30)" style="font-size: 39px; font-family: Impact; fill: rgb(140, 162, 82);">DMP</text><text text-anchor="middle" transform="translate(-34,14)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(181, 207, 107);">generated</text><text text-anchor="middle" transform="translate(140,177)rotate(-30)" style="font-size: 39px; font-family: Impact; fill: rgb(206, 219, 156);">raw</text><text text-anchor="middle" transform="translate(234,-5)rotate(-60)" style="font-size: 39px; font-family: Impact; fill: rgb(140, 109, 49);">line</text><text text-anchor="middle" transform="translate(-62,254)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(189, 158, 57);">useful</text><text text-anchor="middle" transform="translate(-186,102)rotate(-30)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 186, 82);">General</text><text text-anchor="middle" transform="translate(-204,-268)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 203, 148);">openly</text><text text-anchor="middle" transform="translate(-142,-168)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(132, 60, 57);">IP</text><text text-anchor="middle" transform="translate(159,228)rotate(30)" style="font-size: 39px; font-family: Impact; fill: rgb(173, 73, 74);">long</text><text text-anchor="middle" transform="translate(206,-213)rotate(-30)" style="font-size: 39px; font-family: Impact; fill: rgb(214, 97, 107);">costs</text><text text-anchor="middle" transform="translate(-202,259)rotate(0)" style="font-size: 39px; font-family: Impact; fill: rgb(231, 150, 156);">sharing</text><text text-anchor="middle" transform="translate(4,172)rotate(0)" style="font-size: 35px; font-family: Impact; fill: rgb(123, 65, 115);">make</text><text text-anchor="middle" transform="translate(96,-68)rotate(-60)" style="font-size: 35px; font-family: Impact; fill: rgb(165, 81, 148);">end</text><text text-anchor="middle" transform="translate(-228,-68)rotate(30)" style="font-size: 35px; font-family: Impact; fill: rgb(206, 109, 189);">like</text><text text-anchor="middle" transform="translate(-237,-110)rotate(30)" style="font-size: 35px; font-family: Impact; fill: rgb(222, 158, 214);">via</text><text text-anchor="middle" transform="translate(225,71)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(57, 59, 121);">Plan</text><text text-anchor="middle" transform="translate(235,-109)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(82, 84, 163);">course</text><text text-anchor="middle" transform="translate(234,-171)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(107, 110, 207);">public</text><text text-anchor="middle" transform="translate(-61,-221)rotate(30)" style="font-size: 30px; font-family: Impact; fill: rgb(156, 158, 222);">allow</text><text text-anchor="middle" transform="translate(249,-235)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(99, 121, 57);">free</text><text text-anchor="middle" transform="translate(247,-49)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(140, 162, 82);">get</text><text text-anchor="middle" transform="translate(47,-229)rotate(0)" style="font-size: 30px; font-family: Impact; fill: rgb(181, 207, 107);">legal</text><text text-anchor="middle" transform="translate(248,9)rotate(60)" style="font-size: 30px; font-family: Impact; fill: rgb(206, 219, 156);">etc</text><text text-anchor="middle" transform="translate(-234,-229)rotate(-30)" style="font-size: 30px; font-family: Impact; fill: rgb(140, 109, 49);">last</text><text text-anchor="middle" transform="translate(247,40)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">store</text><text text-anchor="middle" transform="translate(248,208)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 186, 82);">findable</text><text text-anchor="middle" transform="translate(243,-271)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 203, 148);">types</text><text text-anchor="middle" transform="translate(56,-28)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(132, 60, 57);">least</text><text text-anchor="middle" transform="translate(94,272)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(173, 73, 74);">resources</text><text text-anchor="middle" transform="translate(-33,273)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(214, 97, 107);">reference</text><text text-anchor="middle" transform="translate(-36,-69)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(231, 150, 156);">EBI</text><text text-anchor="middle" transform="translate(-186,-168)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(123, 65, 115);">DNA</text><text text-anchor="middle" transform="translate(-241,92)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(165, 81, 148);">Bank</text><text text-anchor="middle" transform="translate(92,-166)rotate(-60)" style="font-size: 22px; font-family: Impact; fill: rgb(206, 109, 189);">prior</text><text text-anchor="middle" transform="translate(-262,-57)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(222, 158, 214);">form</text><text text-anchor="middle" transform="translate(206,275)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(57, 59, 121);">described</text><text text-anchor="middle" transform="translate(-197,279)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(82, 84, 163);">Read</text><text text-anchor="middle" transform="translate(76,19)rotate(0)" style="font-size: 22px; font-family: Impact; fill: rgb(107, 110, 207);">size</text><text text-anchor="middle" transform="translate(-249,207)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(156, 158, 222);">see</text><text text-anchor="middle" transform="translate(-7,-137)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(99, 121, 57);">due</text><text text-anchor="middle" transform="translate(74,-98)rotate(-60)" style="font-size: 22px; font-family: Impact; fill: rgb(140, 162, 82);">ie</text><text text-anchor="middle" transform="translate(-171,10)rotate(-30)" style="font-size: 22px; font-family: Impact; fill: rgb(181, 207, 107);">text</text><text text-anchor="middle" transform="translate(5,198)rotate(30)" style="font-size: 22px; font-family: Impact; fill: rgb(206, 219, 156);">thus</text><text text-anchor="middle" transform="translate(-264,-153)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(140, 109, 49);">set</text><text text-anchor="middle" transform="translate(125,123)rotate(60)" style="font-size: 22px; font-family: Impact; fill: rgb(189, 158, 57);">area</text><text text-anchor="middle" transform="translate(-4,-231)rotate(-30)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">2020</text><text text-anchor="middle" transform="translate(264,-191)rotate(30)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 203, 148);">2950012016</text><text text-anchor="middle" transform="translate(-84,39)rotate(30)" style="font-size: 10px; font-family: Impact; fill: rgb(132, 60, 57);">DataPLAN1</text><text text-anchor="middle" transform="translate(-121,257)rotate(60)" style="font-size: 10px; font-family: Impact; fill: rgb(173, 73, 74);">IntroductionTo</text><text text-anchor="middle" transform="translate(69,-7)rotate(-60)" style="font-size: 10px; font-family: Impact; fill: rgb(214, 97, 107);">best</text><text text-anchor="middle" transform="translate(125,26)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(231, 150, 156);">profit</text><text text-anchor="middle" transform="translate(104,203)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(123, 65, 115);">reusable</text><text text-anchor="middle" transform="translate(177,98)rotate(30)" style="font-size: 10px; font-family: Impact; fill: rgb(165, 81, 148);">FAIRThe</text><text text-anchor="middle" transform="translate(123,-106)rotate(0)" style="font-size: 10px; font-family: Impact; fill: rgb(206, 109, 189);">aim</text><text text-anchor="middle" transform="translate(264,-21)rotate(60)" style="font-size: 10px; font-family: Impact; fill: rgb(222, 158, 214);">guidelines</text><text text-anchor="middle" transform="translate(170,-61)rotate(-30)" style="font-size: 10px; font-family: Impact; fill: rgb(57, 59, 121);">guiding</text><text text-anchor="middle" transform="translate(66,119)rotate(-60)" style="font-size: 10px; font-family: Impact; fill: rgb(82, 84, 163);">answers</text><text text-anchor="middle" transform="translate(264,120)rotate(60)" style="font-size: 10px; font-family: Impact; fill: rgb(107, 110, 207);">questionnaire</text><text text-anchor="middle" transform="translate(167,7)rotate(-30)" style="font-size: 10px; font-family: Impact; fill: rgb(156, 158, 222);">instructs</text></g></svg>
                     </div>
-                    <canvas id="canvas" style="width: 35vw; margin: auto;"></canvas>
+                    
 
 						</div>
                 
           
-
+                       
 		<script>
 		let up_to_top = document.getElementById("up-to-top");
 		let doc = document.getElementById("split-0");
