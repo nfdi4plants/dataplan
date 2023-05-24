@@ -1942,6 +1942,11 @@
 			}
 
 			function copy_doc1() {
+                try {
+                    document.querySelector(".tour-exit").click();
+
+                } catch(e){};
+
 			    const text = document.getElementById("doc3");
 				const text_start = text.querySelector("#text_start");
 			    
@@ -3719,7 +3724,7 @@ END:VEVENT`;
 						<div class="p-2" style="margin: auto;">
 							<h1  id="text_start" class="d-flex justify-content-center ">
 							
-							<div  class="c2 text-center ">Data Management Plan of $_PROJECT  </div>  
+							<div  class="c2 text-center ">Data Management Plan of $_PROJECT for H2020 </div>  
 							</h1>
 							<div class="d-flex justify-content-center">
 							
@@ -3771,7 +3776,7 @@ END:VEVENT`;
 					</p>
 					<p class="c0">
 						<span class="c1">
-							The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modelled according to the Horizon 2020 and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
+							The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modified according to the Horizon 2020 and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
 							$_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE
 						</span>
 					</p>
@@ -4257,7 +4262,7 @@ END:VEVENT`;
 						<div class="p-2" style="margin: auto;">
 							<h1 style="" id="text_start" class="d-flex justify-content-center ">
 							
-							<div class="c2 text-center ">Data Management Plan of $_PROJECT  </div>  
+							<div class="c2 text-center ">Data Management Plan of $_PROJECT for Horizon Europe </div>  
 							</h1>
 							<div class="d-flex justify-content-center">
 							
@@ -4309,7 +4314,7 @@ END:VEVENT`;
 					</p>
 					<p class="c0">
 						<span class="c1">
-							The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modelled according to the Horizon 2020 and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
+							The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modified according to the Horizon Europe and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
 							$_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE</span></p>
 
 					<h2 class="c9" id="h.3l7mu272odf4"><span class="c4">1.&nbsp; &nbsp; Data Summary</span></h2>
@@ -4857,7 +4862,7 @@ END:VEVENT`;
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modelled according to the DFG data management checklist. #if$_UPDATE It will be updated/its validity
+                                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modified according to the DFG data management checklist. #if$_UPDATE It will be updated/its validity
                                     checked during the $_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE
                                 </span>
                             </p>
