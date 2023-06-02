@@ -442,7 +442,7 @@
 			    frame.innerHTML = content.innerHTML;
 				const options = {  year: 'numeric', month: 'long', day: 'numeric' };
 				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
-				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('de-DE', options)+"</h3>";
+				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
 				
 				try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
 				}
