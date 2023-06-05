@@ -1,0 +1,45 @@
+Will you re-use any existing data and what will you re-use it for? State the reasons if re-use of any existing data has been considered but discarded.
+What types and formats of data will the project generate or re-use?
+What is the purpose of the data generation or re-use and its relation to the objectives of the project?
+What is the expected size of the data that you intend to generate or re-use?
+What is the origin/provenance of the data, either generated or re-used?
+To whom might your data be useful ('data utility'), outside your project?
+Will data be identified by a persistent identifier?
+Will rich metadata be provided to allow discovery? What metadata will be created? What disciplinary or general standards will be followed? In case metadata standards do not exist in your discipline, please outline what type of metadata will be created and how.
+Will search keywords be provided in the metadata to optimize the possibility for discovery and then potential re-use?
+Will metadata be offered in such a way that it can be harvested and indexed? 
+Will the data be deposited in a trusted repository?
+Have you explored appropriate arrangements with the identified repository where your data will be deposited? 
+Does the repository ensure that the data is assigned an identifier? Will the repository resolve the identifier to a digital object? 
+Will all data be made openly available? If certain datasets cannot be shared (or need to be shared under restricted access conditions), explain why, clearly separating legal and contractual reasons from intentional restrictions. Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their data closed if opening their data goes against their legitimate interests or other constraints as per the Grant Agreement.
+If an embargo is applied to give time to publish or seek protection of the intellectual property (e.g. patents), specify why and how long this will apply, bearing in mind that research data should be made available as soon as possible.
+Will the data be accessible through a free and standardized access protocol?
+If there are restrictions on use, how will access be provided to the data, both during and after the end of the project?
+How will the identity of the person accessing the data be ascertained?
+Is there a need for a data access committee (e.g. to evaluate/approve access requests to personal/sensitive data)?
+Will metadata be made openly available and licenced under a public domain dedication CC0, as per the Grant Agreement? If not, please clarify why. Will metadata contain information to enable the user to access the data?
+How long will the data remain available and findable? Will metadata be guaranteed to remain available after data is no longer available?
+Will documentation or reference about any software be needed to access or read the data be included? 
+Will it be possible to include the relevant software (e.g. in open source code)?
+What data and metadata vocabularies, standards, formats or methodologies will you follow to make your data interoperable to allow data exchange and re-use within and across disciplines? 
+Will you follow community-endorsed interoperability best practices? Which ones? 
+In case it is unavoidable that you use uncommon or generate project specific ontologies or vocabularies, will you provide mappings to more commonly used ontologies? 
+Will you openly publish the generated ontologies or vocabularies to allow reusing, refining or extending them?
+Will your data include qualified references  to other data (e.g. other data from your project, or datasets from previous research)?
+How will you provide documentation needed to validate data analysis and facilitate data re-use (e.g. readme files with information on methodology, codebooks, data cleaning, analyses, variable definitions, units of measurement, etc.)?
+Will your data be made freely available in the public domain to permit the widest re-use possible? 
+Will your data be licensed using standard reuse licenses, in line with the obligations set out in the Grant Agreement?
+Will the data produced in the project be useable by third parties, in particular after the end of the project?
+Will the provenance of the data be thoroughly documented using the appropriate standards?
+Further to the FAIR principles, DMPs should also address research outputs other than data, and should carefully consider aspects related to the allocation of resources, data security and ethical aspects.
+In addition to the management of data, beneficiaries should also consider and plan for the management of other research outputs that may be generated or re-used throughout their projects. Such outputs can be either digital (e.g. software, workflows, protocols, models, etc.) or physical (e.g. new materials, antibodies, reagents, samples, etc.).
+Beneficiaries should consider which of the questions pertaining to FAIR data above, can apply to the management of other research outputs, and should strive to provide sufficient detail on how their research outputs will be managed and shared, or made available for re-use, in line with the FAIR principles.
+What will the costs be for making data or other research outputs FAIR in your project (e.g. direct and indirect costs related to storage, archiving, re-use, security, etc.) ?
+How will these be covered? Note that costs related to research data/output management are eligible as part of the Horizon Europe grant (if compliant with the Grant Agreement conditions)
+Who will be responsible for data management in your project?
+How will long term preservation be ensured? Discuss the necessary resources to accomplish this (costs and potential value, who decides and how, what data will be kept and for how long)?
+What provisions are or will be in place for data security (including data recovery as well as secure storage/archiving and transfer of sensitive data)?
+Will the data be safely stored in trusted repositories for long term preservation and curation?
+Are there, or could there be, any ethics or legal issues that can have an impact on data sharing? These can also be discussed in the context of the ethics review. If relevant, include references to ethics deliverables and ethics chapter in the Description of the Action (DoA).
+Will informed consent for data sharing and long term preservation be included in questionnaires dealing with personal data?
+Do you, or will you, make use of other national/funder/sectorial/departmental procedures for data management? If yes, which ones (please list and briefly describe them)?
