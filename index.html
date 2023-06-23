@@ -386,17 +386,14 @@
 			// a tutoial to help users get familiar with the DataPLAN tool.
 			var steps = [{
 			        title: "Data Management Plan Generator (DMPG) ",
-			        content: '<p> Welcome! let&#39;s generate the following DMPs in 5 minutes<br><p>1. A <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >DFG DMP</a><br>2. A  <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >H2020 DMP</a> or a <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="horizon_europe")\' >Horizon Europe DMP</a> in detail (11 pages);<br>3. A <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >proposal DMP</a> (2 pages); <br>4. A <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide</a> in detail throughout the project</p>'
+			        content: '<p> Welcome! Let&#39;s generate DMPs in 5 minutes.<br> We can choice the following templates </p> <p>1. <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >DFG DMP.</a><br> 2.  <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >H2020 DMP</a> or a <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="horizon_europe")\' >Horizon Europe DMP</a> (11 pages).;<br>3. <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >Proposal DMP</a> (2 pages); <br>4. <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >Practical Guide</a> on data management </p>'
 			        //
 			    }, {
-			        id: "split-1",
-			        content: "<p>Questions are listed on the right hand side of the window.</p>"
-			    }, {
 			        id: "navbar-interface",
-			        content: "<p>There are five sections of questions.</p>"
+			        content: "<p>The questionnaire have five sections.</p>"
 			    }, {
 			        id: "intro-tour-input",
-			        content: "<p>Each section has a few questions.</p>"
+			        content: "<p>The five sections are wrapped in a single page.</p>"
 			    }, {
 			        id: "form_project",
 			        content: "<p>Please type your project name here. For example, you can type: \"your awesome project\" to the highlighted input box, then click anywhere else or use tab key to go to next question. The answers will be submitted automatically.</p>"
@@ -405,10 +402,10 @@
 			        content: "<p>Now the document's content has been updated.</p>"
 			    }, {
 			        id: "save_button",
-			        content: "<p>You can save the answers to json or copy the document on the left side.</p>"
+			        content: "<p>You can save the answers to JSON or copy the document on the left side.</p>"
 			    }, {
 			        id: "upload_button",
-			        content: "<p> If you have saved the \"json\" file, you can also upload it any time, to resume your DMP generation process </p>"
+			        content: "<p> If you have saved the \"JSON\" file, you can also upload it at any time, to resume your DMP generation process </p>"
 			    }, {
 			        id: "change_template",
 			        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>: </p><br><p>Beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> You can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://github.com/nfdi4plants/dataplan/wiki" >If you have more questions, please check our wiki</a>.</p>'
@@ -2488,7 +2485,7 @@ END:VEVENT`;
 										onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
 										href="#"
 									>
-										User Defined Template
+										User-defined Template
 									</a>
 								</li>
 								<li>
@@ -2565,7 +2562,7 @@ END:VEVENT`;
 										onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
 										href="#"
 									>
-										User Defined Template
+										User-defined Template
 									</a>
 								</li>
 							</ul>
@@ -2642,7 +2639,7 @@ END:VEVENT`;
 									
 									
 									<button id="odt_save" class="dropdown-item d-none" onclick="save()">Export Document</button>
-									<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Update Reminder</button>
+									<button id="dmp_update_button" class="dropdown-item " onclick="dmp_update(saved_a)">Remind me to Update DMP</button>
 									<li>
 									<button id="save_to_cache" class="dropdown-item" >Save to Cache &raquo;</button>
 									<ul class="dropdown-menu dropdown-submenu">
@@ -2838,7 +2835,7 @@ END:VEVENT`;
 							<h2 id="scrollspyHeading1">1 Basic Information:</h2>
 
 							<form class="" style="margin-left: 0px;" id="form_project">
-								<h3>1.1 Give the project name or acronym to be used:</h3>
+								<h3>1.1 What is the project name or acronym?</h3>
 								<label for="input_project"></label>
 								<input
 									style="width: 26vw;"
@@ -2862,7 +2859,7 @@ END:VEVENT`;
 							<form id="form_studyobject">
 								<label for="input_studyobject">
 									<h3>
-										1.2 Give the object
+										1.2	Please briefly state the topic of the research project
 										<a href="#"  data-bs-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
 											<span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">
 												<svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -2870,7 +2867,7 @@ END:VEVENT`;
 													<path
 														d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
 													/></svg></span></a>
-										to be studied:
+										
 									</h3>
 								</label>
 
@@ -2896,7 +2893,7 @@ END:VEVENT`;
 							<form id="form_projectaim">
 								<label class="" for="input_projectaim">
 									<h3>
-										and the project aim
+										and the overall aim of the project
 										 <a href="#"  data-bs-toggle="tooltip" title="click to see some example project aim" tabindex="-1">
 										<span class="text-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" >
 											(what do you want to achieve?)
@@ -2928,7 +2925,7 @@ END:VEVENT`;
 								
 							</form>
 							<form class="" style="margin-left: 0px;" id="form_datautility">
-								<h3>To whom data will be useful? (data utility) :</h3>
+								<h3>Who is the most likely to benefit from the data?</h3>
 								<label for="input_datautility"></label>
 								<textarea
 									style="width: 26vw;"
@@ -3027,7 +3024,7 @@ END:VEVENT`;
 								
 							</form>
 							
-							<h3>1.4 Chose some additional information</h3>
+							<h3>1.4 1.4	Please select from the following options</h3>
 							<div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
 								<div>
 								<input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" 
@@ -3221,7 +3218,7 @@ END:VEVENT`;
 							
 								
 								<form class="collapse" id="form_previousprojects">
-									<label for="intput_previousprojects">The name of your previous project is:</label>
+									<label for="intput_previousprojects">What is the name of your previous project?</label>
 									<input
 										style="width: 26vw;"
 										type="text"
@@ -3242,7 +3239,7 @@ END:VEVENT`;
 							
 							 
 								<form class="collapse" id="form_proprietary">
-									<label for="input_proprietary">The name of your proprietary software is:</label>
+									<label for="input_proprietary">What is the name of your proprietary software?</label>
 
 									<input
 										style="width: 26vw;"
@@ -3262,7 +3259,7 @@ END:VEVENT`;
 							
 
 							<form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
-								<h2 id="scrollspyHeading2">2. What kind of data will you handle:</h2>
+								<h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" />
 									<label class="form-check-label" for="check_image">
@@ -3344,10 +3341,10 @@ END:VEVENT`;
 
 							<!---->
 
-							<h2 id="scrollspyHeading3">3. How much data you will probably generate:</h2>
+							<h2 id="scrollspyHeading3">3. How much data will you likely to generate?</h2>
 
 							<form class="" style="margin-left: 0px;" id="form_rawdata">
-								<label for="input_rawdata"><h3>3.1 Raw data volume is :</h3> </label>
+								<label for="input_rawdata"><h3>3.1 Raw data volume?</h3> </label>
 								<div class="align-bottom">
 									<input
 										style="width: 24vw;"
@@ -3369,7 +3366,7 @@ END:VEVENT`;
 							</form>
 
 							<form class="" style="margin-left: 0px;" id="form_deriveddata">
-								<label for="input_deriveddata"><h3>3.2 Derived data volume is :</h3> </label>
+								<label for="input_deriveddata"><h3>3.2 Processed data volume?</h3> </label>
 								<div class="align-bottom">
 									<input
 										style="width: 24vw;"
@@ -3391,7 +3388,7 @@ END:VEVENT`;
 							</form>
 
 							<div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
-								<h2 id="scrollspyHeading4">4. Are there any standards that are relevant for you?</h2>
+								<h2 id="scrollspyHeading4">4. Are any of the following standards relevant to your project?</h2>
 
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_3" type="checkbox" value="9" id="check_MIAPPE" />
@@ -3446,22 +3443,22 @@ END:VEVENT`;
 
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_3" type="checkbox" id="check_early" data-bs-toggle="collapse" data-bs-target="#q6_2" aria-expanded="false" aria-controls="q6_2" role="button" checked />
-									<label class="form-check-label" for="check_early">Will you publish your data early?</label>
+									<label class="form-check-label" for="check_early">The project will publish data as soon as it becomes available.</label>
 								</div>
 
 								<div class="collapse" id="q6_2">
 									<div class="form-data_type form-check">
 										<input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
 										<label class="form-check-label" for="check_ipissue">
-											Are there intellectual property (IP) issues to adhere to (e.g. patents you might want to file) or private partners involved whose IP has to be taken into account
+											The project will publish data as soon as IP issues have been addressed.
 										</label>
 									</div>
 								</div>
 								<!---->
-								 <h2 id="scrollspyHeading5">5. Do you use visualization in the project?</h2>
+								 <h2 id="scrollspyHeading5">5. Do you intend to use data visualization in your project?</h2>
 							<div class="form-check form-switch"  >
 							<input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization"  >
-							   <label class="form-check-label" for="check_vvisualization">Do you use visualization? </label>
+							   <label class="form-check-label" for="check_vvisualization">Yes, I visualize my data. </label>
 
 								
 								
@@ -3562,16 +3559,16 @@ END:VEVENT`;
 			  <div class="modal-dialog">
 				<div class="modal-content">
 				  <div class="modal-header">
-					<h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "submit" button</h5>
+					<h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "download" button</h5>
 					<button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 					<div class="input-group justify-content-center">
-					<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add an reminder </button> 
+					<button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add a reminder </button> 
 					<button  type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16">
 					  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
 					  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> 
-					</svg> remove all reminders </button> 
+					</svg> Remove all reminders </button> 
 					</div>
 					<br>
 					<ul id="dmp-update-content" class="slist" >
@@ -3584,7 +3581,7 @@ END:VEVENT`;
 					<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 					
-					<button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">download</button>
+					<button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Download</button>
 				  </div>
 				</div>
 			  </div>
@@ -3708,7 +3705,7 @@ END:VEVENT`;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="consent()" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="consent()">consent</button>
+                    <button type="button" class="btn btn-primary d-none" data-bs-dismiss="modal" onclick="consent()">Consent</button>
                 </div>
 
             </div>
