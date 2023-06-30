@@ -158,7 +158,7 @@
 			            },
 			    "replace": {
 			        "$_PROJECT": "Example Project",
-			        "$_STUDYOBJECT": "Example Object",
+			        "$_STUDYOBJECT": "Example Topic",
 			        "$_PROJECTAIM": "Example Aim",
 					"$_DMPVERSION": "0.0",
 			        "$_USERNAME": "Example User",
@@ -324,7 +324,7 @@
 			            },
 			        "replace": {
 			            			        "$_PROJECT": "Example Project",
-			        "$_STUDYOBJECT": "Example Object",
+			        "$_STUDYOBJECT": "Example Topic",
 			        "$_PROJECTAIM": "Example Aim",
 					"$_DMPVERSION": "1.0",
 			        "$_USERNAME": "Example User",
@@ -1202,7 +1202,23 @@
 								
 									//verbose  console.log("!!!! replace match text");					
 									original_range.deleteContents();
-									original_range.insertNode(document.createTextNode(name));
+                                    const name_ele = document.getElementById(check_box_item);
+                                    try{name_ele.dataset.replace;}catch(error){
+
+
+                                    }
+                                    const before=check_box_item;
+                                    const parent_node= document.createElement("span");
+                                    parent_node.classList.add("text-primary");
+                                    parent_node.setAttribute("onmouseover", 'const e = document.getElementById("'+before+'") ;e.parentElement.classList.add("border-highlight");e.focus({preventScroll: true})');
+                                    
+                                    
+                                    parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
+                                    parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").focus(); ');
+                                    parent_node.setAttribute("name",before+"-to-");
+                                    parent_node.innerHTML =  HtmlEncode(name_ele.dataset.replace)  ;
+                                    
+									original_range.insertNode(parent_node);
 									original_range.detach();} 
 							else if (check_or_uncheck == "uncheck")
 									
@@ -3260,80 +3276,83 @@ END:VEVENT`;
 
 							<form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
 								<h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
+                                <div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_phenotypic" data-replace="phenotypes" />
+									<label class="form-check-label" for="check_phenotypic">
+										Plant phenotypic data
+									</label>
+								</div>
+                                <div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genetic"  data-replace="genotypes"/>
+									<label class="form-check-label" for="check_genetic"> Genetic data </label>
+								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="1" id="check_image" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_image" data-replace="image datasets"/>
 									<label class="form-check-label" for="check_image">
-										image
+										Image datasets
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="2" id="check_RNAseq" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_RNAseq" data-replace="RNA-Seq and other forms of transcriptomic data" />
 									<label class="form-check-label" for="check_RNAseq">
 										RNAseq
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="3" id="check_genomic" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genomic"  data-replace="other NGS data"/>
 									<label class="form-check-label" for="check_genomic">
 										other NGS (genomics)
 									</label>
 								</div>
 
 								<div class="form-data_type form-check">
-									<label class="form-check-label" for="check_metabolomic">
+                                    <input class="form-check-input checkbox_2" type="checkbox"  id="check_metabolomic"  data-replace="metabolome"/>
+									<label class="form-check-label" for="check_metabolomic" >
 										metabolomics
 									</label>
-									<input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_metabolomic" />
+									
 								</div>
 
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="5" id="check_proteomic" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_proteomic" data-replace="proteome"/>
 									<label class="form-check-label" for="check_proteomic">
 										proteomics
 									</label>
 								</div>
 
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="6" id="check_targeted" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_targeted"  data-replace="targeted assays (e.g. glucose and fructose content)"/>
 									<label class="form-check-label" for="check_targeted">
 										targeted assays (e.g. glucose and fructose content)
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="7" id="check_models" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_models"  data-replace="model outputs"/>
 									<label class="form-check-label" for="check_models">
 										models
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="8" id="check_code" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_code" data-replace="computational code"/>
 									<label class="form-check-label" for="check_code">
 										code
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="9" id="check_excel" />
+									<input class="form-check-input checkbox_2" type="checkbox" id="check_excel" data-replace="excel data"/>
 									<label class="form-check-label" for="check_excel">
-										<a href="#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="An NFDI consortium of plant research.">excel </a>
+										<a href="#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="excel data">excel </a>
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="10" id="check_cloned-DNA" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_cloned-DNA" data-replace="cloned DNA"/>
 									<label class="form-check-label" for="check_cloned-DNA">
 										cloned DNA
 									</label>
 								</div>
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="11" id="check_phenotypic" />
-									<label class="form-check-label" for="check_phenotypic">
-										phenotypic
-									</label>
-								</div>
+								
 
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" value="12" id="check_genetic" />
-									<label class="form-check-label" for="check_genetic"> genetics </label>
-								</div>
+								
 							</form>
 
 							<input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
@@ -3721,7 +3740,7 @@ END:VEVENT`;
 						<div class="p-2" style="margin: auto;">
 							<h1  id="text_start" class="d-flex justify-content-center ">
 							
-							<div  class="c2 text-center ">Data Management Plan of $_PROJECT for H2020 </div>  
+							<div  class="c2 text-center ">Data Management Plan of the H2020 Project $_PROJECT  </div>  
 							</h1>
 							<div class="d-flex justify-content-center">
 							
@@ -3762,18 +3781,18 @@ END:VEVENT`;
                 </div>
 					<div class="content-page">
 					<h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
-					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
+					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store the data but to make it Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
 						</span>
 					</p>
 					<p class="c0">
 						<span class="c1">
-							The aim of this document is to provide guidelines on principles guiding the data management in the $_PROJECT and what data will be stored by using the responses to the EU questionnaire on Data Management Plan (DMP) as a DMP
+							The aim of this document is to provide guidelines on the principles of data management in the $_PROJECT and to specify which type of data will be stored, this will be achieved by using the responses to the EU questionnaire on Data Management Plan (DMP) as a DMP
 							document.
 						</span>
 					</p>
 					<p class="c0">
 						<span class="c1">
-							The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP is modified according to the Horizon 2020 and Horizon Europe online Manual. #if$_UPDATE It will be updated/its validity checked during the
+							The detailed DMP states how data will be handled during and after the project. The $_PROJECT DMP is prepared according to the Horizon 2020 and Horizon Europe online manual. #if$_UPDATE It will be updated/its validity checked during the
 							$_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH. #endif$_UPDATE
 						</span>
 					</p>
@@ -3784,28 +3803,25 @@ END:VEVENT`;
 					<p class="c0">
 
 						<span class="c1">
-							As the $_PROJECT aims at $_PROJECTAIM, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also
-							used for analyzing data. In the end, stakeholder involvement needs to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata
-							using open standards, as it is laid out in the following section.
+							         The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of data analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards, as laid out in the next section.
 							<p class="c0"><span class="c3">What types and formats of data will the project generate/collect?</span></p>
 						   </span>
 						  </p>
 							<p class="c0">
 								<span class="c1">
-									We foresee that the following data will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
-									original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts,#if$_DATAPLANT and these pipelines will be
-									tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise
-									in the DataPLANT consortium#endif$_DATAPLANT.
-								</span>
+                                    The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data related $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
+                                    tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, care will be taken to document and archive these resources (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise
+                                    in the DataPLANT consortium#endif$_DATAPLANT.
+                            </span>
 							</p>
 							<p class="c0"><span class="c3"></span></p>
 							<p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p>
 							<p class="c0">
 								<span class="c1">
-									The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to
-									include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT, but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
-									Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data
-									Bank of Japan: DDBJ (JP). Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
+									The project builds on existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ It is also important to
+									include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
+									Genomic references can be gathered from reference databases for genomes/ and sequences, like the US National Center for Biotechnology Information: NCBI, European Bioinformatics Institute: EBI; DNA Data
+									Bank of Japan: DDBJ. Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
 								</span>
 							</p>
 					</div>
@@ -3815,22 +3831,22 @@ END:VEVENT`;
                         
 							
                             <p class="c0">
-                                <span class="c1"> Data of different types or of different domains will be generated differently. For example:</span>
+                                <span class="c1"> Data of different types or representing different domains will be generated using unique approaches. For example:</span>
                             </p>
 							<ul style="list-style-type:disc;">
                             #if$_RNASEQ
                            <li> <p class="c0">
-                                <span class="c1"> Short read sequencing will be either collected or outsourced and raw data will be received. </span>
+                                <span class="c1"> RNA sequencing will be generated using shor-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
                             </p></li>
                             #endif$_RNASEQ 
 							#if$_METABOLOMIC
                             <li><p class="c0">
-                                <span class="c1"> Metabolomic data will be generated using chromatography coupled to mass spectrometry and from enzyme platforms mostly.</span>
+                                <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass spectrometry using targeted or untarget approaches.</span>
                             </p></li>
                             #endif$_METABOLOMIC #if$_PROTEOMIC
                             <li>
 								<p class="c0">
-									<span class="c1"> Proteomic data will be generated using an EU platform which are in line with community standards.</span>
+									<span class="c1"> Proteomic data will be generated using coupled chromatography and mass spectrometry for the analysis of protein abundance and protein identification, as well as additional techniques for structural analysis, the identification of post-translational modifications and the characterization of protein interactions.</span>
 								</p>
 							</li>
                             #endif$_PROTEOMIC 
@@ -3838,7 +3854,7 @@ END:VEVENT`;
 							#if$_IMAGE
                             <li>
 								<p class="c0">
-									<span class="c1"> Image data will be generated by using equipment (cameras, scanners, and microscopes) or software. Original images which contain metadata such as exif photo information will be archived.</span>
+									<span class="c1"> Image data will be generated by equipment such as cameras, scanners, and microscopes combined with software. Original images which contain metadata such as exif photo information will be archived.</span>
 								</p>
 							</li>
                             #endif$_IMAGE 
@@ -3846,7 +3862,7 @@ END:VEVENT`;
 							#if$_GENOMIC
                             <li>
 								<p class="c0">
-									<span class="c1"> Genomic data will be created from sequencing data. The sequencing data will be collected by Next Generation Sequencing (NGS) equipment#if$_PARTNERS or get from parterners#endif$_PARTNERS. Then the sequencing data will be processed to get the genomic data. </span>
+									<span class="c1"> Genomic data will be created from sequencing data, which will be processed to identify genes, regulatory elements, transposable elements, and physical markers such as SNPs, microsatellites and structural variants. </span>
 								</p>
 							</li>
                             #endif$_GENOMIC 
@@ -3854,7 +3870,7 @@ END:VEVENT`;
 							#if$_GENETIC
                             <li>
 								<p class="c0">
-									<span class="c1"> Genetic data will be generated by using Next Generation Sequencing (NGS) equipment. </span>
+									<span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and will include recombination frequencies and crossover event that position genetic markers and quantitative trait loci that can be associated with physical genomic markers/variants. </span>
 								</p>
 							</li>
                             #endif$_GENETIC 
@@ -3862,7 +3878,7 @@ END:VEVENT`;
 							#if$_TARGETED
                             <li>
 								<p class="c0">
-									<span class="c1"> Targeted assays (e.g. glucose and fructose content) will be generated using specific equipment or experiments. The procedure is fully documented in the lab book. </span>
+									<span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or production/ultilization rates) will be generated using specific equipment and methods that are fully documented in the laboratory notebook. </span>
 								</p>
 							</li>
                             #endif$_TARGETED 
@@ -3871,7 +3887,7 @@ END:VEVENT`;
 							#if$_MODELS
 							<li>
 								<p class="c0">
-									<span class="c1"> The model data will be generated by software simulations. The complete workflow, which includes the environment, runtime, parameters, and results, will be documented and achieved. </span>
+									<span class="c1"> Model data will be generated by using software simulations. The complete workflow, which includes the environment, runtime, parameters, and results, will be documented and archived. </span>
 								</p>
 							</li>
                             #endif$_MODELS
@@ -3879,7 +3895,7 @@ END:VEVENT`;
 							#if$_CODE
 							<li>
 								<p class="c0">
-									<span class="c1"> The code data will be generated by programmers. </span>
+									<span class="c1"> Computer code will be produced by programmers. </span>
 								</p>
 							</li>
                             #endif$_CODE
@@ -3887,7 +3903,7 @@ END:VEVENT`;
 							#if$_EXCEL
 							<li>
 								<p class="c0">
-									<span class="c1"> The Excel data will be generated by experimentalists or data analysts by using Office or open-source software. </span>
+									<span class="c1"> Excel data will be generated by data analysts by using MS Office or open-source software. </span>
 								</p>
 							</li>
                             #endif$_EXCEL
@@ -3895,7 +3911,7 @@ END:VEVENT`;
 							#if$_CLONED-DNA
 							<li>
 								<p class="c0">
-									<span class="c1"> The cloned DNA data will be generated by using a sequencing tool. </span>
+									<span class="c1"> The origin and assembly of cloned DNA will include (a) source of original vector sequence with Add gene reference where available, and source of insert DNA (e.g., amplification by PCR from a given sample, or obtained from existing library), (b) cloning strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson assembly, LR recombination), and (c) verified DNA data sequence of final recombinant vector. </span>
 								</p>
 							</li>
                             #endif$_CLONED-DNA
@@ -3903,7 +3919,7 @@ END:VEVENT`;
 							#if$_PHENOTYPIC
 							<li>
 								<p class="c0">
-									<span class="c1"> Phenotypic data will be generated using phenotyping platforms. </span>
+									<span class="c1"> Phenotypic data will be generated using phenotyping platforms and corresponding ontologies, including number/size of organs such as leaves, flowers, buds etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc), organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition indicators, among others. </span>
 								</p>
 							</li>
                             #endif$_PHENOTYPIC
@@ -3913,19 +3929,17 @@ END:VEVENT`;
                         <p class="c0"><span class="c1"> Data from previous projects such as $_PREVIOUSPROJECTS will be considered. </span></p>
                         #endif$_PREVIOUSPROJECTS
                         <p class="c0"><span class="c3">What is the expected size of the data?</span></p>
-                        <p class="c0"><span class="c1">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the derived data will be about $_DERIVEDDATA GB.</span></p>
+                        <p class="c0"><span class="c1">We expect to generate $_RAWDATA GB of raw data and up to $_DERIVEDDATA GB of processed data.</span></p>
                         <p class="c0"><span class="c3"></span></p>
                         <p class="c0"><span class="c3">To whom might it be useful ('data utility')?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                The data will be useful for the $_PROJECT partners, the scientific community working on $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, the $_PROJECT also strives to collect the data
-                                that has been disseminated and potentially advertise it#if$_DATAPLANT e.g. through the DataPLANT platform or other means#endif$_DATAPLANT, if it is not included in a publication anyway, which is the most
-                                likely form of dissemination.
+                                The data will initially benefit the $_PROJECT partners, but will also be made available to selected stakeholders closely involved in the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also use the data after publication. The data will be disseminated according to the $_PROJECT's dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means#endif$_DATAPLANT
                             </span>
 						</p>
 						<p class="c0">
 							<span class="c1">
-								$_DATAUTILITY
+								
 							</span>
                         </p>
                         <h2 class="c9" id="h.8sk9nau3ts35"><span class="c4">2.2&nbsp;&nbsp;&nbsp;&nbsp;FAIR data</span></h2>
@@ -3938,30 +3952,29 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                                 <span class="c1">
-                                    All data sets will receive unique identifiers, and they will be annotated with metadata.#if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations necessary in plant science adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE </span>
-									<span class="c1">These unlike cross-domain minimal sets such as Dublin core, which mostly defines the submitter and what general type of data is being dealt with (e.g. images), allow reusability by other researchers as it also defines properties of the plant (see the preceding section). However, of course minimal cross-domain annotations are part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow one to tag individual releases with a Digital Object Identifier (DOI).
+                                    All datasets will be associated with unique identifiers and will be annotated with metadata.#if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations applicable in the plant science, such as the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE </span>
+									<span class="c1">Unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by defining properties of the plant (see the preceding section). However, minimal cross-domain annotations also remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
                                     #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
                                 </span>
                             </p>
                         <p class="c0"><span class="c3">What naming conventions do you follow?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                Data variables will use standard names. For example, this is the case for genes, metabolites, and proteins. These will also be linked to free biomedical ontologies where possible. In the case of
-                                datasets, the dataset names will also be made to be meaningful and human readable. In addition, traditional names will of course be included where necessary as synonyms.
+                                Data variables will be allocated standard names. For example, genes, proteins and metabolites will be named according to approved nomenclature and conventions. These will also be linked to functional ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by humans. Plant names will include traditional names, binomials, and all strain/cultivar/subspecies/variety identifiers.
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Will search keywords be provided that optimize possibilities for re-use?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                Keywords about the experiment and the general consortium will be included, as well as an abstract about the data, where useful. In addition, certain keywords can be auto-generated from dense metadata and its
-                                underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with standardized DataPLANT ontologies that are supplemented where the ontology does not yet include the variables.
+                                Keywords about the experiment and consortium will be included, as well as an abstract about the data, where useful. In addition, certain keywords can be auto-generated from dense metadata and its
+                                underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with standardized DataPLANT ontologies that are provided where the ontology does not yet include such variables.
                                 #endif$_DATAPLANT
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Do you provide clear version numbers?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                To maintain data integrity and to be able to re-analyze data, data sets will get version numbers where this is useful (e.g. raw data must not be changed and will not get a version number and is considered
+                                To maintain data integrity and facilitate reanalysis, data sets will be allocated version numbers where this is useful (e.g. raw data must not be changed and will not get a version number and is considered
                                 immutable). #if$_DATAPLANT This is automatically supported by the ARC Git DataPLANT infrastructure. #endif$_DATAPLANT
                             </span>
                         </p>
@@ -3969,11 +3982,11 @@ END:VEVENT`;
                             <span class="c3">What metadata will be created? In case metadata standards do not exist in your discipline, please outline what type of metadata will be created and how.</span><span class="c12 c17 c11"></span>
                         </p>
                         <p class="c0">
-                            <span class="c1">We foresee using Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data, e.g., RNAseq or genomic data, we use metadata template from the end-point repositories. </span><span class="c16">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. </span>
+                            <span class="c1">We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. </span><span class="c16">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. </span>
                             <span class="c1">
-                             #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomic data.#issuewarning some Metabolomics partners considers Metabolights
-                                not an accepted standard#endissuewarning#endif$_METABOLOMIC The plant community use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be relying on #endif$_MIAPPE specific SOPs for additional
-                                annotations #if$_DATAPLANT relying on advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
+                             #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights
+                                not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
+                                annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
                             </span>
 							</p>
                     </div>
@@ -3987,9 +4000,7 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                By default, all data sets from the $_PROJECT will be shared with the community and made openly available. This is, however, after partners have had the ability to check for IP protection (according to agreements
-                                and background rights). #if$_INDUSTRY This applies in particular to data pertaining to the industry. #endif$_INDUSTRY However, all partners also strive for IP protection of data sets which will be tested and
-                                due diligence will be given.
+                                By default, all data sets from the $_PROJECT will be shared with the community and made openly available. However, before the data are released, all will be provided with an opportunity to check for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will be prioritized for datasets that offer the potential for exploitation.
                             </span>
                         </p>
                         <p class="c0">
@@ -4010,8 +4021,7 @@ END:VEVENT`;
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. In the case of unstructured less standardized data (e.g. experimental
-                                    phenotypic measurements), these will be metadata annotated and if complete given a digital object identifier (DOI). #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.
+                                    Specialized repositories will be used where appropriate, such as INSDC (GenBank, EBI, DDBJ) for nucleotide sequence data, PIR/UniProt/SWISS-PROT for proteins, PDB for protein structures, GEO for transcriptomics, PRIDE for proteomics data, and METLIN for metabolomics data. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).  #if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast and easy.
                                     #endif$_DATAPLANT 
                                 </span>
                             </p>
@@ -4021,61 +4031,59 @@ END:VEVENT`;
                         <p class="c0"><span class="c1">#if$_PROPRIETARY The $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY</span></p>
                         <p class="c0">
                             <span class="c1">
-                                #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern browser. Access will be possible through web interfaces. For data processing after obtaining raw data, typical
+                                #if!$_PROPRIETARY No specialized software will be needed to access the data, just a modern browser. Access will be possible through web interfaces. For data processing after obtaining raw data, typical
                                 open-source software can be used. #endif!$_PROPRIETARY
                             </span>
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                #if$_DATAPLANT DataPLANT offers tools such as the open-source SWATE plugin for Excel, the ARC commander, and the DMP tool which will not necessarily make the interaction with data more convenient.
+                                #if$_DATAPLANT DataPLANT offers tools such as the open-source SWATE plugin for Excel, the ARC commander, arcCommander, and DataPLAN
                                 #endif$_DATAPLANT
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Is documentation about the software needed to access the data included?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                #if$_DATAPLANT However, DataPLANT resources are well described, and their setup is documented on their github project pages. #endif$_DATAPLANT
+                                #if$_DATAPLANT DataPLANT resources are well described, and their setup is documented on a github project guide is provided on the GitHub project pages. #endif$_DATAPLANT
+                                All external software documentation will be duplicated locally and stored near the software.
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Is it possible to include the relevant software (e.g. in open-source code)?</span></p>
-                        <p class="c0"><span class="c1">As stated above, here we use publicly available open-source and well-documented certified software #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.</span></p>
+                        <p class="c0"><span class="c1">As stated above, the $_PROJECT will use publicly available open-source and well-documented certified software #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.</span></p>
                         <p class="c0"><span class="c12 c11 c17"></span></p>
                         <p class="c0">
                             <span class="c3">Where will the data and associated metadata, documentation and code be deposited? Preference should be given to certified repositories that support open access, where possible.</span>
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. In the case of unstructured less standardized data (e.g. experimental
-                                phenotypic measurements), these will be metadata annotated and if complete given a digital object identifier (DOI) #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as
-                                well#endif$_DATAPLANT.
+                                As noted above, specialized repositories will be used for common data types. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole datasets will also be wrapped into an ARC with allocated DOIs.#endif$_DATAPLANT.
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Have you explored appropriate arrangements with the identified repository?</span></p>
                         <p class="c0">
                             <span class="c1">
                                 The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible. Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
-                                #if$_DATAPLANT For DataPLANT, this has been agreed upon. #issuewarning Please use endpoint repositories to store or archive your data after publication. #endissuewarning #endif$_DATAPLANT
+                                #if$_DATAPLANT , and this has been confirmed for data associated with DataPLANT #issuewarning Please use endpoint repositories to store or archive your data after publication #endissuewarning #endif$_DATAPLANT.
                             </span>
                         </p>
                         <p class="c0"><span class="c3">If there are restrictions on use, how will access be provided?</span></p>
-                        <p class="c0"><span class="c1">There are no restrictions, beyond the aforementioned IP checks, which are in line with e.g. European open data policies.</span></p>
+                        <p class="c0"><span class="c1">There are no restrictions beyond the IP screening described above, which is in line with European open data policies.</span></p>
                         <p class="c0"><span class="c7"></span></p>
                     </div>
                     <div class="content-page">
                         <p class="c0"><span class="c3">Is there a need for a data access committee?</span></p>
-                        <p class="c0"><span class="c1">Consequently, there is no need for a committee.</span></p>
+                        <p class="c0"><span class="c1">There is no need for a data access committee.</span></p>
                         <p class="c0"><span class="c3">Are there well described conditions for access (i.e. a machine-readable license)?</span></p>
                         <p class="c0"><span class="c1">Yes, where possible, e.g. CC REL will be used for data not submitted to specialized repositories such as ENA.</span></p>
                         <p class="c0"><span class="c3">How will the identity of the person accessing the data be ascertained?</span></p>
                             <p class="c0">
 								<span class="c1">
-									In case data is only shared within the consortium, if the data is not yet finished or under IP checks, the data is hosted internally and username and password will be required (see also our GDPR rules). In
-									the case data is made public under final EU or US repositories, completely anonymous access is normally allowed. This is the case for ENA as well and both are in line with GDPR requirements.
+									Where data are shared only within the consortium, if the datasets are not yet finished or are undergoing IP checks, the data will be hosted internally and a username and password will be required for access (see GDPR rules). When the data are made public in EU or US repositories, completely anonymous access is normally allowed. This is the case for ENA as well and both are in line with GDPR requirements.
 								</span>
 							</p>
 						            <p class="c0">
                 <span class="c1">
-                    #if$_DATAPLANT Currently, data management relies on the annotated research context ARC. It is password protected, so before any data can be obtained or samples, generated an authentication needs to take place.
+                    #if$_DATAPLANT Currently, data management relies on the annotated research context (ARC). It is password protected, so before any data or samples can be obtained, user authentication is required.
                     #endif$_DATAPLANT
                 </span>
             </p>
@@ -4089,31 +4097,30 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">
                                 Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
-                                used; however Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components in form#endif$_DATAPLANT. In addition, text
+                                used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text
                                 files might be edited in text processor files, but will be shared as pdf.
                             </span>
                         </p>
                         <p class="c10"><span class="c3">What data and metadata vocabularies, standards or methodologies will you follow to make your data interoperable?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                As mentioned above, we foresee using #if$_RNASEQ|$_GENOMIC e.g. #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE  
-                                as well as MIAPPE for phenotyping-like data #endif$_MIAPPE. The latter will thus allow the integration of data across projects and safeguards that reuse established and tested protocols. Additionally, we will use
-                                ontology terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECT.
+                                As stated above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE  
+                                and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow the integration of data across projects, and its reuse according to established and tested protocols. We will also use
+                                ontological terms to enrich the data sets relying on free and open ontologies where possible. Additional ontology terms might be created and canonized during the $_PROJECT.
                             </span>
                         </p>
                         <p class="c10"><span class="c3">Will you be using standard vocabularies for all data types present in your data set, to allow inter-disciplinary interoperability?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                In fact, open biomedical ontologies will be used where they are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies might have to be extended. #if$_DATAPLANT Here, the
-                                $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
+                                Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
                             </span>
                         </p>
                         <p class="c10"><span class="c3">In case it is unavoidable that you use uncommon or generate project specific ontologies or vocabularies, will you provide mappings to more commonly used ontologies?</span></p>
-                        <p class="c0"><span class="c1">Common and open ontologies will be used, hence this question does not apply.</span></p>
+                        <p class="c0"><span class="c1">Common and open ontologies will be used, so this question does not apply.</span></p>
                         <h3 class="c14" id="h.fs2sjyqtlku7"><span class="c7">Increase data reuse (by clarifying licences)</span></h3>
                         <p class="c10"><span class="c12 c17 c11"></span></p>
                         <p class="c10"><span class="c3">How will the data be licensed to permit the widest re-use possible?</span></p>
-                        <p class="c0"><span class="c1">Open licenses, such as Creative Commons CC, will be used whenever possible.</span></p>
+                        <p class="c0"><span class="c1">Open licenses, such as Creative Commons (CC), will be used whenever possible.</span></p>
                     </div>
                     <div class="content-page">
                         <p class="c10">
@@ -4124,51 +4131,51 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue In general, IP issues will first be checked. #endif$_ipissue All consortium partners will be
-                                encouraged to make data available prior to publication openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
-                                Release Workshop. #endif$_GENOMIC
+                                #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
+                                encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
+                                Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
                             </span>
                         </p>
                         <p class="c10"><span class="c3">Are the data produced and/or used in the project usable by third parties, in particular after the end of the project? If the re-use of some data is restricted, explain why.</span></p>
-                        <p class="c0"><span class="c1">There will be no restrictions once the data is made public.</span></p>
+                        <p class="c0"><span class="c1">There will be no restrictions once the data are made public.</span></p>
                         <p class="c10"><span class="c3">How long is it intended that the data remains re-usable?</span></p>
-                        <p class="c0"><span class="c1">Data will be made available for many years#if$_DATAPLANT and potentially indefinitely after the end of the project#endif$_DATAPLANT.</span></p>
+                        <p class="c0"><span class="c1">The data will be made available for many years#if$_DATAPLANT and ideally indefinitely after the end of the project#endif$_DATAPLANT.</span></p>
                         <p class="c0">
-                            <span class="c1">In any case data submitted to  repositories (as detailed above) e.g. ENA /PRIDE would be subject to local data storage regulation.</span>
+                            <span class="c1">Data submitted to repositories (as detailed above) e.g. ENA /PRIDE would be subject to local data storage regulation.</span>
                         </p>
                         <p class="c10"><span class="c3">Are data quality assurance processes described?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                The data will be checked and curated. #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation #endif$_DATAPLANT.
+                                The data will be checked and curated. #if$_DATAPLANT Furthermore, data will be  quality controlled (QC) using automatic procedures as well as manual curation #endif$_DATAPLANT.
                             </span>
                         </p>
                         <h2 class="c9" id="h.w5pimtt9qf6p"><span class="c4">2.3&nbsp;&nbsp;&nbsp;&nbsp;Allocation of resources</span></h2>
                         <p class="c10"><span class="c3">What are the costs for making data FAIR in your project?</span></p>
-                        <p class="c0"><span class="c1">The costs comprise data curation, #if$_DATAPLANT ARC consistency checks, #endif$_DATAPLANT and maintenance on the $_PROJECT´s side.</span></p>
+                        <p class="c0"><span class="c1">The $_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
                         <p class="c0">
                             <span class="c1">
-                                Additionally, last-level costs for storage are incurred by last-level repositories (e.g. ENA) but not charged against the $_PROJECT or its members but by the operation budget of these repositories.
+                                Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA) but not charged against the $_PROJECT or its members but by the operation budget of these repositories.
                             </span>
                         </p>
                         <p class="c10">
                             <span class="c3">How will these be covered? Note that costs related to open access to research data are eligible as part of the Horizon 2020 or Horizon Europe grant (if compliant with the Grant Agreement conditions).</span>
                         </p>
-                        <p class="c0"><span class="c1">A large part of the cost is covered by the $_PROJECT. #if$_DATAPLANT The structures, tools, and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span></p>
+                        <p class="c0"><span class="c1">The cost born by the $_PROJECT are covered by the project funding. Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
                         <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-                        <p class="c0"><span class="c1">The responsible will be $_DATAOFFICER.</span></p>
+                        <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of the $_PROJECT.</span></p>
                         <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential value, who decides and how/what data will be kept and for how long)?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                The data responsible(s) (data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS) decides on preservation of data not submitted to end-point subject area repositories #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after
-                                project end. This will be in line with EU, institute policies, and data sharing based on EU and international standards.
+                                The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decides on the strategy to preserve data that are not submitted to end-point subject area repositories #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
+                                project ends. This will be in line with EU guidlines, institute policies, and data sharing based on EU and international standards.
                             </span>
                         </p>
                         <h2 class="c9" id="h.of351jlpnl2l"><span class="c4">2.4&nbsp;&nbsp;&nbsp;&nbsp;Data security</span></h2>
                         <p class="c10"><span class="c3">What provisions are in place for data security (including data recovery as well as secure storage and transfer of sensitive data)?</span></p>
                         <p class="c20">
                             <span class="c1">
-                                Once data is transferred to the $_PROJECT platform#if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage, and the use of
-                                passwords and usernames is generally transferred via separate safe media.
+                                Online platforms will be protected by vulnerability scanning, two-factor authorization and daily automatic backups allowing immediate recovery. All partners holding confidential project data to use secure platforms with automatic backups and offsite secure copies.
+                                #if$_DATAPLANT DataHUB and ARCs have been generated in DataPLANT, data security will be imposed. This comprises secure storage, and the use of password and usernames is generally transferred via separate safe media.#endif$_DATAPLANT
                             </span>
                         </p>
                         <p class="c10"><span class="c3">Is the data safely stored in certified repositories for long term preservation and curation?</span></p>
@@ -4177,7 +4184,7 @@ END:VEVENT`;
                                 Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
                                 ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC Proteomics data in
                                 e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
-                                do not support deep plant specific metadata; hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
+                                do not support deep plant specific metadata; hence ARCs will be maintained to ensure the reusability of plant-specific metadata. #endif$_DATAPLANT
                             </span>
                         </p>
                         <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">2.5&nbsp;&nbsp;&nbsp;&nbsp;Ethical aspects</span></h2>
@@ -4189,8 +4196,7 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics, since this is plant data, there is no need for an ethics committee, however, diligence for plant resource benefit
-                                sharing is considered (🡺see Nagoya protocol). #issuewarning You have to check here and enter any due diligence here at the moment we are awaiting if Nagoya gets also part of sequence information. In any case
+                                At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics, since this is plant data, there is no need for an ethics committee to deal with data from plants, although we will diligently follow the Nagoya protocol on access and benefit sharing. (🡺see Nagoya protocol). #issuewarning You have to check here and enter any due diligence here at the moment we are awaiting if Nagoya gets also part of sequence information. In any case
                                 if you use material not from your (partner) country and characterize this physically e.g., metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action unless this is from e.g.
                                 US (non partner), Ireland (not signed still contact them) etc but other laws might apply…. #endissuewarning
                             </span>
@@ -4259,7 +4265,7 @@ END:VEVENT`;
 						<div class="p-2" style="margin: auto;">
 							<h1 style="" id="text_start" class="d-flex justify-content-center ">
 							
-							<div class="c2 text-center ">Data Management Plan of $_PROJECT for Horizon Europe </div>  
+							<div class="c2 text-center ">Data Management Plan of the Horizon Europe Project $_PROJECT  </div>  
 							</h1>
 							<div class="d-flex justify-content-center">
 							
@@ -4325,7 +4331,7 @@ END:VEVENT`;
 						  <p></p>
 							<p class="c0">
 								<span class="c1">
-									We foresee that the following data will be collected and generated at the very least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
+									The $_PROJECT will collect and/or generate the following types of raw data: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
 									original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts,#if$_DATAPLANT and these pipelines will be
 									tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise
 									in the DataPLANT consortium#endif$_DATAPLANT.&nbsp;</span></p>
@@ -4333,7 +4339,7 @@ END:VEVENT`;
 							<p class="c0"><span class="c3">What is the purpose of the data generation or re-use and its relation to the objectives of the project?</span></p>
 							<p class="c0">
 								<span class="c1">
-									As the $_PROJECT aims at $_PROJECTAIM, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT as data is not only used to understand principles, but it is also used for analyzing data. In the end, stakeholder involvement needs to be informed about data provenance. It is therefore of importance that not only data is well generated, but also well annotated with metadata using open standards, as it is laid out in the following section. 
+									The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of data analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards, as laid out in the next section.
 								</span>
 							</p>
 					</div>
@@ -4342,108 +4348,108 @@ END:VEVENT`;
                         <p class="c0"><span class="c1">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the derived data will be about $_DERIVEDDATA GB.</span></p>
                         
                         <p class="c0"><span class="c3">What is the origin/provenance of the data, either generated or re-used?</span></p>
-
                         <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For the $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>
                         
-                            
-                            <p class="c0">
-                                <span class="c1"> Data of different types or of different domains will be generated differently. For example:</span>
-                            </p>
-                            <ul style="list-style-type:disc;">
-                            #if$_RNASEQ
-                        <li> <p class="c0">
-                                <span class="c1"> Short read sequencing will be either collected or outsourced and raw data will be received. </span>
-                            </p></li>
-                            #endif$_RNASEQ 
-                            #if$_METABOLOMIC
-                            <li><p class="c0">
-                                <span class="c1"> Metabolomic data will be generated using chromatography coupled to mass spectrometry and from enzyme platforms mostly.</span>
-                            </p></li>
-                            #endif$_METABOLOMIC #if$_PROTEOMIC
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> Proteomic data will be generated using an EU platform which are in line with community standards.</span>
-                                </p>
-                            </li>
-                            #endif$_PROTEOMIC 
-                            
-                            #if$_IMAGE
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> Image data will be generated by using equipment (cameras, scanners, and microscopes) or software. Original images which contain metadata such as exif photo information will be archived.</span>
-                                </p>
-                            </li>
-                            #endif$_IMAGE 
-                            
-                            #if$_GENOMIC
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> Genomic data will be created from sequencing data. The sequencing data will be collected by Next Generation Sequencing (NGS) equipment#if$_PARTNERS or get from parterners#endif$_PARTNERS. Then the sequencing data will be processed to get the genomic data. </span>
-                                </p>
-                            </li>
-                            #endif$_GENOMIC 
-                            
-                            #if$_GENETIC
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> Genetic data will be generated by using Next Generation Sequencing (NGS) equipment. </span>
-                                </p>
-                            </li>
-                            #endif$_GENETIC 
-                            
-                            #if$_TARGETED
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> Targeted assays (e.g. glucose and fructose content) will be generated using specific equipment or experiments. The procedure is fully documented in the lab book. </span>
-                                </p>
-                            </li>
-                            #endif$_TARGETED 
-                            
-                            
-                            #if$_MODELS
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> The model data will be generated by software simulations. The complete workflow, which includes the environment, runtime, parameters, and results, will be documented and achieved. </span>
-                                </p>
-                            </li>
-                            #endif$_MODELS
-                            
-                            #if$_CODE
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> The code data will be generated by programmers. </span>
-                                </p>
-                            </li>
-                            #endif$_CODE
-                            
-                            #if$_EXCEL
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> The Excel data will be generated by experimentalists or data analysts by using Office or open-source software. </span>
-                                </p>
-                            </li>
-                            #endif$_EXCEL
-                            
-                            #if$_CLONED-DNA
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> The cloned DNA data will be generated by using a sequencing tool. </span>
-                                </p>
-                            </li>
-                            #endif$_CLONED-DNA
-                            
-                            #if$_PHENOTYPIC
-                            <li>
-                                <p class="c0">
-                                    <span class="c1"> Phenotypic data will be generated using phenotyping platforms. </span>
-                                </p>
-                            </li>
-                            #endif$_PHENOTYPIC
-                            </ul>
+                                                        
+                        <p class="c0">
+                            <span class="c1"> Data of different types or representing different domains will be generated using unique approaches. For example:</span>
+                        </p>
+                                                    <ul style="list-style-type:disc;">
+                        #if$_RNASEQ
+                       <li> <p class="c0">
+                            <span class="c1"> RNA sequencing will be generated using shor-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
+                        </p></li>
+                        #endif$_RNASEQ 
+                                                    #if$_METABOLOMIC
+                        <li><p class="c0">
+                            <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass spectrometry using targeted or untarget approaches.</span>
+                        </p></li>
+                        #endif$_METABOLOMIC #if$_PROTEOMIC
+                        <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Proteomic data will be generated using coupled chromatography and mass spectrometry for the analysis of protein abundance and protein identification, as well as additional techniques for structural analysis, the identification of post-translational modifications and the characterization of protein interactions.</span>
+                                                            </p>
+                                                    </li>
+                        #endif$_PROTEOMIC 
+                                                    
+                                                    #if$_IMAGE
+                        <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and microscopes combined with software. Original images which contain metadata such as exif photo information will be archived.</span>
+                                                            </p>
+                                                    </li>
+                        #endif$_IMAGE 
+                                                    
+                                                    #if$_GENOMIC
+                        <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Genomic data will be created from sequencing data, which will be processed to identify genes, regulatory elements, transposable elements, and physical markers such as SNPs, microsatellites and structural variants. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_GENOMIC 
+                                                    
+                                                    #if$_GENETIC
+                        <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and will include recombination frequencies and crossover event that position genetic markers and quantitative trait loci that can be associated with physical genomic markers/variants. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_GENETIC 
+                                                    
+                                                    #if$_TARGETED
+                        <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or production/ultilization rates) will be generated using specific equipment and methods that are fully documented in the laboratory notebook. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_TARGETED 
+                                                    
+                                                    
+                                                    #if$_MODELS
+                                                    <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Model data will be generated by using software simulations. The complete workflow, which includes the environment, runtime, parameters, and results, will be documented and archived. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_MODELS
+                                                    
+                                                    #if$_CODE
+                                                    <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Computer code will be produced by programmers. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_CODE
+                                                    
+                                                    #if$_EXCEL
+                                                    <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Excel data will be generated by data analysts by using MS Office or open-source software. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_EXCEL
+                                                    
+                                                    #if$_CLONED-DNA
+                                                    <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original vector sequence with Add gene reference where available, and source of insert DNA (e.g., amplification by PCR from a given sample, or obtained from existing library), (b) cloning strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson assembly, LR recombination), and (c) verified DNA data sequence of final recombinant vector. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_CLONED-DNA
+                                                    
+                                                    #if$_PHENOTYPIC
+                                                    <li>
+                                                            <p class="c0">
+                                                                    <span class="c1"> Phenotypic data will be generated using phenotyping platforms and corresponding ontologies, including number/size of organs such as leaves, flowers, buds etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc), organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition indicators, among others. </span>
+                                                            </p>
+                                                    </li>
+                        #endif$_PHENOTYPIC
+                                                    </ul>
 
-                        #if$_PREVIOUSPROJECTS
-                        <p class="c0"><span class="c1"> Data from previous projects such as $_PREVIOUSPROJECTS will be considered. </span></p>
-                        #endif$_PREVIOUSPROJECTS
+                                            #if$_PREVIOUSPROJECTS
+                    <p class="c0"><span class="c1"> Data from previous projects such as $_PREVIOUSPROJECTS will be considered. </span></p>
+                    #endif$_PREVIOUSPROJECTS
+                        
                         <p class="c0"><span class="c3">To whom might it be useful ('data utility'), outside your project?</span></p>
                         <p class="c0">
                             <span class="c1">
@@ -4837,7 +4843,7 @@ END:VEVENT`;
 								<div id="vis" style="width: 35vw;height: 500px; margin: auto;"></div>
 							</div>
 
-                            <h1 id="text_start" class="c2 d-flex justify-content-center">Data Management Plan required by DFG</h1>
+                            <h1 id="text_start" class="c2 d-flex justify-content-center">Data Management Plan of the DFG Project $_PROJECT</h1>
                             <h2>
                                 <span class="c2">1.&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c2">Data description</span>
                             </h2>
@@ -4963,12 +4969,8 @@ END:VEVENT`;
                             
                             <p class="c0">
                                 <span class="c1">
-                                    As the $_PROJECT aims at $_PROJECTAIM, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT through the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT as
-                                    data is not only used to understand principles, but it is also used for analyzing data and in the end, stakeholder involvement needs to be informed about data provenance. It is therefore of
-                                    importance that not only data is well generated, but also well annotated with metadata using
+                                    The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of data analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards, as laid out in the next section.
                                 </span>
-                                <span class="c5">open standards</span>
-                                <span class="c1">as it is laid out in the following section. </span>
                             </p>
 
                             <p class="c0">
