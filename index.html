@@ -4104,7 +4104,7 @@ END:VEVENT`;
                         <p class="c10"><span class="c3">What data and metadata vocabularies, standards or methodologies will you follow to make your data interoperable?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                As stated above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE  
+                                As noted above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE  
                                 and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow the integration of data across projects, and its reuse according to established and tested protocols. We will also use
                                 ontological terms to enrich the data sets relying on free and open ontologies where possible. Additional ontology terms might be created and canonized during the $_PROJECT.
                             </span>
@@ -4328,14 +4328,16 @@ END:VEVENT`;
 							The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT, but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
 							</span></p><p class="c0"><span class="c3">What types and formats of data will the project generate or re-use?</span></p>
 						   
-						  <p></p>
+						 
 							<p class="c0">
 								<span class="c1">
 									The $_PROJECT will collect and/or generate the following types of raw data: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
 									original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts,#if$_DATAPLANT and these pipelines will be
 									tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise
-									in the DataPLANT consortium#endif$_DATAPLANT.&nbsp;</span></p>
-							<p class="c0"><span class="c3"></span></p>
+									in the DataPLANT consortium#endif$_DATAPLANT.&nbsp;
+                                </span>
+                            </p>
+							
 							<p class="c0"><span class="c3">What is the purpose of the data generation or re-use and its relation to the objectives of the project?</span></p>
 							<p class="c0">
 								<span class="c1">
@@ -4453,9 +4455,7 @@ END:VEVENT`;
                         <p class="c0"><span class="c3">To whom might it be useful ('data utility'), outside your project?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                The data will be useful for the $_PROJECT partners, the scientific community working on $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, the $_PROJECT also strives to collect the data
-                                that has been disseminated and potentially advertise it#if$_DATAPLANT e.g. through the DataPLANT platform or other means#endif$_DATAPLANT, if it is not included in a publication anyway, which is the most
-                                likely form of dissemination.
+                                The data will initially benefit the $_PROJECT partners, but will also be made available to selected stakeholders closely involved in the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also use the data after publication. The data will be disseminated according to the $_PROJECT's dissemination and communication plan#if$_DATAPLANT, which aligns with DataPLANT platform or other means#endif$_DATAPLANT.
                             </span>
 						</p>
 						<p class="c0">
@@ -4498,10 +4498,11 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">
                                 To maintain data integrity and to be able to re-analyze data, data sets will get version numbers where this is useful (e.g. raw data must not be changed and will not get a version number and is considered
-                                immutable). #if$_DATAPLANT This is automatically supported by the ARC Git DataPLANT infrastructure. #endif$_DATAPLANT</span></p>
+                                immutable). #if$_DATAPLANT This is automatically supported by the ARC Git DataPLANT infrastructure. #endif$_DATAPLANT</span>
                               
                                 <span class="c1">  
-                          Data variables will use standard names. For example, this is the case for genes, metabolites, and proteins. These will also be linked to free biomedical ontologies where possible. In the case of datasets, the dataset names will also be made to be meaningful and human readable. In addition, traditional names will of course be included where necessary as synonyms.</span></p>
+                                    Data variables will be allocated standard names. For example, genes, proteins and metabolites will be named according to approved nomenclature and conventions. These will also be linked to functional ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by humans. Plant names will include traditional names, binomials, and all strain/cultivar/subspecies/variety identifiers.</span>
+                        </p>
                         
                     </div>
                     <div class="content-page">
@@ -4509,6 +4510,7 @@ END:VEVENT`;
                         <p class="c0"><span class="c3">Repository</span></p>
                         <p class="c0"><span class="c3">Will the data be deposited in a trusted repository?</span></p>
                         
+                        <p class="c0">
                             <p class="c0">
                                <span class="c1">
                                    #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
@@ -4517,10 +4519,14 @@ END:VEVENT`;
                                </span>
                            </p>
                            <p class="c0">
-                            <span class="c1">
-                                As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. 
-                            </span>
-                        </p>
+                               <span class="c1">
+                                   Specialized repositories will be used where appropriate, such as INSDC (GenBank, EBI, DDBJ) for nucleotide sequence data, PIR/UniProt/SWISS-PROT for proteins, PDB for protein structures, GEO for transcriptomics, PRIDE for proteomics data, and METLIN for metabolomics data. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).  #if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast and easy.
+                                   #endif$_DATAPLANT 
+                               </span>
+                           </p>
+                       </p>
+                    
+                       
                            <p class="c0"><span class="c3">Have you explored appropriate arrangements with the identified repository where your data will be deposited? </span></p>
                            <p class="c0">
                                <span class="c1">
@@ -4530,26 +4536,41 @@ END:VEVENT`;
 
                            <p class="c0"><span class="c3">Does the repository ensure that the data is assigned an identifier? Will the repository resolve the identifier to a digital object? </span></p>
                            <p class="c0">
-                               <span class="c1">
-                                   As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. In the case of unstructured less standardized data (e.g. experimental
-                                   phenotypic measurements), these will be metadata annotated and if complete given a digital object identifier (DOI). #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.
-                                   #endif$_DATAPLANT 
-                               </span>
-                           </p>
+                            <span class="c1">
+                                #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
+                                international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
+                                $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.#endif!$_DATAPLANT
+                            </span>
+                        </p>
+                        <p class="c0">
+                            <span class="c1">
+                                As noted above, specialized repositories like SRA /ENA, Pride /Proteomexchange are the most common ones and will be used when appropriate. In the case of unstructured less standardized data (e.g. experimental
+                                phenotypic measurements), these will be metadata annotated and if complete given a digital object identifier (DOI). #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well.
+                                #endif$_DATAPLANT 
+                            </span>
+                        </p>
                            <p class="c0"><span class="c3">Data:</span></p>
                            <p class="c0"><span class="c3">Will all data be made openly available? If certain datasets cannot be shared (or need to be shared under restricted access conditions), explain why, clearly separating legal and contractual reasons from intentional restrictions. Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their data closed if opening their data goes against their legitimate interests or other constraints as per the Grant Agreement.</span></p>
                            <p class="c0">
                             <span class="c1">
-                                By default, all data sets from the $_PROJECT will be shared with the community and made openly available. This is, however, after partners have had the ability to check for IP protection (according to agreements and background rights). #if$_INDUSTRY This applies in particular to data pertaining to the industry. #endif$_INDUSTRY However, all partners also strive for IP protection of data sets which will be tested and due diligence will be given.
+                                By default, all data sets from the $_PROJECT will be shared with the community and made openly available. However, before the data are released, all will be provided with an opportunity to check for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will be prioritized for datasets that offer the potential for exploitation.
+                            </span>
+                        </p>
+                        <p class="c0">
+                            <span class="c3">
+                                Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their data closed if relevant provisions are made in the consortium agreement and are in line with the reasons
+                                for opting out.
                             </span>
                         </p>
 
                         <p class="c0"><span class="c3">If an embargo is applied to give time to publish or seek protection of the intellectual property (e.g. patents), specify why and how long this will apply, bearing in mind that research data should be made available as soon as possible.</span></p>
                         <p class="c0">
                             <span class="c1">
-                                #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue In general, IP issues will first be checked. #endif$_ipissue All consortium partners will be encouraged to make data available prior to publication openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data Release Workshop. #endif$_GENOMIC
+                                #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
+                                encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
+                                Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
                             </span>
-                         </p>
+                        </p>
                          
                         <p class="c0"><span class="c3">Will the data be accessible through a free and standardized access protocol?
                         </span></p>
@@ -4612,8 +4633,10 @@ END:VEVENT`;
                     </p>
                     <p class="c0">
                         <span class="c1">
-                            Data will be made available for many years#if$_DATAPLANT and potentially indefinitely after the end of the project#endif$_DATAPLANT.
-                            In any case data submitted to repositories (as detailed above) e.g. ENA /PRIDE would be subject to local data storage regulation.
+                            <p class="c0"><span class="c1">The data will be made available for many years#if$_DATAPLANT and ideally indefinitely after the end of the project#endif$_DATAPLANT.
+                                In any case data submitted to repositories (as detailed above) e.g. ENA /PRIDE would be subject to local data storage regulation.
+
+                            </span></p>
 
                         </span>
                     </p>
@@ -4640,8 +4663,11 @@ END:VEVENT`;
                     </p>
                     <p class="c0">
                         <span class="c1">
-                            As mentioned above, we foresee using #if$_RNASEQ|$_GENOMIC e.g. #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE as well as MIAPPE for phenotyping-like data #endif$_MIAPPE. The latter will thus allow the integration of data across projects and safeguards that reuse established and tested protocols. Additionally, we will use ontology terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECT. 
-                            Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used; however Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components in form#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.
+                           
+                            As noted above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow the integration of data across projects, and its reuse according to established and tested protocols.
+                            Specialized repositories will be used for common data types. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole datasets will also be wrapped into an ARC with allocated DOIs.#endif$_DATAPLANT.
+                            Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.
+                            Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
 
 
                         </span>
@@ -4656,7 +4682,7 @@ END:VEVENT`;
                     </p>
                     <p class="c0">
                         <span class="c1">
-                            Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies might have to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
+                            Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies might have to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the DataPLANT biology ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT. Ontology databases such as OBO Foundry will be used to publish ontology.  #if$_DATAPLANT The DPBO is also published in GitHub https://github.com/nfdi4plants/nfdi4plants_ontology #endif$_DATAPLANT.
 
                         </span>
                     </p>
@@ -4685,7 +4711,7 @@ END:VEVENT`;
                 
                     <p class="c0">
                         <span class="c1">
-                            Yes, our data will be made freely available in the public domain to permit the widest re-use possible. Open licenses, such as Creative Commons CC, will be used whenever possible
+                            Yes, our data will be made freely available in the public domain to permit the widest re-use possible. Open licenses, such as Creative Commons (CC), will be used whenever possible.
                         </span>
                     </p>
                     <p class="c0"><span class="c3">Will the data produced in the project be useable by third parties, in particular after the end of the project?
@@ -4696,8 +4722,16 @@ END:VEVENT`;
                             There will be no restrictions once the data is made public.
                         </span>
                     </p>
+                    <p class="c0"><span class="c3">Will the provenance of the data be thoroughly documented using the appropriate standards? Describe all relevant data quality assurance processes.
+                    </span></p>
 
-                    <p class="c0"><span class="c3">Describe all relevant data quality assurance processes.
+                    <p class="c0">
+                        <span class="c1">
+                            The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of data analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards, as laid out in the next section.
+                        </span>
+                    </p>
+
+                    <p class="c0"><span class="c3">Describe all relevant data quality assurance processes. Further to the FAIR principles, DMPs should also address research outputs other than data, and should carefully consider aspects related to the allocation of resources, data security and ethical aspects.
                     </span></p>
                 
                     <p class="c0">
@@ -4733,31 +4767,31 @@ END:VEVENT`;
 
                         <h2 class="c9" ><span class="c4">4.&nbsp; &nbsp; Allocation of resources</span></h2>
                         <p class="c10"><span class="c3">What will the costs be for making data or other research outputs FAIR in your project (e.g. direct and indirect costs related to storage, archiving, re-use, security, etc.)?</span></p>
-                        <p class="c0"><span class="c1">The costs comprise data curation, #if$_DATAPLANT ARC consistency checks, #endif$_DATAPLANT and maintenance on the $_PROJECT´s side.</span></p>
+                        <p class="c0"><span class="c1">The $_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
                         <p class="c0">
                             <span class="c1">
-                                Additionally, last-level costs for storage are incurred by last-level repositories (e.g. ENA) but not charged against the $_PROJECT or its members but by the operation budget of these repositories.
+                                Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA) but not charged against the $_PROJECT or its members but by the operation budget of these repositories.
                             </span>
                         </p>
                         <p class="c10">
                             <span class="c3">How will these be covered? Note that costs related to research data/output management are eligible as part of the Horizon Europe grant (if compliant with the Grant Agreement conditions)</span>
                         </p>
-                        <p class="c0"><span class="c1">A large part of the cost is covered by the $_PROJECT. #if$_DATAPLANT The structures, tools, and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span></p>
+                        <p class="c0"><span class="c1">The cost born by the $_PROJECT are covered by the project funding. Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
                         <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-                        <p class="c0"><span class="c1">The responsible will be $_DATAOFFICER.</span></p>
+                        <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of the $_PROJECT.</span></p>
                         <p class="c10"><span class="c3">How will long term preservation be ensured? Discuss the necessary resources to accomplish this (costs and potential value, who decides and how, what data will be kept and for how long)?</span></p>
                         <p class="c0">
                             <span class="c1">
-                                The data responsible(s) (data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS) decides on preservation of data not submitted to end-point subject area repositories #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after
-                                project end. This will be in line with EU, institute policies, and data sharing based on EU and international standards.
+                                The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decides on the strategy to preserve data that are not submitted to end-point subject area repositories #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
+                                project ends. This will be in line with EU guidlines, institute policies, and data sharing based on EU and international standards.
                             </span>
                         </p>
                         <h2 class="c9" id="h.of351jlpnl2l"><span class="c4">5.&nbsp; &nbsp; Data security</span></h2>
                         <p class="c10"><span class="c3">What provisions are or will be in place for data security (including data recovery as well as secure storage/archiving and transfer of sensitive data)?</span></p>
                         <p class="c20">
                             <span class="c1">
-                                Once data is transferred to the $_PROJECT platform#if$_DATAPLANT and ARCs have been generated in DataPLANT#endif$_DATAPLANT, data security will be imposed. This comprises secure storage, and the use of
-                                passwords and usernames is generally transferred via separate safe media.
+                                Online platforms will be protected by vulnerability scanning, two-factor authorization and daily automatic backups allowing immediate recovery. All partners holding confidential project data to use secure platforms with automatic backups and offsite secure copies.
+                                #if$_DATAPLANT DataHUB and ARCs have been generated in DataPLANT, data security will be imposed. This comprises secure storage, and the use of password and usernames is generally transferred via separate safe media.#endif$_DATAPLANT
                             </span>
                         </p>
                         <p class="c10"><span class="c3">Will the data be safely stored in trusted repositories for long term preservation and curation?</span></p>
@@ -4766,7 +4800,7 @@ END:VEVENT`;
                                 Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
                                 ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC Proteomics data in
                                 e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
-                                do not support deep plant specific metadata; hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
+                                do not support deep plant specific metadata; hence ARCs will be maintained to ensure the reusability of plant-specific metadata. #endif$_DATAPLANT
                             </span>
                         </p>
                         <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">6.&nbsp; &nbsp; Ethics</span></h2>
@@ -4982,9 +5016,7 @@ END:VEVENT`;
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important
-                                    to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT but, of course, also on existing characterization and the background knowledge#if$_PARTNERS of the partners#endif$_PARTNERS. Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics
-                                    Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). Furthermore, prior “unstructured” data in the form of publications and data contained therein will be used for decision making.
+                                    The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT, but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
                                 </span>
                             </p>
 
@@ -5019,28 +5051,33 @@ END:VEVENT`;
 
                             <p class="c0">
                                 <span class="c1">
-                                    All data sets will receive unique identifiers, and they will be annotated with metadata.#if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations necessary in plant science adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE </span>
-									<span class="c1">These unlike cross-domain minimal sets such as Dublin core, which mostly defines the submitter and what general type of data is being dealt with (e.g. images), allow reusability by other researchers as it also defines properties of the plant (see the preceding section). However, of course minimal cross-domain annotations are part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow one to tag individual releases with a Digital Object Identifier (DOI).
+                                    As noted above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow the integration of data across projects, and its reuse according to established and tested protocols.
+                                    Specialized repositories will be used for common data types. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole datasets will also be wrapped into an ARC with allocated DOIs.#endif$_DATAPLANT.
+                                    Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.
+                                    <p class="c0">
+                                        <span class="c1">We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. </span><span class="c16">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. </span>
+                                        <span class="c1">
+                                         #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights
+                                            not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
+                                            annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
+                                        </span>
+                                        </p>
+
                                     #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
                                 </span>
                             </p>
 
-                            <p class="c0">
+
+
+                           
+                                                        <p class="c0">
                                 <span class="c1">
+                                    Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
                                     Keywords about the experiment and the general consortium will be included, as well as an abstract about the data, where useful. In addition, certain keywords can be auto-generated from dense metadata and
                                     its underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with standardized DataPLANT ontologies that are supplemented where the ontology does not yet include the variables.
                                     #endif$_DATAPLANT
                                 </span>
                             </p>
-
-                            <p class="c0">
-                            <span class="c1">We foresee to use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data, e.g., RNAseq or genomic data, we use metadata template from the end-point repositories. </span><span class="c16">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. </span>
-                            <span class="c1">
-                             #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomics data.#issuewarning some Metabolomics partners considers Metabolights
-                                not an accepted standard#endissuewarning#endif$_METABOLOMIC The plant community use #if$_MIAPPE MIAPPE for phenotyping data in the broadest sense, but we will also be relying on #endif$_MIAPPE specific SOPs for additional
-                                annotations #if$_DATAPLANT relying on advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
-                            </span>
-							</p>
                             <p class="c0">
                                 <span class="c1">
                                     In fact, open biomedical ontologies will be used where they are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies might have to be extended. #if$_DATAPLANT Here, the
@@ -5053,8 +5090,11 @@ END:VEVENT`;
 
                             <p class="c0">
                                 <span class="c1">
-                                    Data variables will use standard names. For example, this is the case for genes, metabolites, and proteins. These will also be linked to free biomedical ontologies where possible. In the case of
-                                    datasets, the dataset names will also be made to be meaningful and human readable. In addition, traditional names will of course be included where necessary as synonyms.
+                                    The $_PROJECT aims at the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of data analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards.
+                                    
+                                    Data variables will be allocated standard names. For example, genes, proteins and metabolites will be named according to approved nomenclature and conventions. These will also be linked to functional ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by humans. Plant names will include traditional names, binomials, and all strain/cultivar/subspecies/variety identifiers.
+
+                                    
                                 </span>
                             </p>
 
