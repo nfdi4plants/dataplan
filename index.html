@@ -1563,7 +1563,10 @@
                     const png_url = canvas.toDataURL('image/png');
                     
                     png.src = png_url;
-                             
+                    
+                    
+                        
+
                     }
 
                     img.src = url;
@@ -1572,15 +1575,15 @@
 					if (mutation.type === 'childList') {
 					  //verbose  console.log('A child node has been added or removed.');
 					  document.getElementById("vis").appendChild(png);
-                      img.setAttribute("style", "max-width:100%");
+                      png.setAttribute("style", "max-width:100%");
 					} else if (mutation.type === 'attributes') {
 					  //verbose  console.log(`The ${mutation.attributeName} attribute was modified.`);
 					  document.getElementById("vis").appendChild(png);
-                      img.setAttribute("style", "max-width:100%");
+                      png.setAttribute("style", "max-width:100%");
 					}else if (mutation.type === 'subtree') {
 					  //verbose  console.log(`subtree`);
 					  document.getElementById("vis").appendChild(png);
-                      img.setAttribute("style", "max-width:100%");
+                      png.setAttribute("style", "max-width:100%");
 					}
 				  }
 				
@@ -3040,7 +3043,7 @@ END:VEVENT`;
 								
 							</form>
 							
-							<h3>1.4 1.4	Please select from the following options</h3>
+							<h3> 1.4    Please select from the following options</h3>
 							<div class="form-data_type form-check" id="form_checkbox_1" onchange="this.nextElementSibling.click();">
 								<div>
 								<input class="form-check-input checkbox_1" type="checkbox" value="1" id="check_protect" 
