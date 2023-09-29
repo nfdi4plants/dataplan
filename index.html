@@ -2349,7 +2349,10 @@ END:VEVENT`;
 			    }
 			    reminders = [{
 			            title: "Question reminders",
-			            content: question_reminder + " <br> " + issue_reminder + ' <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> it anyway.'
+			            content: question_reminder + " <br> " + issue_reminder + 
+                        `
+                        <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> or <a class="badge btn-secondary" href="#" onclick="export2word1('doc3', 'DMP-DataPLAN') ">export to word</a> it anyway.
+                        `
 
 			            //
 			        }
@@ -2426,8 +2429,39 @@ END:VEVENT`;
 				)
 
 			}  
-		
+            
+
+
             function export2word(element, filename = ''){
+                const compared_list = compare_answers(temp_a, saved_a);
+                    let warning_element_children = Array.from(Array(99).keys());
+
+                    if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
+                        issue_warning_show();
+                        warning_element_children = document.getElementById("warningText").children;
+                        if (warning_element_children[0] == undefined) {
+                            try {
+                                dmp_update(saved_a);
+                                return export2word1(element, filename); // Security exception may be thrown by some browsers.
+                                const selection = window.getSelection();
+
+                            } catch (error) {
+                                console.warn("export doc failed.", error);
+                                return false;
+                            }
+                        } else {
+                            update_reminder(compared_list, warning_element_children);
+                        }
+
+                    } else {
+
+                        update_reminder(compared_list, warning_element_children);
+                    }
+            }
+
+
+
+            function export2word1(element, filename = ''){
             var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
             var postHtml = "</body></html>";
             var html = preHtml+document.getElementById(element).innerHTML+postHtml;
@@ -2650,8 +2684,8 @@ END:VEVENT`;
 							<ul class="dropdown-menu">
 								<li>
 									<button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>         
-									<button id="json_save" class="dropdown-item" onclick="save_json()">Export JSON</button>
-                                    <button id="docx_save" class="dropdown-item" onclick='export2word("doc3", "DMP.docx")'>Export DOCX</button>
+									<button id="json_save" class="dropdown-item" onclick="save_json()">Export to JSON</button>
+                                    <button id="docx_save" class="dropdown-item" onclick='export2word("doc3", "DMP-DataPLAN")'>Export to Word</button>
 									<button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 									
 									
@@ -2800,8 +2834,8 @@ END:VEVENT`;
 							<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
 							  <div class="d-flex">
 								<div class="toast-body">
-								Congrats! All questions are answers.
-								You can click this clipboard 
+								Congrats! All done.<br>
+								Copy  
 								<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
 									<span class=" clip ">
 										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -2809,8 +2843,10 @@ END:VEVENT`;
 										<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
 										<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
 										</svg>
-									</span>
-								</a> to copy the text or <a href="#" onclick="save_json()" >export the answers</a>
+									</span> 
+								</a> or <a  href="#" onclick="save_json()" >export answers</a> or
+                                
+                                <a  href="#" onclick="export2word1('doc3', 'DMP-DataPLAN') ">export to word</a>
 								
 								
 								</div>
