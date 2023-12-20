@@ -1391,8 +1391,10 @@
 							newText.setAttribute("onmouseleave", 'document.getElementsByName("'+before+'")[0].classList.remove("border-highlight");  ');
 							newText.setAttribute("onclick", 'document.getElementsByName("'+before+'")[0].parentElement.scrollIntoView();document.getElementsByName("'+before+'")[0].focus(); ');
 							
-			                newText.innerHTML  ="&hairsp;"+ first_letter + HtmlEncode(after) + last_letter+ "&hairsp;";
-			                range.insertNode(newText);
+			                // newText.innerHTML  ="&hairsp;"+ first_letter + HtmlEncode(after) + last_letter+ "&hairsp;";
+			                newText.innerHTML  = first_letter + HtmlEncode(after) + last_letter;
+			                
+                            range.insertNode(newText);
 
 			            }
 
@@ -2914,9 +2916,9 @@ END:VEVENT`;
 							<form id="form_studyobject">
 								<label for="input_studyobject">
 									<h3>
-										1.2	Please briefly state the topic of the research project
+										1.2	Please briefly state 
 										<a href="#"  data-bs-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
-											<span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">
+											<span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">the topic of the research project
 												<svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
 													<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
 													<path
@@ -2980,7 +2982,13 @@ END:VEVENT`;
 								
 							</form>
 							<form class="" style="margin-left: 0px;" id="form_datautility">
-								<h3>Who is the most likely to benefit from the data?</h3>
+								<h3> <a href="#"  data-bs-toggle="tooltip" title="click to see some example" tabindex="-1">
+                                    <span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">Who is the most likely to benefit from the data?
+                                        <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                            <path
+                                                d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+                                            /></svg></span></a> </h3>
 								<label for="input_datautility"></label>
 								<textarea
 									style="width: 26vw;"
@@ -2990,7 +2998,7 @@ END:VEVENT`;
 									onchange="onchange_replace(this);"
 									id="input_datautility"
 									name="$_DATAUTILITY"
-									placeholder="Data utilities"
+									placeholder="Industry, politicians and students can also use the data for different purposes."
 									onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
 									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
 									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
@@ -3003,7 +3011,7 @@ END:VEVENT`;
 							  
 							</form>
 							<form class="" style="margin-left: 0px;" id="form_username">
-								<h3>1.3 Other DMP Metadata</h3>
+								<h3>1.3 <a id="" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Some text here is stored only in the metadata and therefore not visible in the main text.">Other</a> DMP Metadata</h3>
 								<label for="input_username"><h4>User Name:</h4></label>
 								<input
 									style="width: 26vw;"
@@ -3041,7 +3049,7 @@ END:VEVENT`;
 							</form>
 
 							<form class="" style="margin-left: 0px;" id="form_dataofficer">
-								<label for="input_dataofficer"><h4>Data Officer Name:</h4></label>
+								<label for="input_dataofficer"><h4><a id="" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Also known as data stewards and curator">Data Officer</a> Name:</h4></label>
 								<input
 									style="width: 26vw;"
 									class=""
@@ -3577,6 +3585,17 @@ END:VEVENT`;
 					<p><b> Example 2: </b> data management plan</p>
 				</div>
 			</div>
+            <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-utility" aria-labelledby="offcanvasScrolling2">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasScrolling2">Here is the space for additional sentence.</h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<p><b> Example 1: </b> Industry, politicians and students can also use the data for different purposes.</p>
+					<br />
+					<p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different purpose.</p>
+				</div>
+			</div>
 
 			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
 				<div class="offcanvas-header">
@@ -3706,43 +3725,56 @@ END:VEVENT`;
                     <button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-				Thanks for using and testing our tool. Please keep bearing with us. The tool will be continuously developed and improved. Any feedback is welcome. We don't use cookie to trace user and the tool can be used offline. Disconnect the internet or save it by "ctrl + S" will not affect the usage.
-				<br>
+                
+				Thanks for using and testing our tool. Please keep bearing with us. 
+                The tool will be continuously developed and improved. Any feedback is welcome. 
+                We don't use cookie to trace users and the tool can be used offline. 
+                Disconnect the internet or save it by "ctrl + S" will not affect the usage.
+                This work has been published on <a  href="https://doi.org/10.3390/data8110159" > MDPI Data</a>
+                <br>
+                <br>
+                <span>  
+                    <b> 20th December 2023</b>
+                </span>
+                <ul>
+                <li><span class="badge bg-warning text-dark">Bug fix</span> duplicated spaces before and after some placeholders</li>
+                <li><span class="badge bg-primary">New feature</span> added tooltips and offcanvase to explain the terms </li>
+                </ul>
                 <span><b> 28th March 2023</b></span>
                     <ul>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> tutorial bug fixed</li>
 					<li><span class="badge bg-primary">New feature</span> added resizable panels </li>
 					</ul>
-				<br>
+				
 				<span><b> 01st February 2023</b></span>
                     <ul>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Print function fixed</li>
 					<li><span class="badge bg-primary">Improvement</span> UI and content indicators are improved </li>
 					</ul>
-				<br>
+			
 				<span><b> 16th January 2023</b></span>
                     <ul>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Model data duplication fixed</li>
 					<li><span class="badge bg-primary">Improvement</span> Change "Upload" menu to "Import" </li>
 					</ul>
-				<br>
+			
 				<span><b> 6th December 2022</b></span>
                     <ul>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Checkbox function fixed</li>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Compatibility on old saved questions improved</li>
 					</ul>
-				<br>
+			
 				<span><b> 30th November 2022</b></span>
                     <ul>
 					<li><span class="badge bg-primary">New feature</span> New scroll cache is done </li>
 					</ul>
-				<br>
+		
 				<span><b> 25th November 2022</b></span>
                     <ul>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Float "toast" fixed to top</li>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Save to cache toast bug fixed</li>
 					</ul>
-				<br>
+
 				<span><b> 24th November 2022</b></span>
                     <ul>
 					
@@ -3752,7 +3784,7 @@ END:VEVENT`;
 					<li><span class="badge bg-warning text-dark">Bug fix</span> User-defined template has no more bugs </li>
 					<li><span class="badge bg-warning text-dark">Bug fix</span> Next question can be reached without bugs</li>
 					</ul>
-				<br>
+	
 				<span><b> 15th November 2022</b></span>
                     <ul>					
 					<li><span class="badge bg-primary">New feature</span> New "scroll to" and "hightlight" feature when hover on the replaced text </li>
