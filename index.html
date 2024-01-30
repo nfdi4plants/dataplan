@@ -1462,7 +1462,14 @@
 			        })
 
 			    }
-				
+                const urlroute = window.location.href.split("?");
+			    switch (urlroute.slice(-1)[0]) {
+                    case "tutorial":
+                    tour.show()   ;
+		
+			        
+
+			    }
 				var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'));
 			    var upload_json = document.getElementById("upload");
 			    upload_json.addEventListener("change", open_storage_modal, false);
@@ -3806,7 +3813,7 @@ END:VEVENT`;
 					<div class="content-page">
 						<br />
 						<div class="p-2" id="vis-parent" style="margin: auto;">
-							<div id="vis" style="width: 35vw; height: 500px; margin: auto; display: block;"></div>
+							<div id="vis" style="width: 500px; height: 500px; margin: auto; display: block;"></div>
                             <br />
 						<div class="p-2" style="margin: auto;">
 							
@@ -4329,7 +4336,7 @@ END:VEVENT`;
 					<div class="content-page">
 						<br>
 						<div class="p-2" id="vis-parent" style="margin: auto;">
-							<div id="vis" style="width: 35vw; height:500px; margin: auto;">
+							<div id="vis" style="width: 500px; height:500px; margin: auto;">
                         
                     </div>
 						</div>
@@ -4945,7 +4952,7 @@ END:VEVENT`;
                         <div id="dfg-dmp1" class="content-page">
                             <br />
 							<div class="p-2" id="vis-parent" style="margin: auto; ">
-								<div id="vis" style="width: 35vw;height: 500px; margin: auto;"></div>
+								<div id="vis" style="width: 500px;height: 500px; margin: auto;"></div>
 							</div>
 
                             <div id="text_start" class="c2 text-center">Data Management Plan of the DFG Project $_PROJECT</div>
