@@ -1466,6 +1466,28 @@
 			    switch (urlroute.slice(-1)[0]) {
                     case "tutorial":
                     tour.show()   ;
+                    break;
+                    case "Tutorial":
+                    tour.show()   ;
+                    break;
+                    case "t":
+                    tour.show()   ;
+                    break;
+                    case "Horizon2020":
+                    load_dmp(reload_answers,name="dmp1");
+                    break;
+                    case "HorizonEurope":
+                    load_dmp(reload_answers,name="horizon_europe");
+                    break;
+                    case "DFG":
+                    load_dmp(reload_answers,name="dfg-dmp");   
+                    break;
+                    case "dfg":
+                    load_dmp(reload_answers,name="dfg-dmp");   
+                    break;
+                    case "PracticeGuide":
+                    load_dmp(reload_answers,name="practical-guide");   
+                    break;
                     
 			        
 
@@ -3452,7 +3474,7 @@ END:VEVENT`;
 										placeholder="derived data volume (in GB)"
 										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
 										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+										1onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
 									/>
 									GB
 

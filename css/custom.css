@@ -17,7 +17,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
-:root{
+.scrollbar{
   scrollbar-color:  #1FC2A7  #d1d1d1 !important;
   scrollbar-width: thin !important;
 }
