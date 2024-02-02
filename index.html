@@ -74,7 +74,7 @@
 		p{margin:0;font-size:12pt;font-family:"Arial"; white-space: normal}
 		h1{padding-top:20pt;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		h2{padding-top:18pt;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		h3{padding-top:8pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
+		h3{padding-top:8pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;  text-align-last: left;}
 		h4{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		h5{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:2pt; margin-bottom:0rem;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		h6{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2; text-align: justify; text-align-last: left;}</style>
@@ -479,15 +479,11 @@
 				saved_a["dmp"]["submission"]  = date.toISOString().slice(0,-3);
 				saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"] ;
 				
-				
-				
-				saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
+			    saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
 				saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 				
 
-
-				
-                parseText();
+                //parseText();
 				document.getElementById("split-0").scrollTop = scroll_y,
 				console.log("the window is scrolled to: "+ scroll_y);
 				
@@ -1573,8 +1569,8 @@
 				const callback = (mutationList, observer) => {
 				  for (const mutation of mutationList) {
                     var canvas = document.createElement('canvas');
-                    canvas.setAttribute("width", "500px");
-                    canvas.setAttribute("height", "500px");
+                    canvas.setAttribute("width", "600px");
+                    canvas.setAttribute("height", "600px");
 
                     var ctx = canvas.getContext('2d');
                     // instead of using raw xml text, XMLSerializer can produce better html text
@@ -1993,7 +1989,7 @@
                     document.querySelector(".tour-exit").click();
 
                 } catch(e){};
-
+                parseText();
 			    const text = document.getElementById("doc3");
 				const text_start = text.querySelector("#text_start");
 			    
@@ -2464,6 +2460,7 @@ END:VEVENT`;
 
 
             function export2word(element, filename = ''){
+                parseText();
                 const compared_list = compare_answers(temp_a, saved_a);
                     let warning_element_children = Array.from(Array(99).keys());
 
@@ -2864,9 +2861,9 @@ END:VEVENT`;
 							</div>
 							<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
 							  <div class="d-flex">
-								<div class="toast-body">
+								<div class="toast-body m-auto">
 								Congrats! All done.<br>
-								Copy  
+								Copy text  
 								<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
 									<span class=" clip ">
 										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -2875,13 +2872,13 @@ END:VEVENT`;
 										<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
 										</svg>
 									</span> 
-								</a> or <a  href="#" onclick="save_json()" >export answers</a> or
+								</a> or <br> <a  href="#" onclick="save_json()" >export answers</a> or <br>
                                 
-                                <a  href="#" onclick="export2word1('doc3', 'DMP-DataPLAN') ">export to word</a>
+                                <a  href="#" onclick='export2word("doc3", "DMP-DataPLAN") '>export to word</a>
 								
 								
 								</div>
-								<button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+								<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close">
 								</button>
 								</div>
 							</div>
@@ -2908,7 +2905,7 @@ END:VEVENT`;
 						<div id="doc3" class="row-auto col-12" >
 						
 						
-						
+					
 						</div>
 					</div>
 				</div>
@@ -2924,7 +2921,7 @@ END:VEVENT`;
 								<h3>1.1 What is the project name or acronym?</h3>
 								<label for="input_project"></label>
 								<input
-									style="width: 26vw;"
+									style="width: 90%;"
 									class="col-auto"
 									type="text"
 									onfocusin="this.select();"
@@ -2944,7 +2941,7 @@ END:VEVENT`;
 
 							<form id="form_studyobject">
 								<label for="input_studyobject">
-									<h3>
+									<h3 class="text-left">
 										1.2	Please briefly state 
 										<a href="#"  data-bs-toggle="tooltip" title="click to see some example study objects" tabindex="-1">
 											<span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj" aria-controls="offcanvas-obj">the topic of the research project
@@ -2958,7 +2955,7 @@ END:VEVENT`;
 								</label>
 
 								<input
-									style="width: 26vw;"
+									style="width: 90%;"
 									class="col-auto"
 									type="text"
 									onfocusin="this.select();"
@@ -2995,14 +2992,14 @@ END:VEVENT`;
 								</label>
 								<textarea
 									type="text"
-									style="width: 26vw;"
+									style="width: 90%;"
 									onfocusin="this.select();"
 									onchange="onchange_replace(this);"
 									id="input_projectaim"
 									name="$_PROJECTAIM"
 									placeholder="project aim"
 									rows="3"
-									style="width: 26vw;"
+									style="width: 90%;"
 									onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
 									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
 									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
@@ -3020,7 +3017,7 @@ END:VEVENT`;
                                             /></svg></span></a> </h3>
 								<label for="input_datautility"></label>
 								<textarea
-									style="width: 26vw;"
+									style="width: 90%;"
 									class="col-auto"
 									type="text"
 									onfocusin="this.select();"
@@ -3043,7 +3040,7 @@ END:VEVENT`;
 								<h3>1.3 <a id="" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Some text here is stored only in the metadata and therefore not visible in the main text.">Other</a> DMP Metadata</h3>
 								<label for="input_username"><h4>User Name:</h4></label>
 								<input
-									style="width: 26vw;"
+									style="width: 90%;"
 									class=""
 									onfocusin="this.select();"
 									onchange="onchange_replace(this);"
@@ -3061,7 +3058,7 @@ END:VEVENT`;
 							<form class="" style="margin-left: 0px;" id="form_email">
 								<label for="input_email"><h4>User Email:</h4>         </label>
 								<input
-									style="width: 26vw;"
+									style="width: 90%;"
 									class=""
 									onfocusin="this.select();"
 									onchange="onchange_replace(this);"
@@ -3080,7 +3077,7 @@ END:VEVENT`;
 							<form class="" style="margin-left: 0px;" id="form_dataofficer">
 								<label for="input_dataofficer"><h4><a id="" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Also known as data stewards and curator">Data Officer</a> Name:</h4></label>
 								<input
-									style="width: 26vw;"
+									style="width: 90%;"
 									class=""
 									onfocusin="this.select();"
 									onchange="onchange_replace(this);"
@@ -3100,7 +3097,7 @@ END:VEVENT`;
 							<form class="" style="margin-left: 0px;" id="form_dmpversion">
 								<label for="input_dmpversion"><h4>DMP version:</h4></label>
 								<input
-									style="width: 26vw;"
+									style="width: 90%;"
 									class=""
 									onfocusin="this.select();"
 									onchange="onchange_replace(this);"
@@ -3291,7 +3288,7 @@ END:VEVENT`;
 								<form class="collapse" id="form_updatemonth">
 									<label for="intput_updatemonth">At which month will your project be updated?</label>
 									<input
-										style="width: 26vw;"
+										style="width: 90%;"
 										type="text"
 										onfocusin="this.select();"
 										onchange="onchange_replace(this);"
@@ -3312,7 +3309,7 @@ END:VEVENT`;
 								<form class="collapse" id="form_previousprojects">
 									<label for="intput_previousprojects">What is the name of your previous project?</label>
 									<input
-										style="width: 26vw;"
+										style="width: 90%;"
 										type="text"
 										onfocusin="this.select();"
 										onchange="onchange_replace(this);"
@@ -3334,7 +3331,7 @@ END:VEVENT`;
 									<label for="input_proprietary">What is the name of your proprietary software?</label>
 
 									<input
-										style="width: 26vw;"
+										style="width: 90%;"
 										type="text"
 										onfocusin="this.select();"
 										onchange="onchange_replace(this);"
@@ -3835,7 +3832,7 @@ END:VEVENT`;
 					<div class="content-page">
 						<br />
 						<div class="p-2" id="vis-parent" style="margin: auto;">
-							<div id="vis" style="width: 500px; height: 500px; margin: auto; display: block;"></div>
+							<div id="vis" style="width: 600px; height: 600px; margin: auto; display: block;"></div>
                             <br />
 						<div class="p-2" style="margin: auto;">
 							
@@ -4358,7 +4355,7 @@ END:VEVENT`;
 					<div class="content-page">
 						<br>
 						<div class="p-2" id="vis-parent" style="margin: auto;">
-							<div id="vis" style="width: 500px; height:500px; margin: auto;">
+							<div id="vis" style="width: 600px; height:600px; margin: auto;">
                         
                     </div>
 						</div>
@@ -4974,7 +4971,7 @@ END:VEVENT`;
                         <div id="dfg-dmp1" class="content-page">
                             <br />
 							<div class="p-2" id="vis-parent" style="margin: auto; ">
-								<div id="vis" style="width: 500px;height: 500px; margin: auto;"></div>
+								<div id="vis" style="width: 600px;height: 600px; margin: auto;"></div>
 							</div>
 
                             <div id="text_start" class="c2 text-center">Data Management Plan of the DFG Project $_PROJECT</div>
