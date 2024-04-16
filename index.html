@@ -2954,7 +2954,8 @@ END:VEVENT`;
 							</form>
 							<form class="" style="margin-left: 0px;" id="form_datautility">
 								<h3> <a href="#"  data-bs-toggle="tooltip" title="click to see some example" tabindex="-1">
-                                    <span class="text-success" tabindex="-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">Who is the most likely to benefit from the data?
+                                    <span class="text-success" tabindex="-1" type="button" 
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">Who is the most likely to benefit from the data?
                                         <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                             <path
@@ -2982,7 +2983,9 @@ END:VEVENT`;
 							  
 							</form>
 							<form class="" style="margin-left: 0px;" id="form_username">
-								<h3>1.3 <a id="" href="#" class="text-success" title="Some text here is stored only in the metadata and therefore not visible in the main text.">Other <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+								<h3>1.3 <a id="" href="#" class="text-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-other" 
+                                    aria-controls="offcanvas-other" >Other 
+                                    <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                     <path
                                         d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
@@ -3024,7 +3027,9 @@ END:VEVENT`;
 							</form>
 
 							<form class="" style="margin-left: 0px;" id="form_dataofficer">
-								<label for="input_dataofficer"><h4><a id="" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Also known as data stewards and curator">Data Officer</a> Name:</h4></label>
+								<label  for="input_dataofficer"><h4><a class="text-primary" id="" href="#" data-bs-toggle="offcanvas" 
+                                    data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer"
+                                    >Data Officer</a> Name:</h4></label>
 								<input
 									style="width: 90%;"
 									class=""
@@ -3089,7 +3094,7 @@ END:VEVENT`;
 
 								<label class="form-check-label" for="check_dataplant">
 								
-									Yes! I will use <a href="https://nfdi4plants.github.io/" target="_blank" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
+									Yes! I will use <a class="text-primary" href="https://nfdi4plants.github.io/" target="_blank" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
 								</label>
 								</div>
 								<div>
@@ -3133,7 +3138,8 @@ END:VEVENT`;
 									role="button"
 								/>
 								<label class="form-check-label" for="check_proprietary">
-									This project use <a href="#" data-toggle="tooltip" title="software that legally remains the property of the organization, group, or individual who created it." data-original-title="">proprietary software</a>.
+									This project use <a class="text-primary" data-bs-toggle="offcanvas" 
+                                    data-bs-target="#offcanvas-officer" aria-controls="offcanvas-proprietary" href="#" >proprietary software</a>.
 								</label>
 								</div><div>
 
@@ -3377,7 +3383,7 @@ END:VEVENT`;
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox" id="check_excel" data-replace="excel data"/>
 									<label class="form-check-label" for="check_excel">
-										<a href="#" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="excel data">excel </a>
+										<a href="#" class="text-primary" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="excel data">excel </a>
 									</label>
 								</div>
 								<div class="form-data_type form-check">
@@ -3574,9 +3580,9 @@ END:VEVENT`;
 					<p><b> Example 2: </b> data management plan</p>
 				</div>
 			</div>
-            <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-utility" aria-labelledby="offcanvasScrolling2">
+            <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-utility" aria-labelledby="offcanvasScrolling3">
 				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="offcanvasScrolling2">Here is the space for additional sentence.</h5>
+					<h5 class="offcanvas-title" id="offcanvasScrolling3">Here is the space for additional sentence.</h5>
 					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
@@ -3585,6 +3591,41 @@ END:VEVENT`;
 					<p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different purpose.</p>
 				</div>
 			</div>
+            
+
+            <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-other" aria-labelledby="offcanvasScrolling4">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasScrolling4"></h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<p>Information in this section is only used in DMP metadata and not used in the document</p>
+					
+				</div>
+			</div>
+            <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-officer" aria-labelledby="offcanvasScrolling5">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasScrolling5"></h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<p>Data officers are also known as data stewards and curator.</p>
+					
+				</div>
+			</div>
+            
+            <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-proprietary" aria-labelledby="offcanvasScrolling6">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasScrolling6"></h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<p>software that legally remains the property of the organization, group, or individual who created it.
+                    </p>
+					
+				</div>
+			</div>
+            
 
 			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
 				<div class="offcanvas-header">
