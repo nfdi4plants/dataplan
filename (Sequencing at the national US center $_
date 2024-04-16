@@ -1,0 +1,5 @@
+(Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
+                                $_PRIDE; metabolomic database: $_METABOLIGHTS;
+
+(Sequencing at the national US center #if$_NCBI NCBI#endif$_NCBI, #if$_GEO GEO#endif$_GEO; European Bioinformatics Institute (EBI) archives: #if$_ENA European Nucleotide Archive: ENA;#endif$_ENA;  #if$_ARRAYEXPRESS Functional Genomics Data Archive: ArrayExpress;#endif$_ARRAYEXPRESS; 
+                                   #if$_PRIDE Proteome database: PRIDE;#endif$_PRIDE #if$_METABOLIGHTS metabolomic database: MetaboLights;#endif$_METABOLIGHTS

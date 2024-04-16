@@ -14,7 +14,7 @@
 		<!-- loading css styleSheets -->
 
 		<link href="css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="css/custom.css" rel="stylesheet"/>
+		
 		<link href="css/bs5-intro-tour.css" rel="stylesheet" />		
 		<!-- loading javascript scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
@@ -22,64 +22,7 @@
 		<script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
-		<style type="text/css" data-style-name="dmp1" >
-
-			#presets a { border-left: solid #666 1px; padding: 0 10px; }
-			#presets a.first { border-left: none; }
-			#keyword { width: 300px; }
-			#fetcher { width: 500px; }
-			#keyword, #go { font-size: 1.5em; }
-			#text { width: 100%; height: 100px; }
-			p.copy { font-size: small; }
-			#form { font-size: small; position: relative; }
-			hr { border: none; border-bottom: solid #ccc 1px; }
-			a.active { text-decoration: none; color: #000; font-weight: bold; cursor: text; }
-			#angles line, #angles path, #angles circle { stroke: #666; }
-			#angles text { fill: #333; }
-			#angles path.drag { fill: #666; cursor: move; }
-			#angles { text-align: center; margin: 0 auto; width: 350px; }
-			#angles input, #max { width: 42px; }
-		ol{margin:0;padding:0}table td,table th{padding:0}
-		.c1{line-height: 150%;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:12pt;font-family:"Arial";font-style:normal}
-		.c3{font-weight:700;text-decoration:none;vertical-align:baseline;font-size:13pt;font-family:"Arial";font-style:normal; color:#0088CC;}
-		.c4{font-weight:700;text-decoration:none;vertical-align:baseline;font-size:17pt;font-family:"Arial";font-style:normal}
-		.c7{font-weight:700;text-decoration:none;vertical-align:baseline;font-size:15pt;font-family:"Arial";font-style:normal}
-		.c22{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;;height:12pt}
-		
-		.c14{padding-top:14pt;padding-bottom:4pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.c13{padding-top:24pt;padding-bottom:6pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.c10{padding-top:12pt;padding-bottom:3pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.c20{padding-top:12pt;padding-bottom:6pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.c9{padding-top:18pt;padding-bottom:4pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.c0{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2; text-align: justify; text-align-last: left;;margin-top:0cm;
-			margin-right:0cm;
-			margin-bottom:10.0pt;
-			margin-left:0cm;
-			line-height:115%;
-			text-autospace:ideograph-other; 
-			white-space: normal;
-			}
-		.c6{padding-top:12pt;padding-bottom:10pt;line-height:1.1500000000000001;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.c12{text-decoration:none;vertical-align:baseline;font-family:"Arial";font-style:normal}
-		.c8{font-size:13pt;font-weight:700}
-		.c2{font-size:23pt;font-weight:700}
-		.c21{font-weight:400;font-size:20pt}
-		.c19{max-width:468pt;padding:72pt 72pt 72pt 72pt}
-		.c5{font-style:italic}.c17{font-size:12pt}
-		.c15{font-size:7pt}.c18{font-size:17pt}
-		.c16{background-color:#ffffff}.c11{font-weight:700}
-		.title{padding-top:0pt;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		
-		p{margin:0;font-size:12pt;font-family:"Arial"; white-space: normal}
-		h1{padding-top:20pt;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		h2{padding-top:18pt;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		h3{padding-top:8pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;  text-align-last: left;}
-		h4{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		h5{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:2pt; margin-bottom:0rem;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		h6{padding-top:8pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2; text-align: justify; text-align-last: left;}</style>
-	    
-
+        <link href="css/custom.css" rel="stylesheet"/>
 		<link href="favicon.png" rel="icon">
 		
 		<script>
@@ -90,10 +33,10 @@
 			/********** Section variables and data structures ***********/
 			
 			/**  
-			 * @name is_ie  
+			 * @name is_firefox  
 			 * @global
 			 * @static
-			 * @description to log if the broswer is ie
+			 * @description to log if the broswer is firefox
 			 **/
 			var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
 			/**  
@@ -177,9 +120,9 @@
 			    },
 			    "checkbox": {
 			        "checkbox_1": {
-			            "checked": [],
+			            "checked": ["check_dataplant",],
 			            "unchecked": ["check_protect",
-			                "check_dataplant", "check_update",
+			                 "check_update",
 			                "check_previousprojects",
 			                "check_industry",
 			                "check_proprietary",
@@ -197,6 +140,7 @@
 			            "checked": [
 			                "check_GEO",
 			                "check_GenBank",
+                            "check_ARRAYEXPRESS",
 			                "check_Proteomexchange",
 			                "check_Zenodo",
 			                "check_dataDyrad"
@@ -341,8 +285,8 @@
 			        },
 			        "checkbox": {
 			            "checkbox_1": {
-			                "checked": [],
-			                "unchecked": ["check_dataplant", "check_protect", "check_update", "check_previousprojects", "check_industry", "check_proprietary", "check_partners", "check_EU"]
+			                "checked": ["check_dataplant",],
+			                "unchecked": [ "check_protect", "check_update", "check_previousprojects", "check_industry", "check_proprietary", "check_partners", "check_EU"]
 			            },
 			            "checkbox_2": {
 			                "checked": ["check_image", "check_RNAseq", "check_genomic", "check_metabolomic", "check_proteomic", "check_targeted", "check_models", "check_code", "check_excel", "check_cloned-DNA", "check_phenotypic", "check_genetic"],
@@ -358,6 +302,7 @@
 			                ],
 			                "unchecked": [
 			                    "check_ENA",
+                                "check_ARRAYEXPRESS",
 			                    "check_NCBI",
 			                    "check_Pride",
 			                    "check_GEO",
@@ -460,7 +405,7 @@
 				try {((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights"): {} ;
 				}
 					catch(e){console.log("metabolights error");};
-				try {(!Object.keys(saved_a["checkbox"]).includes("checkbox_5") ) ? saved_a["checkbox"]["checkbox_5"]= {"checked":["check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad"],"unchecked": ["check_ENA","check_NCBI","check_Pride"] }: {} ;
+				try {(!Object.keys(saved_a["checkbox"]).includes("checkbox_5") ) ? saved_a["checkbox"]["checkbox_5"]= {"checked":["check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad"],"unchecked": ["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride"] }: {} ;
 				}
 					catch(e){};
 				
@@ -729,7 +674,7 @@
 				
 			    for (let answers in saved_a["replace"]) {
 			        let singleOption = {};
-			        singleOption[answers] = saved_a["replace"][answers]
+			        singleOption[answers] = saved_a["replace"][answers] || answers.split("_")[1];
 			            //verbose  console.log(singleOption);
 				
 			        find_replace(singleOption);
@@ -1116,7 +1061,7 @@
 																						  
 						
 						place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-						console.log("place holder: " + place_holder);
+						//console.log("left_text is: "+ left_text +" place holder: " + place_holder);
 						//verbose console.log("if_cha: " + if_cha);
 										
 						if (if_cha == "|" && check_or_uncheck=="check" ) {
@@ -1179,7 +1124,7 @@
 								 
 								 
 								}else if (check_or_uncheck == "uncheck"){ 
-								console.log("uncheck with |, the right_range will be remove: " + right_range.toString());
+								console.log("uncheck with |, the right_range will be move to: " + right_range.toString());
 
 								right_range.deleteContents();
 								right_range.detach;
@@ -2909,9 +2854,9 @@ END:VEVENT`;
 						</div>
 					</div>
 				</div>
-				<div class="col" id="split-1" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden;  margin: 0 0 0 -24px; padding: 0 0 0 20px;">
+				<div class="col" id="split-1" style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden;  margin: 0 0 0 -28px; padding: 0 0 0 20px;">
                     <div class="scroll-marker" > </div>
-					<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 0px 0px 2vw;" >
+					<div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200" class="scrollspy-example" tabindex="0" style="height: 93vh; margin: 0 0 0 0; padding: 0px 3vw 0px 2vw;" >
 						<div id="intro-tour-input">
 							<div id="warningText" ></div>
 
@@ -3037,7 +2982,11 @@ END:VEVENT`;
 							  
 							</form>
 							<form class="" style="margin-left: 0px;" id="form_username">
-								<h3>1.3 <a id="" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Some text here is stored only in the metadata and therefore not visible in the main text.">Other</a> DMP Metadata</h3>
+								<h3>1.3 <a id="" href="#" class="text-success" title="Some text here is stored only in the metadata and therefore not visible in the main text.">Other <svg xmlns="http://www.w3.org/2000/svg" tabindex="-1" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"
+                                    /></svg></a> DMP Metadata</h3>
 								<label for="input_username"><h4>User Name:</h4></label>
 								<input
 									style="width: 90%;"
@@ -3140,7 +3089,7 @@ END:VEVENT`;
 
 								<label class="form-check-label" for="check_dataplant">
 								
-									Yes! I will use <a href="https://nfdi4plants.github.io/" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
+									Yes! I will use <a href="https://nfdi4plants.github.io/" target="_blank" data-toggle="tooltip" title="An NFDI consortium of plant research." data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
 								</label>
 								</div>
 								<div>
@@ -3211,57 +3160,71 @@ END:VEVENT`;
 								<label class="form-check-label" for="check_ENA">
 									ENA
 								</label>
-								</div><div>
+								</div>
 
+                                <div>   
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
+                                    <label class="form-check-label" for="check_ARRAYEXPRESS">
+                                        ArrayExpress
+                                    </label>
+                                </div>
+
+                                <div>
 								<input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
 								<label class="form-check-label" for="check_GEO">
 									GEO
 								</label>
-								</div><div>
-
+								</div>
+                                
+                                <div>
 								<input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_NCBI" checked />
 								<label class="form-check-label" for="check_NCBI">
 									NCBI
 								</label>
-								</div><div>
+								</div>
 
+
+                                
+                                <div>
+                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
+								<label class="form-check-label" for="check_Pride">
+									pride
+								</label>
+								</div>
+
+                                <div>
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
+                                    <label class="form-check-label" for="check_metabolights">
+                                        Metabolights
+                                    </label>
+                                </div>
+                                <!--
+                               <div>
 								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
 								<label class="form-check-label" for="check_GenBank">
 									genbank
 								</label>
-								</div><div>
-
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
-								<label class="form-check-label" for="check_Pride">
-									pride
-								</label>
-								</div><div>
-
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
-								<label class="form-check-label" for="check_Proteomexchange">
-									proteomexchange
-								</label>
-								</div><div>
-
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
-								<label class="form-check-label" for="check_Zenodo">
-									zenodo
-								</label>
-
 								</div>
 								<div>
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
+                                    <label class="form-check-label" for="check_Proteomexchange">
+                                        proteomexchange
+                                    </label>
+								</div>
+                                
+                                <div>
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
+                                    <label class="form-check-label" for="check_Zenodo">
+                                        zenodo
+                                    </label>
+								</div>
+								
+                                <div>
 								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
 								<label class="form-check-label" for="check_dataDyrad">
 									dataDyrad
 								</label>
-								</div>
-								
-								<div>
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
-								<label class="form-check-label" for="check_metabolights">
-									Metabolights
-								</label>
-								</div>
+								</div>-->
 								
 								<div>
 								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_otherep" checked />
@@ -3875,8 +3838,8 @@ END:VEVENT`;
 
 						</div>
 					</div>
-                </div>
-					<div class="content-page">
+                
+					
 					<h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span class="c2">Introduction</span></h1>
 					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store the data but to make it Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
 						</span>
@@ -3921,8 +3884,8 @@ END:VEVENT`;
 									Bank of Japan: DDBJ. Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
 								</span>
 							</p>
-					</div>
-					<div class="content-page">
+					
+					
                         <p class="c0"><span class="c3">What is the origin of the data?</span></p>
                         <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For the $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>
                         
@@ -4086,8 +4049,8 @@ END:VEVENT`;
                                 annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
                             </span>
 							</p>
-                    </div>
-                    <div class="content-page">
+                    
+                    
                         <h3 class="c14" id="h.8wrxcmaxl0hv"><span class="c7">Making data openly accessible</span></h3>
                         <p class="c0">
                             <span class="c3">
@@ -4112,8 +4075,8 @@ END:VEVENT`;
                              <p class="c0">
                                 <span class="c1">
                                     #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
-                                    international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
-                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
+                                    international discipline related repositories which use specialized technologies (Sequencing at the #if$_NCBI national US center: NCBI:#endif$_NCBI #if$_GEO Gene Expression Ominibus: GEO;#endif$_GEO European Bioinformatics Institute (EBI) archives: #if$_ENA European Nucleotide Archive: ENA;#endif$_ENA  #if$_ARRAYEXPRESS Functional Genomics Data Archive: ArrayExpress;#endif$_ARRAYEXPRESS 
+                                    #if$_PRIDE Proteome database: PRIDE;#endif$_PRIDE #if$_METABOLIGHTS metabolomic database: MetaboLights;#endif$_METABOLIGHTS #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
                                 </span>
                             </p>
                             <p class="c0">
@@ -4166,8 +4129,8 @@ END:VEVENT`;
                         <p class="c0"><span class="c3">If there are restrictions on use, how will access be provided?</span></p>
                         <p class="c0"><span class="c1">There are no restrictions beyond the IP screening described above, which is in line with European open data policies.</span></p>
                         <p class="c0"><span class="c7"></span></p>
-                    </div>
-                    <div class="content-page">
+                    
+                    
                         <p class="c0"><span class="c3">Is there a need for a data access committee?</span></p>
                         <p class="c0"><span class="c1">There is no need for a data access committee.</span></p>
                         <p class="c0"><span class="c3">Are there well described conditions for access (i.e. a machine-readable license)?</span></p>
@@ -4218,8 +4181,8 @@ END:VEVENT`;
                         <p class="c10"><span class="c12 c17 c11"></span></p>
                         <p class="c10"><span class="c3">How will the data be licensed to permit the widest re-use possible?</span></p>
                         <p class="c0"><span class="c1">Open licenses, such as Creative Commons (CC), will be used whenever possible.</span></p>
-                    </div>
-                    <div class="content-page">
+                    
+                    
                         <p class="c10">
                             <span class="c3">
                                 When will the data be made available for re-use? If an embargo is sought to give time to publish or seek patents, specify why and how long this will apply, bearing in mind that research data should be made
@@ -4399,9 +4362,9 @@ END:VEVENT`;
 							<br>
 
 						</div>
-					</div>
+					
 	
-					<div class="content-page">
+					
 					<h1 class="c13"><span class="c2">Introduction</span></h1>
 					<p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
 						</span>
@@ -4441,8 +4404,8 @@ END:VEVENT`;
 									The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of data analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards, as laid out in the next section.
 								</span>
 							</p>
-					</div>
-					<div class="content-page">
+					
+					
                         <p class="c0"><span class="c3">What is the expected size of the data that you intend to generate or re-use?</span></p>
                         <p class="c0"><span class="c1">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the derived data will be about $_DERIVEDDATA GB.</span></p>
                         
@@ -4601,8 +4564,8 @@ END:VEVENT`;
                                     Data variables will be allocated standard names. For example, genes, proteins and metabolites will be named according to approved nomenclature and conventions. These will also be linked to functional ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by humans. Plant names will include traditional names, binomials, and all strain/cultivar/subspecies/variety identifiers.</span>
                         </p>
                         
-                    </div>
-                    <div class="content-page">
+
+                    
                         <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.2.&nbsp; &nbsp; Making data accessible</span></h2>
                         <p class="c0"><span class="c3">Repository</span></p>
                         <p class="c0"><span class="c3">Will the data be deposited in a trusted repository?</span></p>
@@ -4611,8 +4574,8 @@ END:VEVENT`;
                             <p class="c0">
                                <span class="c1">
                                    #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
-                                   international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
-                                   $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
+                                   international discipline related repositories which use specialized technologies (Sequencing at the #if$_NCBI national US center: NCBI:#endif$_NCBI #if$_GEO Gene Expression Ominibus: GEO;#endif$_GEO European Bioinformatics Institute (EBI) archives: #if$_ENA European Nucleotide Archive: ENA;#endif$_ENA  #if$_ARRAYEXPRESS Functional Genomics Data Archive: ArrayExpress;#endif$_ARRAYEXPRESS 
+                                   #if$_PRIDE Proteome database: PRIDE;#endif$_PRIDE #if$_METABOLIGHTS metabolomic database: MetaboLights;#endif$_METABOLIGHTS #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. #endif!$_DATAPLANT
                                </span>
                            </p>
                            <p class="c0">
@@ -4635,8 +4598,8 @@ END:VEVENT`;
                            <p class="c0">
                             <span class="c1">
                                 #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
-                                international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
-                                $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.#endif!$_DATAPLANT
+                                international discipline related repositories which use specialized technologies (Sequencing at the #if$_NCBI national US center: NCBI:#endif$_NCBI #if$_GEO Gene Expression Ominibus: GEO;#endif$_GEO European Bioinformatics Institute (EBI) archives: #if$_ENA European Nucleotide Archive: ENA;#endif$_ENA  #if$_ARRAYEXPRESS Functional Genomics Data Archive: ArrayExpress;#endif$_ARRAYEXPRESS 
+                                    #if$_PRIDE Proteome database: PRIDE;#endif$_PRIDE #if$_METABOLIGHTS metabolomic database: MetaboLights;#endif$_METABOLIGHTS #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.#endif!$_DATAPLANT
                             </span>
                         </p>
                         <p class="c0">
@@ -4703,9 +4666,9 @@ END:VEVENT`;
 
                             </span>
                          </p>
-                    </div>
+                    
 
-                    <div class="content-page">
+                    
                    
 
                     <p class="c0">
@@ -4857,10 +4820,10 @@ END:VEVENT`;
 
                         </span>
                     </p>
-                    </div>
+                    
 
 
-                    <div class="content-page">
+                    
 
                         <h2 class="c9" ><span class="c4">4.&nbsp; &nbsp; Allocation of resources</span></h2>
                         <p class="c10"><span class="c3">What will the costs be for making data or other research outputs FAIR in your project (e.g. direct and indirect costs related to storage, archiving, re-use, security, etc.)?</span></p>
@@ -4965,7 +4928,7 @@ END:VEVENT`;
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c0"><span class="c1"></span></p>
                         <p class="c22"><span class="c1"></span></p>
-           </div>
+           
 				</div>
                     <div id="dfg-dmp" class="d-none">
                         <div id="dfg-dmp1" class="content-page">
@@ -5386,8 +5349,8 @@ END:VEVENT`;
                             <p class="c0">
                                 <span class="c1">
                                     #if!$_DATAPLANT Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
-                                    international discipline related repositories which use specialized technologies (Sequencing at the national US center $_NCBI, $_GEO; Sequencing and sequence data at the EU center: EBI, $_ENA; Proteome database:
-                                    $_PRIDE; metabolomic database: $_METABOLIGHTS; #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.#endif!$_DATAPLANT
+                                    international discipline related repositories which use specialized technologies (Sequencing at the #if$_NCBI national US center: NCBI:#endif$_NCBI #if$_GEO Gene Expression Ominibus: GEO;#endif$_GEO European Bioinformatics Institute (EBI) archives: #if$_ENA European Nucleotide Archive: ENA;#endif$_ENA  #if$_ARRAYEXPRESS Functional Genomics Data Archive: ArrayExpress;#endif$_ARRAYEXPRESS 
+                                    #if$_PRIDE Proteome database: PRIDE;#endif$_PRIDE #if$_METABOLIGHTS metabolomic database: MetaboLights;#endif$_METABOLIGHTS #if$_OTHEREP and $_OTHEREP #endif$_OTHEREP )  will be used to store data and the data will be processed there as well. The ARC and the converters provided by DataPLANT will guarantee the upload into the endpoint repositories is fast and easy.#endif!$_DATAPLANT
                                 </span>
                             </p>
                             <p class="c0">
@@ -8078,6 +8041,7 @@ END:VEVENT`;
                     
 
 						</div>
+                    </div>
                 
           
                        
