@@ -1,0 +1,25 @@
+TY  - EJOUR
+AU  - Zhou, Xiao-Ran 
+AU  - Beier, Sebastian 
+AU  - Brilhaus, Dominik 
+AU  - Martins Rodrigues, Cristina 
+AU  - Mühlhaus, Timo 
+AU  - von Suchodoletz, Dirk 
+AU  - Twyman, Richard M. 
+AU  - Usadel, Björn 
+AU  - Kranz, Angela 
+TI  - DataPLAN: A Web-Based Data Management Plan Generator for the Plant Sciences
+T2  - Data
+PY  - 2023
+VL  - 8
+IS  - 11
+SN  - 2306-5729
+AB  - Research data management (RDM) combines a set of practices for the organization, storage and preservation of data from research projects. The RDM strategy of a project is usually formalized as a data management plan (DMP)—a document that sets out procedures to ensure data findability, accessibility, interoperability and reusability (FAIR-ness). Many aspects of RDM are standardized across disciplines so that data and metadata are reusable, but the components of DMPs in the plant sciences are often disconnected. The inability to reuse plant-specific DMP content across projects and funding sources requires additional time and effort to write unique DMPs for different settings. To address this issue, we developed DataPLAN—an open-source tool incorporating prewritten DMP content for the plant sciences that can be used online or offline to prepare multiple DMPs. The current version of DataPLAN supports Horizon 2020 and Horizon Europe projects, as well as projects funded by the German Research Foundation (DFG). Furthermore, DataPLAN offers the option for users to customize their own templates. Additional templates to accommodate other funding schemes will be added in the future. DataPLAN reduces the workload needed to create or update DMPs in the plant sciences by presenting standardized RDM practices optimized for different funding contexts.
+KW  - DMP
+KW  - planning
+KW  - omics
+KW  - phenotyping
+KW  - botany
+KW  - research data management
+DO  - 10.3390/data8110159
+ER  -

@@ -2718,6 +2718,14 @@ END:VEVENT`;
 								
 							</ul>
 						</div>
+                        <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+							<button type="button" class="btn border-0 rounded-0 g-0 btn-nav" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#citation_modal" id="cite_menu" >
+								Cite Us &nbsp;
+
+								<span style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;"> ∨ </span>
+							</button>
+							
+						</div>
 					</div>
 				</div>
 				<div class="col-5" style="margin: 0 0 0 0; padding: 0 0 0 0px; background-color: rgb(45, 62, 80);">
@@ -3627,7 +3635,7 @@ END:VEVENT`;
 			</div>
             
 
-			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3">
+			<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvas-template-input" aria-labelledby="offcanvasScrolling3" style="width:70vw">
 				<div class="offcanvas-header">
 					<h1 class="offcanvas-title" id="offcanvasScrolling3" style="padding-bottom: 0px;">User-defined template <button
 							class="badge btn-primary"
@@ -3693,6 +3701,54 @@ END:VEVENT`;
 				</div>
 			  </div>
 			</div>
+
+            	<!-- Modal citation-->
+			<div class="modal modal-xl" id="citation_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="update-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="update-label">This tool has been published in Data and selected as an issue cover</h5>
+                      <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body row">
+                     
+                        <div class="col-7">
+                            Export citations files:  <a href="files/data-v08-i11_20240508.bib" target="_blank" > BibTeX</a> | <a href="files/data-v08-i11_20240508.enw" target="_blank" > EndNote</a> | <a href="files/data-v08-i11_20240508.ris" target="_blank" > RIS</a>
+                            <div><b>MDPI and ACS Style</b></div>
+                            <p>
+                            Zhou, X.-R.; Beier, S.; Brilhaus, D.; Martins Rodrigues, C.; Mühlhaus, T.; von Suchodoletz, D.; Twyman, R.M.; Usadel, B.; Kranz, A.
+                            DataPLAN: A Web-Based Data Management Plan Generator for the Plant Sciences. <em>Data</em> <b>2023</b>, <em>8</em>, 159.
+                            https://doi.org/10.3390/data8110159
+                            </p>
+                            <div style="display: block">
+                            <b>AMA Style</b><br>
+                            <p>
+                            Zhou X-R, Beier S, Brilhaus D, Martins Rodrigues C, Mühlhaus T, von Suchodoletz D, Twyman RM, Usadel B, Kranz A.
+                            DataPLAN: A Web-Based Data Management Plan Generator for the Plant Sciences. <em>Data</em>. 2023; 8(11):159.
+                            https://doi.org/10.3390/data8110159
+                            </p>
+                            <b>Chicago/Turabian Style</b><br>
+                            <p>
+                            Zhou, Xiao-Ran, Sebastian Beier, Dominik Brilhaus, Cristina Martins Rodrigues, Timo Mühlhaus, Dirk von Suchodoletz, Richard M. Twyman, Björn Usadel, and Angela Kranz.
+                            2023. "DataPLAN: A Web-Based Data Management Plan Generator for the Plant Sciences" <em>Data</em> 8, no. 11: 159.
+                            https://doi.org/10.3390/data8110159
+                            </p>
+                            </div>
+                            </div>
+                        
+                      
+                      <div class="col-3" >
+                        <a href="https://www.mdpi.com/2306-5729/8/11/159" target="_blank" ><img src="/images/cover.png" class="img-fluid" alt="issueCover" ></a>
+                      </div>
+                      
+                    </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
 			<!-- offcanvas dmp storage management-->
 			<div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false" data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas" aria-hidden="true" style="width:43vw" >
 				<!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
