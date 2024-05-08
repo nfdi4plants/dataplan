@@ -331,7 +331,22 @@
 			// a tutoial to help users get familiar with the DataPLAN tool.
 			var steps = [{
 			        title: "Data Management Plan Generator (DMPG) ",
-			        content: '<p> Welcome! Let&#39;s generate DMPs in 5 minutes.<br> You can choose one of the following templates </p> <p>1. <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >DFG DMP.</a><br> 2.  <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >H2020 DMP</a> or a <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="horizon_europe")\' >Horizon Europe DMP</a> (11 pages).;<br>3. <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >Proposal DMP</a> (2 pages); <br>4. <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >Practical Guide</a> on data management </p>'
+			        content: `
+                        <div class="row">
+                        <div class="col-8">
+                       <p>
+                        <p> Welcome to DataPLAN tool! This work is published on <a  href="https://doi.org/10.3390/data8110159" target="_blank" > Data</a>. </p>
+                        1. <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >DFG DMP.</a><br> 
+                        2.  <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >H2020 DMP</a> or a 
+                        <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="horizon_europe")\' >Horizon Europe DMP</a> (11 pages).;<br>
+                        3. <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >Proposal DMP</a> (2 pages); <br>
+                        4. <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >Practical Guide</a> on data management </p>
+                        </div>
+                        <div class="col-3" >
+                        <a href="https://www.mdpi.com/2306-5729/8/11/159" target="_blank" ><img src="/images/cover.png" class="img-fluid" alt="issueCover" ></a>
+                        </div>
+                        </div>
+                        `
 			        //
 			    }, {
 			        id: "navbar-interface",
@@ -353,7 +368,7 @@
 			        content: "<p> If you have saved the \"JSON\" file, you can also upload it at any time, to resume your DMP generation process </p>"
 			    }, {
 			        id: "change_template",
-			        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>: </p><br><p>Beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> You can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://github.com/nfdi4plants/dataplan/wiki" >If you have more questions, please check our wiki</a>.</p>'
+			        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>: </p><br><p>Beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >short proposal </a> can also be downloaded. <br> You can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html" >If you have more questions, please check our knowledge base</a>.</p>'
 			    }
 			];
 
@@ -2323,7 +2338,7 @@ END:VEVENT`;
 			            title: "Question reminders",
 			            content: question_reminder + " <br> " + issue_reminder + 
                         `
-                        <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <a class="badge btn-secondary" href="#" onclick="copy_doc1()">copy</a> or <a class="badge btn-secondary" href="#" onclick="printDiv1()">print</a> or <a class="badge btn-secondary" href="#" onclick="export2word1('doc3', 'DMP-DataPLAN') ">export to word</a> it anyway.
+                        <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <button class="badge btn-primary" href="#" onclick="copy_doc1()">copy</button> or <button class="badge btn-primary" href="#" onclick="printDiv1()">print</button> or <button class="badge btn-primary" href="#" onclick="export2word1('doc3', 'DMP-DataPLAN') ">export to word</button> it anyway.
                         `
 
 			            //
@@ -2495,9 +2510,13 @@ END:VEVENT`;
 								<li>
 									<button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
 								</li>
+                                <li>
+									<button id="detailed_BBSRC-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP (Beta testing)</button>
+								</li>
 								<li>
 									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
 								</li>
+                                BBSRC-dmp
 								<li>
 									<button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
 								</li>
@@ -2571,6 +2590,9 @@ END:VEVENT`;
 								</li>
 								<li>
 									<button id="detailed_dfg-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
+								</li>
+                                <li>
+									<button id="detailed_BBSRC-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP (Beta testing)</button>
 								</li>
 								<li>
 									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
@@ -2703,7 +2725,7 @@ END:VEVENT`;
 									<button id="tutorial_button" class="dropdown-item" onclick="tour.show()">Tutorial</button>
 								</li>
 								<li>
-									<a id="wiki_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/wiki">Wiki</a>
+									<a id="wiki_button" class="dropdown-item"  ref="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html" target="_blank">Knowledge Base</a>
 								</li>
 								<li>
 									<a id="github_button" class="dropdown-item" href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip" data-bs-placement="top" title="bugs, suggestions or comments are welcom here">GitHub</a>
@@ -2815,17 +2837,16 @@ END:VEVENT`;
 							<div class="toast align-items-center" role="alert" aria-live="assertive" data-bs-autohide="false" aria-atomic="true">
 							  <div class="d-flex">
 								<div class="toast-body m-auto">
-								Congrats! All done.<br>
-								Copy text  
-								<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" >
-									<span class=" clip ">
+								Congrats! All done. Copy text  
+								<a href="#" data-toggle="tooltip" onclick="copy_doc()" title="click to copy the document" > here
+									
 										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
 										<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
 										<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
 										</svg>
-									</span> 
-								</a> or <br> <a  href="#" onclick="save_json()" >export answers</a> or <br>
+									
+								</a> or  <a  href="#" onclick="save_json()" >export answers</a> or 
                                 
                                 <a  href="#" onclick='export2word("doc3", "DMP-DataPLAN") '>export to word</a>
 								
@@ -3147,7 +3168,7 @@ END:VEVENT`;
 								/>
 								<label class="form-check-label" for="check_proprietary">
 									This project use <a class="text-primary" data-bs-toggle="offcanvas" 
-                                    data-bs-target="#offcanvas-officer" aria-controls="offcanvas-proprietary" href="#" >proprietary software</a>.
+                                    data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary" href="#" >proprietary software</a>.
 								</label>
 								</div><div>
 
@@ -3448,7 +3469,7 @@ END:VEVENT`;
 										placeholder="derived data volume (in GB)"
 										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
 										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-										1onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
 									/>
 									GB
 
@@ -3486,7 +3507,10 @@ END:VEVENT`;
 										onchange= ' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
 										placeholder="complete sentence of the other standards"
 										onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-										/>
+										onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+										onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+                                        
+                                        />
 
 									
 									
@@ -3707,12 +3731,12 @@ END:VEVENT`;
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="update-label">This tool has been published in Data and selected as an issue cover</h5>
+                      <h5 class="modal-title" id="update-label">You can cite this tool</h5>
                       <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body row">
+                      <div class="modal-body row justify-content-center">
                      
-                        <div class="col-7">
+                        <div class="col-8 align-self-center">
                             Export citations files:  <a href="files/data-v08-i11_20240508.bib" target="_blank" > BibTeX</a> | <a href="files/data-v08-i11_20240508.enw" target="_blank" > EndNote</a> | <a href="files/data-v08-i11_20240508.ris" target="_blank" > RIS</a>
                             <div><b>MDPI and ACS Style</b></div>
                             <p>
@@ -3737,7 +3761,7 @@ END:VEVENT`;
                             </div>
                         
                       
-                      <div class="col-3" >
+                      <div class="col-3 align-self-center" >
                         <a href="https://www.mdpi.com/2306-5729/8/11/159" target="_blank" ><img src="/images/cover.png" class="img-fluid" alt="issueCover" ></a>
                       </div>
                       
@@ -3812,13 +3836,18 @@ END:VEVENT`;
                 </div>
                 <div class="modal-body">
                 
-				Thanks for using and testing our tool. Please keep bearing with us. 
-                The tool will be continuously developed and improved. Any feedback is welcome. 
-                We don't use cookie to trace users and the tool can be used offline. 
+				Thanks for using and testing our tool.
                 Disconnect the internet or save it by "ctrl + S" will not affect the usage.
-                This work has been published on <a  href="https://doi.org/10.3390/data8110159" > MDPI Data</a>
+                This work has been published on <a  href="https://doi.org/10.3390/data8110159" target="_blank" > Data</a>
                 <br>
                 <br>
+                <span>  
+                    <b> 8th June 2024</b>
+                </span>
+                <ul>
+                <li><span class="badge bg-warning text-dark">Bug fix</span> User interface bug fix</li>
+                <li><span class="badge bg-primary">New feature</span> added BBSRC DMP beta test </li>
+                </ul>
                 <span>  
                     <b> 20th December 2023</b>
                 </span>
@@ -3966,7 +3995,7 @@ END:VEVENT`;
 						  </p>
 							<p class="c0">
 								<span class="c1">
-                                    The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data related $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
+                                    The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data related $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
                                     tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, care will be taken to document and archive these resources (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise
                                     in the DataPLANT consortium#endif$_DATAPLANT.
                             </span>
@@ -3975,8 +4004,7 @@ END:VEVENT`;
 							<p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p>
 							<p class="c0">
 								<span class="c1">
-									The project builds on existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ It is also important to
-									include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
+									The project builds on existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ It is also important to include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
 									Genomic references can be gathered from reference databases for genomes/ and sequences, like the US National Center for Biotechnology Information: NCBI, European Bioinformatics Institute: EBI; DNA Data
 									Bank of Japan: DDBJ. Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
 								</span>
@@ -4488,10 +4516,7 @@ END:VEVENT`;
 						 
 							<p class="c0">
 								<span class="c1">
-									The $_PROJECT will collect and/or generate the following types of raw data: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, data about $_STUDYOBJECT. In addition, derived data from the
-									original raw data sets will also be collected. This is important, as different analytical pipelines might yield different results or include ad-hoc data analysis parts,#if$_DATAPLANT and these pipelines will be
-									tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, specific care will be taken to document and archive these resources (including the analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise
-									in the DataPLANT consortium#endif$_DATAPLANT.&nbsp;
+                                    The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data related $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, care will be taken to document and archive these resources (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise in the DataPLANT consortium#endif$_DATAPLANT.&nbsp;
                                 </span>
                             </p>
 							
@@ -5220,7 +5245,7 @@ END:VEVENT`;
                                         </span>
                                         </p>
 
-                                    #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
+                                     #if$_OTHERSTANDARDS Other standards will also be used, such as $_OTHERSTANDARDINPUT. #endif$_OTHERSTANDARDS
                                 </span>
                             </p>
 
@@ -8084,7 +8109,7 @@ END:VEVENT`;
                     </div>
 
                     <div id="proposal" class="d-none">
-                        <div id="proposal1" class="content-page" id="text_start">
+                        
                             <p class="c0"><span class="c1">Datenmanagementplan</span></p>
                             <p class="c0"><span class="c1">Projektname: $_PROJECT</span></p>
                             <p class="c0"><span class="c1">Forschungsf&ouml;rderer: Bundesministerium f&uuml;r Bildung und Forschung</span></p>
@@ -8128,7 +8153,22 @@ END:VEVENT`;
                             <p class="c0 c2"><span class="c1"></span></p>
                         </div>
                     </div>
-
+                    <div id="BBSRC-dmp" class="d-none">
+                        <div id="BBSRC-dmp1" class="content-page" id="text_start">
+                            <span class="c2">Data management plan of $_PROJECT for BBSRC</span><ul class="c0 ">
+                                
+                                <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types &ndash; The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data related $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT ARC#endif$_DATAPLANT. Therefore, care will be taken to document and archive these resources (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise in the DataPLANT consortium#endif$_DATAPLANT.&amp;nbsp; </span></li>
+                                
+                                <span class="c0">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the derived data will be about $_DERIVEDDATA GB.</span>
+                            <p class="c0"><span class="c0"></span></p>
+                                    <li class="c0 li-bullet-0"><span class="c0">Standards and Metadata &ndash;&nbsp;We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. #if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE &nbsp;for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT </span></li>
+                                    <li class="c0 li-bullet-0"><span class="c0">Reuse of published data &ndash; The project builds on existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ It is also important to include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS Genomic references can be gathered from reference databases for genomes/ and sequences, like the US National Center for Biotechnology Information: NCBI, European Bioinformatics Institute: EBI; DNA Data Bank of Japan: DDBJ. Furthermore, prior &#39;unstructured&#39; data in the form of publications and data contained therein will be used for decision making.</span></li></ul><p class="c0 c0"><span class="c0"></span></p><ul class="c0 ">
+                                    <li class="c0 li-bullet-0"><span class="c0">Secondary Use &ndash; The data will initially benefit the $_PROJECT partners, but will also be made available to selected stakeholders closely involved in the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also use the data after publication. The data will be disseminated according to the $_PROJECT&#39;s dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means#endif$_DATAPLANT</span></li>
+                                        
+                                        <li class="c0 li-bullet-0"><span class="c0">Methods for Data Sharing &ndash; Specialized repositories will be used where appropriate, such as INSDC (GenBank, EBI, DDBJ) for nucleotide sequence data, PIR/UniProt/SWISS-PROT for proteins, PDB for protein structures, GEO for transcriptomics, PRIDE for proteomics data, and METLIN for metabolomics data. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI). &nbsp;#if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast and easy. #endif$_DATAPLANT</span></li
+                                            li class="c0 li-bullet-0"><span class="c0">Proprietary Data &ndash; Open public data will be used whenever possible. </span></li><li class="c0 li-bullet-0"><span class="c0">Timeframes #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.</span></li><li class="c0 li-bullet-0"><span class="c0">Format of the Final Dataset &ndash; Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.</span>
+                        </div>
+                    </div>
                     <div id="user-defined" class="d-none">
                         <div id="user-defined1" class="content-page">
                             a document template
