@@ -431,6 +431,9 @@
 				try {(!Object.keys(saved_a["checkbox"]).includes("checkbox_5") ) ? saved_a["checkbox"]["checkbox_5"]= {"checked":["check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad"],"unchecked": ["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride"] }: {} ;
 				}
 					catch(e){};
+                try {((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request" ,"check_nfdi", "check_french", "check_eosc" ): {} ;
+				}
+					catch(e){};
 				
 				
 			    callback();
@@ -634,10 +637,10 @@
 			        }
 			    }
 				const checkbox_input = Object.entries(saved_a["checkbox"]);
-			    for (const[key, value]of checkbox_input ) {
+			    for (const[key, value] of checkbox_input ) {
 			        let checkboxes = value;
 			        try {const checked = Object.entries(checkboxes["checked"]);
-			            for (const[key, value]of checked) {
+			            for (const[key, value] of checked) {
 			                let element = document.getElementById(value);
 			                element.checked = true;
 			                // the check box of dataplant is opposite to others. It will collapse when dataplant is checked. That is why here is an exception.
@@ -2524,7 +2527,7 @@ END:VEVENT`;
 								<li>
 									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
 								</li>
-                                BBSRC-dmp
+                            
 								<li>
 									<button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="proposal")'>BMBF DMP</button>
 								</li>
@@ -3561,21 +3564,70 @@ END:VEVENT`;
 									</label>
 								</div>
 								<!---->
-								<h3>4.2 When will you make your data public?</h3>
+								<h3>4.2 Project data will be published:</h3>
 
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_3" type="checkbox" id="check_early"  role="button" checked />
-									<label class="form-check-label" for="check_early">The project will publish data as soon as it becomes available.</label>
+									<label class="form-check-label" for="check_early"> Immediately upon collection</label>
 								</div>
 
 								
+                                <div class="form-data_type form-check">
+                                    <input class="form-check-input checkbox_3" type="checkbox" id="check_beforepublication" />
+                                    <label class="form-check-label" for="check_beforepublication">
+                                        Upon publication of findings.
+                                    </label>
+                                </div>
+
+                                <div class="form-data_type form-check">
+                                    <input class="form-check-input checkbox_3" type="checkbox" id="check_endofproject" />
+                                    <label class="form-check-label" for="check_endofproject">
+                                        At the end of project.
+                                    </label>
+                                </div>
+
+                                <div class="form-data_type form-check">
+                                    <input class="form-check-input checkbox_3" type="checkbox" id="check_embargo" />
+                                    <label class="form-check-label" for="check_embargo">
+                                        After embargo period.
+                                    </label>
+                                </div>
+
+                                <div class="form-data_type form-check">
+                                    <input class="form-check-input checkbox_3" type="checkbox" id="check_request" />
+                                    <label class="form-check-label" for="check_request">
+                                        Upon request.
+                                    </label>
+                                </div>
 									<div class="form-data_type form-check">
 										<input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
 										<label class="form-check-label" for="check_ipissue">
-											The project will publish data as soon as IP issues have been addressed.
+											Upon IP issues have been addressed.
 										</label>
 									</div>
-									<br>
+							
+                                    <h3>4.4 Will you follow national standards or archived in national infrastructures?</h3>
+                                    <div class="form-data_type form-check">
+                                        <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi" checked />
+                                        <label class="form-check-label" for="check_nfdi">
+                                            German NFDI
+                                        </label>
+                                    </div>
+                                    <div class="form-data_type form-check">
+                                        <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_french" checked />
+                                        <label class="form-check-label" for="check_french">
+                                            French INRAe
+                                        </label>
+                                    </div>
+                                    <div class="form-data_type form-check">
+                                        <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_EOSC" checked />
+                                        <label class="form-check-label" for="check_EOSC">
+                                            Europe EOSC
+                                        </label>
+                                    </div>
+                            
+                            
+                            <br>
 							<br>
 							<br>
 							<br>
@@ -4376,9 +4428,11 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                             <span class="c1">
-                                #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
-                                encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
-                                Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
+                                <span class="c1">
+                                    #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early #if$_beforepublication Relevant processed datasets are made public when the research findings are published.#endif$_beforepublication #if$_endofproject At the end of the project, all data without embargo period will be published.#endif$_endofproject #if$_embargo Data, which is subject to an embargo period, is not publicly accessible until the end of embargo period.#endif$_embargo #if$_request Data is made available upon request, allowing controlled sharing while ensuring responsible use.#endif$_request #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
+                                    encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
+                                    Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
+                                </span>
                             </span>
                         </p>
                         <p class="c10"><span class="c3">Are the data produced and/or used in the project usable by third parties, in particular after the end of the project? If the re-use of some data is restricted, explain why.</span></p>
@@ -4427,7 +4481,7 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">
                                 Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
-                                ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI or the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC Proteomics data in
+                                ENA/SRA,#endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights,#endif$_METABOLOMIC #if$_NFDI German NFDI, #endif$_NFDI #if$_FRENCH French INRAe,#endif$_FRENCH #if$_EOSC Europe EOSC #endif$_EOSC #if$_PROTEOMIC Proteomics data in
                                 e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
                                 do not support deep plant specific metadata; hence ARCs will be maintained to ensure the reusability of plant-specific metadata. #endif$_DATAPLANT
                             </span>
@@ -4808,7 +4862,7 @@ END:VEVENT`;
                         <p class="c0"><span class="c3">If an embargo is applied to give time to publish or seek protection of the intellectual property (e.g. patents), specify why and how long this will apply, bearing in mind that research data should be made available as soon as possible.</span></p>
                         <p class="c0">
                             <span class="c1">
-                                #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
+                                #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early #if$_beforepublication Relevant processed datasets are made public when the research findings are published.#endif$_beforepublication #if$_endofproject At the end of the project, all data without embargo period will be published.#endif$_endofproject #if$_embargo Data, which is subject to an embargo period, is not publicly accessible until the end of embargo period.#endif$_embargo #if$_request Data is made available upon request, allowing controlled sharing while ensuring responsible use.#endif$_request #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
                                 encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
                                 Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
                             </span>
@@ -5040,7 +5094,7 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1">
                                 Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
-                                ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI or the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC Proteomics data in
+                                ENA/SRA,#endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights,#endif$_METABOLOMIC #if$_NFDI German NFDI, #endif$_NFDI #if$_FRENCH French INRAe,#endif$_FRENCH #if$_EOSC Europe EOSC #endif$_EOSC #if$_PROTEOMIC Proteomics data in
                                 e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
                                 do not support deep plant specific metadata; hence ARCs will be maintained to ensure the reusability of plant-specific metadata. #endif$_DATAPLANT
                             </span>
@@ -5405,8 +5459,8 @@ END:VEVENT`;
                             </h3>
                             <p class="c0">
                                 <span class="c1">
-                                Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
-                                ENA/SRA, #endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights (and/or Nationwide repositories like the German NFDI or the French INRAe), #endif$_METABOLOMIC #if$_PROTEOMIC Proteomics data in
+                                    Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
+                                    ENA/SRA,#endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights,#endif$_METABOLOMIC #if$_NFDI German NFDI, #endif$_NFDI #if$_FRENCH French INRAe,#endif$_FRENCH #if$_EOSC Europe EOSC #endif$_EOSC #if$_PROTEOMIC Proteomics data in
                                 e.g. Pride/Proteomexchange #endif$_PROTEOMIC. In addition, the national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange
                                 do not support deep plant-specific metadata; hence ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
                                 </span>
@@ -5565,9 +5619,9 @@ END:VEVENT`;
                             </h3>
                             <p class="c0">
                                 <span class="c1">
-                                    #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue In general, IP issues will first be checked. #endif$_ipissue All consortium partners will be
-                                    encouraged to make data available prior to publication openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
-                                    Release Workshop. #endif$_GENOMIC
+                                    #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early #if$_beforepublication Relevant processed datasets are made public when the research findings are published.#endif$_beforepublication #if$_endofproject At the end of the project, all data without embargo period will be published.#endif$_endofproject #if$_embargo Data, which is subject to an embargo period, is not publicly accessible until the end of embargo period.#endif$_embargo #if$_request Data is made available upon request, allowing controlled sharing while ensuring responsible use.#endif$_request #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
+                                    encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
+                                    Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
                                 </span>
                             </p>
 
@@ -6357,8 +6411,8 @@ END:VEVENT`;
                                                  
                                             "
                                         >
-                                            #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards ENA/SRA. #endif$_RNASEQ #if$_METABOLOMIC Metabolite data in e.g. Metabolights
-                                            (and/or Nationwide repositories like the German NFDI or the French INRAe). #endif$_METABOLOMIC #if$_PROTEOMIC and Proteomics data in e.g. Pride/Proteomexchange. #endif$_PROTEOMIC In addition, the
+                                        Wherever there are certified repositories, these will be used as end-point repositories. #if$_RNASEQ Transcriptomics data and gene sequence data will be also made available upon publication via the standards
+                                        ENA/SRA,#endif$_RNASEQ #if$_METABOLOMIC metabolite data in e.g. Metabolights,#endif$_METABOLOMIC #if$_NFDI German NFDI, #endif$_NFDI #if$_FRENCH French INRAe,#endif$_FRENCH #if$_EOSC Europe EOSC #endif$_EOSC #if$_PROTEOMIC and Proteomics data in e.g. Pride/Proteomexchange. #endif$_PROTEOMIC In addition, the
                                             national resource will maintain safekeeping of data also after the project ends. #if$_DATAPLANT In addition, databases like e.g. Proteomexchange does not support deep plant-specific metadata; hence
                                             ARCs will be maintained to ensure reusability. #endif$_DATAPLANT
                                         </span>
@@ -8226,7 +8280,11 @@ END:VEVENT`;
                                     <li class="c0 li-bullet-0"><span class="c0">Secondary Use &ndash; The data will initially benefit the $_PROJECT partners, but will also be made available to selected stakeholders closely involved in the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also use the data after publication. The data will be disseminated according to the $_PROJECT&#39;s dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means#endif$_DATAPLANT</span></li>
                                         
                                         <li class="c0 li-bullet-0"><span class="c0">Methods for Data Sharing &ndash; Specialized repositories will be used where appropriate, such as INSDC (GenBank, EBI, DDBJ) for nucleotide sequence data, PIR/UniProt/SWISS-PROT for proteins, PDB for protein structures, GEO for transcriptomics, PRIDE for proteomics data, and METLIN for metabolomics data. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI). &nbsp;#if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast and easy. #endif$_DATAPLANT</span></li
-                                            li class="c0 li-bullet-0"><span class="c0">Proprietary Data &ndash; Open public data will be used whenever possible. </span></li><li class="c0 li-bullet-0"><span class="c0">Timeframes #if$_early The data will be published as soon as possible to guarantee reusability. #endif$_early #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.</span></li><li class="c0 li-bullet-0"><span class="c0">Format of the Final Dataset &ndash; Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.</span>
+                                            li class="c0 li-bullet-0"><span class="c0">Proprietary Data &ndash; Open public data will be used whenever possible. </span></li><li class="c0 li-bullet-0"><span class="c0">Timeframes                            
+                                                #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early #if$_beforepublication Relevant processed datasets are made public when the research findings are published.#endif$_beforepublication #if$_endofproject At the end of the project, all data without embargo period will be published.#endif$_endofproject #if$_embargo Data, which is subject to an embargo period, is not publicly accessible until the end of embargo period.#endif$_embargo #if$_request Data is made available upon request, allowing controlled sharing while ensuring responsible use.#endif$_request #if$_ipissue IP issues will be checked before publication. #endif$_ipissue All consortium partners will be
+                                                encouraged to make data available before publication, openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International Data
+                                                Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are complete.
+                                            </span></li><li class="c0 li-bullet-0"><span class="c0">Format of the Final Dataset &ndash; Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.</span>
                         </div>
                     </div>
                     <div id="user-defined" class="d-none">
