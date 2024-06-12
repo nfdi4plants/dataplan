@@ -24,7 +24,9 @@
 		<script src="js/bs5-intro-tour.js" type="text/javascript" charset="utf-8"></script>
         <link href="css/custom.css" rel="stylesheet"/>
 		<link href="favicon.png" rel="icon">
-		
+        <!-- 100% privacy-first analytics -->
+        <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+        <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 		<script>
 
 		</script>
@@ -172,15 +174,19 @@
 			
 			
 			
-			if (cached_a !== null) { // if there is no answer saved in local storage
+			if (cached_a !== null) { // if there is an answer saved in local storage
 			
 				
 				
 			
 			    var saved_a = JSON.parse(cached_a); // load the cached answers to webpage
-				try {saved_a["update"];saved_a["update"]["timeline"];saved_a["dmp"];saved_a["update"]["storage"]["0"]["answer"]["$_PROJECT"]  } // if some answers are missing, reinitialize the answers.
+				try {   saved_a["update"];
+                        saved_a["update"]["timeline"];
+                        saved_a["dmp"];
+                        saved_a["update"]["storage"]["0"]["answer"]["$_PROJECT"]  } // if some answers are missing, reinitialize the answers.
 				catch(e){
-				saved_a["update"]={"timeline":[
+				
+                    saved_a["update"]={"timeline":[
 						],"storage":[
 						{"answer":{"replace":saved_a["replace"],"checkbox":saved_a["checkbox"] },"name":[],},
 						{"answer":[],"name":[],},
@@ -230,7 +236,7 @@
 				}
 				
 				
-			} else { // if there is already a cache saved locally
+			} else { // if there is no saved answer, initiate a new saved answer
 			    var saved_a = {
 						"dmp": {
 			                "title": "Minimal DMP",
@@ -267,7 +273,7 @@
 							
 			            },
 			        "replace": {
-			            			        "$_PROJECT": "Example Project",
+			        "$_PROJECT": "Example Project",
 			        "$_STUDYOBJECT": "Example Topic",
 			        "$_PROJECTAIM": "Example Aim",
 					"$_DMPVERSION": "1.0",
@@ -333,16 +339,18 @@
 			        title: "Data Management Plan Generator (DMPG) ",
 			        content: `
                         <div class="row">
-                        <div class="col-8">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/be8mopv35Bs?si=fRNUEFIxd3wTWJ0H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                        <p>
-                        <p> Welcome to DataPLAN tool! This work is published on <a  href="https://doi.org/10.3390/data8110159" target="_blank" > Data</a>. </p>
+                        <div class="col-8 mt-4">
+                            
+                        <p> Welcome to DataPLAN tool! This work is published on <a  href="https://doi.org/10.3390/data8110159" target="_blank" > Data</a>. Answer one questionnaire and generate DMPs for five funding bodies </p>
                         1. <a id="myLink1" href="#" onclick=\'load_dmp(reload_answers,name="dfg-dmp")\' >DFG DMP.</a><br> 
                         2.  <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="dmp1")\' >H2020 DMP</a> or a 
                         <a id="myLink2" href="#" onclick = \'load_dmp(reload_answers,name="horizon_europe")\' >Horizon Europe DMP</a> (11 pages).;<br>
                         3. <a id="myLink3" href="#" onclick = \'load_dmp(reload_answers,name="proposal")\' >Proposal DMP</a> (2 pages); <br>
                         4. <a id="myLink4" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >Practical Guide</a> on data management </p>
                         </div>
-                        <div class="col-3" >
+                        <div class="col-4" >
                         <a href="https://www.mdpi.com/2306-5729/8/11/159" target="_blank" ><img src="https://nfdi4plants.github.io/dataplan/images/cover.png" class="img-fluid" alt="issueCover" ></a>
                         </div>
                         </div>
