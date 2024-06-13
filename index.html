@@ -732,6 +732,60 @@
 			    p_bar.innerHTML = Math.ceil(percentage) + "%";
 			    p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
 				
+                let checkboxes = document.querySelectorAll(".form-check-input");
+		checkboxes.forEach( e => {	
+            
+			e.setAttribute("onfocusin", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e =>{ e.classList.add("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.add("border-highlight")}  }); set_scrollbar_marker( scroll_marker,elem1 )');
+			e.setAttribute("onfocusout", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
+			e.setAttribute("onmouseover", 'this.focus()');
+            e.setAttribute("onclick", 
+                'this.blur(); setTimeout(()=> {this.focus()}, "100")');
+			
+            
+
+            
+			}
+            
+
+
+		);    
+            let c2Checked =[];
+            let c2Unchecked = [];    
+            document.querySelectorAll(".checkbox_2").forEach((e)=>{
+                if (e.checked){
+                    c2Checked.push(e);
+                }else{
+                    c2Unchecked.push(e);
+                }
+            
+            
+            
+            } ) ;   
+            c2Unchecked.forEach(
+                (e)=>{
+                    const id = e.getAttribute("id");
+                    try{
+                        let repolist = document.querySelectorAll('.'+id+'Repo');
+                        repolist.forEach( item => {
+                            const col1 = new bootstrap.Collapse("#"+item.id, {toggle: false});
+                            col1.hide();});
+                        }catch(e){console.log(e)};
+                }
+            );
+            c2Checked.forEach(
+                (e)=>{
+                    const id = e.getAttribute("id");
+                    try{
+                        let repolist = document.querySelectorAll('.'+id+'Repo');
+                        repolist.forEach( item => {
+                            const col1 = new bootstrap.Collapse("#"+item.id, {toggle: false});
+                            col1.show();});
+                        }catch(e){console.log(e)};
+                }
+            );
+
+                // e.setAttribute("onchange", "const col1 = new bootstrap.Collapse('."+id+"Repo', {toggle: false});if(this.checked == true){col1.show();}else{col1.hide();}");
+            
 				
 			}
 						/**
@@ -3198,100 +3252,7 @@ END:VEVENT`;
 							<input class="btn btn-primary form-check collapse btn-sm d-none" type="button" id="form-check-input" data-checkbox="checkbox_1" value="submit" onclick="get_option(this)" />
 							
 
-							<div class="collapse" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
-								
-								   <h3> Where will you submit your data as endpoints?</h3> 
-								<div>   
-								<input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
-								<label class="form-check-label" for="check_ENA">
-									ENA
-								</label>
-								</div>
-
-                                <div>   
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
-                                    <label class="form-check-label" for="check_ARRAYEXPRESS">
-                                        ArrayExpress
-                                    </label>
-                                </div>
-
-                                <div>
-								<input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
-								<label class="form-check-label" for="check_GEO">
-									GEO
-								</label>
-								</div>
-                                
-                                <div>
-								<input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_NCBI" checked />
-								<label class="form-check-label" for="check_NCBI">
-									NCBI
-								</label>
-								</div>
-
-
-                                
-                                <div>
-                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
-								<label class="form-check-label" for="check_Pride">
-									pride
-								</label>
-								</div>
-
-                                <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
-                                    <label class="form-check-label" for="check_metabolights">
-                                        Metabolights
-                                    </label>
-                                </div>
-                                <!--
-                               <div>
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
-								<label class="form-check-label" for="check_GenBank">
-									genbank
-								</label>
-								</div>
-								<div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
-                                    <label class="form-check-label" for="check_Proteomexchange">
-                                        proteomexchange
-                                    </label>
-								</div>
-                                
-                                <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
-                                    <label class="form-check-label" for="check_Zenodo">
-                                        zenodo
-                                    </label>
-								</div>
-								
-                                <div>
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
-								<label class="form-check-label" for="check_dataDyrad">
-									dataDyrad
-								</label>
-								</div>-->
-								
-								<div>
-								<input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_otherep" checked />
-								<label class="form-check-label" for="check_otherep">
-									Other Endpoint Repositories:
-									<input
-										style="width: 24vw;"
-										type="text"
-										class="col-auto"
-										id="input_otherep"
-										onfocusin="this.select();"
-										onchange="onchange_replace(this);"
-										name="$_OTHEREP"
-										onchange= ' saved_a["replace"]["$_OTHEREP"]= this.value '
-										placeholder="complete sentence of the other endpoint repositories"
-										onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }'
-										/>
-								</label>
-								</div>
-							</div>
-							<input class="btn collapse btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick='get_option(this)' />
+							
 							
 							
 								<form class="collapse" id="form_updatemonth">
@@ -3359,7 +3320,9 @@ END:VEVENT`;
 							<form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
 								<h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_phenotypic" data-replace="phenotype data" />
+									<input class="form-check-input checkbox_2" type="checkbox"  
+                                            id="check_phenotypic" 
+                                            />
 									<label class="form-check-label" for="check_phenotypic">
 										Plant phenotypic data
 									</label>
@@ -3437,9 +3400,140 @@ END:VEVENT`;
 								
 							</form>
 
+
+
 							<input class="btn btn-primary btn-sm d-none" type="button" id="check_box2" value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
 							
+                            <div class="collapse d-grid gap-1" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
+								
+                                <h3> 2.1 Where will you submit your data as endpoints?</h3> 
+                            <div class="collapse check_phenotypicRepo" id="edal" >
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_edal" checked />
+                                    <label class="form-check-label" for="check_edal">
+                                        Plant Genomics & Phenomics Research Data Repository (e!DAL-PGP)
+                                    </label>
+                                    
+                             </div> 
+                            
+                             <div class="collapse check_genomicRepo" id="GenBank">
+                             <input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_GenBank" checked />
+                             <label class="form-check-label" for="check_GenBank">
+                                 NCBI-GenBank
+                             </label>
+                             </div>
+                             <div class="collapse check_geneticRepo" id="SRA">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_SRA" />
+                                <label class="form-check-label" for="check_SRA">
+                                    NCBI-SRA
+                                </label>
+                               </div>
+                             <div class="collapse check_geneticRepo" id="ENA">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
+                                <label class="form-check-label" for="check_ENA">
+                                    ENA
+                                </label>
+                               </div>
 
+                            
+                            <div class="collapse check_imageRepo"  id="IDR">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_IDR" />
+                                <label class="form-check-label" for="check_IDR">
+                                    Image Data Resource (IDR)
+                                </label>
+                            </div>
+                            <div class="collapse  check_imageRepo" id="Bioimage">
+                                <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_Bioimage" />
+                                <label class="form-check-label" for="check_Bioimage">
+                                    EBI-BioImage Archive
+                                </label>
+                            </div>
+
+                             <div class="collapse check_geneticRepo check_RNAseqRepo" id="arrayexpress">   
+                                 <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
+                                 <label class="form-check-label" for="check_ARRAYEXPRESS">
+                                     ArrayExpress
+                                 </label>
+                             </div>
+
+                             <div class="collapse check_RNAseqRepo" id="arrayexpress">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
+                                <label class="form-check-label" for="check_ARRAYEXPRESS">
+                                    ArrayExpress
+                                </label>
+                            </div>
+
+                             <div>
+                             <input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
+                             <label class="form-check-label" for="check_GEO">
+                                 GEO
+                             </label>
+                             </div>
+                             
+                             
+
+
+                             
+                             <div>
+                             <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
+                             <label class="form-check-label" for="check_Pride">
+                                 PRIDE
+                             </label>
+                             </div>
+
+                             <div>
+                                 <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
+                                 <label class="form-check-label" for="check_metabolights">
+                                     Metabolights
+                                 </label>
+                             </div>
+                             <!--
+                            <div>
+                             <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
+                             <label class="form-check-label" for="check_GenBank">
+                                 genbank
+                             </label>
+                             </div>
+                             <div>
+                                 <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
+                                 <label class="form-check-label" for="check_Proteomexchange">
+                                     proteomexchange
+                                 </label>
+                             </div>
+                             
+                             <div>
+                                 <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
+                                 <label class="form-check-label" for="check_Zenodo">
+                                     zenodo
+                                 </label>
+                             </div>
+                             
+                             <div>
+                             <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
+                             <label class="form-check-label" for="check_dataDyrad">
+                                 dataDyrad
+                             </label>
+                             </div>-->
+
+                             <div>
+                             <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_otherep" checked />
+                             <label class="form-check-label" for="check_otherep">
+                                 Other Endpoint Repositories:
+                                 <input
+                                     style="width: 24vw;"
+                                     type="text"
+                                     class="col-auto"
+                                     id="input_otherep"
+                                     onfocusin="this.select();"
+                                     onchange="onchange_replace(this);"
+                                     name="$_OTHEREP"
+                                     onchange= ' saved_a["replace"]["$_OTHEREP"]= this.value '
+                                     placeholder="complete sentence of the other endpoint repositories"
+                                     onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }'
+                                     />
+                             </label>
+                             </div>
+                         </div>
+                         <input class="btn collapse btn-primary form-check btn-sm d-none" type="button" id="small-form-check-input" data-checkbox="checkbox_5" value="submit" onclick='get_option(this)' />
 							<!---->
                             <br>
 							<br>
@@ -8318,14 +8412,7 @@ END:VEVENT`;
 			  doc.scrollTop = 0;
 			}
 		
-		let checkboxes = document.querySelectorAll(".form-check-input");
-		checkboxes.forEach( e => {							
-			e.setAttribute("onfocusin", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e =>{ e.classList.add("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.add("border-highlight")}  }); set_scrollbar_marker( scroll_marker,elem1 )');
-			e.setAttribute("onfocusout", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
-			e.setAttribute("onmouseover", 'this.focus()');
-			e.setAttribute("onclick", 'this.blur(); setTimeout(()=> {this.focus()}, "100")');
-			}
-		);	
+
 		var split = Split(["#split-0", "#split-1"], {sizes: [60, 40],direction: 'horizontal',
     cursor: 'column-resize',
     gutterSize: 5,
