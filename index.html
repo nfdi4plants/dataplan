@@ -3415,19 +3415,19 @@ END:VEVENT`;
                                     
                              </div> 
                             
-                             <div class="collapse check_genomicRepo" id="GenBank">
+                             <div class="collapse check_geneticRepo check_genomicRepo" id="GenBank">
                              <input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_GenBank" checked />
                              <label class="form-check-label" for="check_GenBank">
                                  NCBI-GenBank
                              </label>
                              </div>
-                             <div class="collapse check_geneticRepo" id="SRA">   
+                             <div class="collapse check_geneticRepo check_RNAseqRepo" id="SRA">   
                                 <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_SRA" />
                                 <label class="form-check-label" for="check_SRA">
                                     NCBI-SRA
                                 </label>
                                </div>
-                             <div class="collapse check_geneticRepo" id="ENA">   
+                             <div class="collapse check_geneticRepo check_RNAseqRepo" id="ENA">   
                                 <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
                                 <label class="form-check-label" for="check_ENA">
                                     ENA
@@ -3451,41 +3451,63 @@ END:VEVENT`;
                              <div class="collapse check_geneticRepo check_RNAseqRepo" id="arrayexpress">   
                                  <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
                                  <label class="form-check-label" for="check_ARRAYEXPRESS">
-                                     ArrayExpress
+                                     EBI-ArrayExpress
                                  </label>
                              </div>
 
-                             <div class="collapse check_RNAseqRepo" id="arrayexpress">   
-                                <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
-                                <label class="form-check-label" for="check_ARRAYEXPRESS">
-                                    ArrayExpress
+                             <div class="collapse check_geneticRepo check_RNAseqRepo" id="arrayexpress">
+                                <input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
+                                <label class="form-check-label" for="check_GEO">
+                                        NCBI-GEO
+                                </label>
+                             </div>
+                             
+                             
+                             <div class="collapse check_metabolomicRepo" id="metabolights">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
+                                <label class="form-check-label" for="check_metabolights">
+                                    EBI-Metabolights
+                                </label>
+                            </div>
+                             
+                            <div class="collapse check_metabolomicRepo" id="MetabolomicsWorkbench">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolomicsworkbench" checked />
+                                <label class="form-check-label" for="check_metabolomicsworkbench">
+                                    Metabolomics Workbench
                                 </label>
                             </div>
 
-                             <div>
-                             <input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO" checked />
-                             <label class="form-check-label" for="check_GEO">
-                                 GEO
-                             </label>
-                             </div>
-                             
-                             
-
+                            <div class="collapse checheck_metabolomicRepo" id="intact">   
+                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_intact" checked />
+                                <label class="form-check-label" for="check_intact">
+                                    Intact (Molecular interactions)
+                                </label>
+                            </div>
 
                              
-                             <div>
+                            <div class="collapse check_proteomicRepo" id="pride">
                              <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride" checked />
                              <label class="form-check-label" for="check_Pride">
-                                 PRIDE
+                                EBI-PRIDE (PRoteomics IDEntifications Database)
                              </label>
-                             </div>
+                            </div>
 
-                             <div>
-                                 <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights" checked />
-                                 <label class="form-check-label" for="check_metabolights">
-                                     Metabolights
-                                 </label>
-                             </div>
+                            <div class="collapse check_proteomicRepo" id="pdb">
+                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_pdb" checked />
+                                <label class="form-check-label" for="check_pdb">
+                                    PDB (Protein Data Bank archive )
+                                </label>
+                            </div>
+
+                            <div class="collapse check_proteomicRepo" id="chebi">
+                                <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_chebi" checked />
+                                <label class="form-check-label" for="check_chebi">
+                                    Chebi (Chemical Entities of Biological Interest )
+                                </label>
+                            </div>
+
+
+   
                              <!--
                             <div>
                              <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
@@ -4412,7 +4434,7 @@ END:VEVENT`;
                             </p>
                             <p class="c0">
                                 <span class="c1">
-                                    Specialized repositories will be used where appropriate, such as INSDC (GenBank, EBI, DDBJ) for nucleotide sequence data, PIR/UniProt/SWISS-PROT for proteins, PDB for protein structures, GEO for transcriptomics, PRIDE for proteomics data, and METLIN for metabolomics data. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).  #if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast and easy.
+                                    Specialized repositories will be used where appropriate, #if$_GENETIC nucleotide sequence data will be archived at #if$_GENBANK NCBI-GenBank #endif$_GENBANK, #if$_GENBANK , DDBJ #endif$_GENETIC , PIR/UniProt/SWISS-PROT for proteins, PDB for protein structures, GEO for transcriptomics, PRIDE for proteomics data, and METLIN for metabolomics data. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).  #if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast and easy.
                                     #endif$_DATAPLANT 
                                 </span>
                             </p>
