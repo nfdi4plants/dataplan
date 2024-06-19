@@ -70,107 +70,9 @@
 			var scroll_marker;
 			
 			var initialed = false; // set the initialed status to false
-			let temp_a = { // template answers used to compare with saved answers 
-				"dmp": {
-			                "title": "Minimal DMP",
-			                "contact": {
-			                    "contact_id": {
-			                        "identifier": "http://orcid.org/0000-0000-0000-0000",
-			                        "type": "orcid"
-			                    },
-			                    "mbox": "cc@example.com",
-			                    "name": "Charlie Chaplin"
-			                },
-			                "created": "2018-07-23T10:10:23.6",
-			                "dmp_id": {
-			                    "identifier": "https://doi.org/10.0000/00.0.1234",
-			                    "type": "doi"
-			                },
-			                "dataset": [{
-			                        "dataset_id": {
-			                            "identifier": "https://doi.org/10.0000/00.0.5678",
-			                            "type": "doi"
-			                        },
-			                        "title": "Placeholder dataset",
-			                        "personal_data": "unknown",
-			                        "sensitive_data": "unknown"
-			                    }
-			                ],
-			                "ethical_issues_exist": "unknown",
-			                "language": "eng",
-			                "modified": "2019-02-06T15:30:42.1",
-							
-			            },
-			    "replace": {
-			        "$_PROJECT": "Example Project",
-			        "$_STUDYOBJECT": "Example Topic",
-			        "$_PROJECTAIM": "Example Aim",
-					"$_DMPVERSION": "0.0",
-			        "$_USERNAME": "Example User",
-			        "$_EMAIL": "email",
-			        "$_dataofficer": "Example data officer name",
-					"$_DATAUTILITY": "some text placeholder",
-			        "$_UPDATEMONTH": "Example Month",
-			        "$_PREVIOUSPROJECTS": "Previous Project Name",
-			        "$_proprietary": "Proprietary Software",
-			        "$_RAWDATA": "???",
-			        "$_DERIVEDDATA": "???",
-					"$_OTHERSTANDARDINPUT": "... some text placeholder"
-			        
-					
-					
-			    },
-			    "checkbox": {
-			        "checkbox_1": {
-			            "checked": ["check_dataplant",],
-			            "unchecked": ["check_protect",
-			                 "check_update",
-			                "check_previousprojects",
-			                "check_industry",
-			                "check_proprietary",
-			                "check_partners", "check_EU"]
-			        },
-			        "checkbox_2": {
-			            "checked": ["check_image", "check_RNAseq", "check_genomic", "check_metabolomic", "check_proteomic", "check_targeted", "check_models", "check_code", "check_excel", "check_cloned-DNA", "check_phenotypic", "check_genetic"],
-			            "unchecked": []
-			        },
-			        "checkbox_3": {
-			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublincore", "check_marc21", "check_early", "check_ipissue", "check_vvisualization", "check_otherstandards"],
-			            "unchecked": []
-			        },
-			        "checkbox_5": {
-			            "checked": [
-			                "check_GEO",
-			                "check_GenBank",
-                            "check_ARRAYEXPRESS",
-			                "check_Proteomexchange",
-			                "check_Zenodo",
-			                "check_dataDyrad"
-			            ],
-			            "unchecked": [
-			                "check_ENA",
-			                "check_NCBI",
-			                "check_Pride"
-			            ]
-			         
-			        }
-
-			    },
-				   
-						
-						"update":{"timeline":[],"storage":[
-						 {"answer":[],"name":[],},
-						 {"answer":[],"name":[],},
-						 {"answer":[],"name":[],},
-						 {"answer":[],"name":[],},
-						 {"answer":[],"name":[],},
-						 {"answer":[],"name":[],},
-						 
-						
-						
-						]}
-					
-			};
+            const JSONString ='{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"2024-06-19","$_MODIFICATIONDATE":"2024-06-19"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+			let temp_a = JSON.parse(JSONString); // template answers used to compare with saved answers 
+			
 			
 			
 			
@@ -237,101 +139,7 @@
 				
 				
 			} else { // if there is no saved answer, initiate a new saved answer
-			    var saved_a = {
-						"dmp": {
-			                "title": "Minimal DMP",
-			                "contact": {
-			                    "contact_id": {
-			                        "identifier": "http://orcid.org/0000-0000-0000-0000",
-			                        "type": "orcid"
-			                    },
-			                    "mbox": "cc@example.com",
-			                    "name": "Charlie Chaplin"
-			                },
-			                "created": "2018-07-23T10:10:23.6",
-			                "dmp_id": {
-			                    "identifier": "https://doi.org/10.0000/00.0.1234",
-			                    "type": "doi"
-			                },
-			                "dataset": [{
-			                        "dataset_id": {
-			                            "identifier": "https://doi.org/10.0000/00.0.5678",
-			                            "type": "doi"
-			                        },
-			                        "title": "Placeholder dataset",
-			                        "personal_data": "unknown",
-			                        "sensitive_data": "unknown"
-			                    }
-			                ],
-			                "ethical_issues_exist": "unknown",
-			                "language": "eng",
-			                "modified": "2019-02-06T15:30:42.1",
-							"submission" :{"time": "2022-07-06T15:30:42.1",
-							"funding": "Horizon Europe ", 
-							 },
-							 
-							
-			            },
-			        "replace": {
-			        "$_PROJECT": "Example Project",
-			        "$_STUDYOBJECT": "Example Topic",
-			        "$_PROJECTAIM": "Example Aim",
-					"$_DMPVERSION": "1.0",
-			        "$_USERNAME": "Example User",
-			        "$_EMAIL": "email",
-			        "$_dataofficer": "Example data officer name",
-					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
-			        "$_UPDATEMONTH": "Example Month",
-			        "$_PREVIOUSPROJECTS": "Previous Project Name",
-			        "$_proprietary": "Proprietary Software",
-			        "$_RAWDATA": "???",
-			        "$_DERIVEDDATA": "???",
-					"$_OTHERSTANDARDINPUT": "other standards"
-			        
-			        },
-			        "checkbox": {
-			            "checkbox_1": {
-			                "checked": ["check_dataplant",],
-			                "unchecked": [ "check_protect", "check_update", "check_previousprojects", "check_industry", "check_proprietary", "check_partners", "check_EU"]
-			            },
-			            "checkbox_2": {
-			                "checked": ["check_image", "check_RNAseq", "check_genomic", "check_metabolomic", "check_proteomic", "check_targeted", "check_models", "check_code", "check_excel", "check_cloned-DNA", "check_phenotypic", "check_genetic"],
-			                "unchecked": []
-			            },
-			            "checkbox_3": {
-			                "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublincore", "check_marc21", "check_early", "check_ipissue", "check_vvisualization", "check_otherstandards"],
-			                "unchecked": []
-			            },
-			            "checkbox_5": {
-			                "checked": [
-
-			                ],
-			                "unchecked": [
-			                    "check_ENA",
-                                "check_ARRAYEXPRESS",
-			                    "check_NCBI",
-			                    "check_Pride",
-			                    "check_GEO",
-			                    "check_GenBank",
-			                    "check_Proteomexchange",
-			                    "check_Zenodo",
-			                    "check_dataDyrad"
-			                ]
-			            }
-			        },
-						"update":{"timeline":[
-						],"storage":[
-						{"answer":[],"name":[],},
-						{"answer":[],"name":[],},
-						{"answer":[],"name":[],},
-						{"answer":[],"name":[],},
-						{"answer":[],"name":[],},
-						{"answer":[],"name":[],},
-
-						
-						]}
-			    };
-			}
+			    var saved_a = JSON.parse(JSONString)}
 			
 			/*============== tutorial ==============*/
 			// a tutoial to help users get familiar with the DataPLAN tool.
@@ -386,30 +194,8 @@
 
 			/********** functions ***********/
 			
-			/**
-			 * @function load_dmp
-			 * @description General function for replace place holders in the document text.
-			 * @param {reload_answers} a callback function that reloads all the answers.
-			 * @param {string} the name of the template used for replacement.
-			 * @global
-			 */
-			function load_dmp(callback = reload_answers, name = cached_template) {
-
-
-			    const date = new Date(); // record the time
-				doc_name = name; // overwrite global variable doc_name
-				initialed ? scroll_y = document.getElementById("split-0").scrollTop+"": {};
-				
-			    window.localStorage.setItem("template", doc_name);
-			    let content = document.getElementById(name);
-			    content.classList.add("content-page");
-			    let frame = document.getElementById("doc3");
-			    frame.innerHTML = content.innerHTML;
-				const options = {  year: 'numeric', month: 'long', day: 'numeric' };
-				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
-				document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
-				
-				try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
+                function updateSavedAnswers(){
+                    try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
 				}
 					catch(e){}; 
 				// check if the newly added answers are there, to be backward compatible
@@ -449,8 +235,36 @@
                 try {((!Object.values(saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? saved_a["checkbox"]["checkbox_2"]["unchecked"].push( "check_transcriptomic" ) : {} ;
 				}
 					catch(e){};  
-                    
-                    
+                    try {Object.keys(saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {}: saved_a["replace"]["$_FUNDINGPROGRAMME"] ="action number or funding programme name", saved_a["replace"]["$_CREATIONDATE"] ="xxxx-xx-xx",saved_a["replace"]["$_MODIFICATIONDATE"] ="xxxx-xx-xx" ;
+				}
+					catch(e){};   
+                }
+
+			/**
+			 * @function load_dmp
+			 * @description General function for replace place holders in the document text.
+			 * @param {reload_answers} a callback function that reloads all the answers.
+			 * @param {string} the name of the template used for replacement.
+			 * @global
+			 */
+			function load_dmp(callback = reload_answers, name = cached_template) {
+
+
+			    const date = new Date(); // record the time
+				doc_name = name; // overwrite global variable doc_name
+				initialed ? scroll_y = document.getElementById("split-0").scrollTop+"": {};
+				
+			    window.localStorage.setItem("template", doc_name);
+			    let content = document.getElementById(name);
+			    content.classList.add("content-page");
+			    let frame = document.getElementById("doc3");
+			    frame.innerHTML = content.innerHTML;
+				const options = {  year: 'numeric', month: 'long', day: 'numeric' };
+				Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {}: saved_a["replace"]["$_DMPVERSION"] ="1.0";
+				//document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
+				
+				
+                        
 			    callback();
 
 			    initialed = true;
@@ -773,7 +587,7 @@
 			e.setAttribute("onfocusout", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
 			e.setAttribute("onmouseover", 'this.focus()');
             e.setAttribute("onclick", 
-                'this.blur(); setTimeout(()=> {this.focus()}, "100")');
+                'this.blur(); setTimeout(()=> {this.focus()}, "0")');
 			
             
 
@@ -1503,7 +1317,8 @@
 					return new bootstrap.Toast(toast_el, {animation:true, dely:0})
 				});
 			    window.localStorage.setItem("user_info", "visited");
-				saved_a = update_saved_json(saved_a);
+				saved_a = update_saved_json(saved_a),
+                updateSavedAnswers();
 			    load_dmp(reload_answers, name = cached_template);
 				//document.getElementById("split-0").scrollTop= scroll_y;
 				
@@ -2616,11 +2431,10 @@ END:VEVENT`;
 									<button id="detailed_BBSRC-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP (Beta test)</button>
 								</li>
 								<li>
-									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
-								</li>
-                            
-								<li>
 									<button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP (Beta test)</button>
+								</li>
+                                <li>
+									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
 								</li>
 								<li>
 									<a
@@ -2696,11 +2510,12 @@ END:VEVENT`;
                                 <li>
 									<button id="detailed_BBSRC-dmp" class="dropdown-item" onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP (Beta test)</button>
 								</li>
-								<li>
-									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
-								</li>
+
 								<li>
 									<button id="proposal_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP (Beta test)</button>
+								</li>
+                                <li>
+									<button id="guide_save" class="dropdown-item" onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
 								</li>
 								<li>
 									<a
@@ -3179,6 +2994,63 @@ END:VEVENT`;
 							</form>
 							
 							
+                            <form class="" style="margin-left: 0px;" id="form_fundingprogramme">
+								<label  for="input_fundingprogramme"><h4> Funding Programme:</h4></label>
+								<input
+									style="width: 90%;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="text"
+									id="input_fundingprogramme"
+									name="$_FUNDINGPROGRAMME"
+                                    
+									placeholder="Action number or funding programme name"
+									onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+
+                            <form class="" style="margin-left: 0px;" id="form_creationdate">
+								<label  for="input_creationdate"><h4> DMP Creation Date:</h4></label>
+								<input
+									style="width: 90%;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="date"
+									id="input_creationdate"
+									name="$_CREATIONDATE"
+									onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+
+                            <form class="" style="margin-left: 0px;" id="form_modificationdate">
+								<label  for="input_modificationdate"><h4> DMP Last Modification:</h4></label>
+								<input
+									style="width: 90%;"
+									class=""
+									onfocusin="this.select();"
+									onchange="onchange_replace(this);"
+									type="date"
+									id="input_modificationdate"
+									name="$_MODIFICATIONDATE"
+
+									onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+									onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+									onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'
+								/>
+								
+								
+							</form>
+
 							<form class="" style="margin-left: 0px;" id="form_dmpversion">
 								<label for="input_dmpversion"><h4>DMP version:</h4></label>
 								<input
@@ -4187,6 +4059,13 @@ END:VEVENT`;
                 <br>
                 <br>
                 <span>  
+                    <b> 19th June 2024</b>
+                </span>
+                <ul>
+                <li><span class="badge bg-warning text-dark">Bug fix</span> Wordcloud and default answer</li>
+                <li><span class="badge bg-primary">New feature</span> added BMBF DMP beta test </li>
+                </ul>
+                <span>  
                     <b> 8th May 2024</b>
                 </span>
                 <ul>
@@ -4281,7 +4160,7 @@ END:VEVENT`;
 							<table  >
 								<tr>
 									<td><h3>Action Number: </h3></td>
-									<td><h3>  $_PROJECT</h3></td>
+									<td><h3>  $_FUNDINGPROGRAMME </h3></td>
 								</tr>
 								<tr>
 									<td><h3>Action Acronym:</h3></td>
@@ -4293,8 +4172,13 @@ END:VEVENT`;
 					
 								</tr>
 								<tr>
-									<td><h3>Date:</h2></td>
-									<td id="today_date" ><h3></h3></td>
+									<td><h3>Creation Date:</h2></td>
+									<td  ><h3>$_CREATIONDATE</h3></td>
+
+								</tr>
+                                <tr>
+									<td><h3>Modification Date:</h2></td>
+									<td  ><h3>$_MODIFICATIONDATE</h3></td>
 
 								</tr>
 								<tr>
@@ -4556,8 +4440,7 @@ END:VEVENT`;
                                  #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
                                  #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
                                  #endif$_PROTEOMIC 
-                              #if$_METABOLOMIC Metabolights submission compliant standards will also be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights
-                                not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
+                                 #if$_METABOLOMIC #if$_METABOLIGHTS Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights not an accepted standard.#endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
                                 annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
                                 
                             </span>
@@ -4882,29 +4765,30 @@ END:VEVENT`;
 						
 							<br>
 							<table>
-								<tbody><tr>
-									<td><h3>Action Number: </h3></td>
-									<td><h3>  $_PROJECT</h3></td>
-								</tr>
-								<tr>
-									<td><h3>Action Acronym:</h3></td>
-									<td><h3>  $_PROJECT</h3></td>
-								</tr>
-								<tr>
-									<td><h3>Action Title:</h3></td>
-									<td> <h3>  $_PROJECT</h3></td>
-					
-								</tr>
-								<tr>
-									<td><h3>Date:</h3></td>
-									<td id="today_date"><h3>17. März 2023</h3></td>
-
-								</tr>
-								<tr>
-									<td><h3>DMP version:</h3></td>
-									<td id="dmp_version"><h3> $_DMPVERSION</h3></td>
-
-								</tr>
+								<tbody>
+                                    <tr>
+                                        <td><h3>Action Number: </h3></td>
+                                        <td><h3>  $_FUNDINGPROGRAMME </h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h3>Action Acronym:</h3></td>
+                                        <td><h3>  $_PROJECT</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h3>Action Title:</h3></td>
+                                        <td> <h3>  $_PROJECT</h3></td>
+                        
+                                    </tr>
+                                    <tr>
+                                        <td><h3>Creation Date:</h2></td>
+                                        <td  ><h3>$_CREATIONDATE</h3></td>
+    
+                                    </tr>
+                                    <tr>
+                                        <td><h3>Modification Date:</h2></td>
+                                        <td  ><h3>$_MODIFICATIONDATE</h3></td>
+    
+                                    </tr>
 							</tbody></table>
 
 							</div>
@@ -5774,9 +5658,6 @@ END:VEVENT`;
                                 </p>
                             </p>
 
-
-
-                           
                                                         <p class="c0">
                                 <span class="c1">
                                     Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
@@ -8687,7 +8568,7 @@ END:VEVENT`;
                              <h1 class="text-center"><p class="text-center h1"><center>Datenmanagementplan (Beta test)</center></p> </h1>
                             <p class="c0"><span class="c3"><b>Projektname: $_PROJECT</b></span></p>
                             <p class="c0"><span class="c3"><b>Forschungsf&ouml;rderer</b>: Bundesministerium f&uuml;r Bildung und Forschung</span></p>
-                            <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> </span></p>
+                            <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME </span></p>
                             <p class="c0"><span class="c3"><b>FKZ: $_DMPVERSION</b></span></p>
                             
                             <p class="c0"><span class="c3"><b>Projektkoordinator</b>: $_USERNAME</span></p>
@@ -8698,53 +8579,51 @@ END:VEVENT`;
                                 
 
                                 <p class="c0"> <span class="c1">
-                                    The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary #endif!$_DATAPLANT because the data are used not only to understand principles, but also be informed about the provenance of analyzing data. Stakeholders must also be informed about the provenance of data. It is therefore necessary to ensure that the data are well generated and also well annotated with metadata using open standards, as laid out in the next section.
+                                    Das $_PROJECT hat folgendes Ziel: $_PROJECTAIM. Daher sind Datenerhebung#if!$_VVISUALIZATION und Integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, Integration und Visualisierung #endif$_VVISUALIZATION#if$_DATAPLANT unter Verwendung der DataPLANT ARC-Struktur absolut notwendig,#endif$_DATAPLANT#if!$_DATAPLANT durch einen standardisierten Datenmanagementprozess absolut notwendig,#endif!$_DATAPLANT da die Daten nicht nur zum Verständnis von Prinzipien verwendet werden, sondern auch über die Herkunft der analysierten Daten informiert werden muss. Stakeholder müssen ebenfalls über die Herkunft der Daten informiert werden. Es ist daher notwendig sicherzustellen, dass die Daten gut generiert und auch gut mit Metadaten unter Verwendung offener Standards annotiert werden, wie im nächsten Abschnitt dargelegt.
                            
                           </span></p>
                         
                            <p class="c0">
                                <span class="c1">
-                                   The $_PROJECT will collect and/or generate the following types of raw data: $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
-                                   tracked in the DataPLANT ARC.#endif$_DATAPLANT Therefore, care will be taken to document and archive these resources (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise
-                                   in the DataPLANT consortium#endif$_DATAPLANT.
+                                Das $_PROJECT wird die folgenden Arten von Rohdaten sammeln und/oder generieren: $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEOMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA Daten, die sich auf $_STUDYOBJECT beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC verfolgt.#endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff auf die Expertise im DataPLANT-Konsortium#endif$_DATAPLANT.
                            </span>
                            </p>
                             </span></p>
                             <p class="c0 c2"><span class="c1"></span></p>
-                            <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> </span></p>
-                            <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> </span></p>
+                            <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE </span></p>
+                            <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE </span></p>
                             <p class="c0"><span class="c3"><b>Zu beachtende Vorgaben:</b> </span></p>
 
-                                <p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU. #endif$_EU To best profit from open data, it is necessary not only to store the data but to make it Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT
+                                <p class="c0"><span class="c1">#if$_EU Das $_PROJECT ist Teil der Open Data Initiative (ODI) der EU. #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT
                                 </span>
                                 </p>
-                                <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der Forschungsdaten führt.#endif$_DATAPLANT</span>
+                                <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der Forschungsdaten führt. #endif$_DATAPLANT</span>
                                 </p>
 
 
                             
                             <p class="c0 c2"><span class="c3"><b>Datenerhebung</b></span></p>
 
-                            <p class="c0 c2"><span class="c1"><p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For the $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>
+                            <p class="c0 c2"><span class="c1"><p class="c0"><span class="c1">Öffentliche Daten werden wie im vorherigen Absatz beschrieben extrahiert. Für das $_PROJECT werden spezifische Datensätze von den Konsortialpartnern generiert.</span></p>
                         
 							
                             <p class="c0">
-                                <span class="c1"> Data of different types or representing different domains will be generated using unique approaches. For example:</span>
+                                <span class="c1"> Daten unterschiedlicher Typen oder aus verschiedenen Bereichen werden mit einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                             </p>
 							<ul style="list-style-type:disc;">
                             #if$_RNASEQ
                            <li> <p class="c0">
-                                <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
+                                <span class="c1"> RNA-Sequenzierung wird unter Verwendung von Short-Read- oder Long-Read-Plattformen entweder intern oder an akademische Einrichtungen oder kommerzielle Dienste ausgelagert und die Rohdaten werden mit etablierten bioinformatischen Pipelines verarbeitet. </span>
                             </p></li>
                             #endif$_RNASEQ 
 							#if$_METABOLOMIC
                             <li><p class="c0">
-                                <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass spectrometry using targeted or untargeted approaches.</span>
+                                <span class="c1"> Metabolomische Daten werden durch gekoppelte Chromatographie und Massenspektrometrie unter Verwendung gezielter oder ungezielter Ansätze generiert.</span>
                             </p></li>
                             #endif$_METABOLOMIC #if$_PROTEOMIC
                             <li>
 								<p class="c0">
-									<span class="c1"> Proteomic data will be generated using coupled chromatography and mass spectrometry for the analysis of protein abundance and protein identification, as well as additional techniques for structural analysis, the identification of post-translational modifications and the characterization of protein interactions.</span>
+									<span class="c1"> Proteomische Daten werden durch gekoppelte Chromatographie und Massenspektrometrie zur Analyse der Proteinmenge und -identifikation sowie durch zusätzliche Techniken zur Strukturanalyse, zur Identifizierung posttranslationaler Modifikationen und zur Charakterisierung von Proteininteraktionen generiert.</span>
 								</p>
 							</li>
                             #endif$_PROTEOMIC 
@@ -8752,7 +8631,7 @@ END:VEVENT`;
 							#if$_IMAGE
                             <li>
 								<p class="c0">
-									<span class="c1"> Image data will be generated by equipment such as cameras, scanners, and microscopes combined with software. Original images which contain metadata such as exif photo information will be archived.</span>
+									<span class="c1"> Bilddaten werden durch Geräte wie Kameras, Scanner und Mikroskope in Kombination mit Software generiert. Originalbilder, die Metadaten wie EXIF-Fotoinformationen enthalten, werden archiviert.</span>
 								</p>
 							</li>
                             #endif$_IMAGE 
@@ -8760,7 +8639,7 @@ END:VEVENT`;
 							#if$_GENOMIC
                             <li>
 								<p class="c0">
-									<span class="c1"> Genomic data will be created from sequencing data, which will be processed to identify genes, regulatory elements, transposable elements, and physical markers such as SNPs, microsatellites and structural variants. </span>
+									<span class="c1"> Genomische Daten werden aus Sequenzdaten erstellt, die verarbeitet werden, um Gene, regulatorische Elemente, transponierbare Elemente und physikalische Marker wie SNPs, Mikrosatelliten und strukturelle Varianten zu identifizieren. </span>
 								</p>
 							</li>
                             #endif$_GENOMIC 
@@ -8768,7 +8647,7 @@ END:VEVENT`;
 							#if$_GENETIC
                             <li>
 								<p class="c0">
-									<span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and will include recombination frequencies and crossover event that position genetic markers and quantitative trait loci that can be associated with physical genomic markers/variants. </span>
+									<span class="c1"> Genetische Daten werden durch Kreuzungen und Zuchtexperimente generiert und umfassen Rekombinationsfrequenzen und Crossover-Ereignisse, die genetische Marker und quantitative Merkmalsloci positionieren können, die mit physischen genomischen Markern/Varianten assoziiert werden können. </span>
 								</p>
 							</li>
                             #endif$_GENETIC 
@@ -8776,7 +8655,7 @@ END:VEVENT`;
 							#if$_TARGETED
                             <li>
 								<p class="c0">
-									<span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or production/ultilization rates) will be generated using specific equipment and methods that are fully documented in the laboratory notebook. </span>
+									<span class="c1"> Gezielte Assays-Daten (z. B. Glukose- und Fruktosekonzentrationen oder Produktions-/Nutzungsraten) werden mit spezifischen Geräten und Methoden generiert, die im Laborbuch vollständig dokumentiert sind. </span>
 								</p>
 							</li>
                             #endif$_TARGETED 
@@ -8785,7 +8664,7 @@ END:VEVENT`;
 							#if$_MODELS
 							<li>
 								<p class="c0">
-									<span class="c1"> Model data will be generated by using software simulations. The complete workflow, which includes the environment, runtime, parameters, and results, will be documented and archived. </span>
+									<span class="c1"> Modelldaten werden durch Softwaresimulationen generiert. Der vollständige Workflow, einschließlich der Umgebung, Laufzeit, Parameter und Ergebnisse, wird dokumentiert und archiviert. </span>
 								</p>
 							</li>
                             #endif$_MODELS
@@ -8793,7 +8672,7 @@ END:VEVENT`;
 							#if$_CODE
 							<li>
 								<p class="c0">
-									<span class="c1"> Computer code will be produced by programmers. </span>
+									<span class="c1"> Computercode wird von Programmierern erstellt. </span>
 								</p>
 							</li>
                             #endif$_CODE
@@ -8801,7 +8680,7 @@ END:VEVENT`;
 							#if$_EXCEL
 							<li>
 								<p class="c0">
-									<span class="c1"> Excel data will be generated by data analysts by using MS Office or open-source software. </span>
+									<span class="c1"> Excel-Tabellen werden durch Ausfüllen spezifischer Dateien erstellt, die Feldbeobachtungen oder andere digitale Erhebungen enthalten. </span>
 								</p>
 							</li>
                             #endif$_EXCEL
@@ -8809,7 +8688,7 @@ END:VEVENT`;
 							#if$_CLONED-DNA
 							<li>
 								<p class="c0">
-									<span class="c1"> The origin and assembly of cloned DNA will include (a) source of original vector sequence with Add gene reference where available, and source of insert DNA (e.g., amplification by PCR from a given sample, or obtained from existing library), (b) cloning strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson assembly, LR recombination), and (c) verified DNA data sequence of final recombinant vector. </span>
+									<span class="c1"> Der Ursprung und die Zusammenstellung der klonierten DNA umfassen (a) die Quelle der ursprünglichen Vektorsequenz mit Add-Gene-Referenz, sofern verfügbar, und die Quelle der Insert-DNA (z.B. Amplifikation durch PCR aus einer bestimmten Probe oder aus einer vorhandenen Bibliothek), (b) die Klonierungsstrategie (z.B. Restriktionsendonuklease-Verdau/Ligation, PCR, TOPO-Klonierung, Gibson-Assembly, LR-Rekombination), und (c) die verifizierte DNA-Sequenz des finalen rekombinanten Vektors.</span>
 								</p>
 							</li>
                             #endif$_CLONED-DNA
@@ -8817,17 +8696,17 @@ END:VEVENT`;
 							#if$_PHENOTYPIC
 							<li>
 								<p class="c0">
-									<span class="c1"> Phenotypic data will be generated using phenotyping platforms and corresponding ontologies, including number/size of organs such as leaves, flowers, buds etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc), organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition indicators, among others. </span>
+									<span class="c1"> Phänotypische Daten werden mit Hilfe von Phänotypisierungsplattformen und entsprechenden Ontologien generiert, einschließlich Anzahl/Größe von Organen wie Blätter, Blumen, Knospen usw., Größe der gesamten Pflanze, Stängel/Wurzel-Architektur (Anzahl der seitlichen Zweige/Wurzeln usw.), Organstrukturen/Morphologien, quantitativen Metriken wie Farbe, Turgor, Gesundheits-/Nährstoffindikatoren und anderen. </span>
 								</p>
 							</li>
                             #endif$_PHENOTYPIC
 							</ul>
 
 						#if$_PREVIOUSPROJECTS
-                        <p class="c0"><span class="c1"> Data from previous projects such as $_PREVIOUSPROJECTS will be considered. </span></p>
+                        <p class="c0"><span class="c1"> Daten aus früheren Projekten wie $_PREVIOUSPROJECTS werden berücksichtigt. </span></p>
                         #endif$_PREVIOUSPROJECTS
                    
-                        <p class="c0"><span class="c1">We expect to generate $_RAWDATA GB of raw data and up to $_DERIVEDDATA GB of processed data.</span></p>
+                        <p class="c0"><span class="c1">Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu $_DERIVEDDATA GB verarbeiteten Daten.</span></p>
                         <p class="c0"><span class="c3"></span></p>
                         
                         </span></p>
@@ -8837,24 +8716,24 @@ END:VEVENT`;
 
                             <p class="c0">
                                 <span class="c1">
-                                    #if$_DATAPLANT In DataPLANT, data storage relies on the Annotated Research Context (ARC). It is password protected, so before any data can be obtained or samples generated, an authentication needs to
-                                    take place. #endif$_DATAPLANT
+                                    #if$_DATAPLANT In DataPLANT, die Datenspeicherung basiert auf dem Annotated Research Context (ARC). Dieser ist passwortgeschützt, daher muss vor dem Erhalt von Daten oder der Generierung von Proben eine Authentifizierung erfolgen. #endif$_DATAPLANT
                                 </span>
                             </p>
       
 
                             <p class="c20">
                                 <span class="c1">
-                                    Online platforms will be protected by vulnerability scanning, two-factor authorization and daily automatic backups allowing immediate recovery. All partners holding confidential project data to use secure platforms with automatic backups and offsite secure copies.
-                                    #if$_DATAPLANT DataHUB and ARCs have been generated in DataPLANT, data security will be imposed. This comprises secure storage, and the use of password and usernames is generally transferred via separate safe media.#endif$_DATAPLANT
+                                    Online-Plattformen werden durch Schwachstellen-Scans, Zwei-Faktor-Authentifizierung und tägliche automatische Backups geschützt, die eine sofortige Wiederherstellung ermöglichen. Alle Partner, die vertrauliche Projektdaten halten, nutzen sichere Plattformen mit automatischen Backups und sicheren externen Kopien.
+                                    #if$_DATAPLANT DataHUB und ARCs wurden in DataPLANT generiert, Datensicherheit wird durchgesetzt. Dies umfasst sichere Speicherung, und die Verwendung von Passwörtern und Benutzernamen wird generell über separate sichere Medien übertragen. #endif$_DATAPLANT
                                 </span>
                             </p>
 
                             <p class="c0 "><span class="c1">
-                                <p class="c0"><span class="c1">The $_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
+                                <p class="c0"><span class="c1">Das $_PROJECT trägt die Kosten für die Datenkuratierung, #if$_DATAPLANT ARC-Konsistenzprüfungen, #endif$_DATAPLANT und die Datenwartung/-sicherheit vor der Übertragung an öffentliche Repositorien. Nachfolgende Kosten werden dann von den Betreibern dieser Repositorien getragen.</span></p>
+
                                 <p class="c0">
                                     <span class="c1">
-                                        Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA) but not charged against the $_PROJECT or its members but by the operation budget of these repositories.
+                                 Zusätzlich werden Kosten für die Speicherung nach der Veröffentlichung von den Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECT oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien.
                                     </span>
                                 </p>
 
@@ -8865,36 +8744,57 @@ END:VEVENT`;
                             <p class="c0"><span class="c3"><b>Die Dateibenennung erfolgt nach folgendem Standard</b>:</span></p>
                             <p class="c0">
                                 <span class="c1">
-                                    Data variables will be allocated standard names. For example, genes, proteins and metabolites will be named according to approved nomenclature and conventions. These will also be linked to functional ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by humans. Plant names will include traditional names, binomials, and all strain/cultivar/subspecies/variety identifiers.
+                                    Datenvariablen werden mit Standardnamen versehen. Zum Beispiel werden Gene, Proteine und Metaboliten gemäß anerkannter Nomenklatur und Konventionen benannt. Diese werden nach Möglichkeit auch mit funktionalen Ontologien verknüpft. Datensätze werden ebenfalls sinnvoll benannt, um die Lesbarkeit durch Menschen zu gewährleisten. Pflanzennamen umfassen traditionelle Namen, Binomialnamen und alle Stamm-/Kultivar-/Unterart-/Sortenbezeichner.
                                 </span>
                             </p>
                             
                             <p class="c0"><span class="c1"></span></p>
                             <p class="c0"><span class="c3"><b>Datendokumentation</b></span></p>
-                            <p class="c0"><span class="c1">We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. #if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE &nbsp;for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT </span></p>
+                            <p class="c0">
+                                <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC Für spezifische Daten (z.B. RNASeq oder genomische Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC</span>
+                                <span class="c1">
+                                    Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
+                                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                    #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                    #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                    #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                    #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                    #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                     #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                     #endif$_GENOMIC|$_GENETIC
+                                     #if$_TRANSCRIPTOMIC
+                                     #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                     #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                     #if$_IMAGE
+                                     #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                     #endif$_IMAGE
+                                     #if$_PROTEOMIC  
+                                     #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                     #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                     #endif$_PROTEOMIC 
+                                     #if$_METABOLOMIC #if$_METABOLIGHTS Metabolights-Einreichungskonforme Standards werden für metabolomische Daten verwendet, wo dies von den Konsortialpartnern akzeptiert wird.#issuewarning Einige Metabolomik-Partner betrachten Metabolights nicht als akzeptierten Standard.#endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC Als Teil der Pflanzenforschungsgemeinschaft verwenden wir #if$_MIAPPE MIAPPE für Phänotypisierungsdaten im weitesten Sinne, werden aber auch auf #endif$_MIAPPE spezifische SOPs für zusätzliche Annotationen #if$_DATAPLANT zurückgreifen, die fortgeschrittene DataPLANT-Annotationen und Ontologien berücksichtigen. #endif$_DATAPLANT
+        
+                                    
+                                </span>
+                                </p>
                                 <p class="c0"><span class="c1">
-                            In case some of the metadata is still missing from the documentation from the experimental scientists and data officer. #if$_DATAPLANT Raw data identifier and parsers provided by DataPLANT will be
-                            used to get meta data directly from the raw data file. The metadata collected from the raw data file can also be used to validate the metadata previously collected in case there are any mistakes.
-                            #endif$_DATAPLANT We foresee using #if$_RNASEQ|$_GENOMIC e.g.#if$_MINSEQE MinSEQe for sequencing data and#endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites as
-                            well as MIAPPE for phenotyping like data. The latter will thus allow the integration of data across projects and safeguards that reuse established and tested protocols. Additionally, we will use ontology
-                            terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECT.</span></p>
+                                    In dem Fall, dass einige Metadaten noch fehlen, werden diese von den experimentellen Wissenschaftlern und dem Datenbeauftragten dokumentiert. #if$_DATAPLANT Rohdaten-Identifier und Parser, die von DataPLANT bereitgestellt werden, um
+                                    Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
+                                    #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC z.B.#if$_MINSEQE MinSEQe für Sequenzierungsdaten zu verwenden und#endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights-kompatible Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
+                                    Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern. Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECT kanonisiert werden.</span></p>
 
                             
                             <p class="c0"><span class="c3"><b>Legitimit&auml;t</b></span></p>
                             <p class="c0"><span class="c1">
                                 <p class="c0">
                                     <span class="c1">
-                                        At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics, since this is plant data, there is no need for an ethics committee, however, diligence for plant resource
-                                        benefit sharing is considered. #issuewarning you have to check here and enter any due diligence here at the moment we are awaiting if Nagoya (🡺see Nagoya protocol). gets also part of sequence information.
-                                        In any case if you use material not from your (partner) country and characterize this physically e.g., metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action unless
-                                        this is from e.g. US (non partner), Ireland (not signed still contact them) etc but other laws might apply…. #endissuewarning
+                                        Im Moment erwarten wir keine ethischen oder rechtlichen Probleme beim Datenaustausch. In Bezug auf Ethik, da es sich um Pflanzendaten handelt, ist kein Ethikkomitee erforderlich, jedoch wird Sorgfalt bei der Aufteilung der Vorteile von Pflanzenressourcen berücksichtigt. #issuewarning Sie müssen hier überprüfen und jegliche Sorgfaltspflicht hier eintragen. Im Moment warten wir, ob Nagoya (🡺siehe Nagoya-Protokoll) auch Teil der Sequenzinformationen wird. In jedem Fall, wenn Sie Material verwenden, das nicht aus Ihrem (Partner-)Land stammt und dieses physikalisch charakterisieren, z.B. Metaboliten, Proteom, biochemisch RNASeq usw., könnte dies eine Nagoya-relevante Aktion darstellen, es sei denn, es stammt z.B. aus den USA (kein Partner), Irland (nicht unterzeichnet, trotzdem kontaktieren) usw., aber andere Gesetze könnten gelten…. #endissuewarning
                                     </span>
                                 </p>
                                 <p class="c0">
                                     <span class="c1">
-                                        The only personal data that will potentially be stored is the submitter name and affiliation in the metadata for data. In addition, personal data will be collected for dissemination and communication
-                                        activities using specific methods and procedures developed by the $_PROJECT partners to adhere to data protection. #issuewarning you need to inform and better get WRITTEN consent that you store emails and
-                                        names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t invent them #endissuewarning
+                                        Die einzigen personenbezogenen Daten, die möglicherweise gespeichert werden, sind der Name und die Zugehörigkeit des Einreichers in den Metadaten der Daten. Darüber hinaus werden personenbezogene Daten für Verbreitungs- und Kommunikationsaktivitäten gesammelt, wobei spezifische Methoden und Verfahren verwendet werden, die von den $_PROJECT-Partnern entwickelt wurden, um den Datenschutz einzuhalten. #issuewarning Sie müssen informieren und besser eine SCHRIFTLICHE Zustimmung einholen, dass Sie E-Mails und Namen oder sogar Pseudonyme wie Twitter-Handles speichern, wir entschuldigen uns sehr für diese Probleme, die wir nicht erfunden haben. #endissuewarning
                                     </span>
                                 </p>
 
@@ -8905,16 +8805,24 @@ END:VEVENT`;
                             <p class="c0 c2"><span class="c1">
                                 <p class="c20">
                                     <span class="c1">
-                                        In case data is only shared within the consortium, if the data is not yet finished or under IP checks, the data is hosted internally, and the username and the password will be required (see also our GDPR rules).
-                                        In the case data is made public under final EU or US repositories, completely anonymous access is normally allowed. this is the case for ENA as well and both are in line with GDPR requirements.
+                                        Falls Daten nur innerhalb des Konsortiums geteilt werden, wenn die Daten noch nicht fertig sind oder sich in der IP-Prüfung befinden, werden die Daten intern gehostet und der Benutzername und das Passwort werden benötigt (siehe auch unsere GDPR-Regeln).
+                                        Wenn Daten unter finalen EU- oder US-Repositorys öffentlich gemacht werden, ist normalerweise ein vollständig anonymer Zugang erlaubt. Dies ist auch bei ENA der Fall und beide entsprechen den GDPR-Anforderungen.
+ 
                                     </span>
                                 </p>
                                 <p class="c0">
-                                    <span class="c1">There will be no restrictions once the data is made public.</span>
+                                    <span class="c1">Es wird keine Einschränkungen geben, sobald die Daten öffentlich gemacht werden.</span>
+                                    <span class="c1">
+                                        #if$_early Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich gemacht.#endif$_early #if$_beforepublication Relevante verarbeitete Datensätze werden öffentlich gemacht, wenn die Forschungsergebnisse veröffentlicht werden.#endif$_beforepublication #if$_endofproject Am Ende des Projekts werden alle Daten ohne Sperrfrist veröffentlicht.#endif$_endofproject #if$_embargo Daten, die einer Sperrfrist unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich.#endif$_embargo #if$_request Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt.#endif$_request #if$_ipissue IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_ipissue Alle Konsortialpartner werden ermutigt,
+                                        Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und durch den Toronto International Data Release Workshop festgelegten Vereinbarungen. #endif$_GENOMIC Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen sind.
+                                    </span>
                                 </p>
+
+
                                 <p class="c0">
                                     <span class="c1">
-                                        The data will initially benefit the $_PROJECT partners, but will also be made available to selected stakeholders closely involved in the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also use the data after publication. The data will be disseminated according to the $_PROJECT's dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means#endif$_DATAPLANT
+                                        Die Daten werden zunächst den $_PROJECT Partnern zugutekommen, aber auch ausgewählten Stakeholdern, die eng in das Projekt eingebunden sind, und dann der wissenschaftlichen Gemeinschaft, die an $_STUDYOBJECT arbeitet. $_DATAUTILITY Darüber hinaus können auch die allgemeine Öffentlichkeit, die an $_STUDYOBJECT interessiert ist, die Daten nach der Veröffentlichung nutzen. Die Daten werden gemäß dem Verbreitungs- und Kommunikationsplan des $_PROJECT verbreitet, #if$_DATAPLANT der sich mit der DataPLANT-Plattform oder anderen Mitteln abstimmt #endif$_DATAPLANT.
+
                                     </span>
                                 </p>
                             </span></p>
@@ -8922,43 +8830,46 @@ END:VEVENT`;
                             <p class="c0 c2"><span class="c1">
 
                                 <p class="c0">
-                                    <span class="c1">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the derived data will be about $_DERIVEDDATA GB.</span>
+                                    <span class="c1">Wir erwarten, dass wir Rohdaten im Bereich von $_RAWDATA GB an Daten generieren. Die Größe der abgeleiteten Daten wird etwa $_DERIVEDDATA GB betragen.
+                                </span>
                                 </p>
     
 
                                 <p class="c0">
-                                    #if$_DATAPLANT As the $_PROJECT is closely aligned with DataPLANT, the ARC converter and DataHUB will be used to find the end-point repositories and upload to the repositories automatically. #endif$_DATAPLANT
+                                    #if$_DATAPLANT Da das $_PROJECT eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und DataHUB verwendet, um die Endpunkt-Repositories zu finden und die Daten automatisch in die Repositories hochzuladen. #endif$_DATAPLANT
+
                                     <span class="c1"> </span>
                                 </p>
                                 <p class="c0">
                                     <span class="c1">
-                                         Data will be made available via the $_PROJECT platform using a user-friendly front end that allows data visualization. Besides this it will be ensured that data which can be stored in
-                                        international discipline related repositories which use specialized technologies:
+                                        Die Daten werden über die $_PROJECT-Plattform mit einer benutzerfreundlichen Oberfläche verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Außerdem wird sichergestellt, dass Daten, die in internationalen, disziplinspezifischen Repositories gespeichert werden können, die spezialisierte Technologien nutzen:
                                         <p class="c0">
-                                            <span class="c1">#if$_PHENOTYPIC For phenotypic data: #if$_edal e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository) #endif$_edal #endif$_PHENOTYPIC </span></p>  
+                                            <span class="c1">#if$_PHENOTYPIC Für phänotypische Daten: #if$_edal e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository) #endif$_edal #endif$_PHENOTYPIC </span></p>  
     
     
                                         <p class="c0">
-                                            <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
+                                            <span class="c1">#if$_GENETIC Für genetische Daten: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                         
                                         <p class="c0">
-                                            <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
+                                            <span class="c1">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                         
                                         <p class="c0">
-                                            <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
+                                            <span class="c1">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                         
                                         <p class="c0">
-                                                <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                                <span class="c1">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                         <p class="c0">
-                                            <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                            <span class="c1">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
     
-                                            #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
+                                            #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden dort ebenfalls verarbeitet.#endif$_OTHEREP  
+   
                                     </span>
                                 </p>
                                 <p class="c0">
                                     <span class="c1">
-                                        The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible. Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
-                                        #if$_DATAPLANT For DataPLANT, this has been agreed upon. #endif$_DATAPLANT #issuewarning if no data management platform such as DataPLANT is used, then you need to find appropriate repository to store or archive your data after publication. #endissuewarning
+                                        Die Einreichung ist kostenlos, und es ist das Ziel (zumindest von ENA), so viele Daten wie möglich zu erhalten. Daher sind Absprachen weder notwendig noch sinnvoll. Catch-all-Repositories sind nicht erforderlich.
+                                        #if$_DATAPLANT Für DataPLANT wurde dies vereinbart. #endif$_DATAPLANT #issuewarning Wenn keine Datenmanagementplattform wie DataPLANT verwendet wird, müssen Sie ein geeignetes Repository finden, um Ihre Daten nach der Veröffentlichung zu speichern oder zu archivieren. #endissuewarning
+
                                     </span>
                                 </p>
 
@@ -8974,7 +8885,32 @@ END:VEVENT`;
                                 
                                 <span class="c0">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the derived data will be about $_DERIVEDDATA GB.</span>
                             <p class="c0"><span class="c0"></span></p>
-                                    <li class="c0 li-bullet-0"><span class="c0">Standards and Metadata &ndash;&nbsp;We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. #if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE &nbsp;for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT </span></li>
+                                    <li class="c0 li-bullet-0"><span class="c0">Standards and Metadata &ndash;&nbsp;We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. </span><span class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC</span>
+                                        <span class="c1">
+                                            The following metadata/ minimum informatin standards will be used to collect metadata:
+                                            #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                            #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                            #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                            #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                            #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                            #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                            #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                             #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                             #endif$_GENOMIC|$_GENETIC
+                                             #if$_TRANSCRIPTOMIC
+                                             #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                             #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                             #if$_IMAGE
+                                             #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                             #endif$_IMAGE
+                                             #if$_PROTEOMIC  
+                                             #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                             #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                             #endif$_PROTEOMIC 
+                                             #if$_METABOLOMIC #if$_METABOLIGHTS Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights not an accepted standard.#endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
+                                            annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
+                                            
+                                         </span></li>
                                     <li class="c0 li-bullet-0"><span class="c0">Reuse of published data &ndash; The project builds on existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ It is also important to include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS Genomic references can be gathered from reference databases for genomes/ and sequences, like the US National Center for Biotechnology Information: NCBI, European Bioinformatics Institute: EBI; DNA Data Bank of Japan: DDBJ. Furthermore, prior &#39;unstructured&#39; data in the form of publications and data contained therein will be used for decision making.</span></li></ul><p class="c0 c0"><span class="c0"></span></p><ul class="c0 ">
                                     <li class="c0 li-bullet-0"><span class="c0">Secondary Use &ndash; The data will initially benefit the $_PROJECT partners, but will also be made available to selected stakeholders closely involved in the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also use the data after publication. The data will be disseminated according to the $_PROJECT&#39;s dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means#endif$_DATAPLANT</span></li>
                                         
