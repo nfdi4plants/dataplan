@@ -135,7 +135,7 @@
 			            "unchecked": []
 			        },
 			        "checkbox_3": {
-			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue", "check_vvisualization", "check_otherstandards"],
+			            "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublincore", "check_marc21", "check_early", "check_ipissue", "check_vvisualization", "check_otherstandards"],
 			            "unchecked": []
 			        },
 			        "checkbox_5": {
@@ -286,7 +286,7 @@
 			        "$_proprietary": "Proprietary Software",
 			        "$_RAWDATA": "???",
 			        "$_DERIVEDDATA": "???",
-					"$_OTHERSTANDARDINPUT": "Other standards are also adhered to."
+					"$_OTHERSTANDARDINPUT": "other standards"
 			        
 			        },
 			        "checkbox": {
@@ -299,7 +299,7 @@
 			                "unchecked": []
 			            },
 			            "checkbox_3": {
-			                "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublin_core", "check_marc_21", "check_early", "check_ipissue", "check_vvisualization", "check_otherstandards"],
+			                "checked": ["check_MIAPPE", "check_MinSeqE", "check_dublincore", "check_marc21", "check_early", "check_ipissue", "check_vvisualization", "check_otherstandards"],
 			                "unchecked": []
 			            },
 			            "checkbox_5": {
@@ -416,7 +416,7 @@
 				try {Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {}: saved_a["replace"]["$_DATAUTILITY"] ="Industry, politicians and students can also use the data for different purposes.";
 				}
 					catch(e){};
-				try {Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="Other standards are also adhered to.";
+				try {Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {}: saved_a["replace"]["$_OTHERSTANDARDINPUT"] ="other standards";
 				}
 					catch(e){};
 				try {((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards"): {} ;
@@ -440,7 +440,17 @@
                 try {Object.keys(saved_a["replace"]).includes("$_OTHEREP") ? {}: saved_a["replace"]["$_OTHEREP"] ="other repositories";
 				}
 					catch(e){};
-                
+                try {saved_a = JSON.parse(JSON.stringify(saved_a).replaceAll("check_dublin_core","check_dublincore").replaceAll("check_marc_21","check_marc21"));
+				}
+					catch(e){};
+                try {((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_MIXS")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_MIXS"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push( "check_MIXS","check_MIGSEU", "check_MIGSORG", "check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY", "check_MISAG", "check_MIMAG", "check_MIAME", "check_REMBI", "check_MIAPE", "check_MIMIX" ) : {} ;
+				}
+					catch(e){};  
+                try {((!Object.values(saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? saved_a["checkbox"]["checkbox_2"]["unchecked"].push( "check_transcriptomic" ) : {} ;
+				}
+					catch(e){};  
+                    
+                    
 			    callback();
 
 			    initialed = true;
@@ -1194,7 +1204,9 @@
 							//verbose  console.log("left_text: " + left_text);
 							place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
 							//verbose  console.log("place holder: " + place_holder);
-							selection.removeAllRanges();
+							try{selection.removeAllRanges();}catch(e){
+
+                            };
 							window.find(place_holder);
 							if_range = window.getSelection().getRangeAt(0);
 							if_text = if_range.toString();
@@ -1202,8 +1214,8 @@
 							//verbose  console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
 							callback1(if_range,check_box_item);
-							selection.removeAllRanges();
-							}
+							try{selection.removeAllRanges();}catch(e){
+							}}
 							// to match different conditions} 
 						else if (if_cha == "|" && check_or_uncheck=="uncheck") {
 								window.getSelection().removeAllRanges();
@@ -3344,6 +3356,57 @@ END:VEVENT`;
 
 							<form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
 								<h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
+
+                                <div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genetic"  data-replace="genetic data"/>
+									<label class="form-check-label" for="check_genetic"> Genetic data </label>
+								</div>
+
+                                <div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genomic"  data-replace="genomic data"/>
+									<label class="form-check-label" for="check_genomic">
+										Other NGS (genomics)
+									</label>
+								</div>
+
+                                <div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_cloned-DNA" data-replace="cloned DNA"/>
+									<label class="form-check-label" for="check_cloned-DNA">
+										Cloned DNA
+									</label>
+								</div>
+
+                                <div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_transcriptomic"  data-replace="transcriptomic data"/>
+									<label class="form-check-label" for="check_transcriptomic">
+										Transcriptomics
+									</label>
+								</div>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_RNAseq" data-replace="RNA-Seq and other forms of transcriptomic data" />
+									<label class="form-check-label" for="check_RNAseq">
+										RNAseq
+									</label>
+								</div>
+
+
+								<div class="form-data_type form-check">
+                                    <input class="form-check-input checkbox_2" type="checkbox"  id="check_metabolomic"  data-replace="metabolome"/>
+									<label class="form-check-label" for="check_metabolomic" >
+										Metabolomics
+									</label>
+									
+								</div>
+
+								<div class="form-data_type form-check">
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_proteomic" data-replace="proteome"/>
+									<label class="form-check-label" for="check_proteomic">
+										Proteomics
+									</label>
+								</div>
+
+
                                 <div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox"  
                                             id="check_phenotypic"  data-replace="plant phenotypic data"
@@ -3352,74 +3415,41 @@ END:VEVENT`;
 										Plant phenotypic data
 									</label>
 								</div>
+
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genetic"  data-replace="genomic data"/>
-									<label class="form-check-label" for="check_genetic"> Genetic data </label>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_targeted"  data-replace="targeted assays (e.g. glucose and fructose content)"/>
+									<label class="form-check-label" for="check_targeted">
+										Targeted assays (e.g. glucose and fructose content)
+									</label>
 								</div>
-								<div class="form-data_type form-check">
+
+                                <div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox"  id="check_image" data-replace="image datasets"/>
 									<label class="form-check-label" for="check_image">
 										Image datasets
 									</label>
 								</div>
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_RNAseq" data-replace="RNA-Seq and other forms of transcriptomic data" />
-									<label class="form-check-label" for="check_RNAseq">
-										RNAseq
-									</label>
-								</div>
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genomic"  data-replace="other NGS data"/>
-									<label class="form-check-label" for="check_genomic">
-										other NGS (genomics)
-									</label>
-								</div>
 
-								<div class="form-data_type form-check">
-                                    <input class="form-check-input checkbox_2" type="checkbox"  id="check_metabolomic"  data-replace="metabolome"/>
-									<label class="form-check-label" for="check_metabolomic" >
-										metabolomics
-									</label>
-									
-								</div>
 
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_proteomic" data-replace="proteome"/>
-									<label class="form-check-label" for="check_proteomic">
-										proteomics
-									</label>
-								</div>
-
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_targeted"  data-replace="targeted assays (e.g. glucose and fructose content)"/>
-									<label class="form-check-label" for="check_targeted">
-										targeted assays (e.g. glucose and fructose content)
-									</label>
-								</div>
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox"  id="check_models"  data-replace="model outputs"/>
 									<label class="form-check-label" for="check_models">
-										models
+										Models
 									</label>
 								</div>
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox"  id="check_code" data-replace="computational code"/>
 									<label class="form-check-label" for="check_code">
-										code
+										Code
 									</label>
 								</div>
 								<div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox" id="check_excel" data-replace="excel data"/>
 									<label class="form-check-label" for="check_excel">
-										<a href="#" class="text-primary" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="excel data">excel </a>
+										<a href="#" class="text-primary" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="excel data">Excel </a>
 									</label>
 								</div>
-								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_cloned-DNA" data-replace="cloned DNA"/>
-									<label class="form-check-label" for="check_cloned-DNA">
-										cloned DNA
-									</label>
-								</div>
+
 								
 
 								
@@ -3432,13 +3462,7 @@ END:VEVENT`;
                             <div class="" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
 								<div class=" d-grid gap-1">
                                     <h3> 2.1 Where will you submit your data as endpoints?</h3> 
-                                    <div class="collapse check_phenotypicRepo" id="edal" >
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_edal"  />
-                                        <label class="form-check-label" for="check_edal">
-                                            e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository)
-                                        </label>
-                                        
-                                    </div> 
+
                                 
                                     <div class="collapse check_geneticRepo check_genomicRepo check_genomicRepo" id="GenBank">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="3" id="check_GenBank"  />
@@ -3446,47 +3470,30 @@ END:VEVENT`;
                                         NCBI-GenBank
                                     </label>
                                     </div>
-                                    <div class="collapse check_geneticRepo check_genomicRepo check_RNAseqRepo" id="SRA">   
+                                    <div class="collapse check_geneticRepo check_genomicRepo check_transcriptomicRepo" id="SRA">   
                                         <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_SRA" />
                                         <label class="form-check-label" for="check_SRA">
                                             NCBI-SRA
                                         </label>
                                     </div>
-                                    <div class="collapse check_geneticRepo check_genomicRepo check_RNAseqRepo" id="ENA">   
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
-                                        <label class="form-check-label" for="check_ENA">
-                                            EBI-ENA
-                                        </label>
-                                    </div>
-
-                                    
-                                    <div class="collapse check_imageRepo"  id="IDR">   
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_IDR" />
-                                        <label class="form-check-label" for="check_IDR">
-                                            IDR (Image Data Resource)
-                                        </label>
-                                    </div>
-                                    <div class="collapse  check_imageRepo" id="Bioimage">
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_Bioimage" />
-                                        <label class="form-check-label" for="check_Bioimage">
-                                            EBI-BioImage Archive
-                                        </label>
-                                    </div>
-
-                                    <div class="collapse check_geneticRepo check_genomicRepo check_RNAseqRepo" id="arrayexpress">   
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
-                                        <label class="form-check-label" for="check_ARRAYEXPRESS">
-                                            EBI-ArrayExpress
-                                        </label>
-                                    </div>
-
-                                    <div class="collapse check_geneticRepo check_RNAseqRepo" id="GEO">
+                                    <div class="collapse check_geneticRepo check_transcriptomicRepo" id="GEO">
                                         <input class="form-check-input checkbox_5" type="checkbox" value="2" id="check_GEO"  />
                                         <label class="form-check-label" for="check_GEO">
                                                 NCBI-GEO
                                         </label>
                                     </div>
-                                    
+                                    <div class="collapse check_geneticRepo check_RNAseqRepo check_genomicRepo check_transcriptomicRepo" id="ENA">   
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ENA" />
+                                        <label class="form-check-label" for="check_ENA">
+                                            EBI-ENA
+                                        </label>
+                                    </div>
+                                    <div class="collapse check_geneticRepo check_genomicRepo check_transcriptomicRepo" id="arrayexpress">   
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_ARRAYEXPRESS" />
+                                        <label class="form-check-label" for="check_ARRAYEXPRESS">
+                                            EBI-ArrayExpress
+                                        </label>
+                                    </div>
                                     
                                     <div class="collapse check_metabolomicRepo" id="metabolights">   
                                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metabolights"  />
@@ -3494,6 +3501,36 @@ END:VEVENT`;
                                             EBI-Metabolights
                                         </label>
                                     </div>
+
+                                    <div class="collapse check_proteomicRepo" id="pride">
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride"  />
+                                        <label class="form-check-label" for="check_Pride">
+                                            EBI-PRIDE (PRoteomics IDEntifications Database)
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="collapse  check_imageRepo" id="Bioimage">
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_Bioimage" />
+                                        <label class="form-check-label" for="check_Bioimage">
+                                            EBI-BioImage Archive
+                                        </label>
+                                    </div>
+
+                                    <div class="collapse check_imageRepo"  id="IDR">   
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="1" id="check_IDR" />
+                                        <label class="form-check-label" for="check_IDR">
+                                            IDR (Image Data Resource)
+                                        </label>
+                                    </div>
+
+                                    <div class="collapse check_phenotypicRepo" id="edal" >
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_edal"  />
+                                        <label class="form-check-label" for="check_edal">
+                                            e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository)
+                                        </label>
+                                        
+                                    </div> 
+                                    
                                     
                                     <div class="collapse check_metabolomicRepo" id="MetabolomicsWorkbench">   
                                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_metaworkbench"  />
@@ -3510,12 +3547,7 @@ END:VEVENT`;
                                     </div>
 
                                     
-                                    <div class="collapse check_proteomicRepo" id="pride">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Pride"  />
-                                    <label class="form-check-label" for="check_Pride">
-                                        EBI-PRIDE (PRoteomics IDEntifications Database)
-                                    </label>
-                                    </div>
+
 
                                     <div class="collapse check_proteomicRepo" id="pdb">
                                         <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_pdb"  />
@@ -3701,13 +3733,13 @@ END:VEVENT`;
                                                 MIMAG (Minimum Information about Metagenome-Assembled Genome)
                                             </label>
                                         </div>
-                                        <div class="collapse check_RNAseqRepo" id="miame">   
+                                        <div class="collapse check_transcriptomicRepo" id="miame">   
                                             <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_MIAME" />
                                             <label class="form-check-label" for="check_MIAME">
                                                 MIAME (Minimum Information About a Microarray Experiment)
                                             </label>
                                         </div>
-                                        <div class="collapse check_RNAseqRepo" id="minseqe">   
+                                        <div class="collapse check_transcriptomicRepo check_RNAseqRepo" id="minseqe">   
                                             <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_MinSeqE" />
                                             <label class="form-check-label" for="check_MinSeqE">
                                                 MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment)
@@ -3766,14 +3798,14 @@ END:VEVENT`;
 								<!---->
 								<h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_dublin_core" checked />
-									<label class="form-check-label" for="check_dublin_core">
+									<input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_dublincore"  />
+									<label class="form-check-label" for="check_dublincore">
 										Dublin Core
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_3" type="checkbox" value="2" id="check_marc_21" />
-									<label class="form-check-label" for="check_marc_21">
+									<input class="form-check-input checkbox_3" type="checkbox" value="2" id="check_marc21" />
+									<label class="form-check-label" for="check_marc21">
 										MARC 21
 									</label>
 								</div>
@@ -4148,7 +4180,7 @@ END:VEVENT`;
                     <button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe  width="100%" height="66.6%" src="https://www.youtube.com/embed/be8mopv35Bs?si=fRNUEFIxd3wTWJ0H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+                    <iframe  width="100%" height="400px" src="https://www.youtube.com/embed/be8mopv35Bs?si=fRNUEFIxd3wTWJ0H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
 				DataPLAN aim to be the most user friendly and privacy first data management plan tool.
                 This tool can be run completely offline. Disconnect the internet or save it by "ctrl + S" will not affect the usage.
                 This work has been published on <a  href="https://doi.org/10.3390/data8110159" target="_blank" > Data</a>
@@ -4308,7 +4340,7 @@ END:VEVENT`;
 						  </p>
 							<p class="c0">
 								<span class="c1">
-                                    The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
+                                    The $_PROJECT will collect and/or generate the following types of raw data :  $_GENETIC, $_GENOMIC, $_TRANSCRIPTOMIC, $_RNASEQ, $_METABOLOMIC, $_PROTEOMIC, $_PHENOTYPIC, $_TARGETED, $_IMAGE, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and modified using analytical pipelines, which may yield different results or include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
                                     tracked in the DataPLANT ARC.#endif$_DATAPLANT Therefore, care will be taken to document and archive these resources (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise
                                     in the DataPLANT consortium#endif$_DATAPLANT.
                             </span>
@@ -4317,7 +4349,7 @@ END:VEVENT`;
 							<p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p>
 							<p class="c0">
 								<span class="c1">
-									The project builds on existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ It is also important to include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
+									The project builds on existing data sets and relies on them. #if$_RNASEQ|$_GENOMIC For example, without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS) data sets.#endif$_RNASEQ|$_GENOMIC It is also important to include existing data-sets on the expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of the partners. #endif$_PARTNERS
 									Genomic references can be gathered from reference databases for genomes/ and sequences, like the US National Center for Biotechnology Information: NCBI, European Bioinformatics Institute: EBI; DNA Data
 									Bank of Japan: DDBJ. Furthermore, prior 'unstructured' data in the form of publications and data contained therein will be used for decision making.
 								</span>
@@ -4450,9 +4482,31 @@ END:VEVENT`;
                         </p>
                         <p class="c0">
                                 <span class="c1">
-                                    All datasets will be associated with unique identifiers and will be annotated with metadata.#if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations applicable in the plant science, such as the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE </span>
-									<span class="c1">Unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by defining properties of the plant (see the preceding section). However, minimal cross-domain annotations also remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
-                                    #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
+                                    All datasets will be associated with unique identifiers and will be annotated with metadata. We will use Investigation, Study, Assay (ISA) specification for metadata creation. The $_PROJECT will rely on community standards plus additional recommendations applicable in the plant science, such as the #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
+                                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                    #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                    #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                    #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                    #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                    #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                     #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                     #endif$_GENOMIC|$_GENETIC
+                                     #if$_TRANSCRIPTOMIC
+                                     #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                     #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                     #if$_IMAGE
+                                     #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                     #endif$_IMAGE
+                                     #if$_PROTEOMIC  
+                                     #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                     #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                     #endif$_PROTEOMIC
+                                
+                                
+                                </span>
+									<span class="c1">These specific standard unlike cross-domain minimal sets such as  the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by defining properties of the plant (see the preceding section). However, minimal cross-domain annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                                    #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
                                 </span>
                             </p>
                         <p class="c0"><span class="c3">What naming conventions do you follow?</span></p>
@@ -4480,11 +4534,32 @@ END:VEVENT`;
                             <span class="c3">What metadata will be created? In case metadata standards do not exist in your discipline, please outline what type of metadata will be created and how.</span><span class="c12 c17 c11"></span>
                         </p>
                         <p class="c0">
-                            <span class="c1">We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. </span><span class="c16">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. </span>
+                            <span class="c1">We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. </span><span class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC</span>
                             <span class="c1">
-                             #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights
+                                The following metadata/ minimum informatin standards will be used to collect metadata:
+                                #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                 #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                 #endif$_GENOMIC|$_GENETIC
+                                 #if$_TRANSCRIPTOMIC
+                                 #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                 #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                 #if$_IMAGE
+                                 #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                 #endif$_IMAGE
+                                 #if$_PROTEOMIC  
+                                 #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                 #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                 #endif$_PROTEOMIC 
+                              #if$_METABOLOMIC Metabolights submission compliant standards will also be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights
                                 not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
                                 annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
+                                
                             </span>
 							</p>
                     
@@ -4522,7 +4597,7 @@ END:VEVENT`;
                                         <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                     
                                     <p class="c0">
-                                        <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                        <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                     
                                     <p class="c0">
                                         <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -4708,7 +4783,7 @@ END:VEVENT`;
                                     <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                 
                                 <p class="c0">
-                                    <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                    <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                 
                                 <p class="c0">
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -5012,9 +5087,31 @@ END:VEVENT`;
                         </p> 
                         <p class="c0">
                             <span class="c1">
-                                #if$_MIAPPE The $_PROJECT will rely on community standards plus additional recommendations necessary in plant science adapted by e.g. using suggestions from the Minimum Information About a Plant Phenotyping Experiment (MIAPPE). #endif$_MIAPPE </span>
-                                <span class="c1">These unlike cross-domain minimal sets such as Dublin core, which mostly defines the submitter and what general type of data is being dealt with (e.g. images), allow reusability by other researchers as it also defines properties of the plant (see the preceding section). However, of course minimal cross-domain annotations are part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow one to tag individual releases with a Digital Object Identifier (DOI).
-                                #endif$_DATAPLANT #if$_OTHERSTANDARDS $_OTHERSTANDARDINPUT #endif$_OTHERSTANDARDS
+                                All datasets will be associated with unique identifiers and will be annotated with metadata. We will use Investigation, Study, Assay (ISA) specification for metadata creation. The $_PROJECT will rely on community standards plus additional recommendations applicable in the plant science, such as the #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
+                                #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                 #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                 #endif$_GENOMIC|$_GENETIC
+                                 #if$_TRANSCRIPTOMIC
+                                 #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                 #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                 #if$_IMAGE
+                                 #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                 #endif$_IMAGE
+                                 #if$_PROTEOMIC  
+                                 #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                 #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                 #endif$_PROTEOMIC
+                            
+                            
+                            </span>
+                                <span class="c1">These specific standard unlike cross-domain minimal sets such as  the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by defining properties of the plant (see the preceding section). However, minimal cross-domain annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
                             </span>
                         </p>
                         <p class="c0"><span class="c3">Will search keywords be provided in the metadata to optimize the possibility for discovery and then potential re-use?</span></p>
@@ -5053,7 +5150,7 @@ END:VEVENT`;
                                     <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                 
                                 <p class="c0">
-                                    <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                    <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                 
                                 <p class="c0">
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -5087,7 +5184,7 @@ END:VEVENT`;
                                     <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                 
                                 <p class="c0">
-                                    <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                    <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                 
                                 <p class="c0">
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -5218,8 +5315,33 @@ END:VEVENT`;
                     <p class="c0">
                         <span class="c1">
                            
-                            As noted above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow the integration of data across projects, and its reuse according to established and tested protocols.
-                            Specialized repositories will be used for common data types. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole datasets will also be wrapped into an ARC with allocated DOIs.#endif$_DATAPLANT.
+                            As noted above, we foresee using minimal standards such as the #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
+                                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                    #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                    #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                    #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                    #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                    #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                     #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                     #endif$_GENOMIC|$_GENETIC
+                                     #if$_TRANSCRIPTOMIC
+                                     #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                     #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                     #if$_IMAGE
+                                     #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                     #endif$_IMAGE
+                                     #if$_PROTEOMIC  
+                                     #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                     #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                     #endif$_PROTEOMIC
+                                
+                                
+                                </span>
+									<span class="c1">These specific standard unlike cross-domain minimal sets such as  the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by defining properties of the plant (see the preceding section). However, minimal cross-domain annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                                    #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
+                                </span>
+                            </p>
                             Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.
                             Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
 
@@ -5361,7 +5483,7 @@ END:VEVENT`;
                                     <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                 
                                 <p class="c0">
-                                    <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                    <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                 
                                 <p class="c0">
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -5621,21 +5743,35 @@ END:VEVENT`;
                             </h3>
 
                             <p class="c0">
-                                <span class="c1">
-                                    As noted above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC  #if$_MINSEQE MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms for metabolites #if$_MIAPPE and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow the integration of data across projects, and its reuse according to established and tested protocols.
-                                    Specialized repositories will be used for common data types. For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will be annotated with metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole datasets will also be wrapped into an ARC with allocated DOIs.#endif$_DATAPLANT.
-                                    Whenever possible, data will be stored in common and openly defined formats including all the necessary metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor files, but will be shared as pdf.
-                                    <p class="c0">
-                                        <span class="c1">We will use Investigation, Study, Assay (ISA) specification for metadata creation. #if$_RNASEQ|$_GENOMIC For specific data (e.g., RNASeq or genomic data), we use metadata templates from the end-point repositories. </span><span class="c16">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment (MinSEQe) will also be used. </span>
-                                        <span class="c1">
-                                         #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC #if$_METABOLOMIC Metabolights submission compliant standards will be used for metabolomic data where this is acccepted by the consortium partners.#issuewarning some Metabolomics partners considers Metabolights
-                                            not an accepted standard#endissuewarning#endif$_METABOLOMIC As a part of plant research community, we use #if$_MIAPPE MIAPPE  for phenotyping data in the broadest sense, but we will also be rely on #endif$_MIAPPE specific SOPs for additional
-                                            annotations #if$_DATAPLANT that consider advanced DataPLANT annotation and ontologies. #endif$_DATAPLANT
-                                        </span>
-                                        </p>
-
-                                     #if$_OTHERSTANDARDS Other standards will also be used, such as $_OTHERSTANDARDINPUT. #endif$_OTHERSTANDARDS
-                                </span>
+                                <p class="c0">
+                                    <span class="c1">
+                                        All datasets will be associated with unique identifiers and will be annotated with metadata. We will use Investigation, Study, Assay (ISA) specification for metadata creation. The $_PROJECT will rely on community standards plus additional recommendations applicable in the plant science, such as the #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
+                                        #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence),#endif$_MIXS  
+                                        #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote),#endif$_MIGSEU 
+                                        #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle),#endif$_MIGSORG 
+                                        #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental),#endif$_MIMS
+                                        #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen),#endif$_MIMARKSSPECIMEN  
+                                        #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey),#endif$_MIMARKSSURVEY  
+                                        #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome),#endif$_MISAG 
+                                         #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome),#endif$_MIMAG 
+                                         #endif$_GENOMIC|$_GENETIC
+                                         #if$_TRANSCRIPTOMIC
+                                         #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),#endif$_MINSEQE   #endif$_TRANSCRIPTOMIC 
+                                         #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray Experiment),#endif$_MIAME #endif$_TRANSCRIPTOMIC
+                                         #if$_IMAGE
+                                         #if$_REMBI REMBI (Recommended Metadata for Biological Images),#endif$_REMBI
+                                         #endif$_IMAGE
+                                         #if$_PROTEOMIC  
+                                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment),#endif$_MIAPE  
+                                         #if$_MIMIX MIMix (Minimum Information about any (X) Sequence),#endif$_MIMIX  
+                                         #endif$_PROTEOMIC
+                                    
+                                    
+                                    </span>
+                                        <span class="c1">These specific standard unlike cross-domain minimal sets such as  the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by defining properties of the plant (see the preceding section). However, minimal cross-domain annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                                        #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
+                                    </span>
+                                </p>
                             </p>
 
 
@@ -5743,7 +5879,7 @@ END:VEVENT`;
                                         <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                     
                                     <p class="c0">
-                                        <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                        <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                     
                                     <p class="c0">
                                         <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -5886,7 +6022,7 @@ END:VEVENT`;
                                         <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                     
                                     <p class="c0">
-                                        <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                        <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                     
                                     <p class="c0">
                                         <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -6726,7 +6862,7 @@ END:VEVENT`;
                                                     <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                                 
                                                 <p class="c0">
-                                                    <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                                    <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                                 
                                                 <p class="c0">
                                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -8806,7 +8942,7 @@ END:VEVENT`;
                                             <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                         
                                         <p class="c0">
-                                            <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                            <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                         
                                         <p class="c0">
                                             <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
@@ -8854,7 +8990,7 @@ END:VEVENT`;
                                                     <span class="c1">#if$_GENETIC For genetic data: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
                                                 
                                                 <p class="c0">
-                                                    <span class="c1">#if$_RNASEQ For RNA sequence data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_RNASEQ </span></p> 
+                                                    <span class="c1">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
                                                 
                                                 <p class="c0">
                                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
