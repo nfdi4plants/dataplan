@@ -1487,25 +1487,16 @@
                 var ctx = canvas.getContext('2d');
                 // instead of using raw xml text, XMLSerializer can produce better html text
                 var data = (new XMLSerializer()).serializeToString(document.getElementById("dmp1").querySelector("#vis").childNodes[0]);
-
                 var DOMURL = window.URL || window.webkitURL || window;
-
                 var img = new Image();
                 var svg = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
                 var url = DOMURL.createObjectURL(svg);
                 var png = new Image();
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
                     DOMURL.revokeObjectURL(url);
-
                     const png_url = canvas.toDataURL('image/png');
-
                     png.src = png_url;
-
-
-
-
                 }
 
                 img.src = url;
@@ -3523,27 +3514,27 @@ END:VEVENT`;
 
                                 <!--
                                     <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" checked />
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" />
                                     <label class="form-check-label" for="check_GenBank">
                                         genbank
                                     </label>
                                     </div>
                                     <div>
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" checked />
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" />
                                         <label class="form-check-label" for="check_Proteomexchange">
                                             proteomexchange
                                         </label>
                                     </div>
                                     
                                     <div>
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" checked />
+                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" />
                                         <label class="form-check-label" for="check_Zenodo">
                                             zenodo
                                         </label>
                                     </div>
                                     
                                     <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" checked />
+                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" />
                                     <label class="form-check-label" for="check_dataDyrad">
                                         dataDyrad
                                     </label>
@@ -3551,7 +3542,7 @@ END:VEVENT`;
 
                                 <div>
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_otherep" checked />
+                                        id="check_otherep" />
                                     <label class="form-check-label" for="check_otherep">
                                         Other Endpoint Repositories:
                                         <input data-replace="other endpoint repositories" style="width: 24vw;"
@@ -3767,7 +3758,7 @@ END:VEVENT`;
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_early"
-                                    role="button" checked />
+                                    role="button" />
                                 <label class="form-check-label" for="check_early"> Immediately upon collection</label>
                             </div>
 
@@ -3810,21 +3801,21 @@ END:VEVENT`;
                             <h3>4.4 Will you follow national standards or archived in national infrastructures?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
-                                    checked />
+                                    />
                                 <label class="form-check-label" for="check_nfdi">
                                     German NFDI
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_french"
-                                    checked />
+                                    />
                                 <label class="form-check-label" for="check_french">
                                     French INRAe
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_EOSC"
-                                    checked />
+                                    />
                                 <label class="form-check-label" for="check_EOSC">
                                     Europe EOSC
                                 </label>
@@ -5163,9 +5154,8 @@ END:VEVENT`;
             <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
             <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures
                     for data management? If yes, which ones?</span></p>
-            <p class="c0"><span class="c1">Yes, the $_PROJECT will use common Research Data Management (RDM)
-                    tools#if$_DATAPLANT and in particular resources developed by the NFDI of
-                    Germany#endif$_DATAPLANT.</span></p>
+                    <p class="c0"><span class="c1">Yes, the $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC .
+                </span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c6"><span class="c1"></span></p>
             <h1 class="c13" id="h.f589zyp9ll5e"><span class="c2">3&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15">
@@ -6243,9 +6233,8 @@ END:VEVENT`;
             <p class="c0"><span class="c3">Do you, or will you, make use of other national/funder/sectorial/departmental
                     procedures for data management? If yes, which ones (please list and briefly describe them)?</span>
             </p>
-            <p class="c0"><span class="c1">Yes, the $_PROJECT will use common Research Data Management (RDM)
-                    tools#if$_DATAPLANT and in particular resources developed by the NFDI of
-                    Germany#endif$_DATAPLANT.</span></p>
+            <p class="c0"><span class="c1">Yes, the $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC .
+            </span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c6"><span class="c1"></span></p>
             <h1 class="c13" id="h.f589zyp9ll5e"><span class="c2">3&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15">
@@ -6688,8 +6677,7 @@ END:VEVENT`;
                     to use the data?</span>
             </h3>
             <p class="c0">
-                <span class="c1">The $_PROJECT will use common Research Data Management (RDM) tools#if$_DATAPLANT and in
-                    particular resources developed by the NFDI of Germany#endif$_DATAPLANT.</span>
+                <span class="c1">The $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC .</span>
             </p>
             <p class="c0">
                 <span class="c1">#if$_PROPRIETARY The $_PROJECT relies on the tool(s) $_PROPRIETARY.
