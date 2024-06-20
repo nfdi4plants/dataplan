@@ -70,8 +70,9 @@
 			var scroll_marker;
 			
 			var initialed = false; // set the initialed status to false
-            const JSONString ='{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"2024-06-19","$_MODIFICATIONDATE":"2024-06-19"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
-			let temp_a = JSON.parse(JSONString); // template answers used to compare with saved answers 
+            const JSONString ='{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+            const templateJSON ='{"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+			let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
 			
 			
 			
@@ -193,7 +194,11 @@
 
 
 			/********** functions ***********/
-			
+			/**
+			 * @function updateSavedAnswers
+			 * @description Update the previous saved answers to make it compatible to the newest version of software.
+			 * @global
+			 */
                 function updateSavedAnswers(){
                     try {delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {}:  saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
 				}
@@ -429,7 +434,7 @@
 
 			    }
                 unreplaced_keys = unreplaced_keys.filter(item => item !== "$_proprietary").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
-                return [total_keywords-3, 4, changed_keywords,4,  unreplaced_keys, []];
+                return [total_keywords, 4, changed_keywords,4,  unreplaced_keys, []];
             }
 			/**
 			 * @function onchange_replace
@@ -4244,10 +4249,22 @@ END:VEVENT`;
                                 <span class="c1"> Data of different types or representing different domains will be generated using unique approaches. For example:</span>
                             </p>
 							<ul style="list-style-type:disc;">
+
+                            #if$_TRANSCRIPTOMIC
+                            <li> <p class="c0">
+                                    <span class="c1">  Methods of transcriptomics data collection will be selected from microarrays, quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ hybridization. RNA-Seq data will be collected in seperate methods.</span>
+                                </p>
+                            </li>
+                            #endif$_TRANSCRIPTOMIC 
+
+                                
+
+
                             #if$_RNASEQ
                            <li> <p class="c0">
-                                <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
-                            </p></li>
+                                    <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
+                                </p>
+                            </li>
                             #endif$_RNASEQ 
 							#if$_METABOLOMIC
                             <li><p class="c0">
@@ -4482,9 +4499,9 @@ END:VEVENT`;
                                         <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                     
                                     <p class="c0">
-                                            <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                            <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                     <p class="c0">
-                                        <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                        <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                         #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                                 </span>
@@ -4668,9 +4685,9 @@ END:VEVENT`;
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                 
                                 <p class="c0">
-                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                 <p class="c0">
-                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                     #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                             </span>
@@ -4842,7 +4859,13 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1"> Data of different types or representing different domains will be generated using unique approaches. For example:</span>
                         </p>
-                                                    <ul style="list-style-type:disc;">
+                            <ul style="list-style-type:disc;">
+                                #if$_TRANSCRIPTOMIC
+                                    <li> <p class="c0">
+                                        <span class="c1">  Methods of transcriptomics data collection will be selected from microarrays, quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ hybridization. RNA-Seq data will be collected in seperate methods.</span>
+                                    </p>
+                                    </li>
+                                #endif$_TRANSCRIPTOMIC 
                         #if$_RNASEQ
                        <li> <p class="c0">
                             <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
@@ -5036,9 +5059,9 @@ END:VEVENT`;
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                 
                                 <p class="c0">
-                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                 <p class="c0">
-                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                     #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                             </span>
@@ -5070,9 +5093,9 @@ END:VEVENT`;
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                 
                                 <p class="c0">
-                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                 <p class="c0">
-                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                     #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  In the case of unstructured less standardized data (e.g. experimental phenotypic measurements), these will be metadata annotated and if complete given a digital object identifier (DOI).#if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well.
                                     #endif$_DATAPLANT
@@ -5369,9 +5392,9 @@ END:VEVENT`;
                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                 
                                 <p class="c0">
-                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                 <p class="c0">
-                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                     #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                             </span>
@@ -5484,11 +5507,19 @@ END:VEVENT`;
                                 <span class="c1"> Data of different types or of different domains will be generated differently. For example:</span>
                             </p>
 							<ul style="list-style-type:disc;">
-                            #if$_RNASEQ
-                           <li> <p class="c0">
-                                <span class="c1"> Short read sequencing will be either collected or outsourced and raw data will be received. </span>
-                            </p></li>
-                            #endif$_RNASEQ #if$_METABOLOMIC
+                                #if$_TRANSCRIPTOMIC
+                                <li> <p class="c0">
+                                        <span class="c1">  Methods of transcriptomics data collection will be selected from microarrays, quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ hybridization. RNA-Seq data will be collected in seperate methods.</span>
+                                    </p>
+                                </li>
+                                #endif$_TRANSCRIPTOMIC 
+                                #if$_RNASEQ
+                                <li> <p class="c0">
+                                    <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms, either in house or outsourced to academic facilities or commercial services, and the raw data will be processed using estabilished biofirmatics piplines. </span>
+                                </p></li>
+                                #endif$_RNASEQ 
+                            
+                            #if$_METABOLOMIC
                             <li><p class="c0">
                                 <span class="c1"> Metabolomic data will be generated using chromatography coupled to mass spectrometry and from enzyme platforms mostly.</span>
                             </p></li>
@@ -5762,9 +5793,9 @@ END:VEVENT`;
                                         <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                     
                                     <p class="c0">
-                                            <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                            <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                     <p class="c0">
-                                        <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                        <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                         #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                                 </span>
@@ -5905,9 +5936,9 @@ END:VEVENT`;
                                         <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                     
                                     <p class="c0">
-                                            <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                            <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                     <p class="c0">
-                                        <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                        <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
 
                                         #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                                 </span>
@@ -6745,9 +6776,9 @@ END:VEVENT`;
                                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                                 
                                                 <p class="c0">
-                                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                                 <p class="c0">
-                                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
             
                                                     #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                                             </span>
@@ -8607,6 +8638,12 @@ END:VEVENT`;
                                 <span class="c1"> Daten unterschiedlicher Typen oder aus verschiedenen Bereichen werden mit einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                             </p>
 							<ul style="list-style-type:disc;">
+                            #if$_TRANSCRIPTOMIC
+                            <li> <p class="c0">
+                                    <span class="c1"> Methoden zur Erfassung von Transkriptomik-Daten werden aus Mikroarrays, quantitativer PCR, Northern Blotting, RNA-Immunpräzipitation und Fluoreszenz-in-situ-Hybridisierung ausgewählt. RNA-Seq-Daten werden mit separaten Methoden gesammelt.</span>
+                                </p>
+                            </li>
+                            #endif$_TRANSCRIPTOMIC 
                             #if$_RNASEQ
                            <li> <p class="c0">
                                 <span class="c1"> RNA-Sequenzierung wird unter Verwendung von Short-Read- oder Long-Read-Plattformen entweder intern oder an akademische Einrichtungen oder kommerzielle Dienste ausgelagert und die Rohdaten werden mit etablierten bioinformatischen Pipelines verarbeitet. </span>
@@ -8732,7 +8769,29 @@ END:VEVENT`;
                                  Zusätzlich werden Kosten für die Speicherung nach der Veröffentlichung von den Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECT oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien.
                                     </span>
                                 </p>
+                                <span class="c1">
+                                    Es wird sichergestellt, dass Daten, die in internationalen, disziplinspezifischen Repositories gespeichert werden können, die spezialisierte Technologien nutzen:
+                                    <p class="c0">
+                                        <span class="c1">#if$_PHENOTYPIC Für phänotypische Daten: #if$_edal e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository) #endif$_edal #endif$_PHENOTYPIC </span></p>  
 
+
+                                    <p class="c0">
+                                        <span class="c1">#if$_GENETIC Für genetische Daten: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
+                                    
+                                    <p class="c0">
+                                        <span class="c1">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
+                                    
+                                    <p class="c0">
+                                        <span class="c1">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
+                                    
+                                    <p class="c0">
+                                            <span class="c1">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                    <p class="c0">
+                                        <span class="c1">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+
+                                        #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden dort ebenfalls verarbeitet.#endif$_OTHEREP  
+
+                                </span>
 
 
                             </span></p>
@@ -8838,24 +8897,7 @@ END:VEVENT`;
                                 </p>
                                 <p class="c0">
                                     <span class="c1">
-                                        Die Daten werden über die $_PROJECT-Plattform mit einer benutzerfreundlichen Oberfläche verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Außerdem wird sichergestellt, dass Daten, die in internationalen, disziplinspezifischen Repositories gespeichert werden können, die spezialisierte Technologien nutzen:
-                                        <p class="c0">
-                                            <span class="c1">#if$_PHENOTYPIC Für phänotypische Daten: #if$_edal e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository) #endif$_edal #endif$_PHENOTYPIC </span></p>  
-    
-    
-                                        <p class="c0">
-                                            <span class="c1">#if$_GENETIC Für genetische Daten: #if$_GENBANK NCBI-GenBank,#endif$_GENBANK #if$_SRA NCBI-SRA,#endif$_SRA #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #if$_GEO NCBI-GEO,#endif$_GEO #endif$_GENETIC </span></p>  
-                                        
-                                        <p class="c0">
-                                            <span class="c1">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC</span></p> 
-                                        
-                                        <p class="c0">
-                                            <span class="c1">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
-                                        
-                                        <p class="c0">
-                                                <span class="c1">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
-                                        <p class="c0">
-                                            <span class="c1">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                        Die Daten werden über die $_PROJECT-Plattform mit einer benutzerfreundlichen Oberfläche verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Die Endpunkt-Repositories sind: #if$_PHENOTYPIC  #if$_edal e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository) #endif$_edal #endif$_PHENOTYPIC #if$_GENETIC #if$_GENBANK NCBI-GenBank,#endif$_GENBANK  #if$_ENA EBI-ENA,#endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_GENETIC #if$_TRANSCRIPTOMIC|$_GENETIC #if$_SRA NCBI-SRA,#endif$_SRA #if$_GEO NCBI-GEO,#endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC  #if$_ARRAYEXPRESS EBI-ArrayExpress,#endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC #if$_IMAGE #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE #if$_METABOLOMIC  #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC  #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC  
     
                                             #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden dort ebenfalls verarbeitet.#endif$_OTHEREP  
    
@@ -8928,9 +8970,9 @@ END:VEVENT`;
                                                     <span class="c1">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage Archive,#endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource),#endif$_IDR  #endif$_IMAGE </span></p> 
                                                 
                                                 <p class="c0">
-                                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights;#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
+                                                        <span class="c1">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS EBI-MetaboLights,#endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics Workbench,#endif$_METAWORKBENCH #if$_INTACT Intact (Molecular interactions),#endif$_INTACT #endif$_METABOLOMIC </span></p>
                                                 <p class="c0">
-                                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE;#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
+                                                    <span class="c1">#if$_PROTEOMIC For proteomics data: #if$_PRIDE EBI-PRIDE,#endif$_PRIDE #if$_PDB PDB (Protein Data Bank archive),#endif$_PDB #if$_CHEBI Chebi (Chemical Entities of Biological Interest),#endif$_CHEBI #endif$_PROTEOMIC </span></p>  
             
                                                     #if$_OTHEREP and $_OTHEREP  will also be used to store data and the data will be processed there as well.#endif$_OTHEREP  
                                             </span>
