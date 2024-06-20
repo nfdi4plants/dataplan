@@ -1473,8 +1473,12 @@
                     }
 
                     img.src = url;
-                   
+                   try {
                     document.getElementById("doc3").querySelector("#vis").innerHTML="";
+                   } catch (error) {
+                    
+                   }
+                    
 					if (mutation.type === 'childList') {
 					  //verbose  console.log('A child node has been added or removed.');
 					  document.getElementById("doc3").querySelector("#vis").appendChild(png);
