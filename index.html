@@ -189,7 +189,7 @@
 			];
 
 			var tour = new Tour(steps); // initialize the guided tour
-			var upload_json, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
+			var upload_json1, upload_json2, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
 
 
 			/********** functions ***********/
@@ -428,7 +428,7 @@
 			        }
 
 			    }
-                unreplaced_keys = unreplaced_keys.filter(item => item !== "$_proprietary").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH");
+                unreplaced_keys = unreplaced_keys.filter(item => item !== "$_proprietary").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
                 return [total_keywords-3, 4, changed_keywords,4,  unreplaced_keys, []];
             }
 			/**
@@ -1087,7 +1087,12 @@
                                     parent_node.setAttribute("onmouseleave", 'document.getElementById("'+before+'").parentElement.classList.remove("border-highlight");  ');
                                     parent_node.setAttribute("onclick", 'document.getElementById("'+before+'").parentElement.scrollIntoView();document.getElementById("'+before+'").focus(); ');
                                     parent_node.setAttribute("name",before+"-to-");
-                                    parent_node.innerHTML =  HtmlEncode(name_ele.dataset.replace)  ;
+                                    if (doc_name.split("-")[0] == "bmbf" ){
+                                        parent_node.innerHTML =  HtmlEncode(name_ele.dataset.replacede)  ;
+                                    }else{
+                                        parent_node.innerHTML =  HtmlEncode(name_ele.dataset.replace)  ;
+                                    }
+                                    
                                     
 									original_range.insertNode(parent_node);
 									original_range.detach();} 
@@ -1330,6 +1335,7 @@
 			        .then(response => response.json())
 			        .then(json => {
 			            saved_a = json;
+                        updateSavedAnswers();
 						load_dmp(reload_answers, name = cached_template);
 			        })
 
@@ -1357,6 +1363,9 @@
                     case "dfg":
                     load_dmp(reload_answers,name="dfg-dmp");   
                     break;
+                    case "bmbf":
+                    load_dmp(reload_answers,name="bmbf-dmp");   
+                    break;
                     case "PracticeGuide":
                     load_dmp(reload_answers,name="practical-guide");   
                     break;
@@ -1365,8 +1374,10 @@
 
 			    }
 				var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'));
-			    var upload_json = document.getElementById("upload");
-			    upload_json.addEventListener("change", open_storage_modal, false);
+			    var upload_json1 = document.getElementById("upload");
+			    upload_json1.addEventListener("change", open_storage_modal, false);
+                var upload_json2 = document.getElementById("upload_menu");
+			    upload_json2.addEventListener("change", open_storage_modal, false);
 				
 				
 				
@@ -1377,11 +1388,7 @@
 					
 					current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a["replace"]));
 					current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a["checkbox"]));
-					
-					
 					list1.innerHTML = "";
-					
-					
 					uploaded_origin = 0;
 					current_origin = 0;
 					
@@ -1407,36 +1414,24 @@
 								new_option.appendChild(option_link);
 								list1.appendChild(new_option);
 
-								}
-							
-							
-
-							
-						
+								}	
 					}
-					
-					
-					
-					
-				
+
 				let a2;
-					upload_json.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.show(),
-				
-				
-				
+                try{
+                    upload_json1.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.show(),
 					update_table() ));
-				
-				
+
+                }catch(e){
+                    upload_json2.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2),cache_management.show(),
+					update_table() ));
+                }
+					
 				this.value=null; 
 				return false;
 				
 				}
-
-
-			
-			
                 parseText();
-			
 				const dmp1_vis = document.getElementById("dmp1").querySelector("#vis").childNodes[0].childNodes[1];
 				// Options for the observer (which mutations to observe)
 				const config = { attributes: true, childList: false, subtree: false };
@@ -1800,6 +1795,7 @@
 					
 					toast_list[2].show();
 			        saved_a = uploaded_input_all;
+                    updateSavedAnswers();
 					load_dmp(reload_answers, name = cached_template);
 					
 			        ////verbose  console.log(JSON.stringify(saved_a));
@@ -2450,7 +2446,7 @@ END:VEVENT`;
 									</a>
 								</li>
 								<li>
-									<label for="Import" class="form-label dropdown-item">
+									<label for="upload_menu" class="form-label dropdown-item">
 										Import Answers
 										<input class="form-control d-none" type="file" id="upload_menu" />
 									</label>
@@ -3230,33 +3226,33 @@ END:VEVENT`;
 								<h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
 
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genetic"  data-replace="genetic data"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genetic"  data-replace="genetic data" data-replacede="genetische Daten"/>
 									<label class="form-check-label" for="check_genetic"> Genetic data </label>
 								</div>
 
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genomic"  data-replace="genomic data"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_genomic"  data-replace="genomic data" data-replacede="genomische Daten"/>
 									<label class="form-check-label" for="check_genomic">
 										Other NGS (genomics)
 									</label>
 								</div>
 
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_cloned-DNA" data-replace="cloned DNA"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_cloned-DNA" data-replace="cloned DNA" data-replacede="geklonte DNA"/>
 									<label class="form-check-label" for="check_cloned-DNA">
 										Cloned DNA
 									</label>
 								</div>
 
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_transcriptomic"  data-replace="transcriptomic data"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_transcriptomic"  data-replace="transcriptomic data" data-replacede="transkriptomische Daten"/>
 									<label class="form-check-label" for="check_transcriptomic">
 										Transcriptomics
 									</label>
 								</div>
 
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_RNAseq" data-replace="RNA-Seq and other forms of transcriptomic data" />
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_RNAseq" data-replace="RNA-Seq data" data-replacede="RNA-Seq-Daten" />
 									<label class="form-check-label" for="check_RNAseq">
 										RNAseq
 									</label>
@@ -3264,7 +3260,7 @@ END:VEVENT`;
 
 
 								<div class="form-data_type form-check">
-                                    <input class="form-check-input checkbox_2" type="checkbox"  id="check_metabolomic"  data-replace="metabolome"/>
+                                    <input class="form-check-input checkbox_2" type="checkbox"  id="check_metabolomic"  data-replace="metabolomic data" data-replacede="metabolomische Daten"/>
 									<label class="form-check-label" for="check_metabolomic" >
 										Metabolomics
 									</label>
@@ -3272,7 +3268,7 @@ END:VEVENT`;
 								</div>
 
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_proteomic" data-replace="proteome"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_proteomic" data-replace="proteomic data" data-replacede="proteomische Daten"/>
 									<label class="form-check-label" for="check_proteomic">
 										Proteomics
 									</label>
@@ -3282,21 +3278,21 @@ END:VEVENT`;
                                 <div class="form-data_type form-check">
 									<input class="form-check-input checkbox_2" type="checkbox"  
                                             id="check_phenotypic"  data-replace="plant phenotypic data"
-                                            />
+                                            data-replacede="Pflanzenphänotypische Daten" />
 									<label class="form-check-label" for="check_phenotypic">
 										Plant phenotypic data
 									</label>
 								</div>
 
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_targeted"  data-replace="targeted assays (e.g. glucose and fructose content)"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_targeted"  data-replace="targeted assays (e.g. glucose and fructose content)" data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)"/>
 									<label class="form-check-label" for="check_targeted">
 										Targeted assays (e.g. glucose and fructose content)
 									</label>
 								</div>
 
                                 <div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_image" data-replace="image datasets"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_image" data-replace="image datasets" data-replacede="Bilddatensätze"/>
 									<label class="form-check-label" for="check_image">
 										Image datasets
 									</label>
@@ -3304,19 +3300,19 @@ END:VEVENT`;
 
 
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_models"  data-replace="model outputs"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_models"  data-replace="model outputs" data-replacede="Modellausgänge"/>
 									<label class="form-check-label" for="check_models">
 										Models
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox"  id="check_code" data-replace="computational code"/>
+									<input class="form-check-input checkbox_2" type="checkbox"  id="check_code" data-replace="computational code" data-replacede="Rechencode"/>
 									<label class="form-check-label" for="check_code">
 										Code
 									</label>
 								</div>
 								<div class="form-data_type form-check">
-									<input class="form-check-input checkbox_2" type="checkbox" id="check_excel" data-replace="excel data"/>
+									<input class="form-check-input checkbox_2" type="checkbox" id="check_excel" data-replace="excel data" data-replacede="Excel-Daten"/>
 									<label class="form-check-label" for="check_excel">
 										<a href="#" class="text-primary" data-toggle="tooltip" title="includes other tabular data (e.g. .csv, .tab)" data-original-title="excel data">Excel </a>
 									</label>
