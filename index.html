@@ -63,7 +63,7 @@
     var doc_name = 'dmp1'; // default document to use at the first page load
     var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
     var scroll_y = window.localStorage.getItem("scroll_y");
-    console.log("scroll_y read from cache is " + scroll_y);
+    //console.log("scroll_y read from cache is " + scroll_y);
     var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
     var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
     var datepicker_list = []; // initialization a list to store dmp update reminder
@@ -515,7 +515,7 @@
         for (const [key, value] of replace_input) {
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
-                console.log(value);
+                //console.log(value);
                 element.value = value;
             }
         }
@@ -830,7 +830,7 @@
                 text_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
                 full_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
                 text = text_range.toString();
-                console.log("full range issuewarning text is" + full_range.toString());
+                //verbose console.log("full range issuewarning text is" + full_range.toString());
                 full_range.deleteContents();
 
                 let newText = document.createElement("warning_number" + warning_number);
@@ -904,18 +904,12 @@
         parent_node.setAttribute("name", before + "-to-");
         let text_range = document.createRange();
         text_range.setStart(in_range.endContainer, in_range.endOffset);
-
-
-
-
-
-
         window.find("#endif" + text_after_if);
         const endif_selection = window.getSelection();
         let end_if_range = endif_selection.getRangeAt(0);
 
         in_range.deleteContents();
-        text_range.setEnd(end_if_range.startContainer, end_if_range.startOffset);
+        text_range.setEnd(end_if_range.startContainer, end_if_range.startOffset-1);
         const doc_frag = text_range.cloneContents();
         parent_node.appendChild(doc_frag);
         //verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
@@ -1061,7 +1055,7 @@
                         if_range = window.getSelection().getRangeAt(0);
                         if_text = if_range.toString();
 
-                        //verbose  console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+                        console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
                         callback1(if_range, check_box_item);
                         try { selection.removeAllRanges(); } catch (e) {
@@ -1074,7 +1068,7 @@
                         if_range = window.getSelection().getRangeAt(0);
                         if_text = if_range.toString();
 
-                        //verbose  console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+                         console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
                         match_remove(if_range);
                         window.getSelection().removeAllRanges();
@@ -1109,7 +1103,7 @@
                     } else if (if_cha == "," || if_cha == " ") {
                         if (check_or_uncheck == "check") {
 
-                            //verbose  console.log("!!!! replace match text");					
+                            console.log("!!!! replace match text");					
                             original_range.deleteContents();
                             const name_ele = document.getElementById(check_box_item);
                             try { name_ele.dataset.replace; } catch (error) {
@@ -1251,6 +1245,7 @@
                 const w_selection = window.getSelection();
                 const range = w_selection.getRangeAt(0);
                 w_selection.focusNode;
+                //console.log("range is "+ range.toString())
                 if (w_selection.focusNode.length == w_selection.focusOffset) {
                     //verbose  console.log("first if : " + w_selection.focusNode.length);
                     last_letter = "";
@@ -1262,13 +1257,14 @@
                 if ((w_selection.anchorOffset == 0) && (w_selection.anchorNode.previousSibling === null)) {
 
                     first_letter = "";
+                    //console.log("first_letter = empty");
                 } else if ((w_selection.anchorOffset == 0)) {
                     const old_offset = w_selection.anchorOffset;
-                    //verbose  console.log("no enough range");
+                    //console.log("no enough range");
                     range.setStart(w_selection.anchorNode.previousSibling, w_selection.anchorNode.previousSibling.length - 1);
                     first_letter = range.toString().slice(0, 1);
                 } else {
-                    //verbose  console.log("enough range" + w_selection.anchorOffset);
+                    //console.log("enough range" + w_selection.anchorOffset);
                     range.setStart(w_selection.anchorNode, w_selection.anchorOffset - 1);
                     first_letter = range.toString().slice(0, 1);
                 }
@@ -1288,11 +1284,25 @@
                     range.insertNode(newText);
 
                 } else if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
-                    //verbose  console.log(range.toString(), "last letter " + last_letter);
+                     //console.log(range.toString(), "Situation 2 last letter " + last_letter);
 
                 } else if (/[a-zA-Z\|\$\!]/.test(first_letter)) {
-                    //verbose  console.log(range.toString(), "first letter " + first_letter);
-                } else {
+                    //console.log(range.toString(), "Situation 3 first letter " + first_letter);
+                } else if (/[.]/.test(last_letter)) {
+                    //verbose  console.log(range.toString(), "last letter is comma: " + last_letter);
+                    range.deleteContents();
+                    //verbose  console.log(encodeURIComponent(after));
+                    let newText = document.createElement("span");
+
+                    newText.setAttribute("class", "text-warning text-center");
+                    newText.setAttribute("name", before.split("_")[1] + "-to-");
+                    newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + before + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
+                    newText.setAttribute("onmouseleave", 'document.getElementsByName("' + before + '")[0].classList.remove("border-highlight");  ');
+                    newText.setAttribute("onclick", 'document.getElementsByName("' + before + '")[0].parentElement.scrollIntoView();document.getElementsByName("' + before + '")[0].focus(); ');
+                    newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter;
+                    range.insertNode(newText);
+
+                }else {
                     //verbose  console.log(range.toString(), "deleted with last letter: " + last_letter);
                     range.deleteContents();
                     //verbose  console.log(encodeURIComponent(after));
@@ -1336,7 +1346,7 @@
     window.addEventListener('pagehide', (event) => {
         scroll_y = document.getElementById("split-0").scrollTop;
         window.localStorage.setItem("scroll_y", scroll_y);
-        console.log("scroll_y page hide to cache is " + scroll_y);
+        //verbose console.log("scroll_y page hide to cache is " + scroll_y);
     });
 
     // initialization
@@ -2451,7 +2461,6 @@ END:VEVENT`;
     }
 
 </script>
-
 <body class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px ">
     <div class="container-fluid"
         style="overflow-y: hidden; overflow-x: hidden; height: 100vh; width: 100vw; 		padding-right: 0px; padding-left: 0px; position:relative; ">
@@ -4357,7 +4366,7 @@ END:VEVENT`;
 
             <h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span
                     class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
+            <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
                     #endif$_EU To best profit from open data, it is necessary not only to store the data but to make it
                     Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data,
                     however, we also consider the need to protect individual data sets. #endif$_PROTECT
@@ -4366,9 +4375,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The aim of this document is to provide guidelines on the principles of data management in the
-                    $_PROJECT and to specify which type of data will be stored, this will be achieved by using the
-                    responses to the EU questionnaire on Data Management Plan (DMP) as a DMP
-                    document.
+                    $_PROJECT. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECT.
                 </span>
             </p>
             <p class="c0">
@@ -4389,7 +4396,7 @@ END:VEVENT`;
             <p class="c0">
 
                 <span class="c1">
-                    The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
+                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -4403,7 +4410,7 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    The $_PROJECT will collect and/or generate the following types of raw data : $_GENETIC, $_GENOMIC,
+                    $_PROJECT will collect and/or generate the following types of raw data : $_GENETIC, $_GENOMIC,
                     $_TRANSCRIPTOMIC, $_RNASEQ, $_METABOLOMIC, $_PROTEOMIC, $_PHENOTYPIC, $_TARGETED, $_IMAGE, $_MODELS,
                     $_CODE, $_EXCEL, $_CLONED-DNA data which are related to $_STUDYOBJECT. In addition, the raw data
                     will also be processed and modified using analytical pipelines, which may yield different results or
@@ -4592,10 +4599,10 @@ END:VEVENT`;
             <p class="c0"><span class="c3">To whom might it be useful ('data utility')?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The data will initially benefit the $_PROJECT partners, but will also be made available to selected
+                    The data will initially benefit $_PROJECT partners, but will also be made available to selected
                     stakeholders closely involved in the project, and then the scientific community working on
                     $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
-                    use the data after publication. The data will be disseminated according to the $_PROJECT's
+                    use the data after publication. The data will be disseminated according to $_PROJECT's
                     dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other
                     means#endif$_DATAPLANT
                 </span>
@@ -4619,7 +4626,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. The $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping
                     Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
@@ -4653,7 +4660,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also
-                    remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -4749,7 +4756,7 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    By default, all data sets from the $_PROJECT will be shared with the community and made openly
+                    By default, all data sets from $_PROJECT will be shared with the community and made openly
                     available. However, before the data are released, all will be provided with an opportunity to check
                     for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
                     This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
@@ -4827,7 +4834,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c3">What methods or software tools are needed to access the data?</span></p>
-            <p class="c0"><span class="c1">#if$_PROPRIETARY The $_PROJECT relies on the tool(s) $_PROPRIETARY.
+            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY.
                     #endif$_PROPRIETARY</span></p>
             <p class="c0">
                 <span class="c1">
@@ -4855,9 +4862,8 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c3">Is it possible to include the relevant software (e.g. in open-source
                     code)?</span></p>
-            <p class="c0"><span class="c1">As stated above, the $_PROJECT will use publicly available open-source and
-                    well-documented certified software #if$_PROPRIETARY except for $_PROPRIETARY
-                    #endif$_PROPRIETARY.</span></p>
+            <p class="c0"><span class="c1">As stated above, $_PROJECT will use publicly available open-source and
+                    well-documented certified software#if$_PROPRIETARY except for$_PROPRIETARY #endif$_PROPRIETARY.</span></p>
             <p class="c0"><span class="c12 c11 c17"></span></p>
             <p class="c0">
                 <span class="c3">Where will the data and associated metadata, documentation and code be deposited?
@@ -4877,8 +4883,8 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible.
-                    Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
-                    #if$_DATAPLANT , and this has been confirmed for data associated with DataPLANT #endif$_DATAPLANT.
+                    Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required
+                    #if$_DATAPLANT and this has been confirmed for data associated with DataPLANT#endif$_DATAPLANT.
                     #issuewarning if no data management platform such as DataPLANT is used, then you need to find
                     appropriate repository to store or archive your data after publication. #endissuewarning
                 </span>
@@ -4941,20 +4947,18 @@ END:VEVENT`;
                     As noted above, we foresee using minimal standards such as #if$_RNASEQ|$_GENOMIC #if$_MINSEQE
                     MinSEQe for sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible
                     forms for metabolites #if$_MIAPPE
-                    and MIAPPE for phenotyping-like data #endif$_MIAPPE. The minimal information standards will allow
+                    and MIAPPE for phenotyping-like data#endif$_MIAPPE. The minimal information standards will allow
                     the integration of data across projects, and its reuse according to established and tested
                     protocols. We will also use
                     ontological terms to enrich the data sets relying on free and open ontologies where possible.
-                    Additional ontology terms might be created and canonized during the $_PROJECT.
+                    Additional ontology terms might be created and canonized during $_PROJECT.
                 </span>
             </p>
             <p class="c10"><span class="c3">Will you be using standard vocabularies for all data types present in your
                     data set, to allow inter-disciplinary interoperability?</span></p>
             <p class="c0">
                 <span class="c1">
-                    Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-                    vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the
-                    advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
+                    Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                 </span>
             </p>
             <p class="c10"><span class="c3">In case it is unavoidable that you use uncommon or generate project specific
@@ -5012,19 +5016,19 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The data will be checked and curated. #if$_DATAPLANT Furthermore, data will be quality controlled
-                    (QC) using automatic procedures as well as manual curation #endif$_DATAPLANT.
+                    (QC) using automatic procedures as well as manual curation#endif$_DATAPLANT.
                 </span>
             </p>
             <h2 class="c9" id="h.w5pimtt9qf6p"><span class="c4">2.3&nbsp;&nbsp;&nbsp;&nbsp;Allocation of
                     resources</span></h2>
             <p class="c10"><span class="c3">What are the costs for making data FAIR in your project?</span></p>
-            <p class="c0"><span class="c1">The $_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC
+            <p class="c0"><span class="c1">$_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC
                     consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
                     repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
             <p class="c0">
                 <span class="c1">
                     Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
-                    but not charged against the $_PROJECT or its members but by the operation budget of these
+                    but not charged against $_PROJECT or its members but by the operation budget of these
                     repositories.
                 </span>
             </p>
@@ -5033,16 +5037,16 @@ END:VEVENT`;
                     eligible as part of the Horizon 2020 or Horizon Europe grant (if compliant with the Grant Agreement
                     conditions).</span>
             </p>
-            <p class="c0"><span class="c1">The cost born by the $_PROJECT are covered by the project funding.
+            <p class="c0"><span class="c1">The cost born by $_PROJECT are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
                     DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of the $_PROJECT.</span></p>
+            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECT.</span></p>
             <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential
                     value, who decides and how/what data will be kept and for how long)?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decides on the
+                    The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decide on the
                     strategy to preserve data that are not submitted to end-point subject area repositories
                     #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
                     project ends. This will be in line with EU guidlines, institute policies, and data sharing based on
@@ -5055,9 +5059,9 @@ END:VEVENT`;
             <p class="c20">
                 <span class="c1">
                     Online platforms will be protected by vulnerability scanning, two-factor authorization and daily
-                    automatic backups allowing immediate recovery. All partners holding confidential project data to use
+                    automatic backups allowing immediate recovery. All partners holding confidential project data will use
                     secure platforms with automatic backups and offsite secure copies.
-                    #if$_DATAPLANT DataHUB and ARCs have been generated in DataPLANT, data security will be imposed.
+                    #if$_DATAPLANT As ARCs are stored in the PlantDataHub of DataPLANT, data security will be imposed.
                     This comprises secure storage, and the use of password and usernames is generally transferred via
                     separate safe media.#endif$_DATAPLANT
                 </span>
@@ -5066,7 +5070,7 @@ END:VEVENT`;
                     preservation and curation?</span></p>
             <p class="c0">
                 <span class="c1">
-                    Data will be made available via the $_PROJECT platform using a user-friendly front end that allows
+                    Data will be made available via the the $_PROJECT platform using a user-friendly front end that allows
                     data visualization. Besides this it will be ensured that data which can be stored in international
                     discipline related repositories which use specialized technologies:
                     
@@ -5138,7 +5142,7 @@ END:VEVENT`;
                 <span class="c1">
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by the $_PROJECT partners to adhere to
+                    activities using specific methods and procedures developed by $_PROJECT partners to adhere to
                     data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
@@ -5148,7 +5152,7 @@ END:VEVENT`;
             <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
             <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures
                     for data management? If yes, which ones?</span></p>
-                    <p class="c0"><span class="c1">Yes, the $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC .
+                    <p class="c0"><span class="c1">Yes, $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC.
                 </span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c6"><span class="c1"></span></p>
@@ -5284,7 +5288,7 @@ END:VEVENT`;
             </center>
 
             <h1 class="c13"><span class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU The $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
+            <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
                     #endif$_EU To best profit from open data, it is necessary not only to store data but to make data
                     Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data,
                     however, we also consider the need to protect individual data sets. #endif$_PROTECT
@@ -5293,9 +5297,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The aim of this document is to provide guidelines on principles guiding the data management in the
-                    $_PROJECT and what data will be stored by using the responses to the EU questionnaire on Data
-                    Management Plan (DMP) as a DMP
-                    document.
+                    $_PROJECT. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECT.
                 </span>
             </p>
             <p class="c0">
@@ -5330,7 +5332,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    The $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC,
+                    $_PROJECT will collect and/or generate the following types of raw data : $_PHENOTYPIC,
                     $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE,
                     $_EXCEL, $_CLONED-DNA data which are related to $_STUDYOBJECT. In addition, the raw data will also
                     be processed and modified using analytical pipelines, which may yield different results or include
@@ -5345,7 +5347,7 @@ END:VEVENT`;
                     objectives of the project?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
+                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -5521,10 +5523,10 @@ END:VEVENT`;
             <p class="c0"><span class="c3">To whom might it be useful ('data utility'), outside your project?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The data will initially benefit the $_PROJECT partners, but will also be made available to selected
+                    The data will initially benefit $_PROJECT partners, but will also be made available to selected
                     stakeholders closely involved in the project, and then the scientific community working on
                     $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
-                    use the data after publication. The data will be disseminated according to the $_PROJECT's
+                    use the data after publication. The data will be disseminated according to $_PROJECT's
                     dissemination and communication plan#if$_DATAPLANT, which aligns with DataPLANT platform or other
                     means#endif$_DATAPLANT.
                 </span>
@@ -5556,7 +5558,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. The $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping
                     Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
@@ -5590,7 +5592,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also
-                    remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -5748,7 +5750,7 @@ END:VEVENT`;
                     against their legitimate interests or other constraints as per the Grant Agreement.</span></p>
             <p class="c0">
                 <span class="c1">
-                    By default, all data sets from the $_PROJECT will be shared with the community and made openly
+                    By default, all data sets from $_PROJECT will be shared with the community and made openly
                     available. However, before the data are released, all will be provided with an opportunity to check
                     for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
                     This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
@@ -5880,7 +5882,7 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    #if$_PROPRIETARY The $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
+                    #if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
                     #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern
                     browser. Access will be possible through web interfaces. For data processing after obtaining raw
                     data, typical open-source software can be used. #endif!$_PROPRIETARY
@@ -5936,7 +5938,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also
-                    remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -5948,8 +5950,8 @@ END:VEVENT`;
             the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be
             edited in text processor files, but will be shared as pdf.
             Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-            vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the advanced
-            ontologies developed in DataPLANT. #endif$_DATAPLANT
+            vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the advanced
+            ontologies integrated in DataPLANT. #endif$_DATAPLANT
 
 
             </span>
@@ -5968,7 +5970,7 @@ END:VEVENT`;
                 <span class="c1">
                     Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they
                     are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies
-                    might have to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the DataPLANT biology
+                    might have to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the DataPLANT biology
                     ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT. Ontology databases such as OBO Foundry
                     will be used to publish ontology. #if$_DATAPLANT The DPBO is also published in GitHub
                     https://github.com/nfdi4plants/nfdi4plants_ontology #endif$_DATAPLANT.
@@ -5996,7 +5998,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The documentation will be provided in the form of ISA (Investigation Study Assay) and CWL (Common
-                    Workflow Language). #if$_DATAPLANT Here, the $_PROJECT will build on the ARC container, which
+                    Workflow Language). #if$_DATAPLANT Here, $_PROJECT will build on the ARC container, which
                     includes all the data, metadata, and documentations. #endif$_DATAPLANT
                 </span>
             </p>
@@ -6026,7 +6028,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
+                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -6095,13 +6097,13 @@ END:VEVENT`;
             <p class="c10"><span class="c3">What will the costs be for making data or other research outputs FAIR in
                     your project (e.g. direct and indirect costs related to storage, archiving, re-use, security,
                     etc.)?</span></p>
-            <p class="c0"><span class="c1">The $_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC
+            <p class="c0"><span class="c1">$_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC
                     consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
                     repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
             <p class="c0">
                 <span class="c1">
                     Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
-                    but not charged against the $_PROJECT or its members but by the operation budget of these
+                    but not charged against $_PROJECT or its members but by the operation budget of these
                     repositories.
                 </span>
             </p>
@@ -6110,17 +6112,17 @@ END:VEVENT`;
                     are eligible as part of the Horizon Europe grant (if compliant with the Grant Agreement
                     conditions)</span>
             </p>
-            <p class="c0"><span class="c1">The cost born by the $_PROJECT are covered by the project funding.
+            <p class="c0"><span class="c1">The cost born by $_PROJECT are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
                     DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of the $_PROJECT.</span></p>
+            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECT.</span></p>
             <p class="c10"><span class="c3">How will long term preservation be ensured? Discuss the necessary resources
                     to accomplish this (costs and potential value, who decides and how, what data will be kept and for
                     how long)?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decides on the
+                    The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decide on the
                     strategy to preserve data that are not submitted to end-point subject area repositories
                     #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
                     project ends. This will be in line with EU guidlines, institute policies, and data sharing based on
@@ -6133,9 +6135,8 @@ END:VEVENT`;
             <p class="c20">
                 <span class="c1">
                     Online platforms will be protected by vulnerability scanning, two-factor authorization and daily
-                    automatic backups allowing immediate recovery. All partners holding confidential project data to use
-                    secure platforms with automatic backups and offsite secure copies.
-                    #if$_DATAPLANT DataHUB and ARCs have been generated in DataPLANT, data security will be imposed.
+                    automatic backups allowing immediate recovery. All partners holding confidential project data will use secure platforms with automatic backups and offsite secure copies.
+                    #if$_DATAPLANT As ARCs are stored in the PlantDataHub of DataPLANT, data security will be imposed.
                     This comprises secure storage, and the use of password and usernames is generally transferred via
                     separate safe media.#endif$_DATAPLANT
                 </span>
@@ -6200,7 +6201,7 @@ END:VEVENT`;
                     At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
                     since this is plant data, there is no need for an ethics committee, however, diligence for plant
                     resource benefit
-                    sharing is considered . #issuewarning you have to check here and enter any due diligence here at the
+                    sharing is considered. #issuewarning you have to check here and enter any due diligence here at the
                     moment we are awaiting if Nagoya (🡺see Nagoya protocol) gets also part of sequence information. In
                     any case
                     if you use material not from your (partner) country and characterize this physically e.g.,
@@ -6216,7 +6217,7 @@ END:VEVENT`;
                 <span class="c1">
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by the $_PROJECT partners to adhere to
+                    activities using specific methods and procedures developed by $_PROJECT partners to adhere to
                     data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
@@ -6227,7 +6228,7 @@ END:VEVENT`;
             <p class="c0"><span class="c3">Do you, or will you, make use of other national/funder/sectorial/departmental
                     procedures for data management? If yes, which ones (please list and briefly describe them)?</span>
             </p>
-            <p class="c0"><span class="c1">Yes, the $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC .
+            <p class="c0"><span class="c1">Yes, $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC.
             </span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c6"><span class="c1"></span></p>
@@ -6304,7 +6305,7 @@ END:VEVENT`;
             </h3>
 
             #if$_EU
-            <p class="c0"><span class="c1">The $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
+            <p class="c0"><span class="c1">$_PROJECT is part of the Open Data Initiative (ODI) of the EU.
                     #endif$_EU To best profit from open data, it is necessary not only to store data but to make data
                     Findable, Accessible, Interoperable and Reusable (FAIR). #if$_PROTECT Open and FAIR data, however,
                     considers the need
@@ -6314,9 +6315,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The aim of this document is to provide guidelines on principles guiding the data management in the
-                    $_PROJECT and what data will be stored by using the responses to the DFG Data Management Plan (DMP)
-                    checklist
-                    to generate a DMP document.
+                    $_PROJECT. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECT.
                 </span>
             </p>
             <p class="c0">
@@ -6324,7 +6323,7 @@ END:VEVENT`;
                     The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP
                     is modified according to the DFG data management checklist. #if$_UPDATE It will be updated/its
                     validity
-                    checked during the $_PROJECT project several times. At the very least, this will happen at month
+                    checked during $_PROJECT several times. At the very least, this will happen at month
                     $_UPDATEMONTH. #endif$_UPDATE
                 </span>
             </p>
@@ -6459,7 +6458,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    The $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
+                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -6471,7 +6470,7 @@ END:VEVENT`;
             </p>
 
             <p class="c0">
-                <span class="c1">Public data will be extracted as described in paragraph 1.3. For the $_PROJECT,
+                <span class="c1">Public data will be extracted as described in paragraph 1.3. For $_PROJECT,
                     specific data sets will be generated by the consortium partners.</span>
             </p>
 
@@ -6538,7 +6537,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. The $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information About a Plant Phenotyping
                     Experiment),#endif$_MIAPPE #endif$_PHENOTYPIC
@@ -6572,7 +6571,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations #if$_DUBLINCORE Dublin Core,#endif$_DUBLINCORE #if$_MARC21 MARC 21,#endif$_MARC21 also
-                    remain part of the $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -6583,8 +6582,8 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-                    vocabularies might need to be extended. #if$_DATAPLANT Here, the $_PROJECT will build on the
-                    advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
+                    vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the
+                    advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                     Keywords about the experiment and the general consortium will be included, as well as an abstract
                     about the data, where useful. In addition, certain keywords can be auto-generated from dense
                     metadata and
@@ -6599,7 +6598,7 @@ END:VEVENT`;
                     In fact, open biomedical ontologies will be used where they are mature. As stated in the previous
                     question, sometimes ontologies and controlled vocabularies might have to be extended. #if$_DATAPLANT
                     Here, the
-                    $_PROJECT will build on the advanced ontologies developed in DataPLANT. #endif$_DATAPLANT
+                    $_PROJECT will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                 </span>
             </p>
             <h3 class="c0">
@@ -6609,7 +6608,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    The $_PROJECT aims at the following aim: $_PROJECTAIM. Therefore, data
+                    $_PROJECT aims at the following aim: $_PROJECTAIM. Therefore, data
                     collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION,
                     integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC
                     structure are absolutely necessary #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data
@@ -6671,10 +6670,10 @@ END:VEVENT`;
                     to use the data?</span>
             </h3>
             <p class="c0">
-                <span class="c1">The $_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC .</span>
+                <span class="c1">$_PROJECT will use common Research Data Management (RDM) tools such as #if$_DATAPLANT|$_NFDI resources developed by the NFDI of Germany,#endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructure developed by INRAe from France, #endif$_FRENCH #if$_EOSC and cloud service developed by EOSC (European Open Science Cloud)#endif$_EOSC.</span>
             </p>
             <p class="c0">
-                <span class="c1">#if$_PROPRIETARY The $_PROJECT relies on the tool(s) $_PROPRIETARY.
+                <span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY.
                     #endif$_PROPRIETARY</span>
             </p>
             <p class="c0">
@@ -6795,7 +6794,7 @@ END:VEVENT`;
                 <span class="c1">
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by the $_PROJECT partners to adhere to
+                    activities using specific methods and procedures developed by $_PROJECT partners to adhere to
                     data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
@@ -6850,8 +6849,8 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    The data will be useful for the $_PROJECT partners, the scientific community working on
-                    $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, the $_PROJECT also strives
+                    The data will be useful for $_PROJECT partners, the scientific community working on
+                    $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, $_PROJECT also strives
                     to collect the data
                     that has been disseminated and potentially advertise it#if$_DATAPLANT e.g. through the DataPLANT
                     platform or other means #endif$_DATAPLANT, if it is not included in a publication anyway, which is
@@ -6867,7 +6866,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    By default, all data sets from the $_PROJECT will be shared with the community and made openly
+                    By default, all data sets from $_PROJECT will be shared with the community and made openly
                     available. This is, however, after partners have had the ability to check for IP protection
                     (according to
                     agreements and background rights). #if$_INDUSTRY This applies in particular to data pertaining to
@@ -6888,7 +6887,7 @@ END:VEVENT`;
                     infrastructure? </span>
             </h3>
             <p class="c0">
-                #if$_DATAPLANT As the $_PROJECT is closely aligned with DataPLANT, the ARC converter and DataHUB will be
+                #if$_DATAPLANT As $_PROJECT is closely aligned with DataPLANT, the ARC converter and DataHUB will be
                 used to find the end-point repositories and upload to the repositories automatically. #endif$_DATAPLANT
                 <span class="c1"> </span>
             </p>
@@ -7006,16 +7005,16 @@ END:VEVENT`;
             </h3>
             <p class="c0">
                 <span class="c1">The costs comprise data curation, #if$_DATAPLANT ARC consistency checks,
-                    #endif$_DATAPLANT and maintenance on the $_PROJECT´s side.</span>
+                    #endif$_DATAPLANT and maintenance on $_PROJECT´s side.</span>
             </p>
             <p class="c0">
                 <span class="c1">
                     Additionally, last-level costs for storage are incurred by end-point repositories (e.g. ENA) but not
-                    charged against the $_PROJECT or its members but by the operation budget of these repositories.
+                    charged against $_PROJECT or its members but by the operation budget of these repositories.
                 </span>
             </p>
             <p class="c0">
-                <span class="c1">A large part of the cost is covered by the $_PROJECT #if$_DATAPLANT and the structures,
+                <span class="c1">A large part of the cost is covered by $_PROJECT #if$_DATAPLANT and the structures,
                     tools and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span>
             </p>
             <h3 class="c0">
@@ -7024,7 +7023,7 @@ END:VEVENT`;
             </h3>
             <p class="c0">
                 <span class="c1">As applicable, $_DATAOFFICER, who is responsible for ongoing data maintenance will also
-                    take care of it after the finish of the $_PROJECT. #if$_DATAPLANT DataPLANT as external data
+                    take care of it after the finish of $_PROJECT. #if$_DATAPLANT DataPLANT as external data
                     archives may provide such services in some cases. #endif$_DATAPLANT</span>
             </p>
 
@@ -7114,7 +7113,7 @@ END:VEVENT`;
                                          
                                          
                                     ">
-                    Practical Data Management Guide of the $_PROJECT
+                    Practical Data Management Guide of $_PROJECT
                 </span>
             </h1>
             <h1 class="c13">
@@ -7133,10 +7132,10 @@ END:VEVENT`;
                                                  
                                                  
                                             ">
-                            This practical guide of data management in the $_PROJECT should be considered as a minimum
+                            This practical guide of data management in $_PROJECT should be considered as a minimum
                             description, leaving flexibility to include additional actions of specific domain or to
                             national or local
-                            legislation.#if$_EU The $_PROJECT will follow EU FAIR principles.&nbsp; #endif$_EU&nbsp;
+                            legislation.#if$_EU $_PROJECT will follow EU FAIR principles.&nbsp; #endif$_EU&nbsp;
                         </span>
                     </p>
                     <br />
@@ -7154,7 +7153,7 @@ END:VEVENT`;
                                                  
                                                  
                                             ">
-                            The practical guide of data management in the $_PROJECT aims at providing a complete
+                            The practical guide of data management in $_PROJECT aims at providing a complete
                             walkthrough for the researcher. The contents are customized based on the user input in the
                             Data Management Plant
                             Generator (DMPG). The practices in this guide are customized to fit related legal, ethical,
@@ -7516,7 +7515,7 @@ END:VEVENT`;
                             across projects and safeguards that reuse established and tested protocols. Additionally, we
                             will use ontology
                             terms to enrich the data sets relying on free and open ontologies. In addition, additional
-                            ontology terms might be created and be canonized during the $_PROJECT.
+                            ontology terms might be created and be canonized during $_PROJECT.
                         </span>
                     </p>
                     <ol style="margin-top: 0; margin-bottom: 0; padding-inline-start: 48px;" start="3">
@@ -10333,7 +10332,7 @@ END:VEVENT`;
             <span class="c2">Data management plan of $_PROJECT for BBSRC</span>
             <ul class="c0 ">
 
-                <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types &ndash; The $_PROJECT will collect
+                <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types &ndash; $_PROJECT will collect
                         and/or generate the following types of raw data : $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ,
                         $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data
                         which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and
@@ -10405,7 +10404,7 @@ END:VEVENT`;
                         $_PROJECT partners, but will also be made available to selected stakeholders closely involved in
                         the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In
                         addition, the general public interested in $_STUDYOBJECT can also use the data after
-                        publication. The data will be disseminated according to the $_PROJECT&#39;s dissemination and
+                        publication. The data will be disseminated according to $_PROJECT&#39;s dissemination and
                         communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other
                         means#endif$_DATAPLANT</span></li>
 
