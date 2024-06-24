@@ -14,8 +14,8 @@ body.tour-active-element {
 
 .popover-tour {
   padding: 5px 10px;
-  min-width: 200px;
-  width: 33vw;
+  min-width: 400px;
+  max-height: 80%;
   max-width: 50%;
   font-size: 14px;
   z-index: 1051;
