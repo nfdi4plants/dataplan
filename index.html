@@ -58,7 +58,7 @@
     {
         //verbose  console.log("browser is supported");
     }
-
+    var debug;
     var doc_name = 'dmp1'; // default document to use at the first page load
     var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
     var scroll_y = window.localStorage.getItem("scroll_y");
@@ -334,7 +334,11 @@
      * 
      * @global
      */
-
+    function deb(log){
+        if (debug){
+            console.log(log)
+        }
+    }
     function enter2tab() { // let enter function like tab
 
         if (window.event && window.event.keyCode == 13) {
@@ -588,23 +592,24 @@
 
         for (let answers in saved_a["replace"]) {
             let singleOption = {};
-            singleOption[answers] = saved_a["replace"][answers] || answers.split("_")[1];
+            singleOption[answers] = saved_a["replace"][answers];
             //verbose  console.log(singleOption);
 
-            find_replace(singleOption);
+            find_replace(answers, singleOption[answers]);
 
         }
+        let singleOption = {"checked":[], "unchecked":[]};
         for (let answers in saved_a["checkbox"]) {
-            let singleOption = {};
-            singleOption[answers] = {
-                "checked": saved_a["checkbox"][answers]["checked"],
-                "unchecked": saved_a["checkbox"][answers]["unchecked"]
+            
+            singleOption.checked.push(...saved_a["checkbox"][answers]["checked"]);
+            singleOption.unchecked.push(...saved_a["checkbox"][answers]["unchecked"]);
+               
             }
-            //verbose  console.log(singleOption);
+            //console.log(singleOption);
 
             checkbox(singleOption);
 
-        }
+    
         //verbose  console.log("answer reload is finished");
         issue_warning();
 
@@ -874,15 +879,9 @@
         const selection = window.getSelection();
         selection.removeAllRanges();
         // all objects which first class name is the option name
-        const class_name = Object.keys(options)[0];
-        //verbose  console.log(class_name);
-        const checked = options[class_name]["checked"];
-        const unchecked = options[class_name]["unchecked"];
-
-        ////verbose  console.log([...unchecked]);
-
-        check_uncheck(unchecked, match_remove, match_mod, "uncheck");
-        check_uncheck(checked, match_mod, match_remove, "check");
+        
+        check_uncheck(options );
+       
 
 
     }
@@ -895,7 +894,7 @@
 
     function match_mod(in_range, before) {
 
-        const text_after_if = (in_range.toString().slice(3));
+        
         //verbose   console.log("mach_mod function: check_box_item: " + before);
 
         const parent_node = document.createElement("span");
@@ -906,33 +905,19 @@
         parent_node.setAttribute("onmouseleave", 'document.getElementById("' + before + '").parentElement.classList.remove("border-highlight");  ');
         parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView();document.getElementById("' + before + '").focus(); ');
         parent_node.setAttribute("name", before + "-to-");
-        let text_range = document.createRange();
-        text_range.setStart(in_range.endContainer, in_range.endOffset);
-        window.find("#endif" + text_after_if);
-        const endif_selection = window.getSelection();
-        let end_if_range = endif_selection.getRangeAt(0);
-        text_range.setEnd(end_if_range.startContainer, end_if_range.startOffset);
-        let last_range = document.createRange();
+
         
-            in_range.deleteContents();
             
-            const doc_frag = text_range.cloneContents();
-            //console.log("error doc_frag: " + doc_frag.textContent );
+            
+            const doc_frag = in_range.cloneContents();
+            in_range.deleteContents();
+            //console.log(" doc_frag: " + doc_frag.textContent );
             //const node1 = document.createTextNode(doc_frag);
             parent_node.appendChild(doc_frag);
             //verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
-            
-        
-        
 
-        
-
-
-        end_if_range.deleteContents();
-        end_if_range.detach();
-        text_range.deleteContents();
         in_range.insertNode(parent_node);
-        text_range.detach();
+
         //verbose   console.log("in_range is :" + in_range.toString());
 
     }
@@ -940,257 +925,258 @@
 
 
 
-    function check_uncheck(checked, callback1, callback2, check_or_uncheck) {
+    // function check_uncheck1(checked, callback1, callback2, check_or_uncheck) {
 
-        for (let i = 0; i < checked.length; i++) {
+    //     for (let i = 0; i < checked.length; i++) {
 
-            var check_box_item = checked[i];
-            ////verbose  console.log(check_box );
-            let name = check_box_item.split('_')[1];
-            // here the ________ should not match anything, make sure not to use it as a real placeholder
-            let match_name = "_________";
-            try {
-                match_name = prefix.concat(name.toUpperCase());
-                //verbose  console.log("check for loop, starts " + match_name + " " + checked.length);
-            } catch (e) { }
+    //         var check_box_item = checked[i];
+    //         ////verbose  console.log(check_box );
+    //         let name = check_box_item.split('_')[1];
+    //         // here the ________ should not match anything, make sure not to use it as a real placeholder
+    //         let match_name = "_________";
+    //         try {
+    //             match_name = prefix.concat(name.toUpperCase());
+    //             //verbose  console.log("check for loop, starts " + match_name + " " + checked.length);
+    //         } catch (e) { }
 
 
 
 
-            // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
+    //         // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
 
-            if (window.find) //for chrome, firefox
-            {
+    //         if (window.find) //for chrome, firefox
+    //         {
 
 
-                let ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-                while (ns) {
-                    // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
-                    //verbose  console.log("found");
+    //             let ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+    //                 aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+    //             while (ns) {
+    //                 // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
+    //                 //verbose  console.log("found");
 
-                    let remove_range = window.getSelection().getRangeAt(0).cloneRange();
-                    let left_range = window.getSelection().getRangeAt(0).cloneRange();
-                    let right_range = window.getSelection().getRangeAt(0).cloneRange();
-                    let original_range = window.getSelection().getRangeAt(0).cloneRange();
-                    let if_range = window.getSelection().getRangeAt(0).cloneRange();
+    //                 let remove_range = window.getSelection().getRangeAt(0).cloneRange();
+    //                 let left_range = window.getSelection().getRangeAt(0).cloneRange();
+    //                 let right_range = window.getSelection().getRangeAt(0).cloneRange();
+    //                 let original_range = window.getSelection().getRangeAt(0).cloneRange();
+    //                 let if_range = window.getSelection().getRangeAt(0).cloneRange();
 
 
-                    let extended_begin_node;
-                    let extended_begin_focus;
-                    let extended_end_node;
-                    let extended_end_focus;
-                    let begin_node;
-                    let begin_focus;
+    //                 let extended_begin_node;
+    //                 let extended_begin_focus;
+    //                 let extended_end_node;
+    //                 let extended_end_focus;
+    //                 let begin_node;
+    //                 let begin_focus;
 
+    //                 console.log(remove_range.toString())
 
-                    if ((window.getSelection().anchorOffset === 0) && (window.getSelection().anchorNode.previousSibling === null)) {
-                        begin_node = window.getSelection().anchorNode;
-                        begin_focus = window.getSelection().anchorOffset;
-                        console.log("begin extended through focus " + begin_node + "  end focus is " + begin_focus + " anchor case no.1");
-                    } else if (window.getSelection().anchorOffset < 3) {
 
-                        begin_node = window.getSelection().anchorNode.previousSibling;
-                        begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-                        //verbose    console.log("anchor case 2 begin extended through focus " + begin_node);
-                    } else {
+    //                 if ((window.getSelection().anchorOffset === 0) && (window.getSelection().anchorNode.previousSibling === null)) {
+    //                     begin_node = window.getSelection().anchorNode;
+    //                     begin_focus = window.getSelection().anchorOffset;
+    //                     console.log("begin extended through focus " + begin_node + "  end focus is " + begin_focus + " anchor case no.1");
+    //                 } else if (window.getSelection().anchorOffset < 3) {
+    //                     console.log("anchor case 2 begin extended through focus " + window.getSelection().anchorNode.parentNode.parentNode.textContent);
+    //                     begin_node = window.getSelection().anchorNode.previousSibling;
+                        
+    //                     begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
+                         
+    //                 } else {
 
-                        begin_node = window.getSelection().anchorNode;
+    //                     begin_node = window.getSelection().anchorNode;
 
-                        begin_focus = window.getSelection().anchorOffset - 3;
-                        //verbose console.log("anchor case 3 begin extended through node " + begin_node.data);
+    //                     begin_focus = window.getSelection().anchorOffset - 3;
+    //                     //verbose console.log("anchor case 3 begin extended through node " + begin_node.data);
 
-                    }
-                    if ((window.getSelection().focusOffset == window.getSelection().focusNode.length) && (window.getSelection().focusNode.nextSibling === null)) {
-                        extended_end_node = window.getSelection().focusNode;
-                        extended_end_focus = window.getSelection().focusOffset;
-                        //verbose     console.log("focus case 1 end extended through focus " + extended_end_node.data);
+    //                 }
 
-                    } else if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
-                        extended_end_node = window.getSelection().focusNode.nextSibling;
-                        extended_end_focus = 1;
-                        //verbose     console.log("focus case 2 end extended through next node ");
 
-                    } else {
-                        extended_end_node = window.getSelection().focusNode;
-                        extended_end_focus = window.getSelection().focusOffset + 1;
-                        //verbose     console.log("focus case 3 end extended through focus " + extended_end_node.data);
+    //                 if ((window.getSelection().focusOffset == window.getSelection().focusNode.length) && (window.getSelection().focusNode.nextSibling === null)) {
+    //                     extended_end_node = window.getSelection().focusNode;
+    //                     extended_end_focus = window.getSelection().focusOffset;
+    //                     //verbose     console.log("focus case 1 end extended through focus " + extended_end_node.data);
 
-                    }
+    //                 } else if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
+    //                     extended_end_node = window.getSelection().focusNode.nextSibling;
+    //                     extended_end_focus = 1;
+    //                     //verbose     console.log("focus case 2 end extended through next node ");
 
-                    right_range.setEnd(extended_end_node, extended_end_focus);
+    //                 } else {
+    //                     extended_end_node = window.getSelection().focusNode;
+    //                     extended_end_focus = window.getSelection().focusOffset + 1;
+    //                     //verbose     console.log("focus case 3 end extended through focus " + extended_end_node.data);
 
-                    if_range.setStart(begin_node, begin_focus);
-                    let if_text = if_range.toString();
-                    const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
-                    const right_text = right_range.toString();
+    //                 }
 
+    //                 right_range.setEnd(extended_end_node, extended_end_focus);
 
-                    const right_cha = right_text.slice(-1);
+    //                 if_range.setStart(begin_node, begin_focus);
+    //                 let if_text = if_range.toString();
+    //                 const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
+    //                 const right_text = right_range.toString();
 
 
-                    const left_text = left_range.toString();
+    //                 const right_cha = right_text.slice(-1);
 
 
+    //                 const left_text = left_range.toString();
 
-                    place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-                    //console.log("left_text is: "+ left_text +" place holder: " + place_holder);
-                    //verbose console.log("if_cha: " + if_cha);
 
-                    if (if_cha == "|" && check_or_uncheck == "check") {
-                        if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
-                            extended_begin_node = window.getSelection().anchorNode.previousSibling;
-                            extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
-                            //verbose  console.log("begin extended through focus " + extended_begin_node);
 
+    //                 place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
+    //                 //console.log("left_text is: "+ left_text +" place holder: " + place_holder);
+    //                 //verbose console.log("if_cha: " + if_cha);
 
+    //                 if (if_cha == "|" && check_or_uncheck == "check") {
+    //                     if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
+    //                         extended_begin_node = window.getSelection().anchorNode.previousSibling;
+    //                         extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
+    //                         //verbose  console.log("begin extended through focus " + extended_begin_node);
 
-                        } else {
 
-                            extended_begin_node = window.getSelection().anchorNode;
 
-                            extended_begin_focus = window.getSelection().anchorOffset - 13;
-                            //verbose  console.log("begin extended through node " + extended_begin_node.data);
+    //                     } else {
 
-                        }
+    //                         extended_begin_node = window.getSelection().anchorNode;
 
+    //                         extended_begin_focus = window.getSelection().anchorOffset - 13;
+    //                         //verbose  console.log("begin extended through node " + extended_begin_node.data);
 
-                        left_range.setStart(extended_begin_node, extended_begin_focus);
-                        const left_text = left_range.toString();
+    //                     }
 
-                        //verbose  console.log("left_text: " + left_text);
-                        place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-                        //verbose  console.log("place holder: " + place_holder);
-                        try { selection.removeAllRanges(); } catch (e) {
 
-                        };
-                        window.find(place_holder);
-                        if_range = window.getSelection().getRangeAt(0);
-                        if_text = if_range.toString();
+    //                     left_range.setStart(extended_begin_node, extended_begin_focus);
+    //                     const left_text = left_range.toString();
 
-                        //console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-                        //console.log(" selection updated because of \| : "   + "________" + if_text);
-                        callback1(if_range, check_box_item);
-                        try { selection.removeAllRanges(); } catch (e) {
-                        }
-                    }
-                    // to match different conditions} 
-                    else if (if_cha == "|" && check_or_uncheck == "uncheck") {
-                        window.getSelection().removeAllRanges();
-                        window.find(if_cha + left_text);
-                        if_range = window.getSelection().getRangeAt(0);
-                        if_text = if_range.toString();
+    //                     //verbose  console.log("left_text: " + left_text);
+    //                     place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
+    //                     //verbose  console.log("place holder: " + place_holder);
+    //                     try { selection.removeAllRanges(); } catch (e) {
 
-                         //console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+    //                     };
+    //                     window.find(place_holder);
+    //                     if_range = window.getSelection().getRangeAt(0);
+    //                     if_text = if_range.toString();
 
-                        match_remove(if_range);
-                        window.getSelection().removeAllRanges();
-                    }
-                    else if (if_cha == "f") {
+    //                     console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
+    //                     //console.log(" selection updated because of \| : "   + "________" + if_text);
+    //                     callback1(if_range, check_box_item);
+    //                     try { selection.removeAllRanges(); } catch (e) {
+    //                     }
+    //                 }
+    //                 // to match different conditions} 
+    //                 else if (if_cha == "|" && check_or_uncheck == "uncheck") {
+    //                     window.getSelection().removeAllRanges();
+    //                     window.find(if_cha + left_text);
+    //                     if_range = window.getSelection().getRangeAt(0);
+    //                     if_text = if_range.toString();
 
-                        if (right_cha == "|") {
+    //                      console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
 
-                            if (check_or_uncheck == "check") {
-                                window.find(" ");
+    //                     match_remove(if_range);
+    //                     window.getSelection().removeAllRanges();
+    //                 }
+    //                 else if (if_cha == "f") {
 
-                                if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-                                callback1(if_range, check_box_item);
-                                if_range.detach();
+    //                     if (right_cha == "|") {
 
+    //                         if (check_or_uncheck == "check") {
+    //                             window.find(" ");
 
-                            } else if (check_or_uncheck == "uncheck") {
-                                console.log("uncheck with |, the right_range will be move to: " + right_range.toString());
+    //                             if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
+    //                             callback1(if_range, check_box_item);
+    //                             if_range.detach();
 
-                                right_range.deleteContents();
-                                right_range.detach;
 
+    //                         } else if (check_or_uncheck == "uncheck") {
+    //                             console.log("uncheck with |, the right_range will be move to: " + right_range.toString());
 
-                            }
+    //                             right_range.deleteContents();
+    //                             right_range.detach;
 
-                        } else {
-                            callback1(if_range, check_box_item);
-                            if_range.detach();
-                        }
 
+    //                         }
 
-                    } else if (if_cha == "," || if_cha == " ") {
-                        if (check_or_uncheck == "check") {
+    //                     } else {
+    //                         callback1(if_range, check_box_item);
+    //                         if_range.detach();
+    //                     }
 
-                            console.log("!!!! replace match text");					
-                            original_range.deleteContents();
-                            const name_ele = document.getElementById(check_box_item);
-                            try { name_ele.dataset.replace; } catch (error) {
 
+    //                 } else if (if_cha == "," || if_cha == " ") {
+    //                     if (check_or_uncheck == "check") {
 
-                            }
-                            const before = check_box_item;
-                            const parent_node = document.createElement("span");
-                            parent_node.classList.add("text-primary");
-                            parent_node.setAttribute("onmouseover", 'const e = document.getElementById("' + before + '") ;e.parentElement.classList.add("border-highlight");e.focus({preventScroll: true})');
+    //                         //console.log("!!!! replace match text");					
+    //                         original_range.deleteContents();
+    //                         const name_ele = document.getElementById(check_box_item);
+    //                         const before = check_box_item;
+    //                         const parent_node = document.createElement("span");
+    //                         parent_node.classList.add("text-primary");
+    //                         parent_node.setAttribute("onmouseover", 'const e = document.getElementById("' + before + '") ;e.parentElement.classList.add("border-highlight");e.focus({preventScroll: true})');
 
 
-                            parent_node.setAttribute("onmouseleave", 'document.getElementById("' + before + '").parentElement.classList.remove("border-highlight");  ');
-                            parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView();document.getElementById("' + before + '").focus(); ');
-                            parent_node.setAttribute("name", before + "-to-");
-                            if (doc_name.split("-")[0] == "bmbf") {
-                                parent_node.innerHTML = HtmlEncode(name_ele.dataset.replacede);
-                            } else {
-                                parent_node.innerHTML = HtmlEncode(name_ele.dataset.replace);
-                            }
+    //                         parent_node.setAttribute("onmouseleave", 'document.getElementById("' + before + '").parentElement.classList.remove("border-highlight");  ');
+    //                         parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView();document.getElementById("' + before + '").focus(); ');
+    //                         parent_node.setAttribute("name", before + "-to-");
+    //                         if (doc_name.split("-")[0] == "bmbf") {
+    //                             parent_node.innerHTML = HtmlEncode(name_ele.dataset.replacede);
+    //                         } else {
+    //                             parent_node.innerHTML = HtmlEncode(name_ele.dataset.replace);
+    //                         }
 
 
-                            original_range.insertNode(parent_node);
-                            original_range.detach();
-                        }
-                        else if (check_or_uncheck == "uncheck") {
-                            //verbose  console.log("!!!! remove the matched text");
-                            remove_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
-                            remove_range.deleteContents();
-                            remove_range.detach();
+    //                         original_range.insertNode(parent_node);
+    //                         original_range.detach();
+    //                     }
+    //                     else if (check_or_uncheck == "uncheck") {
+    //                         //verbose  console.log("!!!! remove the matched text");
+    //                         remove_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
+    //                         remove_range.deleteContents();
+    //                         remove_range.detach();
 
-                        }
+    //                     }
 
 
 
 
 
-                    } else if (if_cha == "!") {
+    //                 } else if (if_cha == "!") {
 
-                        if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
-                            extended_begin_node = window.getSelection().anchorNode.previousSibling;
-                            extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-                            //verbose  console.log("begin extended through focus " + extended_begin_node);
+    //                     if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
+    //                         extended_begin_node = window.getSelection().anchorNode.previousSibling;
+    //                         extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
+    //                         //verbose  console.log("begin extended through focus " + extended_begin_node);
 
-                        } else {
+    //                     } else {
 
-                            extended_begin_node = window.getSelection().anchorNode;
+    //                         extended_begin_node = window.getSelection().anchorNode;
 
-                            extended_begin_focus = window.getSelection().anchorOffset - 4;
-                            //verbose  console.log("begin extended through node " + extended_begin_node.data);
+    //                         extended_begin_focus = window.getSelection().anchorOffset - 4;
+    //                         //verbose  console.log("begin extended through node " + extended_begin_node.data);
 
-                        }
+    //                     }
 
-                        left_range.setStart(extended_begin_node, extended_begin_focus);
-                        const left_text = left_range.toString();
+    //                     left_range.setStart(extended_begin_node, extended_begin_focus);
+    //                     const left_text = left_range.toString();
 
-                        //verbose  console.log("left_text with <!>: " + left_text);
-                        callback2(left_range, check_box_item);
+    //                     //verbose  console.log("left_text with <!>: " + left_text);
+    //                     callback2(left_range, check_box_item);
 
-                    } else {
+    //                 } else {
 
-                        //verbose  console.log("_____other cases");
-                        //verbose  console.log("last character is: ", right_cha);
-                        callback1(if_range, check_box_item);
-                        if_range.detach();
-                    }
+    //                     //verbose  console.log("_____other cases");
+    //                     //verbose  console.log("last character is: ", right_cha);
+    //                     callback1(if_range, check_box_item);
+    //                     if_range.detach();
+    //                 }
 
-                    //window.find("#endif");
+    //                 //window.find("#endif");
 
-                    if_range.detach();
-                    ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-                }
-            }
+    //                 if_range.detach();
+    //                 ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+    //                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+    //             }
+    //         }
 
 
             //else if (document.body.createTextRange) //for ie etc.
@@ -1203,7 +1189,147 @@
 
             //verbose  console.log("check for loop, ends " + match_name);
 
-        }
+    //     }
+    // }
+
+function check_uncheck(checked_unchecked) {
+    const selection= window.getSelection();
+    selection.removeAllRanges();
+
+    var checkboxOptions = {"checked":[], "unchecked":[]};
+        checked_unchecked.checked.forEach((e)=> {checkboxOptions.checked.push(prefix.concat(e.split("_")[1].toUpperCase()) ) } )
+        checked_unchecked.unchecked.forEach((e)=> {checkboxOptions.unchecked.push(prefix.concat(e.split("_")[1].toUpperCase()) ) } )
+
+            // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
+
+            if (window.find) //for chrome, firefox
+            {
+                let ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                while (ns) {
+                    // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
+                    //verbose  console.log("found");
+                    
+                    let if_range = window.getSelection().getRangeAt(0).cloneRange();
+                    window.find(" ", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 0,aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+
+                    if_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+                    const endif_range_string = "#endif" + if_range.toString().split("#if").slice(-1)[0];
+
+                    window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    let endif_range = window.getSelection().getRangeAt(0).cloneRange();
+                    debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
+ 
+                    
+                    let in_range = document.createRange();
+                    
+                    in_range.setStart(if_range.endContainer, if_range.endOffset);
+                    
+                    try{
+                        in_range.setEnd(endif_range.startContainer, endif_range.startOffset-1);
+                    } catch(e){
+                        console.error(e);
+                        in_range.setEnd(endif_range.startContainer.previousSibling, endif_range.startContainer.previousSibling.length -1);
+                    }
+                    
+                    const placeholder_strings = if_range.toString().split("#if").slice(-1)[0];
+                    const if_type_string = placeholder_strings.slice(0,1);
+                    const holders = placeholder_strings.split("|");
+                    
+                    //console.log("placeholder_strings :"+ placeholder_strings+ " holders: "+ holders + " if_type_string:"+ if_type_string);
+                    let check_name;
+                    let if_in = false;
+  
+                    if (if_type_string == "$"){
+                        for (ph of holders){
+                        for (const [index, element] of Object.entries(checkboxOptions.checked)){
+                            
+                            if (ph == element){
+                                if_in = true;
+                                check_name = checked_unchecked.checked[index];
+                                //  console.log("ph =  "+ph);
+                                //  console.log("element =  "+element);
+                                //  console.log("check_name ="+check_name)
+                                break;
+                                   }
+                                }
+                                    
+                                    
+                            } 
+                        if (if_in){
+                            deb("if_range :"+ if_range.toString()+ "\n \nin_range :"+ in_range.toString()+ "\n \n endif_range: "+ endif_range.toString());
+                            
+                            //console.log("yes, check_name is: " +check_name)
+                            match_mod(in_range, check_name );
+                            
+
+                        }else {
+                            deb("if_range :"+ if_range.toString()+ "\n \nin_range :"+ in_range.toString()+ "\n \n endif_range: "+ endif_range.toString());
+                            match_remove(in_range)
+                        }
+                    } else if (if_type_string == "!" ){
+
+                        for (ph of holders){
+                            for (const [index, element] of Object.entries(checkboxOptions.unchecked)){
+                                //console.log("element ="+element);
+                                if (ph.replace("!","") == element){
+                                    if_in = true;
+                                    // console.log("ph =  "+ph);
+                                    // console.log("element =  "+element);
+                                    check_name = checked_unchecked.unchecked[index];
+                                    // console.log("check_name ="+check_name);
+                                    break;
+                                    }
+                                }
+                            }
+                        if (if_in){
+                            
+                            match_mod(in_range, check_name)
+                        }else {
+                            match_remove(in_range);
+                        }
+                    }
+
+                    
+                    
+                    if_range.deleteContents();
+                    if_range.detach();
+                    endif_range.deleteContents();
+                    endif_range.detach();
+
+
+                ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                }
+            }
+        for (holder of checked_unchecked.checked ){
+            let after;
+            // console.log("holder is : "+ holder);
+            const name_ele = document.getElementById(holder);
+
+            if (doc_name.split("-")[0] == "bmbf") {
+                                after = HtmlEncode(name_ele.dataset.replacede);
+                            } else {
+                                after = HtmlEncode(name_ele.dataset.replace);
+                            }
+            const before = "$_" + holder.split("_")[1].toUpperCase() ;
+            find_replace(before, after);
+
+             }
+
+
+            //else if (document.body.createTextRange) //for ie etc.
+            //{
+            //	let range_if = document.body.createTextRange();
+            //	while (range_if.findText(match_name)) {
+            //		range_if.pasteHTML('atest');
+            //	}
+            //}
+
+            //verbose  console.log("check for loop, ends " + match_name);
+
+        
     }
 
 
@@ -1213,16 +1339,13 @@
      * @param {string} right_range - the extended keyword (includes #if and #endif) need to be removed.
      *
      */
-    function match_remove(right_range, check_box_item) {
-
-        const text_after_if = (right_range.toString().slice(3));
-        //verbose  console.log("mach_remove function: after_endif: " + text_after_if);
-
-        window.find("#endif" + text_after_if);
-
-        right_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-        right_range.deleteContents();
-        right_range.detach();
+    function match_remove(in_range) {
+       deb("in range is " + in_range);
+        
+       in_range.collapse(true);
+        in_range.deleteContents();
+        in_range.detach();
+        
 
     }
 
@@ -1238,13 +1361,11 @@
      * @param {string} before - the keyword need to be replaced.
      * @param {string} after - the formal text represented by the keyword.
      */
-    function find_replace(option) {
+    function find_replace(before, after) {
 
         const selection = window.getSelection();
         selection.removeAllRanges();
 
-        const before = Object.keys(option)[0];
-        const after = option[before];
         //verbose  console.log("before: " + before + ", after: " + after);
 
         if (window.find) //for chrome, firefox
@@ -4432,11 +4553,7 @@ END:VEVENT`;
             <p class="c0">
 
                 <span class="c1">
-                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection#if!$_VVISUALIZATION
-                    and integration #endif!$_VVISUALIZATION#if$_VVISUALIZATION, integration and visualization
-                    #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
-                    #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
-                    necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
+                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
                     be informed about the provenance of data analysis information. Stakeholders must also be informed
                     about the provenance of data. It is therefore necessary to ensure that the data are well generated
                     and also well annotated with metadata using open standards, as laid out in the next section.
@@ -4482,7 +4599,7 @@ END:VEVENT`;
             <ul style="list-style-type:disc;">
 
 
-                #if$_GENETIC
+                #if$_GENETIC&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and
@@ -4491,9 +4608,9 @@ END:VEVENT`;
                         </span>
                     </p>
                 </li>
-                #endif$_GENETIC
+                #endif$_GENETIC 
 
-                #if$_GENOMIC
+                #if$_GENOMIC&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Genomic data will be created from sequencing data, which will be processed to
@@ -4501,9 +4618,9 @@ END:VEVENT`;
                             SNPs, microsatellites and structural variants. </span>
                     </p>
                 </li>
-                #endif$_GENOMIC
+                #endif$_GENOMIC 
 
-                #if$_CLONED-DNA
+                #if$_CLONED-DNA&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original
@@ -4514,9 +4631,9 @@ END:VEVENT`;
                         </span>
                     </p>
                 </li>
-                #endif$_CLONED-DNA
+                #endif$_CLONED-DNA 
 
-                #if$_TRANSCRIPTOMIC
+                #if$_TRANSCRIPTOMIC&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Methods of transcriptomics data collection will be selected from microarrays,
@@ -4524,9 +4641,9 @@ END:VEVENT`;
                             hybridization. RNA-Seq data will be collected in seperate methods.</span>
                     </p>
                 </li>
-                #endif$_TRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC&nbsp; 
 
-                #if$_RNASEQ
+                #if$_RNASEQ&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
@@ -4534,15 +4651,16 @@ END:VEVENT`;
                             data will be processed using estabilished biofirmatics piplines. </span>
                     </p>
                 </li>
-                #endif$_RNASEQ
-                #if$_METABOLOMIC
+                #endif$_RNASEQ&nbsp; 
+                #if$_METABOLOMIC&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass
                             spectrometry using targeted or untargeted approaches.</span>
                     </p>
                 </li>
-                #endif$_METABOLOMIC #if$_PROTEOMIC
+                #endif$_METABOLOMIC 
+                #if$_PROTEOMIC&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Proteomic data will be generated using coupled chromatography and mass
@@ -4551,9 +4669,9 @@ END:VEVENT`;
                             modifications and the characterization of protein interactions.</span>
                     </p>
                 </li>
-                #endif$_PROTEOMIC
+                #endif$_PROTEOMIC 
 
-                #if$_PHENOTYPIC
+                #if$_PHENOTYPIC&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Phenotypic data will be generated using phenotyping platforms and
@@ -4563,10 +4681,10 @@ END:VEVENT`;
                             indicators, among others. </span>
                     </p>
                 </li>
-                #endif$_PHENOTYPIC
+                #endif$_PHENOTYPIC 
  
 
-                #if$_TARGETED
+                #if$_TARGETED&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or
@@ -4574,10 +4692,10 @@ END:VEVENT`;
                             are fully documented in the laboratory notebook. </span>
                     </p>
                 </li>
-                #endif$_TARGETED
+                #endif$_TARGETED 
 
 
-                #if$_IMAGE
+                #if$_IMAGE&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and
@@ -4585,9 +4703,9 @@ END:VEVENT`;
                             photo information will be archived.</span>
                     </p>
                 </li>
-                #endif$_IMAGE
+                #endif$_IMAGE 
                 
-                #if$_MODELS
+                #if$_MODELS&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Model data will be generated by using software simulations. The complete
@@ -4595,24 +4713,24 @@ END:VEVENT`;
                             documented and archived. </span>
                     </p>
                 </li>
-                #endif$_MODELS
+                #endif$_MODELS 
 
-                #if$_CODE
+                #if$_CODE&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Computer code will be produced by programmers. </span>
                     </p>
                 </li>
-                #endif$_CODE
+                #endif$_CODE  
 
-                #if$_EXCEL
+                #if$_EXCEL&nbsp; 
                 <li>
                     <p class="c0">
                         <span class="c1"> Excel data will be generated by data analysts by using MS Office or
                             open-source software. </span>
                     </p>
                 </li>
-                #endif$_EXCEL
+                #endif$_EXCEL 
 
                 
 
@@ -4620,7 +4738,7 @@ END:VEVENT`;
             </ul>
 
 
-            #if$_PREVIOUSPROJECTS
+            #if$_PREVIOUSPROJECTS&nbsp; 
             <p class="c0"><span class="c1"> Data from previous projects such as $_PREVIOUSPROJECTS will be considered.
                 </span></p>
             #endif$_PREVIOUSPROJECTS
@@ -4670,7 +4788,7 @@ END:VEVENT`;
                         #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
                         Survey), #endif$_MIMARKSSURVEY
                         #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
-                        #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
+                        #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG 
                         #endif$_GENOMIC|$_GENETIC
                         #if$_TRANSCRIPTOMIC
                         #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
@@ -4865,8 +4983,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c3">What methods or software tools are needed to access the data?</span></p>
-            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY.
-                    #endif$_PROPRIETARY</span></p>
+            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY </span></p>
             <p class="c0">
                 <span class="c1">
                     #if!$_PROPRIETARY No specialized software will be needed to access the data, just a modern browser.
@@ -5192,64 +5309,62 @@ END:VEVENT`;
             </h2>
             <p class="c0"><span class="c1"></span></p>
             
-            <p class="c0"> #if$_DATAPLANT <span class="c11"> ARC </span> <span class="c1"> Annotated Research Context</span> #endif$_DATAPLANT </span></p>
+            <p class="c0"> #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> #endif$_DATAPLANT </p>
 
-            <p class="c0"><span class="c11">CC</span><span class="c1"> Creative Commons</span></p>
-            <p class="c0"><span class="c11">CC CEL</span><span class="c1"> Creative Commons Rights Expression
-                    Language</span></p>
-            <p class="c0"> #if$_PROTEOMIC #if$_CHEBI<span class="c11">ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> #endif$_CHEBI #endif$_PROTEOMIC </p>     
-            <p class="c0"><span class="c11">DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
-            <p class="c0"><span class="c11">DMP</span><span class="c1"> Data Management Plan</span></p>
-            <p class="c0"><span class="c11">DoA</span><span class="c1"> Description of Action</span></p>
-            <p class="c0"><span class="c11">DOI</span><span class="c1"> Digital Object Identifier</span></p>
-            <p class="c0"><span class="c11">EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
-            <p class="c0"> #if$_PHENOTYPIC #if$_EDAL <span class="c11">e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> #endif$_EDAL #endif$_PHENOTYPIC </p> 
-            #if$_GENETIC|$_GENOMIC  #if$_ENA <p class="c0"> <span class="c11"> ENA </span> <span class="c1"> European Nucleotide Archive </span></p> #endif$_ENA  #endif$_GENETIC|$_GENOMIC
-            <p class="c0"><span class="c11">EU </span><span class="c1">European Union</span></p>
-            <p class="c0"><span class="c11">FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
-            <p class="c0"><span class="c11">GDPR</span><span class="c1"> General data protection regulation (of the
-                    EU)</span></p>
-            <p class="c0">  #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO <span class="c11">GEO</span><span class="c1"> Gene Expression Omnibus </span>  #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC   </p>
-             <p class="c0">  #if$_IMAGE #if$_IDR <span class="c11">IDR</span><span class="c1"> Image Data Resource </span>  #endif$_IDR #endif$_IMAGE </p>
-            <p class="c0"><span class="c11">IP</span><span class="c1"> Intellectual Property</span></p>
-            <p class="c0"><span class="c11">ISO</span><span class="c1"> International Organization for
+            <p class="c0"> <span class="c11"> CC</span><span class="c1"> Creative Commons</span></p>
+            <p class="c0"> <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span></p>
+            <p class="c0"> #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> #endif$_CHEBI #endif$_PROTEOMIC </p>     
+            <p class="c0"> <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
+            <p class="c0"> <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span></p>
+            <p class="c0"> <span class="c11"> DoA</span><span class="c1"> Description of Action</span></p>
+            <p class="c0"> <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span></p>
+            <p class="c0"> <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
+            <p class="c0"> #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> #endif$_EDAL #endif$_PHENOTYPIC </p> 
+            <p class="c0">   #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> #endif$_ENA      #endif$_GENETIC   </p>
+            <p class="c0"> <span class="c11"> EU </span><span class="c1">European Union</span></p>
+            <p class="c0"> <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
+            <p class="c0"> <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span></p>
+            <p class="c0">  #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC   </p>
+             <p class="c0">  #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  #endif$_IDR #endif$_IMAGE </p>
+            <p class="c0"> <span class="c11"> IP</span><span class="c1"> Intellectual Property</span></p>
+            <p class="c0"> <span class="c11"> ISO</span><span class="c1"> International Organization for
                     Standardization</span></p>
-            <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME<span class="c11">MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
-            <p class="c0">#if$_METABOLOMIC #if$_MMIAMET<span class="c11">MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-            <p class="c0">#if$_PROTEOMIC #if$_MIAPE<span class="c11">MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span>#endif$_MIAPE #endif$_PROTEOMIC</p>
+            <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
+            <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
+            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span>#endif$_MIAPE #endif$_PROTEOMIC</p>
 
-            <p class="c0">#if$_PHENOTYPIC #if$_MIAPPE<span class="c11">MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span>#endif$_MIAPPE #endif$_PHENOTYPIC </p>
-            <p class="c0">#if$_MIGSORG<span class="c11">MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span>#endif$_MIGSORG</p>
+            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span>#endif$_MIAPPE #endif$_PHENOTYPIC </p>
+            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span>#endif$_MIGSORG</p>
 
-            <p class="c0">#if$_MIMAG<span class="c11">MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span>#endif$_MIMAG</p>
-            <p class="c0">#if$_MIMARKSSPECIMEN<span class="c11">MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span>#endif$_MIMARKSSPECIMEN</p>
-            <p class="c0">#if$_MIMARKSSURVEY <span class="c11"> MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-            <p class="c0">#if$_PROTEOMIC #if$_MIMIX<span class="c11">MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span>#endif$_MIMIX #endif$_PROTEOMIC</p>
-            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS<span class="c11">MIMS</span><span class="c1"> Molecular Interactions </span>#endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
+            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span>#endif$_MIMAG</p>
+            <p class="c0"> #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
+            <p class="c0">#if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
+            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span>#endif$_MIMIX #endif$_PROTEOMIC</p>
+            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span>#endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
 
 
-            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE<span class="c11">MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span>#endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC</p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG<span class="c11">MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span>#endif$_MISAG</p>
-            <p class="c0">#if$_MIXS<span class="c11">MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span>#endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
-            <p class="c0"><span class="c11">NCBI</span><span class="c1"> National Center for Biotechnology
+            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span>#endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC</p>
+            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span>#endif$_MISAG</p>
+            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span>#endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
+            <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
                     Information</span></p>
-            <p class="c0"><span class="c11">NFDI</span><span class="c1"> National Research Data Infrastructure (of
+            <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
                     Germany)</span></p>
-            <p class="c0"><span class="c11">NGS</span><span class="c1"> Next Generation Sequencing</span></p>
-            <p class="c0"> #if$_PROTEOMIC #if$_PRIDE <span class="c11">PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> #endif$_PRIDE</p>
-            <p class="c0">#if$_PDB <span class="c11">PDB</span><span class="c1"> Protein Data Bank </span> #endif$_PDB #endif$_PROTEOMIC</p>
-            <p class="c0"><span class="c11">RDM</span><span class="c1"> Research Data Management</span></p>
-            <p class="c0">#if$_IMAGE  #if$_REMBI <span class="c11">REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> #endif$_REMBI #endif$_IMAGE </p>
+            <p class="c0"> <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span></p>
+            <p class="c0"> #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> #endif$_PRIDE</p>
+            <p class="c0">#if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> #endif$_PDB #endif$_PROTEOMIC</p>
+            <p class="c0"> <span class="c11"> RDM</span><span class="c1"> Research Data Management</span></p>
+            <p class="c0">#if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> #endif$_REMBI #endif$_IMAGE </p>
 
-            <p class="c0">#if$_RNASEQ <span class="c11">RNASeq</span><span class="c1"> RNA Sequencing</span> #endif$_RNASEQ</p>
-            <p class="c0"><span class="c11">SOP</span><span class="c1"> Standard Operating Procedures</span></p>
-            <p class="c0">#if$_GENETIC #if$_SRA <span class="c11">SRA</span><span class="c1"> Sequence Read Archive</span> #endif$_SRA #endif$_GENETIC</p>
-            <p class="c0">#if$_DATAPLANT<span class="c11">SWATE</span><span class="c1"> Swate Workflow Annotation Tool
+            <p class="c0">#if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> #endif$_RNASEQ</p>
+            <p class="c0"> <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span></p>
+            <p class="c0">#if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> #endif$_SRA #endif$_GENETIC</p>
+            <p class="c0">#if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool
                     for Excel</span> #endif$_DATAPLANT </p>
-            <p class="c0"><span class="c11">ONP</span><span class="c1"> Oxford Nanopore</span></p>
-            <p class="c0"><span class="c11">qRT</span><span class="c11">PCR</span><span class="c1"> quantitative real
+            <p class="c0"> <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span></p>
+            <p class="c0"> <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real
                     time polymerase chain reaction</span></p>
-            <p class="c0"><span class="c11">WP</span><span class="c1"> Work Package</span></p>
+            <p class="c0"> <span class="c11"> WP</span><span class="c1"> Work Package</span></p>
             
 
         </div>
@@ -6247,66 +6362,66 @@ END:VEVENT`;
             <h2 class="c9" ><span class="c11 c18">3.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="c15"> </span><span class="c4">Abbreviations</span></h2>
             <p class="c0"><span class="c1"></span></p>
-            #if$_DATAPLANT<p class="c0"><span class="c11">ARC</span><span class="c1"> Annotated Research Context</span></p> #endif$_DATAPLANT
+            #if$_DATAPLANT<p class="c0"> <span class="c11"> ARC</span><span class="c1"> Annotated Research Context</span></p> #endif$_DATAPLANT
 
-            <p class="c0"><span class="c11">CC</span><span class="c1"> Creative Commons</span></p>
-            <p class="c0"><span class="c11">CC CEL</span><span class="c1"> Creative Commons Rights Expression
+            <p class="c0"> <span class="c11"> CC</span><span class="c1"> Creative Commons</span></p>
+            <p class="c0"> <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expression
                     Language</span></p>
-           #if$_CHEBI <p class="c0"><span class="c11">ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span></p> #endif$_CHEBI       
-            <p class="c0"><span class="c11">DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
-            <p class="c0"><span class="c11">DMP</span><span class="c1"> Data Management Plan</span></p>
-            <p class="c0"><span class="c11">DoA</span><span class="c1"> Description of Action</span></p>
-            <p class="c0"><span class="c11">DOI</span><span class="c1"> Digital Object Identifier</span></p>
-            <p class="c0"><span class="c11">EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
-            #if$_EDAL <p class="c0"><span class="c11">e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span></p> #endif$_EDAL
-            <p class="c0"><span class="c11">ENA</span><span class="c1"> European Nucleotide Archive</span></p>
-            <p class="c0"><span class="c11">EU </span><span class="c1">European Union</span></p>
-            <p class="c0"><span class="c11">FAIR </span><span class="c1">Findable Accessible Interoperable
+           #if$_CHEBI <p class="c0"> <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span></p> #endif$_CHEBI       
+            <p class="c0"> <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
+            <p class="c0"> <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span></p>
+            <p class="c0"> <span class="c11"> DoA</span><span class="c1"> Description of Action</span></p>
+            <p class="c0"> <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span></p>
+            <p class="c0"> <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
+            #if$_EDAL <p class="c0"> <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span></p> #endif$_EDAL
+            <p class="c0"> <span class="c11"> ENA</span><span class="c1"> European Nucleotide Archive</span></p>
+            <p class="c0"> <span class="c11"> EU </span><span class="c1">European Union</span></p>
+            <p class="c0"> <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable
                     Reproducible</span></p>
-            <p class="c0"><span class="c11">GDPR</span><span class="c1"> General data protection regulation (of the
+            <p class="c0"> <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the
                     EU)</span></p>
-            #if$_GEO <p class="c0"><span class="c11">GEO</span><span class="c1"> Gene Expression Omnibus </span></p>  #endif$_GEO    
-            #if$_IDR <p class="c0"><span class="c11">IDR</span><span class="c1"> Image Data Resource </span></p>  #endif$_IDR
-            <p class="c0"><span class="c11">IP</span><span class="c1"> Intellectual Property</span></p>
-            <p class="c0"><span class="c11">ISO</span><span class="c1"> International Organization for
+            #if$_GEO <p class="c0"> <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span></p>  #endif$_GEO    
+            #if$_IDR <p class="c0"> <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span></p>  #endif$_IDR
+            <p class="c0"> <span class="c11"> IP</span><span class="c1"> Intellectual Property</span></p>
+            <p class="c0"> <span class="c11"> ISO</span><span class="c1"> International Organization for
                     Standardization</span></p>
-                    #if$_MIAME<p class="c0"><span class="c11">MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span></p> #endif$_MIAME
-                    #if$_MMIAMET<p class="c0"><span class="c11">MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span></p> #endif$_MMIAMET
-                    #if$_MIAPE<p class="c0"><span class="c11">MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span></p>#endif$_MIAPE
+                    #if$_MIAME<p class="c0"> <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span></p> #endif$_MIAME
+                    #if$_MMIAMET<p class="c0"> <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span></p> #endif$_MMIAMET
+                    #if$_MIAPE<p class="c0"> <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span></p>#endif$_MIAPE
 
-                    #if$_MIAPPE<p class="c0"><span class="c11">MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span></p>#endif$_MIAPPE
-                    #if$_MIGSEU<p class="c0"><span class="c11">MigsEu</span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span></p>#endif$_MIGSEU
-                    #if$_MIGSORG<p class="c0"><span class="c11">MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span></p>#endif$_MIGSORG
+                    #if$_MIAPPE<p class="c0"> <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span></p>#endif$_MIAPPE
+                    #if$_MIGSEU<p class="c0"> <span class="c11"> MigsEu</span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span></p>#endif$_MIGSEU
+                    #if$_MIGSORG<p class="c0"> <span class="c11"> MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span></p>#endif$_MIGSORG
 
-                    #if$_MIMAG<p class="c0"><span class="c11">MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span></p>#endif$_MIMAG
-                    #if$_MIMARKSSPECIMEN<p class="c0"><span class="c11">MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span></p>#endif$_MIMARKSSPECIMEN
-                    #if$_MIMARKSSURVEY<p class="c0"><span class="c11">MIMARKSSurvey</span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span></p>#endif$_MIMARKSSURVEY
-                    #if$_MIMIX<p class="c0"><span class="c11">MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span></p>#endif$_MIMIX
-                    #if$_MIMS<p class="c0"><span class="c11">MIMS</span><span class="c1"> Molecular Interactions </span></p>#endif$_MIMS
+                    #if$_MIMAG<p class="c0"> <span class="c11"> MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span></p>#endif$_MIMAG
+                    #if$_MIMARKSSPECIMEN<p class="c0"> <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span></p>#endif$_MIMARKSSPECIMEN
+                    #if$_MIMARKSSURVEY<p class="c0"> <span class="c11"> MIMARKSSurvey</span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span></p>#endif$_MIMARKSSURVEY
+                    #if$_MIMIX<p class="c0"> <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span></p>#endif$_MIMIX
+                    #if$_MIMS<p class="c0"> <span class="c11"> MIMS</span><span class="c1"> Molecular Interactions </span></p>#endif$_MIMS
 
 
-                    #if$_MINSEQE<p class="c0"><span class="c11">MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span></p>#endif$_MINSEQE
-                    #if$_MISAG<p class="c0"><span class="c11">MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span></p>#endif$_MISAG
-                    #if$_MIXS<p class="c0"><span class="c11">MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span></p>#endif$_MIXS
-            <p class="c0"><span class="c11">NCBI</span><span class="c1"> National Center for Biotechnology
+                    #if$_MINSEQE<p class="c0"> <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span></p>#endif$_MINSEQE
+                    #if$_MISAG<p class="c0"> <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span></p>#endif$_MISAG
+                    #if$_MIXS<p class="c0"> <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span></p>#endif$_MIXS
+            <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
                     Information</span></p>
-            <p class="c0"><span class="c11">NFDI</span><span class="c1"> National Research Data Infrastructure (of
+            <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
                     Germany)</span></p>
-            <p class="c0"><span class="c11">NGS</span><span class="c1"> Next Generation Sequencing</span></p>
-            #if$_PRIDE <p class="c0"><span class="c11">PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span></p> #endif$_PRIDE
-            #if$_PDB <p class="c0"><span class="c11">PDB</span><span class="c1"> Protein Data Bank </span></p> #endif$_PDB
-            <p class="c0"><span class="c11">RDM</span><span class="c1"> Research Data Management</span></p>
-            #if$_REMBI <p class="c0"><span class="c11">REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span></p> #endif$_REMBI
+            <p class="c0"> <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span></p>
+            #if$_PRIDE <p class="c0"> <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span></p> #endif$_PRIDE
+            #if$_PDB <p class="c0"> <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span></p> #endif$_PDB
+            <p class="c0"> <span class="c11"> RDM</span><span class="c1"> Research Data Management</span></p>
+            #if$_REMBI <p class="c0"> <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span></p> #endif$_REMBI
 
-            <p class="c0"><span class="c11">RNASeq</span><span class="c1"> RNA Sequencing</span></p>
-            <p class="c0"><span class="c11">SOP</span><span class="c1"> Standard Operating Procedures</span></p>
-            #if$_SRA <p class="c0"><span class="c11">SRA</span><span class="c1"> Sequence Read Archive</span></p> #endif$_SRA
-            #if$_DATAPLANT<p class="c0"><span class="c11">SWATE</span><span class="c1"> Swate Workflow Annotation Tool
+            <p class="c0"> <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span></p>
+            <p class="c0"> <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span></p>
+            #if$_SRA <p class="c0"> <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span></p> #endif$_SRA
+            #if$_DATAPLANT<p class="c0"> <span class="c11"> SWATE</span><span class="c1"> Swate Workflow Annotation Tool
                     for Excel</span></p> #endif$_DATAPLANT
-            <p class="c0"><span class="c11">ONP</span><span class="c1"> Oxford Nanopore</span></p>
-            <p class="c0"><span class="c11">qRT</span><span class="c11">PCR</span><span class="c1"> quantitative real
+            <p class="c0"> <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span></p>
+            <p class="c0"> <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real
                     time polymerase chain reaction</span></p>
-            <p class="c0"><span class="c11">WP</span><span class="c1"> Work Package</span></p>
+            <p class="c0"> <span class="c11"> WP</span><span class="c1"> Work Package</span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
@@ -7088,66 +7203,66 @@ END:VEVENT`;
         <h2 class="c9" ><span class="c11 c18">7.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                 class="c15"> </span><span class="c4">Abbreviations</span></h2>
         <p class="c0"><span class="c1"></span></p>
-        #if$_DATAPLANT<p class="c0"><span class="c11">ARC</span><span class="c1"> Annotated Research Context</span></p> #endif$_DATAPLANT
+        #if$_DATAPLANT<p class="c0"> <span class="c11"> ARC</span><span class="c1"> Annotated Research Context</span></p> #endif$_DATAPLANT
 
-        <p class="c0"><span class="c11">CC</span><span class="c1"> Creative Commons</span></p>
-        <p class="c0"><span class="c11">CC CEL</span><span class="c1"> Creative Commons Rights Expression
+        <p class="c0"> <span class="c11"> CC</span><span class="c1"> Creative Commons</span></p>
+        <p class="c0"> <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expression
                 Language</span></p>
-       #if$_CHEBI <p class="c0"><span class="c11">ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span></p> #endif$_CHEBI       
-        <p class="c0"><span class="c11">DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
-        <p class="c0"><span class="c11">DMP</span><span class="c1"> Data Management Plan</span></p>
-        <p class="c0"><span class="c11">DoA</span><span class="c1"> Description of Action</span></p>
-        <p class="c0"><span class="c11">DOI</span><span class="c1"> Digital Object Identifier</span></p>
-        <p class="c0"><span class="c11">EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
-        #if$_EDAL <p class="c0"><span class="c11">e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span></p> #endif$_EDAL
-        <p class="c0"><span class="c11">ENA</span><span class="c1"> European Nucleotide Archive</span></p>
-        <p class="c0"><span class="c11">EU </span><span class="c1">European Union</span></p>
-        <p class="c0"><span class="c11">FAIR </span><span class="c1">Findable Accessible Interoperable
+       #if$_CHEBI <p class="c0"> <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span></p> #endif$_CHEBI       
+        <p class="c0"> <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
+        <p class="c0"> <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span></p>
+        <p class="c0"> <span class="c11"> DoA</span><span class="c1"> Description of Action</span></p>
+        <p class="c0"> <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span></p>
+        <p class="c0"> <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
+        #if$_EDAL <p class="c0"> <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span></p> #endif$_EDAL
+        <p class="c0"> <span class="c11"> ENA</span><span class="c1"> European Nucleotide Archive</span></p>
+        <p class="c0"> <span class="c11"> EU </span><span class="c1">European Union</span></p>
+        <p class="c0"> <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable
                 Reproducible</span></p>
-        <p class="c0"><span class="c11">GDPR</span><span class="c1"> General data protection regulation (of the
+        <p class="c0"> <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the
                 EU)</span></p>
-        #if$_GEO <p class="c0"><span class="c11">GEO</span><span class="c1"> Gene Expression Omnibus </span></p>  #endif$_GEO    
-        #if$_IDR <p class="c0"><span class="c11">IDR</span><span class="c1"> Image Data Resource </span></p>  #endif$_IDR
-        <p class="c0"><span class="c11">IP</span><span class="c1"> Intellectual Property</span></p>
-        <p class="c0"><span class="c11">ISO</span><span class="c1"> International Organization for
+        #if$_GEO <p class="c0"> <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span></p>  #endif$_GEO    
+        #if$_IDR <p class="c0"> <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span></p>  #endif$_IDR
+        <p class="c0"> <span class="c11"> IP</span><span class="c1"> Intellectual Property</span></p>
+        <p class="c0"> <span class="c11"> ISO</span><span class="c1"> International Organization for
                 Standardization</span></p>
-                #if$_MIAME<p class="c0"><span class="c11">MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span></p> #endif$_MIAME
-                #if$_MMIAMET<p class="c0"><span class="c11">MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span></p> #endif$_MMIAMET
-                #if$_MIAPE<p class="c0"><span class="c11">MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span></p>#endif$_MIAPE
+                #if$_MIAME<p class="c0"> <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span></p> #endif$_MIAME
+                #if$_MMIAMET<p class="c0"> <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span></p> #endif$_MMIAMET
+                #if$_MIAPE<p class="c0"> <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span></p>#endif$_MIAPE
 
-                #if$_MIAPPE<p class="c0"><span class="c11">MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span></p>#endif$_MIAPPE
-                #if$_MIGSEU<p class="c0"><span class="c11">MigsEu</span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span></p>#endif$_MIGSEU
-                #if$_MIGSORG<p class="c0"><span class="c11">MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span></p>#endif$_MIGSORG
+                #if$_MIAPPE<p class="c0"> <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span></p>#endif$_MIAPPE
+                #if$_MIGSEU<p class="c0"> <span class="c11"> MigsEu</span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span></p>#endif$_MIGSEU
+                #if$_MIGSORG<p class="c0"> <span class="c11"> MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span></p>#endif$_MIGSORG
 
-                #if$_MIMAG<p class="c0"><span class="c11">MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span></p>#endif$_MIMAG
-                #if$_MIMARKSSPECIMEN<p class="c0"><span class="c11">MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span></p>#endif$_MIMARKSSPECIMEN
-                #if$_MIMARKSSURVEY<p class="c0"><span class="c11">MIMARKSSurvey</span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span></p>#endif$_MIMARKSSURVEY
-                #if$_MIMIX<p class="c0"><span class="c11">MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span></p>#endif$_MIMIX
-                #if$_MIMS<p class="c0"><span class="c11">MIMS</span><span class="c1"> Molecular Interactions </span></p>#endif$_MIMS
+                #if$_MIMAG<p class="c0"> <span class="c11"> MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span></p>#endif$_MIMAG
+                #if$_MIMARKSSPECIMEN<p class="c0"> <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span></p>#endif$_MIMARKSSPECIMEN
+                #if$_MIMARKSSURVEY<p class="c0"> <span class="c11"> MIMARKSSurvey</span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span></p>#endif$_MIMARKSSURVEY
+                #if$_MIMIX<p class="c0"> <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span></p>#endif$_MIMIX
+                #if$_MIMS<p class="c0"> <span class="c11"> MIMS</span><span class="c1"> Molecular Interactions </span></p>#endif$_MIMS
 
 
-                #if$_MINSEQE<p class="c0"><span class="c11">MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span></p>#endif$_MINSEQE
-                #if$_MISAG<p class="c0"><span class="c11">MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span></p>#endif$_MISAG
-                #if$_MIXS<p class="c0"><span class="c11">MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span></p>#endif$_MIXS
-        <p class="c0"><span class="c11">NCBI</span><span class="c1"> National Center for Biotechnology
+                #if$_MINSEQE<p class="c0"> <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span></p>#endif$_MINSEQE
+                #if$_MISAG<p class="c0"> <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span></p>#endif$_MISAG
+                #if$_MIXS<p class="c0"> <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span></p>#endif$_MIXS
+        <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
                 Information</span></p>
-        <p class="c0"><span class="c11">NFDI</span><span class="c1"> National Research Data Infrastructure (of
+        <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
                 Germany)</span></p>
-        <p class="c0"><span class="c11">NGS</span><span class="c1"> Next Generation Sequencing</span></p>
-        #if$_PRIDE <p class="c0"><span class="c11">PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span></p> #endif$_PRIDE
-        #if$_PDB <p class="c0"><span class="c11">PDB</span><span class="c1"> Protein Data Bank </span></p> #endif$_PDB
-        <p class="c0"><span class="c11">RDM</span><span class="c1"> Research Data Management</span></p>
-        #if$_REMBI <p class="c0"><span class="c11">REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span></p> #endif$_REMBI
+        <p class="c0"> <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span></p>
+        #if$_PRIDE <p class="c0"> <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span></p> #endif$_PRIDE
+        #if$_PDB <p class="c0"> <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span></p> #endif$_PDB
+        <p class="c0"> <span class="c11"> RDM</span><span class="c1"> Research Data Management</span></p>
+        #if$_REMBI <p class="c0"> <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span></p> #endif$_REMBI
 
-        <p class="c0"><span class="c11">RNASeq</span><span class="c1"> RNA Sequencing</span></p>
-        <p class="c0"><span class="c11">SOP</span><span class="c1"> Standard Operating Procedures</span></p>
-        #if$_SRA <p class="c0"><span class="c11">SRA</span><span class="c1"> Sequence Read Archive</span></p> #endif$_SRA
-        #if$_DATAPLANT<p class="c0"><span class="c11">SWATE</span><span class="c1"> Swate Workflow Annotation Tool
+        <p class="c0"> <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span></p>
+        <p class="c0"> <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span></p>
+        #if$_SRA <p class="c0"> <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span></p> #endif$_SRA
+        #if$_DATAPLANT<p class="c0"> <span class="c11"> SWATE</span><span class="c1"> Swate Workflow Annotation Tool
                 for Excel</span></p> #endif$_DATAPLANT
-        <p class="c0"><span class="c11">ONP</span><span class="c1"> Oxford Nanopore</span></p>
-        <p class="c0"><span class="c11">qRT</span><span class="c11">PCR</span><span class="c1"> quantitative real
+        <p class="c0"> <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span></p>
+        <p class="c0"> <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real
                 time polymerase chain reaction</span></p>
-        <p class="c0"><span class="c11">WP</span><span class="c1"> Work Package</span></p>
+        <p class="c0"> <span class="c11"> WP</span><span class="c1"> Work Package</span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
