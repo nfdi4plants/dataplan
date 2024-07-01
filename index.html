@@ -72,8 +72,8 @@
     var scroll_marker;
 
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
-    const templateJSON = '{"replace":{"$_PROJECT":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
 
 
@@ -89,7 +89,7 @@
             saved_a["update"];
             saved_a["update"]["timeline"];
             saved_a["dmp"];
-            saved_a["update"]["storage"]["0"]["answer"]["$_PROJECT"]
+            saved_a["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
         } // if some answers are missing, reinitialize the answers.
         catch (e) {
 
@@ -176,7 +176,7 @@
         id: "intro-tour-input",
         content: "<p>The five sections are wrapped in a single page.</p>"
     }, {
-        id: "form_project",
+        id: "form_projectname",
         content: "<p>Please type your project name here. For example, you can type: \"your awesome project\" to the highlighted input box, then click anywhere else or use tab key to go to next question. The answers will be submitted automatically.</p>"
     }, {
         id: "split-0",
@@ -266,6 +266,14 @@
         }
         catch (e) { };
         try {
+            if (Object.keys(saved_a["replace"]).includes("$_PROJECT")) {
+                {Object.defineProperty(saved_a["replace"], "$_PROJECTNAME",
+                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_PROJECT")); delete saved_a["replace"]["$_PROJECT"]}
+
+            } ;
+        }
+        catch (e) { };
+        try {
             Object.keys(saved_a["replace"]).includes("$_CREATIONDATE") ? {} : saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
@@ -308,7 +316,7 @@
         syn_load_cache();
 
         // update dmp meta data
-        saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECT"];
+        saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
         saved_a["dmp"]["contact"]["name"] = "DMP of " + saved_a["replace"]["$_USERNAME"];
         saved_a["dmp"]["contact"]["mbox"] = "DMP of " + saved_a["replace"]["$_EMAIL"];
         saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = date.toISOString().slice(0, -3) : {};
@@ -483,10 +491,18 @@
         const before = child.name;
         const after = child.value;
         saved_a["replace"][before] = after;
-        load_dmp(reload_answers, name = doc_name);
+        eleName = before.split("_")[1]+"-to-";
+        document.getElementsByName(eleName).forEach(e=>{e.innerText=after});
 
     }
 
+    function onchange_replace1(child) {
+        const before = child.name;
+        const after = child.value;
+        saved_a["replace"][before] = after;
+        load_dmp(reload_answers, name = doc_name);
+
+    }
     /**
      * @function trim_saved_a
      * @description function to remove the "$_" of the text to avoid replace errors
@@ -590,14 +606,7 @@
         //verbose  console.log("answers is reloading");
 
 
-        for (let answers in saved_a["replace"]) {
-            let singleOption = {};
-            singleOption[answers] = saved_a["replace"][answers];
-            //verbose  console.log(singleOption);
-
-            find_replace(answers, singleOption[answers]);
-
-        }
+        
         let singleOption = {"checked":[], "unchecked":[]};
         for (let answers in saved_a["checkbox"]) {
             
@@ -609,7 +618,14 @@
 
             checkbox(singleOption);
 
-    
+        for (let answers in saved_a["replace"]) {
+            let singleOption = {};
+            singleOption[answers] = saved_a["replace"][answers];
+            //verbose  console.log(singleOption);
+            const before = "$_" + answers.split("_")[1].toUpperCase() ;
+            find_replace(before, singleOption[answers]);
+
+        }
         //verbose  console.log("answer reload is finished");
         issue_warning();
 
@@ -633,7 +649,7 @@
             e.setAttribute("onmouseover", 'this.focus()');
             e.setAttribute("onclick",
                 'this.blur(); setTimeout(()=> {this.focus()}, "0")');
-
+            e.setAttribute("name", e.id);
 
 
 
@@ -1215,7 +1231,7 @@ function check_uncheck(checked_unchecked){
                     window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                     let endif_range = window.getSelection().getRangeAt(0).cloneRange();
-                    debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
+                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
  
                     
                     let in_range = document.createRange();
@@ -1226,7 +1242,7 @@ function check_uncheck(checked_unchecked){
                         in_range.setEnd(endif_range.startContainer, endif_range.startOffset-1);
                     } catch(e){
                         //console.error(e);
-                        in_range.setEnd(endif_range.startContainer.previousSibling, endif_range.startContainer.previousSibling.length -1);
+                        in_range.setEnd(endif_range.startContainer.previousSibling, endif_range.startContainer.previousSibling.length );
                     }
                     
                     const placeholder_strings = if_range.toString().split("#if").slice(-1)[0];
@@ -1241,22 +1257,14 @@ function check_uncheck(checked_unchecked){
                         for (ph of holders){
                         for (const [index, element] of Object.entries(checkboxOptions.checked)){
                             
-                            if (ph == element){
+                            if (ph.toUpperCase() == element){
                                 if_in = true;
                                 check_name = checked_unchecked.checked[index];
-                                //  console.log("ph =  "+ph);
-                                //  console.log("element =  "+element);
-                                //  console.log("check_name ="+check_name)
-                                //deb("if_range :"+ if_range.toString()+ "\n \nin_range :"+ in_range.toString()+ "\n \n endif_range: "+ endif_range.toString());
-                            
-                            //console.log("yes, check_name is: " +check_name)
                                 match_mod(in_range, check_name );
                                 in_range.detach();
                                 break;
                                    }
-                                }
-                                    
-                                    
+                                }   
                             } 
                            
                             //match_remove(in_range);
@@ -1265,7 +1273,7 @@ function check_uncheck(checked_unchecked){
                         for (ph of holders){
                             for (const [index, element] of Object.entries(checkboxOptions.unchecked)){
                                 //console.log("element ="+element);
-                                if (ph.replace("!","") == element){
+                                if (ph.replace("!","").toUpperCase() == element){
                                     if_in = true;
                                     // console.log("ph =  "+ph);
                                     // console.log("element =  "+element);
@@ -1276,32 +1284,20 @@ function check_uncheck(checked_unchecked){
                                     break;
                                     }
                                 }
-                            }
-                        
-                            
-                            
-                        
-                           
-                        
-                    }else{
-                        
+                            } 
+                    }else{                        
                     }
-
                     if (if_in){
-
                     }else{
                         deb("if_range :"+ if_range.toString()+ "\n \nin_range :"+ in_range.toString()+ "\n \n endif_range: "+ endif_range.toString());
                         match_remove(in_range);
-                    }
-                    
+                    }                    
                     //in_range.deleteContents();
                     in_range.detach();
                     if_range.deleteContents();
                     if_range.detach();
                     endif_range.deleteContents();
                     endif_range.detach();
-
-
                 ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                 }
@@ -1317,7 +1313,14 @@ function check_uncheck(checked_unchecked){
                                 after = HtmlEncode(name_ele.dataset.replace);
                             }
             const before = "$_" + holder.split("_")[1].toUpperCase() ;
-            find_replace(before, after);
+
+            if (after == "undefined"){
+
+            }else{
+                
+                find_replace(before, after, holder);
+            }
+            
 
              }
         for (holder of checked_unchecked.unchecked ){        
@@ -1368,7 +1371,7 @@ function check_uncheck(checked_unchecked){
      * @param {string} before - the keyword need to be replaced.
      * @param {string} after - the formal text represented by the keyword.
      */
-    function find_replace(before, after) {
+    function find_replace(before, after, holder=undefined) {
 
         const selection = window.getSelection();
         selection.removeAllRanges();
@@ -1381,87 +1384,36 @@ function check_uncheck(checked_unchecked){
             //verbose  console.log("window.find is: " + window.find);
             while (window.find(before, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = is_firefox,
                 aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
-
                 let last_letter;
-                const w_selection = window.getSelection();
-                const range = w_selection.getRangeAt(0);
-                w_selection.focusNode;
-                //console.log("range is "+ range.toString())
-                if (w_selection.focusNode.length == w_selection.focusOffset) {
-                    //verbose  console.log("first if : " + w_selection.focusNode.length);
-                    last_letter = "";
+                let range = window.getSelection().getRangeAt(0).cloneRange();
+                    range.extractContents();
 
-                } else {
-                    range.setEnd(w_selection.focusNode, w_selection.focusOffset + 1);
-                    last_letter = range.toString().slice(-1);
-                }
-                if ((w_selection.anchorOffset == 0) && (w_selection.anchorNode.previousSibling === null)) {
-
-                    first_letter = "";
-                    //console.log("first_letter = empty");
-                } else if ((w_selection.anchorOffset == 0)) {
-                    const old_offset = w_selection.anchorOffset;
-                    //console.log("no enough range");
-                    range.setStart(w_selection.anchorNode.previousSibling, w_selection.anchorNode.previousSibling.length - 1);
-                    first_letter = range.toString().slice(0, 1);
-                } else {
-                    //console.log("enough range" + w_selection.anchorOffset);
-                    range.setStart(w_selection.anchorNode, w_selection.anchorOffset - 1);
-                    first_letter = range.toString().slice(0, 1);
-                }
-
-                if (/[,]/.test(last_letter)) {
-                    //verbose  console.log(range.toString(), "last letter is comma: " + last_letter);
-                    range.deleteContents();
-                    //verbose  console.log(encodeURIComponent(after));
                     let newText = document.createElement("span");
-
+                    //debug= before == "$_OTHEREP";
+                    deb("$_OTHEREP " );
                     newText.setAttribute("class", "text-warning text-center");
-                    newText.setAttribute("name", before.split("_")[1] + "-to-");
-                    newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + before + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
-                    newText.setAttribute("onmouseleave", 'document.getElementsByName("' + before + '")[0].classList.remove("border-highlight");  ');
-                    newText.setAttribute("onclick", 'document.getElementsByName("' + before + '")[0].parentElement.scrollIntoView();document.getElementsByName("' + before + '")[0].focus(); ');
-                    newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter;
+                    if (holder=== undefined){
+                        newText.setAttribute("name", (before).split("_")[1] + "-to-");
+                        newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + (before) + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
+                        newText.setAttribute("onmouseleave", 'document.getElementsByName("' + (before) + '")[0].classList.remove("border-highlight");  ');
+                    }else{
+
+                        newText.setAttribute("name", (holder) + "-to-");
+                        newText.setAttribute("onmouseover", 'const e = document.getElementById("' + (holder) + '"); e.parentElement.classList.add("border-highlight"); e.focus({preventScroll:true})  ');
+                        newText.setAttribute("onmouseleave", 'document.getElementById("' + (holder) + '").parentElement.classList.remove("border-highlight");  ');
+                    }
+                    
+                    
+                    newText.setAttribute("onclick", 'document.getElementsByName("' + (holder||before) + '")[0].parentElement.scrollIntoView();document.getElementsByName("' + (holder||before) + '")[0].focus(); ');
+                    newText.innerHTML = HtmlEncode(after) ;
                     range.insertNode(newText);
 
-                } else if (/[a-zA-Z\|\$\!]/.test(last_letter)) {
-                     //console.log(range.toString(), "Situation 2 last letter " + last_letter);
+                    // }   else{
+                    //     debug=true;
+                    //     deb("rangeText = <" +rangeText+ ">");
 
-                } else if (/[a-zA-Z\|\$\!]/.test(first_letter)) {
-                    //console.log(range.toString(), "Situation 3 first letter " + first_letter);
-                } else if (/[.]/.test(last_letter)) {
-                    //verbose  console.log(range.toString(), "last letter is comma: " + last_letter);
-                    range.deleteContents();
-                    //verbose  console.log(encodeURIComponent(after));
-                    let newText = document.createElement("span");
 
-                    newText.setAttribute("class", "text-warning text-center");
-                    newText.setAttribute("name", before.split("_")[1] + "-to-");
-                    newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + before + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
-                    newText.setAttribute("onmouseleave", 'document.getElementsByName("' + before + '")[0].classList.remove("border-highlight");  ');
-                    newText.setAttribute("onclick", 'document.getElementsByName("' + before + '")[0].parentElement.scrollIntoView();document.getElementsByName("' + before + '")[0].focus(); ');
-                    newText.innerHTML = "&hairsp;" + first_letter + HtmlEncode(after) + last_letter;
-                    range.insertNode(newText);
-
-                }else {
-                    //verbose  console.log(range.toString(), "deleted with last letter: " + last_letter);
-                    range.deleteContents();
-                    //verbose  console.log(encodeURIComponent(after));
-                    let newText = document.createElement("span");
-
-                    newText.setAttribute("class", "text-warning text-center");
-                    newText.setAttribute("name", before.split("_")[1] + "-to-");
-                    newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + before + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
-                    newText.setAttribute("onmouseleave", 'document.getElementsByName("' + before + '")[0].classList.remove("border-highlight");  ');
-                    newText.setAttribute("onclick", 'document.getElementsByName("' + before + '")[0].parentElement.scrollIntoView();document.getElementsByName("' + before + '")[0].focus(); ');
-
-                    // newText.innerHTML  ="&hairsp;"+ first_letter + HtmlEncode(after) + last_letter+ "&hairsp;";
-                    newText.innerHTML = first_letter + HtmlEncode(after) + last_letter;
-
-                    range.insertNode(newText);
-
-                }
-
+                    // }
             }
         } else if (document.createTextRange) //for ie etc.
         {
@@ -1472,6 +1424,11 @@ function check_uncheck(checked_unchecked){
         }
 
     }
+    
+
+    
+    
+    
     function removeComma(className, dot){
         const allSpan = document.getElementById("doc3").querySelectorAll("."+className);
         allSpan.forEach( ele=> {ele.innerHTML = ele.innerHTML.replace(/,(?=[^,]+$)/, ' '+dot); }   )
@@ -2403,7 +2360,7 @@ DESCRIPTION:Name of the reminder: ${e["name"]};
 LAST-MODIFIED:${cal_date.getFullYear()}${String(cal_date.getMonth() + 1).padStart(2, '0')}${String(cal_date.getDate()).padStart(2, '0')}T000000Z
 SEQUENCE:0
 STATUS:CONFIRMED
-SUMMARY:No. ${index + 1} Reminder to write DMP of ${saved_a["replace"]["$_PROJECT"]} (created by DataPLAN)
+SUMMARY:No. ${index + 1} Reminder to write DMP of ${saved_a["replace"]["$_PROJECTNAME"]} (created by DataPLAN)
 TRANSP:OPAQUE
 END:VEVENT`;
 
@@ -2886,7 +2843,7 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="tutorial_button" class="dropdown-item"
-                                    onclick="window.innerWidth>maxWidth? tour.show() : {}">Tutorial</button>
+                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">Tutorial</button>
                             </li>
                             <li>
                                 <a id="wiki_button" class="dropdown-item"
@@ -3092,11 +3049,11 @@ END:VEVENT`;
 
                         <h2 id="scrollspyHeading1">1 Basic Information:</h2>
 
-                        <form class="" style="margin-left: 0px;" id="form_project">
+                        <form class="" style="margin-left: 0px;" id="form_projectname">
                             <h3>1.1 What is the project name or acronym?</h3>
-                            <label for="input_project"></label>
+                            <label for="input_projectname"></label>
                             <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_project" name="$_PROJECT"
+                                onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
                                 placeholder="the project name"
                                 onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                                 onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
@@ -4459,7 +4416,7 @@ END:VEVENT`;
 
 
                         <div class="c2 text-center ">
-                            <h1>Data Management Plan of the H2020 Project $_PROJECT </h1>
+                            <h1>Data Management Plan of the H2020 Project $_PROJECTNAME </h1>
                         </div>
 
                         <div class="d-flex justify-content-center">
@@ -4481,7 +4438,7 @@ END:VEVENT`;
                                         <h3>Action Acronym:</h3>
                                     </td>
                                     <td>
-                                        <h3> $_PROJECT</h3>
+                                        <h3> $_PROJECTNAME</h3>
                                     </td>
                                 </tr>
                                 <tr>
@@ -4489,7 +4446,7 @@ END:VEVENT`;
                                         <h3>Action Title:</h3>
                                     </td>
                                     <td>
-                                        <h3> $_PROJECT</h3>
+                                        <h3> $_PROJECTNAME</h3>
                                     </td>
 
                                 </tr>
@@ -4531,7 +4488,7 @@ END:VEVENT`;
 
             <h1 class="c13"><span class="c2">1&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15"></span><span
                     class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
+            <p class="c0"><span class="c1">#if$_EU $_PROJECTNAME is part of the Open Data Initiative (ODI) of the EU.
                     #endif$_EU To best profit from open data, it is necessary not only to store the data but to make it
                     Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data,
                     however, we also consider the need to protect individual data sets. #endif$_PROTECT
@@ -4539,15 +4496,15 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    The aim of this document is to provide guidelines on the principles of data management in $_PROJECT. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECT.
+                    The aim of this document is to provide guidelines on the principles of data management in $_PROJECTNAME. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECTNAME.
                 </span>
             </p>
             <p class="c0">
                 <span class="c1">
-                    The detailed DMP states how data will be handled during and after the project. The $_PROJECT DMP is
+                    The detailed DMP states how data will be handled during and after the project. The $_PROJECTNAME DMP is
                     prepared according to the Horizon 2020 and Horizon Europe online manual. #if$_UPDATE It will be
                     updated/its validity checked during the
-                    $_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH.
+                    $_PROJECTNAME project several times. At the very least, this will happen at month $_UPDATEMONTH.
                     #endif$_UPDATE
                 </span>
             </p>
@@ -4560,7 +4517,7 @@ END:VEVENT`;
             <p class="c0">
 
                 <span class="c1">
-                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
+                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
                     be informed about the provenance of data analysis information. Stakeholders must also be informed
                     about the provenance of data. It is therefore necessary to ensure that the data are well generated
                     and also well annotated with metadata using open standards, as laid out in the next section.
@@ -4570,7 +4527,7 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    $_PROJECT will collect and/or generate the following types of raw data: $_GENETIC, $_GENOMIC,
+                    $_PROJECTNAME will collect and/or generate the following types of raw data: $_GENETIC, $_GENOMIC,
                     $_TRANSCRIPTOMIC, $_RNASEQ, $_METABOLOMIC, $_PROTEOMIC, $_PHENOTYPIC, $_TARGETED, $_IMAGE, $_MODELS,
                     $_CODE, $_EXCEL, $_CLONED-DNA and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
                     will also be processed and modified using analytical pipelines, which may yield different results or
@@ -4596,7 +4553,7 @@ END:VEVENT`;
 
 
             <p class="c0"><span class="c3">What is the origin of the data?</span></p>
-            <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>
+            <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For $_PROJECTNAME, specific data sets will be generated by the consortium partners.</span></p>
 
 
             <p class="c0">
@@ -4756,10 +4713,10 @@ END:VEVENT`;
             <p class="c0"><span class="c3">To whom might it be useful ('data utility')?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The data will initially benefit $_PROJECT partners, but will also be made available to selected
+                    The data will initially benefit $_PROJECTNAME partners, but will also be made available to selected
                     stakeholders closely involved in the project, and then the scientific community working on
                     $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
-                    use the data after publication. The data will be disseminated according to $_PROJECT's
+                    use the data after publication. The data will be disseminated according to $_PROJECTNAME's
                     dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
                 </span>
             </p>
@@ -4782,7 +4739,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     <span class="list-to-remove-comma">
                         The following metadata/ minimum informatin standards will be used to collect metadata:
@@ -4826,7 +4783,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -4909,7 +4866,7 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    By default, all data sets from $_PROJECT will be shared with the community and made openly
+                    By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
                     available. However, before the data are released, all will be provided with an opportunity to check
                     for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
                     This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
@@ -4930,7 +4887,7 @@ END:VEVENT`;
             <p class="c0">
             <p class="c0">
                 <span class="c1">
-                    Data will be made available via the $_PROJECT platform using a user-friendly front end that allows
+                    Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
                     data visualization. Besides this it will be ensured that data which can be stored in
                     international discipline related repositories which use specialized technologies:
                    
@@ -4969,8 +4926,9 @@ END:VEVENT`;
                     </p>
         
                     <p class="c0">
-                        <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_edal e!DAL-PGP (Plant
-                            Genomics & Phenomics Research Data Repository), #endif$_edal . #endif$_PHENOTYPIC
+                        <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
+                            Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
+                            <br>
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                             well.#endif$_OTHEREP
                         </span>
@@ -4990,7 +4948,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c3">What methods or software tools are needed to access the data?</span></p>
-            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY </span></p>
+            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY </span></p>
             <p class="c0">
                 <span class="c1">
                     #if!$_PROPRIETARY No specialized software will be needed to access the data, just a modern browser.
@@ -5016,7 +4974,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c3">Is it possible to include the relevant software (e.g. in open-source
                     code)?</span></p>
-            <p class="c0"><span class="c1">As stated above, $_PROJECT will use publicly available open-source and
+            <p class="c0"><span class="c1">As stated above, $_PROJECTNAME will use publicly available open-source and
                     well-documented certified software, #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.</span></p>
             <p class="c0"><span class="c12 c11 c17"></span></p>
             <p class="c0">
@@ -5128,14 +5086,14 @@ END:VEVENT`;
                     the integration of data across projects, and its reuse according to established and tested
                     protocols. We will also use
                     ontological terms to enrich the data sets relying on free and open ontologies where possible.
-                    Additional ontology terms might be created and canonized during $_PROJECT.
+                    Additional ontology terms might be created and canonized during $_PROJECTNAME.
                 </span>
             </p>
             <p class="c10"><span class="c3">Will you be using standard vocabularies for all data types present in your
                     data set, to allow inter-disciplinary interoperability?</span></p>
             <p class="c0">
                 <span class="c1">
-                    Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
+                    Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                 </span>
             </p>
             <p class="c10"><span class="c3">In case it is unavoidable that you use uncommon or generate project specific
@@ -5162,14 +5120,14 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     <span class="c1">
-                        #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early
-                        #if$_beforepublication Relevant processed datasets are made public when the research findings
-                        are published.#endif$_beforepublication #if$_endofproject At the end of the project, all data
-                        without embargo period will be published.#endif$_endofproject #if$_embargo Data, which is
+                        #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                        #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings
+                        are published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
+                        without embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
                         subject to an embargo period, is not publicly accessible until the end of embargo
-                        period.#endif$_embargo #if$_request Data is made available upon request, allowing controlled
-                        sharing while ensuring responsible use.#endif$_request #if$_ipissue IP issues will be checked
-                        before publication. #endif$_ipissue All consortium partners will be
+                        period.#endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
+                        sharing while ensuring responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked
+                        before publication. #endif$_IPISSUE All consortium partners will be
                         encouraged to make data available before publication, openly and/or under pre-publication
                         agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto
                         International Data
@@ -5199,13 +5157,13 @@ END:VEVENT`;
             <h2 class="c9" id="h.w5pimtt9qf6p"><span class="c4">2.3&nbsp;&nbsp;&nbsp;&nbsp;Allocation of
                     resources</span></h2>
             <p class="c10"><span class="c3">What are the costs for making data FAIR in your project?</span></p>
-            <p class="c0"><span class="c1">$_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC
+            <p class="c0"><span class="c1">$_PROJECTNAME will bear the costs of data curation, #if$_DATAPLANT ARC
                     consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
                     repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
             <p class="c0">
                 <span class="c1">
                     Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
-                    but not charged against $_PROJECT or its members but by the operation budget of these
+                    but not charged against $_PROJECTNAME or its members but by the operation budget of these
                     repositories.
                 </span>
             </p>
@@ -5214,11 +5172,11 @@ END:VEVENT`;
                     eligible as part of the Horizon 2020 or Horizon Europe grant (if compliant with the Grant Agreement
                     conditions).</span>
             </p>
-            <p class="c0"><span class="c1">The cost born by $_PROJECT are covered by the project funding.
+            <p class="c0"><span class="c1">The cost born by $_PROJECTNAME are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
                     DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECT.</span></p>
+            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECTNAME.</span></p>
             <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential
                     value, who decides and how/what data will be kept and for how long)?</span></p>
             <p class="c0">
@@ -5256,13 +5214,13 @@ END:VEVENT`;
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
                             #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_edal e!DAL-PGP,
-                            #endif$_edal #endif$_PHENOTYPIC.
+                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                            #endif$_EDAL #endif$_PHENOTYPIC.
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                             well.#endif$_OTHEREP
                         </span>
                     </p>
-            <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">2.5&nbsp;&nbsp;&nbsp;&nbsp;Ethical aspects</span></h2>
+            <h2 class="c9" ><span class="c4">2.5&nbsp;&nbsp;&nbsp;&nbsp;Ethical aspects</span></h2>
             <p class="c10">
                 <span class="c3">
                     Are there any ethical or legal issues that can have an impact on data sharing? These can also be
@@ -5292,7 +5250,7 @@ END:VEVENT`;
                 <span class="c1">
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by $_PROJECT partners to adhere to
+                    activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
                     data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
@@ -5302,7 +5260,7 @@ END:VEVENT`;
             <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
             <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures
                     for data management? If yes, which ones?</span></p>
-                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECT will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
                     </span></p>
             <p class="c6"><span class="c1"></span></p>
             <h1 class="c13">
@@ -5338,21 +5296,20 @@ END:VEVENT`;
                     Standardization</span></p>
             <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
             <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span>#endif$_MIAPE #endif$_PROTEOMIC</p>
+            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> #endif$_MIAPE #endif$_PROTEOMIC</p>
+            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> #endif$_MIAPPE #endif$_PHENOTYPIC </p>
+            <p class="c0"> #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> #endif$_MIGSEU </p> 
+            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> #endif$_MIGSORG </p> 
+            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> #endif$_MIMAG </p> 
+            <p class="c0">  #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
+            <p class="c0"> #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
+            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> #endif$_MIMIX #endif$_PROTEOMIC</p>
+            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> #endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
 
-            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span>#endif$_MIAPPE #endif$_PHENOTYPIC </p>
-            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span>#endif$_MIGSORG</p>
 
-            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span>#endif$_MIMAG</p>
-            <p class="c0"> #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span>#endif$_MIMIX #endif$_PROTEOMIC</p>
-            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span>#endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
-
-
-            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span>#endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span>#endif$_MISAG</p>
-            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span>#endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
+            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
+            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> #endif$_MISAG</p>
+            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> #endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
             <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
                     Information</span></p>
             <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
@@ -5392,7 +5349,7 @@ END:VEVENT`;
 
 
                     <div class="c2 text-center">
-                        <h1>Data Management Plan of the Horizon Europe Project $_PROJECT</h1>
+                        <h1>Data Management Plan of the Horizon Europe Project $_PROJECTNAME</h1>
                     </div>
 
                     <div class="d-flex justify-content-center">
@@ -5413,7 +5370,7 @@ END:VEVENT`;
                                         <h3>Action Acronym:</h3>
                                     </td>
                                     <td>
-                                        <h3> $_PROJECT</h3>
+                                        <h3> $_PROJECTNAME</h3>
                                     </td>
                                 </tr>
                                 <tr>
@@ -5421,7 +5378,7 @@ END:VEVENT`;
                                         <h3>Action Title:</h3>
                                     </td>
                                     <td>
-                                        <h3> $_PROJECT</h3>
+                                        <h3> $_PROJECTNAME</h3>
                                     </td>
 
                                 </tr>
@@ -5454,7 +5411,7 @@ END:VEVENT`;
             </center>
 
             <h1 class="c13"><span class="c2">Introduction</span></h1>
-            <p class="c0"><span class="c1">#if$_EU $_PROJECT is part of the Open Data Initiative (ODI) of the EU.
+            <p class="c0"><span class="c1">#if$_EU $_PROJECTNAME is part of the Open Data Initiative (ODI) of the EU.
                     #endif$_EU To best profit from open data, it is necessary not only to store data but to make data
                     Findable, Accessible, Interoperable, and Reusable (FAIR).#if$_PROTECT We support open and FAIR data,
                     however, we also consider the need to protect individual data sets. #endif$_PROTECT
@@ -5462,15 +5419,15 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    The aim of this document is to provide guidelines on principles guiding the data management in $_PROJECT. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECT.
+                    The aim of this document is to provide guidelines on principles guiding the data management in $_PROJECTNAME. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECTNAME.
                 </span>
             </p>
             <p class="c0">
                 <span class="c1">
-                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP
+                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECTNAME DMP
                     is modified according to the Horizon Europe and Horizon Europe online Manual. #if$_UPDATE It will be
                     updated/its validity checked during the
-                    $_PROJECT project several times. At the very least, this will happen at month $_UPDATEMONTH.
+                    $_PROJECTNAME project several times. At the very least, this will happen at month $_UPDATEMONTH.
                     #endif$_UPDATE</span>
             </p>
 
@@ -5497,7 +5454,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    $_PROJECT will collect and/or generate the following types of raw data: $_PHENOTYPIC,
+                    $_PROJECTNAME will collect and/or generate the following types of raw data: $_PHENOTYPIC,
                     $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE,
                     $_EXCEL, $_CLONED-DNA and other types of data which are related to $_STUDYOBJECT. In addition, the raw data will also
                     be processed and modified using analytical pipelines, which may yield different results or include
@@ -5512,7 +5469,7 @@ END:VEVENT`;
                     objectives of the project?</span></p>
             <p class="c0">
                 <span class="c1">
-                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
+                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -5531,7 +5488,7 @@ END:VEVENT`;
 
             <p class="c0"><span class="c3">What is the origin/provenance of the data, either generated or
                     re-used?</span></p>
-            <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For $_PROJECT, specific data sets will be generated by the consortium partners.</span></p>
+            <p class="c0"><span class="c1">Public data will be extracted as described in the previous paragraph. For $_PROJECTNAME, specific data sets will be generated by the consortium partners.</span></p>
 
 
             <p class="c0">
@@ -5687,10 +5644,10 @@ END:VEVENT`;
             <p class="c0"><span class="c3">To whom might it be useful ('data utility'), outside your project?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The data will initially benefit $_PROJECT partners, but will also be made available to selected
+                    The data will initially benefit $_PROJECTNAME partners, but will also be made available to selected
                     stakeholders closely involved in the project, and then the scientific community working on
                     $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
-                    use the data after publication. The data will be disseminated according to $_PROJECT's
+                    use the data after publication. The data will be disseminated according to $_PROJECTNAME's
                     dissemination and communication plan #if$_DATAPLANT , which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
                 </span>
             </p>
@@ -5721,7 +5678,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     <span class="list-to-remove-comma">
                         The following metadata/ minimum informatin standards will be used to collect metadata:
@@ -5765,7 +5722,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -5809,7 +5766,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    Data will be made available via the $_PROJECT platform using a user-friendly front end that allows
+                    Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
                     data visualization. Besides this it will be ensured that data which can be stored in
                     international discipline related repositories which use specialized technologies:
                     
@@ -5848,8 +5805,8 @@ END:VEVENT`;
                     </p>
         
                     <p class="c0">
-                        <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_edal e!DAL-PGP (Plant
-                            Genomics & Phenomics Research Data Repository), #endif$_edal . #endif$_PHENOTYPIC
+                        <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
+                            Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                             well.#endif$_OTHEREP
                         </span>
@@ -5886,8 +5843,8 @@ END:VEVENT`;
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
                             #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_edal e!DAL-PGP,
-                            #endif$_edal #endif$_PHENOTYPIC.
+                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                            #endif$_EDAL #endif$_PHENOTYPIC.
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                             well.#endif$_OTHEREP
                         </span>
@@ -5909,7 +5866,7 @@ END:VEVENT`;
                     against their legitimate interests or other constraints as per the Grant Agreement.</span></p>
             <p class="c0">
                 <span class="c1">
-                    By default, all data sets from $_PROJECT will be shared with the community and made openly
+                    By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
                     available. However, before the data are released, all will be provided with an opportunity to check
                     for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
                     This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
@@ -5930,14 +5887,14 @@ END:VEVENT`;
                     research data should be made available as soon as possible.</span></p>
             <p class="c0">
                 <span class="c1">
-                    #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early
-                    #if$_beforepublication Relevant processed datasets are made public when the research findings are
-                    published.#endif$_beforepublication #if$_endofproject At the end of the project, all data without
-                    embargo period will be published.#endif$_endofproject #if$_embargo Data, which is subject to an
-                    embargo period, is not publicly accessible until the end of embargo period.#endif$_embargo
-                    #if$_request Data is made available upon request, allowing controlled sharing while ensuring
-                    responsible use.#endif$_request #if$_ipissue IP issues will be checked before publication.
-                    #endif$_ipissue All consortium partners will be
+                    #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                    #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
+                    published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
+                    embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
+                    embargo period, is not publicly accessible until the end of embargo period.#endif$_EMBARGO
+                    #if$_REQUEST Data is made available upon request, allowing controlled sharing while ensuring
+                    responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
+                    #endif$_IPISSUE All consortium partners will be
                     encouraged to make data available before publication, openly and/or under pre-publication agreements
                     #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International
                     Data
@@ -6041,7 +5998,7 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    #if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
+                    #if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
                     #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern
                     browser. Access will be possible through web interfaces. For data processing after obtaining raw
                     data, typical open-source software can be used. #endif!$_PROPRIETARY
@@ -6097,7 +6054,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -6109,7 +6066,7 @@ END:VEVENT`;
             the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be
             edited in text processor files, but will be shared as pdf.
             Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-            vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the advanced
+            vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the advanced
             ontologies integrated in DataPLANT. #endif$_DATAPLANT
 
 
@@ -6129,7 +6086,7 @@ END:VEVENT`;
                 <span class="c1">
                     Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they
                     are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies
-                    might have to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the DataPLANT biology
+                    might have to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the DataPLANT biology
                     ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT Ontology databases such as OBO Foundry
                     will be used to publish ontology. #if$_DATAPLANT The DPBO is also published in GitHub
                     https://github.com/nfdi4plants/nfdi4plants_ontology#endif$_DATAPLANT.
@@ -6157,7 +6114,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The documentation will be provided in the form of ISA (Investigation Study Assay) and CWL (Common
-                    Workflow Language). #if$_DATAPLANT Here, $_PROJECT will build on the ARC container, which
+                    Workflow Language). #if$_DATAPLANT Here, $_PROJECTNAME will build on the ARC container, which
                     includes all the data, metadata, and documentations. #endif$_DATAPLANT
                 </span>
             </p>
@@ -6187,7 +6144,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
+                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -6227,7 +6184,7 @@ END:VEVENT`;
                     In the current data management plan, any digital output including but not limited to software,
                     workflows, protocols, models, documents, templates, notebooks are all treated as data. Therefore,
                     all aforementioned digital objects are already described in detail. For the non-digital objects, the
-                    data management plan will be closely connected to the digitalisation of the physical objects. #if$_DATAPLANT $_PROJECT will build a workflow which connects the ARC with an electronic lab
+                    data management plan will be closely connected to the digitalisation of the physical objects. #if$_DATAPLANT $_PROJECTNAME will build a workflow which connects the ARC with an electronic lab
                     notebook in order to also manage the physical objects. #endif$_DATAPLANT
 
                 </span>
@@ -6255,13 +6212,13 @@ END:VEVENT`;
             <p class="c10"><span class="c3">What will the costs be for making data or other research outputs FAIR in
                     your project (e.g. direct and indirect costs related to storage, archiving, re-use, security,
                     etc.)?</span></p>
-            <p class="c0"><span class="c1">$_PROJECT will bear the costs of data curation, #if$_DATAPLANT ARC
+            <p class="c0"><span class="c1">$_PROJECTNAME will bear the costs of data curation, #if$_DATAPLANT ARC
                     consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
                     repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
             <p class="c0">
                 <span class="c1">
                     Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
-                    but not charged against $_PROJECT or its members but by the operation budget of these
+                    but not charged against $_PROJECTNAME or its members but by the operation budget of these
                     repositories.
                 </span>
             </p>
@@ -6270,11 +6227,11 @@ END:VEVENT`;
                     are eligible as part of the Horizon Europe grant (if compliant with the Grant Agreement
                     conditions)</span>
             </p>
-            <p class="c0"><span class="c1">The cost born by $_PROJECT are covered by the project funding.
+            <p class="c0"><span class="c1">The cost born by $_PROJECTNAME are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
                     DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECT.</span></p>
+            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECTNAME.</span></p>
             <p class="c10"><span class="c3">How will long term preservation be ensured? Discuss the necessary resources
                     to accomplish this (costs and potential value, who decides and how, what data will be kept and for
                     how long)?</span></p>
@@ -6313,8 +6270,8 @@ END:VEVENT`;
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
                             #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_edal e!DAL-PGP,
-                            #endif$_edal #endif$_PHENOTYPIC.
+                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                            #endif$_EDAL #endif$_PHENOTYPIC.
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                             well.#endif$_OTHEREP
                         </span>
@@ -6348,7 +6305,7 @@ END:VEVENT`;
                 <span class="c1">
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by $_PROJECT partners to adhere to
+                    activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
                     data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
@@ -6359,7 +6316,7 @@ END:VEVENT`;
             <p class="c0"><span class="c3">Do you, or will you, make use of other national/funder/sectorial/departmental
                     procedures for data management? If yes, which ones (please list and briefly describe them)?</span>
             </p>
-            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECT will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
             </span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c6"><span class="c1"></span></p>
@@ -6391,21 +6348,20 @@ END:VEVENT`;
                     Standardization</span></p>
             <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
             <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span>#endif$_MIAPE #endif$_PROTEOMIC</p>
+            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> #endif$_MIAPE #endif$_PROTEOMIC</p>
+            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> #endif$_MIAPPE #endif$_PHENOTYPIC </p>
+            <p class="c0"> #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> #endif$_MIGSEU </p> 
+            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> #endif$_MIGSORG </p> 
+            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> #endif$_MIMAG </p> 
+            <p class="c0">  #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
+            <p class="c0"> #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
+            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> #endif$_MIMIX #endif$_PROTEOMIC</p>
+            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> #endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
 
-            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span>#endif$_MIAPPE #endif$_PHENOTYPIC </p>
-            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span>#endif$_MIGSORG</p>
 
-            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span>#endif$_MIMAG</p>
-            <p class="c0"> #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span>#endif$_MIMIX #endif$_PROTEOMIC</p>
-            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span>#endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
-
-
-            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span>#endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span>#endif$_MISAG</p>
-            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span>#endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
+            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
+            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> #endif$_MISAG</p>
+            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> #endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
             <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
                     Information</span></p>
             <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
@@ -6440,7 +6396,7 @@ END:VEVENT`;
                     <div id="vis" style=" margin: auto; display: block;"></div>
                 </div>
 
-                <div id="text_start" class="c2 text-center">Data Management Plan of the DFG Project $_PROJECT</div>
+                <div id="text_start" class="c2 text-center">Data Management Plan of the DFG Project $_PROJECTNAME</div>
             </center>
             <h2>
                 <span class="c2">1.&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c2">Data description</span>
@@ -6450,7 +6406,7 @@ END:VEVENT`;
             </h3>
 
             #if$_EU&nbsp;
-            <p class="c0"><span class="c1">$_PROJECT is part of the Open Data Initiative (ODI) of the EU.
+            <p class="c0"><span class="c1">$_PROJECTNAME is part of the Open Data Initiative (ODI) of the EU.
                     #endif$_EU To best profit from open data, it is necessary not only to store data but to make data
                     Findable, Accessible, Interoperable and Reusable (FAIR). #if$_PROTECT Open and FAIR data, however,
                     considers the need
@@ -6459,15 +6415,15 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    The aim of this document is to provide guidelines on principles guiding the data management in $_PROJECT. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECT.
+                    The aim of this document is to provide guidelines on principles guiding the data management in $_PROJECTNAME. A Data Management Plan (DMP) will generated by using the responses to the EU questionnaire on DMP, which defines the data stored in $_PROJECTNAME.
                 </span>
             </p>
             <p class="c0">
                 <span class="c1">
-                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECT DMP
+                    The detailed DMP instructs how data will be handled during and after the project. The $_PROJECTNAME DMP
                     is modified according to the DFG data management checklist. #if$_UPDATE It will be updated/its
                     validity
-                    checked during $_PROJECT several times. At the very least, this will happen at month
+                    checked during $_PROJECTNAME several times. At the very least, this will happen at month
                     $_UPDATEMONTH. #endif$_UPDATE
                 </span>
             </p>
@@ -6602,7 +6558,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    $_PROJECT has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
+                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
                     and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
                     #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
                     #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -6614,7 +6570,7 @@ END:VEVENT`;
             </p>
 
             <p class="c0">
-                <span class="c1">Public data will be extracted as described in paragraph 1.3. For $_PROJECT,
+                <span class="c1">Public data will be extracted as described in paragraph 1.3. For $_PROJECTNAME,
                     specific data sets will be generated by the consortium partners.</span>
             </p>
 
@@ -6680,7 +6636,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     <span class="list-to-remove-comma">
                         The following metadata/ minimum informatin standards will be used to collect metadata:
@@ -6724,7 +6680,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -6734,7 +6690,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-                    vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECT will build on the
+                    vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the
                     advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                     Keywords about the experiment and the general consortium will be included, as well as an abstract
                     about the data, where useful. In addition, certain keywords can be auto-generated from dense
@@ -6750,7 +6706,7 @@ END:VEVENT`;
                     In fact, open biomedical ontologies will be used where they are mature. As stated in the previous
                     question, sometimes ontologies and controlled vocabularies might have to be extended. #if$_DATAPLANT
                     Here, the
-                    $_PROJECT will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
+                    $_PROJECTNAME will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                 </span>
             </p>
             <h3 class="c0">
@@ -6760,7 +6716,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    $_PROJECT aims at the following aim: $_PROJECTAIM. Therefore, data
+                    $_PROJECTNAME aims at the following aim: $_PROJECTAIM. Therefore, data
                     collection#if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION ,
                     integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC
                     structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data
@@ -6820,7 +6776,7 @@ END:VEVENT`;
                     protocols.
                     Additionally, we will use ontology terms to enrich the data sets relying on free and open
                     ontologies. In addition, additional ontology terms might be created and be canonized during the
-                    $_PROJECT.
+                    $_PROJECTNAME.
                 </span>
             </p>
             <h3 class="c0">
@@ -6844,10 +6800,10 @@ END:VEVENT`;
                 <span class="c3">2.4&nbsp;&nbsp;&nbsp;&nbsp;Which digital methods and tools (e.g. software) are required
                     to use the data?</span>
             </h3>
-            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECT will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
             </span></p>
             <p class="c0">
-                <span class="c1">#if$_PROPRIETARY $_PROJECT relies on the tool(s) $_PROPRIETARY.
+                <span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY.
                     #endif$_PROPRIETARY</span>
             </p>
             <p class="c0">
@@ -6921,8 +6877,8 @@ END:VEVENT`;
             </p>
 
             <p class="c0">
-                <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_edal e!DAL-PGP (Plant
-                    Genomics & Phenomics Research Data Repository), #endif$_edal . #endif$_PHENOTYPIC
+                <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
+                    Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                     #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                     well.#endif$_OTHEREP
                 </span>
@@ -6990,7 +6946,7 @@ END:VEVENT`;
                 <span class="c1">
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by $_PROJECT partners to adhere to
+                    activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
                     data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
@@ -7003,7 +6959,7 @@ END:VEVENT`;
             </h3>
             <p class="c20">
                 <span class="c1">
-                    Once data is transferred to the $_PROJECT platform #if$_DATAPLANT and ARCs have been generated in
+                    Once data is transferred to the $_PROJECTNAME platform #if$_DATAPLANT and ARCs have been generated in
                     DataPLANT #endif$_DATAPLANT , data security will be imposed. This comprises secure storage, and the
                     use of
                     passwords and usernames is generally transferred via separate safe media.
@@ -7045,8 +7001,8 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    The data will be useful for $_PROJECT partners, the scientific community working on
-                    $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, $_PROJECT also strives
+                    The data will be useful for $_PROJECTNAME partners, the scientific community working on
+                    $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, $_PROJECTNAME also strives
                     to collect the data
                     that has been disseminated and potentially advertise it #if$_DATAPLANT e.g. through the DataPLANT
                     platform or other means #endif$_DATAPLANT , if it is not included in a publication anyway, which is
@@ -7062,7 +7018,7 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    By default, all data sets from $_PROJECT will be shared with the community and made openly
+                    By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
                     available. This is, however, after partners have had the ability to check for IP protection
                     (according to
                     agreements and background rights). #if$_INDUSTRY This applies in particular to data pertaining to
@@ -7083,7 +7039,7 @@ END:VEVENT`;
                     infrastructure? </span>
             </h3>
             <p class="c0">
-                #if$_DATAPLANT As $_PROJECT is closely aligned with DataPLANT, the ARC converter and DataHUB will be
+                #if$_DATAPLANT As $_PROJECTNAME is closely aligned with DataPLANT, the ARC converter and DataHUB will be
                 used to find the end-point repositories and upload to the repositories automatically. #endif$_DATAPLANT
                 <span class="c1"> </span>
             </p>
@@ -7098,8 +7054,8 @@ END:VEVENT`;
                     #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
                     #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                     EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                    Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_edal e!DAL-PGP,
-                    #endif$_edal #endif$_PHENOTYPIC.
+                    Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                    #endif$_EDAL #endif$_PHENOTYPIC.
                     #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
                     well.#endif$_OTHEREP
                 </span>
@@ -7134,14 +7090,14 @@ END:VEVENT`;
             </h3>
             <p class="c0">
                 <span class="c1">
-                    #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early
-                    #if$_beforepublication Relevant processed datasets are made public when the research findings are
-                    published.#endif$_beforepublication #if$_endofproject At the end of the project, all data without
-                    embargo period will be published.#endif$_endofproject #if$_embargo Data, which is subject to an
-                    embargo period, is not publicly accessible until the end of embargo period.#endif$_embargo
-                    #if$_request Data is made available upon request, allowing controlled sharing while ensuring
-                    responsible use.#endif$_request #if$_ipissue IP issues will be checked before publication.
-                    #endif$_ipissue All consortium partners will be
+                    #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                    #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
+                    published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
+                    embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
+                    embargo period, is not publicly accessible until the end of embargo period.#endif$_EMBARGO
+                    #if$_REQUEST Data is made available upon request, allowing controlled sharing while ensuring
+                    responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
+                    #endif$_IPISSUE All consortium partners will be
                     encouraged to make data available before publication, openly and/or under pre-publication agreements
                     #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International
                     Data
@@ -7177,11 +7133,11 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     Additionally, last-level costs for storage are incurred by end-point repositories (e.g. ENA) but not
-                    charged against $_PROJECT or its members but by the operation budget of these repositories.
+                    charged against $_PROJECTNAME or its members but by the operation budget of these repositories.
                 </span>
             </p>
             <p class="c0">
-                <span class="c1">A large part of the cost is covered by $_PROJECT #if$_DATAPLANT and the structures,
+                <span class="c1">A large part of the cost is covered by $_PROJECTNAME #if$_DATAPLANT and the structures,
                     tools and knowledge laid down in the DataPLANT consortium. #endif$_DATAPLANT</span>
             </p>
             <h3 class="c0">
@@ -7190,7 +7146,7 @@ END:VEVENT`;
             </h3>
             <p class="c0">
                 <span class="c1">As applicable, $_DATAOFFICER, who is responsible for ongoing data maintenance will also
-                    take care of it after the finish of $_PROJECT. #if$_DATAPLANT DataPLANT as external data
+                    take care of it after the finish of $_PROJECTNAME. #if$_DATAPLANT DataPLANT as external data
                     archives may provide such services in some cases. #endif$_DATAPLANT</span>
             </p>
 
@@ -7228,21 +7184,20 @@ END:VEVENT`;
                 Standardization</span></p>
         <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
         <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-        <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span>#endif$_MIAPE #endif$_PROTEOMIC</p>
+        <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> #endif$_MIAPE #endif$_PROTEOMIC</p>
+        <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> #endif$_MIAPPE #endif$_PHENOTYPIC </p>
+        <p class="c0"> #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> #endif$_MIGSEU </p> 
+        <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> #endif$_MIGSORG </p> 
+        <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> #endif$_MIMAG </p> 
+        <p class="c0">  #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
+        <p class="c0"> #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
+        <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> #endif$_MIMIX #endif$_PROTEOMIC</p>
+        <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> #endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
 
-        <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span>#endif$_MIAPPE #endif$_PHENOTYPIC </p>
-        <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg</span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span>#endif$_MIGSORG</p>
 
-        <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG</span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span>#endif$_MIMAG</p>
-        <p class="c0"> #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
-        <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-        <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span>#endif$_MIMIX #endif$_PROTEOMIC</p>
-        <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span>#endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
-
-
-        <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span>#endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
-        <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span>#endif$_MISAG</p>
-        <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span>#endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
+        <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
+        <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> #endif$_MISAG</p>
+        <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> #endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
         <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
                 Information</span></p>
         <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
@@ -7286,7 +7241,7 @@ END:VEVENT`;
                                          
                                          
                                     ">
-                    Practical Data Management Guide of $_PROJECT
+                    Practical Data Management Guide of $_PROJECTNAME
                 </span>
             </h1>
             <h1 class="c13">
@@ -7305,10 +7260,10 @@ END:VEVENT`;
                                                  
                                                  
                                             ">
-                            This practical guide of data management in $_PROJECT should be considered as a minimum
+                            This practical guide of data management in $_PROJECTNAME should be considered as a minimum
                             description, leaving flexibility to include additional actions of specific domain or to
                             national or local
-                            legislation.#if$_EU $_PROJECT will follow EU FAIR principles.&nbsp; #endif$_EU&nbsp;
+                            legislation.#if$_EU $_PROJECTNAME will follow EU FAIR principles.&nbsp; #endif$_EU&nbsp;
                         </span>
                     </p>
                     <br />
@@ -7326,7 +7281,7 @@ END:VEVENT`;
                                                  
                                                  
                                             ">
-                            The practical guide of data management in $_PROJECT aims at providing a complete
+                            The practical guide of data management in $_PROJECTNAME aims at providing a complete
                             walkthrough for the researcher. The contents are customized based on the user input in the
                             Data Management Plant
                             Generator (DMPG). The practices in this guide are customized to fit related legal, ethical,
@@ -7688,7 +7643,7 @@ END:VEVENT`;
                             across projects and safeguards that reuse established and tested protocols. Additionally, we
                             will use ontology
                             terms to enrich the data sets relying on free and open ontologies. In addition, additional
-                            ontology terms might be created and be canonized during $_PROJECT.
+                            ontology terms might be created and be canonized during $_PROJECTNAME.
                         </span>
                     </p>
                     <ol style="margin-top: 0; margin-bottom: 0; padding-inline-start: 48px;" start="3">
@@ -7921,7 +7876,7 @@ END:VEVENT`;
                                             ">
                             <p class="c0">
                                 <span class="c1">
-                                    Data will be made available via the $_PROJECT platform using a user-friendly front
+                                    Data will be made available via the $_PROJECTNAME platform using a user-friendly front
                                     end that allows data visualization. Besides this it will be ensured that data which
                                     can be stored in international discipline related repositories which use specialized technologies: #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
                                     #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
@@ -7933,8 +7888,8 @@ END:VEVENT`;
                                     #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact
                                     (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                                     EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                                    Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_edal e!DAL-PGP,
-                                    #endif$_edal #endif$_PHENOTYPIC
+                                    Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                                    #endif$_EDAL #endif$_PHENOTYPIC
 
                                     #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be
                                     processed there as well.#endif$_OTHEREP
@@ -9979,7 +9934,7 @@ END:VEVENT`;
                     <center>Datenmanagementplan (Beta test)</center>
                 </p>
             </h1>
-            <p class="c0"><span class="c3"><b>Projektname: $_PROJECT</b></span></p>
+            <p class="c0"><span class="c3"><b>Projektname: $_PROJECTNAME</b></span></p>
             <p class="c0"><span class="c3"><b>Forschungsf&ouml;rderer</b>: Bundesministerium f&uuml;r Bildung und
                     Forschung</span></p>
             <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME </span></p>
@@ -9993,7 +9948,7 @@ END:VEVENT`;
 
 
                     <p class="c0"> <span class="c1">
-                            Das $_PROJECT hat folgendes Ziel: $_PROJECTAIM. Daher sind Datenerhebung #if!$_VVISUALIZATION und Integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , Integration und Visualisierung
+                            Das $_PROJECTNAME hat folgendes Ziel: $_PROJECTAIM. Daher sind Datenerhebung #if!$_VVISUALIZATION und Integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , Integration und Visualisierung
                             #endif$_VVISUALIZATION #if$_DATAPLANT unter Verwendung der DataPLANT ARC-Struktur absolut
                             notwendig #endif$_DATAPLANT #if!$_DATAPLANT durch einen standardisierten
                             Datenmanagementprozess absolut notwendig #endif!$_DATAPLANT da die Daten nicht nur zum
@@ -10007,7 +9962,7 @@ END:VEVENT`;
 
                     <p class="c0">
                         <span class="c1">
-                            Das $_PROJECT wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
+                            Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
                             $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEOMIC,
                             $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA Daten, die sich auf $_STUDYOBJECT
                             beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
@@ -10024,7 +9979,7 @@ END:VEVENT`;
             <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE </span></p>
             <p class="c0"><span class="c3"><b>Zu beachtende Vorgaben:</b> </span></p>
 
-            <p class="c0"><span class="c1">#if$_EU Das $_PROJECT ist Teil der Open Data Initiative (ODI) der EU.
+            <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
                     #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu
                     speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu
                     machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die
@@ -10043,7 +9998,7 @@ END:VEVENT`;
 
             <p class="c0 c2"><span class="c1">
                     <p class="c0"><span class="c1">Öffentliche Daten werden wie im vorherigen Absatz beschrieben
-                            extrahiert. Für das $_PROJECT werden spezifische Datensätze von den Konsortialpartnern
+                            extrahiert. Für das $_PROJECTNAME werden spezifische Datensätze von den Konsortialpartnern
                             generiert.</span></p>
 
 
@@ -10230,7 +10185,7 @@ END:VEVENT`;
             </p>
 
             <p class="c0 "><span class="c1">
-                    <p class="c0"><span class="c1">Das $_PROJECT trägt die Kosten für die Datenkuratierung,
+                    <p class="c0"><span class="c1">Das $_PROJECTNAME trägt die Kosten für die Datenkuratierung,
                             #if$_DATAPLANT ARC-Konsistenzprüfungen, #endif$_DATAPLANT und die Datenwartung/-sicherheit
                             vor der Übertragung an öffentliche Repositorien. Nachfolgende Kosten werden dann von den
                             Betreibern dieser Repositorien getragen.</span></p>
@@ -10238,7 +10193,7 @@ END:VEVENT`;
                     <p class="c0">
                         <span class="c1">
                             Zusätzlich werden Kosten für die Speicherung nach der Veröffentlichung von den
-                            Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECT oder seinen
+                            Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECTNAME oder seinen
                             Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien.
                         </span>
                     </p>
@@ -10279,8 +10234,8 @@ END:VEVENT`;
                         </p>
 
                         <p class="c0">
-                            <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC Für phänotypische Daten: #if$_edal e!DAL-PGP (Plant
-                                Genomics & Phenomics Research Data Repository), #endif$_edal . #endif$_PHENOTYPIC
+                            <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC Für phänotypische Daten: #if$_EDAL e!DAL-PGP (Plant
+                                Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                             </span>
                         </p>
 
@@ -10374,7 +10329,7 @@ END:VEVENT`;
                     Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
                     etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
                     Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
-                    Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECT kanonisiert
+                    Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
                     werden.</span></p>
 
 
@@ -10399,7 +10354,7 @@ END:VEVENT`;
                             Die einzigen personenbezogenen Daten, die möglicherweise gespeichert werden, sind der Name
                             und die Zugehörigkeit des Einreichers in den Metadaten der Daten. Darüber hinaus werden
                             personenbezogene Daten für Verbreitungs- und Kommunikationsaktivitäten gesammelt, wobei
-                            spezifische Methoden und Verfahren verwendet werden, die von den $_PROJECT-Partnern
+                            spezifische Methoden und Verfahren verwendet werden, die von den $_PROJECTNAME-Partnern
                             entwickelt wurden, um den Datenschutz einzuhalten. #issuewarning Sie müssen informieren und
                             besser eine SCHRIFTLICHE Zustimmung einholen, dass Sie E-Mails und Namen oder sogar
                             Pseudonyme wie Twitter-Handles speichern, wir entschuldigen uns sehr für diese Probleme, die
@@ -10427,15 +10382,15 @@ END:VEVENT`;
                         <span class="c1">Es wird keine Einschränkungen geben, sobald die Daten öffentlich gemacht
                             werden.</span>
                         <span class="c1">
-                            #if$_early Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich
-                            gemacht.#endif$_early #if$_beforepublication Relevante verarbeitete Datensätze werden
+                            #if$_EARLY Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich
+                            gemacht.#endif$_EARLY #if$_BEFOREPUBLICATION Relevante verarbeitete Datensätze werden
                             öffentlich gemacht, wenn die Forschungsergebnisse veröffentlicht
-                            werden.#endif$_beforepublication #if$_endofproject Am Ende des Projekts werden alle Daten
-                            ohne Sperrfrist veröffentlicht.#endif$_endofproject #if$_embargo Daten, die einer Sperrfrist
-                            unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich.#endif$_embargo
-                            #if$_request Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe
-                            ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt.#endif$_request
-                            #if$_ipissue IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_ipissue Alle
+                            werden.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT Am Ende des Projekts werden alle Daten
+                            ohne Sperrfrist veröffentlicht.#endif$_ENDOFPROJECT #if$_EMBARGO Daten, die einer Sperrfrist
+                            unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich.#endif$_EMBARGO
+                            #if$_REQUEST Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe
+                            ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt.#endif$_REQUEST
+                            #if$_IPISSUE IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_IPISSUE Alle
                             Konsortialpartner werden ermutigt,
                             Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter
                             Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und
@@ -10448,12 +10403,12 @@ END:VEVENT`;
 
                     <p class="c0">
                         <span class="c1">
-                            Die Daten werden zunächst den $_PROJECT Partnern zugutekommen, aber auch ausgewählten
+                            Die Daten werden zunächst den $_PROJECTNAME Partnern zugutekommen, aber auch ausgewählten
                             Stakeholdern, die eng in das Projekt eingebunden sind, und dann der wissenschaftlichen
                             Gemeinschaft, die an $_STUDYOBJECT arbeitet. $_DATAUTILITY Darüber hinaus können auch die
                             allgemeine Öffentlichkeit, die an $_STUDYOBJECT interessiert ist, die Daten nach der
                             Veröffentlichung nutzen. Die Daten werden gemäß dem Verbreitungs- und Kommunikationsplan des
-                            $_PROJECT verbreitet, #if$_DATAPLANT der sich mit der DataPLANT-Plattform oder anderen
+                            $_PROJECTNAME verbreitet, #if$_DATAPLANT der sich mit der DataPLANT-Plattform oder anderen
                             Mitteln abstimmt #endif$_DATAPLANT.
 
                         </span>
@@ -10470,7 +10425,7 @@ END:VEVENT`;
 
 
                     <p class="c0">
-                        #if$_DATAPLANT Da das $_PROJECT eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und
+                        #if$_DATAPLANT Da das $_PROJECTNAME eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und
                         DataHUB verwendet, um die Endpunkt-Repositories zu finden und die Daten automatisch in die
                         Repositories hochzuladen. #endif$_DATAPLANT
 
@@ -10478,7 +10433,7 @@ END:VEVENT`;
                     </p>
                     <p class="c0">
                         <span class="c1">
-                            Die Daten werden über die $_PROJECT-Plattform mit einer benutzerfreundlichen Oberfläche
+                            Die Daten werden über die $_PROJECTNAME-Plattform mit einer benutzerfreundlichen Oberfläche
                             verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Die Endpunkt-Repositories sind:
                              #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
                             #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
@@ -10490,8 +10445,8 @@ END:VEVENT`;
                             #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact
                             (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_edal e!DAL-PGP,
-                            #endif$_edal #endif$_PHENOTYPIC.
+                            Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                            #endif$_EDAL #endif$_PHENOTYPIC.
 
                             #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
                             dort ebenfalls verarbeitet.#endif$_OTHEREP
@@ -10517,10 +10472,10 @@ END:VEVENT`;
     </div>
     <div id="BBSRC-dmp" class="d-none">
         <div id="BBSRC-dmp1" class="content-page" id="text_start">
-            <span class="c2">Data management plan of $_PROJECT for BBSRC</span>
+            <span class="c2">Data management plan of $_PROJECTNAME for BBSRC</span>
             <ul class="c0 ">
 
-                <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types &ndash; $_PROJECT will collect
+                <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types &ndash; $_PROJECTNAME will collect
                         and/or generate the following types of raw data: $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ,
                         $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data
                         which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and
@@ -10535,7 +10490,7 @@ END:VEVENT`;
                 <p class="c0"><span class="c0"></span></p>
                 <li class="c0 li-bullet-0"><span class="c0">Standards and Metadata &ndash;&nbsp;                <span class="c1">
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECT will rely
+                    use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     <span class="list-to-remove-comma">
                         The following metadata/ minimum informatin standards will be used to collect metadata:
@@ -10579,7 +10534,7 @@ END:VEVENT`;
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                    remain part of $_PROJECT. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -10601,15 +10556,15 @@ END:VEVENT`;
             <p class="c0 c0"><span class="c0"></span></p>
             <ul class="c0 ">
                 <li class="c0 li-bullet-0"><span class="c0">Secondary Use &ndash; The data will initially benefit the
-                        $_PROJECT partners, but will also be made available to selected stakeholders closely involved in
+                        $_PROJECTNAME partners, but will also be made available to selected stakeholders closely involved in
                         the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In
                         addition, the general public interested in $_STUDYOBJECT can also use the data after
-                        publication. The data will be disseminated according to $_PROJECT&#39;s dissemination and
+                        publication. The data will be disseminated according to $_PROJECTNAME&#39;s dissemination and
                         communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.</span></li>
 
                 <li class="c0 li-bullet-0"><span class="c0">Methods for Data Sharing &ndash; <p class="c0">
                             <span class="c1">
-                                Data will be made available via the $_PROJECT platform using a user-friendly front end
+                                Data will be made available via the $_PROJECTNAME platform using a user-friendly front end
                                 that allows data visualization. Besides this it will be ensured that data which can be
                                 stored in
                                 international discipline related repositories which use specialized technologies:
@@ -10649,8 +10604,8 @@ END:VEVENT`;
                                 </p>
 
                                 <p class="c0">
-                                    <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_edal e!DAL-PGP (Plant
-                                        Genomics & Phenomics Research Data Repository), #endif$_edal . #endif$_PHENOTYPIC
+                                    <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
+                                        Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                                     </span>
                                 </p>
                                 #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be
@@ -10659,14 +10614,14 @@ END:VEVENT`;
                         </p></span></li li class="c0 li-bullet-0"><span class="c0">Proprietary Data &ndash; Open public
                     data will be used whenever possible. </span></li>
                 <li class="c0 li-bullet-0"><span class="c0">Timeframes
-                        #if$_early Some raw data is made public as soon as it is collected and processed.#endif$_early
-                        #if$_beforepublication Relevant processed datasets are made public when the research findings
-                        are published.#endif$_beforepublication #if$_endofproject At the end of the project, all data
-                        without embargo period will be published.#endif$_endofproject #if$_embargo Data, which is
+                        #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                        #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings
+                        are published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
+                        without embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
                         subject to an embargo period, is not publicly accessible until the end of embargo
-                        period.#endif$_embargo #if$_request Data is made available upon request, allowing controlled
-                        sharing while ensuring responsible use.#endif$_request #if$_ipissue IP issues will be checked
-                        before publication. #endif$_ipissue All consortium partners will be
+                        period.#endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
+                        sharing while ensuring responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked
+                        before publication. #endif$_IPISSUE All consortium partners will be
                         encouraged to make data available before publication, openly and/or under pre-publication
                         agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto
                         International Data
