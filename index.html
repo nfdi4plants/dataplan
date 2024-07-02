@@ -1644,7 +1644,7 @@ function check_uncheck(checked_unchecked){
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                     DOMURL.revokeObjectURL(url);
-                    const png_url = canvas.toDataURL('image/webp');
+                    const png_url = canvas.toDataURL('image/png');
                     png.src = png_url;
                 }
 
