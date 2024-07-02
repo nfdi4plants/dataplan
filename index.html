@@ -338,19 +338,21 @@
 
         parseText();
         
+   
+
+        
         removeArtifact(", .", "."), 
         removeArtifact("..", "."), 
         removeArtifact(". .", "."), 
         removeArtifact(" ,", ","),
         removeArtifact(",,", ","), 
-        removeArtifact(" .", ".");
-        setTimeout(() => {
-            removeComma("list-to-remove-comma", " and");
-        }, "50");
+        removeArtifact(" .", "."),
+        removeComma("list-to-remove-comma", " and");
+    
         setTimeout(() => {
             document.getElementById("split-0").scrollTop = scroll_y,
             console.log("the window is scrolled to: " + scroll_y);
-        }, "100");
+        }, "50");
         
         
     }
@@ -1462,7 +1464,7 @@ function check_uncheck(checked_unchecked){
     }
 
     function removeArtifact(text1, text2){
-        while (window.find(text1, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = 1,
+        while (window.find(text1, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                 aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
                 let last_letter;
                 const w_selection = window.getSelection();
