@@ -72,18 +72,10 @@
     var scroll_marker;
 
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
-    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
-
-
-
-
     if (cached_a !== null) { // if there is an answer saved in local storage
-
-
-
-
         saved_a = JSON.parse(cached_a); // load the cached answers to webpage
         try {
             saved_a["update"];
@@ -494,7 +486,7 @@
             }
 
         }
-        unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
+        unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY").filter(item => item !== "$_DATAOFFICER");
         return [total_keywords, 4, changed_keywords, 4, unreplaced_keys, []];
     }
     /**
@@ -679,12 +671,7 @@
             e.setAttribute("onclick",
                 'this.blur(); setTimeout(()=> {this.focus()}, "0")');
             e.setAttribute("name", e.id);
-
-
-
         }
-
-
 
         );
         let c2Checked = [];
@@ -948,7 +935,7 @@
 
 
         parent_node.setAttribute("onmouseleave", 'document.getElementById("' + before + '").parentElement.classList.remove("border-highlight");  ');
-        parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView({ behavior: "smooth", block: "center" });document.getElementById("' + before + '").focus(); ');
+        parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + before + '").focus(); ');
         parent_node.setAttribute("name", before + "-to-");
            
             const doc_frag = in_range.extractContents();
@@ -1459,9 +1446,9 @@ function check_uncheck(checked_unchecked){
     
     
     
-    function removeComma(className, dot){
+    function removeComma(className, text){
         const allSpan = document.getElementById("doc3").querySelectorAll("."+className);
-        allSpan.forEach( ele=> {ele.innerHTML = ele.innerHTML.replace(/,(?=[^,]+$)/, ' '+dot); }   )
+        allSpan.forEach( ele=> {ele.innerHTML = ele.innerHTML.replace(/,(?=[^,]+$)/, ' '+text); }   )
 
     }
 
@@ -1835,18 +1822,9 @@ function check_uncheck(checked_unchecked){
         const table = document.createElement("div");
 
         for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["replace"])) {
-
-
-
             const row = document.createElement("div");
 
             const key_pool = compare_list["4"];
-
-
-
-
-
-
             row.setAttribute("class", "row border-bottom border border-1 mb-1");
             row.setAttribute("name", "input_table_row");
             const col1 = document.createElement("div");
@@ -4591,138 +4569,108 @@ END:VEVENT`;
                     unique approaches. For example:</span>
             </p>
             <ul style="list-style-type:disc;">
-
-
-                #if$_GENETIC&nbsp; 
-                <li>
-                    <p class="c0">
+                #if$_GENETIC&nbsp; <li>
                         <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and
                             will include recombination frequencies and crossover event that position genetic markers and
                             quantitative trait loci that can be associated with physical genomic markers/variants.
                         </span>
-                    </p>
-                </li>
-                #endif$_GENETIC 
-
-                #if$_GENOMIC&nbsp; 
+                </li> #endif$_GENETIC #if$_GENOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+                    
                         <span class="c1"> Genomic data will be created from sequencing data, which will be processed to
                             identify genes, regulatory elements, transposable elements, and physical markers such as
                             SNPs, microsatellites and structural variants. </span>
-                    </p>
+   
                 </li>
-                #endif$_GENOMIC 
-
-                #if$_CLONED-DNA&nbsp; 
+                #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
                 <li>
-                    <p class="c0">
+     
                         <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original
                             vector sequence with Add gene reference where available, and source of insert DNA (e.g.,
                             amplification by PCR from a given sample, or obtained from existing library), (b) cloning
                             strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson
                             assembly, LR recombination), and (c) verified DNA data sequence of final recombinant vector.
                         </span>
-                    </p>
-                </li>
-                #endif$_CLONED-DNA 
 
-                #if$_TRANSCRIPTOMIC&nbsp; 
+                </li>
+                #endif$_CLONED-DNA  #if$_TRANSCRIPTOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+
                         <span class="c1"> Methods of transcriptomics data collection will be selected from microarrays,
                             quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ
                             hybridization. RNA-Seq data will be collected in seperate methods.</span>
-                    </p>
-                </li>
-                #endif$_TRANSCRIPTOMIC&nbsp; 
 
-                #if$_RNASEQ&nbsp; 
+                </li>
+                #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
                 <li>
-                    <p class="c0">
+   
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
                             either in house or outsourced to academic facilities or commercial services, and the raw
                             data will be processed using estabilished biofirmatics piplines. </span>
-                    </p>
+         
                 </li>
-                #endif$_RNASEQ&nbsp; 
-                #if$_METABOLOMIC&nbsp; 
+                #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+
                         <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass
                             spectrometry using targeted or untargeted approaches.</span>
-                    </p>
+
                 </li>
-                #endif$_METABOLOMIC 
-                #if$_PROTEOMIC&nbsp; 
+                #endif$_METABOLOMIC  #if$_PROTEOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+            
                         <span class="c1"> Proteomic data will be generated using coupled chromatography and mass
                             spectrometry for the analysis of protein abundance and protein identification, as well as
                             additional techniques for structural analysis, the identification of post-translational
                             modifications and the characterization of protein interactions.</span>
-                    </p>
+      
                 </li>
-                #endif$_PROTEOMIC 
-
-                #if$_PHENOTYPIC&nbsp; 
+                #endif$_PROTEOMIC  #if$_PHENOTYPIC&nbsp; 
                 <li>
-                    <p class="c0">
+    
                         <span class="c1"> Phenotypic data will be generated using phenotyping platforms and
                             corresponding ontologies, including number/size of organs such as leaves, flowers, buds
                             etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc),
                             organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition
                             indicators, among others. </span>
-                    </p>
+       
                 </li>
-                #endif$_PHENOTYPIC 
- 
-
-                #if$_TARGETED&nbsp; 
+                #endif$_PHENOTYPIC  #if$_TARGETED&nbsp; 
                 <li>
-                    <p class="c0">
+        
                         <span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or
                             production/ultilization rates) will be generated using specific equipment and methods that
                             are fully documented in the laboratory notebook. </span>
-                    </p>
+                 
                 </li>
-                #endif$_TARGETED 
-
-
-                #if$_IMAGE&nbsp; 
+                #endif$_TARGETED #if$_IMAGE&nbsp; 
                 <li>
-                    <p class="c0">
+              
                         <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and
                             microscopes combined with software. Original images which contain metadata such as exif
                             photo information will be archived.</span>
-                    </p>
+                  
                 </li>
-                #endif$_IMAGE 
-                
-                #if$_MODELS&nbsp; 
+                #endif$_IMAGE #if$_MODELS&nbsp; 
                 <li>
-                    <p class="c0">
+                   
                         <span class="c1"> Model data will be generated by using software simulations. The complete
                             workflow, which includes the environment, runtime, parameters, and results, will be
                             documented and archived. </span>
-                    </p>
+                  
                 </li>
-                #endif$_MODELS 
-
-                #if$_CODE&nbsp; 
+                #endif$_MODELS #if$_CODE&nbsp; 
                 <li>
-                    <p class="c0">
+                    
                         <span class="c1"> Computer code will be produced by programmers. </span>
-                    </p>
+                  
                 </li>
-                #endif$_CODE  
-
-                #if$_EXCEL&nbsp; 
+                #endif$_CODE  #if$_EXCEL&nbsp; 
                 <li>
-                    <p class="c0">
+                    
                         <span class="c1"> Excel data will be generated by data analysts by using MS Office or
                             open-source software. </span>
-                    </p>
+                 
                 </li>
                 #endif$_EXCEL 
 
@@ -5290,7 +5238,7 @@ END:VEVENT`;
             <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
             <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures
                     for data management? If yes, which ones?</span></p>
-                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM)  #if$_DATAPLANT|$_NFDI infrastructures developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructures developed by INRAe from France, #endif$_FRENCH #if$_EOSC infrastructures developed by EOSC (European Open Science Cloud), #endif$_EOSC .
                     </span></p>
             <p class="c6"><span class="c1"></span></p>
             <h1 class="c13">
@@ -5304,61 +5252,54 @@ END:VEVENT`;
             </h2>
             <p class="c0"><span class="c1"></span></p>
             
-            <p class="c0"> #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> #endif$_DATAPLANT </p>
+             #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
 
-            <p class="c0"> <span class="c11"> CC</span><span class="c1"> Creative Commons</span></p>
-            <p class="c0"> <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span></p>
-            <p class="c0"> #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> #endif$_CHEBI #endif$_PROTEOMIC </p>     
-            <p class="c0"> <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
-            <p class="c0"> <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span></p>
-            <p class="c0"> <span class="c11"> DoA</span><span class="c1"> Description of Action</span></p>
-            <p class="c0"> <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span></p>
-            <p class="c0"> <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
-            <p class="c0"> #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> #endif$_EDAL #endif$_PHENOTYPIC </p> 
-            <p class="c0">   #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> #endif$_ENA      #endif$_GENETIC   </p>
-            <p class="c0"> <span class="c11"> EU </span><span class="c1">European Union</span></p>
-            <p class="c0"> <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
-            <p class="c0"> <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span></p>
-            <p class="c0">  #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC   </p>
-             <p class="c0">  #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  #endif$_IDR #endif$_IMAGE </p>
-            <p class="c0"> <span class="c11"> IP</span><span class="c1"> Intellectual Property</span></p>
-            <p class="c0"> <span class="c11"> ISO</span><span class="c1"> International Organization for
-                    Standardization</span></p>
-            <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
-            <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> #endif$_MIAPE #endif$_PROTEOMIC</p>
-            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> #endif$_MIAPPE #endif$_PHENOTYPIC </p>
-            <p class="c0"> #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> #endif$_MIGSEU </p> 
-            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> #endif$_MIGSORG </p> 
-            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> #endif$_MIMAG </p> 
-            <p class="c0">  #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
-            <p class="c0"> #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> #endif$_MIMIX #endif$_PROTEOMIC</p>
-            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> #endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
+             <span class="c11"> CC</span><span class="c1"> Creative Commons</span> <br>
+             <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span> <br>
+             #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> <br>  #endif$_CHEBI #endif$_PROTEOMIC      
+             <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span> <br>
+             <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span> <br>
+             <span class="c11"> DoA</span><span class="c1"> Description of Action</span> <br>
+             <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span> <br>
+             <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span> <br>
+             #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> <br>  #endif$_EDAL   #endif$_PHENOTYPIC  
+               #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC   
+             <span class="c11"> EU </span><span class="c1">European Union</span> <br>
+             <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span> <br>
+             <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span> <br>
+              #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  <br>  #endif$_GEO   #endif$_TRANSCRIPTOMIC|$_GENETIC   
+               #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  <br>  #endif$_IDR  #endif$_IMAGE 
+             <span class="c11"> IP</span><span class="c1"> Intellectual Property</span> <br>
+            <span class="c11"> ISO</span><span class="c1"> International Organization for Standardization</span>  <br>
+            #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> <br>  #endif$_MIAME  #endif$_TRANSCRIPTOMIC  
+            #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
+            #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
+             #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
+            #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
+             #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
+             #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
+            #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
+             #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
+           #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+            #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
+            #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
+            #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
+            #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
+             <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
+             <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
+             <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
+             #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> <br>  #endif$_PRIDE
+            #if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> <br>  #endif$_PDB #endif$_PROTEOMIC
+             <span class="c11"> RDM</span><span class="c1"> Research Data Management</span> <br>
+            #if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> <br>  #endif$_REMBI #endif$_IMAGE 
 
-
-            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> #endif$_MISAG</p>
-            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> #endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
-            <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
-                    Information</span></p>
-            <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
-                    Germany)</span></p>
-            <p class="c0"> <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span></p>
-            <p class="c0"> #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> #endif$_PRIDE</p>
-            <p class="c0">#if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> #endif$_PDB #endif$_PROTEOMIC</p>
-            <p class="c0"> <span class="c11"> RDM</span><span class="c1"> Research Data Management</span></p>
-            <p class="c0">#if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> #endif$_REMBI #endif$_IMAGE </p>
-
-            <p class="c0">#if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> #endif$_RNASEQ</p>
-            <p class="c0"> <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span></p>
-            <p class="c0">#if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> #endif$_SRA #endif$_GENETIC</p>
-            <p class="c0">#if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool
-                    for Excel</span> #endif$_DATAPLANT </p>
-            <p class="c0"> <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span></p>
-            <p class="c0"> <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real
-                    time polymerase chain reaction</span></p>
-            <p class="c0"> <span class="c11"> WP</span><span class="c1"> Work Package</span></p>
+            #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
+            <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
+            #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
+            #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
+         <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
+            <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
+             <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>
             
 
         </div>
@@ -5525,140 +5466,111 @@ END:VEVENT`;
                 <span class="c1"> Data of different types or representing different domains will be generated using
                     unique approaches. For example:</span>
             </p>
-              <ul style="list-style-type:disc;">
-
-
-                #if$_GENETIC&nbsp;
-                <li>
-                    <p class="c0">
+            <ul style="list-style-type:disc;">
+                #if$_GENETIC&nbsp; <li>
                         <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and
                             will include recombination frequencies and crossover event that position genetic markers and
                             quantitative trait loci that can be associated with physical genomic markers/variants.
                         </span>
-                    </p>
-                </li>
-                #endif$_GENETIC
-
-                #if$_GENOMIC&nbsp;
+                </li> #endif$_GENETIC #if$_GENOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+                    
                         <span class="c1"> Genomic data will be created from sequencing data, which will be processed to
                             identify genes, regulatory elements, transposable elements, and physical markers such as
                             SNPs, microsatellites and structural variants. </span>
-                    </p>
+   
                 </li>
-                #endif$_GENOMIC
-
-                #if$_CLONED-DNA&nbsp;
+                #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
                 <li>
-                    <p class="c0">
+     
                         <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original
                             vector sequence with Add gene reference where available, and source of insert DNA (e.g.,
                             amplification by PCR from a given sample, or obtained from existing library), (b) cloning
                             strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson
                             assembly, LR recombination), and (c) verified DNA data sequence of final recombinant vector.
                         </span>
-                    </p>
-                </li>
-                #endif$_CLONED-DNA
 
-                #if$_TRANSCRIPTOMIC&nbsp;
+                </li>
+                #endif$_CLONED-DNA  #if$_TRANSCRIPTOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+
                         <span class="c1"> Methods of transcriptomics data collection will be selected from microarrays,
                             quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ
                             hybridization. RNA-Seq data will be collected in seperate methods.</span>
-                    </p>
-                </li>
-                #endif$_TRANSCRIPTOMIC
 
-                #if$_RNASEQ&nbsp;
+                </li>
+                #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
                 <li>
-                    <p class="c0">
+   
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
                             either in house or outsourced to academic facilities or commercial services, and the raw
                             data will be processed using estabilished biofirmatics piplines. </span>
-                    </p>
+         
                 </li>
-                #endif$_RNASEQ&nbsp;
-                #if$_METABOLOMIC&nbsp;
+                #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+
                         <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass
                             spectrometry using targeted or untargeted approaches.</span>
-                    </p>
+
                 </li>
-                #endif$_METABOLOMIC&nbsp; #if$_PROTEOMIC&nbsp;
+                #endif$_METABOLOMIC  #if$_PROTEOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+            
                         <span class="c1"> Proteomic data will be generated using coupled chromatography and mass
                             spectrometry for the analysis of protein abundance and protein identification, as well as
                             additional techniques for structural analysis, the identification of post-translational
                             modifications and the characterization of protein interactions.</span>
-                    </p>
+      
                 </li>
-                #endif$_PROTEOMIC
-
-                #if$_PHENOTYPIC&nbsp;
+                #endif$_PROTEOMIC  #if$_PHENOTYPIC&nbsp; 
                 <li>
-                    <p class="c0">
+    
                         <span class="c1"> Phenotypic data will be generated using phenotyping platforms and
                             corresponding ontologies, including number/size of organs such as leaves, flowers, buds
                             etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc),
                             organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition
                             indicators, among others. </span>
-                    </p>
+       
                 </li>
-                #endif$_PHENOTYPIC
- 
-
-                #if$_TARGETED&nbsp;
+                #endif$_PHENOTYPIC  #if$_TARGETED&nbsp; 
                 <li>
-                    <p class="c0">
+        
                         <span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or
                             production/ultilization rates) will be generated using specific equipment and methods that
                             are fully documented in the laboratory notebook. </span>
-                    </p>
+                 
                 </li>
-                #endif$_TARGETED
-
-
-                #if$_IMAGE&nbsp;
+                #endif$_TARGETED #if$_IMAGE&nbsp; 
                 <li>
-                    <p class="c0">
+              
                         <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and
                             microscopes combined with software. Original images which contain metadata such as exif
                             photo information will be archived.</span>
-                    </p>
+                  
                 </li>
-                #endif$_IMAGE
-                
-                #if$_MODELS&nbsp;
+                #endif$_IMAGE #if$_MODELS&nbsp; 
                 <li>
-                    <p class="c0">
+                   
                         <span class="c1"> Model data will be generated by using software simulations. The complete
                             workflow, which includes the environment, runtime, parameters, and results, will be
                             documented and archived. </span>
-                    </p>
+                  
                 </li>
-                #endif$_MODELS
-
-                #if$_CODE&nbsp;
+                #endif$_MODELS #if$_CODE&nbsp; 
                 <li>
-                    <p class="c0">
+                    
                         <span class="c1"> Computer code will be produced by programmers. </span>
-                    </p>
+                  
                 </li>
-                #endif$_CODE
-
-                #if$_EXCEL&nbsp;
+                #endif$_CODE  #if$_EXCEL&nbsp; 
                 <li>
-                    <p class="c0">
+                    
                         <span class="c1"> Excel data will be generated by data analysts by using MS Office or
                             open-source software. </span>
-                    </p>
+                 
                 </li>
-                #endif$_EXCEL
+                #endif$_EXCEL 
 
                 
 
@@ -5681,11 +5593,7 @@ END:VEVENT`;
                     dissemination and communication plan #if$_DATAPLANT , which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
                 </span>
             </p>
-            <p class="c0">
-                <span class="c1">
-                    $_DATAUTILITY
-                </span>
-            </p>
+
             <h2 class="c9"><span class="c4">2&nbsp; &nbsp; FAIR data</span></h2>
             <h3 class="c14"><span class="c7">2.1. Making data findable, including provisions for metadata</span></h3>
             <p class="c0">
@@ -5881,8 +5789,8 @@ END:VEVENT`;
                     </p> 
                     In the case of unstructured less standardized data (e.g. experimental
                     phenotypic measurements), these will be metadata annotated and if complete given a digital object
-                    identifier (DOI).#if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well.
-                    #endif$_DATAPLANT
+                    identifier (DOI) #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well
+                    #endif$_DATAPLANT .
                 </span>
             </p>
             Those repositories are the most appropriate ones.
@@ -6346,7 +6254,7 @@ END:VEVENT`;
             <p class="c0"><span class="c3">Do you, or will you, make use of other national/funder/sectorial/departmental
                     procedures for data management? If yes, which ones (please list and briefly describe them)?</span>
             </p>
-            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM)  #if$_DATAPLANT|$_NFDI infrastructures developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructures developed by INRAe from France, #endif$_FRENCH #if$_EOSC infrastructures developed by EOSC (European Open Science Cloud), #endif$_EOSC .
             </span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c6"><span class="c1"></span></p>
@@ -6356,61 +6264,54 @@ END:VEVENT`;
             <h2 class="c9" ><span class="c11 c18">3.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                     class="c15"> </span><span class="c4">Abbreviations</span></h2>
             <p class="c0"><span class="c1"></span></p>
-            <p class="c0"> #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> #endif$_DATAPLANT </p>
+            #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
 
-            <p class="c0"> <span class="c11"> CC</span><span class="c1"> Creative Commons</span></p>
-            <p class="c0"> <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span></p>
-            <p class="c0"> #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> #endif$_CHEBI #endif$_PROTEOMIC </p>     
-            <p class="c0"> <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
-            <p class="c0"> <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span></p>
-            <p class="c0"> <span class="c11"> DoA</span><span class="c1"> Description of Action</span></p>
-            <p class="c0"> <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span></p>
-            <p class="c0"> <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
-            <p class="c0"> #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> #endif$_EDAL #endif$_PHENOTYPIC </p> 
-            <p class="c0">   #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> #endif$_ENA      #endif$_GENETIC   </p>
-            <p class="c0"> <span class="c11"> EU </span><span class="c1">European Union</span></p>
-            <p class="c0"> <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
-            <p class="c0"> <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span></p>
-            <p class="c0">  #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC   </p>
-             <p class="c0">  #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  #endif$_IDR #endif$_IMAGE </p>
-            <p class="c0"> <span class="c11"> IP</span><span class="c1"> Intellectual Property</span></p>
-            <p class="c0"> <span class="c11"> ISO</span><span class="c1"> International Organization for
-                    Standardization</span></p>
-            <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
-            <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-            <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> #endif$_MIAPE #endif$_PROTEOMIC</p>
-            <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> #endif$_MIAPPE #endif$_PHENOTYPIC </p>
-            <p class="c0"> #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> #endif$_MIGSEU </p> 
-            <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> #endif$_MIGSORG </p> 
-            <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> #endif$_MIMAG </p> 
-            <p class="c0">  #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
-            <p class="c0"> #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-            <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> #endif$_MIMIX #endif$_PROTEOMIC</p>
-            <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> #endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
+             <span class="c11"> CC</span><span class="c1"> Creative Commons</span> <br>
+             <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span> <br>
+             #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> <br>  #endif$_CHEBI #endif$_PROTEOMIC      
+             <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span> <br>
+             <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span> <br>
+             <span class="c11"> DoA</span><span class="c1"> Description of Action</span> <br>
+             <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span> <br>
+             <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span> <br>
+             #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> <br>  #endif$_EDAL   #endif$_PHENOTYPIC  
+               #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC   
+             <span class="c11"> EU </span><span class="c1">European Union</span> <br>
+             <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span> <br>
+             <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span> <br>
+              #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  <br>  #endif$_GEO   #endif$_TRANSCRIPTOMIC|$_GENETIC   
+               #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  <br>  #endif$_IDR  #endif$_IMAGE 
+             <span class="c11"> IP</span><span class="c1"> Intellectual Property</span> <br>
+            <span class="c11"> ISO</span><span class="c1"> International Organization for Standardization</span>  <br>
+            #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> <br>  #endif$_MIAME  #endif$_TRANSCRIPTOMIC  
+            #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
+            #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
+             #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
+            #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
+             #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
+             #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
+            #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
+             #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
+           #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+            #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
+            #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
+            #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
+            #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
+             <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
+             <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
+             <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
+             #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> <br>  #endif$_PRIDE
+            #if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> <br>  #endif$_PDB #endif$_PROTEOMIC
+             <span class="c11"> RDM</span><span class="c1"> Research Data Management</span> <br>
+            #if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> <br>  #endif$_REMBI #endif$_IMAGE 
 
-
-            <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
-            <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> #endif$_MISAG</p>
-            <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> #endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
-            <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
-                    Information</span></p>
-            <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
-                    Germany)</span></p>
-            <p class="c0"> <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span></p>
-            <p class="c0"> #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> #endif$_PRIDE</p>
-            <p class="c0">#if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> #endif$_PDB #endif$_PROTEOMIC</p>
-            <p class="c0"> <span class="c11"> RDM</span><span class="c1"> Research Data Management</span></p>
-            <p class="c0">#if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> #endif$_REMBI #endif$_IMAGE </p>
-
-            <p class="c0">#if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> #endif$_RNASEQ</p>
-            <p class="c0"> <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span></p>
-            <p class="c0">#if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> #endif$_SRA #endif$_GENETIC</p>
-            <p class="c0">#if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool
-                    for Excel</span> #endif$_DATAPLANT </p>
-            <p class="c0"> <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span></p>
-            <p class="c0"> <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real
-                    time polymerase chain reaction</span></p>
-            <p class="c0"> <span class="c11"> WP</span><span class="c1"> Work Package</span></p>
+            #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
+            <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
+            #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
+            #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
+         <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
+            <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
+             <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
@@ -6466,124 +6367,114 @@ END:VEVENT`;
                     example:</span>
             </p>
             <ul style="list-style-type:disc;">
-                #if$_TRANSCRIPTOMIC&nbsp;
+                #if$_GENETIC&nbsp; <li>
+                        <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and
+                            will include recombination frequencies and crossover event that position genetic markers and
+                            quantitative trait loci that can be associated with physical genomic markers/variants.
+                        </span>
+                </li> #endif$_GENETIC #if$_GENOMIC&nbsp; 
                 <li>
-                    <p class="c0">
+                    
+                        <span class="c1"> Genomic data will be created from sequencing data, which will be processed to
+                            identify genes, regulatory elements, transposable elements, and physical markers such as
+                            SNPs, microsatellites and structural variants. </span>
+   
+                </li>
+                #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
+                <li>
+     
+                        <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original
+                            vector sequence with Add gene reference where available, and source of insert DNA (e.g.,
+                            amplification by PCR from a given sample, or obtained from existing library), (b) cloning
+                            strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson
+                            assembly, LR recombination), and (c) verified DNA data sequence of final recombinant vector.
+                        </span>
+
+                </li>
+                #endif$_CLONED-DNA  #if$_TRANSCRIPTOMIC&nbsp; 
+                <li>
+
                         <span class="c1"> Methods of transcriptomics data collection will be selected from microarrays,
                             quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ
                             hybridization. RNA-Seq data will be collected in seperate methods.</span>
-                    </p>
+
                 </li>
-                #endif$_TRANSCRIPTOMIC
-                #if$_RNASEQ&nbsp;
+                #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
                 <li>
-                    <p class="c0">
+   
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
                             either in house or outsourced to academic facilities or commercial services, and the raw
                             data will be processed using estabilished biofirmatics piplines. </span>
-                    </p>
+         
                 </li>
-                #endif$_RNASEQ
-
-                #if$_METABOLOMIC&nbsp;
+                #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> Metabolomic data will be generated using chromatography coupled to mass
-                            spectrometry and from enzyme platforms mostly.</span>
-                    </p>
-                </li>
-                #endif$_METABOLOMIC&nbsp; #if$_PROTEOMIC&nbsp;
-                <li>
-                    <p class="c0">
-                        <span class="c1"> Proteomic data will be generated using an EU platform which are in line with
-                            community standards.</span>
-                    </p>
-                </li>
-                #endif$_PROTEOMIC
 
-                #if$_IMAGE&nbsp;
-                <li>
-                    <p class="c0">
-                        <span class="c1"> Image data will be generated by using equipment (cameras, scanners, and
-                            microscopes) or software. Original images which contain metadata such as exif photo
-                            information will be archived.</span>
-                    </p>
-                </li>
-                #endif$_IMAGE
+                        <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass
+                            spectrometry using targeted or untargeted approaches.</span>
 
-                #if$_GENOMIC&nbsp;
-                <li>
-                    <p class="c0">
-                        <span class="c1"> Genomic data will be created from sequencing data. The sequencing data will be
-                            collected by Next Generation Sequencing (NGS) equipment#if$_PARTNERS or get from
-                            parterners#endif$_PARTNERS. Then the sequencing data will be processed to get the genomic
-                            data. </span>
-                    </p>
                 </li>
-                #endif$_GENOMIC
-
-                #if$_GENETIC&nbsp;
+                #endif$_METABOLOMIC  #if$_PROTEOMIC&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> Genetic data will be generated by using Next Generation Sequencing (NGS)
-                            equipment. </span>
-                    </p>
+            
+                        <span class="c1"> Proteomic data will be generated using coupled chromatography and mass
+                            spectrometry for the analysis of protein abundance and protein identification, as well as
+                            additional techniques for structural analysis, the identification of post-translational
+                            modifications and the characterization of protein interactions.</span>
+      
                 </li>
-                #endif$_GENETIC
-
-                #if$_TARGETED&nbsp;
+                #endif$_PROTEOMIC  #if$_PHENOTYPIC&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> Targeted assays (e.g. glucose and fructose content) will be generated using
-                            specific equipment or experiments. The procedure is fully documented in the lab book.
-                        </span>
-                    </p>
+    
+                        <span class="c1"> Phenotypic data will be generated using phenotyping platforms and
+                            corresponding ontologies, including number/size of organs such as leaves, flowers, buds
+                            etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc),
+                            organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition
+                            indicators, among others. </span>
+       
                 </li>
-                #endif$_TARGETED
-
-
-                #if$_MODELS&nbsp;
+                #endif$_PHENOTYPIC  #if$_TARGETED&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> Models data will be generated by software simulations. The complete workflow,
-                            which includes the environment, runtime, parameter and results will be documented and
-                            achieved. </span>
-                    </p>
+        
+                        <span class="c1"> Targeted assays data (e.g. glucose and fructose concentrations or
+                            production/ultilization rates) will be generated using specific equipment and methods that
+                            are fully documented in the laboratory notebook. </span>
+                 
                 </li>
-                #endif$_MODELS
-
-                #if$_CODE&nbsp;
+                #endif$_TARGETED #if$_IMAGE&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> The code data will be generated by programmers. </span>
-                    </p>
+              
+                        <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and
+                            microscopes combined with software. Original images which contain metadata such as exif
+                            photo information will be archived.</span>
+                  
                 </li>
-                #endif$_CODE
-
-                #if$_EXCEL&nbsp;
+                #endif$_IMAGE #if$_MODELS&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> The Excel data will be generated by experimentalists or data analysts by using
-                            Office or open-source software. </span>
-                    </p>
+                   
+                        <span class="c1"> Model data will be generated by using software simulations. The complete
+                            workflow, which includes the environment, runtime, parameters, and results, will be
+                            documented and archived. </span>
+                  
                 </li>
-                #endif$_EXCEL
-
-                #if$_CLONED-DNA&nbsp;
+                #endif$_MODELS #if$_CODE&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> The cloned DNA data will be generated by using a sequencing tool. </span>
-                    </p>
+                    
+                        <span class="c1"> Computer code will be produced by programmers. </span>
+                  
                 </li>
-                #endif$_CLONED-DNA
-
-                #if$_PHENOTYPIC&nbsp;
+                #endif$_CODE  #if$_EXCEL&nbsp; 
                 <li>
-                    <p class="c0">
-                        <span class="c1"> Phenotypic data will be generated using phenotyping platforms. </span>
-                    </p>
+                    
+                        <span class="c1"> Excel data will be generated by data analysts by using MS Office or
+                            open-source software. </span>
+                 
                 </li>
-                #endif$_PHENOTYPIC
+                #endif$_EXCEL 
+
+                
+
+                
             </ul>
 
             <p class="c0">
@@ -6830,7 +6721,7 @@ END:VEVENT`;
                 <span class="c3">2.4&nbsp;&nbsp;&nbsp;&nbsp;Which digital methods and tools (e.g. software) are required
                     to use the data?</span>
             </h3>
-            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH developed by INRAe from France, #endif$_FRENCH #if$_EOSC developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM)  #if$_DATAPLANT|$_NFDI infrastructures developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructures developed by INRAe from France, #endif$_FRENCH #if$_EOSC infrastructures developed by EOSC (European Open Science Cloud), #endif$_EOSC .
             </span></p>
             <p class="c0">
                 <span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY.
@@ -7192,61 +7083,54 @@ END:VEVENT`;
         <h2 class="c9" ><span class="c11 c18">7.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span
                 class="c15"> </span><span class="c4">Abbreviations</span></h2>
         <p class="c0"><span class="c1"></span></p>
-        <p class="c0"> #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> #endif$_DATAPLANT </p>
+        #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
 
-        <p class="c0"> <span class="c11"> CC</span><span class="c1"> Creative Commons</span></p>
-        <p class="c0"> <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span></p>
-        <p class="c0"> #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> #endif$_CHEBI #endif$_PROTEOMIC </p>     
-        <p class="c0"> <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span></p>
-        <p class="c0"> <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span></p>
-        <p class="c0"> <span class="c11"> DoA</span><span class="c1"> Description of Action</span></p>
-        <p class="c0"> <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span></p>
-        <p class="c0"> <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span></p>
-        <p class="c0"> #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> #endif$_EDAL #endif$_PHENOTYPIC </p> 
-        <p class="c0">   #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> #endif$_ENA      #endif$_GENETIC   </p>
-        <p class="c0"> <span class="c11"> EU </span><span class="c1">European Union</span></p>
-        <p class="c0"> <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span></p>
-        <p class="c0"> <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span></p>
-        <p class="c0">  #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC   </p>
-         <p class="c0">  #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  #endif$_IDR #endif$_IMAGE </p>
-        <p class="c0"> <span class="c11"> IP</span><span class="c1"> Intellectual Property</span></p>
-        <p class="c0"> <span class="c11"> ISO</span><span class="c1"> International Organization for
-                Standardization</span></p>
-        <p class="c0">        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> #endif$_MIAME #endif$_TRANSCRIPTOMIC </p>
-        <p class="c0"> #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> #endif$_MMIAMET #endif$_METABOLOMIC </p>
-        <p class="c0"> #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> #endif$_MIAPE #endif$_PROTEOMIC</p>
-        <p class="c0"> #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> #endif$_MIAPPE #endif$_PHENOTYPIC </p>
-        <p class="c0"> #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> #endif$_MIGSEU </p> 
-        <p class="c0"> #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> #endif$_MIGSORG </p> 
-        <p class="c0"> #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> #endif$_MIMAG </p> 
-        <p class="c0">  #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> #endif$_MIMARKSSPECIMEN</p>
-        <p class="c0"> #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> #endif$_MIMARKSSURVEY  #endif$_GENOMIC|$_GENETIC  </p>
-        <p class="c0">#if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> #endif$_MIMIX #endif$_PROTEOMIC</p>
-        <p class="c0">        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> #endif$_MIMS  #endif$_GENOMIC|$_GENETIC</p>
+        <span class="c11"> CC</span><span class="c1"> Creative Commons</span> <br>
+        <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span> <br>
+        #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> <br>  #endif$_CHEBI #endif$_PROTEOMIC      
+        <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span> <br>
+        <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span> <br>
+        <span class="c11"> DoA</span><span class="c1"> Description of Action</span> <br>
+        <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span> <br>
+        <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span> <br>
+        #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> <br>  #endif$_EDAL   #endif$_PHENOTYPIC  
+          #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC   
+        <span class="c11"> EU </span><span class="c1">European Union</span> <br>
+        <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span> <br>
+        <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span> <br>
+         #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  <br>  #endif$_GEO   #endif$_TRANSCRIPTOMIC|$_GENETIC   
+          #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  <br>  #endif$_IDR  #endif$_IMAGE 
+        <span class="c11"> IP</span><span class="c1"> Intellectual Property</span> <br>
+       <span class="c11"> ISO</span><span class="c1"> International Organization for Standardization</span>  <br>
+       #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> <br>  #endif$_MIAME  #endif$_TRANSCRIPTOMIC  
+       #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
+       #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
+        #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
+       #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
+        #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
+        #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
+       #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
+        #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
+      #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+       #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
+       #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
+       #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
+       #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
+        <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
+        <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
+        <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
+        #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> <br>  #endif$_PRIDE
+       #if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> <br>  #endif$_PDB #endif$_PROTEOMIC
+        <span class="c11"> RDM</span><span class="c1"> Research Data Management</span> <br>
+       #if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> <br>  #endif$_REMBI #endif$_IMAGE 
 
-
-        <p class="c0">#if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC </p>
-        <p class="c0">#if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> #endif$_MISAG</p>
-        <p class="c0">#if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> #endif$_MIXS #endif$_GENOMIC|$_GENETIC </p>
-        <p class="c0"> <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology
-                Information</span></p>
-        <p class="c0"> <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of
-                Germany)</span></p>
-        <p class="c0"> <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span></p>
-        <p class="c0"> #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> #endif$_PRIDE</p>
-        <p class="c0">#if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> #endif$_PDB #endif$_PROTEOMIC</p>
-        <p class="c0"> <span class="c11"> RDM</span><span class="c1"> Research Data Management</span></p>
-        <p class="c0">#if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> #endif$_REMBI #endif$_IMAGE </p>
-
-        <p class="c0">#if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> #endif$_RNASEQ</p>
-        <p class="c0"> <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span></p>
-        <p class="c0">#if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> #endif$_SRA #endif$_GENETIC</p>
-        <p class="c0">#if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool
-                for Excel</span> #endif$_DATAPLANT </p>
-        <p class="c0"> <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span></p>
-        <p class="c0"> <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real
-                time polymerase chain reaction</span></p>
-        <p class="c0"> <span class="c11"> WP</span><span class="c1"> Work Package</span></p>
+       #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
+       <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
+       #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
+       #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
+    <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
+       <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
+        <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c1"></span></p>
