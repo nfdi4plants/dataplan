@@ -72,7 +72,7 @@
     var scroll_marker;
 
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_proprietary":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_dataofficer":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
 
@@ -274,6 +274,22 @@
         }
         catch (e) { };
         try {
+            if (Object.keys(saved_a["replace"]).includes("$_dataofficer")) {
+                {Object.defineProperty(saved_a["replace"], "$_DATAOFFICER",
+                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_dataofficer")); delete saved_a["replace"]["$_dataofficer"]}
+
+            } ;
+        }
+        catch (e) { };
+        try {
+            if (Object.keys(saved_a["replace"]).includes("$_proprietary")) {
+                {Object.defineProperty(saved_a["replace"], "$_PROPRIETARY",
+                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_proprietary")); delete saved_a["replace"]["$_proprietary"]}
+
+            } ;
+        }
+        catch (e) { };
+        try {
             Object.keys(saved_a["replace"]).includes("$_CREATIONDATE") ? {} : saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
@@ -449,8 +465,8 @@
         }
         const check_proprietary = unchecked_options.includes("check_proprietary");
         if (check_proprietary) {
-            unreplaced_keys = unreplaced_keys.filter(item => item !== "$_proprietary");
-            new_a["replace"]["$_proprietary"] = ""
+            unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY");
+            new_a["replace"]["$_PROPRIETARY"] = ""
         }
         let no_need_to_answer = uncheck_update + check_previousprojects + check_proprietary;
         total_keywords = total_keywords - no_need_to_answer;
@@ -478,7 +494,7 @@
             }
 
         }
-        unreplaced_keys = unreplaced_keys.filter(item => item !== "$_proprietary").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
+        unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
         return [total_keywords, 4, changed_keywords, 4, unreplaced_keys, []];
     }
     /**
@@ -488,9 +504,11 @@
      * @global
      */
     function onchange_replace(child) {
-        const before = child.name;
+        const before = child.name.toUpperCase();
         const after = child.value;
         saved_a["replace"][before] = after;
+        trim_saved_a(saved_a);
+        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
         eleName = before.split("_")[1]+"-to-";
         document.getElementsByName(eleName).forEach(e=>{e.innerText=after});
         let unfinished = compare_replace(temp_a, saved_a);
@@ -550,7 +568,7 @@
         for (const [key, value] of replace_input) {
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
-                //console.log(value);
+                console.log(key + " "+value);
                 element.value = value;
             }
         }
@@ -1400,8 +1418,9 @@ function check_uncheck(checked_unchecked){
                     range.extractContents();
 
                     let newText = document.createElement("span");
-                    //debug= before == "$_OTHEREP";
-                    deb("$_OTHEREP " );
+                    debug= before == "$_PROPRIETARY";
+                    deb("before = <"+ before +">");
+                    deb("range = <"+ range.toString() +">");
                     newText.setAttribute("class", "text-warning text-center");
                     if (holder=== undefined){
                         newText.setAttribute("name", (before).split("_")[1] + "-to-");
@@ -3203,7 +3222,7 @@ END:VEVENT`;
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dataofficer"
-                                name="$_dataofficer" placeholder="data officer name"
+                                name="$_DATAOFFICER" placeholder="data officer name"
                                 onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                                 onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
                                 onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
@@ -3389,7 +3408,7 @@ END:VEVENT`;
                             <label for="input_proprietary">What is the name of your proprietary software?</label>
 
                             <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_proprietary" name="$_proprietary"
+                                onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
                                 placeholder=" proprietary software "
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
                                 onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
@@ -4554,8 +4573,8 @@ END:VEVENT`;
                     The project builds on existing data sets and relies on them. #if$_RNASEQ|$_GENOMIC For example,
                     without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS)
                     data sets. #endif$_RNASEQ|$_GENOMIC It is also important to include existing data-sets on the
-                    expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge.
-                    #if$_PARTNERS of the partners. #endif$_PARTNERS
+                    expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge
+                    #if$_PARTNERS of the partners #endif$_PARTNERS.
                     Genomic references can be gathered from reference databases for genomes/ and sequences, like the the NCBI (US National Center for Biotechnology Information),
                     EBI (European Bioinformatics Institute) and DDBJ (DNA Data Bank of Japan). Furthermore, prior 'unstructured' data in the form of publications and data
                     contained therein will be used for decision making.
@@ -4959,7 +4978,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c3">What methods or software tools are needed to access the data?</span></p>
-            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY </span></p>
+            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY . #endif$_PROPRIETARY </span></p>
             <p class="c0">
                 <span class="c1">
                     #if!$_PROPRIETARY No specialized software will be needed to access the data, just a modern browser.
@@ -4986,7 +5005,7 @@ END:VEVENT`;
             <p class="c0"><span class="c3">Is it possible to include the relevant software (e.g. in open-source
                     code)?</span></p>
             <p class="c0"><span class="c1">As stated above, $_PROJECTNAME will use publicly available open-source and
-                    well-documented certified software, #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.</span></p>
+                    well-documented certified software, #if$_PROPRIETARY except for $_PROPRIETARY as proprietary softare #endif$_PROPRIETARY.</span></p>
             <p class="c0"><span class="c12 c11 c17"></span></p>
             <p class="c0">
                 <span class="c3">Where will the data and associated metadata, documentation and code be deposited?
