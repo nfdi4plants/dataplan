@@ -59,7 +59,7 @@
         //verbose  console.log("browser is supported");
     }
     var debug;
-    var doc_name = 'dmp1'; // default document to use at the first page load
+    var doc_name = 'Horizon2020_DMP'; // default document to use at the first page load
     var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
@@ -1248,12 +1248,9 @@ function check_uncheck(checked_unchecked){
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                     let endif_range = window.getSelection().getRangeAt(0).cloneRange();
                     //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
- 
                     
-                    let in_range = document.createRange();
-                    
-                    in_range.setStart(if_range.endContainer, if_range.endOffset);
-                    
+                    let in_range = document.createRange();                    
+                    in_range.setStart(if_range.endContainer, if_range.endOffset);                    
                     try{
                         in_range.setEnd(endif_range.startContainer, endif_range.startOffset-1);
                     } catch(e){
@@ -1491,7 +1488,9 @@ function check_uncheck(checked_unchecked){
         } else if (cached_template == "user-defined") {
             //doc_name = "user-defined";
             document.getElementById("user-defined").innerHTML = window.localStorage.getItem("fulltext_user");
-        }
+        } else if (cached_template =="dmp1"){
+            cached_template = "Horizon2020_DMP"
+        };
         if (window.localStorage.getItem("cookie_consent") !== "yes") {
 
             cookie_modal.show();
@@ -1531,7 +1530,7 @@ function check_uncheck(checked_unchecked){
             window.innerWidth>maxWidth? tour.show() : {};
                 break;
             case "Horizon2020":
-                load_dmp(reload_answers, name = "dmp1");
+                load_dmp(reload_answers, name = "Horizon2020_DMP");
                 break;
             case "HorizonEurope":
                 load_dmp(reload_answers, name = "horizon_europe");
@@ -1611,7 +1610,7 @@ function check_uncheck(checked_unchecked){
 
         }
         parseText();
-        const dmp1_vis = document.getElementById("dmp1").querySelector("#vis").childNodes[0].childNodes[1];
+        const dmp1_vis = document.getElementById("Horizon2020_DMP").querySelector("#vis").childNodes[0].childNodes[1];
         // Options for the observer (which mutations to observe)
         const config = { attributes: true, childList: false, subtree: false };
 
@@ -1624,7 +1623,7 @@ function check_uncheck(checked_unchecked){
 
                 var ctx = canvas.getContext('2d');
                 // instead of using raw xml text, XMLSerializer can produce better html text
-                var data = (new XMLSerializer()).serializeToString(document.getElementById("dmp1").querySelector("#vis").childNodes[0]);
+                var data = (new XMLSerializer()).serializeToString(document.getElementById("Horizon2020_DMP").querySelector("#vis").childNodes[0]);
                 var DOMURL = window.URL || window.webkitURL || window;
                 var img = new Image();
                 var svg = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
@@ -2404,8 +2403,7 @@ END:VEVENT`;
     function update_reminder(compared_list, warning_element_children) {
         const question_n = compared_list[1] + compared_list[0] - compared_list[2] - compared_list[3];
         const issue_n = warning_element_children.length;
-        let question_reminder,
-            issue_reminder;
+        let question_reminder, issue_reminder;
         switch (question_n) {
             case 0:
                 question_reminder = "Congrats, all questions are answered.";
@@ -2436,7 +2434,7 @@ END:VEVENT`;
             title: "Question reminders",
             content: question_reminder + " <br> " + issue_reminder +
                 `
-                        <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can also <button class="badge btn-primary" href="#" onclick="copy_doc1()">copy</button> or <button class="badge btn-primary" href="#" onclick="printDiv1()">print</button> or <button class="badge btn-primary" href="#" onclick="export2word1('doc3', 'DMP-DataPLAN') ">export to word</button> it anyway.
+                        <br>  <br> If you need a <b>unchecked</b> or <b>unfinished</b> DMP, <br> you can still <button class="badge btn-primary" href="#" onclick="issue_warning_show(),remove_all_warnings(),export2word1('doc3', ' `+doc_name+ Date().toLocaleString().slice(0,24)+`') ">export to word</button>.
                         `
 
             //
@@ -2528,7 +2526,7 @@ END:VEVENT`;
             if (warning_element_children[0] == undefined) {
                 try {
                     dmp_update(saved_a);
-                    return export2word1(element, filename); // Security exception may be thrown by some browsers.
+                    return export2word1(element, doc_name+ Date().toLocaleString().slice(19)); // Security exception may be thrown by some browsers.
                     const selection = window.getSelection();
 
                 } catch (error) {
@@ -2608,7 +2606,7 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="detailed_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="dmp1")'>Horizon 2020</button>
+                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020</button>
                             </li>
                             <li>
                                 <button id="detailed_dmp" class="dropdown-item"
@@ -2693,7 +2691,7 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="detailed_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="dmp1")'>Horizon 2020 DMP</button>
+                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020 DMP</button>
                             </li>
                             <li>
                                 <button id="detailed_dmp" class="dropdown-item"
@@ -4111,7 +4109,7 @@ END:VEVENT`;
                 Click submit when you finished.
                 <br />
                 <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("dmp1").innerHTML; '>H2020
+                    onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("Horizon2020_DMP").innerHTML; '>H2020
                     DMP</button>
                 <button class="badge btn-primary"
                     onclick=' document.getElementById("template-input-content").innerHTML= document.getElementById("horizon_europe").innerHTML; '>Horizon
@@ -4413,7 +4411,7 @@ END:VEVENT`;
         </div>
     </div>
 
-    <div id="dmp1" class="d-none">
+    <div id="Horizon2020_DMP" class="d-none">
         <div class="content-page">
             <br />
             <center>
@@ -4540,8 +4538,8 @@ END:VEVENT`;
                     $_CODE, $_EXCEL, $_CLONED-DNA and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
                     will also be processed and modified using analytical pipelines, which may yield different results or
                     include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
-                    tracked in the DataPLANT ARC.#endif$_DATAPLANT Therefore, care will be taken to document and archive
-                    these resources (including the analytical pipelines) as well, #if$_DATAPLANT relying on the expertise in the DataPLANT consortium#endif$_DATAPLANT.
+                    tracked in the DataPLANT ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive
+                    these resources (including the analytical pipelines) as well, #if$_DATAPLANT relying on the expertise in the DataPLANT consortium #endif$_DATAPLANT.
                 </span>
             </p>
             <p class="c0"><span class="c3"></span></p>
@@ -4756,8 +4754,8 @@ END:VEVENT`;
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
-                <span class="c1">#if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
-                    not an accepted standard. #endissuewarning #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
+                <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+                    not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
@@ -4908,7 +4906,7 @@ END:VEVENT`;
                             Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                             <br>
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                            well.#endif$_OTHEREP
+                            well. #endif$_OTHEREP
                         </span>
                     </p>
                 </span>
@@ -4965,7 +4963,7 @@ END:VEVENT`;
                     As noted above, specialized repositories will be used for common data types. For unstructured and
                     less standardized data (e.g., experimental phenotypic measurements), these will be annotated with
                     metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole
-                    datasets will also be wrapped into an ARC with allocated DOIs.#endif$_DATAPLANT.
+                    datasets will also be wrapped into an ARC with allocated DOIs. #endif$_DATAPLANT.
                 </span>
             </p>
             <p class="c0"><span class="c3">Have you explored appropriate arrangements with the identified
@@ -4973,7 +4971,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible.
-                    Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required, #if$_DATAPLANT and this has been confirmed for data associated with DataPLANT#endif$_DATAPLANT.
+                    Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required, #if$_DATAPLANT and this has been confirmed for data associated with DataPLANT #endif$_DATAPLANT.
                     #issuewarning if no data management platform such as DataPLANT is used, then you need to find
                     appropriate repository to store or archive your data after publication. #endissuewarning
                 </span>
@@ -5024,15 +5022,14 @@ END:VEVENT`;
                     necessary metadata to interpret and analyze data in a biological context. By default, no proprietary
                     formats will be
                     used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as
-                    intermediates by the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In
+                    intermediates by the consortium#if$_DATAPLANT and by some ARC components #endif$_DATAPLANT. In
                     addition, text
                     files might be edited in text processor files, but will be shared as pdf.
                 </span>
             </p>
             <p class="c10"><span class="c3">What data and metadata vocabularies, standards or methodologies will you
                     follow to make your data interoperable?</span></p>
-            <p class="c0">
-                <span class="c1">
+          
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">We will use Investigation, Study, Assay (ISA) specification for metadata creation.
                             The following metadata standards will also be used:
@@ -5060,7 +5057,10 @@ END:VEVENT`;
                             #endif$_PROTEOMIC.
                             
                         </span>
-                    </p> The minimal information standards will allow
+                    </p>
+                    <p class="c0">
+                        <span class="c1">
+                    The minimal information standards will allow
                     the integration of data across projects, and its reuse according to established and tested
                     protocols. We will also use
                     ontological terms to enrich the data sets relying on free and open ontologies where possible.
@@ -5098,18 +5098,18 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     <span class="c1">
-                        #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                        #if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
                         #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings
-                        are published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
-                        without embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
+                        are published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
+                        without embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
                         subject to an embargo period, is not publicly accessible until the end of embargo
-                        period.#endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
-                        sharing while ensuring responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked
+                        period. #endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
+                        sharing while ensuring responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked
                         before publication. #endif$_IPISSUE All consortium partners will be
                         encouraged to make data available before publication, openly and/or under pre-publication
                         agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto
                         International Data
-                        Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are
+                        Release Workshop #endif$_GENOMIC . This will be implemented as soon as IP-related checks are
                         complete.
                     </span>
                 </span>
@@ -5120,7 +5120,7 @@ END:VEVENT`;
             <p class="c0"><span class="c1">There will be no restrictions once the data are made public.</span></p>
             <p class="c10"><span class="c3">How long is it intended that the data remains re-usable?</span></p>
             <p class="c0"><span class="c1">The data will be made available for many years#if$_DATAPLANT and ideally
-                    indefinitely after the end of the project#endif$_DATAPLANT.</span></p>
+                    indefinitely after the end of the project #endif$_DATAPLANT.</span></p>
             <p class="c0">
                 <span class="c1">Data submitted to repositories (as detailed above) e.g. ENA /PRIDE would be subject to
                     local data storage regulation.</span>
@@ -5152,7 +5152,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c1">The cost born by $_PROJECTNAME are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
-                    DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
+                    DataPLANT consortium #endif$_DATAPLANT will also be used.</span></p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
             <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECTNAME.</span></p>
             <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential
@@ -5176,7 +5176,7 @@ END:VEVENT`;
                     secure platforms with automatic backups and offsite secure copies.
                     #if$_DATAPLANT As ARCs are stored in the PlantDataHub of DataPLANT, data security will be imposed.
                     This comprises secure storage, and the use of password and usernames is generally transferred via
-                    separate safe media.#endif$_DATAPLANT
+                    separate safe media. #endif$_DATAPLANT
                 </span>
             </p>
             <p class="c10"><span class="c3">Is the data safely stored in certified repositories for long term
@@ -5195,7 +5195,7 @@ END:VEVENT`;
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                             #endif$_EDAL #endif$_PHENOTYPIC.
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                            well.#endif$_OTHEREP
+                            well. #endif$_OTHEREP
                         </span>
                     </p>
             <h2 class="c9" ><span class="c4">2.5&nbsp;&nbsp;&nbsp;&nbsp;Ethical aspects</span></h2>
@@ -5409,7 +5409,7 @@ END:VEVENT`;
 
                 <span class="c1">
                     The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a
-                    proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also
+                    proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ It is also
                     important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT,
                     but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the
                     partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
@@ -5430,9 +5430,9 @@ END:VEVENT`;
                     $_EXCEL, $_CLONED-DNA and other types of data which are related to $_STUDYOBJECT. In addition, the raw data will also
                     be processed and modified using analytical pipelines, which may yield different results or include
                     ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT
-                    ARC.#endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
+                    ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
                     (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise in the DataPLANT
-                    consortium#endif$_DATAPLANT.
+                    consortium #endif$_DATAPLANT.
                 </span>
             </p>
 
@@ -5504,7 +5504,7 @@ END:VEVENT`;
    
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
                             either in house or outsourced to academic facilities or commercial services, and the raw
-                            data will be processed using estabilished biofirmatics piplines. </span>
+                            data will be processed using estabilished bioinformatics piplines. </span>
          
                 </li>
                 #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
@@ -5655,8 +5655,8 @@ END:VEVENT`;
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
-                <span class="c1">#if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
-                    not an accepted standard. #endissuewarning #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
+                <span class="c1"> #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+                    not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
@@ -5746,7 +5746,7 @@ END:VEVENT`;
                         <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
                             Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                            well.#endif$_OTHEREP
+                            well. #endif$_OTHEREP
                         </span>
                     </p>
                 </span>
@@ -5784,7 +5784,7 @@ END:VEVENT`;
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                             #endif$_EDAL #endif$_PHENOTYPIC.
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                            well.#endif$_OTHEREP
+                            well. #endif$_OTHEREP
                         </span>
                     </p> 
                     In the case of unstructured less standardized data (e.g. experimental
@@ -5825,18 +5825,18 @@ END:VEVENT`;
                     research data should be made available as soon as possible.</span></p>
             <p class="c0">
                 <span class="c1">
-                    #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                    #if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
                     #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
-                    published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
-                    embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
-                    embargo period, is not publicly accessible until the end of embargo period.#endif$_EMBARGO
+                    published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
+                    embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
+                    embargo period, is not publicly accessible until the end of embargo period. #endif$_EMBARGO
                     #if$_REQUEST Data is made available upon request, allowing controlled sharing while ensuring
-                    responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
+                    responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
                     #endif$_IPISSUE All consortium partners will be
                     encouraged to make data available before publication, openly and/or under pre-publication agreements
                     #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International
                     Data
-                    Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are
+                    Release Workshop #endif$_GENOMIC . This will be implemented as soon as IP-related checks are
                     complete.
                 </span>
             </p>
@@ -5919,7 +5919,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     <p class="c0"><span class="c1">The data will be made available for many years#if$_DATAPLANT and
-                            ideally indefinitely after the end of the project#endif$_DATAPLANT.
+                            ideally indefinitely after the end of the project #endif$_DATAPLANT.
                             In any case data submitted to repositories (as detailed above) e.g. ENA /PRIDE would be
                             subject to local data storage regulation.
 
@@ -5987,8 +5987,8 @@ END:VEVENT`;
                     </span>
               
                 
-                <span class="c1">#if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
-                    not an accepted standard. #endissuewarning #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
+                <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+                    not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
@@ -6001,7 +6001,7 @@ END:VEVENT`;
             Whenever possible, data will be stored in common and openly defined formats including all the necessary
             metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
             used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by
-            the consortium#if$_DATAPLANT and by some ARC components#endif$_DATAPLANT. In addition, text files might be
+            the consortium#if$_DATAPLANT and by some ARC components #endif$_DATAPLANT. In addition, text files might be
             edited in text processor files, but will be shared as pdf.
             Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
             vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the advanced
@@ -6027,7 +6027,7 @@ END:VEVENT`;
                     might have to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the DataPLANT biology
                     ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT Ontology databases such as OBO Foundry
                     will be used to publish ontology. #if$_DATAPLANT The DPBO is also published in GitHub
-                    https://github.com/nfdi4plants/nfdi4plants_ontology#endif$_DATAPLANT.
+                    https://github.com/nfdi4plants/nfdi4plants_ontology #endif$_DATAPLANT.
 
                 </span>
             </p>
@@ -6167,7 +6167,7 @@ END:VEVENT`;
             </p>
             <p class="c0"><span class="c1">The cost born by $_PROJECTNAME are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
-                    DataPLANT consortium#endif$_DATAPLANT will also be used.</span></p>
+                    DataPLANT consortium #endif$_DATAPLANT will also be used.</span></p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
             <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECTNAME.</span></p>
             <p class="c10"><span class="c3">How will long term preservation be ensured? Discuss the necessary resources
@@ -6191,7 +6191,7 @@ END:VEVENT`;
                     automatic backups allowing immediate recovery. All partners holding confidential project data will use secure platforms with automatic backups and offsite secure copies.
                     #if$_DATAPLANT As ARCs are stored in the PlantDataHub of DataPLANT, data security will be imposed.
                     This comprises secure storage, and the use of password and usernames is generally transferred via
-                    separate safe media.#endif$_DATAPLANT
+                    separate safe media. #endif$_DATAPLANT
                 </span>
             </p>
             <p class="c10"><span class="c3">Will the data be safely stored in trusted repositories for long term
@@ -6211,7 +6211,7 @@ END:VEVENT`;
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                             #endif$_EDAL #endif$_PHENOTYPIC.
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                            well.#endif$_OTHEREP
+                            well. #endif$_OTHEREP
                         </span>
                     </p>
             <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">6.&nbsp; &nbsp; Ethics</span></h2>
@@ -6404,7 +6404,7 @@ END:VEVENT`;
    
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
                             either in house or outsourced to academic facilities or commercial services, and the raw
-                            data will be processed using estabilished biofirmatics piplines. </span>
+                            data will be processed using estabilished bioinformatics piplines. </span>
          
                 </li>
                 #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
@@ -6501,7 +6501,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a
-                    proper genomic reference it is very difficult to analyze NGS data sets.#endif$_RNASEQ It is also
+                    proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ It is also
                     important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT,
                     but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the
                     partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
@@ -6529,7 +6529,7 @@ END:VEVENT`;
                 <span class="c5">ad-hoc</span>
                 <span class="c1">
                     data analysis parts#if$_DATAPLANT and these pipelines will be tracked in the DataPLANT
-                    ARC#endif$_DATAPLANT. Therefore, specific care will be taken, to document and archive these
+                    ARC #endif$_DATAPLANT. Therefore, specific care will be taken, to document and archive these
                     resources (including the
                     analytic pipelines) as well#if$_DATAPLANT relying on the vast expertise in the DataPLANT consortium
                     #endif$_DATAPLANT.
@@ -6596,8 +6596,8 @@ END:VEVENT`;
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
-                <span class="c1">#if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
-                    not an accepted standard. #endissuewarning #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
+                <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data.  #issuewarning some metabolomics partners considers Metabolights
+                    not an accepted standard. #endissuewarning #if$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
@@ -6801,13 +6801,13 @@ END:VEVENT`;
                 <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
                     Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
                     #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                    well.#endif$_OTHEREP
+                    well. #endif$_OTHEREP
                 </span>
             </p>
            
             <p class="c0">
                 <span class="c1">Data will be made available for many years#if$_DATAPLANT and potentially indefinitely
-                    after the end of the project#endif$_DATAPLANT.</span>
+                    after the end of the project #endif$_DATAPLANT.</span>
             </p>
             <p class="c0">
                 <span class="c1">In any case data submitted to international
@@ -6905,7 +6905,7 @@ END:VEVENT`;
                     necessary metadata to interpret and analyze data in a biological context. By default, no proprietary
                     formats will
                     be used; however, Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as
-                    intermediates by the consortium#if$_DATAPLANT and by some ARC components in form#endif$_DATAPLANT.
+                    intermediates by the consortium#if$_DATAPLANT and by some ARC components in form #endif$_DATAPLANT.
                     In addition,
                     text files might be edited in text processor files, but will be shared as pdf.
                 </span>
@@ -6978,7 +6978,7 @@ END:VEVENT`;
                     Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                     #endif$_EDAL #endif$_PHENOTYPIC.
                     #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                    well.#endif$_OTHEREP
+                    well. #endif$_OTHEREP
                 </span>
             </p>
             <p class="c0">
@@ -7001,7 +7001,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     The $_PARTNERS decides on preservation of data not submitted to end-point subject area repositories
-                    #if$_DATAPLANT or ARCs in DataPLANT#endif$_DATAPLANT after project end. This will be in line with EU
+                    #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after project end. This will be in line with EU
                     institute policies and data sharing based on EU and international standards.
                 </span>
             </p>
@@ -7011,18 +7011,18 @@ END:VEVENT`;
             </h3>
             <p class="c0">
                 <span class="c1">
-                    #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                    #if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
                     #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
-                    published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
-                    embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
-                    embargo period, is not publicly accessible until the end of embargo period.#endif$_EMBARGO
+                    published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
+                    embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
+                    embargo period, is not publicly accessible until the end of embargo period. #endif$_EMBARGO
                     #if$_REQUEST Data is made available upon request, allowing controlled sharing while ensuring
-                    responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
+                    responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
                     #endif$_IPISSUE All consortium partners will be
                     encouraged to make data available before publication, openly and/or under pre-publication agreements
                     #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto International
                     Data
-                    Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are
+                    Release Workshop #endif$_GENOMIC . This will be implemented as soon as IP-related checks are
                     complete.
                 </span>
             </p>
@@ -7291,7 +7291,7 @@ END:VEVENT`;
                             $_PHENOTYPIC,
                             $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ data about $_STUDYOBJECT will be
                             stored#if$_DATAPLANT in the assays folder of ARC
-                            repositories.#endif$_DATAPLANT#if!$_DATAPLANT in a FAIR data
+                            repositories. #endif$_DATAPLANT#if!$_DATAPLANT in a FAIR data
                             storage. #endif!$_DATAPLANT&nbsp;
                         </span>
                     </p>
@@ -7346,7 +7346,7 @@ END:VEVENT`;
                             The data collection process is conducted by experimental scientists and stewarded by
                             $_DATAOFFICER.#if$_DATAPLANT An electronic lab notebook will be used to ensure enough
                             metadata is recorded and
-                            guarantees that the data can be further reused.#endif$_DATAPLANT&nbsp;
+                            guarantees that the data can be further reused. #endif$_DATAPLANT&nbsp;
                         </span>
                     </p>
                     <ol style="margin-top: 0; margin-bottom: 0; padding-inline-start: 48px;" start="3">
@@ -7551,7 +7551,7 @@ END:VEVENT`;
                             data file can also be used to validate the metadata previously collected in case there are
                             any mistakes.
                             #endif$_DATAPLANT We foresee using #if$_RNASEQ|$_GENOMIC e.g.#if$_MINSEQE MinSEQe for
-                            sequencing data and#endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms
+                            sequencing data and #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights compatible forms
                             for metabolites as
                             well as MIAPPE for phenotyping like data. The latter will thus allow the integration of data
                             across projects and safeguards that reuse established and tested protocols. Additionally, we
@@ -7647,7 +7647,7 @@ END:VEVENT`;
                                 href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a>
                             (Annotated
                             Research Context) is used as a container to store the raw data as well as metadata and
-                            workflow.#endif!$_DATAPLANT
+                            workflow. #endif!$_DATAPLANT
                         </span>
                     </p>
                     <ol style="margin-top: 0; margin-bottom: 0; padding-inline-start: 48px;" start="2">
@@ -7699,9 +7699,9 @@ END:VEVENT`;
                                                  
                                             ">
                             #if$_DATAPLANT Data stored in ARC is curated regularly as long as there are needs for update
-                            or revision.#endif$_DATAPLANT #if!$_DATAPLANT Data is curated regularly as long as there are
+                            or revision. #endif$_DATAPLANT #if!$_DATAPLANT Data is curated regularly as long as there are
                             needs for
-                            update or revision.#endif!$_DATAPLANT
+                            update or revision. #endif!$_DATAPLANT
                         </span>
                     </p>
                     <br />
@@ -7806,7 +7806,7 @@ END:VEVENT`;
                                     #endif$_EDAL #endif$_PHENOTYPIC
 
                                     #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be
-                                    processed there as well.#endif$_OTHEREP
+                                    processed there as well. #endif$_OTHEREP
                                 </span>
                             </p>
                         </span>
@@ -8244,7 +8244,7 @@ END:VEVENT`;
                                                 Assay metadata must be collected as a daily routine during the
                                                 experimental phrase. #if$_DATAPLANT A electronic lab notebooks will be
                                                 used to guarantee the applicability and
-                                                correctness of the notebook content#endif$_DATAPLANT&nbsp;
+                                                correctness of the notebook content #endif$_DATAPLANT&nbsp;
                                             </span>
                                         </p>
                                     </td>
@@ -8307,7 +8307,7 @@ END:VEVENT`;
                                                 phrase. #if$_DATAPLANT The workflow metadata will be stored in the assay
                                                 folder of the
                                                 <a
-                                                    href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a>.#endif$_DATAPLANT&nbsp;
+                                                    href="https://nfdi4plants.org/content/learn-more/annotated-research-context.html">ARC</a>. #endif$_DATAPLANT&nbsp;
                                             </span>
                                         </p>
                                     </td>
@@ -9882,9 +9882,9 @@ END:VEVENT`;
                             beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
                             modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
                             umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
-                            verfolgt.#endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
+                            verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
                             analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
-                            auf die Expertise im DataPLANT-Konsortium#endif$_DATAPLANT.
+                            auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT.
                         </span>
                     </p>
                 </span></p>
@@ -10155,7 +10155,7 @@ END:VEVENT`;
 
                        
                         #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
-                        dort ebenfalls verarbeitet.#endif$_OTHEREP
+                        dort ebenfalls verarbeitet. #endif$_OTHEREP
 
                     </span>
 
@@ -10238,7 +10238,7 @@ END:VEVENT`;
                     Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
                     auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
                     #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC z.B.#if$_MINSEQE MinSEQe für
-                    Sequenzierungsdaten zu verwenden und#endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights-kompatible
+                    Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights-kompatible
                     Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
                     Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
                     etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
@@ -10297,19 +10297,19 @@ END:VEVENT`;
                             werden.</span>
                         <span class="c1">
                             #if$_EARLY Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich
-                            gemacht.#endif$_EARLY #if$_BEFOREPUBLICATION Relevante verarbeitete Datensätze werden
+                            gemacht. #endif$_EARLY #if$_BEFOREPUBLICATION Relevante verarbeitete Datensätze werden
                             öffentlich gemacht, wenn die Forschungsergebnisse veröffentlicht
-                            werden.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT Am Ende des Projekts werden alle Daten
-                            ohne Sperrfrist veröffentlicht.#endif$_ENDOFPROJECT #if$_EMBARGO Daten, die einer Sperrfrist
-                            unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich.#endif$_EMBARGO
+                            werden. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT Am Ende des Projekts werden alle Daten
+                            ohne Sperrfrist veröffentlicht. #endif$_ENDOFPROJECT #if$_EMBARGO Daten, die einer Sperrfrist
+                            unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich. #endif$_EMBARGO
                             #if$_REQUEST Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe
-                            ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt.#endif$_REQUEST
+                            ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt. #endif$_REQUEST
                             #if$_IPISSUE IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_IPISSUE Alle
                             Konsortialpartner werden ermutigt,
                             Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter
                             Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und
-                            durch den Toronto International Data Release Workshop festgelegten Vereinbarungen.
-                            #endif$_GENOMIC Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
+                            durch den Toronto International Data Release Workshop festgelegten Vereinbarungen
+                            #endif$_GENOMIC . Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
                             sind.
                         </span>
                     </p>
@@ -10363,7 +10363,7 @@ END:VEVENT`;
                             #endif$_EDAL #endif$_PHENOTYPIC.
 
                             #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
-                            dort ebenfalls verarbeitet.#endif$_OTHEREP
+                            dort ebenfalls verarbeitet. #endif$_OTHEREP
 
                         </span>
                     </p>
@@ -10395,9 +10395,9 @@ END:VEVENT`;
                         which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and
                         modified using analytical pipelines, which may yield different results or include ad hoc data
                         analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT
-                        ARC.#endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
+                        ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
                         (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise in the
-                        DataPLANT consortium#endif$_DATAPLANT. </span></li>
+                        DataPLANT consortium #endif$_DATAPLANT. </span></li>
 
                 <span class="c0">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the
                     derived data will be about $_DERIVEDDATA GB.</span>
@@ -10443,8 +10443,8 @@ END:VEVENT`;
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
-                <span class="c1">#if$_METABOLOMIC The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
-                    not an accepted standard. #endissuewarning #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
+                <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+                    not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, minimal cross-domain
                     annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
@@ -10459,7 +10459,7 @@ END:VEVENT`;
                 <li class="c0 li-bullet-0"><span class="c0">Reuse of published data &ndash; The project builds on
                         existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic
                         reference it is very difficult to analyze next-generation sequencing (NGS) data
-                        sets.#endif$_RNASEQ It is also important to include existing data-sets on the expression and
+                        sets. #endif$_RNASEQ It is also important to include existing data-sets on the expression and
                         metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of
                         the partners. #endif$_PARTNERS Genomic references can be gathered from reference databases for
                         genomes/ and sequences, like the NCBI (US National Center for Biotechnology Information),
@@ -10523,30 +10523,30 @@ END:VEVENT`;
                                     </span>
                                 </p>
                                 #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be
-                                processed there as well.#endif$_OTHEREP
+                                processed there as well. #endif$_OTHEREP
                             </span>
                         </p></span></li li class="c0 li-bullet-0"><span class="c0">Proprietary Data &ndash; Open public
                     data will be used whenever possible. </span></li>
                 <li class="c0 li-bullet-0"><span class="c0">Timeframes
-                        #if$_EARLY Some raw data is made public as soon as it is collected and processed.#endif$_EARLY
+                        #if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
                         #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings
-                        are published.#endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
-                        without embargo period will be published.#endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
+                        are published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
+                        without embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
                         subject to an embargo period, is not publicly accessible until the end of embargo
-                        period.#endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
-                        sharing while ensuring responsible use.#endif$_REQUEST #if$_IPISSUE IP issues will be checked
+                        period. #endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
+                        sharing while ensuring responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked
                         before publication. #endif$_IPISSUE All consortium partners will be
                         encouraged to make data available before publication, openly and/or under pre-publication
                         agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto
                         International Data
-                        Release Workshop. #endif$_GENOMIC This will be implemented as soon as IP-related checks are
+                        Release Workshop #endif$_GENOMIC . This will be implemented as soon as IP-related checks are
                         complete.
                     </span></li>
                 <li class="c0 li-bullet-0"><span class="c0">Format of the Final Dataset &ndash; Whenever possible, data
                         will be stored in common and openly defined formats including all the necessary metadata. By
                         default, no proprietary formats will be used. However Microsoft Excel files (according to
                         ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some
-                        ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor
+                        ARC components #endif$_DATAPLANT. In addition, text files might be edited in text processor
                         files, but will be shared as pdf.</span>
         </div>
     </div>
