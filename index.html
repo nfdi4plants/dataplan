@@ -337,10 +337,22 @@
 
 
         parseText();
-        document.getElementById("split-0").scrollTop = scroll_y,
+        
+        removeArtifact(", .", "."), 
+        removeArtifact("..", "."), 
+        removeArtifact(". .", "."), 
+        removeArtifact(" ,", ","),
+        removeArtifact(",,", ","), 
+        removeArtifact(" .", ".");
+        setTimeout(() => {
+            removeComma("list-to-remove-comma", " and");
+        }, "50");
+        setTimeout(() => {
+            document.getElementById("split-0").scrollTop = scroll_y,
             console.log("the window is scrolled to: " + scroll_y);
-        removeArtifact(", .", "."), removeArtifact("..", "."), removeArtifact(". .", "."), removeArtifact(" ,", ","),removeArtifact(",,", ","), removeArtifact(" .", ".");;
-        removeComma("list-to-remove-comma", " and");
+        }, "100");
+        
+        
     }
 
 
