@@ -181,7 +181,7 @@
         content: "<p> If you have saved the \"JSON\" file, you can also upload it at any time, to resume your DMP generation process </p>"
     }, {
         id: "change_template",
-        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>: </p><br><p>Beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="bmbf-dmp")\' >short proposal </a> can also be downloaded. <br> You can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html" >If you have more questions, please check our knowledge base</a>.</p>'
+        content: '<p> One DFG compatible detailed DMP is availabe <a href="#" onlick=\'load_dmp(reload_answers,name="dfg-dmp")\' >here</a>: </p><br><p>Beside the current document, a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="bmbf-dmp")\' >short proposal </a> can also be downloaded. <br> You can also download a <a id="myLink" href="#" onclick = \'load_dmp(reload_answers,name="practical-guide")\' >practical guide </a>. You can follow this guide to make sure that your data is well managed.<br> <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html" >If you have more questions, please check our knowledge base</a>.</p>'
     }
     ];
     var maxWidth = 1100;
@@ -2602,7 +2602,7 @@ END:VEVENT`;
         <div class="row" style="height: 3.25rem; ">
             <div class="col-7"
                 style="background: rgb(45, 62, 80); height: 3.25rem; margin: 0 0 0 0px; padding: 0 0 0 0; ">
-                <a class="" href="https://nfdi4plants.org/">
+                <a target="_blank" class="" href="https://nfdi4plants.org/">
                     <img src="images/logo.png" alt="Logo" width="32" height="32"
                         style="position: absolute; margin: 8px 12px 8px 12px; left: 0px; padding-top: 0px;" />
                 </a>
@@ -2866,12 +2866,12 @@ END:VEVENT`;
                                     onclick=" window.innerWidth>maxWidth? tour.show() : {}">Tutorial</button>
                             </li>
                             <li>
-                                <a id="wiki_button" class="dropdown-item"
+                                <a id="wiki_button" class="dropdown-item" target="_blank"
                                     ref="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html"
                                     target="_blank">Knowledge Base</a>
                             </li>
                             <li>
-                                <a id="github_button" class="dropdown-item"
+                                <a id="github_button" class="dropdown-item" target="_blank"
                                     href="https://github.com/nfdi4plants/dataplan/" data-bs-toggle="tooltip"
                                     data-bs-placement="top"
                                     title="bugs, suggestions or comments are welcom here">GitHub</a>
@@ -3762,56 +3762,64 @@ END:VEVENT`;
                                         id="check_MIMS" />
                                     <label class="form-check-label" for="check_MIMS">
                                         MIMS (Minimum Information about Metagenome or Environmental)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-mims" aria-controls="offcanvas-mims" > more info &#128712; </a>
                                 </div>
                                 <div class="collapse check_genomicRepo" id="mimark1">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_MIMARKSSPECIMEN" />
                                     <label class="form-check-label" for="check_MIMARKSSPECIMEN">
                                         MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-mimarksspecimen" aria-controls="offcanvas-mimarksspecimen" > more info &#128712; </a>
                                 </div>
                                 <div class="collapse check_genomicRepo" id="mimark2">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_MIMARKSSURVEY" />
                                     <label class="form-check-label" for="check_MIMARKSSURVEY">
                                         MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-mimarksurvey" aria-controls="offcanvas-mimarksurvey" > more info &#128712; </a>
                                 </div>
                                 <div class="collapse check_genomicRepo" id="misag">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_MISAG" />
                                     <label class="form-check-label" for="check_MISAG">
                                         MISAG (Minimum Information about a Single Amplified Genome)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-misag" aria-controls="offcanvas-misag" > more info &#128712; </a>
                                 </div>
                                 <div class="collapse check_genomicRepo" id="mimag">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_MIMAG" />
                                     <label class="form-check-label" for="check_MIMAG">
                                         MIMAG (Minimum Information about Metagenome-Assembled Genome)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-mimag" aria-controls="offcanvas-mimag" > more info &#128712; </a>
                                 </div>
                                 <div class="collapse check_transcriptomicRepo" id="miame">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_MIAME" />
+                                        id="check_MIAME" /> 
                                     <label class="form-check-label" for="check_MIAME">
                                         MIAME (Minimum Information About a Microarray Experiment)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-miame" aria-controls="offcanvas-miame" > more info &#128712; </a> 
                                 </div>
                                 <div class="collapse check_metabolomicRepo" id="miamet">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                         id="check_MMIAMET" />
                                     <label class="form-check-label" for="check_MMIAMET">
                                         MIAMET (Minimum Information About a METabolomics experiment)
-                                    </label>
+                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-miamet" aria-controls="offcanvas-miamet" > more info &#128712; </a> 
                                 </div>
                                 <div class="collapse check_transcriptomicRepo check_RNAseqRepo" id="minseqe">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                         id="check_MinSeqE" />
                                     <label class="form-check-label" for="check_MinSeqE">
                                         MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-minseqe" aria-controls="offcanvas-minseqe" > more info &#128712; </a> 
                                 </div>
 
 
@@ -3821,7 +3829,8 @@ END:VEVENT`;
                                         id="check_REMBI" />
                                     <label class="form-check-label" for="check_REMBI">
                                         REMBI (Recommended Metadata for Biological Images)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-rembi" aria-controls="offcanvas-rembi" > more info &#128712; </a> 
                                 </div>
 
 
@@ -3830,15 +3839,17 @@ END:VEVENT`;
                                         id="check_MIAPE" />
                                     <label class="form-check-label" for="check_MIAPE">
                                         MIAPE (Minimum Information About a Proteomics Experiment)
-                                    </label>
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-miape" aria-controls="offcanvas-miape" > more info &#128712; </a>
                                 </div>
 
                                 <div class="collapse check_proteomicRepo" id="mimix">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="4"
                                         id="check_MIMIX" />
                                     <label class="form-check-label" for="check_MIMIX">
-                                        MIMix (Molecular Interactions)
-                                    </label>
+                                        MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment)
+                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                    data-bs-target="#offcanvas-mimix" aria-controls="offcanvas-miape" > more info &#128712; </a>
                                 </div>
 
                                 <div class="form-data_type form-check">
@@ -4127,7 +4138,7 @@ END:VEVENT`;
         </div>
         <div class="offcanvas-body">
             <p> MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
-                More information can be found on: <a href="https://www.miappe.org/"> MIAPPE Homepage </a>
+                More information can be found on: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
             </p>
 
         </div>
@@ -4141,7 +4152,7 @@ END:VEVENT`;
         </div>
         <div class="offcanvas-body">
             <p> The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. 
-                More information can be found on: <a href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
+                More information can be found on: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
             </p>
 
         </div>
@@ -4154,7 +4165,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a href="https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1289&context=usdoepub"> MIGS publication </a>
+        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4167,7 +4178,146 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a href="https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1289&context=usdoepub"> MIGS publication </a>
+        <p> Minimum Information about a Genome Sequence: Organelle. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        </p>
+
+        </div>
+    </div>
+
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-mims" aria-labelledby="offcanvasScrolling12">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling12"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-mimarksspecimen" aria-labelledby="offcanvasScrolling13">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling13"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-mimarksurvey" aria-labelledby="offcanvasScrolling14">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling14"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-misag" aria-labelledby="offcanvasScrolling15">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling16"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-mimag" aria-labelledby="offcanvasScrolling16">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling16"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
+        </p>
+
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-miame" aria-labelledby="offcanvasScrolling17">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling17"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>  the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
+        </p>
+
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-miamet" aria-labelledby="offcanvasScrolling18">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling18"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>  MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
+        </p>
+
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-minseqe" aria-labelledby="offcanvasScrolling19">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling19"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>  MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
+        </p>
+
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-rembi" aria-labelledby="offcanvasScrolling20">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling20"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>   Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
+        </p>
+
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-miape" aria-labelledby="offcanvasScrolling21">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling21"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p>   The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-mimix" aria-labelledby="offcanvasScrolling22">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling22"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
         </p>
 
         </div>
@@ -4795,7 +4945,7 @@ END:VEVENT`;
                         #endif$_METABOLOMIC
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                        #if$_MIMIX MIMix (Minimum Information about any (X) Sequence), #endif$_MIMIX
+                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
@@ -5325,7 +5475,7 @@ END:VEVENT`;
              #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
             #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
              #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
-           #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+           #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
             #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
             #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
             #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
@@ -5340,7 +5490,7 @@ END:VEVENT`;
 
             #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
             <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
-            #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
+            #if$_GENETIC|$_GENOMIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC|$_GENOMIC
             #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
          <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
             <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
@@ -5696,7 +5846,7 @@ END:VEVENT`;
                         #endif$_METABOLOMIC
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                        #if$_MIMIX MIMix (Minimum Information about any (X) Sequence), #endif$_MIMIX
+                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
@@ -6337,7 +6487,7 @@ END:VEVENT`;
              #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
             #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
              #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
-           #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+           #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
             #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
             #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
             #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
@@ -6637,7 +6787,7 @@ END:VEVENT`;
                         #endif$_METABOLOMIC
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                        #if$_MIMIX MIMix (Minimum Information about any (X) Sequence), #endif$_MIMIX
+                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
@@ -7156,7 +7306,7 @@ END:VEVENT`;
         #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
        #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
         #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
-      #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> Minimum Information about Metagenome or Environmental </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+      #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
        #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
        #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
@@ -10261,7 +10411,7 @@ END:VEVENT`;
                             #endif$_METABOLOMIC
                             #if$_PROTEOMIC
                             #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                            #if$_MIMIX MIMix (Minimum Information about any (X) Sequence), #endif$_MIMIX
+                            #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                             #endif$_PROTEOMIC .
                             </span>
 
@@ -10484,7 +10634,7 @@ END:VEVENT`;
                         #endif$_METABOLOMIC
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                        #if$_MIMIX MIMix (Minimum Information about any (X) Sequence), #endif$_MIMIX
+                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                         #endif$_PROTEOMIC .
                         </span>
                 </span>
