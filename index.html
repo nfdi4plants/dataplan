@@ -584,26 +584,9 @@
             try {
                 const checked = Object.entries(checkboxes["checked"]);
                 for (const [key, value] of checked) {
-                    let element = document.getElementById(value);
+                    let element = document.getElementById(value.toLowerCase());
                     element.checked = true;
-                    // the check box of dataplant is opposite to others. It will collapse when dataplant is checked. That is why here is an exception.
-                    if (value != "check_dataplant") {
-                        try {
-                            document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
 
-                        } catch (e) {
-                            //verbose  console.log("error is" + value)
-                        }
-                    } else {
-
-                        try {
-                            document.getElementById(element.getAttribute("aria-controls")).classList.remove("show");
-
-                        } catch (e) {
-                            //verbose  console.log("error is" + value)
-                        }
-
-                    }
 
                 };
             } catch (e) {
@@ -614,44 +597,23 @@
             try {
                 const unchecked = Object.entries(checkboxes["unchecked"]);
                 for (const [key, value] of unchecked) {
-                    let element = document.getElementById(value);
+                    console.log("value = "+ value)
+                    let element = document.getElementById(value.toLowerCase());
                     element.checked = false;
-                    if (value == "check_dataplant") {
-                        try {
-                            document.getElementById(element.getAttribute("aria-controls")).classList.add("show");
-
-                        } catch (e) { ////verbose  console.log(e)
-                        }
-
-                    } else {
-                        try {
-                            document.getElementById(element.getAttribute("aria-controls")).classList.remove("show");
-                        } catch (e) { ////verbose  console.log(e)
-                        }
-
-                    }
+                    
 
                 };
             } catch (e) {
+                
+                console.error(e)
                 //verbose  console.log("unchecked is null");
 
             }
 
         }
-        //verbose  console.log("answers is reloading");
 
-
-        
-        let singleOption = {"checked":[], "unchecked":[]};
-        for (let answers in saved_a["checkbox"]) {
-            
-            singleOption.checked.push(...saved_a["checkbox"][answers]["checked"]);
-            singleOption.unchecked.push(...saved_a["checkbox"][answers]["unchecked"]);
-               
-            }
-            //console.log(singleOption);
-
-            checkbox(singleOption);
+        checkboxConversion();
+ 
 
         for (let answers in saved_a["replace"]) {
             let singleOption = {};
@@ -679,15 +641,39 @@
         let checkboxes = document.querySelectorAll(".form-check-input");
         checkboxes.forEach(e => {
 
-            e.setAttribute("onfocusin", 'const elem1 = document.getElementsByName(this.id+"-to-"); elem1.forEach(e =>{ e.classList.add("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.add("border-highlight")}  }); set_scrollbar_marker( scroll_marker,elem1 )');
-            e.setAttribute("onfocusout", 'const elem2 = document.getElementsByName(this.id+"-to-");elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
+            e.setAttribute("onfocusin", 'const elem1 = document.querySelectorAll("."+this.id); elem1.forEach(e =>{ e.classList.add("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.add("border-highlight")}  }); set_scrollbar_marker( scroll_marker,elem1 )');
+            e.setAttribute("onfocusout", 'const elem2 = document.querySelectorAll("."+this.id);elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
             e.setAttribute("onmouseover", 'this.focus()');
             e.setAttribute("onclick",
-                'this.blur(); setTimeout(()=> {this.focus()}, "0")');
+                'this.blur();  setTimeout(()=> {singleCheckbox(this.id);this.focus()}, "0")');
             e.setAttribute("name", e.id);
+            
         }
 
         );
+        
+        checkboxSelection();
+        let allchecked = [];
+        document.querySelectorAll(".checkboxConverted").forEach(e=>{e.classList.add("d-none")});
+        
+        setTimeout(e=>{
+            for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
+            allchecked.push(...boxes["checked"]);
+            
+        }
+        for (const check of allchecked){
+            singleCheckbox(check.toLowerCase());
+        }
+
+        }, "0")
+        
+
+        
+        // e.setAttribute("onchange", "const col1 = new bootstrap.Collapse('."+id+"Repo', {toggle: false});if(this.checked == true){col1.show();}else{col1.hide();}");
+    }
+
+
+    function checkboxSelection(){
         let c2Checked = [];
         let c2Unchecked = [];
         document.querySelectorAll(".checkbox_2").forEach((e) => {
@@ -704,7 +690,7 @@
             (e) => {
                 const id = e.getAttribute("id");
                 try {
-                    let repolist = document.querySelectorAll('.' + id + 'Repo');
+                    let repolist = document.querySelectorAll('.' + id + 'repo');
                     repolist.forEach(item => {
                         const col1 = new bootstrap.Collapse("#" + item.id, { toggle: false });
                         col1.hide();
@@ -716,7 +702,7 @@
             (e) => {
                 const id = e.getAttribute("id");
                 try {
-                    let repolist = document.querySelectorAll('.' + id + 'Repo');
+                    let repolist = document.querySelectorAll('.' + id + 'repo');
                     repolist.forEach(item => {
                         const col1 = new bootstrap.Collapse("#" + item.id, { toggle: false });
                         col1.show();
@@ -724,8 +710,6 @@
                 } catch (e) { console.log(e) };
             }
         );
-
-        // e.setAttribute("onchange", "const col1 = new bootstrap.Collapse('."+id+"Repo', {toggle: false});if(this.checked == true){col1.show();}else{col1.hide();}");
 
 
     }
@@ -760,7 +744,7 @@
      * @global
      */
 
-    function get_option(this_element) {
+     function get_option1(this_element) {
 
 
         const class_name = this_element.dataset.checkbox;
@@ -786,6 +770,68 @@
 
 
         load_dmp(reload_answers, name = doc_name);
+
+        }
+    function singleCheckbox(ele){
+        checkboxSelection();
+        let allchecked = [];
+        for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
+            allchecked.push(...boxes["checked"])
+            
+        }
+        allchecked.map(v => v.toLowerCase());
+        const checkboxContent = document.querySelectorAll("."+ele);
+        checkboxContent.forEach(
+            e=>{
+                const operator = e.dataset.operator.split("|");
+                const found = allchecked.some(e=> operator.includes(e));
+                if (operator.length == 2){
+                   
+               if(found){
+                e.classList.remove("d-none");
+               }else{
+                e.classList.add("d-none");
+               }
+                }
+             else if (operator.length > 2){
+
+               if(found){
+                e.classList.remove("d-none");
+               }else{
+                e.classList.add("d-none");
+               }
+
+             }else{
+                e.classList.add("d-none");
+             }
+            }
+        ) ;
+
+    }
+
+
+    function get_option(this_element) {
+
+
+        const class_name = this_element.dataset.checkbox;
+        //verbose  console.log("class name for question is " + class_name);
+        const checked = document.querySelectorAll(`.${class_name}:checked`);
+        const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
+        const checked_list = [];
+        checked.forEach(element => checked_list.push(element.id));
+        const unchecked_list = [];
+        unchecked.forEach(element => unchecked_list.push(element.id));
+        //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
+        saved_a["checkbox"][class_name] = {
+            "checked": checked_list,
+            "unchecked": unchecked_list
+        };
+        
+
+        //verbose  console.log("+++++++++++++++++" + checked_list);
+
+
+        //load_dmp(reload_answers, name = doc_name);
 
 
     }
@@ -913,335 +959,56 @@
         //warning_text_location.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    /**
-     * edit checked/unchecked placeholders in the file.
-     * @param {string} right_range - the extended keyword (includes #if and #endif) need to be replaced.
-     *
-     */
-
-    function checkbox(options) {
-
-        // remove ranges, very important. took me long time to find this function
-        const selection = window.getSelection();
-        selection.removeAllRanges();
-        // all objects which first class name is the option name
-        
-        check_uncheck(options);
-       
 
 
-    }
-
-    /**
-     * match a place holder and then modify it.
-     * @param {string} in_range - the extended keyword (includes #if and #endif) need to be replaced.
-     *
-     */
-
-    function match_mod(in_range, before) {
+    function match_mod(in_range, holders, operator = "") {
 
         
         //verbose   console.log("mach_mod function: check_box_item: " + before);
-
+        //console.log("holders are : "+ holders);
         const parent_node = document.createElement("span");
         parent_node.classList.add("text-primary");
-        parent_node.setAttribute("onmouseover", 'const e = document.getElementById("' + before + '") ;e.parentElement.classList.add("border-highlight");e.focus({preventScroll: true})');
+        let onmouseoverText="",onclickText="",dataOperatorText="",onmouseleaveText="";
+        
+        for (const holder of holders){
+            const idText = "check_" + holder.split("_")[1].toLowerCase();
+            onmouseoverText += 'const '+idText+' = document.getElementById("' + idText + '") ;'+idText+'.parentElement.classList.add("border-highlight");'+idText+'.focus({preventScroll: true}); ';
+            onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
+            onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
+            parent_node.classList.add(idText);
+            let after;
+            
+            if (operator=="!"){
+                dataOperatorText = "!"
+            }else{
+                dataOperatorText += idText +"|";
+                //dataOperatorText += idText
+            }
+        }
+        parent_node.classList.add("checkboxConverted");
+        parent_node.setAttribute("onmouseover", onmouseoverText);
 
-
-        parent_node.setAttribute("onmouseleave", 'document.getElementById("' + before + '").parentElement.classList.remove("border-highlight");  ');
-        parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + before + '").focus(); ');
-        parent_node.setAttribute("name", before + "-to-");
-           
+        parent_node.setAttribute("onclick", onclickText );
+        parent_node.setAttribute("onmouseleave",onmouseleaveText );
+        parent_node.setAttribute("onclick", onclickText );
+        //parent_node.setAttribute("name", idText + "-to-");
+        parent_node.setAttribute("data-operator", dataOperatorText);
             const doc_frag = in_range.extractContents();
             //console.log(" doc_frag: " + doc_frag.textContent );
             //const node1 = document.createTextNode(doc_frag);
             parent_node.appendChild(doc_frag);
             //verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
-
+        
         in_range.insertNode(parent_node);
         in_range.detach();
         //verbose   console.log("in_range is :" + in_range.toString());
 
-    }
+        }
 
 
-
-
-    // function check_uncheck1(checked, callback1, callback2, check_or_uncheck) {
-
-    //     for (let i = 0; i < checked.length; i++) {
-
-    //         var check_box_item = checked[i];
-    //         ////verbose  console.log(check_box );
-    //         let name = check_box_item.split('_')[1];
-    //         // here the ________ should not match anything, make sure not to use it as a real placeholder
-    //         let match_name = "_________";
-    //         try {
-    //             match_name = prefix.concat(name.toUpperCase());
-    //             //verbose  console.log("check for loop, starts " + match_name + " " + checked.length);
-    //         } catch (e) { }
-
-
-
-
-    //         // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
-
-    //         if (window.find) //for chrome, firefox
-    //         {
-
-
-    //             let ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-    //                 aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-    //             while (ns) {
-    //                 // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
-    //                 //verbose  console.log("found");
-
-    //                 let remove_range = window.getSelection().getRangeAt(0).cloneRange();
-    //                 let left_range = window.getSelection().getRangeAt(0).cloneRange();
-    //                 let right_range = window.getSelection().getRangeAt(0).cloneRange();
-    //                 let original_range = window.getSelection().getRangeAt(0).cloneRange();
-    //                 let if_range = window.getSelection().getRangeAt(0).cloneRange();
-
-
-    //                 let extended_begin_node;
-    //                 let extended_begin_focus;
-    //                 let extended_end_node;
-    //                 let extended_end_focus;
-    //                 let begin_node;
-    //                 let begin_focus;
-
-    //                 console.log(remove_range.toString())
-
-
-    //                 if ((window.getSelection().anchorOffset === 0) && (window.getSelection().anchorNode.previousSibling === null)) {
-    //                     begin_node = window.getSelection().anchorNode;
-    //                     begin_focus = window.getSelection().anchorOffset;
-    //                     console.log("begin extended through focus " + begin_node + "  end focus is " + begin_focus + " anchor case no.1");
-    //                 } else if (window.getSelection().anchorOffset < 3) {
-    //                     console.log("anchor case 2 begin extended through focus " + window.getSelection().anchorNode.parentNode.parentNode.textContent);
-    //                     begin_node = window.getSelection().anchorNode.previousSibling;
-                        
-    //                     begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 3;
-                         
-    //                 } else {
-
-    //                     begin_node = window.getSelection().anchorNode;
-
-    //                     begin_focus = window.getSelection().anchorOffset - 3;
-    //                     //verbose console.log("anchor case 3 begin extended through node " + begin_node.data);
-
-    //                 }
-
-
-    //                 if ((window.getSelection().focusOffset == window.getSelection().focusNode.length) && (window.getSelection().focusNode.nextSibling === null)) {
-    //                     extended_end_node = window.getSelection().focusNode;
-    //                     extended_end_focus = window.getSelection().focusOffset;
-    //                     //verbose     console.log("focus case 1 end extended through focus " + extended_end_node.data);
-
-    //                 } else if (window.getSelection().focusOffset == window.getSelection().focusNode.length) {
-    //                     extended_end_node = window.getSelection().focusNode.nextSibling;
-    //                     extended_end_focus = 1;
-    //                     //verbose     console.log("focus case 2 end extended through next node ");
-
-    //                 } else {
-    //                     extended_end_node = window.getSelection().focusNode;
-    //                     extended_end_focus = window.getSelection().focusOffset + 1;
-    //                     //verbose     console.log("focus case 3 end extended through focus " + extended_end_node.data);
-
-    //                 }
-
-    //                 right_range.setEnd(extended_end_node, extended_end_focus);
-
-    //                 if_range.setStart(begin_node, begin_focus);
-    //                 let if_text = if_range.toString();
-    //                 const if_cha = if_text.slice(-match_name.length - 1, -match_name.length);
-    //                 const right_text = right_range.toString();
-
-
-    //                 const right_cha = right_text.slice(-1);
-
-
-    //                 const left_text = left_range.toString();
-
-
-
-    //                 place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-    //                 //console.log("left_text is: "+ left_text +" place holder: " + place_holder);
-    //                 //verbose console.log("if_cha: " + if_cha);
-
-    //                 if (if_cha == "|" && check_or_uncheck == "check") {
-    //                     if (window.getSelection().anchorOffset < 13 && window.getSelection().anchorNode.previousSibling !== undefined) {
-    //                         extended_begin_node = window.getSelection().anchorNode.previousSibling;
-    //                         extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 13;
-    //                         //verbose  console.log("begin extended through focus " + extended_begin_node);
-
-
-
-    //                     } else {
-
-    //                         extended_begin_node = window.getSelection().anchorNode;
-
-    //                         extended_begin_focus = window.getSelection().anchorOffset - 13;
-    //                         //verbose  console.log("begin extended through node " + extended_begin_node.data);
-
-    //                     }
-
-
-    //                     left_range.setStart(extended_begin_node, extended_begin_focus);
-    //                     const left_text = left_range.toString();
-
-    //                     //verbose  console.log("left_text: " + left_text);
-    //                     place_holder = /\#if\$\_.{0,10}\$\_\w*\b/.exec(left_text);
-    //                     //verbose  console.log("place holder: " + place_holder);
-    //                     try { selection.removeAllRanges(); } catch (e) {
-
-    //                     };
-    //                     window.find(place_holder);
-    //                     if_range = window.getSelection().getRangeAt(0);
-    //                     if_text = if_range.toString();
-
-    //                     console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-    //                     //console.log(" selection updated because of \| : "   + "________" + if_text);
-    //                     callback1(if_range, check_box_item);
-    //                     try { selection.removeAllRanges(); } catch (e) {
-    //                     }
-    //                 }
-    //                 // to match different conditions} 
-    //                 else if (if_cha == "|" && check_or_uncheck == "uncheck") {
-    //                     window.getSelection().removeAllRanges();
-    //                     window.find(if_cha + left_text);
-    //                     if_range = window.getSelection().getRangeAt(0);
-    //                     if_text = if_range.toString();
-
-    //                      console.log(" selection updated because of \| : " + window.getSelection().focusNode.data + "________" + if_text);
-
-    //                     match_remove(if_range);
-    //                     window.getSelection().removeAllRanges();
-    //                 }
-    //                 else if (if_cha == "f") {
-
-    //                     if (right_cha == "|") {
-
-    //                         if (check_or_uncheck == "check") {
-    //                             window.find(" ");
-
-    //                             if_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset);
-    //                             callback1(if_range, check_box_item);
-    //                             if_range.detach();
-
-
-    //                         } else if (check_or_uncheck == "uncheck") {
-    //                             console.log("uncheck with |, the right_range will be move to: " + right_range.toString());
-
-    //                             right_range.deleteContents();
-    //                             right_range.detach;
-
-
-    //                         }
-
-    //                     } else {
-    //                         callback1(if_range, check_box_item);
-    //                         if_range.detach();
-    //                     }
-
-
-    //                 } else if (if_cha == "," || if_cha == " ") {
-    //                     if (check_or_uncheck == "check") {
-
-    //                         //console.log("!!!! replace match text");					
-    //                         original_range.deleteContents();
-    //                         const name_ele = document.getElementById(check_box_item);
-    //                         const before = check_box_item;
-    //                         const parent_node = document.createElement("span");
-    //                         parent_node.classList.add("text-primary");
-    //                         parent_node.setAttribute("onmouseover", 'const e = document.getElementById("' + before + '") ;e.parentElement.classList.add("border-highlight");e.focus({preventScroll: true})');
-
-
-    //                         parent_node.setAttribute("onmouseleave", 'document.getElementById("' + before + '").parentElement.classList.remove("border-highlight");  ');
-    //                         parent_node.setAttribute("onclick", 'document.getElementById("' + before + '").parentElement.scrollIntoView({ behavior: "smooth", block: "center" });document.getElementById("' + before + '").focus(); ');
-    //                         parent_node.setAttribute("name", before + "-to-");
-    //                         if (doc_name.split("-")[0] == "bmbf") {
-    //                             parent_node.innerHTML = HtmlEncode(name_ele.dataset.replacede);
-    //                         } else {
-    //                             parent_node.innerHTML = HtmlEncode(name_ele.dataset.replace);
-    //                         }
-
-
-    //                         original_range.insertNode(parent_node);
-    //                         original_range.detach();
-    //                     }
-    //                     else if (check_or_uncheck == "uncheck") {
-    //                         //verbose  console.log("!!!! remove the matched text");
-    //                         remove_range.setEnd(window.getSelection().focusNode, window.getSelection().focusOffset + 1);
-    //                         remove_range.deleteContents();
-    //                         remove_range.detach();
-
-    //                     }
-
-
-
-
-
-    //                 } else if (if_cha == "!") {
-
-    //                     if (window.getSelection().anchorOffset < 4 && window.getSelection().anchorNode.previousSibling !== undefined) {
-    //                         extended_begin_node = window.getSelection().anchorNode.previousSibling;
-    //                         extended_begin_focus = window.getSelection().anchorNode.previousSibling.length + window.getSelection().anchorOffset - 4;
-    //                         //verbose  console.log("begin extended through focus " + extended_begin_node);
-
-    //                     } else {
-
-    //                         extended_begin_node = window.getSelection().anchorNode;
-
-    //                         extended_begin_focus = window.getSelection().anchorOffset - 4;
-    //                         //verbose  console.log("begin extended through node " + extended_begin_node.data);
-
-    //                     }
-
-    //                     left_range.setStart(extended_begin_node, extended_begin_focus);
-    //                     const left_text = left_range.toString();
-
-    //                     //verbose  console.log("left_text with <!>: " + left_text);
-    //                     callback2(left_range, check_box_item);
-
-    //                 } else {
-
-    //                     //verbose  console.log("_____other cases");
-    //                     //verbose  console.log("last character is: ", right_cha);
-    //                     callback1(if_range, check_box_item);
-    //                     if_range.detach();
-    //                 }
-
-    //                 //window.find("#endif");
-
-    //                 if_range.detach();
-    //                 ns = window.find(match_name, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-    //                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
-    //             }
-    //         }
-
-
-            //else if (document.body.createTextRange) //for ie etc.
-            //{
-            //	let range_if = document.body.createTextRange();
-            //	while (range_if.findText(match_name)) {
-            //		range_if.pasteHTML('atest');
-            //	}
-            //}
-
-            //verbose  console.log("check for loop, ends " + match_name);
-
-    //     }
-    // }
-
-function check_uncheck(checked_unchecked){
+    function checkboxConversion(){
     const selection= window.getSelection();
     selection.removeAllRanges();
-
-    var checkboxOptions = {"checked":[], "unchecked":[]};
-        checked_unchecked.checked.forEach((e)=> {checkboxOptions.checked.push(prefix.concat(e.split("_")[1].toUpperCase()) ) } )
-        checked_unchecked.unchecked.forEach((e)=> {checkboxOptions.unchecked.push(prefix.concat(e.split("_")[1].toUpperCase()) ) } )
-
             // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
 
             if (window.find) //for chrome, firefox
@@ -1281,44 +1048,27 @@ function check_uncheck(checked_unchecked){
                     var if_in = false;
   
                     if (if_type_string == "$"){
-                        for (ph of holders){
-                        for (const [index, element] of Object.entries(checkboxOptions.checked)){
-                            
-                            if (ph.toUpperCase() == element){
-                                if_in = true;
-                                check_name = checked_unchecked.checked[index];
-                                match_mod(in_range, check_name );
+                        
+                                match_mod(in_range, holders );
                                 in_range.detach();
-                                break;
-                                   }
-                                }   
-                            } 
+                                
+                                   
                            
                             //match_remove(in_range);
                     } else if (if_type_string == "!" ){
 
-                        for (ph of holders){
-                            for (const [index, element] of Object.entries(checkboxOptions.unchecked)){
-                                //console.log("element ="+element);
-                                if (ph.replace("!","").toUpperCase() == element){
-                                    if_in = true;
-                                    // console.log("ph =  "+ph);
-                                    // console.log("element =  "+element);
-                                    check_name = checked_unchecked.unchecked[index];
+
+                                
                                     // console.log("check_name ="+check_name);
-                                    match_mod(in_range, check_name);
+                                    match_mod(in_range, holders, "!");
                                     in_range.detach();
-                                    break;
-                                    }
-                                }
-                            } 
+                                    
+                                    
+                                
+                            
                     }else{                        
                     }
-                    if (if_in){
-                    }else{
-                        deb("if_range :"+ if_range.toString()+ "\n \nin_range :"+ in_range.toString()+ "\n \n endif_range: "+ endif_range.toString());
-                        match_remove(in_range);
-                    }                    
+                                  
                     //in_range.deleteContents();
                     in_range.detach();
                     if_range.deleteContents();
@@ -1329,32 +1079,7 @@ function check_uncheck(checked_unchecked){
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                 }
             }
-        for (holder of checked_unchecked.checked ){
-            let after;
-            // console.log("holder is : "+ holder);
-            const name_ele = document.getElementById(holder);
 
-            if (doc_name.split("-")[0] == "bmbf") {
-                                after = HtmlEncode(name_ele.dataset.replacede);
-                            } else {
-                                after = HtmlEncode(name_ele.dataset.replace);
-                            }
-            const before = "$_" + holder.split("_")[1].toUpperCase() ;
-
-            if (after == "undefined"){
-
-            }else{
-                
-                find_replace(before, after, holder);
-            }
-            
-
-             }
-        for (holder of checked_unchecked.unchecked ){        
-            const before = "$_" + holder.split("_")[1].toUpperCase() ;
-            find_replace(before, "");
-
-             }
 
 
             //else if (document.body.createTextRange) //for ie etc.
@@ -1369,7 +1094,6 @@ function check_uncheck(checked_unchecked){
 
         
     }
-
 
 
     /**
@@ -2509,6 +2233,10 @@ END:VEVENT`;
 
 
         elements.forEach(e => {
+            
+            if (e.classList.contains("d-none")){
+
+            }else{
             let e_top = e.offsetTop;
             let e_bot = e_top + e.offsetHeight;
             let parent_top = e.offsetParent.offsetTop;
@@ -2520,6 +2248,8 @@ END:VEVENT`;
             marker_e.style.height = (marker_bot - marker_top) + "px";
             marker_e.setAttribute("name", "scroll-bar-span");
             scroll_marker.appendChild(marker_e);
+            }
+
 
         }
 
@@ -3321,8 +3051,8 @@ END:VEVENT`;
                                 </label>
                             </div>
                             <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_EU" />
-                                <label class="form-check-label" for="check_EU">
+                                <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_eu" />
+                                <label class="form-check-label" for="check_eu">
                                     EU project.
                                 </label>
                             </div>
@@ -3398,9 +3128,9 @@ END:VEVENT`;
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-DNA"
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
                                     data-replace="cloned DNA" data-replacede="geklonte DNA" />
-                                <label class="form-check-label" for="check_cloned-DNA">
+                                <label class="form-check-label" for="check_cloned-dna">
                                     Cloned DNA
                                 </label>
                             </div>
@@ -3414,9 +3144,9 @@ END:VEVENT`;
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_RNAseq"
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_rnaseq"
                                     data-replace="RNA-Seq data" data-replacede="RNA-Seq-Daten" />
-                                <label class="form-check-label" for="check_RNAseq">
+                                <label class="form-check-label" for="check_rnaseq">
                                     RNAseq
                                 </label>
                             </div>
@@ -3505,47 +3235,47 @@ END:VEVENT`;
                                 <h3> 2.1 Where will you submit your data as endpoints?</h3>
 
 
-                                <div class="collapse check_geneticRepo check_genomicRepo check_genomicRepo"
-                                    id="GenBank">
+                                <div class="collapse check_geneticrepo check_genomicrepo check_genomicrepo"
+                                    id="genbank">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="3"
-                                        id="check_GenBank" />
-                                    <label class="form-check-label" for="check_GenBank">
+                                        id="check_genbank" />
+                                    <label class="form-check-label" for="check_genbank">
                                         NCBI-GenBank
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticRepo check_genomicRepo check_transcriptomicRepo"
-                                    id="SRA">
+                                <div class="collapse check_geneticrepo check_genomicrepo check_transcriptomicrepo"
+                                    id="sra">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_SRA" />
-                                    <label class="form-check-label" for="check_SRA">
+                                        id="check_sra" />
+                                    <label class="form-check-label" for="check_sra">
                                         NCBI-SRA (Sequence Read Archive)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticRepo check_transcriptomicRepo" id="GEO">
+                                <div class="collapse check_geneticrepo check_transcriptomicrepo" id="geo">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="2"
-                                        id="check_GEO" />
-                                    <label class="form-check-label" for="check_GEO">
+                                        id="check_geo" />
+                                    <label class="form-check-label" for="check_geo">
                                         NCBI-GEO (Gene Expression Omnibus)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticRepo check_RNAseqRepo check_genomicRepo check_transcriptomicRepo"
+                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo check_transcriptomicrepo"
                                     id="ENA">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_ENA" />
-                                    <label class="form-check-label" for="check_ENA">
+                                        id="check_ena" />
+                                    <label class="form-check-label" for="check_ena">
                                         EBI-ENA (European Nucleotide Archive)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticRepo check_genomicRepo check_transcriptomicRepo"
+                                <div class="collapse check_geneticrepo check_genomicrepo check_transcriptomicrepo"
                                     id="arrayexpress">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_ARRAYEXPRESS" />
-                                    <label class="form-check-label" for="check_ARRAYEXPRESS">
+                                        id="check_arrayexpress" />
+                                    <label class="form-check-label" for="check_arrayexpress">
                                         EBI-ArrayExpress
                                     </label>
                                 </div>
 
-                                <div class="collapse check_metabolomicRepo" id="metabolights">
+                                <div class="collapse check_metabolomicrepo" id="metabolights">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_metabolights" />
                                     <label class="form-check-label" for="check_metabolights">
@@ -3553,31 +3283,31 @@ END:VEVENT`;
                                     </label>
                                 </div>
 
-                                <div class="collapse check_proteomicRepo" id="pride">
+                                <div class="collapse check_proteomicrepo" id="pride">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_Pride" />
-                                    <label class="form-check-label" for="check_Pride">
+                                        id="check_pride" />
+                                    <label class="form-check-label" for="check_pride">
                                         EBI-PRIDE (PRoteomics IDEntifications Database)
                                     </label>
                                 </div>
 
-                                <div class="collapse  check_imageRepo" id="Bioimage">
+                                <div class="collapse  check_imagerepo" id="Bioimage">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_Bioimage" />
-                                    <label class="form-check-label" for="check_Bioimage">
+                                        id="check_bioimage" />
+                                    <label class="form-check-label" for="check_bioimage">
                                         EBI-BioImage Archive
                                     </label>
                                 </div>
 
-                                <div class="collapse check_imageRepo" id="IDR">
+                                <div class="collapse check_imagerepo" id="IDR">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_IDR" />
-                                    <label class="form-check-label" for="check_IDR">
+                                        id="check_idr" />
+                                    <label class="form-check-label" for="check_idr">
                                         IDR (Image Data Resource)
                                     </label>
                                 </div>
 
-                                <div class="collapse check_phenotypicRepo" id="edal">
+                                <div class="collapse check_phenotypicrepo" id="edal">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_edal" />
                                     <label class="form-check-label" for="check_edal">
@@ -3587,7 +3317,7 @@ END:VEVENT`;
                                 </div>
 
 
-                                <div class="collapse check_metabolomicRepo" id="MetabolomicsWorkbench">
+                                <div class="collapse check_metabolomicrepo" id="MetabolomicsWorkbench">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_metaworkbench" />
                                     <label class="form-check-label" for="check_metaworkbench">
@@ -3595,7 +3325,7 @@ END:VEVENT`;
                                     </label>
                                 </div>
 
-                                <div class="collapse checheck_metabolomicRepo" id="intact">
+                                <div class="collapse checheck_metabolomicrepo" id="intact">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_intact" />
                                     <label class="form-check-label" for="check_intact">
@@ -3606,7 +3336,7 @@ END:VEVENT`;
 
 
 
-                                <div class="collapse check_proteomicRepo" id="pdb">
+                                <div class="collapse check_proteomicrepo" id="pdb">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_pdb" />
                                     <label class="form-check-label" for="check_pdb">
@@ -3614,7 +3344,7 @@ END:VEVENT`;
                                     </label>
                                 </div>
 
-                                <div class="collapse check_proteomicRepo" id="chebi">
+                                <div class="collapse check_proteomicrepo" id="chebi">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_chebi" />
                                     <label class="form-check-label" for="check_chebi">
@@ -3721,102 +3451,102 @@ END:VEVENT`;
                             </h2>
                             <div class=" d-grid gap-1">
 
-                                <div class="collapse check_phenotypicRepo" id="miappe">
+                                <div class="collapse check_phenotypicrepo" id="miappe">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_MIAPPE" />
-                                    <label class="form-check-label" for="check_MIAPPE">
+                                        id="check_miappe" />
+                                    <label class="form-check-label" for="check_miappe">
                                         MIAPPE (Minimum Information About a Plant Phenotyping Experiment) 
                                     </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-miappe" aria-controls="offcanvas-miappe" > more info &#128712; </a>
 
                                 </div>
 
-                                <div class="collapse check_genomicRepo" id="mixs">
+                                <div class="collapse check_genomicrepo" id="mixs">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIXS" />
-                                    <label class="form-check-label" for="check_MIXS">
+                                        id="check_mixs" />
+                                    <label class="form-check-label" for="check_mixs">
                                         MIxS (Minimum Information about any (X) Sequence)
                                     </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mixs" aria-controls="offcanvas-mixs" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_genomicRepo" id="migseu">
+                                <div class="collapse check_genomicrepo" id="migseu">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIGSEU" />
-                                    <label class="form-check-label" for="check_MIGSEU">
+                                        id="check_migseu" />
+                                    <label class="form-check-label" for="check_migseu">
                                         MigsEu (Minimum Information about a Genome Sequence: Eucaryote)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-migseu" aria-controls="offcanvas-migseu" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicRepo" id="migsorg">
+                                <div class="collapse check_genomicrepo" id="migsorg">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIGSORG" />
-                                    <label class="form-check-label" for="check_MIGSORG">
+                                        id="check_migsorg" />
+                                    <label class="form-check-label" for="check_migsorg">
                                         MigsOrg (Minimum Information about a Genome Sequence: Organelle)
                                     </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-migsorg" aria-controls="offcanvas-migsorg" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_genomicRepo" id="mims">
+                                <div class="collapse check_genomicrepo" id="mims">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIMS" />
-                                    <label class="form-check-label" for="check_MIMS">
+                                        id="check_mims" />
+                                    <label class="form-check-label" for="check_mims">
                                         MIMS (Minimum Information about Metagenome or Environmental)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mims" aria-controls="offcanvas-mims" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicRepo" id="mimark1">
+                                <div class="collapse check_genomicrepo" id="mimark1">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIMARKSSPECIMEN" />
-                                    <label class="form-check-label" for="check_MIMARKSSPECIMEN">
+                                        id="check_mimarksspecimen" />
+                                    <label class="form-check-label" for="check_mimarksspecimen">
                                         MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimarksspecimen" aria-controls="offcanvas-mimarksspecimen" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicRepo" id="mimark2">
+                                <div class="collapse check_genomicrepo" id="mimark2">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIMARKSSURVEY" />
-                                    <label class="form-check-label" for="check_MIMARKSSURVEY">
+                                        id="check_mimarksurvey" />
+                                    <label class="form-check-label" for="check_mimarksurvey">
                                         MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimarksurvey" aria-controls="offcanvas-mimarksurvey" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicRepo" id="misag">
+                                <div class="collapse check_genomicrepo" id="misag">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MISAG" />
-                                    <label class="form-check-label" for="check_MISAG">
+                                        id="check_misag" />
+                                    <label class="form-check-label" for="check_misag">
                                         MISAG (Minimum Information about a Single Amplified Genome)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-misag" aria-controls="offcanvas-misag" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicRepo" id="mimag">
+                                <div class="collapse check_genomicrepo" id="mimag">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_MIMAG" />
-                                    <label class="form-check-label" for="check_MIMAG">
+                                        id="check_mimag" />
+                                    <label class="form-check-label" for="check_mimag">
                                         MIMAG (Minimum Information about Metagenome-Assembled Genome)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimag" aria-controls="offcanvas-mimag" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_transcriptomicRepo" id="miame">
+                                <div class="collapse check_transcriptomicrepo" id="miame">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_MIAME" /> 
-                                    <label class="form-check-label" for="check_MIAME">
+                                        id="check_miame" /> 
+                                    <label class="form-check-label" for="check_miame">
                                         MIAME (Minimum Information About a Microarray Experiment)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-miame" aria-controls="offcanvas-miame" > more info &#128712; </a> 
                                 </div>
-                                <div class="collapse check_metabolomicRepo" id="miamet">
+                                <div class="collapse check_metabolomicrepo" id="miamet">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_MMIAMET" />
-                                    <label class="form-check-label" for="check_MMIAMET">
+                                        id="check_mmiamet" />
+                                    <label class="form-check-label" for="check_mmiamet">
                                         MIAMET (Minimum Information About a METabolomics experiment)
                                     </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-miamet" aria-controls="offcanvas-miamet" > more info &#128712; </a> 
                                 </div>
-                                <div class="collapse check_transcriptomicRepo check_RNAseqRepo" id="minseqe">
+                                <div class="collapse check_transcriptomicrepo check_rnaseqrepo" id="minseqe">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_MinSeqE" />
-                                    <label class="form-check-label" for="check_MinSeqE">
+                                        id="check_minseqe" />
+                                    <label class="form-check-label" for="check_minseqe">
                                         MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-minseqe" aria-controls="offcanvas-minseqe" > more info &#128712; </a> 
@@ -3824,29 +3554,29 @@ END:VEVENT`;
 
 
 
-                                <div class="collapse check_imageRepo" id="rembi">
+                                <div class="collapse check_imagerepo" id="rembi">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_REMBI" />
-                                    <label class="form-check-label" for="check_REMBI">
+                                        id="check_rembi" />
+                                    <label class="form-check-label" for="check_rembi">
                                         REMBI (Recommended Metadata for Biological Images)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-rembi" aria-controls="offcanvas-rembi" > more info &#128712; </a> 
                                 </div>
 
 
-                                <div class="collapse check_proteomicRepo" id="miape">
+                                <div class="collapse check_proteomicrepo" id="miape">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_MIAPE" />
-                                    <label class="form-check-label" for="check_MIAPE">
+                                        id="check_miape" />
+                                    <label class="form-check-label" for="check_miape">
                                         MIAPE (Minimum Information About a Proteomics Experiment)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-miape" aria-controls="offcanvas-miape" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_proteomicRepo" id="mimix">
+                                <div class="collapse check_proteomicrepo" id="mimix">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_MIMIX" />
-                                    <label class="form-check-label" for="check_MIMIX">
+                                        id="check_mimix" />
+                                    <label class="form-check-label" for="check_mimix">
                                         MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimix" aria-controls="offcanvas-miape" > more info &#128712; </a>
@@ -3948,9 +3678,9 @@ END:VEVENT`;
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_EOSC"
+                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_eosc"
                                     />
-                                <label class="form-check-label" for="check_EOSC">
+                                <label class="form-check-label" for="check_eosc">
                                     Europe EOSC
                                 </label>
                             </div>
@@ -4724,9 +4454,21 @@ END:VEVENT`;
             </p>
             <p class="c0">
                 <span class="c1">
-                    $_PROJECTNAME will collect and/or generate the following types of raw data: $_GENETIC, $_GENOMIC,
-                    $_TRANSCRIPTOMIC, $_RNASEQ, $_METABOLOMIC, $_PROTEOMIC, $_PHENOTYPIC, $_TARGETED, $_IMAGE, $_MODELS,
-                    $_CODE, $_EXCEL, $_CLONED-DNA and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
+                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
+                    #if$_GENETIC genetic data, #endif$_GENETIC  
+                    #if$_GENOMIC genomic data, #endif$_GENOMIC 
+                    #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
+                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
+                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                    #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                    #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                    #if$_IMAGE image datasets, #endif$_IMAGE  
+                    #if$_MODELS modelling data, #endif$_MODELS 
+                    #if$_CODE computational code, #endif$_CODE  
+                    #if$_EXCEL excel files, #endif$_EXCEL 
+                     and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
                     will also be processed and modified using analytical pipelines, which may yield different results or
                     include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
                     tracked in the DataPLANT ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive
@@ -10036,7 +9778,7 @@ END:VEVENT`;
         <div id="bmbf-dmp1" class="content-page" id="text_start">
             <h1 class="text-center">
                 <p class="text-center h1">
-                    <center>Datenmanagementplan (Beta test)</center>
+                    <center>Datenmanagementplan für BMBF (Beta test)</center>
                 </p>
             </h1>
             <p class="c0"><span class="c3"><b>Projektname: $_PROJECTNAME</b></span></p>
