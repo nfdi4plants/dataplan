@@ -70,6 +70,8 @@
     var cookie_modal;
     var old_percentage;
     var scroll_marker;
+    var punctualReplaced = false;
+    
 
     var initialed = false; // set the initialed status to false
     const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
@@ -222,7 +224,7 @@
         }
         catch (e) { console.log("metabolights error"); };
         try {
-            (!Object.keys(saved_a["checkbox"]).includes("checkbox_5")) ? saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_GEO", "check_GenBank", "check_Proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ENA", "check_ARRAYEXPRESS", "check_NCBI", "check_Pride",] } : {};
+            (!Object.keys(saved_a["checkbox"]).includes("checkbox_5")) ? saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
         }
         catch (e) { };
         try {
@@ -230,7 +232,7 @@
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_EDAL", "check_INTACT", "check_SRA", "check_BIOIMAGE", "check_IDR", "check_metaworkbench", "check_PDB", "check_chebi", "check_otherep") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
         }
         catch (e) { };
         try {
@@ -242,7 +244,7 @@
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_MIXS")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_MIXS"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_MIXS", "check_MIGSEU", "check_MIGSORG", "check_MIMS", "check_MIMARKSSPECIMEN", "check_MIMARKSSURVEY", "check_MISAG", "check_MIMAG", "check_MIAME", "check_REMBI", "check_MIAPE", "check_MIMIX") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
         }
         catch (e) { };
         try {
@@ -250,7 +252,7 @@
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_MMIAMET")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_MMIAMET"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_MMIAMET") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
         }
         catch (e) { };
         try {
@@ -289,6 +291,10 @@
             Object.keys(saved_a["replace"]).includes("$_MODIFICATIONDATE") ? {} : saved_a["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
+        try {
+            Object.keys(saved_a["replace"]).includes("$_PARTNERS") ? {} : saved_a["replace"]["$_PARTNERS"] = "partner name";
+        }
+        catch (e) { };
 
 
     }
@@ -302,7 +308,7 @@
      */
     function load_dmp(callback = reload_answers, name = cached_template) {
 
-
+        punctualReplaced = false;
         const date = new Date(); // record the time
         doc_name = name; // overwrite global variable doc_name
         initialed ? scroll_y = document.getElementById("split-0").scrollTop + "" : {};
@@ -340,19 +346,12 @@
         
    
 
-        
-        removeArtifact(", .", "."), 
-        removeArtifact("..", "."), 
-        removeArtifact(". .", "."), 
-        removeArtifact(" ,", ","),
-        removeArtifact(",,", ","), 
-        removeArtifact(" .", "."),
-        removeComma("list-to-remove-comma", " and");
-    
         setTimeout(() => {
+            classicMode ? punctual(): {};
             document.getElementById("split-0").scrollTop = scroll_y,
             console.log("the window is scrolled to: " + scroll_y);
         }, "50");
+
         
         
     }
@@ -645,7 +644,7 @@
             e.setAttribute("onfocusout", 'const elem2 = document.querySelectorAll("."+this.id);elem2.forEach(e => {e.classList.remove("border-highlight"); if(e.querySelector("li")!=null){e.querySelector("li").classList.remove("border-highlight")}}); let remove = Array.from(document.getElementsByName("scroll-bar-span")); remove.forEach(e => {e.remove()})');
             e.setAttribute("onmouseover", 'this.focus()');
             e.setAttribute("onclick",
-                'this.blur();  setTimeout(()=> {singleCheckbox(this.id);this.focus()}, "0")');
+                'this.blur();  setTimeout(()=> {sc1(this.id);this.focus()}, "0")');
             e.setAttribute("name", e.id);
             
         }
@@ -654,15 +653,46 @@
         
         checkboxSelection();
         let allchecked = [];
-        document.querySelectorAll(".checkboxConverted").forEach(e=>{e.classList.add("d-none")});
+        
+        
         
         setTimeout(e=>{
+            //document.querySelectorAll(".checkboxConverted").forEach(e=>{e.classList.add("d-none")});
             for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
             allchecked.push(...boxes["checked"]);
             
         }
         for (const check of allchecked){
             singleCheckbox(check.toLowerCase());
+        }
+
+        
+
+        let allunchecked = [];
+        for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
+            allunchecked.push(...boxes["unchecked"]);
+            
+        }
+        allunchecked= allunchecked.map(v => v.toLowerCase());
+        for (const uncheck of allunchecked){
+            //singleCheckbox(check.toLowerCase());
+            const checkboxContent = document.querySelectorAll("."+uncheck);
+            checkboxContent.forEach(
+            e=>{
+                const operator = e.dataset.operator.split("|");
+                const found = operator.slice(0,-1).every(e=> allunchecked.includes(e));
+                if (operator.length >= 2){
+                   
+               if(found){
+                e.classList.add("d-none");
+               }else{
+                e.classList.remove("d-none");
+               }
+             }else{
+                e.classList.remove("d-none");
+             }
+            }
+        ) ;
         }
 
         }, "0")
@@ -674,6 +704,9 @@
 
 
     function checkboxSelection(){
+
+
+
         let c2Checked = [];
         let c2Unchecked = [];
         document.querySelectorAll(".checkbox_2").forEach((e) => {
@@ -695,7 +728,9 @@
                         const col1 = new bootstrap.Collapse("#" + item.id, { toggle: false });
                         col1.hide();
                     });
-                } catch (e) { console.log(e) };
+                } catch (e) { 
+                //    console.log(e) 
+                };
             }
         );
         c2Checked.forEach(
@@ -707,7 +742,9 @@
                         const col1 = new bootstrap.Collapse("#" + item.id, { toggle: false });
                         col1.show();
                     });
-                } catch (e) { console.log(e) };
+                } catch (e) { 
+                    //console.log(e)
+                 };
             }
         );
 
@@ -772,21 +809,37 @@
         load_dmp(reload_answers, name = doc_name);
 
         }
+
+
+        function sc1(ele){
+            
+            scroll_y  = document.getElementById("split-0").scrollTop;
+            punctualReplaced || classicMode ? load_dmp(reload_answers, doc_name)  :singleCheckbox(ele);
+            
+        }
+
+
     function singleCheckbox(ele){
+        
         checkboxSelection();
         let allchecked = [];
         for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
             allchecked.push(...boxes["checked"])
             
         }
-        allchecked.map(v => v.toLowerCase());
+        console.log(ele);
+        allchecked = allchecked.map(v => v.toLowerCase());
         const checkboxContent = document.querySelectorAll("."+ele);
+        
         checkboxContent.forEach(
             e=>{
+                debug=e.classList.contains("check_dataplant");
                 const operator = e.dataset.operator.split("|");
-                const found = allchecked.some(e=> operator.includes(e));
+                const found = allchecked.some(ele=> e.classList.contains(ele));
+                //console.log(e)
+                
                 if (operator.length == 2){
-                   
+                    
                if(found){
                 e.classList.remove("d-none");
                }else{
@@ -802,14 +855,70 @@
                }
 
              }else{
+               
+                if(found){
+                   
                 e.classList.add("d-none");
+               }else{
+                e.classList.remove("d-none");
+               }
              }
             }
         ) ;
+        
+    
 
     }
 
+        function punctual(){
+            punctualReplaced = true;
+            removeArtifact("and.", "."),
+         removeArtifact(", .", "."), 
+          removeArtifact("..", "."),
+        removeArtifact(". .", "."),
+          removeArtifact(" ,", ",");
+          removeArtifact(",,", ","), 
+          removeArtifact(" .", "."),
+         removeComma("list-to-remove-comma", " and");
+         setTimeout(() => {
+            document.getElementById("split-0").scrollTop = scroll_y,
+            console.log("the window is scrolled to: " + scroll_y);
+        }, "50");
+        }
 
+
+
+        function removeComma(className, text){
+
+            const allSpan = document.getElementById("doc3").querySelectorAll("."+className);
+            allSpan.forEach( ele=> {
+                if (ele.innerHTML.includes(" and</span>") ){
+                    console.log("and exist, pass")
+
+                }else{
+                    ele.innerHTML = ele.innerHTML.replace(/,(?=[^,]+$)/, ' '+text);
+                }
+            }   )
+
+            }
+
+        function removeArtifact(text1, text2){
+            while (window.find(text1, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                    aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
+                    let last_letter;
+                    const w_selection = window.getSelection();
+                    const range = w_selection.getRangeAt(0);
+                    console.log(range.toString());
+                    const cloned_range = range.extractContents();
+                    
+                    //console.log(cloned_range);
+                
+                   // range.deleteContents();
+                    range.insertNode(document.createTextNode(text2))
+                
+                }
+
+            }
     function get_option(this_element) {
 
 
@@ -826,7 +935,8 @@
             "checked": checked_list,
             "unchecked": unchecked_list
         };
-        
+        trim_saved_a(saved_a);
+        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 
         //verbose  console.log("+++++++++++++++++" + checked_list);
 
@@ -972,7 +1082,8 @@
         
         for (const holder of holders){
             const idText = "check_" + holder.split("_")[1].toLowerCase();
-            onmouseoverText += 'const '+idText+' = document.getElementById("' + idText + '") ;'+idText+'.parentElement.classList.add("border-highlight");'+idText+'.focus({preventScroll: true}); ';
+            const eleName = idText.split("-")[0];
+            onmouseoverText += 'const '+eleName+' = document.getElementById("' + idText + '") ;'+eleName+'.parentElement.classList.add("border-highlight");'+eleName+'.focus({preventScroll: true}); ';
             onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
             onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
             parent_node.classList.add(idText);
@@ -1044,28 +1155,19 @@
                     const holders = placeholder_strings.split("|");
                     
                     //console.log("placeholder_strings :"+ placeholder_strings+ " holders: "+ holders + " if_type_string:"+ if_type_string);
-                    let check_name;
+                    
                     var if_in = false;
   
                     if (if_type_string == "$"){
                         
                                 match_mod(in_range, holders );
                                 in_range.detach();
-                                
-                                   
-                           
                             //match_remove(in_range);
                     } else if (if_type_string == "!" ){
 
-
-                                
-                                    // console.log("check_name ="+check_name);
                                     match_mod(in_range, holders, "!");
                                     in_range.detach();
                                     
-                                    
-                                
-                            
                     }else{                        
                     }
                                   
@@ -1181,24 +1283,7 @@
     
     
     
-    function removeComma(className, text){
-        const allSpan = document.getElementById("doc3").querySelectorAll("."+className);
-        allSpan.forEach( ele=> {ele.innerHTML = ele.innerHTML.replace(/,(?=[^,]+$)/, ' '+text); }   )
-
-    }
-
-    function removeArtifact(text1, text2){
-        while (window.find(text1, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
-                aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
-                let last_letter;
-                const w_selection = window.getSelection();
-                const range = w_selection.getRangeAt(0);
-                //console.log(range.toString());
-                    range.deleteContents();
-                range.insertNode(document.createTextNode(text2))
-            }
-
-    }
+    
     //progress-bar
     var x = 0;
 
@@ -1351,6 +1436,18 @@
         const dmp1_vis = document.getElementById("Horizon2020_DMP").querySelector("#vis").childNodes[0].childNodes[1];
         // Options for the observer (which mutations to observe)
         const config = { attributes: true, childList: false, subtree: false };
+
+        var classicSwitch = document.getElementById("classicModeBtn");
+
+        classicSwitch.addEventListener('change', function () {
+                if (classicSwitch.checked) {
+                    classicMode = document.getElementById("classicModeBtn").checked == true;
+                console.log('classic mode on');
+                } else {
+                    classicMode = document.getElementById("classicModeBtn").checked == true;
+                console.log('classic mode off');
+                }
+            });
 
         // Callback function to execute when mutations are observed
         const callback = (mutationList, observer) => {
@@ -1754,7 +1851,7 @@
 
 
     function copy_doc() {
-
+        punctual();
         const compared_list = compare_replace(temp_a, saved_a);
         let warning_element_children = Array.from(Array(99).keys());
 
@@ -2239,7 +2336,13 @@ END:VEVENT`;
             }else{
             let e_top = e.offsetTop;
             let e_bot = e_top + e.offsetHeight;
-            let parent_top = e.offsetParent.offsetTop;
+            let parent_top;
+            try {
+                parent_top = e.offsetParent.offsetTop;
+            } catch (error) {
+               parent_top = 0;
+            }
+            
             let marker_top = Math.ceil((e_top + parent_top) / doc_top * doc_height);
             let marker_bot = Math.ceil((e_bot + parent_top) / doc_top * doc_height);
             let marker_e = document.createElement("span");
@@ -2260,6 +2363,9 @@ END:VEVENT`;
 
 
     function export2word(element, filename = '') {
+        let noDisplay = document.getElementById("doc3").querySelectorAll(".d-none");
+        noDisplay.forEach(e=>{ e.innerHTML= "" });
+        punctual();
         parseText();
         const compared_list = compare_replace(temp_a, saved_a);
         let warning_element_children = Array.from(Array(99).keys());
@@ -2606,6 +2712,10 @@ END:VEVENT`;
                                     data-bs-placement="top"
                                     title="bugs, suggestions or comments are welcom here">GitHub</a>
                             </li>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="classicModeBtn">
+                                <label class="form-check-label" for="classicModeBtn">Classic Mode</label>
+                            </div>
                             <li>
                                 <button id="print_q" class="dropdown-item"
                                     onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print
@@ -3007,20 +3117,30 @@ END:VEVENT`;
                             </div>
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update"
-                                    data-bs-toggle="collapse" data-bs-target="#form_updatemonth" aria-expanded="false"
-                                    aria-controls="form_updatemonth" role="button" />
+                                     />
                                 <label class="form-check-label" for="check_update">
-                                    This project will be updated.
+                                    This project will be updated at:
+                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
+                                onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
+                                placeholder="month of update"
+                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
+                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
                                 </label>
                             </div>
                             <div>
 
                                 <input class="form-check-input checkbox_1" type="checkbox" value="4"
-                                    id="check_previousprojects" data-bs-toggle="collapse"
-                                    data-bs-target="#form_previousprojects" aria-expanded="false"
-                                    aria-controls="form_previousprojects" role="button" />
+                                    id="check_previousprojects"  />
                                 <label class="form-check-label" for="check_previousprojects">
                                     This project has previous projects.
+                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
+                                    onchange="onchange_replace(this);" id="intput_previousprojects"
+                                    name="$_PREVIOUSPROJECTS" placeholder="previous project here"
+                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
+                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+    
                                 </label>
 
                             </div>
@@ -3034,12 +3154,17 @@ END:VEVENT`;
                             <div>
 
                                 <input class="form-check-input checkbox_1" type="checkbox" value="6"
-                                    id="check_proprietary" data-bs-toggle="collapse" data-bs-target="#form_proprietary"
-                                    aria-expanded="false" aria-controls="form_proprietary" role="button" />
+                                    id="check_proprietary" />
                                 <label class="form-check-label" for="check_proprietary">
                                     This project use <a class="text-primary" data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary"
                                         href="#">proprietary software</a>.
+                                        <input style="width: 90%;" type="text" onfocusin="this.select();"
+                                        onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
+                                        placeholder=" proprietary software "
+                                        onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
+                                        onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+                                        onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
                                 </label>
                             </div>
                             <div>
@@ -3048,6 +3173,12 @@ END:VEVENT`;
                                     id="check_partners" />
                                 <label class="form-check-label" for="check_partners">
                                     This project has partners.
+                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
+                                    onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
+                                    placeholder="partner name"
+                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
+                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
+                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
                                 </label>
                             </div>
                             <div>
@@ -3066,14 +3197,9 @@ END:VEVENT`;
 
 
 
-                        <form class="collapse" id="form_updatemonth">
+                        <!--<form class="collapse" id="form_updatemonth">
                             <label for="intput_updatemonth">At which month will your project be updated?</label>
-                            <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
-                                placeholder="month of update"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                             />
 
 
                         </form>
@@ -3083,13 +3209,7 @@ END:VEVENT`;
 
                         <form class="collapse" id="form_previousprojects">
                             <label for="intput_previousprojects">What is the name of your previous project?</label>
-                            <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="intput_previousprojects"
-                                name="$_PREVIOUSPROJECTS" placeholder="previous project here"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
+                           
 
                         </form>
 
@@ -3099,15 +3219,10 @@ END:VEVENT`;
                         <form class="collapse" id="form_proprietary">
                             <label for="input_proprietary">What is the name of your proprietary software?</label>
 
-                            <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
-                                placeholder=" proprietary software "
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                           
 
 
-                        </form>
+                        </form>-->
 
 
                         <form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
@@ -3243,7 +3358,7 @@ END:VEVENT`;
                                         NCBI-GenBank
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_genomicrepo check_transcriptomicrepo"
+                                <div class="collapse check_geneticrepo  check_transcriptomicrepo"
                                     id="sra">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_sra" />
@@ -3461,7 +3576,7 @@ END:VEVENT`;
 
                                 </div>
 
-                                <div class="collapse check_genomicrepo" id="mixs">
+                                <div class="collapse check_genomicrepo check_geneticrepo" id="mixs">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mixs" />
                                     <label class="form-check-label" for="check_mixs">
@@ -3470,7 +3585,7 @@ END:VEVENT`;
                                     data-bs-target="#offcanvas-mixs" aria-controls="offcanvas-mixs" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_genomicrepo" id="migseu">
+                                <div class="collapse check_genomicrepo check_geneticrepo" id="migseu">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_migseu" />
                                     <label class="form-check-label" for="check_migseu">
@@ -3478,7 +3593,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-migseu" aria-controls="offcanvas-migseu" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo" id="migsorg">
+                                <div class="collapse check_genomicrepo check_geneticrepo" id="migsorg">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_migsorg" />
                                     <label class="form-check-label" for="check_migsorg">
@@ -3487,7 +3602,7 @@ END:VEVENT`;
                                     data-bs-target="#offcanvas-migsorg" aria-controls="offcanvas-migsorg" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_genomicrepo" id="mims">
+                                <div class="collapse check_genomicrepo check_geneticrepo" id="mims">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mims" />
                                     <label class="form-check-label" for="check_mims">
@@ -3495,7 +3610,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mims" aria-controls="offcanvas-mims" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo" id="mimark1">
+                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark1">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mimarksspecimen" />
                                     <label class="form-check-label" for="check_mimarksspecimen">
@@ -3503,10 +3618,10 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimarksspecimen" aria-controls="offcanvas-mimarksspecimen" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo" id="mimark2">
+                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark2">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimarksurvey" />
-                                    <label class="form-check-label" for="check_mimarksurvey">
+                                        id="check_mimarkssurvey" />
+                                    <label class="form-check-label" for="check_mimarkssurvey">
                                         MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey)
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimarksurvey" aria-controls="offcanvas-mimarksurvey" > more info &#128712; </a>
@@ -4684,7 +4799,8 @@ END:VEVENT`;
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
                         #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                        #endif$_PROTEOMIC .
+                        #endif$_PROTEOMIC 
+                        #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                         </span>
                 </span>
                 <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
@@ -4896,7 +5012,7 @@ END:VEVENT`;
                     As noted above, specialized repositories will be used for common data types. For unstructured and
                     less standardized data (e.g., experimental phenotypic measurements), these will be annotated with
                     metadata and if complete allocated a digital object identifier (DOI).#if$_DATAPLANT The Whole
-                    datasets will also be wrapped into an ARC with allocated DOIs. #endif$_DATAPLANT.
+                    datasets will also be wrapped into an ARC with allocated DOIs. #endif$_DATAPLANT
                 </span>
             </p>
             <p class="c0"><span class="c3">Have you explored appropriate arrangements with the identified
@@ -5358,9 +5474,20 @@ END:VEVENT`;
 
             <p class="c0">
                 <span class="c1">
-                    $_PROJECTNAME will collect and/or generate the following types of raw data: $_PHENOTYPIC,
-                    $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE,
-                    $_EXCEL, $_CLONED-DNA and other types of data which are related to $_STUDYOBJECT. In addition, the raw data will also
+                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
+                    #if$_GENETIC genetic data, #endif$_GENETIC  
+                    #if$_GENOMIC genomic data, #endif$_GENOMIC 
+                    #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
+                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
+                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                    #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                    #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                    #if$_IMAGE image datasets, #endif$_IMAGE  
+                    #if$_MODELS modelling data, #endif$_MODELS 
+                    #if$_CODE computational code, #endif$_CODE  
+                    #if$_EXCEL excel files, #endif$_EXCEL and other types of data which are related to $_STUDYOBJECT. In addition, the raw data will also
                     be processed and modified using analytical pipelines, which may yield different results or include
                     ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT
                     ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
@@ -5585,7 +5712,8 @@ END:VEVENT`;
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
                         #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                        #endif$_PROTEOMIC .
+                        #endif$_PROTEOMIC  
+                        #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                         </span>
                 </span>
                 <span class="c1"> #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
@@ -6453,9 +6581,20 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1">
                     We foresee that the following data about $_STUDYOBJECT will be collected and generated at the very
-                    least: $_PHENOTYPIC, $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ, $_IMAGE, $_PROTEOMIC,
-                    $_TARGETED,
-                    $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA and result data. Furthermore, data derived from the original
+                    least: $_PROJECTNAME will collect and/or generate the following types of raw data: 
+                    #if$_GENETIC genetic data, #endif$_GENETIC  
+                    #if$_GENOMIC genomic data, #endif$_GENOMIC 
+                    #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
+                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
+                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                    #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                    #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                    #if$_IMAGE image datasets, #endif$_IMAGE  
+                    #if$_MODELS modelling data, #endif$_MODELS 
+                    #if$_CODE computational code, #endif$_CODE  
+                    #if$_EXCEL excel files, #endif$_EXCEL and result data. Furthermore, data derived from the original
                     raw data sets will also be collected. This is important, as different analytical pipelines
                     might yield different results or include
                 </span>
@@ -6526,7 +6665,8 @@ END:VEVENT`;
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
                         #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                        #endif$_PROTEOMIC .
+                        #endif$_PROTEOMIC 
+                        #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                         </span>
                 </span>
                 <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data.  #issuewarning some metabolomics partners considers Metabolights
@@ -9810,8 +9950,19 @@ END:VEVENT`;
                     <p class="c0">
                         <span class="c1">
                             Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
-                            $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ, $_GENOMIC, $_METABOLOMIC, $_PROTEOMIC,
-                            $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA Daten, die sich auf $_STUDYOBJECT
+                            #if$_GENETIC genetische Daten, #endif$_GENETIC  
+                    #if$_GENOMIC genomische Daten, #endif$_GENOMIC 
+                    #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
+                    #if$_TRANSCRIPTOMIC transkriptomische Daten, #endif$_TRANSCRIPTOMIC  
+                    #if$_RNASEQ RNA-Seq-Daten, #endif$_RNASEQ 
+                    #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
+                    #if$_TARGETED gezielte Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
+                    #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
+                    #if$_MODELS Modellausgänge, #endif$_MODELS 
+                    #if$_CODE Rechencode, #endif$_CODE  
+                    #if$_EXCEL Excel-Daten, #endif$_EXCEL Daten, die sich auf $_STUDYOBJECT
                             beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
                             modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
                             umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
@@ -10323,8 +10474,19 @@ END:VEVENT`;
             <ul class="c0 ">
 
                 <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types &ndash; $_PROJECTNAME will collect
-                        and/or generate the following types of raw data: $_PHENOTYPIC, $_GENETIC, $_IMAGE, $_RNASEQ,
-                        $_GENOMIC, $_METABOLOMIC, $_PROTEoMIC, $_TARGETED, $_MODELS, $_CODE, $_EXCEL, $_CLONED-DNA data
+                        and/or generate the following types of raw data: #if$_GENETIC genetic data, #endif$_GENETIC  
+                        #if$_GENOMIC genomic data, #endif$_GENOMIC 
+                        #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
+                        #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
+                        #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                        #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                        #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                        #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                        #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                        #if$_IMAGE image datasets, #endif$_IMAGE  
+                        #if$_MODELS modelling data, #endif$_MODELS 
+                        #if$_CODE computational code, #endif$_CODE  
+                        #if$_EXCEL excel files, #endif$_EXCEL
                         which are related to $_STUDYOBJECT. In addition, the raw data will also be processed and
                         modified using analytical pipelines, which may yield different results or include ad hoc data
                         analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT
@@ -10373,7 +10535,8 @@ END:VEVENT`;
                         #if$_PROTEOMIC
                         #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
                         #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                        #endif$_PROTEOMIC .
+                        #endif$_PROTEOMIC 
+                        #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                         </span>
                 </span>
                 <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
@@ -10520,6 +10683,7 @@ END:VEVENT`;
             cursor: 'column-resize',
             gutterSize: 5,
         });	
+        var classicMode = false;
     </script>
 </body>
 <script src="js/cloud.min2106.js" charset="utf-8"> </script>
