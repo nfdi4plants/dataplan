@@ -74,7 +74,7 @@
     
 
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-06-19T16:45:09.7","submission":"2024-06-19T16:45:09.7","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_EU"]},"checkbox_2":{"checked":["check_image","check_RNAseq","check_genomic","check_metabolomic","check_proteomic","check_targeted","check_models","check_code","check_excel","check_cloned-DNA","check_phenotypic","check_genetic"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_MIAPPE","check_MinSeqE","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization","check_otherstandards"],"unchecked":["check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc","check_MIXS","check_MIGSEU","check_MIGSORG","check_MIMS","check_MIMARKSSPECIMEN","check_MIMARKSSURVEY","check_MISAG","check_MIMAG","check_MIAME","check_REMBI","check_MIAPE","check_MIMIX"]},"checkbox_5":{"checked":[],"unchecked":["check_ENA","check_ARRAYEXPRESS","check_NCBI","check_Pride","check_GEO","check_GenBank","check_Proteomexchange","check_Zenodo","check_dataDyrad","check_otherep","check_metabolights","check_EDAL","check_INTACT","check_SRA","check_BIOIMAGE","check_IDR","check_metaworkbench","check_PDB","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":["check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization"],"unchecked":["check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
@@ -574,7 +574,14 @@
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
                 console.log(key + " "+value);
-                element.value = value;
+                try {
+                    element.value = value;
+                } catch (error) {
+                    console.error(error);
+
+                    element.value = "Error, can not parse the value, please first export the JSON and then import"
+                }
+                
             }
         }
         const checkbox_input = Object.entries(saved_a["checkbox"]);
@@ -584,8 +591,15 @@
                 const checked = Object.entries(checkboxes["checked"]);
                 for (const [key, value] of checked) {
                     let element = document.getElementById(value.toLowerCase());
-                    element.checked = true;
+                    try {
+                        element.checked = true;
 
+                            } catch (error) {
+                                console.error(error);
+
+                                element.checked = false;
+                            }
+                    
 
                 };
             } catch (e) {
@@ -598,7 +612,12 @@
                 for (const [key, value] of unchecked) {
                     console.log("value = "+ value)
                     let element = document.getElementById(value.toLowerCase());
-                    element.checked = false;
+                    try {
+                        element.checked = false;
+                    } catch (error) {
+                        console.error(error);
+                    }
+                   
                     
 
                 };
@@ -1066,7 +1085,7 @@
 
         }
 
-        //warning_text_location.scrollIntoView({ behavior: "smooth", block: "center" });
+        warning_text_location.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
 
@@ -1078,7 +1097,7 @@
         //console.log("holders are : "+ holders);
         const parent_node = document.createElement("span");
         parent_node.classList.add("text-primary");
-        let onmouseoverText="",onclickText="",dataOperatorText="",onmouseleaveText="";
+        let onmouseoverText="", onclickText="", dataOperatorText="", onmouseleaveText="";
         
         for (const holder of holders){
             const idText = "check_" + holder.split("_")[1].toLowerCase();
@@ -3440,11 +3459,11 @@ END:VEVENT`;
                                     </label>
                                 </div>
 
-                                <div class="collapse checheck_metabolomicrepo" id="intact">
+                                <div class="collapse check_metabolomicrepo" id="intact">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_intact" />
                                     <label class="form-check-label" for="check_intact">
-                                        Intact (Molecular interactions)
+                                        IntAct (Molecular interactions)
                                     </label>
                                 </div>
 
@@ -4940,7 +4959,7 @@ END:VEVENT`;
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS
                             EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                            Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact (Molecular
+                            Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
                             interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
                     </p>
                     <p class="c0">
@@ -5239,7 +5258,7 @@ END:VEVENT`;
                             EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                             EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                             #endif$_EDAL #endif$_PHENOTYPIC.
@@ -5793,7 +5812,7 @@ END:VEVENT`;
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS
                             EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                            Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact (Molecular
+                            Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
                             interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
                     </p>
                     <p class="c0">
@@ -5840,7 +5859,7 @@ END:VEVENT`;
                             EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                             EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                             #endif$_EDAL #endif$_PHENOTYPIC.
@@ -6267,7 +6286,7 @@ END:VEVENT`;
                             EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                             EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                             #endif$_EDAL #endif$_PHENOTYPIC.
@@ -6860,7 +6879,7 @@ END:VEVENT`;
             <p class="c0">
                 <span class="c1 list-to-remove-comma">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS
                     EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                    Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact (Molecular
+                    Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
                     interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
             </p>
             <p class="c0">
@@ -7046,7 +7065,7 @@ END:VEVENT`;
                     EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                     EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
                     #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                    #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                    #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                     EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
                     Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                     #endif$_EDAL #endif$_PHENOTYPIC.
@@ -7872,7 +7891,7 @@ END:VEVENT`;
                                     EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC #if$_IMAGE #if$_BIOIMAGE
                                     EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
                                     #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                                    #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact
+                                    #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct
                                     (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                                     EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
                                     Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
@@ -10221,7 +10240,7 @@ END:VEVENT`;
                         <p class="c0">
                             <span class="c1 list-to-remove-comma">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS
                                 EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                                Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact (Molecular
+                                Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
                                 interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
                         </p>
                         <p class="c0">
@@ -10440,7 +10459,7 @@ END:VEVENT`;
                             EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC #if$_IMAGE #if$_BIOIMAGE
                             EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
                             #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-MetaboLights, #endif$_METABOLIGHTS
-                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact
+                            #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct
                             (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
                             Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
@@ -10603,7 +10622,7 @@ END:VEVENT`;
                                 <p class="c0">
                                     <span class="c1 list-to-remove-comma">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS
                                         EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                                        Workbench, #endif$_METAWORKBENCH #if$_INTACT Intact (Molecular
+                                        Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
                                         interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
                                 </p>
                                 <p class="c0">
