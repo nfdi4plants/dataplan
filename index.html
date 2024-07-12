@@ -890,6 +890,8 @@
     }
 
         function punctual(){
+            let noDisplay = document.getElementById("doc3").querySelectorAll(".d-none");
+        noDisplay.forEach(e=>{ e.innerHTML= "" });
             punctualReplaced = true;
             removeArtifact("and.", "."),
             removeArtifact(", .", "."), 
@@ -923,7 +925,7 @@
 
         function removeArtifact(text1, text2){
             while (window.find(text1, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = 1,
-                    aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
+                    aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0)) {
                     let last_letter;
                     const w_selection = window.getSelection();
                     const range = w_selection.getRangeAt(0);
@@ -2382,8 +2384,7 @@ END:VEVENT`;
 
 
     function export2word(element, filename = '') {
-        let noDisplay = document.getElementById("doc3").querySelectorAll(".d-none");
-        noDisplay.forEach(e=>{ e.innerHTML= "" });
+        
         punctual();
         parseText();
         const compared_list = compare_replace(temp_a, saved_a);
@@ -10661,7 +10662,7 @@ END:VEVENT`;
                         will be stored in common and openly defined formats including all the necessary metadata. By
                         default, no proprietary formats will be used. However Microsoft Excel files (according to
                         ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some
-                        ARC components #endif$_DATAPLANT. In addition, text files might be edited in text processor
+                        ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor
                         files, but will be shared as pdf.</span>
         </div>
     </div>
