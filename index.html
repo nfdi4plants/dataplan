@@ -892,17 +892,17 @@
         function punctual(){
             punctualReplaced = true;
             removeArtifact("and.", "."),
-         removeArtifact(", .", "."), 
-          removeArtifact("..", "."),
-        removeArtifact(". .", "."),
-          removeArtifact(" ,", ",");
-          removeArtifact(",,", ","), 
-          removeArtifact(" .", "."),
-         removeComma("list-to-remove-comma", " and");
-         setTimeout(() => {
-            document.getElementById("split-0").scrollTop = scroll_y,
-            console.log("the window is scrolled to: " + scroll_y);
-        }, "50");
+            removeArtifact(", .", "."), 
+            removeArtifact("..", "."),
+            removeArtifact(". .", "."),
+            removeArtifact(" ,", ","),
+            removeArtifact(",,", ","), 
+            removeArtifact(" .", ".");
+            setTimeout(() => {
+            removeComma("list-to-remove-comma", " and"),
+                document.getElementById("split-0").scrollTop = scroll_y,
+                console.log("the window is scrolled to: " + scroll_y);
+            }, "50");
         }
 
 
@@ -922,7 +922,7 @@
             }
 
         function removeArtifact(text1, text2){
-            while (window.find(text1, aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+            while (window.find(text1, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
                     let last_letter;
                     const w_selection = window.getSelection();
@@ -1085,7 +1085,7 @@
 
         }
 
-        warning_text_location.scrollIntoView({ behavior: "smooth", block: "center" });
+        
     }
 
 
@@ -1457,13 +1457,13 @@
         const config = { attributes: true, childList: false, subtree: false };
 
         var classicSwitch = document.getElementById("classicModeBtn");
-
+        classicSwitch.checked= false;
         classicSwitch.addEventListener('change', function () {
                 if (classicSwitch.checked) {
-                    classicMode = document.getElementById("classicModeBtn").checked == true;
+                    classicMode = classicSwitch.checked == true;
                 console.log('classic mode on');
                 } else {
-                    classicMode = document.getElementById("classicModeBtn").checked == true;
+                    classicMode = classicSwitch.checked == true;
                 console.log('classic mode off');
                 }
             });
