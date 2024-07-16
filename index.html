@@ -1027,11 +1027,11 @@
             console.error("element not found");
         };
         try {
-            const caused_ele = element.parentElement.parentElement;
-            caused_ele.setAttribute("class", "c1 border-highlight");
+            const caused_ele = element;
+            caused_ele.setAttribute("class", "c1 text-danger border-highlight");
             //verbose  console.log("highlited");
             setTimeout(() => {
-                caused_ele.setAttribute("class", "c1")
+                caused_ele.setAttribute("class", "c1 text-danger")
             }, 3000);
             //verbose  console.log("back to normal");
         } catch (error) {
@@ -1140,7 +1140,7 @@
                 //verbose console.log("full range issuewarning text is" + full_range.toString());
                 full_range.deleteContents();
                 
-                let newText = document.createElement("div");
+                let newText = document.createElement("span");
                 newText.setAttribute("name" , "issueWarningContent");
                 newText.setAttribute("data-id" , warning_number);
                 newText.setAttribute("data-text" , text);
