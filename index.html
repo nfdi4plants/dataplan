@@ -23,7 +23,7 @@
     <script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
     <script src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/DMPDocs16072.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/DMPDocs16073.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/custom0307.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
@@ -76,7 +76,7 @@
     var convertedEle;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":["check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21","check_early","check_ipissue","check_vvisualization"],"unchecked":["check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":["check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization"],"unchecked":["check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
@@ -193,7 +193,18 @@
     var upload_json1, upload_json2, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
 
 
+
+
+
     /********** functions ***********/
+    
+     /**
+     * @function addCheckboxOpt( missing, otherMissing )
+     * @description Update the previous saved answers to make it compatible to the newest version of software.
+     * @global
+     */
+
+
     /**
      * @function updateSavedAnswers
      * @description Update the previous saved answers to make it compatible to the newest version of software.
@@ -258,6 +269,10 @@
         }
         catch (e) { };
         try {
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
+        }
+        catch (e) { };
+        try {
             Object.keys(saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
         }
         catch (e) { };
@@ -300,6 +315,7 @@
 
 
     }
+
 
     /**
      * @function load_dmp
@@ -3438,7 +3454,7 @@ END:VEVENT`;
                                 <h3> 2.1 Where will you submit your data as endpoints?</h3>
 
 
-                                <div class="collapse check_geneticrepo check_genomicrepo check_genomicrepo"
+                                <div class="collapse check_geneticrepo check_genomicrepo"
                                     id="genbank">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="3"
                                         id="check_genbank" />
@@ -3811,14 +3827,40 @@ END:VEVENT`;
                                     id="check_dublincore" />
                                 <label class="form-check-label" for="check_dublincore">
                                     Dublin Core
-                                </label>
+                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas-dublincore" aria-controls="offcanvas-dublincore" > more info &#128712; </a>
+                            </div>
+                            <div class="form-data_type form-check">
+                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
+                                    id="check_darwincore" />
+                                <label class="form-check-label" for="check_darwincore">
+                                    Darwin Core
+                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas-darwincore" aria-controls="offcanvas-darwincore" > more info &#128712; </a>
+                            </div>
+                            <div class="form-data_type form-check">
+                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
+                                    id="check_schemaorg" />
+                                <label class="form-check-label" for="check_schemaorg">
+                                    Schema.org
+                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas-schemaorg" aria-controls="offcanvas-schemaorg" > more info &#128712; </a>
+                            </div>
+                            <div class="form-data_type form-check">
+                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
+                                    id="check_bioschemas" />
+                                <label class="form-check-label" for="check_bioschemas">
+                                    bioschemas
+                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas-bioschemas" aria-controls="offcanvas-bioschemas" > more info &#128712; </a>
                             </div>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="2"
                                     id="check_marc21" />
                                 <label class="form-check-label" for="check_marc21">
                                     MARC 21
-                                </label>
+                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas-marc21" aria-controls="offcanvas-marc21" > more info &#128712; </a>
                             </div>
                             <!---->
                             <h3>4.2 Project data will be published:</h3>
@@ -4251,6 +4293,71 @@ END:VEVENT`;
     </div>
     <div class="offcanvas-body">
         <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-dublincore" aria-labelledby="offcanvasScrolling23">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling23"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-darwincore" aria-labelledby="offcanvasScrolling24">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling24"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-schemaorg" aria-labelledby="offcanvasScrolling25">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling25"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-bioschemas" aria-labelledby="offcanvasScrolling26">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling26"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
+        </p>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-marc21" aria-labelledby="offcanvasScrolling27">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling27"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p> The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
         </p>
 
         </div>

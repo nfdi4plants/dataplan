@@ -318,50 +318,48 @@ dmpStrings={
                     All datasets will be associated with unique identifiers and will be annotated with metadata. We will
                     use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                     on community standards plus additional recommendations applicable in the plant science, such as the
-                    <span class="list-to-remove-comma">
-                        The following metadata/ minimum informatin standards will be used to collect metadata:
-                        #if$_GENOMIC|$_GENETIC 
-                        #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
-                        #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
-                        #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
-                        #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
-                        #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen:
-                        Specimen), #endif$_MIMARKSSPECIMEN
-                        #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
-                        Survey), #endif$_MIMARKSSURVEY
-                        #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
-                        #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG 
-                        #endif$_GENOMIC|$_GENETIC
-                        #if$_TRANSCRIPTOMIC 
-                        #if$_MIAME MIAME (Minimum Information About a Microarray Experiment), #endif$_MIAME 
-                        
-                        #endif$_TRANSCRIPTOMIC
-                        #if$_IMAGE
-                        #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
-                        #endif$_IMAGE
-                        #if$_RNASEQ|$_GENOMIC 
-                        #if$_MINSEQE
-                            MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
-                        #endif$_MINSEQE 
-                        #endif$_RNASEQ|$_GENOMIC
-                        #if$_METABOLOMIC
-                        #if$_MMIAMET
-                        MIAMET (Minimum Information About a METabolomics experiment),
-                        #endif$_MMIAMET
-                        #endif$_METABOLOMIC
-                        #if$_PROTEOMIC
-                        #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                        #endif$_PROTEOMIC 
-                        #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
+                        <span class="list-to-remove-comma">
+                            The following metadata/ minimum informatin standards will be used to collect metadata:
+                            #if$_GENOMIC|$_GENETIC 
+                            #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
+                            #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
+                            #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
+                            #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
+                            #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen:
+                            Specimen), #endif$_MIMARKSSPECIMEN
+                            #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
+                            Survey), #endif$_MIMARKSSURVEY
+                            #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
+                            #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG 
+                            #endif$_GENOMIC|$_GENETIC
+                            #if$_TRANSCRIPTOMIC 
+                            #if$_MIAME MIAME (Minimum Information About a Microarray Experiment), #endif$_MIAME 
+                            
+                            #endif$_TRANSCRIPTOMIC
+                            #if$_IMAGE
+                            #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
+                            #endif$_IMAGE
+                            #if$_RNASEQ|$_GENOMIC 
+                            #if$_MINSEQE
+                                MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
+                            #endif$_MINSEQE 
+                            #endif$_RNASEQ|$_GENOMIC
+                            #if$_METABOLOMIC
+                            #if$_MMIAMET
+                            MIAMET (Minimum Information About a METabolomics experiment),
+                            #endif$_MMIAMET
+                            #endif$_METABOLOMIC
+                            #if$_PROTEOMIC
+                            #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
+                            #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
+                            #endif$_PROTEOMIC 
+                            #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                         </span>
                 </span>
                 <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
                     not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
-                    defining properties of the plant (see the preceding section). However, minimal cross-domain
-                    annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                    remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                    defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
                     individual releases to be tagged with a Digital Object Identifier (DOI).
                     #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                     to. #endif$_OTHERSTANDARDS
@@ -472,10 +470,8 @@ dmpStrings={
 
 
                     <p class="c0">
-                        <span class="c1 list-to-remove-comma">#if$_GENETIC For genetic data: #if$_GENBANK
-                            NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ENA
-                            EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO . #endif$_GENETIC </span>
+                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC . </span>
                     </p>
         
                     <p class="c0">
@@ -840,7 +836,7 @@ dmpStrings={
             <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
             <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures
                     for data management? If yes, which ones?</span></p>
-                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM)  #if$_DATAPLANT|$_NFDI infrastructures developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructures developed by INRAe from France, #endif$_FRENCH #if$_EOSC infrastructures developed by EOSC (European Open Science Cloud), #endif$_EOSC .
+                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
                     </span></p>
             <p class="c6"><span class="c1"></span></p>
             <h1 class="c13">
@@ -1270,9 +1266,7 @@ dmpStrings={
             <span class="c1"> #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, minimal cross-domain
-                annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
                 individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                 to. #endif$_OTHERSTANDARDS
@@ -1598,9 +1592,7 @@ dmpStrings={
             <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, minimal cross-domain
-                annotations #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
                 individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                 to. #endif$_OTHERSTANDARDS
@@ -1862,8 +1854,8 @@ dmpStrings={
         <p class="c0"><span class="c3">Do you, or will you, make use of other national/funder/sectorial/departmental
                 procedures for data management? If yes, which ones (please list and briefly describe them)?</span>
         </p>
-        <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM)  #if$_DATAPLANT|$_NFDI infrastructures developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructures developed by INRAe from France, #endif$_FRENCH #if$_EOSC infrastructures developed by EOSC (European Open Science Cloud), #endif$_EOSC .
-        </span></p>
+        <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
+                    </span></p>
         <p class="c0"><span class="c1"></span></p>
         <p class="c6"><span class="c1"></span></p>
         <h1 class="c13" ><span class="c2">3&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="c15">
@@ -2220,9 +2212,7 @@ dmpStrings={
             <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data.  #issuewarning some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, minimal cross-domain
-                annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
                 individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                 to. #endif$_OTHERSTANDARDS
@@ -2342,8 +2332,8 @@ dmpStrings={
             <span class="c3">2.4&nbsp;&nbsp;&nbsp;&nbsp;Which digital methods and tools (e.g. software) are required
                 to use the data?</span>
         </h3>
-        <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM)  #if$_DATAPLANT|$_NFDI infrastructures developed by the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH infrastructures developed by INRAe from France, #endif$_FRENCH #if$_EOSC infrastructures developed by EOSC (European Open Science Cloud), #endif$_EOSC .
-        </span></p>
+            <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
+                    </span></p>
         <p class="c0">
             <span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY.
                 #endif$_PROPRIETARY</span>
@@ -5749,7 +5739,7 @@ dmpStrings={
                     gespeichert werden können, die spezialisierte Technologien nutzen:
 
                     <p class="c0">
-                        <span class="c1 list-to-remove-comma">#if$_GENETIC Für genetische Daten:: #if$_GENBANK
+                        <span class="c1 list-to-remove-comma">#if$_GENETIC Für genetische Daten: #if$_GENBANK
                             NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA, #endif$_SRA #if$_ENA
                             EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
                             #if$_GEO NCBI-GEO, #endif$_GEO . #endif$_GENETIC </span>
@@ -6093,9 +6083,7 @@ dmpStrings={
             <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, minimal cross-domain
-                annotations such as #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_MARC21 MARC 21 #endif$_MARC21 also
-                remain part of $_PROJECTNAME. #if$_DATAPLANT The core integration with DataPLANT will also allow
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
                 individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
                 to. #endif$_OTHERSTANDARDS
