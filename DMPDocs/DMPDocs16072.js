@@ -4,7 +4,7 @@ dmpStrings={
         <div class="content-page">
             <br />
             <center>
-                <div class="p-2" id="vis-parent" style="margin: auto; width:100%";">
+                <div class="p-2" id="vis-parent" style="margin: auto; width:100%";>
                     <div id="vis" style=" width:100%; max-height:600px; aspect-ratio : 1 / 1;" ></div>
                     <br />
                     <div class="p-2" style="margin: auto;">
@@ -905,8 +905,7 @@ dmpStrings={
             
 
         </div>
-    </div>
-`, 
+    </div>`, 
 "horizon_europe":`<div id="horizon_europe" >
     <div class="content-page">
         <br />
@@ -956,7 +955,7 @@ dmpStrings={
                             </tr>
                             <tr>
                                 <td>
-                                    <h3>Creation Date:</h2>
+                                    <h2>Creation Date:</h2>
                                 </td>
                                 <td>
                                     <h3>$_CREATIONDATE</h3>
@@ -1433,7 +1432,8 @@ dmpStrings={
             </span>
         </p>
 
-        <p class="c0"><span class="c3">If an embargo is applied to give time to publish or seek protection of the
+        <p class="c0">
+        <span class="c3">If an embargo is applied to give time to publish or seek protection of the
                 intellectual property (e.g. patents), specify why and how long this will apply, bearing in mind that
                 research data should be made available as soon as possible.</span></p>
         <p class="c0">
@@ -1500,11 +1500,6 @@ dmpStrings={
 
             </span>
         </p>
-
-
-
-
-
         <p class="c0">
             <span class="c3">
                 Metadata:
@@ -1905,7 +1900,7 @@ dmpStrings={
         #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
         #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
         #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
-    #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+        #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
         #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
         #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
         #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
@@ -1922,7 +1917,7 @@ dmpStrings={
         <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
         #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
         #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
-    <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
+        <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
         <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
         <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>
         <p class="c0"><span class="c1"></span></p>
