@@ -5,7 +5,7 @@ dmpStrings={
             <br />
             <center>
                 <div class="p-2" id="vis-parent" style="margin: auto; width:100%";">
-                    <div id="vis" style=" width:100%;  aspect-ratio : 1 / 1;" ></div>
+                    <div id="vis" style=" width:100%; max-height:600px; aspect-ratio : 1 / 1;" ></div>
                     <br />
                     <div class="p-2" style="margin: auto;">
 
@@ -907,13 +907,13 @@ dmpStrings={
         </div>
     </div>
 `, 
-"horizon_europe":`<div id="horizon_europe" class=" content-page">
+"horizon_europe":`<div id="horizon_europe" >
     <div class="content-page">
         <br />
         <center>
             <div class="p-2" id="vis-parent" style="margin: auto;">
 
-                <div id="vis" style=" width:100%;  aspect-ratio : 1 / 1;"></div>
+                <div id="vis" style=" width:100%;max-height:600px;  aspect-ratio : 1 / 1;"></div>
 
             </div>
             <br />
@@ -1938,7 +1938,7 @@ dmpStrings={
         <br />
         <center>
             <div class="p-2" id="vis-parent" style="margin: auto; ">
-                <div id="vis" style=" width:100%;  aspect-ratio : 1 / 1;"></div>
+                <div id="vis" style=" width:100%; max-height:600px; aspect-ratio : 1 / 1;"></div>
             </div>
 
             <div id="text_start" class="c2 text-center">Data Management Plan of the DFG Project $_PROJECTNAME</div>

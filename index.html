@@ -23,7 +23,7 @@
     <script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
     <script src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/DMPDocs.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/DMPDocs1607.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/custom0307.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
@@ -588,10 +588,11 @@
     function reload_answers(name) {
         window.localStorage.setItem("template", name);
         dmpEle.innerHTML = dmpStrings[name];
-        let content = dmpEle.querySelector("#"+name);
-        content.classList.add("content-page");
+        //let content = dmpEle.querySelector("#"+name);
+        //content.classList.add("content-page");
         let frame = document.getElementById("doc3");
-        frame.innerHTML = content.innerHTML;
+
+        frame.innerHTML = dmpEle.innerHTML;
 
         const selection = window.getSelection();
         selection.removeAllRanges();
@@ -4029,7 +4030,7 @@ END:VEVENT`;
         <div class="offcanvas-header">
             <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
                 <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML);  doc_name="user-defined";setTimeout(()=> {load_dmp(reload_answers,name = doc_name);}, 1000) ;'>
+                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML); dmpStrings["user-defined"]=document.getElementById("user-defined").innerHTML; setTimeout(()=> {load_dmp(reload_answers, name ="user-defined");}, 1000) ;'>
                     submit
                 </button></h1>
 
