@@ -471,7 +471,7 @@ dmpStrings={
 
                     <p class="c0">
                         <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC . </span>
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
                     </p>
         
                     <p class="c0">
@@ -1316,12 +1316,10 @@ dmpStrings={
                 
 
 
-                <p class="c0">
-                    <span class="c1 list-to-remove-comma">#if$_GENETIC For genetic data: #if$_GENBANK
-                        NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ENA
-                        EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                        #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO . #endif$_GENETIC </span>
-                </p>
+                 <p class="c0">
+                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
+                    </p>
 
                 <p class="c0">
                     <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA
@@ -2376,12 +2374,10 @@ dmpStrings={
                 project duration?</span>
         </h3>
 
-        <p class="c0">
-            <span class="c1 list-to-remove-comma">#if$_GENETIC For genetic data: #if$_GENBANK
-                NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ENA
-                EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO . #endif$_GENETIC </span>
-        </p>
+          <p class="c0">
+                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
+                    </p>
 
         <p class="c0">
             <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA
@@ -6121,10 +6117,8 @@ dmpStrings={
 
 
                             <p class="c0">
-                                <span class="c1 list-to-remove-comma">#if$_GENETIC For genetic data: #if$_GENBANK
-                                    NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ENA
-                                    EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                                    #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO . #endif$_GENETIC </span>
+                                <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                                    #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
                             </p>
 
                             <p class="c0">
