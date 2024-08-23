@@ -1160,8 +1160,8 @@
                 newText.setAttribute("name" , "issueWarningContent");
                 newText.setAttribute("data-id" , warning_number);
                 newText.setAttribute("data-text" , text);
-                if (doc_name = 'bmbf-dmp'){
-                    newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--Bitte achten Sie auf den vorhergehenden Satz. ' + text + '</span>';
+                if (window.doc_name == 'bmbf-dmp'){
+                    newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><-- Bitte achten Sie auf den vorhergehenden Satz. ' + text + '</span>';
                 }else {
                     newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--Please pay attention to the sentence before. ' + text + '</span>';
                 }
@@ -2576,11 +2576,11 @@ END:VEVENT`;
                             </li>
                             <li>
                                 <button id="detailed_BBSRC-dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP (Beta test)</button>
+                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
                             </li>
                             <li>
                                 <button id="proposal_save" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP (Beta test)</button>
+                                    onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
                             </li>
                             <li>
                                 <button id="guide_save" class="dropdown-item"
@@ -2661,12 +2661,12 @@ END:VEVENT`;
                             </li>
                             <li>
                                 <button id="detailed_BBSRC-dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP (Beta test)</button>
+                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
                             </li>
 
                             <li>
                                 <button id="proposal_save" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP (Beta test)</button>
+                                    onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
                             </li>
                             <li>
                                 <button id="guide_save" class="dropdown-item"
@@ -4102,7 +4102,7 @@ END:VEVENT`;
                     Guide</button>
                 <button class="badge btn-primary"
                     onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["bmbf-dmp"]; '>BMBF
-                    DMP (Beta test)</button>
+                    DMP</button>
 
             </h2>
             <div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
