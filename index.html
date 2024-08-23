@@ -690,7 +690,7 @@
 
         }
         //verbose  console.log("answer reload is finished");
-        issue_warning();
+        issue_warning(name);
 
         let unfinished = compare_replace(temp_a, saved_a);
         let p_bar = document.getElementById("p-bar");
@@ -1121,7 +1121,7 @@
     }
 
 
-    function issue_warning() {
+    function issue_warning(name) {
 
         const warning_notification = document.getElementsByName("_warning_notification");
         
@@ -1160,10 +1160,11 @@
                 newText.setAttribute("name" , "issueWarningContent");
                 newText.setAttribute("data-id" , warning_number);
                 newText.setAttribute("data-text" , text);
-                if (window.doc_name == 'bmbf-dmp'){
+                console.log("doc_name is : " + name)
+                if (name == 'bmbf-dmp'){
                     newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><-- Bitte achten Sie auf den vorhergehenden Satz. ' + text + '</span>';
                 }else {
-                    newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--Please pay attention to the sentence before. ' + text + '</span>';
+                    newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><-- Please pay attention to the sentence before. ' + text + '</span>';
                 }
                 
                 full_range.insertNode(newText);
