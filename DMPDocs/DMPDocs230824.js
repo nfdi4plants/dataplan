@@ -356,7 +356,7 @@ dmpStrings={
                             #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                         </span>
                 </span>
-                <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+                <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
                     not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                     mostly define the submitter and the general type of data, allow reusability by other researchers by
                     defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
@@ -570,7 +570,7 @@ dmpStrings={
                 <span class="c1">
                     The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible.
                     Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required, #if$_DATAPLANT and this has been confirmed for data associated with DataPLANT #endif$_DATAPLANT.
-                    #issuewarning if no data management platform such as DataPLANT is used, then you need to find
+                    #issuewarning If no data management platform such as DataPLANT is used, then you need to find
                     appropriate repository to store or archive your data after publication. #endissuewarning
                 </span>
             </p>
@@ -810,13 +810,7 @@ dmpStrings={
                     At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
                     since this is plant data, there is no need for an ethics committee to deal with data from plants,
                     although we will diligently follow the Nagoya protocol on access and benefit sharing. #issuewarning
-                    you have to check here and enter any due diligence here at the moment we are awaiting if Nagoya
-                    (🡺see <a href="https://www.cbd.int/abs/about/default.shtml" target="_blank"> Nagoya protocol</a>).
-                    gets also part of sequence information. In any case
-                    if you use material not from your (partner) country and characterize this physically e.g.,
-                    metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action
-                    unless this is from e.g.
-                    US (non partner), Ireland (not signed still contact them) etc but other laws might apply….
+                    Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply.
                     #endissuewarning
                 </span>
             </p>
@@ -827,7 +821,7 @@ dmpStrings={
                     The only personal data that will potentially be stored is the submitter name and affiliation in the
                     metadata for data. In addition, personal data will be collected for dissemination and communication
                     activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
-                    data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
+                    data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
                     emails and
                     names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
                     invent them #endissuewarning
@@ -1263,7 +1257,7 @@ dmpStrings={
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                     </span>
             </span>
-            <span class="c1"> #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+            <span class="c1"> #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
                 defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
@@ -1365,7 +1359,7 @@ dmpStrings={
                 Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
                 #if$_DATAPLANT For DataPLANT, this has been agreed upon, as all the omics repositories of
                 International Nucleotide Sequence Database Collaboration (INSDC) will be used. #endif$_DATAPLANT
-                #issuewarning if no data management platform such as DataPLANT is used, then you need to find
+                #issuewarning If no data management platform such as DataPLANT is used, then you need to find
                 appropriate repository to store or archive your data after publication. #endissuewarning
             </span>
         </p>
@@ -1587,7 +1581,7 @@ dmpStrings={
                 </span>
         
             
-            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
                 defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
@@ -1825,13 +1819,7 @@ dmpStrings={
                 At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
                 since this is plant data, there is no need for an ethics committee, however, diligence for plant
                 resource benefit
-                sharing is considered. #issuewarning you have to check here and enter any due diligence here at the
-                moment we are awaiting if Nagoya (🡺see Nagoya protocol) gets also part of sequence information. In
-                any case
-                if you use material not from your (partner) country and characterize this physically e.g.,
-                metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action
-                unless this is from e.g.
-                US (non partner), Ireland (not signed still contact them) etc but other laws might apply….
+                sharing is considered. #issuewarning Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply.
                 #endissuewarning
             </span>
         </p>
@@ -1842,7 +1830,7 @@ dmpStrings={
                 The only personal data that will potentially be stored is the submitter name and affiliation in the
                 metadata for data. In addition, personal data will be collected for dissemination and communication
                 activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
-                data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
+                data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
                 emails and
                 names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
                 invent them #endissuewarning
@@ -2207,7 +2195,7 @@ dmpStrings={
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                     </span>
             </span>
-            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data.  #issuewarning some metabolomics partners considers Metabolights
+            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data.  #issuewarning Some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
                 defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
@@ -2460,14 +2448,7 @@ dmpStrings={
                 At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
                 since this is plant data, there is no need for an ethics committee, however, diligence for plant
                 resource
-                benefit sharing is considered. #issuewarning you have to check here and enter any due diligence here
-                at the moment we are awaiting if Nagoya (🡺see Nagoya protocol) gets also part of sequence
-                information.
-                In any case if you use material not from your (partner) country and characterize this physically
-                e.g., metabolites, proteome, biochemically RNASeq etc. this might represent a Nagoya relevant action
-                unless
-                this is from e.g. US (non partner), Ireland (not signed still contact them) etc but other laws might
-                apply…. #endissuewarning
+                benefit sharing is considered. #issuewarning Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply. #endissuewarning
             </span>
         </p>
         <p class="c0">
@@ -2475,7 +2456,7 @@ dmpStrings={
                 The only personal data that will potentially be stored is the submitter name and affiliation in the
                 metadata for data. In addition, personal data will be collected for dissemination and communication
                 activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
-                data protection. #issuewarning you need to inform and better get WRITTEN consent that you store
+                data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
                 emails and
                 names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
                 invent them #endissuewarning
@@ -2592,7 +2573,7 @@ dmpStrings={
             <span class="c1">
                 The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible.
                 Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
-                #if$_DATAPLANT For DataPLANT, this has been agreed upon. #endif$_DATAPLANT #issuewarning if no data
+                #if$_DATAPLANT For DataPLANT, this has been agreed upon. #endif$_DATAPLANT #issuewarning If no data
                 management platform such as DataPLANT is used, then you need to find appropriate repository to store
                 or archive your data after publication. #endissuewarning
             </span>
@@ -5873,13 +5854,7 @@ dmpStrings={
                         Im Moment erwarten wir keine ethischen oder rechtlichen Probleme beim Datenaustausch. In
                         Bezug auf Ethik, da es sich um Pflanzendaten handelt, ist kein Ethikkomitee erforderlich,
                         jedoch wird Sorgfalt bei der Aufteilung der Vorteile von Pflanzenressourcen berücksichtigt.
-                        #issuewarning Sie müssen hier überprüfen und jegliche Sorgfaltspflicht hier eintragen. Im
-                        Moment warten wir, ob Nagoya (🡺siehe Nagoya-Protokoll) auch Teil der Sequenzinformationen
-                        wird. In jedem Fall, wenn Sie Material verwenden, das nicht aus Ihrem (Partner-)Land stammt
-                        und dieses physikalisch charakterisieren, z.B. Metaboliten, Proteom, biochemisch RNASeq
-                        usw., könnte dies eine Nagoya-relevante Aktion darstellen, es sei denn, es stammt z.B. aus
-                        den USA (kein Partner), Irland (nicht unterzeichnet, trotzdem kontaktieren) usw., aber
-                        andere Gesetze könnten gelten…. #endissuewarning
+                        #issuewarning Sie müssen sicherstellen, dass Sie die erforderliche Sorgfaltspflicht erfüllen. Derzeit warten wir auf eine Klärung, ob das Nagoya-Protokoll (🡺 siehe Nagoya-Protokoll) auch Sequenzinformationen umfasst. Unabhängig davon kann die Nutzung von Material aus einem anderen Land als Ihrem eigenen (oder dem Ihres Partners) und dessen physikalische oder biochemische Charakterisierung (z.B. Metaboliten, Proteom, RNASeq, etc.) eine relevante Handlung im Sinne des Nagoya-Protokolls darstellen. Ausnahmen könnten Materialien aus Ländern wie den USA (Nicht-Partner), Irland (hat nicht unterzeichnet—trotzdem kontaktieren), usw. sein, wobei jedoch andere Gesetze Anwendung finden könnten. #endissuewarning
                     </span>
                 </p>
                 <p class="c0">
@@ -6076,7 +6051,7 @@ dmpStrings={
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
                     </span>
             </span>
-            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning some metabolomics partners considers Metabolights
+            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
                 mostly define the submitter and the general type of data, allow reusability by other researchers by
                 defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow

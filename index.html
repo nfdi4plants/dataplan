@@ -23,7 +23,7 @@
     <script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
     <script src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/DMPDocs16074.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/DMPDocs230824.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/custom0307.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
@@ -221,7 +221,7 @@
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") ? {} : saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards";
+            (!Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") || saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
         }
         catch (e) { };
         try {
@@ -1160,7 +1160,12 @@
                 newText.setAttribute("name" , "issueWarningContent");
                 newText.setAttribute("data-id" , warning_number);
                 newText.setAttribute("data-text" , text);
-                newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--pay attention to the sentence before because' + text + '</span>';
+                if (doc_name = 'bmbf-dmp'){
+                    newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--Bitte achten Sie auf den vorhergehenden Satz. ' + text + '</span>';
+                }else {
+                    newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><--Please pay attention to the sentence before. ' + text + '</span>';
+                }
+                
                 full_range.insertNode(newText);
                 
                 ns = window.find("#issuewarning", aWrapAround = 1);
@@ -1336,7 +1341,6 @@
 
         if (window.find) //for chrome, firefox
         {
-
             //verbose  console.log("window.find is: " + window.find);
             while (window.find(before, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = is_firefox,
                 aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
@@ -1345,9 +1349,9 @@
                     range.extractContents();
 
                     let newText = document.createElement("span");
-                    debug= before == "$_PROPRIETARY";
-                    deb("before = <"+ before +">");
-                    deb("range = <"+ range.toString() +">");
+                    //debug= before == "$_PROPRIETARY";
+                    //deb("before = <"+ before +">");
+                    //deb("range = <"+ range.toString() +">");
                     newText.setAttribute("class", "text-warning text-center");
                     if (holder=== undefined){
                         newText.setAttribute("name", (before).split("_")[1] + "-to-");
@@ -1412,7 +1416,7 @@
     }
 
     // initialization
-    window.addEventListener("load", function () {
+    window.addEventListener("DOMContentLoaded", function () {
         cookie_modal = new bootstrap.Modal(document.getElementById('cookie_modal'), {
             keyboard: false
         })
@@ -2945,7 +2949,7 @@ END:VEVENT`;
                                 data-bs-autohide="true" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body m-auto">
-                                        All text input are done, please finish the checkboxes. <br> Copy text
+                                        All text inputs are finished. The checkboxes are not tracked. <br> Copy text
                                         <a href="#" data-toggle="tooltip" onclick="copy_doc()"
                                             title="click to copy the document"> here
 
