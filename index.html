@@ -62,6 +62,7 @@
     var debug;
     var doc_name = 'Horizon2020_DMP'; // default document to use at the first page load
     var user_info = window.localStorage.getItem("user_info"); // store user inforamtion in local storage
+    var wordcloud = window.localStorage.getItem("wordcloud") || "true";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
     var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
@@ -191,6 +192,7 @@
     var maxWidth = 1100;
     var tour = new Tour(steps); // initialize the guided tour
     var upload_json1, upload_json2, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
+    const prefix = '$_';
 
 
 
@@ -363,7 +365,7 @@
         saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 
 
-        parseText();
+        runWordCloud();
         
         
         
@@ -417,7 +419,6 @@
         }
     }
 
-    const prefix = '$_';
     /**
      * @function save_json
      * @description save answers to JSON
@@ -580,6 +581,29 @@
         load_dmp(reload_answers, name = doc_name);
 
     }
+
+    
+    function updateWC(status){
+        window.wordcloud = (status).toString();
+        localStorage.setItem("wordcloud", status);
+
+    }
+
+    function runWordCloud(){
+        if (window.wordcloud =="true"){
+            parseText();
+            console.log("word cloud")
+        }else{
+            try {
+                document.querySelector("#doc3").querySelector("#vis").remove();
+            } catch (error) {
+                
+            }
+            
+        }
+    }
+
+
     /**
      * @function trim_saved_a
      * @description function to remove the "$_" of the text to avoid replace errors
@@ -1548,7 +1572,8 @@
             return false;
 
         }
-        parseText();
+        document.getElementById("word_cloud_switchl").checked = window.wordcloud === "true";
+        runWordCloud();
         const dmp1_vis = document.getElementById("wordCloud").querySelector("#vis").childNodes[0].childNodes[1];
         // Options for the observer (which mutations to observe)
         const config = { attributes: true, childList: false, subtree: false };
@@ -1987,7 +2012,7 @@
             document.querySelector(".tour-exit").click();
 
         } catch (e) { };
-        parseText();
+        runWordCloud();
         const text = document.getElementById("doc3");
         const text_start = text.querySelector("#text_start");
 
@@ -2475,7 +2500,7 @@ END:VEVENT`;
     function export2word(element, filename = '') {
         
         punctual();
-        parseText();
+        runWordCloud();
         const compared_list = compare_replace(temp_a, saved_a);
         let warning_element_children = Array.from(Array(99).keys());
 
@@ -2607,9 +2632,16 @@ END:VEVENT`;
                                     (Clear Input)</button>
                             </li>
                             <li>
-                                <button id="word_cloud" class="dropdown-item" onclick='parseText()'>
+                                <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
                                     Generate Word Cloud
                                 </button>
+                            </li>
+                            <li>
+                                <div class="form-check form-switch dropdown-item">
+                                    <input id="word_cloud_switchs" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
+                                    <label class="form-check-label" for="word_cloud_switchs">Word Cloud Switch</label>
+                                </div>
+
                             </li>
                             <li>
                                 <label for="image_upload" class="form-label dropdown-item">
@@ -2706,9 +2738,17 @@ END:VEVENT`;
                                     (Clear Input)</button>
                             </li>
                             <li>
-                                <button id="word_cloud" class="dropdown-item" onclick='parseText()'>
+                                <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
                                     Generate Word Cloud
                                 </button>
+                            </li>
+                            <li>
+
+                                <div class="form-check form-switch ">
+                                    <input id="word_cloud_switchl" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
+                                    <label class="form-check-label" for="word_cloud_switchl">Word Cloud Switch</label>
+                                </div>
+
                             </li>
                             <li>
                                 <label for="image_upload" class="form-label dropdown-item">
