@@ -112,7 +112,7 @@ dmpStrings={
             <p class="c0">
 
                 <span class="c1">
-                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
+                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT Annotated Research Context (ARC) structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
                     be informed about the provenance of data analysis information. Stakeholders must also be informed
                     about the provenance of data. It is therefore necessary to ensure that the data are well generated
                     and also well annotated with metadata using open standards, as laid out in the next section.
@@ -151,7 +151,7 @@ dmpStrings={
                     without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS)
                     data sets. #endif$_RNASEQ|$_GENOMIC It is also important to include existing data-sets on the
                     expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge
-                    #if$_PARTNERS of the partners #endif$_PARTNERS.
+                    #if$_PARTNERS of the partners: $_PARTNERS #endif$_PARTNERS.
                     Genomic references can be gathered from reference databases for genomes/ and sequences, like the the NCBI (US National Center for Biotechnology Information),
                     EBI (European Bioinformatics Institute) and DDBJ (DNA Data Bank of Japan). Furthermore, prior 'unstructured' data in the form of publications and data
                     contained therein will be used for decision making.
@@ -1001,7 +1001,7 @@ dmpStrings={
                 proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ It is also
                 important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT,
                 but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the
-                partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
+                partners: $_PARTNERS #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
                 genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
                 Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). Furthermore, prior
                 'unstructured' data in the form of publications and data contained therein will be used for decision
@@ -1030,7 +1030,7 @@ dmpStrings={
                 #if$_EXCEL excel files, #endif$_EXCEL and other types of data which are related to $_STUDYOBJECT. In addition, the raw data will also
                 be processed and modified using analytical pipelines, which may yield different results or include
                 ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be tracked in the DataPLANT
-                ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
+                Annotated Research Context (ARC) . #endif$_DATAPLANT Therefore, care will be taken to document and archive these resources
                 (including the analytical pipelines) as well#if$_DATAPLANT relying on the expertise in the DataPLANT
                 consortium #endif$_DATAPLANT.
             </span>
@@ -2067,7 +2067,7 @@ dmpStrings={
             <span class="c1">
                 $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
                 and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
-                #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
+                #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT Annotated Research Context (ARC) structure are absolutely necessary,
                 #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
                 necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
                 be informed about the provenance of data analysis information. Stakeholders must also be informed
@@ -2090,7 +2090,7 @@ dmpStrings={
                 proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ It is also
                 important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT,
                 but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the
-                partners. #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
+                partners: $_PARTNERS #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
                 genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
                 Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). Furthermore, prior
                 'unstructured' data in the form of publications and data contained therein will be used for decision
@@ -2876,8 +2876,18 @@ dmpStrings={
                                         ">
                         Data should be generated by devices that are compatible with the open-source format. The
                         $_STUDYOBJECT should be compliant to biodiversity protocols. The protocols used to collect
-                        $_PHENOTYPIC,
-                        $_GENETIC, $_GENOMIC, $_METABOLOMIC, $_RNASEQ data about $_STUDYOBJECT will be
+                       #if$_GENOMIC genomic data, #endif$_GENOMIC 
+                    #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
+                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
+                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                    #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                    #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                    #if$_IMAGE image datasets, #endif$_IMAGE  
+                    #if$_MODELS modelling data, #endif$_MODELS 
+                    #if$_CODE computational code, #endif$_CODE  
+                    #if$_EXCEL excel files, #endif$_EXCEL about $_STUDYOBJECT will be
                         stored#if$_DATAPLANT in the assays folder of ARC
                         repositories. #endif$_DATAPLANT#if!$_DATAPLANT in a FAIR data
                         storage. #endif!$_DATAPLANT&nbsp;
@@ -3286,7 +3296,7 @@ dmpStrings={
                                             
                                             
                                         ">
-                        #if$_DATAPLANT Data stored in ARC is curated regularly as long as there are needs for update
+                        #if$_DATAPLANT Data stored in Annotated Research Context (ARC) is curated regularly as long as there are needs for update
                         or revision. #endif$_DATAPLANT #if!$_DATAPLANT Data is curated regularly as long as there are
                         needs for
                         update or revision. #endif!$_DATAPLANT
@@ -6066,7 +6076,7 @@ dmpStrings={
                     reference it is very difficult to analyze next-generation sequencing (NGS) data
                     sets. #endif$_RNASEQ It is also important to include existing data-sets on the expression and
                     metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge. #if$_PARTNERS of
-                    the partners. #endif$_PARTNERS Genomic references can be gathered from reference databases for
+                    the partners: $_PARTNERS #endif$_PARTNERS Genomic references can be gathered from reference databases for
                     genomes/ and sequences, like the NCBI (US National Center for Biotechnology Information),
                     EBI (European Bioinformatics Institute) and DDBJ (DNA Data Bank of Japan). Furthermore, prior
                     &#39;unstructured&#39; data in the form of publications and data contained therein will be used
@@ -6149,7 +6159,7 @@ dmpStrings={
                     will be stored in common and openly defined formats including all the necessary metadata. By
                     default, no proprietary formats will be used. However Microsoft Excel files (according to
                     ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some
-                    ARC components#endif$_DATAPLANT. In addition, text files might be edited in text processor
+                    Annotated Research Context (ARC) components#endif$_DATAPLANT. In addition, text files might be edited in text processor
                     files, but will be shared as pdf.</span>
     </div>
 </div>`

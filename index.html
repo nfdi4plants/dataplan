@@ -23,7 +23,7 @@
     <script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
     <script src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/DMPDocs120924.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/DMPDocs130924.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/custom0307.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
@@ -78,7 +78,7 @@
     var classicMode = true;
     var initialed = false; // set the initialed status to false
     const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":["check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"],"unchecked":["check_transcriptomic"]},"checkbox_3":{"checked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization"],"unchecked":["check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
-    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"0.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
         saved_a = JSON.parse(cached_a); // load the cached answers to webpage
@@ -504,13 +504,18 @@
     }
 
     function compare_replace(old_a, new_a) {
+        let locala = JSON.parse(JSON.stringify(old_a["replace"]));
         let unreplaced_keys = [];
 
         let total_keywords = 0,
             changed_keywords = 0;
-
-        const old_replace = Object.entries(old_a["replace"]);
-        for (const [key, value] of old_replace) {
+        document.getElementById("check_update").checked? locala["$_UPDATEMONTH"]="Example Month" : {} ;
+        document.getElementById("check_previousprojects").checked? locala["$_PREVIOUSPROJECTS"]="Previous Project Name" : {} ;
+        document.getElementById("check_proprietary").checked? locala["$_PROPRIETARY"]="Proprietary Software" : {} ;
+        document.getElementById("check_partners").checked? locala["$_PARTNERS"]="partner name" : {} ;
+        document.getElementById("check_otherep").checked? locala["$_OTHEREP"]="" : {} ;
+        
+        for (const [key, value] of Object.entries(locala)) {
             total_keywords++;
             if ((new_a["replace"][key] != value) && (new_a["replace"][key] != "") && (new_a["replace"][key] != undefined)) {
                 changed_keywords++;
@@ -521,8 +526,8 @@
             }
 
         }
-        unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
-        return [total_keywords, 4, changed_keywords, 4, unreplaced_keys, []];
+        //unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
+        return [total_keywords, 0, changed_keywords, 0, unreplaced_keys, []];
     }
     /**
      * @function onchange_replace
