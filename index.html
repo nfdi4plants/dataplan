@@ -17,14 +17,21 @@
     <link href="css/bootstrap.min2106.css" rel="stylesheet" />
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
+
+    <script src="DMPDocs/BBSRC-dmp.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dfg-dmp.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
-    <script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
-    <script src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/DMPDocs130924.js" type="text/javascript" charset="utf-8"></script>
-    <link href="css/custom0307.css" rel="stylesheet" />
+    <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
+    <script async src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
+    <script  src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
+    <script  src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
+   
+    <link href="css/custom24-09-17.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -50,6 +57,16 @@
      * @static
      * @description to log if the browser is IE
      **/
+    const dmpStrings = {
+        "Horizon2020_DMP" : Horizon2020_DMP.Horizon2020_DMP,
+        "horizon_europe" : horizon_europe.horizon_europe,
+        "dfg-dmp" : dfg_dmp["dfg-dmp"],
+        "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
+        "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
+        "practical-guide": practical_guide["practical-guide"]
+
+
+    }
     var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
     if (is_ie > 0) // If Internet Explorer, return version number
     {
@@ -349,7 +366,7 @@
 
         initialed = true;
         syn_load_cache();
-
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+".js";
         // update dmp meta data
         saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
         saved_a["dmp"]["contact"]["name"] = "DMP of " + saved_a["replace"]["$_USERNAME"];
@@ -1444,7 +1461,7 @@
     }
 
     // initialization
-    window.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener("load", function () {
         cookie_modal = new bootstrap.Modal(document.getElementById('cookie_modal'), {
             keyboard: false
         })
@@ -2921,6 +2938,7 @@ END:VEVENT`;
             style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden;position:relative;">
             <div class="col-7" id="split-0"
                 style="position: relative;height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
+                <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/horizon_europe.js" target="_blank" id="editTemplate" title="Edit this template" style="position: fixed; top: 100px; left: calc(60vw - 5.5rem ); z-index:1030">Edit this <br> template</a>
 
                 <div class="col-12" id="doc2"
                     style="top:7vh; overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
@@ -4722,7 +4740,7 @@ END:VEVENT`;
 
     </script>
 </body>
-<script src="js/cloud.min2106.js" charset="utf-8"> </script>
 
+<script src="js/cloud.min2106.js" charset="utf-8"> </script>
 
 </html>

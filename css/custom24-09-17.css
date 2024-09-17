@@ -438,7 +438,7 @@ display: block;
   display: none;
   position: fixed;
   border: none;
-  left: 50px;
+  left: calc(60vw - 4rem);
   bottom: 50px;
   z-index: 1020;
   font-size: 34px;
