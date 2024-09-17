@@ -24,7 +24,7 @@
         var template = '<div id="tour" class="popover popover-tour" role="tooltip">' +
             '<div class="popover-arrow"></div>';
         if (!arrows) {
-            template = '<div id="tour" class="popover popover-tour popover-tour-center" role="tooltip">';
+            template = '<div id="tour" class="popover popover-tour popover-tour-center " role="tooltip">';
         }
 
         template += '<div class="tour-exit"></div>' +
