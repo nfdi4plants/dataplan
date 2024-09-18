@@ -23,8 +23,13 @@
     <script src="js/FileSaver.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
     <script src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/DMPDocs16074.js" type="text/javascript" charset="utf-8"></script>
-    <link href="css/custom0307.css" rel="stylesheet" />
+    <script src="DMPDocs/BBSRC-dmp.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dfg-dmp.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide.js" type="text/javascript" charset="utf-8"></script>
+    <link href="css/custom24-09-17.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -35,13 +40,137 @@
     </script>
 </head>
 <script>
+      const dmpStrings = {
+        "Horizon2020_DMP" : Horizon2020_DMP.Horizon2020_DMP,
+        "horizon_europe" : horizon_europe.horizon_europe,
+        "dfg-dmp" : dfg_dmp["dfg-dmp"],
+        "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
+        "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
+        "practical-guide": practical_guide["practical-guide"]
+
+
+    }
 
 document.addEventListener("DOMContentLoaded", function(arg) {
     document.getElementById("doc3").innerHTML = dmpStrings["bmbf-dmp"];
 });
 
+   /**  
+     * @name is_firefox  
+     * @global
+     * @static
+     * @description to log if the browser is Firefox
+     **/
+     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
+    function match_mod(in_range, holders, operator = "") {
 
+            
+    //verbose   console.log("mach_mod function: check_box_item: " + before);
+    //console.log("holders are : "+ holders);
+    const parent_node = document.createElement("span");
+    parent_node.classList.add("text-primary");
+    let onmouseoverText="", onclickText="", dataOperatorText="", onmouseleaveText="";
 
+    for (const holder of holders){
+        const idText = "check_" + holder.split("_")[1].toLowerCase();
+        const eleName = idText.split("-")[0];
+        onmouseoverText += 'const '+eleName+' = document.getElementById("' + idText + '") ;'+eleName+'.parentElement.classList.add("border-highlight");'+eleName+'.focus({preventScroll: true}); ';
+        onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
+        onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
+        parent_node.classList.add(idText);
+        let after;
+        
+        if (operator=="!"){
+            dataOperatorText = "!"
+        }else{
+            dataOperatorText += idText +"|";
+            //dataOperatorText += idText
+        }
+    }
+    parent_node.classList.add("checkboxConverted");
+    parent_node.setAttribute("onmouseover", onmouseoverText);
+
+    parent_node.setAttribute("onclick", onclickText );
+    parent_node.setAttribute("onmouseleave",onmouseleaveText );
+    parent_node.setAttribute("onclick", onclickText );
+    //parent_node.setAttribute("name", idText + "-to-");
+    parent_node.setAttribute("data-operator", dataOperatorText);
+        const doc_frag = in_range.extractContents();
+        //console.log(" doc_frag: " + doc_frag.textContent );
+        //const node1 = document.createTextNode(doc_frag);
+        parent_node.appendChild(doc_frag);
+        //verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
+
+    in_range.insertNode(parent_node);
+    in_range.detach();
+    //verbose   console.log("in_range is :" + in_range.toString());
+
+    }
+    function checkboxConversion(){
+        const selection= window.getSelection();
+        selection.removeAllRanges();
+                // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
+
+                if (window.find) //for chrome, firefox
+                {
+                    let ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    while (ns) {
+                        // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
+                        //verbose  console.log("found");
+                        
+                        let if_range = window.getSelection().getRangeAt(0).cloneRange();
+                        window.find(" ", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 0,aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+
+                        if_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+                        const endif_range_string = "#endif" + if_range.toString().split("#if").slice(-1)[0];
+
+                        window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                        let endif_range = window.getSelection().getRangeAt(0).cloneRange();
+                        //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
+                        
+                        let in_range = document.createRange();                    
+                        in_range.setStart(if_range.endContainer, if_range.endOffset);                    
+                        try{
+                            in_range.setEnd(endif_range.startContainer, endif_range.startOffset-1);
+                        } catch(e){
+                            //console.error(e);
+                            in_range.setEnd(endif_range.startContainer.previousSibling, endif_range.startContainer.previousSibling.length );
+                        }
+                        
+                        const placeholder_strings = if_range.toString().split("#if").slice(-1)[0];
+                        const if_type_string = placeholder_strings.slice(0,1);
+                        const holders = placeholder_strings.split("|");
+                        
+                        //console.log("placeholder_strings :"+ placeholder_strings+ " holders: "+ holders + " if_type_string:"+ if_type_string);
+                        
+                        var if_in = false;
+    
+                        if (if_type_string == "$"){
+                            
+                                    match_mod(in_range, holders );
+                                    in_range.detach();
+                                //match_remove(in_range);
+                        } else if (if_type_string == "!" ){
+
+                                        match_mod(in_range, holders, "!");
+                                        in_range.detach();
+                                        
+                        }else{                        
+                        }
+                                    
+                        //in_range.deleteContents();
+                        in_range.detach();
+                        if_range.deleteContents();
+                        if_range.detach();
+                        endif_range.deleteContents();
+                        endif_range.detach();
+                    ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                }
+            }
+        }
 
 
 </script>
