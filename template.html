@@ -51,9 +51,76 @@
 
     }
 
-document.addEventListener("DOMContentLoaded", function(arg) {
-    document.getElementById("doc3").innerHTML = dmpStrings["bmbf-dmp"];
+document.addEventListener("load", (e)=> {
+    document.getElementById("doc3").innerHTML = dmpStrings["BBSRC-dmp"];
 });
+
+function find_replace(before, after, holder=undefined) {
+
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+
+    //verbose  console.log("before: " + before + ", after: " + after);
+
+    if (window.find) //for chrome, firefox
+    {
+        //verbose  console.log("window.find is: " + window.find);
+        while (window.find(before, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = is_firefox,
+            aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
+            let last_letter;
+            let range = window.getSelection().getRangeAt(0).cloneRange();
+                range.extractContents();
+
+                let newText = document.createElement("span");
+                //debug= before == "$_PROPRIETARY";
+                //deb("before = <"+ before +">");
+                //deb("range = <"+ range.toString() +">");
+                newText.setAttribute("class", "text-warning text-center");
+                if (holder=== undefined){
+                    newText.setAttribute("name", (before).split("_")[1] + "-to-");
+                    newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + (before) + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
+                    newText.setAttribute("onmouseleave", 'document.getElementsByName("' + (before) + '")[0].classList.remove("border-highlight");  ');
+                }else{
+
+                    newText.setAttribute("name", (holder) + "-to-");
+                    newText.setAttribute("onmouseover", 'const e = document.getElementById("' + (holder) + '"); e.parentElement.classList.add("border-highlight"); e.focus({preventScroll:true})  ');
+                    newText.setAttribute("onmouseleave", 'document.getElementById("' + (holder) + '").parentElement.classList.remove("border-highlight");  ');
+                }
+                
+                
+                newText.setAttribute("onclick", 'document.getElementsByName("' + (holder||before) + '")[0].parentElement.scrollIntoView({ behavior: "smooth", block: "center" });document.getElementsByName("' + (holder||before) + '")[0].focus(); ');
+                newText.innerHTML = HtmlEncode(after) ;
+                range.insertNode(newText);
+
+                // }   else{
+                //     debug=true;
+                //     deb("rangeText = <" +rangeText+ ">");
+
+
+                // }
+        }
+        } else if (document.createTextRange) //for ie etc.
+        {
+            var range = document.createTextRange();
+            while (range.findText(before)) {
+                range.pasteHTML(after);
+            }
+        }
+
+}
+
+
+
+function textinputConversion(){
+    for (let answers in saved_a["replace"]) {
+            let singleOption = {};
+            singleOption[answers] = saved_a["replace"][answers];
+            //verbose  console.log(singleOption);
+            const before = "$_" + answers.split("_")[1].toUpperCase() ;
+            find_replace(before, singleOption[answers]);
+
+        }
+    }
 
    /**  
      * @name is_firefox  
@@ -106,6 +173,57 @@ document.addEventListener("DOMContentLoaded", function(arg) {
     //verbose   console.log("in_range is :" + in_range.toString());
 
     }
+    
+    
+    
+    
+    
+    function addOption(in_range, holders, operator = "") {
+
+                    
+        //verbose   console.log("mach_mod function: check_box_item: " + before);
+        //console.log("holders are : "+ holders);
+        const parent_node = document.createElement("button");
+        parent_node.classList.add("text-primary");
+        let onmouseoverText="", onclickText="", dataOperatorText="", onmouseleaveText="";
+
+        for (const holder of holders){
+            const idText = "check_" + holder.split("_")[1].toLowerCase();
+            const eleName = idText.split("-")[0];
+            onmouseoverText += 'const '+eleName+' = document.getElementById("' + idText + '") ;'+eleName+'.parentElement.classList.add("border-highlight");'+eleName+'.focus({preventScroll: true}); ';
+            onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
+            onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
+            parent_node.classList.add(idText);
+            let after;
+            
+            if (operator=="!"){
+                dataOperatorText = "!"
+            }else{
+                dataOperatorText += idText +"|";
+                //dataOperatorText += idText
+            }
+        }
+        parent_node.classList.add("checkboxConverted");
+        parent_node.setAttribute("onmouseover", onmouseoverText);
+
+        parent_node.setAttribute("onclick", onclickText );
+        parent_node.setAttribute("onmouseleave",onmouseleaveText );
+        parent_node.setAttribute("onclick", onclickText );
+        //parent_node.setAttribute("name", idText + "-to-");
+        parent_node.setAttribute("data-operator", dataOperatorText);
+            const doc_frag = in_range.extractContents();
+            //console.log(" doc_frag: " + doc_frag.textContent );
+            //const node1 = document.createTextNode(doc_frag);
+            parent_node.appendChild(doc_frag);
+            //verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
+
+        in_range.insertNode(parent_node);
+        in_range.detach();
+        //verbose   console.log("in_range is :" + in_range.toString());
+
+        }
+
+    
     function checkboxConversion(){
         const selection= window.getSelection();
         selection.removeAllRanges();
@@ -145,7 +263,6 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                         
                         //console.log("placeholder_strings :"+ placeholder_strings+ " holders: "+ holders + " if_type_string:"+ if_type_string);
                         
-                        var if_in = false;
     
                         if (if_type_string == "$"){
                             
@@ -168,8 +285,8 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                         endif_range.detach();
                     ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                         aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    }
                 }
-            }
         }
 
 
@@ -336,978 +453,7 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                     <div id="intro-tour-input">
                         <div id="warningText"></div>
 
-                        <h2 id="scrollspyHeading1">1 Basic Information:</h2>
-
-                        <form class="" style="margin-left: 0px;" id="form_projectname">
-                            <h3>1.1 What is the project name or acronym?</h3>
-                            <label for="input_projectname"></label>
-                            <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
-                                placeholder="the project name"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-
-                        <form id="form_studyobject">
-                            <label for="input_studyobject">
-                                <h3 class="text-left">
-                                    1.2 Please briefly state
-                                    <a href="#" 
-                                        tabindex="-1" class="text-success" tabindex="-1" type="button"
-                                            data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj"
-                                            aria-controls="offcanvas-obj">the topic of the research project &#128712;
-                                            </a>
-
-                                </h3>
-                            </label>
-
-                            <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_studyobject" name="$_STUDYOBJECT"
-                                placeholder="the research object/target"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-
-
-                        </form>
-
-                        <form id="form_projectaim">
-                            <label class="" for="input_projectaim">
-                                <h3>
-                                    and the overall aim of the project
-                                    <a href="#"  class="text-success" type="button" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" 
-                                        tabindex="-1">
-                                            (what do you want to achieve?) &#128712;
-                                            
-                                    </a>
-                                </h3>
-                            </label>
-                            <textarea type="text" style="width: 90%;" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_projectaim" name="$_PROJECTAIM"
-                                placeholder="project aim" rows="3" style="width: 90%;"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'></textarea>
-
-
-                        </form>
-                        <form class="" style="margin-left: 0px;" id="form_datautility " >
-                            <h3> <a href="#" class="text-success"   tabindex="-1" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">
-                                    Who is the most likely to benefit from the data? &#128712;
-                                        </a> </h3>
-                            <label for="input_datautility"></label>
-                            <textarea style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_datautility" name="$_DATAUTILITY"
-                                placeholder="Industry, politicians and students can also use the data for different purposes."
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
-
-								</textarea>
-
-
-                        </form>
-                        <form class="" style="margin-left: 0px;" id="form_username">
-                            <h3>1.3 <a id="" href="#" class="text-success infolink" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Other &#128712;
-                                     </a> DMP Metadata</h3>
-                            <label for="input_username">
-                                <h4> User Name: </h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_username" name="$_USERNAME"
-                                placeholder="type your name here"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-                        <form class="" style="margin-left: 0px;" id="form_email">
-                            <label for="input_email">
-                                <h4>User Email:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_email" name="$_EMAIL"
-                                placeholder="user email address"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_dataofficer">
-                            <label for="input_dataofficer">
-                                <h4><a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Data
-                                        Officer</a> Name:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_dataofficer"
-                                name="$_DATAOFFICER" placeholder="data officer name"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-
-                        <form class="" style="margin-left: 0px;" id="form_fundingprogramme">
-                            <label for="input_fundingprogramme">
-                                <h4> Funding Programme:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_fundingprogramme"
-                                name="$_FUNDINGPROGRAMME" placeholder="Action number or funding programme name"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_creationdate">
-                            <label for="input_creationdate">
-                                <h4> DMP Creation Date:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="date" id="input_creationdate"
-                                name="$_CREATIONDATE"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_modificationdate">
-                            <label for="input_modificationdate">
-                                <h4> DMP Last Modification:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="date" id="input_modificationdate"
-                                name="$_MODIFICATIONDATE"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_dmpversion">
-                            <label for="input_dmpversion">
-                                <h4>DMP version:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_dmpversion" name="$_DMPVERSION"
-                                placeholder="Version of the DMP"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <h3> 1.4 Please select from the following options</h3>
-                        <div class="form-data_type form-check" id="form_checkbox_1"
-                            onchange="this.nextElementSibling.click();">
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="1"
-                                    id="check_protect" />
-                                <label class="form-check-label" id="check_protect_label" for="check_protect">
-                                    The data is protected.
-                                </label>
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="2"
-                                    id="check_dataplant" />
-                                <!--data-bs-toggle="collapse"
-									data-bs-target="#form_checkbox_5"
-									aria-expanded="false"
-									aria-controls="form_checkbox_5"
-									role="button"-->
-                                <label class="form-check-label" for="check_dataplant">
-
-                                    Yes! I will use <a class="text-primary" href="https://nfdi4plants.github.io/"
-                                        target="_blank" data-toggle="tooltip"
-                                        title="An NFDI consortium of plant research."
-                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
-                                </label>
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update"
-                                     />
-                                <label class="form-check-label" for="check_update">
-                                    This project will be updated at:
-                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
-                                placeholder="month of update"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
-                                </label>
-                            </div>
-                            <div>
-
-                                <input class="form-check-input checkbox_1" type="checkbox" value="4"
-                                    id="check_previousprojects"  />
-                                <label class="form-check-label" for="check_previousprojects">
-                                    This project has previous projects.
-                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                    onchange="onchange_replace(this);" id="intput_previousprojects"
-                                    name="$_PREVIOUSPROJECTS" placeholder="previous project here"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-    
-                                </label>
-
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="5"
-                                    id="check_industry" />
-                                <label class="form-check-label" for="check_industry">
-                                    This is an industry project.
-                                </label>
-                            </div>
-                            <div>
-
-                                <input class="form-check-input checkbox_1" type="checkbox" value="6"
-                                    id="check_proprietary" />
-                                <label class="form-check-label" for="check_proprietary">
-                                    This project use <a class="text-primary" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary"
-                                        href="#">proprietary software</a>.
-                                        <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                        onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
-                                        placeholder=" proprietary software "
-                                        onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                        onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                        onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-                                </label>
-                            </div>
-                            <div>
-
-                                <input class="form-check-input checkbox_1" type="checkbox" value="7"
-                                    id="check_partners" />
-                                <label class="form-check-label" for="check_partners">
-                                    This project has partners.
-                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                    onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
-                                    placeholder="partner name"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
-                                </label>
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_eu" />
-                                <label class="form-check-label" for="check_eu">
-                                    EU project.
-                                </label>
-                            </div>
-                        </div>
-
-                        <input class="btn btn-primary form-check collapse btn-sm d-none" type="button"
-                            id="form-check-input" data-checkbox="checkbox_1" value="submit"
-                            onclick="get_option(this)" />
-
-
-
-
-
-                        <!--<form class="collapse" id="form_updatemonth">
-                            <label for="intput_updatemonth">At which month will your project be updated?</label>
-                             />
-
-
-                        </form>
-
-
-
-
-                        <form class="collapse" id="form_previousprojects">
-                            <label for="intput_previousprojects">What is the name of your previous project?</label>
-                           
-
-                        </form>
-
-
-
-
-                        <form class="collapse" id="form_proprietary">
-                            <label for="input_proprietary">What is the name of your proprietary software?</label>
-
-                           
-
-
-                        </form>-->
-
-
-                        <form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
-                            <h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"
-                                    data-replace="genetic data" data-replacede="genetische Daten" />
-                                <label class="form-check-label" for="check_genetic"> Genetic data </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic"
-                                    data-replace="genomic data" data-replacede="genomische Daten" />
-                                <label class="form-check-label" for="check_genomic">
-                                    Other NGS (genomics)
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
-                                    data-replace="cloned DNA" data-replacede="geklonte DNA" />
-                                <label class="form-check-label" for="check_cloned-dna">
-                                    Cloned DNA
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"
-                                    data-replace="transcriptomic data" data-replacede="transkriptomische Daten" />
-                                <label class="form-check-label" for="check_transcriptomic">
-                                    Transcriptomics
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_rnaseq"
-                                    data-replace="RNA-Seq data" data-replacede="RNA-Seq-Daten" />
-                                <label class="form-check-label" for="check_rnaseq">
-                                    RNAseq
-                                </label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_metabolomic"
-                                    data-replace="metabolomic data" data-replacede="metabolomische Daten" />
-                                <label class="form-check-label" for="check_metabolomic">
-                                    Metabolomics
-                                </label>
-
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"
-                                    data-replace="proteomic data" data-replacede="proteomische Daten" />
-                                <label class="form-check-label" for="check_proteomic">
-                                    Proteomics
-                                </label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"
-                                    data-replace="plant phenotypic data" data-replacede="Pflanzenphänotypische Daten" />
-                                <label class="form-check-label" for="check_phenotypic">
-                                    Plant phenotypic data
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_targeted"
-                                    data-replace="targeted assays (e.g. glucose and fructose content)"
-                                    data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)" />
-                                <label class="form-check-label" for="check_targeted">
-                                    Targeted assays (e.g. glucose and fructose content)
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_image"
-                                    data-replace="image datasets" data-replacede="Bilddatensätze" />
-                                <label class="form-check-label" for="check_image">
-                                    Image datasets
-                                </label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_models"
-                                    data-replace="model outputs" data-replacede="Modellausgänge" />
-                                <label class="form-check-label" for="check_models">
-                                    Models
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_code"
-                                    data-replace="computational code" data-replacede="Rechencode" />
-                                <label class="form-check-label" for="check_code">
-                                    Code
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_excel"
-                                    data-replace="excel data" data-replacede="Excel-Daten" />
-                                <label class="form-check-label" for="check_excel">
-                                    <a href="#" class="text-primary" data-toggle="tooltip"
-                                        title="includes other tabular data (e.g. .csv, .tab)"
-                                        data-original-title="excel data">Excel </a>
-                                </label>
-                            </div>
-
-
-
-
-                        </form>
-
-
-
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2"
-                            value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
-
-                        <div class="" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
-                            <div class=" d-grid gap-1">
-                                <h3> 2.1 Where will you submit your data as endpoints?</h3>
-
-
-                                <div class="collapse check_geneticrepo check_genomicrepo"
-                                    id="genbank">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="3"
-                                        id="check_genbank" />
-                                    <label class="form-check-label" for="check_genbank">
-                                        NCBI-GenBank
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo  check_transcriptomicrepo"
-                                    id="sra">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_sra" />
-                                    <label class="form-check-label" for="check_sra">
-                                        NCBI-SRA (Sequence Read Archive)
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo check_transcriptomicrepo" id="geo">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="2"
-                                        id="check_geo" />
-                                    <label class="form-check-label" for="check_geo">
-                                        NCBI-GEO (Gene Expression Omnibus)
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo check_transcriptomicrepo"
-                                    id="ENA">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_ena" />
-                                    <label class="form-check-label" for="check_ena">
-                                        EBI-ENA (European Nucleotide Archive)
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo check_genomicrepo check_transcriptomicrepo"
-                                    id="arrayexpress">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_arrayexpress" />
-                                    <label class="form-check-label" for="check_arrayexpress">
-                                        EBI-ArrayExpress
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_metabolomicrepo" id="metabolights">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_metabolights" />
-                                    <label class="form-check-label" for="check_metabolights">
-                                        EBI-Metabolights
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_proteomicrepo" id="pride">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_pride" />
-                                    <label class="form-check-label" for="check_pride">
-                                        EBI-PRIDE (PRoteomics IDEntifications Database)
-                                    </label>
-                                </div>
-
-                                <div class="collapse  check_imagerepo" id="Bioimage">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_bioimage" />
-                                    <label class="form-check-label" for="check_bioimage">
-                                        EBI-BioImage Archive
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_imagerepo" id="IDR">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_idr" />
-                                    <label class="form-check-label" for="check_idr">
-                                        IDR (Image Data Resource)
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_phenotypicrepo" id="edal">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_edal" />
-                                    <label class="form-check-label" for="check_edal">
-                                        e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository)
-                                    </label>
-
-                                </div>
-
-
-                                <div class="collapse check_metabolomicrepo" id="MetabolomicsWorkbench">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_metaworkbench" />
-                                    <label class="form-check-label" for="check_metaworkbench">
-                                        Metabolomics Workbench
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_metabolomicrepo" id="intact">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_intact" />
-                                    <label class="form-check-label" for="check_intact">
-                                        IntAct (Molecular interactions)
-                                    </label>
-                                </div>
-
-
-
-
-                                <div class="collapse check_proteomicrepo" id="pdb">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_pdb" />
-                                    <label class="form-check-label" for="check_pdb">
-                                        PDB (Protein Data Bank)
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_proteomicrepo" id="chebi">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_chebi" />
-                                    <label class="form-check-label" for="check_chebi">
-                                        Chebi (Chemical Entities of Biological Interest)
-                                    </label>
-                                </div>
-
-
-
-                                <!--
-                                    <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" />
-                                    <label class="form-check-label" for="check_GenBank">
-                                        genbank
-                                    </label>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" />
-                                        <label class="form-check-label" for="check_Proteomexchange">
-                                            proteomexchange
-                                        </label>
-                                    </div>
-                                    
-                                    <div>
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" />
-                                        <label class="form-check-label" for="check_Zenodo">
-                                            zenodo
-                                        </label>
-                                    </div>
-                                    
-                                    <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" />
-                                    <label class="form-check-label" for="check_dataDyrad">
-                                        dataDyrad
-                                    </label>
-                                    </div>-->
-
-                                <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_otherep" />
-                                    <label class="form-check-label" for="check_otherep">
-                                        Other Endpoint Repositories:
-                                        <input data-replace="other endpoint repositories" style="width: 24vw;"
-                                            type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
-                                            onchange="onchange_replace(this);" name="$_OTHEREP"
-                                            onchange=' saved_a["replace"]["$_OTHEREP"]= this.value '
-                                            placeholder="complete sentence of the other endpoint repositories"
-                                            onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }' />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <input class="btn collapse btn-primary form-check btn-sm d-none" type="button"
-                            id="small-form-check-input" data-checkbox="checkbox_5" value="submit"
-                            onclick='get_option(this)' />
-                        <!---->
-
-
-                        <h2 id="scrollspyHeading3">3. How much data will you likely to generate?</h2>
-
-                        <form class="" style="margin-left: 0px;" id="form_rawdata">
-                            <label for="input_rawdata">
-                                <h3>3.1 Raw data volume?</h3>
-                            </label>
-                            <div class="align-bottom">
-                                <input style="width: 24vw;" type="text" class="col-auto" id="input_rawdata"
-                                    onfocusin="this.select();" onchange="onchange_replace(this);" name="$_RAWDATA"
-                                    placeholder="raw data volume (in GB)"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-                                GB
-
-
-                            </div>
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_deriveddata">
-                            <label for="input_deriveddata">
-                                <h3>3.2 Processed data volume?</h3>
-                            </label>
-                            <div class="align-bottom">
-                                <input style="width: 24vw;" type="text" class="col-auto" id="input_deriveddata"
-                                    onfocusin="this.select();" onchange="onchange_replace(this);" name="$_DERIVEDDATA"
-                                    placeholder="derived data volume (in GB)"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-                                GB
-
-
-                            </div>
-                        </form>
-
-                        <div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-
-                            <h2 id="scrollspyHeading4">4. Are any of the following standards relevant to your project?
-                            </h2>
-                            <div class=" d-grid gap-1">
-
-                                <div class="collapse check_phenotypicrepo" id="miappe">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_miappe" />
-                                    <label class="form-check-label" for="check_miappe">
-                                        MIAPPE (Minimum Information About a Plant Phenotyping Experiment) 
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miappe" aria-controls="offcanvas-miappe" > more info &#128712; </a>
-
-                                </div>
-
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mixs">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mixs" />
-                                    <label class="form-check-label" for="check_mixs">
-                                        MIxS (Minimum Information about any (X) Sequence)
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mixs" aria-controls="offcanvas-mixs" > more info &#128712; </a>
-                                </div>
-
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="migseu">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_migseu" />
-                                    <label class="form-check-label" for="check_migseu">
-                                        MigsEu (Minimum Information about a Genome Sequence: Eucaryote)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-migseu" aria-controls="offcanvas-migseu" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="migsorg">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_migsorg" />
-                                    <label class="form-check-label" for="check_migsorg">
-                                        MigsOrg (Minimum Information about a Genome Sequence: Organelle)
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-migsorg" aria-controls="offcanvas-migsorg" > more info &#128712; </a>
-                                </div>
-
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mims">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mims" />
-                                    <label class="form-check-label" for="check_mims">
-                                        MIMS (Minimum Information about Metagenome or Environmental)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mims" aria-controls="offcanvas-mims" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark1">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimarksspecimen" />
-                                    <label class="form-check-label" for="check_mimarksspecimen">
-                                        MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimarksspecimen" aria-controls="offcanvas-mimarksspecimen" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark2">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimarkssurvey" />
-                                    <label class="form-check-label" for="check_mimarkssurvey">
-                                        MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimarksurvey" aria-controls="offcanvas-mimarksurvey" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo" id="misag">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_misag" />
-                                    <label class="form-check-label" for="check_misag">
-                                        MISAG (Minimum Information about a Single Amplified Genome)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-misag" aria-controls="offcanvas-misag" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo" id="mimag">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimag" />
-                                    <label class="form-check-label" for="check_mimag">
-                                        MIMAG (Minimum Information about Metagenome-Assembled Genome)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimag" aria-controls="offcanvas-mimag" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_transcriptomicrepo" id="miame">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_miame" /> 
-                                    <label class="form-check-label" for="check_miame">
-                                        MIAME (Minimum Information About a Microarray Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miame" aria-controls="offcanvas-miame" > more info &#128712; </a> 
-                                </div>
-                                <div class="collapse check_metabolomicrepo" id="miamet">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_mmiamet" />
-                                    <label class="form-check-label" for="check_mmiamet">
-                                        MIAMET (Minimum Information About a METabolomics experiment)
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miamet" aria-controls="offcanvas-miamet" > more info &#128712; </a> 
-                                </div>
-                                <div class="collapse check_transcriptomicrepo check_rnaseqrepo" id="minseqe">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_minseqe" />
-                                    <label class="form-check-label" for="check_minseqe">
-                                        MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-minseqe" aria-controls="offcanvas-minseqe" > more info &#128712; </a> 
-                                </div>
-
-
-
-                                <div class="collapse check_imagerepo" id="rembi">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_rembi" />
-                                    <label class="form-check-label" for="check_rembi">
-                                        REMBI (Recommended Metadata for Biological Images)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-rembi" aria-controls="offcanvas-rembi" > more info &#128712; </a> 
-                                </div>
-
-
-                                <div class="collapse check_proteomicrepo" id="miape">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_miape" />
-                                    <label class="form-check-label" for="check_miape">
-                                        MIAPE (Minimum Information About a Proteomics Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miape" aria-controls="offcanvas-miape" > more info &#128712; </a>
-                                </div>
-
-                                <div class="collapse check_proteomicrepo" id="mimix">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_mimix" />
-                                    <label class="form-check-label" for="check_mimix">
-                                        MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimix" aria-controls="offcanvas-miape" > more info &#128712; </a>
-                                </div>
-
-                                <div class="form-data_type form-check">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="10"
-                                        id="check_otherstandards" />
-                                    <label class="form-check-label" for="check_otherstandards">
-
-                                        <input style="width: 24vw;" type="text" class="col-auto"
-                                            id="input_otherstandardinput" onfocusin="this.select();"
-                                            onchange="onchange_replace(this);" name="$_OTHERSTANDARDINPUT"
-                                            onchange=' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
-                                            placeholder="complete sentence of the other standards"
-                                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                                            onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                            onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-
-                                    </label>
-                                </div>
-                            </div>
-                            <!---->
-                            <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_dublincore" />
-                                <label class="form-check-label" for="check_dublincore">
-                                    Dublin Core
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-dublincore" aria-controls="offcanvas-dublincore" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_darwincore" />
-                                <label class="form-check-label" for="check_darwincore">
-                                    Darwin Core
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-darwincore" aria-controls="offcanvas-darwincore" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_schemaorg" />
-                                <label class="form-check-label" for="check_schemaorg">
-                                    Schema.org
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-schemaorg" aria-controls="offcanvas-schemaorg" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_bioschemas" />
-                                <label class="form-check-label" for="check_bioschemas">
-                                    bioschemas
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-bioschemas" aria-controls="offcanvas-bioschemas" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="2"
-                                    id="check_marc21" />
-                                <label class="form-check-label" for="check_marc21">
-                                    MARC 21
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-marc21" aria-controls="offcanvas-marc21" > more info &#128712; </a>
-                            </div>
-                            <!---->
-                            <h3>4.2 Project data will be published:</h3>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_early"
-                                    role="button" />
-                                <label class="form-check-label" for="check_early"> Immediately upon collection</label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox"
-                                    id="check_beforepublication" />
-                                <label class="form-check-label" for="check_beforepublication">
-                                    Upon publication of findings.
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_endofproject" />
-                                <label class="form-check-label" for="check_endofproject">
-                                    At the end of project.
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_embargo" />
-                                <label class="form-check-label" for="check_embargo">
-                                    After embargo period.
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_request" />
-                                <label class="form-check-label" for="check_request">
-                                    Upon request.
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
-                                <label class="form-check-label" for="check_ipissue">
-                                    Upon IP issues have been addressed.
-                                </label>
-                            </div>
-
-                            <h3>4.4 Will you follow national standards or archived in national infrastructures?</h3>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
-                                    />
-                                <label class="form-check-label" for="check_nfdi">
-                                    German NFDI
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_french"
-                                    />
-                                <label class="form-check-label" for="check_french">
-                                    French INRAe
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_eosc"
-                                    />
-                                <label class="form-check-label" for="check_eosc">
-                                    Europe EOSC
-                                </label>
-                            </div>
-
-
-
-                            <!---->
-                            <h2 id="scrollspyHeading5">5. Do you intend to use data visualization in your project?</h2>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization">
-                                <label class="form-check-label" for="check_vvisualization">Yes, I visualize my data.
-                                </label>
-
-
-
-                            </div>
-                        </div>
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box3"
-                            value="submit data type" data-checkbox="checkbox_3" onclick="get_option(this)">
-
-
-
-
-
-
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-            </div>
-            <div class="progress position-fixed bottom-0" style="margin: 0 0 0 0; padding: 0 0 0 0; width: 100vw;">
-                <div name="progress_bar" class="progress-bar progress-bar-striped"
-                    aria-label="a progress bar to show how many questions have been answered" role="progressbar"
-                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="p-bar"
-                    style="margin: 0 0 0 0; padding: 0 0 0 0; z-index: 99;"></div>
+                    </div>   
             </div>
         </div>
     </div>

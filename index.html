@@ -63,8 +63,8 @@
         "dfg-dmp" : dfg_dmp["dfg-dmp"],
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
-        "practical-guide": practical_guide["practical-guide"]
-
+        "practical-guide": practical_guide["practical-guide"],
+        "user-defined": window.localStorage.getItem("fulltext_user"),
 
     }
     var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
@@ -356,9 +356,13 @@
         
         if (convertedEle ==undefined){
             callback(name);
-        }else if (doc_name != name){
+        }else if (doc_name == "user-defined"){
             callback(name);
-        }else{
+        }
+        else if (doc_name != name){
+            callback(name);
+        }
+        else{
             frame.innerHTML = convertedEle;
             allCheckbox(), htmlFind_replace();
         }
@@ -4137,7 +4141,7 @@ END:VEVENT`;
         <div class="offcanvas-header">
             <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
                 <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML); dmpStrings["user-defined"]=document.getElementById("user-defined").innerHTML; setTimeout(()=> {load_dmp(reload_answers, name ="user-defined");}, 1000) ;'>
+                    onclick='dmpStrings["user-defined"]=document.getElementById("template-input-content").innerHTML; document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML), load_dmp(reload_answers, "user-defined") ;'>
                     submit
                 </button></h1>
 
