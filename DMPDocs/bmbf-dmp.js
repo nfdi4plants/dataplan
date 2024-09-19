@@ -5,16 +5,16 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                 <center>Datenmanagementplan für BMBF</center>
             </p>
         </h1>
-        <p class="c0"><span class="c3"><b>Projektname: $_PROJECTNAME</b></span></p>
+        <p class="c0"><span class="c3"><b>Projektname: $_PROJECTNAME&nbsp;</b></span></p>
         <p class="c0"><span class="c3"><b>Forschungsf&ouml;rderer</b>: Bundesministerium f&uuml;r Bildung und
                 Forschung</span></p>
-        <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME </span></p>
-        <p class="c0"><span class="c3"><b>FKZ: $_DMPVERSION</b></span></p>
+        <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME&nbsp;</span></p>
+        <p class="c0"><span class="c3"><b>FKZ: $_DMPVERSION&nbsp;</b></span></p>
 
-        <p class="c0"><span class="c3"><b>Projektkoordinator</b>: $_USERNAME</span></p>
-        <p class="c0"><span class="c3"><b>Kontaktperson Datenmanagement</b>: $_DATAOFFICER</span></p>
+        <p class="c0"><span class="c3"><b>Projektkoordinator</b>: $_USERNAME&nbsp;</span></p>
+        <p class="c0"><span class="c3"><b>Kontaktperson Datenmanagement</b>: $_DATAOFFICER&nbsp;</span></p>
 
-        <p class="c0"><span class="c3"><b>Kontakt</b>: $_EMAIL</span></p>
+        <p class="c0"><span class="c3"><b>Kontakt</b>: $_EMAIL&nbsp;</span></p>
         <p class="c0"><span class="c3"><b>Projektbeschreibung</b>:
 
 
@@ -52,13 +52,13 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                         umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
                         verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
                         analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
-                        auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT.
+                        auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT .
                     </span>
                 </p>
             </span></p>
         <p class="c0 c2"><span class="c1"></span></p>
-        <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE </span></p>
-        <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE </span></p>
+        <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE&nbsp; </span></p>
+        <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE&nbsp;</span></p>
         <p class="c0"><span class="c3"><b>Zu beachtende Vorgaben:</b> </span></p>
 
         <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
@@ -71,7 +71,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
                 sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem
                 Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der
-                Forschungsdaten führt. #endif$_DATAPLANT</span>
+                Forschungsdaten führt. #endif$_DATAPLANT&nbsp;</span>
         </p>
 
 
@@ -287,32 +287,32 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                         <span class="c1 list-to-remove-comma">#if$_GENETIC Für genetische Daten: #if$_GENBANK
                             NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA, #endif$_SRA #if$_ENA
                             EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO, #endif$_GEO . #endif$_GENETIC </span>
+                            #if$_GEO NCBI-GEO, #endif$_GEO . #endif$_GENETIC&nbsp;</span>
                     </p>
 
                     <p class="c0">
                         <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA
                             NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #if$_ARRAYEXPRESS
-                            EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC</span>
+                            EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC&nbsp;</span>
                     </p>
 
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage
                             Archive #endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource), #endif$_IDR .
-                            #endif$_IMAGE </span>
+                            #endif$_IMAGE&nbsp;</span>
                     </p>
 
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS
                             EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
                             Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
-                            interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
+                            interactions), #endif$_INTACT . #endif$_METABOLOMIC&nbsp;</span>
                     </p>
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB
                             #if$_CHEBI Chebi, #endif$_CHEBI .
-                            #endif$_PROTEOMIC </span>
+                            #endif$_PROTEOMIC&nbsp;</span>
                     </p>
 
                     <p class="c0">
@@ -348,7 +348,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                 Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC Für spezifische Daten (z.B. RNASeq oder genomische
                 Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span
                 class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment
-                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC</span>
+                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC&nbsp;</span>
             <span class="c1">
                 Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
                     <span class="list-to-remove-comma">

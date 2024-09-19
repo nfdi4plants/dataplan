@@ -40,6 +40,7 @@
     </script>
 </head>
 <script>
+    var scroll_marker;
       const dmpStrings = {
         "Horizon2020_DMP" : Horizon2020_DMP.Horizon2020_DMP,
         "horizon_europe" : horizon_europe.horizon_europe,
@@ -51,8 +52,20 @@
 
     }
 
-document.addEventListener("load", (e)=> {
-    document.getElementById("doc3").innerHTML = dmpStrings["BBSRC-dmp"];
+    
+ /**  
+     * @name is_firefox  
+     * @global
+     * @static
+     * @description to log if the browser is Firefox
+     **/
+     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
+
+window.addEventListener("load", (e)=> {
+    document.getElementById("doc3").innerHTML = dmpStrings["bmbf-dmp"];
+    checkboxConversion(), textinputConversion();
+    var textInputQuestion = document.getElementById("textInputQuestion");
+    var textInputPlaceholder = document.getElementById("textInputPlaceholder");
 });
 
 function find_replace(before, after, holder=undefined) {
@@ -109,26 +122,246 @@ function find_replace(before, after, holder=undefined) {
 
 }
 
-
+function updateTextModal(ele){
+    
+    textInputQuestion.setAttribute("data-id", ele.dataset.id);
+    textInputQuestion.value = "What is "+ ele.dataset.id.split("$_")[1].toLowerCase()+"?";
+    textInputPlaceholder.value = "Example "+ ele.dataset.id.split("$_")[1].toLowerCase();
+    
+}
 
 function textinputConversion(){
-    for (let answers in saved_a["replace"]) {
-            let singleOption = {};
-            singleOption[answers] = saved_a["replace"][answers];
-            //verbose  console.log(singleOption);
-            const before = "$_" + answers.split("_")[1].toUpperCase() ;
-            find_replace(before, singleOption[answers]);
+    const selection= window.getSelection();
+        selection.removeAllRanges();
+                // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
 
+                if (window.find) //for chrome, firefox
+                {
+                    let ns = window.find("$_", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    while (ns) {
+                        // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
+                        //verbose  console.log("found");
+                        
+                        let if_range = window.getSelection().getRangeAt(0).cloneRange();
+                        window.find(" ", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 0,aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+
+                        if_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+                        
+                        const placeholder = if_range.extractContents();
+                        const holderContent = placeholder.textContent;
+                        const buttonContent = holderContent.split("$_")[1];
+                        const parent_node = document.createElement("button");
+                        //parent_node.classList.add("btn");
+                        parent_node.classList.add("btn-primary");   
+                        parent_node.setAttribute("data-id", holderContent);
+                        parent_node.setAttribute("data-bs-toggle", "modal");
+                        parent_node.setAttribute("data-bs-target", "#textinput_modal");
+                        parent_node.setAttribute("onclick", "updateTextModal(this)");
+                        parent_node.setAttribute("name", "button"+buttonContent);
+                        parent_node.innerHTML= buttonContent;
+                        if_range.insertNode(parent_node);
+
+                        
+                                                      
+                        //in_range.deleteContents();
+                       
+                        //if_range.deleteContents();
+                        if_range.detach();
+
+                    ns = window.find("$_", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    }
+                }
+
+
+
+    }
+    function slist(target) {
+
+
+let items = target.getElementsByTagName("li"), current = null;
+
+
+for (let i of items) {
+
+    // Drag start
+    i.ondragstart = (ev) => {
+        current = i;
+        for (let it of items) {
+            if (it != current) { it.classList.add("hint"); }
         }
+    };
+
+    // Drag enter
+    i.ondragenter = (ev) => {
+        if (i != current) {
+            setTimeout(() => { i.classList.add("active"), "10" });
+            //verbose  console.log("entering and adding active"); 
+        }
+
+    };
+
+
+    // drag leave
+    i.ondragleave = () => {
+        i.classList.remove("active");
+        //verbose  console.log("leaving and removing active");
+    };
+
+    // drag end
+    i.ondragend = () => {
+        for (let it of items) {
+            it.classList.remove("hint");
+            it.classList.remove("active");
+        }
+    };
+
+    // drag over stop default
+    i.ondragover = (evt) => { evt.preventDefault(); };
+    [].slice.call(i.children).forEach((e) => e.ondragover = (evt) => {
+        evt.preventDefault();
+    }
+    );
+
+
+    // when drop, insert the element
+    i.ondrop = (evt) => {
+        evt.preventDefault();
+        if (i != current) {
+            let currentpos = 0, droppedpos = 0;
+            for (let it = 0; it < items.length; it++) {
+                if (current == items[it]) { currentpos = it; }
+                if (i == items[it]) { droppedpos = it; }
+            }
+            if (currentpos < droppedpos) {
+                i.parentNode.insertBefore(current, i.nextSibling);
+            } else {
+                i.parentNode.insertBefore(current, i);
+            }
+        }
+    };
+}
+}
+
+    function createTextQuestion(){
+        const name = textInputQuestion.dataset.id;
+        const lastname = name.split("$_")[1];
+        const id = "input_" + lastname ;
+        const formId = "form_" + lastname ;
+        let targetEle = document.getElementById(formId);
+        
+        if (targetEle==null){
+            targetEle = document.createElement("li");
+            targetEle.id = formId;
+            targetEle.setAttribute("draggable", "true");
+            }else{
+                targetEle = document.getElementById(formId);
+            }
+            targetEle.innerHTML= "";
+
+        const questionLable = document.createElement("lable");
+        questionLable.setAttribute("for", id);
+        const questionInput = document.createElement("input");
+        const h3 = document.createElement("h3");
+        questionInput.setAttribute("id", id);
+        questionInput.setAttribute("class", " bg-transparent border-white");
+        questionInput.setAttribute("type", "text");
+        questionInput.setAttribute("onfocusin", "this.select()");
+        questionInput.setAttribute("onchange", "onchange_replace(this)");
+        questionInput.setAttribute("name", name );
+        questionInput.setAttribute("placeholder", textInputPlaceholder.value);
+        questionInput.setAttribute("onkeydown", "onKeydown(this)");
+        questionInput.setAttribute("onfocus", "onFocus(this)");
+        questionInput.setAttribute("onfocusout", "onFocusout(this)");
+        questionInput.setAttribute("style", "width: 100%");
+        h3.innerHTML= textInputQuestion.value;
+        document.getElementById("intro-tour-input").append(targetEle);
+        const svg = document.createElement("svg");
+        svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+        const row1 = document.createElement("div");
+        row1.classList.add("row", "align-items-center");    
+        const col1 = document.createElement("div");
+        col1.classList.add("col", "col-auto");
+        const col2 = document.createElement("div");
+        col2.classList.add("col", "col-auto");
+        col1.append(svg);
+        col2.append(h3, questionLable, questionInput);
+        row1.append(col1, col2);
+        targetEle.append(row1);
+        const buttonName = "button"+lastname;
+        const buttonList =document.querySelectorAll("button[name='"+buttonName+"']")
+        buttonList.forEach((ele)=>{ele.classList.remove("btn-primary") });
+        slist(document.getElementById("intro-tour-input"));
+
     }
 
-   /**  
-     * @name is_firefox  
-     * @global
-     * @static
-     * @description to log if the browser is Firefox
-     **/
-     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
+
+    function set_scrollbar_marker(scroll_marker, elements) {
+        scroll_marker = document.querySelector('.scroll-marker');
+        const doc = document.getElementById("split-0");
+        let doc_height = doc.offsetHeight;
+        let doc_top = doc.scrollHeight;
+
+
+
+        elements.forEach(e => {
+            
+            if (e.classList.contains("d-none")){
+
+            }else{
+            let e_top = e.offsetTop;
+            let e_bot = e_top + e.offsetHeight;
+            let parent_top;
+            try {
+                parent_top = e.offsetParent.offsetTop;
+            } catch (error) {
+               parent_top = 0;
+            }
+            
+            let marker_top = Math.ceil((e_top + parent_top) / doc_top * doc_height);
+            let marker_bot = Math.ceil((e_bot + parent_top) / doc_top * doc_height);
+            let marker_e = document.createElement("span");
+            marker_e.style.backgroundColor = "#E08F9C";
+            marker_e.style.top = marker_top + "px";
+            marker_e.style.height = (marker_bot - marker_top) + "px";
+            marker_e.setAttribute("name", "scroll-bar-span");
+            scroll_marker.appendChild(marker_e);
+            }
+
+
+        }
+
+        )
+
+    }
+
+    function onKeydown(ele){
+        if (event.keyCode == 13){
+            event.preventDefault(); 
+            event.stopPropagation();
+            ele.parentElement.nextElementSibling.children[1].focus();
+            return false;}
+    }
+
+    function onFocus(ele){
+        const name1 = ele.name.split("_")[1]+"-to-";
+        const elem1 = document.getElementsByName(name1); 
+        elem1.forEach(e => e.classList.add("border-highlight")); 
+        set_scrollbar_marker( scroll_marker,elem1 )
+    }
+
+    function onFocusout(ele){
+        const name1 = ele.name.split("_")[1]+"-to-";
+        const elem1 = document.getElementsByName(name1);
+        elem1.forEach(e => e.classList.remove("border-highlight")); 
+        document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})
+
+    }
+    
+    
+    
+    
     function match_mod(in_range, holders, operator = "") {
 
             
@@ -178,13 +411,14 @@ function textinputConversion(){
     
     
     
-    function addOption(in_range, holders, operator = "") {
+    function addOption(in_range, holders, after_if, operator = "") {
 
                     
         //verbose   console.log("mach_mod function: check_box_item: " + before);
         //console.log("holders are : "+ holders);
         const parent_node = document.createElement("button");
-        parent_node.classList.add("text-primary");
+        //parent_node.classList.add("btn");
+        parent_node.classList.add("btn-primary");
         let onmouseoverText="", onclickText="", dataOperatorText="", onmouseleaveText="";
 
         for (const holder of holders){
@@ -194,7 +428,6 @@ function textinputConversion(){
             onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
             onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
             parent_node.classList.add(idText);
-            let after;
             
             if (operator=="!"){
                 dataOperatorText = "!"
@@ -204,13 +437,16 @@ function textinputConversion(){
             }
         }
         parent_node.classList.add("checkboxConverted");
-        parent_node.setAttribute("onmouseover", onmouseoverText);
-
-        parent_node.setAttribute("onclick", onclickText );
-        parent_node.setAttribute("onmouseleave",onmouseleaveText );
-        parent_node.setAttribute("onclick", onclickText );
+        parent_node.setAttribute("data-bs-toggle", "modal");
+        parent_node.setAttribute("data-bs-target", "#checkbox_modal");
+        //parent_node.setAttribute("onmouseover", onmouseoverText);
+        
+        //parent_node.setAttribute("onclick", onclickText );
+        //parent_node.setAttribute("onmouseleave",onmouseleaveText );
+        
         //parent_node.setAttribute("name", idText + "-to-");
         parent_node.setAttribute("data-operator", dataOperatorText);
+        parent_node.setAttribute("data-afterif", after_if);
             const doc_frag = in_range.extractContents();
             //console.log(" doc_frag: " + doc_frag.textContent );
             //const node1 = document.createTextNode(doc_frag);
@@ -241,6 +477,7 @@ function textinputConversion(){
                         window.find(" ", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 0,aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
 
                         if_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+                        const after_if = if_range.cloneContents().textContent;
                         const endif_range_string = "#endif" + if_range.toString().split("#if").slice(-1)[0];
 
                         window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
@@ -260,19 +497,19 @@ function textinputConversion(){
                         const placeholder_strings = if_range.toString().split("#if").slice(-1)[0];
                         const if_type_string = placeholder_strings.slice(0,1);
                         const holders = placeholder_strings.split("|");
-                        
+                        console.log("holders are: " + holders)
                         //console.log("placeholder_strings :"+ placeholder_strings+ " holders: "+ holders + " if_type_string:"+ if_type_string);
                         
     
                         if (if_type_string == "$"){
                             
-                                    match_mod(in_range, holders );
+                            addOption(in_range,  holders, after_if, );
                                     in_range.detach();
                                 //match_remove(in_range);
                         } else if (if_type_string == "!" ){
 
-                                        match_mod(in_range, holders, "!");
-                                        in_range.detach();
+                            addOption(in_range, holders, after_if, "!");
+                                    in_range.detach();
                                         
                         }else{                        
                         }
@@ -447,393 +684,16 @@ function textinputConversion(){
             <div class="col" id="split-1"
                 style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden;  margin: 0 0 0 -28px; padding: 0 0 0 20px;">
                 <div class="scroll-marker"> </div>
-                <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200"
-                    class="scrollspy-example" tabindex="0"
-                    style="height: 93vh; margin: 0 0 0 0; padding: 0px 3vw 0px 2vw;">
-                    <div id="intro-tour-input">
+
+                    <ul id="intro-tour-input" class="slist justify-content-between"  >
                         <div id="warningText"></div>
 
-                    </div>   
-            </div>
+                    
+            </ul>
         </div>
     </div>
     <!-- offcanvas for  study objects-->
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-aim" aria-labelledby="offcanvasScrolling1">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling1">The project aim should be a apart of a sentence.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant
-                architecture</p>
-            <br />
-            <p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as
-                open as possible</p>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-obj" aria-labelledby="offcanvasScrolling2">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling2">The project object = target.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b> carbon and water flow in plants</p>
-            <br />
-            <p><b> Example 2: </b> data management plan</p>
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-utility" aria-labelledby="offcanvasScrolling3">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling3">Here is the space for additional sentence.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b> Industry, politicians and students can also use the data for different purposes.</p>
-            <br />
-            <p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different
-                purpose.</p>
-        </div>
-    </div>
-
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-other" aria-labelledby="offcanvasScrolling4">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling4"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p>Information in this section is only used in DMP metadata and not used in the document</p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-officer" aria-labelledby="offcanvasScrolling5">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling5"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p>Data officers are also known as data stewards and curator.</p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-proprietary" aria-labelledby="offcanvasScrolling6">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling6"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p>software that legally remains the property of the organization, group, or individual who created it.
-            </p>
-
-        </div>
-    </div>
-
-
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-template-input" aria-labelledby="offcanvasScrolling7" style="width:70vw">
-        <div class="offcanvas-header">
-            <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
-                <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML); dmpStrings["user-defined"]=document.getElementById("user-defined").innerHTML; setTimeout(()=> {load_dmp(reload_answers, name ="user-defined");}, 1000) ;'>
-                    submit
-                </button></h1>
-
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-
-        <div class="offcanvas-body" style="padding-top: 0px;">
-            <h2 style="padding-top: 0px;">
-                You can click the dotted box to start editing. <br />
-                Click the grey buttons to reuse templates. <br />
-                Click submit when you finished.
-                <br />
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["Horizon2020_DMP"]; '>H2020
-                    DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["horizon_europe"]; '>Horizon
-                    Europe DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["dfg-dmp"]; '>DFG
-                    DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["practical-guide"]; '>Practical
-                    Guide</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["bmbf-dmp"]; '>BMBF
-                    DMP (Beta test)</button>
-
-            </h2>
-            <div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-miappe" aria-labelledby="offcanvasScrolling8">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling8"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p> MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
-                More information can be found on: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
-            </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-mixs" aria-labelledby="offcanvasScrolling9">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling9"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p> The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. 
-                More information can be found on: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
-            </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-migseu" aria-labelledby="offcanvasScrolling10">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling10"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
-        </p>
-
-        </div>
-    </div>
     
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-migsorg" aria-labelledby="offcanvasScrolling11">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling11"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Minimum Information about a Genome Sequence: Organelle. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
-        </p>
-
-        </div>
-    </div>
-
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mims" aria-labelledby="offcanvasScrolling12">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling12"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimarksspecimen" aria-labelledby="offcanvasScrolling13">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling13"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimarksurvey" aria-labelledby="offcanvasScrolling14">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling14"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-misag" aria-labelledby="offcanvasScrolling15">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling16"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimag" aria-labelledby="offcanvasScrolling16">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling16"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-miame" aria-labelledby="offcanvasScrolling17">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling17"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>  the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-miamet" aria-labelledby="offcanvasScrolling18">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling18"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>  MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-minseqe" aria-labelledby="offcanvasScrolling19">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling19"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>  MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-rembi" aria-labelledby="offcanvasScrolling20">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling20"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>   Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-miape" aria-labelledby="offcanvasScrolling21">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling21"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>   The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimix" aria-labelledby="offcanvasScrolling22">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling22"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-dublincore" aria-labelledby="offcanvasScrolling23">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling23"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-darwincore" aria-labelledby="offcanvasScrolling24">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling24"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-schemaorg" aria-labelledby="offcanvasScrolling25">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling25"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-bioschemas" aria-labelledby="offcanvasScrolling26">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling26"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-marc21" aria-labelledby="offcanvasScrolling27">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling27"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
     <!-- Button trigger modal -->
     <button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#dmp_update">
@@ -884,12 +744,12 @@ function textinputConversion(){
 
     <!-- Modal citation-->
     <div class="modal modal-xl" id="citation_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="update-label" aria-hidden="true">
+        aria-labelledby="citation_modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="update-label">You can cite this tool</h5>
-                    <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal"
+                    <h5 class="modal-title" id="citation_modal-label">You can cite this tool</h5>
+                    <button type="button" id="citation_modal_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body row justify-content-center">
@@ -941,6 +801,65 @@ function textinputConversion(){
             </div>
         </div>
     </div>
+
+
+    <div class="modal modal-xl" id="textinput_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="textinput_modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="textinput_modal-label">Add a question to ask the users about this text input field</h5>
+                <button type="button" id="textinput_modal_close" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body row justify-content-center">
+                <div class="input-group">
+                    <span class="input-group-text">Question</span>
+                    <textarea id="textInputQuestion"  class="form-control" aria-label="Question"></textarea>
+                  </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="">Place Holder</span>
+                    <input type="text" id="textInputPlaceholder" class="form-control" placeholder="Place Holder" aria-label="Place Holder" aria-describedby="basic-addon1">
+                  </div>    
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="createTextQuestion()" data-bs-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="checkbox_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="checkbox_modal-label" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="checkbox_modal-label">Add a question to ask the users about this checkbox field</h5>
+            <button type="button" id="checkbox_modal_close" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body row justify-content-center">
+            <div class="input-group">
+                <span class="input-group-text">Question</span>
+                <textarea class="form-control" aria-label="Question"></textarea>
+              </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="">Place Holder</span>
+                <input  type="text" class="form-control" placeholder="Example place holder" aria-label="Example place holder" aria-describedby="basic-addon1">
+              </div>    
+           
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>
+</div>
     <!-- offcanvas dmp storage management-->
     <div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false"
         data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas"
