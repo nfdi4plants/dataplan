@@ -40,7 +40,8 @@
     </script>
 </head>
 <script>
-    var scroll_marker;
+    let scroll_marker;
+    let checkboxOptions = [];
       const dmpStrings = {
         "Horizon2020_DMP" : Horizon2020_DMP.Horizon2020_DMP,
         "horizon_europe" : horizon_europe.horizon_europe,
@@ -48,10 +49,7 @@
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
         "practical-guide": practical_guide["practical-guide"]
-
-
     }
-
     
  /**  
      * @name is_firefox  
@@ -62,10 +60,15 @@
      var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
 
 window.addEventListener("load", (e)=> {
+    
     document.getElementById("doc3").innerHTML = dmpStrings["bmbf-dmp"];
-    checkboxConversion(), textinputConversion();
+
+    checkboxConversion(), textinputConversion();    
     var textInputQuestion = document.getElementById("textInputQuestion");
     var textInputPlaceholder = document.getElementById("textInputPlaceholder");
+    var checkboxQuestion = document.getElementById("checkboxQuestion");
+    var checkboxOptionContent = document.getElementById("checkboxOptionContent");
+    
 });
 
 function find_replace(before, after, holder=undefined) {
@@ -262,15 +265,19 @@ for (let i of items) {
 
         const questionLable = document.createElement("lable");
         questionLable.setAttribute("for", id);
-        const questionInput = document.createElement("input");
+        
         const h3 = document.createElement("h3");
+        const questionInput = document.createElement("input");
         questionInput.setAttribute("id", id);
         questionInput.setAttribute("class", " bg-transparent border-white");
         questionInput.setAttribute("type", "text");
-        questionInput.setAttribute("onfocusin", "this.select()");
-        questionInput.setAttribute("onchange", "onchange_replace(this)");
         questionInput.setAttribute("name", name );
         questionInput.setAttribute("placeholder", textInputPlaceholder.value);
+
+        questionInput.setAttribute("onfocusin", "this.select()");
+        questionInput.setAttribute("onchange", "onchange_replace(this)");
+
+
         questionInput.setAttribute("onkeydown", "onKeydown(this)");
         questionInput.setAttribute("onfocus", "onFocus(this)");
         questionInput.setAttribute("onfocusout", "onFocusout(this)");
@@ -422,13 +429,14 @@ for (let i of items) {
         let onmouseoverText="", onclickText="", dataOperatorText="", onmouseleaveText="";
 
         for (const holder of holders){
-            const idText = "check_" + holder.split("_")[1].toLowerCase();
-            const eleName = idText.split("-")[0];
+            const eleName = holder.split("_")[1].toLowerCase();
+            const idText = "check_" + eleName ;
+            
             onmouseoverText += 'const '+eleName+' = document.getElementById("' + idText + '") ;'+eleName+'.parentElement.classList.add("border-highlight");'+eleName+'.focus({preventScroll: true}); ';
             onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
             onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
             parent_node.classList.add(idText);
-            
+                        checkboxOptions.includes(holder.replaceAll("!",""))? {}: checkboxOptions.push(holder.replaceAll("!","")); 
             if (operator=="!"){
                 dataOperatorText = "!"
             }else{
@@ -436,6 +444,7 @@ for (let i of items) {
                 //dataOperatorText += idText
             }
         }
+
         parent_node.classList.add("checkboxConverted");
         parent_node.setAttribute("data-bs-toggle", "modal");
         parent_node.setAttribute("data-bs-target", "#checkbox_modal");
@@ -503,7 +512,7 @@ for (let i of items) {
     
                         if (if_type_string == "$"){
                             
-                            addOption(in_range,  holders, after_if, );
+                            addOption(in_range,  holders, after_if );
                                     in_range.detach();
                                 //match_remove(in_range);
                         } else if (if_type_string == "!" ){
@@ -524,9 +533,118 @@ for (let i of items) {
                         aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                     }
                 }
+
+            checkboxOptions.forEach((ele) =>{ 
+                const eleName = ele.split("_")[1];
+                 const optionPoolEle = document.createElement("button");
+                optionPoolEle.setAttribute("id", "optionPool_"+eleName );
+                optionPoolEle.setAttribute("class", "btn-primary" );
+                optionPoolEle.innerHTML= "optionPool_"+eleName;
+                optionPoolEle.setAttribute("onclick", "createOption(this)");
+                document.getElementById("optionPool").appendChild(optionPoolEle);
+            }
+        );
+
         }
 
 
+        function createOption(ele){
+            const id = ele.id;
+            const name = id.split("_")[1];
+            ele.classList.remove("btn-primary");
+            const targetEle = document.createElement("div"); 
+            targetEle.innerHTML= id;
+            targetEle.id = "optionContent_"+ id; 
+            
+            
+
+            const svg = document.createElement("svg");
+            svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+            const row1 = document.createElement("li");
+            row1.classList.add("row", "align-items-center");    
+            const col1 = document.createElement("div");
+            col1.classList.add("col", "col-auto");
+            const col2 = document.createElement("div");
+            col2.classList.add("col", "col-auto");
+            const questionInput = document.createElement("input");
+            questionInput.setAttribute("id", id);
+            questionInput.setAttribute("class", " bg-transparent border-white");
+            questionInput.setAttribute("type", "text");
+            questionInput.setAttribute("name", name );
+            questionInput.setAttribute("placeholder", "Customized option label");
+            col1.append(svg);
+            col2.append(targetEle, questionInput);
+            row1.append(col1, col2);
+            row1.setAttribute("draggable", "true"); 
+            checkboxOptionContent.appendChild(row1);
+            slist(document.getElementById("checkboxOptionContent"));
+
+
+        }
+
+        function createCheckboxQuestion(){
+        const name = checkboxQuestion.dataset.id;
+        const lastname = name.split("$_")[1];
+        const id = "input_" + lastname ;
+        const formId = "form_" + lastname ;
+        let targetEle = document.getElementById(formId);
+        
+        if (targetEle==null){
+            targetEle = document.createElement("li");
+            targetEle.id = formId;
+            targetEle.setAttribute("draggable", "true");
+            }else{
+                targetEle = document.getElementById(formId);
+            }
+            targetEle.innerHTML= "";
+
+        const questionLable = document.createElement("lable");
+        questionLable.setAttribute("for", id);
+        
+        const h3 = document.createElement("h3");
+        const questionInput = document.createElement("input");
+        questionInput.setAttribute("id", id);
+        questionInput.setAttribute("class", " bg-transparent border-white");
+        questionInput.setAttribute("type", "text");
+        questionInput.setAttribute("name", name );
+        questionInput.setAttribute("placeholder", textInputPlaceholder.value);
+
+        questionInput.setAttribute("onfocusin", "this.select()");
+        questionInput.setAttribute("onchange", "onchange_replace(this)");
+
+
+        questionInput.setAttribute("onkeydown", "onKeydown(this)");
+        questionInput.setAttribute("onfocus", "onFocus(this)");
+        questionInput.setAttribute("onfocusout", "onFocusout(this)");
+        questionInput.setAttribute("style", "width: 100%");
+        h3.innerHTML= textInputQuestion.value;
+        document.getElementById("intro-tour-input").append(targetEle);
+        const svg = document.createElement("svg");
+        svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+        const row1 = document.createElement("div");
+        row1.classList.add("row", "align-items-center");    
+        const col1 = document.createElement("div");
+        col1.classList.add("col", "col-auto");
+        const col2 = document.createElement("div");
+        col2.classList.add("col", "col-auto");
+        col1.append(svg);
+        col2.append(h3, questionLable, questionInput);
+        row1.append(col1, col2);
+        targetEle.append(row1);
+        const buttonName = "button"+lastname;
+        const buttonList =document.querySelectorAll("button[name='"+buttonName+"']")
+        buttonList.forEach((ele)=>{ele.classList.remove("btn-primary") });
+        slist(document.getElementById("intro-tour-input"));
+
+    }
+
+    function updatCheckboxModal(ele){
+    
+    checkboxQuestion.setAttribute("data-id", ele.dataset.id);
+    checkboxQuestion.value = "What is "+ ele.dataset.id.split("$_")[1].toLowerCase()+"?";
+    textInputPlaceholder.value = "Example "+ ele.dataset.id.split("$_")[1].toLowerCase();
+    
+}
 </script>
 <body class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px ">
     <div class="container-fluid"
@@ -844,18 +962,21 @@ aria-labelledby="checkbox_modal-label" aria-hidden="true">
         <div class="modal-body row justify-content-center">
             <div class="input-group">
                 <span class="input-group-text">Question</span>
-                <textarea class="form-control" aria-label="Question"></textarea>
+                <textarea id="checkboxQuestion" class="form-control" aria-label="Question"></textarea>
               </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="">Place Holder</span>
-                <input  type="text" class="form-control" placeholder="Example place holder" aria-label="Example place holder" aria-describedby="basic-addon1">
-              </div>    
-           
+            <ul class="mb-3 slist align-items-center"  id="checkboxOptionContent">
+                
+            </ul> 
+            
+            <div id="optionPool">
+
+            </div>
+
 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
+            <button type="button" class="btn btn-primary" onclick="createCheckQuestion()" data-bs-dismiss="modal">Submit</button>
         </div>
     </div>
 </div>
