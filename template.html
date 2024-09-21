@@ -449,8 +449,8 @@ for (let i of items) {
         parent_node.setAttribute("data-bs-toggle", "modal");
         parent_node.setAttribute("data-bs-target", "#checkbox_modal");
         //parent_node.setAttribute("onmouseover", onmouseoverText);
-        
-        //parent_node.setAttribute("onclick", onclickText );
+        // parent_node.setAttribute("data-id",  );
+        parent_node.setAttribute("onclick", "updatCheckboxModal(this)" );
         //parent_node.setAttribute("onmouseleave",onmouseleaveText );
         
         //parent_node.setAttribute("name", idText + "-to-");
@@ -584,40 +584,44 @@ for (let i of items) {
 
         function createCheckboxQuestion(){
         const name = checkboxQuestion.dataset.id;
-        const lastname = name.split("$_")[1];
-        const id = "input_" + lastname ;
-        const formId = "form_" + lastname ;
-        let targetEle = document.getElementById(formId);
+        // const lastname = name.split("$_")[1];
+        // const id = "input_" + lastname ;
+        // const formId = "form_" + lastname ;
+        let targetEle = document.getElementById(name);
         
         if (targetEle==null){
             targetEle = document.createElement("li");
-            targetEle.id = formId;
+            targetEle.id = name;
             targetEle.setAttribute("draggable", "true");
             }else{
-                targetEle = document.getElementById(formId);
+                targetEle = document.getElementById(name);
             }
             targetEle.innerHTML= "";
 
-        const questionLable = document.createElement("lable");
-        questionLable.setAttribute("for", id);
+        //const questionLable = document.createElement("lable");
+        //questionLable.setAttribute("for", id);
         
         const h3 = document.createElement("h3");
-        const questionInput = document.createElement("input");
-        questionInput.setAttribute("id", id);
-        questionInput.setAttribute("class", " bg-transparent border-white");
-        questionInput.setAttribute("type", "text");
-        questionInput.setAttribute("name", name );
-        questionInput.setAttribute("placeholder", textInputPlaceholder.value);
 
-        questionInput.setAttribute("onfocusin", "this.select()");
-        questionInput.setAttribute("onchange", "onchange_replace(this)");
+        h3.innerHTML= checkboxQuestion.value;
+        const checkboxOptionContent = document.getElementById("checkboxOptionContent");
+        let questionInput = document.createElement("div");
+        const eleList = checkboxOptionContent.querySelectorAll("input");
+        eleList.forEach((e) =>{
+            const div = document.createElement("div");
+            const input = document.createElement("input");
+            const label = document.createElement("label");
+            div.classList.add("form-check");
+            input.setAttribute("class", "form-check-input");
+            input.setAttribute("type", "checkbox");
+            input.setAttribute("id", "checkbox_"+e.id);
+            label.setAttribute("for", e.id);
+            label.innerHTML = e.value;
+            div.append(input, label);
+            questionInput.appendChild(div);
 
+        })
 
-        questionInput.setAttribute("onkeydown", "onKeydown(this)");
-        questionInput.setAttribute("onfocus", "onFocus(this)");
-        questionInput.setAttribute("onfocusout", "onFocusout(this)");
-        questionInput.setAttribute("style", "width: 100%");
-        h3.innerHTML= textInputQuestion.value;
         document.getElementById("intro-tour-input").append(targetEle);
         const svg = document.createElement("svg");
         svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
@@ -628,10 +632,10 @@ for (let i of items) {
         const col2 = document.createElement("div");
         col2.classList.add("col", "col-auto");
         col1.append(svg);
-        col2.append(h3, questionLable, questionInput);
+        col2.append(h3, questionInput);
         row1.append(col1, col2);
         targetEle.append(row1);
-        const buttonName = "button"+lastname;
+        const buttonName = "button"+name;
         const buttonList =document.querySelectorAll("button[name='"+buttonName+"']")
         buttonList.forEach((ele)=>{ele.classList.remove("btn-primary") });
         slist(document.getElementById("intro-tour-input"));
@@ -640,9 +644,9 @@ for (let i of items) {
 
     function updatCheckboxModal(ele){
     
-    checkboxQuestion.setAttribute("data-id", ele.dataset.id);
-    checkboxQuestion.value = "What is "+ ele.dataset.id.split("$_")[1].toLowerCase()+"?";
-    textInputPlaceholder.value = "Example "+ ele.dataset.id.split("$_")[1].toLowerCase();
+    checkboxQuestion.setAttribute("data-id", ele.dataset.operator);
+    checkboxQuestion.value = "What needs to be selected ?";
+    
     
 }
 </script>
@@ -976,7 +980,7 @@ aria-labelledby="checkbox_modal-label" aria-hidden="true">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="createCheckQuestion()" data-bs-dismiss="modal">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="createCheckboxQuestion()" data-bs-dismiss="modal">Submit</button>
         </div>
     </div>
 </div>
