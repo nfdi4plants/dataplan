@@ -67,7 +67,7 @@ window.addEventListener("load", (e)=> {
     var textInputQuestion = document.getElementById("textInputQuestion");
     var textInputPlaceholder = document.getElementById("textInputPlaceholder");
     var checkboxQuestion = document.getElementById("checkboxQuestion");
-    var checkboxOptionContent = document.getElementById("checkboxOptionContent");
+    var checkboxOptionPool = document.getElementById("checkboxOptionPool");
     
 });
 
@@ -450,7 +450,7 @@ for (let i of items) {
         parent_node.setAttribute("data-bs-target", "#checkbox_modal");
         //parent_node.setAttribute("onmouseover", onmouseoverText);
         // parent_node.setAttribute("data-id",  );
-        parent_node.setAttribute("onclick", "updatCheckboxModal(this)" );
+        parent_node.setAttribute("onclick", "updateCheckboxModal(this)" );
         //parent_node.setAttribute("onmouseleave",onmouseleaveText );
         
         //parent_node.setAttribute("name", idText + "-to-");
@@ -538,7 +538,7 @@ for (let i of items) {
                 const eleName = ele.split("_")[1];
                  const optionPoolEle = document.createElement("button");
                 optionPoolEle.setAttribute("id", "optionPool_"+eleName );
-                optionPoolEle.setAttribute("class", "btn-primary" );
+                optionPoolEle.setAttribute("class", "btn btn-primary" );
                 optionPoolEle.innerHTML= "optionPool_"+eleName;
                 optionPoolEle.setAttribute("onclick", "createOption(this)");
                 document.getElementById("optionPool").appendChild(optionPoolEle);
@@ -552,32 +552,56 @@ for (let i of items) {
             const id = ele.id;
             const name = id.split("_")[1];
             ele.classList.remove("btn-primary");
-            const targetEle = document.createElement("div"); 
+            ele.classList.remove("btn-danger");
+
+            const targetEle = document.createElement("label"); 
             targetEle.innerHTML= id;
-            targetEle.id = "optionContent_"+ id; 
+            
+            let row1;
+            try {
+                row1 = checkboxOptionPool.querySelector("#list_"+id);
+                row1.remove();
+                ele.classList.add("btn-primary");
+            } catch (error) {
+                try {
+                    row1 = document.querySelector("#checkbox_"+id);
+                    row1.parentElement.remove();
+                    ele.classList.add("btn-primary");
+
+
+                } catch (error) {
+                    
+                
+                row1 = document.createElement("li");
+                row1.id = "list_"+id;
+                const svg = document.createElement("svg");
+                svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+                
+                row1.classList.add("row", "align-items-center");    
+                const col1 = document.createElement("div");
+                col1.classList.add("col", "col-auto");
+                const col2 = document.createElement("div");
+                col2.classList.add("col", "col-auto");
+                const questionInput = document.createElement("input");
+                questionInput.setAttribute("id", id);
+                questionInput.setAttribute("class", " bg-transparent border-white");
+                questionInput.setAttribute("type", "text");
+                questionInput.setAttribute("name", name );
+                questionInput.setAttribute("value", id);
+                col1.append(svg);
+                col2.append(targetEle, questionInput);
+                row1.append(col1, col2);
+                row1.setAttribute("draggable", "true"); 
+                row1.id = "list_"+ id;
+                checkboxOptionPool.appendChild(row1);
+                slist(document.getElementById("checkboxOptionPool"));
+                }
+            }
+
             
             
 
-            const svg = document.createElement("svg");
-            svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
-            const row1 = document.createElement("li");
-            row1.classList.add("row", "align-items-center");    
-            const col1 = document.createElement("div");
-            col1.classList.add("col", "col-auto");
-            const col2 = document.createElement("div");
-            col2.classList.add("col", "col-auto");
-            const questionInput = document.createElement("input");
-            questionInput.setAttribute("id", id);
-            questionInput.setAttribute("class", " bg-transparent border-white");
-            questionInput.setAttribute("type", "text");
-            questionInput.setAttribute("name", name );
-            questionInput.setAttribute("placeholder", "Customized option label");
-            col1.append(svg);
-            col2.append(targetEle, questionInput);
-            row1.append(col1, col2);
-            row1.setAttribute("draggable", "true"); 
-            checkboxOptionContent.appendChild(row1);
-            slist(document.getElementById("checkboxOptionContent"));
+            
 
 
         }
@@ -604,9 +628,9 @@ for (let i of items) {
         const h3 = document.createElement("h3");
 
         h3.innerHTML= checkboxQuestion.value;
-        const checkboxOptionContent = document.getElementById("checkboxOptionContent");
+        const checkboxOptionPool = document.getElementById("checkboxOptionPool");
         let questionInput = document.createElement("div");
-        const eleList = checkboxOptionContent.querySelectorAll("input");
+        const eleList = checkboxOptionPool.querySelectorAll("input");
         eleList.forEach((e) =>{
             const div = document.createElement("div");
             const input = document.createElement("input");
@@ -642,10 +666,21 @@ for (let i of items) {
 
     }
 
-    function updatCheckboxModal(ele){
-    
-    checkboxQuestion.setAttribute("data-id", ele.dataset.operator);
-    checkboxQuestion.value = "What needs to be selected ?";
+    function updateCheckboxModal(ele){
+        try {
+           
+        const previousBtn = document.getElementById("optionPool").querySelector("button.btn-danger");
+        previousBtn.classList.remove("btn-danger");
+        previousBtn.classList.add("btn-primary");
+        } catch (error) {
+            
+        }
+
+        checkboxQuestion.setAttribute("data-id", ele.dataset.operator);
+        const targetBtn = document.getElementById("optionPool_"+ele.dataset.afterif.split("_")[1]);
+        targetBtn.classList.remove("btn-primary");
+        targetBtn.classList.add("btn-danger");
+        checkboxQuestion.value = "Please give the question which can be answered by a set of checkboxes";
     
     
 }
@@ -671,7 +706,7 @@ for (let i of items) {
             </div>
         </div>
         <div class="row g-3 split"
-            style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden;position:relative;">
+            style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y:hidden; position:relative;">
             <div class="col-7" id="split-0"
                 style="position: relative;height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
                 <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/practical-guide.js" id="editTemplate" title="Edit this template" style="position: absolute; top: 20vh; left: 30vw;">Edit this template</a>
@@ -804,14 +839,17 @@ for (let i of items) {
                 </div>
             </div>
             <div class="col" id="split-1"
-                style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden;  margin: 0 0 0 -28px; padding: 0 0 0 20px;">
+                style="padding-right: 0px; padding-left: 0px; overflow-x: hidden;  margin: 0 0 0 -28px; padding: 0 0 0 20px;">
                 <div class="scroll-marker"> </div>
+                <div  style="height: 93vh; margin: 0 0 0 0; padding: 0px 3vw 0px 2vw;">
 
+                
                     <ul id="intro-tour-input" class="slist justify-content-between"  >
                         <div id="warningText"></div>
 
                     
             </ul>
+        </div>
         </div>
     </div>
     <!-- offcanvas for  study objects-->
@@ -968,7 +1006,7 @@ aria-labelledby="checkbox_modal-label" aria-hidden="true">
                 <span class="input-group-text">Question</span>
                 <textarea id="checkboxQuestion" class="form-control" aria-label="Question"></textarea>
               </div>
-            <ul class="mb-3 slist align-items-center"  id="checkboxOptionContent">
+            <ul class="mb-3 slist align-items-center"  id="checkboxOptionPool">
                 
             </ul> 
             
