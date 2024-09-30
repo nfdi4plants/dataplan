@@ -71,7 +71,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
                 sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem
                 Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der
-                Forschungsdaten führt. #endif$_DATAPLANT&nbsp;</span>
+                Forschungsdaten führt. #endif$_DATAPLANT&nbsp; </span>
         </p>
 
 
@@ -281,45 +281,45 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                 </p>
                 <span class="c1">
                     Es wird sichergestellt, dass Daten, die in internationalen, disziplinspezifischen Repositories
-                    gespeichert werden können, die spezialisierte Technologien nutzen:
+                    gespeichert werden können, die spezialisierte Technologien nutzen:<br>
 
-                    <p class="c0">
-                        <span class="c1 list-to-remove-comma">#if$_GENETIC Für genetische Daten: #if$_GENBANK
+                   
+                        <span class="c1 list-to-remove-comma">#if$_GENETIC|$_GENOMIC|$_RNASEQ Für genetische Daten: #if$_GENBANK
                             NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA, #endif$_SRA #if$_ENA
                             EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO, #endif$_GEO . #endif$_GENETIC&nbsp;</span>
-                    </p>
+                            #if$_GEO NCBI-GEO, #endif$_GEO . <br> #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
+                   
 
-                    <p class="c0">
+                    
                         <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA
                             NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #if$_ARRAYEXPRESS
-                            EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC&nbsp;</span>
-                    </p>
+                            EBI-ArrayExpress, #endif$_ARRAYEXPRESS . <br> #endif$_TRANSCRIPTOMIC</span>
+                   
 
-                    <p class="c0">
+                   
                         <span class="c1 list-to-remove-comma">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage
                             Archive #endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource), #endif$_IDR .
-                            #endif$_IMAGE&nbsp;</span>
-                    </p>
+                            <br> #endif$_IMAGE</span>
+                   
 
-                    <p class="c0">
+                   
                         <span class="c1 list-to-remove-comma">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS
                             EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
                             Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
-                            interactions), #endif$_INTACT . #endif$_METABOLOMIC&nbsp;</span>
-                    </p>
-                    <p class="c0">
+                            interactions), #endif$_INTACT . <br> #endif$_METABOLOMIC</span>
+                   
+                    
                         <span class="c1 list-to-remove-comma">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE
                             EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB
-                            #if$_CHEBI Chebi, #endif$_CHEBI .
-                            #endif$_PROTEOMIC&nbsp;</span>
-                    </p>
+                            #if$_CHEBI Chebi,  #endif$_CHEBI .
+                             <br> #endif$_PROTEOMIC</span>
+                   
 
-                    <p class="c0">
+                    
                         <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC Für phänotypische Daten: #if$_EDAL e!DAL-PGP (Plant
-                            Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
+                            Genomics & Phenomics Research Data Repository), #endif$_EDAL . <br> #endif$_PHENOTYPIC
                         </span>
-                    </p>
+                    
 
                 
                     #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
@@ -412,7 +412,9 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                 etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
                 Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
                 Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
-                werden.</span></p>
+                werden. #if$_DATAPLANT
+                DataPLANT bietet Open-Source-Datenkurationswerkzeuge wie das <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC-Verwaltungstool ARCitect</a>, das Kommandozeilentool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander</a>, die <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape">DataPLANT Biological Ontology (DPBO)</a>, das <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">Metadaten-Annotationstool Swate</a>, das <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">Metadata Quiz</a> und den <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP-Generator</a> an.
+                #endif$_DATAPLANT</span></p>
 
 
         <p class="c0"><span class="c3"><b>Legitimit&auml;t</b></span></p>

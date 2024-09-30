@@ -112,7 +112,7 @@ Horizon2020_DMP={
             <p class="c0">
 
                 <span class="c1">
-                    $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT Annotated Research Context (ARC) structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
+                    $_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT Annotated Research Context (ARC) structure are absolutely necessary, #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
                     be informed about the provenance of data analysis information. Stakeholders must also be informed
                     about the provenance of data. It is therefore necessary to ensure that the data are well generated
                     and also well annotated with metadata using open standards, as laid out in the next section.
@@ -147,14 +147,24 @@ Horizon2020_DMP={
             <p class="c0"><span class="c3">Will you re-use any existing data and how?</span></p>
             <p class="c0">
                 <span class="c1">
-                    The project builds on existing data sets and relies on them. #if$_RNASEQ|$_GENOMIC For example,
-                    without a proper genomic reference it is very difficult to analyze next-generation sequencing (NGS)
-                    data sets. #endif$_RNASEQ|$_GENOMIC It is also important to include existing data-sets on the
-                    expression and metabolic behavior of the $_STUDYOBJECT, and on existing background knowledge
-                    #if$_PARTNERS of the partners: $_PARTNERS #endif$_PARTNERS.
-                    Genomic references can be gathered from reference databases for genomes/ and sequences, like the the NCBI (US National Center for Biotechnology Information),
-                    EBI (European Bioinformatics Institute) and DDBJ (DNA Data Bank of Japan). Furthermore, prior 'unstructured' data in the form of publications and data
-                    contained therein will be used for decision making.
+                    The project builds on existing data sets. #if$_RNASEQ For instance, without a
+                        proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For, #if$_GENETIC genetic data, #endif$_GENETIC
+                        #if$_GENOMIC genomic data, #endif$_GENOMIC
+                        #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                        #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                        #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+                        #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
+                        #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
+                        #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
+                        #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED
+                        #if$_IMAGE image datasets, #endif$_IMAGE
+                        #if$_MODELS modelling data, #endif$_MODELS
+                        #if$_CODE computational code, #endif$_CODE
+                        #if$_EXCEL excel files #endif$_EXCEL data of $_STUDYOBJECT,
+                        existing data sets as well as additional characterizations and background knowledge on the topic will be used from prior publications. #if$_PARTNERS of the
+                        partners: $_PARTNERS #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
+                        genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
+                        Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP).
                 </span>
             </p>
 
@@ -203,9 +213,7 @@ Horizon2020_DMP={
                 #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
                 <li>
    
-                        <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
-                            either in house or outsourced to academic facilities or commercial services, and the raw
-                            data will be processed using estabilished biofirmatics piplines. </span>
+                        <span class="c1"> RNA sequencing will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
          
                 </li>
                 #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
@@ -470,8 +478,8 @@ Horizon2020_DMP={
 
 
                     <p class="c0">
-                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
+                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC|$_RNASEQ For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC|$_RNASEQ . #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
                     </p>
         
                     <p class="c0">
@@ -533,8 +541,7 @@ Horizon2020_DMP={
             </p>
             <p class="c0">
                 <span class="c1">
-                    #if$_DATAPLANT DataPLANT offers tools such as the open-source SWATE plugin for Excel, the ARC
-                    commander, arcCommander, and DataPLAN, #endif$_DATAPLANT.
+                                    #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, commandline tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT
                 </span>
             </p>
             <p class="c0"><span class="c3">Is documentation about the software needed to access the data
@@ -719,7 +726,7 @@ Horizon2020_DMP={
             <p class="c0"><span class="c1">The data will be made available for many years#if$_DATAPLANT and ideally
                     indefinitely after the end of the project #endif$_DATAPLANT.</span></p>
             <p class="c0">
-                <span class="c1">Data submitted to repositories (as detailed above) e.g. ENA /PRIDE would be subject to
+                <span class="c1">Data submitted to repositories (as detailed above) would be subject to
                     local data storage regulation.</span>
             </p>
             <p class="c10"><span class="c3">Are data quality assurance processes described?</span></p>
@@ -737,7 +744,7 @@ Horizon2020_DMP={
                     repositories. Subsequent costs are then borne by the operators of these repositories.</span></p>
             <p class="c0">
                 <span class="c1">
-                    Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
+                    Additionally, costs for after publication storage are incurred by end-point repositories as detailed in section 2.4
                     but not charged against $_PROJECTNAME or its members but by the operation budget of these
                     repositories.
                 </span>
@@ -782,7 +789,7 @@ Horizon2020_DMP={
                     <p class="c0">
                         <span class="c1 list-to-remove-comma">
                             As mentioned above, data will be made archived in
-                            international discipline related repositories which use specialized technologies: #if$_GENETIC|$_GENOMIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_TRANSCRIPTOMIC|$_GENETIC 
+                            international discipline related repositories which use specialized technologies: #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
                             #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
                             EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                             EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
@@ -854,7 +861,7 @@ Horizon2020_DMP={
              <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span> <br>
              <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span> <br>
              #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> <br>  #endif$_EDAL   #endif$_PHENOTYPIC  
-               #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC   
+               #if$_GENETIC|$_RNASEQ|$_GENOMIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC|$_RNASEQ|$_GENOMIC   
              <span class="c11"> EU </span><span class="c1">European Union</span> <br>
              <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span> <br>
              <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span> <br>
@@ -886,7 +893,7 @@ Horizon2020_DMP={
 
             #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
             <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
-            #if$_GENETIC|$_GENOMIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC|$_GENOMIC
+            #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC|$_GENOMIC|$_RNASEQ
             #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
          <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
             <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
