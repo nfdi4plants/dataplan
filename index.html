@@ -1,3 +1,4 @@
+<input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_acronym"
 <!DOCTYPE html><html lang="en">
 
 <head>
@@ -95,7 +96,7 @@
     var classicMode = true;
     var initialed = false; // set the initialed status to false
     const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
-    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project", "$_ADDACRONYM":"Example Acronym","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
         saved_a = JSON.parse(cached_a); // load the cached answers to webpage
@@ -2551,7 +2552,12 @@ END:VEVENT`;
         }
     }
 
-
+    function thisOnfocus(ele){
+        const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )
+    }
+    function thisOnfocusout(ele){
+        const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})
+    }
 
     function export2word1(element, filename = '') {
         var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
@@ -3090,10 +3096,22 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
                                 placeholder="the project name"
                                 onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
-
+                                <div>
+                                    <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_acronym"
+                                         />
+                                    <label class="form-check-label" for="check_acronym">
+                                        This project has an additional acronym:
+                                        <input style="width: 90%;" type="text" onfocusin="this.select();"
+                                    onchange="onchange_replace(this);" id="intput_addacronym" name="$_ADDACRONYM"
+                                    placeholder="Add an acronym"
+                                    onkeydown=""
+                                    onfocus='thisOnfocus(this)'
+                                    onfocusout='thisOnfocusout(this)'>
+                                    </label>
+                                </div>
                         </form>
 
 
@@ -3114,8 +3132,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" id="input_studyobject" name="$_STUDYOBJECT"
                                 placeholder="the research object/target"
                                 onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
 
@@ -3138,8 +3156,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" id="input_projectaim" name="$_PROJECTAIM"
                                 placeholder="project aim" rows="3" style="width: 90%;"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'></textarea>
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)'></textarea>
 
 
                         </form>
@@ -3153,8 +3171,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" id="input_datautility" name="$_DATAUTILITY"
                                 placeholder="Industry, politicians and students can also use the data for different purposes."
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)'>
 
 								</textarea>
 
@@ -3171,8 +3189,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="text" id="input_username" name="$_USERNAME"
                                 placeholder="type your name here"
                                 onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3184,8 +3202,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="text" id="input_email" name="$_EMAIL"
                                 placeholder="user email address"
                                 onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3200,8 +3218,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="text" id="input_dataofficer"
                                 name="$_DATAOFFICER" placeholder="data officer name"
                                 onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3215,8 +3233,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="text" id="input_fundingprogramme"
                                 name="$_FUNDINGPROGRAMME" placeholder="Action number or funding programme name"
                                 onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3229,8 +3247,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="date" id="input_creationdate"
                                 name="$_CREATIONDATE"
                                 onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3243,8 +3261,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="date" id="input_modificationdate"
                                 name="$_MODIFICATIONDATE"
                                 onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3257,8 +3275,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" type="text" id="input_dmpversion" name="$_DMPVERSION"
                                 placeholder="Version of the DMP"
                                 onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)' />
 
 
                         </form>
@@ -3298,8 +3316,8 @@ END:VEVENT`;
                                 onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
                                 placeholder="month of update"
                                 onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
+                                onfocus='thisOnfocus(this)'
+                                onfocusout='thisOnfocusout(this)'>
                                 </label>
                             </div>
                             <div>
@@ -3312,8 +3330,8 @@ END:VEVENT`;
                                     onchange="onchange_replace(this);" id="intput_previousprojects"
                                     name="$_PREVIOUSPROJECTS" placeholder="previous project here"
                                     onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                    onfocus='thisOnfocus(this)'
+                                    onfocusout='thisOnfocusout(this)' />
     
                                 </label>
 
@@ -3337,8 +3355,8 @@ END:VEVENT`;
                                         onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
                                         placeholder=" proprietary software "
                                         onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                        onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                        onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                        onfocus='thisOnfocus(this)'
+                                        onfocusout='thisOnfocusout(this)' />
                                 </label>
                             </div>
                             <div>
@@ -3351,8 +3369,8 @@ END:VEVENT`;
                                     onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
                                     placeholder="partner name"
                                     onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
+                                    onfocus='thisOnfocus(this)'
+                                    onfocusout='thisOnfocusout(this)'>
                                 </label>
                             </div>
                             <div>
@@ -3703,8 +3721,8 @@ END:VEVENT`;
                                     onfocusin="this.select();" onchange="onchange_replace(this);" name="$_RAWDATA"
                                     placeholder="raw data volume (in GB)"
                                     onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                    onfocus='thisOnfocus(this)'
+                                    onfocusout='thisOnfocusout(this)' />
                                 GB
 
 
@@ -3720,8 +3738,8 @@ END:VEVENT`;
                                     onfocusin="this.select();" onchange="onchange_replace(this);" name="$_DERIVEDDATA"
                                     placeholder="derived data volume (in GB)"
                                     onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                    onfocus='thisOnfocus(this)'
+                                    onfocusout='thisOnfocusout(this)' />
                                 GB
 
 
@@ -3882,8 +3900,8 @@ END:VEVENT`;
                                             onchange=' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
                                             placeholder="complete sentence of the other standards"
                                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                                            onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                            onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
+                                            onfocus='thisOnfocus(this)'
+                                            onfocusout='thisOnfocusout(this)' />
 
 
 
