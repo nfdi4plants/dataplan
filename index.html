@@ -1,4 +1,3 @@
-<input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_acronym"
 <!DOCTYPE html><html lang="en">
 
 <head>
@@ -95,7 +94,7 @@
     var convertedEle;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":["check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project", "$_ADDACRONYM":"Example Acronym","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
@@ -287,11 +286,27 @@
         }
         catch (e) { };
         try {
+            ((!Object.values(saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
+        }
+        catch (e) { };
+        try {
+            ((!Object.values(saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
+        }
+        catch (e) { };
+        try {
             ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
         }
         catch (e) { };
         try {
             Object.keys(saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
+        }
+        catch (e) { };
+        try {
+            Object.keys(saved_a["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : saved_a["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
+        }
+        catch (e) { };
+        try {
+            Object.keys(saved_a["replace"]).includes("$_ADDACRONYM") ? {} : saved_a["replace"]["$_ADDACRONYM"] = "Add the acronym here";
         }
         catch (e) { };
         try {
@@ -759,9 +774,9 @@
             e.setAttribute("onfocusin", 'checkboxOnfocusin(this)');
             e.setAttribute("onfocusout", 'checkboxOnfocusout(this)');
             e.setAttribute("onmouseover", 'this.focus()');
-            e.setAttribute("onclick",
-                ' checkboxOnfocusout(this); setTimeout(()=> {sc1(this.id)}, "0"); setTimeout(()=> { checkboxOnfocusin(this)}, "500")');
+            e.setAttribute("onclick", ' sc1(this)');
             e.setAttribute("name", e.id);
+            e.setAttribute("onchange", "get_option(this)");
             
         }
 
@@ -868,18 +883,18 @@
      * @global
      */
 
-     function get_option1(this_element) {
+     function get_option(this_element) {
 
-
-        const class_name = this_element.dataset.checkbox;
-        //verbose  console.log("class name for question is " + class_name);
+        const classList = Array.from(this_element.classList);
+        const class_name = classList.filter((word)=> word.includes("checkbox_"))
+        console.log("class name for question is " + class_name);
         const checked = document.querySelectorAll(`.${class_name}:checked`);
         const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
         const checked_list = [];
         checked.forEach(element => checked_list.push(element.id));
         const unchecked_list = [];
         unchecked.forEach(element => unchecked_list.push(element.id));
-        //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
+        console.log("uncheck and checked \n" + checked_list + "\n"+  unchecked_list)
         saved_a["checkbox"][class_name] = {
             "checked": checked_list,
             "unchecked": unchecked_list
@@ -899,9 +914,11 @@
 
 
         function sc1(ele){
+            checkboxOnfocusout(ele); setTimeout(()=> {
+                scroll_y  = document.getElementById("split-0").scrollTop;
+            punctualReplaced || classicMode ? load_dmp(reload_answers, doc_name)  :singleCheckbox(ele.id);}, "0"); 
+            setTimeout(()=> { checkboxOnfocusin(ele)}, "500")
             
-            scroll_y  = document.getElementById("split-0").scrollTop;
-            punctualReplaced || classicMode ? load_dmp(reload_answers, doc_name)  :singleCheckbox(ele);
             
         }
     function allCheckbox(){
@@ -1050,32 +1067,32 @@
                 }
 
             }
-    function get_option(this_element) {
+    // function get_option(this_element) {
 
 
-        const class_name = this_element.dataset.checkbox;
-        //verbose  console.log("class name for question is " + class_name);
-        const checked = document.querySelectorAll(`.${class_name}:checked`);
-        const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
-        const checked_list = [];
-        checked.forEach(element => checked_list.push(element.id));
-        const unchecked_list = [];
-        unchecked.forEach(element => unchecked_list.push(element.id));
-        //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
-        saved_a["checkbox"][class_name] = {
-            "checked": checked_list,
-            "unchecked": unchecked_list
-        };
-        trim_saved_a(saved_a);
-        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+    //     const class_name = this_element.dataset.checkbox;
+    //     //verbose  console.log("class name for question is " + class_name);
+    //     const checked = document.querySelectorAll(`.${class_name}:checked`);
+    //     const unchecked = document.querySelectorAll(`.${class_name}:not(:checked)`);
+    //     const checked_list = [];
+    //     checked.forEach(element => checked_list.push(element.id));
+    //     const unchecked_list = [];
+    //     unchecked.forEach(element => unchecked_list.push(element.id));
+    //     //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
+    //     saved_a["checkbox"][class_name] = {
+    //         "checked": checked_list,
+    //         "unchecked": unchecked_list
+    //     };
+    //     trim_saved_a(saved_a);
+    //     window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 
-        //verbose  console.log("+++++++++++++++++" + checked_list);
-
-
-        //load_dmp(reload_answers, name = doc_name);
+    //     //verbose  console.log("+++++++++++++++++" + checked_list);
 
 
-    }
+    //     //load_dmp(reload_answers, name = doc_name);
+
+
+    // }
 
     // go to the highlighted location
     function go_to(element1) {
@@ -3220,7 +3237,19 @@ END:VEVENT`;
                                 onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
                                 onfocus='thisOnfocus(this)'
                                 onfocusout='thisOnfocusout(this)' />
-
+                                <div>
+                                    <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_projectcoordinator"
+                                         />
+                                    <label class="form-check-label" for="check_projectcoordinator">
+                                        This project has a project coordinator:
+                                        <input style="width: 90%;" type="text" onfocusin="this.select();"
+                                    onchange="onchange_replace(this);" id="intput_addprojectcoordinator" name="$_ADDPROJECTCOORDINATOR"
+                                    placeholder="Add a project coordinator"
+                                    onkeydown=""
+                                    onfocus='thisOnfocus(this)'
+                                    onfocusout='thisOnfocusout(this)'>
+                                    </label>
+                                </div>
 
                         </form>
 
@@ -3283,7 +3312,7 @@ END:VEVENT`;
 
                         <h3> 1.4 Please select from the following options</h3>
                         <div class="form-data_type form-check" id="form_checkbox_1"
-                            onchange="this.nextElementSibling.click();">
+                            >
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="1"
                                     id="check_protect" />
@@ -3381,9 +3410,7 @@ END:VEVENT`;
                             </div>
                         </div>
 
-                        <input class="btn btn-primary form-check collapse btn-sm d-none" type="button"
-                            id="form-check-input" data-checkbox="checkbox_1" value="submit"
-                            onclick="get_option(this)" />
+                       
 
 
 
@@ -3417,7 +3444,7 @@ END:VEVENT`;
                         </form>-->
 
 
-                        <form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
+                        <form class="show" id="form_checkbox_2" >
                             <h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
 
                             <div class="form-data_type form-check">
@@ -3534,10 +3561,9 @@ END:VEVENT`;
 
 
 
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2"
-                            value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
+                       
 
-                        <div class="" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
+                        <div class="" id="form_checkbox_5" >
                             <div class=" d-grid gap-1">
                                 <h3> 2.1 Where will you submit your data as endpoints?</h3>
 
@@ -3704,9 +3730,7 @@ END:VEVENT`;
                                 </div>
                             </div>
                         </div>
-                        <input class="btn collapse btn-primary form-check btn-sm d-none" type="button"
-                            id="small-form-check-input" data-checkbox="checkbox_5" value="submit"
-                            onclick='get_option(this)' />
+                        
                         <!---->
 
 
@@ -3746,7 +3770,7 @@ END:VEVENT`;
                             </div>
                         </form>
 
-                        <div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
+                        <div class=" " id="form_checkbox_3" >
                             <br>
                             <br>
                             <br>
@@ -3995,7 +4019,7 @@ END:VEVENT`;
                                 </label>
                             </div>
 
-                            <h3>4.4 Will you follow national standards or archived in national infrastructures?</h3>
+                            <h3>4.4 Which national, funder, sectorial, or departmental data management procedures do you follow, and which national research data infrastructure do you use?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
                                     />
@@ -4031,8 +4055,7 @@ END:VEVENT`;
 
                             </div>
                         </div>
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box3"
-                            value="submit data type" data-checkbox="checkbox_3" onclick="get_option(this)">
+        
 
 
 

@@ -11,7 +11,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME&nbsp;</span></p>
         <p class="c0"><span class="c3"><b>FKZ: $_DMPVERSION&nbsp;</b></span></p>
 
-        <p class="c0"><span class="c3"><b>Projektkoordinator</b>: $_USERNAME&nbsp;</span></p>
+        <p class="c0"><span class="c3"><b>Projektkoordinator</b>: #if$_PROJECTCOORDINATOR $_ADDPROJECTCOORDINATOR #endif$_PROJECTCOORDINATOR &nbsp;</span></p>
         <p class="c0"><span class="c3"><b>Kontaktperson Datenmanagement</b>: $_DATAOFFICER&nbsp;</span></p>
 
         <p class="c0"><span class="c3"><b>Kontakt</b>: $_EMAIL&nbsp;</span></p>

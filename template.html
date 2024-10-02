@@ -562,6 +562,7 @@ for (let i of items) {
                 row1 = checkboxOptionPool.querySelector("#list_"+id);
                 row1.remove();
                 ele.classList.add("btn-primary");
+
             } catch (error) {
                 try {
                     row1 = document.querySelector("#checkbox_"+id);
@@ -677,7 +678,9 @@ for (let i of items) {
         }
 
         checkboxQuestion.setAttribute("data-id", ele.dataset.operator);
-        const targetBtn = document.getElementById("optionPool_"+ele.dataset.afterif.split("_")[1]);
+        const afterif = ele.dataset.afterif;
+        
+        const targetBtn = document.getElementById("optionPool_"+[1]);
         targetBtn.classList.remove("btn-primary");
         targetBtn.classList.add("btn-danger");
         checkboxQuestion.value = "Please give the question which can be answered by a set of checkboxes";
