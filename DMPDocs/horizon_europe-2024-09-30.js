@@ -33,7 +33,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                                     <h3>Action Acronym:</h3>
                                 </td>
                                 <td>
-                                    <h3> $_PROJECTNAME</h3>
+                                     <h3> #if!$_ACRONYM  $_PROJECTNAME   #endif!$_ACRONYM   #if$_ACRONYM   $_ADDACRONYM #endif$_ACRONYM </h3> 
                                 </td>
                             </tr>
                             <tr>
@@ -100,15 +100,24 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
         <p class="c0">
 
             <span class="c1">
-                The project builds on existing data sets and relies on them. #if$_RNASEQ For instance, without a
-                proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ It is also
-                important to include existing data sets on the expression and metabolic behaviour of $_STUDYOBJECT,
-                but of course, also on existing characterization and the background knowledge. #if$_PARTNERS of the
+                The project builds on existing data sets. #if$_RNASEQ For instance, without a
+                proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
+                #if$_GENOMIC genomic data, #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+                #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
+                #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
+                #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
+                #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED
+                #if$_IMAGE image datasets, #endif$_IMAGE
+                #if$_MODELS modelling data, #endif$_MODELS
+                #if$_CODE computational code, #endif$_CODE
+                #if$_EXCEL excel files #endif$_EXCEL data of $_STUDYOBJECT,
+                existing data sets as well as additional characterizations and background knowledge on the topic will be used from prior publications. #if$_PARTNERS of the
                 partners: $_PARTNERS #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
                 genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
-                Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). Furthermore, prior
-                'unstructured' data in the form of publications and data contained therein will be used for decision
-                making.
+                Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP).
             </span>
         </p>
         <p class="c0"><span class="c3">What types and formats of data will the project generate or re-use?</span>
@@ -143,7 +152,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 objectives of the project?</span></p>
         <p class="c0">
             <span class="c1">
-                $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
+                $_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
                 and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
                 #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
                 #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -205,9 +214,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
             <li>
 
-                    <span class="c1"> RNA sequencing will be generated using short-read or long-read plantforms,
-                        either in house or outsourced to academic facilities or commercial services, and the raw
-                        data will be processed using estabilished bioinformatics piplines. </span>
+                    <span class="c1"> RNA sequencing will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
     
             </li>
             #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
@@ -413,8 +420,8 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
 
 
                  <p class="c0">
-                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
+                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC|$_RNASEQ For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC|$_RNASEQ . #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
                     </p>
 
                 <p class="c0">
@@ -474,7 +481,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 <p class="c0">
                     <span class="c1 list-to-remove-comma">
                         As mentioned above, data will be made archived in
-                        international discipline related repositories which use specialized technologies: #if$_GENETIC|$_GENOMIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_TRANSCRIPTOMIC|$_GENETIC 
+                        international discipline related repositories which use specialized technologies: #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
                         #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
                         EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                         EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
@@ -487,10 +494,14 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                         well. #endif$_OTHEREP
                     </span>
                 </p> 
+                <p class="c0">
+                    <span class="c1">
                 In the case of unstructured less standardized data (e.g. experimental
                 phenotypic measurements), these will be metadata annotated and if complete given a digital object
                 identifier (DOI) #if$_DATAPLANT and the whole data sets wrapped into an ARC will get DOIs as well
                 #endif$_DATAPLANT .
+                </span>
+                </p> 
             </span>
         </p>
         Those repositories are the most appropriate ones.
@@ -636,9 +647,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern
                 browser. Access will be possible through web interfaces. For data processing after obtaining raw
                 data, typical open-source software can be used. #endif!$_PROPRIETARY
-                #if$_DATAPLANT DataPLANT offers tools such as the open-source SWATE plugin for Excel, the ARC
-                commander, and the DMP tool which will not necessarily make the interaction with data more
-                convenient. #endif$_DATAPLANT #if$_DATAPLANT However, DataPLANT resources are well described, and
+                                #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, commandline tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT #if$_DATAPLANT DataPLANT resources are well described, and
                 their setup is documented on their github project pages. #endif$_DATAPLANT
                 As stated above, here we use publicly available open-source and well-documented certified software, #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.
             </span>
@@ -692,7 +701,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 to. #endif$_OTHERSTANDARDS
             </span>
         </p>
-        Whenever possible, data will be stored in common and openly defined formats including all the necessary
+        <span class="c1">Whenever possible, data will be stored in common and openly defined formats including all the necessary
         metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
         used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by
         the consortium#if$_DATAPLANT and by some ARC components #endif$_DATAPLANT. In addition, text files might be
@@ -700,7 +709,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
         Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
         vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the advanced
         ontologies integrated in DataPLANT. #endif$_DATAPLANT
-
+        </span>
 
         </span>
         </p>
@@ -776,7 +785,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
 
         <p class="c0">
             <span class="c1">
-                $_PROJECTNAME has the following aim: $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
+                $_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
                 and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
                 #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
                 #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
@@ -895,7 +904,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                     <span class="c1 list-to-remove-comma">
                         As mentioned above, data will be archived in
                         international discipline related repositories which use specialized technologies: 
-                        #if$_GENETIC|$_GENOMIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_TRANSCRIPTOMIC|$_GENETIC 
+                        #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
                         #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
                         EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
                         EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR

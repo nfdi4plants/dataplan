@@ -40,6 +40,8 @@
     </script>
 </head>
 <script>
+    let scroll_marker;
+    let checkboxOptions = [];
       const dmpStrings = {
         "Horizon2020_DMP" : Horizon2020_DMP.Horizon2020_DMP,
         "horizon_europe" : horizon_europe.horizon_europe,
@@ -47,21 +49,326 @@
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
         "practical-guide": practical_guide["practical-guide"]
-
-
     }
-
-document.addEventListener("DOMContentLoaded", function(arg) {
-    document.getElementById("doc3").innerHTML = dmpStrings["bmbf-dmp"];
-});
-
-   /**  
+    
+ /**  
      * @name is_firefox  
      * @global
      * @static
      * @description to log if the browser is Firefox
      **/
      var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
+
+window.addEventListener("load", (e)=> {
+    
+    document.getElementById("doc3").innerHTML = dmpStrings["bmbf-dmp"];
+
+    checkboxConversion(), textinputConversion();    
+    var textInputQuestion = document.getElementById("textInputQuestion");
+    var textInputPlaceholder = document.getElementById("textInputPlaceholder");
+    var checkboxQuestion = document.getElementById("checkboxQuestion");
+    var checkboxOptionPool = document.getElementById("checkboxOptionPool");
+    
+});
+
+function find_replace(before, after, holder=undefined) {
+
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+
+    //verbose  console.log("before: " + before + ", after: " + after);
+
+    if (window.find) //for chrome, firefox
+    {
+        //verbose  console.log("window.find is: " + window.find);
+        while (window.find(before, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = is_firefox,
+            aWholeWord = 0, aSearchInFrames = 0, aShowDialog = 0)) {
+            let last_letter;
+            let range = window.getSelection().getRangeAt(0).cloneRange();
+                range.extractContents();
+
+                let newText = document.createElement("span");
+                //debug= before == "$_PROPRIETARY";
+                //deb("before = <"+ before +">");
+                //deb("range = <"+ range.toString() +">");
+                newText.setAttribute("class", "text-warning text-center");
+                if (holder=== undefined){
+                    newText.setAttribute("name", (before).split("_")[1] + "-to-");
+                    newText.setAttribute("onmouseover", 'const e = document.getElementsByName("' + (before) + '"); e[0].classList.add("border-highlight"); e[0].focus({preventScroll:true})  ');
+                    newText.setAttribute("onmouseleave", 'document.getElementsByName("' + (before) + '")[0].classList.remove("border-highlight");  ');
+                }else{
+
+                    newText.setAttribute("name", (holder) + "-to-");
+                    newText.setAttribute("onmouseover", 'const e = document.getElementById("' + (holder) + '"); e.parentElement.classList.add("border-highlight"); e.focus({preventScroll:true})  ');
+                    newText.setAttribute("onmouseleave", 'document.getElementById("' + (holder) + '").parentElement.classList.remove("border-highlight");  ');
+                }
+                
+                
+                newText.setAttribute("onclick", 'document.getElementsByName("' + (holder||before) + '")[0].parentElement.scrollIntoView({ behavior: "smooth", block: "center" });document.getElementsByName("' + (holder||before) + '")[0].focus(); ');
+                newText.innerHTML = HtmlEncode(after) ;
+                range.insertNode(newText);
+
+                // }   else{
+                //     debug=true;
+                //     deb("rangeText = <" +rangeText+ ">");
+
+
+                // }
+        }
+        } else if (document.createTextRange) //for ie etc.
+        {
+            var range = document.createTextRange();
+            while (range.findText(before)) {
+                range.pasteHTML(after);
+            }
+        }
+
+}
+
+function updateTextModal(ele){
+    
+    textInputQuestion.setAttribute("data-id", ele.dataset.id);
+    textInputQuestion.value = "What is "+ ele.dataset.id.split("$_")[1].toLowerCase()+"?";
+    textInputPlaceholder.value = "Example "+ ele.dataset.id.split("$_")[1].toLowerCase();
+    
+}
+
+function textinputConversion(){
+    const selection= window.getSelection();
+        selection.removeAllRanges();
+                // this is very tedious but necessary, because the find and replace of multiple character words in DOI is not trivial.
+
+                if (window.find) //for chrome, firefox
+                {
+                    let ns = window.find("$_", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    while (ns) {
+                        // this is very tedious but necessary, because the find and replace of multiple character words in DOM is not trivial.
+                        //verbose  console.log("found");
+                        
+                        let if_range = window.getSelection().getRangeAt(0).cloneRange();
+                        window.find(" ", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 0,aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+
+                        if_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+                        
+                        const placeholder = if_range.extractContents();
+                        const holderContent = placeholder.textContent;
+                        const buttonContent = holderContent.split("$_")[1];
+                        const parent_node = document.createElement("button");
+                        //parent_node.classList.add("btn");
+                        parent_node.classList.add("btn-primary");   
+                        parent_node.setAttribute("data-id", holderContent);
+                        parent_node.setAttribute("data-bs-toggle", "modal");
+                        parent_node.setAttribute("data-bs-target", "#textinput_modal");
+                        parent_node.setAttribute("onclick", "updateTextModal(this)");
+                        parent_node.setAttribute("name", "button"+buttonContent);
+                        parent_node.innerHTML= buttonContent;
+                        if_range.insertNode(parent_node);
+
+                        
+                                                      
+                        //in_range.deleteContents();
+                       
+                        //if_range.deleteContents();
+                        if_range.detach();
+
+                    ns = window.find("$_", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
+                        aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    }
+                }
+
+
+
+    }
+    function slist(target) {
+
+
+let items = target.getElementsByTagName("li"), current = null;
+
+
+for (let i of items) {
+
+    // Drag start
+    i.ondragstart = (ev) => {
+        current = i;
+        for (let it of items) {
+            if (it != current) { it.classList.add("hint"); }
+        }
+    };
+
+    // Drag enter
+    i.ondragenter = (ev) => {
+        if (i != current) {
+            setTimeout(() => { i.classList.add("active"), "10" });
+            //verbose  console.log("entering and adding active"); 
+        }
+
+    };
+
+
+    // drag leave
+    i.ondragleave = () => {
+        i.classList.remove("active");
+        //verbose  console.log("leaving and removing active");
+    };
+
+    // drag end
+    i.ondragend = () => {
+        for (let it of items) {
+            it.classList.remove("hint");
+            it.classList.remove("active");
+        }
+    };
+
+    // drag over stop default
+    i.ondragover = (evt) => { evt.preventDefault(); };
+    [].slice.call(i.children).forEach((e) => e.ondragover = (evt) => {
+        evt.preventDefault();
+    }
+    );
+
+
+    // when drop, insert the element
+    i.ondrop = (evt) => {
+        evt.preventDefault();
+        if (i != current) {
+            let currentpos = 0, droppedpos = 0;
+            for (let it = 0; it < items.length; it++) {
+                if (current == items[it]) { currentpos = it; }
+                if (i == items[it]) { droppedpos = it; }
+            }
+            if (currentpos < droppedpos) {
+                i.parentNode.insertBefore(current, i.nextSibling);
+            } else {
+                i.parentNode.insertBefore(current, i);
+            }
+        }
+    };
+}
+}
+
+    function createTextQuestion(){
+        const name = textInputQuestion.dataset.id;
+        const lastname = name.split("$_")[1];
+        const id = "input_" + lastname ;
+        const formId = "form_" + lastname ;
+        let targetEle = document.getElementById(formId);
+        
+        if (targetEle==null){
+            targetEle = document.createElement("li");
+            targetEle.id = formId;
+            targetEle.setAttribute("draggable", "true");
+            }else{
+                targetEle = document.getElementById(formId);
+            }
+            targetEle.innerHTML= "";
+
+        const questionLable = document.createElement("lable");
+        questionLable.setAttribute("for", id);
+        
+        const h3 = document.createElement("h3");
+        const questionInput = document.createElement("input");
+        questionInput.setAttribute("id", id);
+        questionInput.setAttribute("class", " bg-transparent border-white");
+        questionInput.setAttribute("type", "text");
+        questionInput.setAttribute("name", name );
+        questionInput.setAttribute("placeholder", textInputPlaceholder.value);
+
+        questionInput.setAttribute("onfocusin", "this.select()");
+        questionInput.setAttribute("onchange", "onchange_replace(this)");
+
+
+        questionInput.setAttribute("onkeydown", "onKeydown(this)");
+        questionInput.setAttribute("onfocus", "onFocus(this)");
+        questionInput.setAttribute("onfocusout", "onFocusout(this)");
+        questionInput.setAttribute("style", "width: 100%");
+        h3.innerHTML= textInputQuestion.value;
+        document.getElementById("intro-tour-input").append(targetEle);
+        const svg = document.createElement("svg");
+        svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+        const row1 = document.createElement("div");
+        row1.classList.add("row", "align-items-center");    
+        const col1 = document.createElement("div");
+        col1.classList.add("col", "col-auto");
+        const col2 = document.createElement("div");
+        col2.classList.add("col", "col-auto");
+        col1.append(svg);
+        col2.append(h3, questionLable, questionInput);
+        row1.append(col1, col2);
+        targetEle.append(row1);
+        const buttonName = "button"+lastname;
+        const buttonList =document.querySelectorAll("button[name='"+buttonName+"']")
+        buttonList.forEach((ele)=>{ele.classList.remove("btn-primary") });
+        slist(document.getElementById("intro-tour-input"));
+
+    }
+
+
+    function set_scrollbar_marker(scroll_marker, elements) {
+        scroll_marker = document.querySelector('.scroll-marker');
+        const doc = document.getElementById("split-0");
+        let doc_height = doc.offsetHeight;
+        let doc_top = doc.scrollHeight;
+
+
+
+        elements.forEach(e => {
+            
+            if (e.classList.contains("d-none")){
+
+            }else{
+            let e_top = e.offsetTop;
+            let e_bot = e_top + e.offsetHeight;
+            let parent_top;
+            try {
+                parent_top = e.offsetParent.offsetTop;
+            } catch (error) {
+               parent_top = 0;
+            }
+            
+            let marker_top = Math.ceil((e_top + parent_top) / doc_top * doc_height);
+            let marker_bot = Math.ceil((e_bot + parent_top) / doc_top * doc_height);
+            let marker_e = document.createElement("span");
+            marker_e.style.backgroundColor = "#E08F9C";
+            marker_e.style.top = marker_top + "px";
+            marker_e.style.height = (marker_bot - marker_top) + "px";
+            marker_e.setAttribute("name", "scroll-bar-span");
+            scroll_marker.appendChild(marker_e);
+            }
+
+
+        }
+
+        )
+
+    }
+
+    function onKeydown(ele){
+        if (event.keyCode == 13){
+            event.preventDefault(); 
+            event.stopPropagation();
+            ele.parentElement.nextElementSibling.children[1].focus();
+            return false;}
+    }
+
+    function onFocus(ele){
+        const name1 = ele.name.split("_")[1]+"-to-";
+        const elem1 = document.getElementsByName(name1); 
+        elem1.forEach(e => e.classList.add("border-highlight")); 
+        set_scrollbar_marker( scroll_marker,elem1 )
+    }
+
+    function onFocusout(ele){
+        const name1 = ele.name.split("_")[1]+"-to-";
+        const elem1 = document.getElementsByName(name1);
+        elem1.forEach(e => e.classList.remove("border-highlight")); 
+        document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})
+
+    }
+    
+    
+    
+    
     function match_mod(in_range, holders, operator = "") {
 
             
@@ -106,6 +413,62 @@ document.addEventListener("DOMContentLoaded", function(arg) {
     //verbose   console.log("in_range is :" + in_range.toString());
 
     }
+    
+    
+    
+    
+    
+    function addOption(in_range, holders, after_if, operator = "") {
+
+                    
+        //verbose   console.log("mach_mod function: check_box_item: " + before);
+        //console.log("holders are : "+ holders);
+        const parent_node = document.createElement("button");
+        //parent_node.classList.add("btn");
+        parent_node.classList.add("btn-primary");
+        let onmouseoverText="", onclickText="", dataOperatorText="", onmouseleaveText="";
+
+        for (const holder of holders){
+            const eleName = holder.split("_")[1].toLowerCase();
+            const idText = "check_" + eleName ;
+            
+            onmouseoverText += 'const '+eleName+' = document.getElementById("' + idText + '") ;'+eleName+'.parentElement.classList.add("border-highlight");'+eleName+'.focus({preventScroll: true}); ';
+            onclickText+= 'document.getElementById("' + idText + '").parentElement.scrollIntoView({  block: "center" });document.getElementById("' + idText + '").focus(); '
+            onmouseleaveText += 'document.getElementById("' + idText + '").parentElement.classList.remove("border-highlight");  '
+            parent_node.classList.add(idText);
+                        checkboxOptions.includes(holder.replaceAll("!",""))? {}: checkboxOptions.push(holder.replaceAll("!","")); 
+            if (operator=="!"){
+                dataOperatorText = "!"
+            }else{
+                dataOperatorText += idText +"|";
+                //dataOperatorText += idText
+            }
+        }
+
+        parent_node.classList.add("checkboxConverted");
+        parent_node.setAttribute("data-bs-toggle", "modal");
+        parent_node.setAttribute("data-bs-target", "#checkbox_modal");
+        //parent_node.setAttribute("onmouseover", onmouseoverText);
+        // parent_node.setAttribute("data-id",  );
+        parent_node.setAttribute("onclick", "updateCheckboxModal(this)" );
+        //parent_node.setAttribute("onmouseleave",onmouseleaveText );
+        
+        //parent_node.setAttribute("name", idText + "-to-");
+        parent_node.setAttribute("data-operator", dataOperatorText);
+        parent_node.setAttribute("data-afterif", after_if);
+            const doc_frag = in_range.extractContents();
+            //console.log(" doc_frag: " + doc_frag.textContent );
+            //const node1 = document.createTextNode(doc_frag);
+            parent_node.appendChild(doc_frag);
+            //verbose   console.log("mach_mod function: parent_node: " + parent_node.innerHTML);
+
+        in_range.insertNode(parent_node);
+        in_range.detach();
+        //verbose   console.log("in_range is :" + in_range.toString());
+
+        }
+
+    
     function checkboxConversion(){
         const selection= window.getSelection();
         selection.removeAllRanges();
@@ -123,6 +486,7 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                         window.find(" ", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 0,aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
 
                         if_range.setEnd(window.getSelection().anchorNode, window.getSelection().anchorOffset);
+                        const after_if = if_range.cloneContents().textContent;
                         const endif_range_string = "#endif" + if_range.toString().split("#if").slice(-1)[0];
 
                         window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
@@ -142,20 +506,19 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                         const placeholder_strings = if_range.toString().split("#if").slice(-1)[0];
                         const if_type_string = placeholder_strings.slice(0,1);
                         const holders = placeholder_strings.split("|");
-                        
+                        console.log("holders are: " + holders)
                         //console.log("placeholder_strings :"+ placeholder_strings+ " holders: "+ holders + " if_type_string:"+ if_type_string);
                         
-                        var if_in = false;
     
                         if (if_type_string == "$"){
                             
-                                    match_mod(in_range, holders );
+                            addOption(in_range,  holders, after_if );
                                     in_range.detach();
                                 //match_remove(in_range);
                         } else if (if_type_string == "!" ){
 
-                                        match_mod(in_range, holders, "!");
-                                        in_range.detach();
+                            addOption(in_range, holders, after_if, "!");
+                                    in_range.detach();
                                         
                         }else{                        
                         }
@@ -168,11 +531,162 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                         endif_range.detach();
                     ns = window.find("#if", aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                         aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
+                    }
                 }
+
+            checkboxOptions.forEach((ele) =>{ 
+                const eleName = ele.split("_")[1];
+                 const optionPoolEle = document.createElement("button");
+                optionPoolEle.setAttribute("id", "optionPool_"+eleName );
+                optionPoolEle.setAttribute("class", "btn btn-primary" );
+                optionPoolEle.innerHTML= "optionPool_"+eleName;
+                optionPoolEle.setAttribute("onclick", "createOption(this)");
+                document.getElementById("optionPool").appendChild(optionPoolEle);
             }
+        );
+
         }
 
 
+        function createOption(ele){
+            const id = ele.id;
+            const name = id.split("_")[1];
+            ele.classList.remove("btn-primary");
+            ele.classList.remove("btn-danger");
+
+            const targetEle = document.createElement("label"); 
+            targetEle.innerHTML= id;
+            
+            let row1;
+            try {
+                row1 = checkboxOptionPool.querySelector("#list_"+id);
+                row1.remove();
+                ele.classList.add("btn-primary");
+
+            } catch (error) {
+                try {
+                    row1 = document.querySelector("#checkbox_"+id);
+                    row1.parentElement.remove();
+                    ele.classList.add("btn-primary");
+
+
+                } catch (error) {
+                    
+                
+                row1 = document.createElement("li");
+                row1.id = "list_"+id;
+                const svg = document.createElement("svg");
+                svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+                
+                row1.classList.add("row", "align-items-center");    
+                const col1 = document.createElement("div");
+                col1.classList.add("col", "col-auto");
+                const col2 = document.createElement("div");
+                col2.classList.add("col", "col-auto");
+                const questionInput = document.createElement("input");
+                questionInput.setAttribute("id", id);
+                questionInput.setAttribute("class", " bg-transparent border-white");
+                questionInput.setAttribute("type", "text");
+                questionInput.setAttribute("name", name );
+                questionInput.setAttribute("value", id);
+                col1.append(svg);
+                col2.append(targetEle, questionInput);
+                row1.append(col1, col2);
+                row1.setAttribute("draggable", "true"); 
+                row1.id = "list_"+ id;
+                checkboxOptionPool.appendChild(row1);
+                slist(document.getElementById("checkboxOptionPool"));
+                }
+            }
+
+            
+            
+
+            
+
+
+        }
+
+        function createCheckboxQuestion(){
+        const name = checkboxQuestion.dataset.id;
+        // const lastname = name.split("$_")[1];
+        // const id = "input_" + lastname ;
+        // const formId = "form_" + lastname ;
+        let targetEle = document.getElementById(name);
+        
+        if (targetEle==null){
+            targetEle = document.createElement("li");
+            targetEle.id = name;
+            targetEle.setAttribute("draggable", "true");
+            }else{
+                targetEle = document.getElementById(name);
+            }
+            targetEle.innerHTML= "";
+
+        //const questionLable = document.createElement("lable");
+        //questionLable.setAttribute("for", id);
+        
+        const h3 = document.createElement("h3");
+
+        h3.innerHTML= checkboxQuestion.value;
+        const checkboxOptionPool = document.getElementById("checkboxOptionPool");
+        let questionInput = document.createElement("div");
+        const eleList = checkboxOptionPool.querySelectorAll("input");
+        eleList.forEach((e) =>{
+            const div = document.createElement("div");
+            const input = document.createElement("input");
+            const label = document.createElement("label");
+            div.classList.add("form-check");
+            input.setAttribute("class", "form-check-input");
+            input.setAttribute("type", "checkbox");
+            input.setAttribute("id", "checkbox_"+e.id);
+            label.setAttribute("for", e.id);
+            label.innerHTML = e.value;
+            div.append(input, label);
+            questionInput.appendChild(div);
+
+        })
+
+        document.getElementById("intro-tour-input").append(targetEle);
+        const svg = document.createElement("svg");
+        svg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" class="m-2"><title>draggable</title><path d="M2 11h16v2H2zm0-4h16v2H2zm8 11l3-3H7l3 3zm0-16L7 5h6l-3-3z"></path></svg>'
+        const row1 = document.createElement("div");
+        row1.classList.add("row", "align-items-center");    
+        const col1 = document.createElement("div");
+        col1.classList.add("col", "col-auto");
+        const col2 = document.createElement("div");
+        col2.classList.add("col", "col-auto");
+        col1.append(svg);
+        col2.append(h3, questionInput);
+        row1.append(col1, col2);
+        targetEle.append(row1);
+        const buttonName = "button"+name;
+        const buttonList =document.querySelectorAll("button[name='"+buttonName+"']")
+        buttonList.forEach((ele)=>{ele.classList.remove("btn-primary") });
+        slist(document.getElementById("intro-tour-input"));
+
+    }
+
+    function updateCheckboxModal(ele){
+        try {
+           
+        const previousBtn = document.getElementById("optionPool").querySelector("button.btn-danger");
+        previousBtn.classList.remove("btn-danger");
+        previousBtn.classList.add("btn-primary");
+        } catch (error) {
+            
+        }
+
+        checkboxQuestion.setAttribute("data-id", ele.dataset.operator);
+        const afterif = ele.dataset.afterif;
+        
+        const targetBtn = document.getElementById("optionPool_"+[1]);
+        targetBtn.classList.remove("btn-primary");
+        targetBtn.classList.add("btn-danger");
+        checkboxQuestion.value = "Please give the question which can be answered by a set of checkboxes";
+    
+    
+}
 </script>
 <body class="overflow-hidden" style=" height:100vh;width:100vw; padding-right: 0px ">
     <div class="container-fluid"
@@ -195,7 +709,7 @@ document.addEventListener("DOMContentLoaded", function(arg) {
             </div>
         </div>
         <div class="row g-3 split"
-            style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden;position:relative;">
+            style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden; overflow-y:hidden; position:relative;">
             <div class="col-7" id="split-0"
                 style="position: relative;height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
                 <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/practical-guide.js" id="editTemplate" title="Edit this template" style="position: absolute; top: 20vh; left: 30vw;">Edit this template</a>
@@ -328,1366 +842,21 @@ document.addEventListener("DOMContentLoaded", function(arg) {
                 </div>
             </div>
             <div class="col" id="split-1"
-                style="padding-right: 0px; padding-left: 0px; overflow-x: hidden; overflow-y: hidden;  margin: 0 0 0 -28px; padding: 0 0 0 20px;">
+                style="padding-right: 0px; padding-left: 0px; overflow-x: hidden;  margin: 0 0 0 -28px; padding: 0 0 0 20px;">
                 <div class="scroll-marker"> </div>
-                <div id="scrollspy-element" data-bs-spy="scroll" data-bs-target="#navbar-interface" data-bs-offset="200"
-                    class="scrollspy-example" tabindex="0"
-                    style="height: 93vh; margin: 0 0 0 0; padding: 0px 3vw 0px 2vw;">
-                    <div id="intro-tour-input">
+                <div  style="height: 93vh; margin: 0 0 0 0; padding: 0px 3vw 0px 2vw;">
+
+                
+                    <ul id="intro-tour-input" class="slist justify-content-between"  >
                         <div id="warningText"></div>
 
-                        <h2 id="scrollspyHeading1">1 Basic Information:</h2>
-
-                        <form class="" style="margin-left: 0px;" id="form_projectname">
-                            <h3>1.1 What is the project name or acronym?</h3>
-                            <label for="input_projectname"></label>
-                            <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
-                                placeholder="the project name"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-
-                        <form id="form_studyobject">
-                            <label for="input_studyobject">
-                                <h3 class="text-left">
-                                    1.2 Please briefly state
-                                    <a href="#" 
-                                        tabindex="-1" class="text-success" tabindex="-1" type="button"
-                                            data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj"
-                                            aria-controls="offcanvas-obj">the topic of the research project &#128712;
-                                            </a>
-
-                                </h3>
-                            </label>
-
-                            <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_studyobject" name="$_STUDYOBJECT"
-                                placeholder="the research object/target"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-
-
-                        </form>
-
-                        <form id="form_projectaim">
-                            <label class="" for="input_projectaim">
-                                <h3>
-                                    and the overall aim of the project
-                                    <a href="#"  class="text-success" type="button" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" 
-                                        tabindex="-1">
-                                            (what do you want to achieve?) &#128712;
-                                            
-                                    </a>
-                                </h3>
-                            </label>
-                            <textarea type="text" style="width: 90%;" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_projectaim" name="$_PROJECTAIM"
-                                placeholder="project aim" rows="3" style="width: 90%;"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'></textarea>
-
-
-                        </form>
-                        <form class="" style="margin-left: 0px;" id="form_datautility " >
-                            <h3> <a href="#" class="text-success"   tabindex="-1" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">
-                                    Who is the most likely to benefit from the data? &#128712;
-                                        </a> </h3>
-                            <label for="input_datautility"></label>
-                            <textarea style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="input_datautility" name="$_DATAUTILITY"
-                                placeholder="Industry, politicians and students can also use the data for different purposes."
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[2].focus();return false;} "
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
-
-								</textarea>
-
-
-                        </form>
-                        <form class="" style="margin-left: 0px;" id="form_username">
-                            <h3>1.3 <a id="" href="#" class="text-success infolink" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Other &#128712;
-                                     </a> DMP Metadata</h3>
-                            <label for="input_username">
-                                <h4> User Name: </h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_username" name="$_USERNAME"
-                                placeholder="type your name here"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-                        <form class="" style="margin-left: 0px;" id="form_email">
-                            <label for="input_email">
-                                <h4>User Email:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_email" name="$_EMAIL"
-                                placeholder="user email address"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_dataofficer">
-                            <label for="input_dataofficer">
-                                <h4><a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Data
-                                        Officer</a> Name:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_dataofficer"
-                                name="$_DATAOFFICER" placeholder="data officer name"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-
-                        <form class="" style="margin-left: 0px;" id="form_fundingprogramme">
-                            <label for="input_fundingprogramme">
-                                <h4> Funding Programme:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_fundingprogramme"
-                                name="$_FUNDINGPROGRAMME" placeholder="Action number or funding programme name"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_creationdate">
-                            <label for="input_creationdate">
-                                <h4> DMP Creation Date:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="date" id="input_creationdate"
-                                name="$_CREATIONDATE"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_modificationdate">
-                            <label for="input_modificationdate">
-                                <h4> DMP Last Modification:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="date" id="input_modificationdate"
-                                name="$_MODIFICATIONDATE"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_dmpversion">
-                            <label for="input_dmpversion">
-                                <h4>DMP version:</h4>
-                            </label>
-                            <input style="width: 90%;" class="" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" type="text" id="input_dmpversion" name="$_DMPVERSION"
-                                placeholder="Version of the DMP"
-                                onkeydown=" if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-                        </form>
-
-                        <h3> 1.4 Please select from the following options</h3>
-                        <div class="form-data_type form-check" id="form_checkbox_1"
-                            onchange="this.nextElementSibling.click();">
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="1"
-                                    id="check_protect" />
-                                <label class="form-check-label" id="check_protect_label" for="check_protect">
-                                    The data is protected.
-                                </label>
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="2"
-                                    id="check_dataplant" />
-                                <!--data-bs-toggle="collapse"
-									data-bs-target="#form_checkbox_5"
-									aria-expanded="false"
-									aria-controls="form_checkbox_5"
-									role="button"-->
-                                <label class="form-check-label" for="check_dataplant">
-
-                                    Yes! I will use <a class="text-primary" href="https://nfdi4plants.github.io/"
-                                        target="_blank" data-toggle="tooltip"
-                                        title="An NFDI consortium of plant research."
-                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
-                                </label>
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update"
-                                     />
-                                <label class="form-check-label" for="check_update">
-                                    This project will be updated at:
-                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
-                                placeholder="month of update"
-                                onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
-                                </label>
-                            </div>
-                            <div>
-
-                                <input class="form-check-input checkbox_1" type="checkbox" value="4"
-                                    id="check_previousprojects"  />
-                                <label class="form-check-label" for="check_previousprojects">
-                                    This project has previous projects.
-                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                    onchange="onchange_replace(this);" id="intput_previousprojects"
-                                    name="$_PREVIOUSPROJECTS" placeholder="previous project here"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-    
-                                </label>
-
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="5"
-                                    id="check_industry" />
-                                <label class="form-check-label" for="check_industry">
-                                    This is an industry project.
-                                </label>
-                            </div>
-                            <div>
-
-                                <input class="form-check-input checkbox_1" type="checkbox" value="6"
-                                    id="check_proprietary" />
-                                <label class="form-check-label" for="check_proprietary">
-                                    This project use <a class="text-primary" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary"
-                                        href="#">proprietary software</a>.
-                                        <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                        onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
-                                        placeholder=" proprietary software "
-                                        onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                        onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                        onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-                                </label>
-                            </div>
-                            <div>
-
-                                <input class="form-check-input checkbox_1" type="checkbox" value="7"
-                                    id="check_partners" />
-                                <label class="form-check-label" for="check_partners">
-                                    This project has partners.
-                                    <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                    onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
-                                    placeholder="partner name"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})'>
-                                </label>
-                            </div>
-                            <div>
-                                <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_eu" />
-                                <label class="form-check-label" for="check_eu">
-                                    EU project.
-                                </label>
-                            </div>
-                        </div>
-
-                        <input class="btn btn-primary form-check collapse btn-sm d-none" type="button"
-                            id="form-check-input" data-checkbox="checkbox_1" value="submit"
-                            onclick="get_option(this)" />
-
-
-
-
-
-                        <!--<form class="collapse" id="form_updatemonth">
-                            <label for="intput_updatemonth">At which month will your project be updated?</label>
-                             />
-
-
-                        </form>
-
-
-
-
-                        <form class="collapse" id="form_previousprojects">
-                            <label for="intput_previousprojects">What is the name of your previous project?</label>
-                           
-
-                        </form>
-
-
-
-
-                        <form class="collapse" id="form_proprietary">
-                            <label for="input_proprietary">What is the name of your proprietary software?</label>
-
-                           
-
-
-                        </form>-->
-
-
-                        <form class="show" id="form_checkbox_2" onchange="this.nextElementSibling.click();">
-                            <h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"
-                                    data-replace="genetic data" data-replacede="genetische Daten" />
-                                <label class="form-check-label" for="check_genetic"> Genetic data </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic"
-                                    data-replace="genomic data" data-replacede="genomische Daten" />
-                                <label class="form-check-label" for="check_genomic">
-                                    Other NGS (genomics)
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
-                                    data-replace="cloned DNA" data-replacede="geklonte DNA" />
-                                <label class="form-check-label" for="check_cloned-dna">
-                                    Cloned DNA
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"
-                                    data-replace="transcriptomic data" data-replacede="transkriptomische Daten" />
-                                <label class="form-check-label" for="check_transcriptomic">
-                                    Transcriptomics
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_rnaseq"
-                                    data-replace="RNA-Seq data" data-replacede="RNA-Seq-Daten" />
-                                <label class="form-check-label" for="check_rnaseq">
-                                    RNAseq
-                                </label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_metabolomic"
-                                    data-replace="metabolomic data" data-replacede="metabolomische Daten" />
-                                <label class="form-check-label" for="check_metabolomic">
-                                    Metabolomics
-                                </label>
-
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"
-                                    data-replace="proteomic data" data-replacede="proteomische Daten" />
-                                <label class="form-check-label" for="check_proteomic">
-                                    Proteomics
-                                </label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"
-                                    data-replace="plant phenotypic data" data-replacede="Pflanzenphänotypische Daten" />
-                                <label class="form-check-label" for="check_phenotypic">
-                                    Plant phenotypic data
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_targeted"
-                                    data-replace="targeted assays (e.g. glucose and fructose content)"
-                                    data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)" />
-                                <label class="form-check-label" for="check_targeted">
-                                    Targeted assays (e.g. glucose and fructose content)
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_image"
-                                    data-replace="image datasets" data-replacede="Bilddatensätze" />
-                                <label class="form-check-label" for="check_image">
-                                    Image datasets
-                                </label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_models"
-                                    data-replace="model outputs" data-replacede="Modellausgänge" />
-                                <label class="form-check-label" for="check_models">
-                                    Models
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_code"
-                                    data-replace="computational code" data-replacede="Rechencode" />
-                                <label class="form-check-label" for="check_code">
-                                    Code
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_excel"
-                                    data-replace="excel data" data-replacede="Excel-Daten" />
-                                <label class="form-check-label" for="check_excel">
-                                    <a href="#" class="text-primary" data-toggle="tooltip"
-                                        title="includes other tabular data (e.g. .csv, .tab)"
-                                        data-original-title="excel data">Excel </a>
-                                </label>
-                            </div>
-
-
-
-
-                        </form>
-
-
-
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box2"
-                            value="submit data type" data-checkbox="checkbox_2" onclick="get_option(this)" class=>
-
-                        <div class="" id="form_checkbox_5" onchange="this.nextElementSibling.click();">
-                            <div class=" d-grid gap-1">
-                                <h3> 2.1 Where will you submit your data as endpoints?</h3>
-
-
-                                <div class="collapse check_geneticrepo check_genomicrepo"
-                                    id="genbank">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="3"
-                                        id="check_genbank" />
-                                    <label class="form-check-label" for="check_genbank">
-                                        NCBI-GenBank
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo  check_transcriptomicrepo"
-                                    id="sra">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_sra" />
-                                    <label class="form-check-label" for="check_sra">
-                                        NCBI-SRA (Sequence Read Archive)
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo check_transcriptomicrepo" id="geo">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="2"
-                                        id="check_geo" />
-                                    <label class="form-check-label" for="check_geo">
-                                        NCBI-GEO (Gene Expression Omnibus)
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo check_transcriptomicrepo"
-                                    id="ENA">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_ena" />
-                                    <label class="form-check-label" for="check_ena">
-                                        EBI-ENA (European Nucleotide Archive)
-                                    </label>
-                                </div>
-                                <div class="collapse check_geneticrepo check_genomicrepo check_transcriptomicrepo"
-                                    id="arrayexpress">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_arrayexpress" />
-                                    <label class="form-check-label" for="check_arrayexpress">
-                                        EBI-ArrayExpress
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_metabolomicrepo" id="metabolights">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_metabolights" />
-                                    <label class="form-check-label" for="check_metabolights">
-                                        EBI-Metabolights
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_proteomicrepo" id="pride">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_pride" />
-                                    <label class="form-check-label" for="check_pride">
-                                        EBI-PRIDE (PRoteomics IDEntifications Database)
-                                    </label>
-                                </div>
-
-                                <div class="collapse  check_imagerepo" id="Bioimage">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_bioimage" />
-                                    <label class="form-check-label" for="check_bioimage">
-                                        EBI-BioImage Archive
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_imagerepo" id="IDR">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="1"
-                                        id="check_idr" />
-                                    <label class="form-check-label" for="check_idr">
-                                        IDR (Image Data Resource)
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_phenotypicrepo" id="edal">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_edal" />
-                                    <label class="form-check-label" for="check_edal">
-                                        e!DAL-PGP (Plant Genomics & Phenomics Research Data Repository)
-                                    </label>
-
-                                </div>
-
-
-                                <div class="collapse check_metabolomicrepo" id="MetabolomicsWorkbench">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_metaworkbench" />
-                                    <label class="form-check-label" for="check_metaworkbench">
-                                        Metabolomics Workbench
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_metabolomicrepo" id="intact">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_intact" />
-                                    <label class="form-check-label" for="check_intact">
-                                        IntAct (Molecular interactions)
-                                    </label>
-                                </div>
-
-
-
-
-                                <div class="collapse check_proteomicrepo" id="pdb">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_pdb" />
-                                    <label class="form-check-label" for="check_pdb">
-                                        PDB (Protein Data Bank)
-                                    </label>
-                                </div>
-
-                                <div class="collapse check_proteomicrepo" id="chebi">
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_chebi" />
-                                    <label class="form-check-label" for="check_chebi">
-                                        Chebi (Chemical Entities of Biological Interest)
-                                    </label>
-                                </div>
-
-
-
-                                <!--
-                                    <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_GenBank" />
-                                    <label class="form-check-label" for="check_GenBank">
-                                        genbank
-                                    </label>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Proteomexchange" />
-                                        <label class="form-check-label" for="check_Proteomexchange">
-                                            proteomexchange
-                                        </label>
-                                    </div>
-                                    
-                                    <div>
-                                        <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_Zenodo" />
-                                        <label class="form-check-label" for="check_Zenodo">
-                                            zenodo
-                                        </label>
-                                    </div>
-                                    
-                                    <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4" id="check_dataDyrad" />
-                                    <label class="form-check-label" for="check_dataDyrad">
-                                        dataDyrad
-                                    </label>
-                                    </div>-->
-
-                                <div>
-                                    <input class="form-check-input checkbox_5" type="checkbox" value="4"
-                                        id="check_otherep" />
-                                    <label class="form-check-label" for="check_otherep">
-                                        Other Endpoint Repositories:
-                                        <input data-replace="other endpoint repositories" style="width: 24vw;"
-                                            type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
-                                            onchange="onchange_replace(this);" name="$_OTHEREP"
-                                            onchange=' saved_a["replace"]["$_OTHEREP"]= this.value '
-                                            placeholder="complete sentence of the other endpoint repositories"
-                                            onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }' />
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <input class="btn collapse btn-primary form-check btn-sm d-none" type="button"
-                            id="small-form-check-input" data-checkbox="checkbox_5" value="submit"
-                            onclick='get_option(this)' />
-                        <!---->
-
-
-                        <h2 id="scrollspyHeading3">3. How much data will you likely to generate?</h2>
-
-                        <form class="" style="margin-left: 0px;" id="form_rawdata">
-                            <label for="input_rawdata">
-                                <h3>3.1 Raw data volume?</h3>
-                            </label>
-                            <div class="align-bottom">
-                                <input style="width: 24vw;" type="text" class="col-auto" id="input_rawdata"
-                                    onfocusin="this.select();" onchange="onchange_replace(this);" name="$_RAWDATA"
-                                    placeholder="raw data volume (in GB)"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-                                GB
-
-
-                            </div>
-                        </form>
-
-                        <form class="" style="margin-left: 0px;" id="form_deriveddata">
-                            <label for="input_deriveddata">
-                                <h3>3.2 Processed data volume?</h3>
-                            </label>
-                            <div class="align-bottom">
-                                <input style="width: 24vw;" type="text" class="col-auto" id="input_deriveddata"
-                                    onfocusin="this.select();" onchange="onchange_replace(this);" name="$_DERIVEDDATA"
-                                    placeholder="derived data volume (in GB)"
-                                    onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.children[1].children[0].focus();return false;}"
-                                    onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                    onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-                                GB
-
-
-                            </div>
-                        </form>
-
-                        <div class=" " id="form_checkbox_3" onchange="this.nextElementSibling.click();">
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-
-                            <h2 id="scrollspyHeading4">4. Are any of the following standards relevant to your project?
-                            </h2>
-                            <div class=" d-grid gap-1">
-
-                                <div class="collapse check_phenotypicrepo" id="miappe">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_miappe" />
-                                    <label class="form-check-label" for="check_miappe">
-                                        MIAPPE (Minimum Information About a Plant Phenotyping Experiment) 
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miappe" aria-controls="offcanvas-miappe" > more info &#128712; </a>
-
-                                </div>
-
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mixs">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mixs" />
-                                    <label class="form-check-label" for="check_mixs">
-                                        MIxS (Minimum Information about any (X) Sequence)
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mixs" aria-controls="offcanvas-mixs" > more info &#128712; </a>
-                                </div>
-
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="migseu">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_migseu" />
-                                    <label class="form-check-label" for="check_migseu">
-                                        MigsEu (Minimum Information about a Genome Sequence: Eucaryote)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-migseu" aria-controls="offcanvas-migseu" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="migsorg">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_migsorg" />
-                                    <label class="form-check-label" for="check_migsorg">
-                                        MigsOrg (Minimum Information about a Genome Sequence: Organelle)
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-migsorg" aria-controls="offcanvas-migsorg" > more info &#128712; </a>
-                                </div>
-
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mims">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mims" />
-                                    <label class="form-check-label" for="check_mims">
-                                        MIMS (Minimum Information about Metagenome or Environmental)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mims" aria-controls="offcanvas-mims" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark1">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimarksspecimen" />
-                                    <label class="form-check-label" for="check_mimarksspecimen">
-                                        MIMARKSSpecimen (Minimal Information about a Marker Specimen: Specimen)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimarksspecimen" aria-controls="offcanvas-mimarksspecimen" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark2">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimarkssurvey" />
-                                    <label class="form-check-label" for="check_mimarkssurvey">
-                                        MIMARKSSurvey (Minimal Information about a Marker Specimen: Survey)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimarksurvey" aria-controls="offcanvas-mimarksurvey" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo" id="misag">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_misag" />
-                                    <label class="form-check-label" for="check_misag">
-                                        MISAG (Minimum Information about a Single Amplified Genome)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-misag" aria-controls="offcanvas-misag" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_genomicrepo" id="mimag">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="3"
-                                        id="check_mimag" />
-                                    <label class="form-check-label" for="check_mimag">
-                                        MIMAG (Minimum Information about Metagenome-Assembled Genome)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimag" aria-controls="offcanvas-mimag" > more info &#128712; </a>
-                                </div>
-                                <div class="collapse check_transcriptomicrepo" id="miame">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_miame" /> 
-                                    <label class="form-check-label" for="check_miame">
-                                        MIAME (Minimum Information About a Microarray Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miame" aria-controls="offcanvas-miame" > more info &#128712; </a> 
-                                </div>
-                                <div class="collapse check_metabolomicrepo" id="miamet">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_mmiamet" />
-                                    <label class="form-check-label" for="check_mmiamet">
-                                        MIAMET (Minimum Information About a METabolomics experiment)
-                                    </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miamet" aria-controls="offcanvas-miamet" > more info &#128712; </a> 
-                                </div>
-                                <div class="collapse check_transcriptomicrepo check_rnaseqrepo" id="minseqe">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_minseqe" />
-                                    <label class="form-check-label" for="check_minseqe">
-                                        MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-minseqe" aria-controls="offcanvas-minseqe" > more info &#128712; </a> 
-                                </div>
-
-
-
-                                <div class="collapse check_imagerepo" id="rembi">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                        id="check_rembi" />
-                                    <label class="form-check-label" for="check_rembi">
-                                        REMBI (Recommended Metadata for Biological Images)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-rembi" aria-controls="offcanvas-rembi" > more info &#128712; </a> 
-                                </div>
-
-
-                                <div class="collapse check_proteomicrepo" id="miape">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_miape" />
-                                    <label class="form-check-label" for="check_miape">
-                                        MIAPE (Minimum Information About a Proteomics Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-miape" aria-controls="offcanvas-miape" > more info &#128712; </a>
-                                </div>
-
-                                <div class="collapse check_proteomicrepo" id="mimix">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="4"
-                                        id="check_mimix" />
-                                    <label class="form-check-label" for="check_mimix">
-                                        MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment)
-                                    </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-mimix" aria-controls="offcanvas-miape" > more info &#128712; </a>
-                                </div>
-
-                                <div class="form-data_type form-check">
-                                    <input class="form-check-input checkbox_3" type="checkbox" value="10"
-                                        id="check_otherstandards" />
-                                    <label class="form-check-label" for="check_otherstandards">
-
-                                        <input style="width: 24vw;" type="text" class="col-auto"
-                                            id="input_otherstandardinput" onfocusin="this.select();"
-                                            onchange="onchange_replace(this);" name="$_OTHERSTANDARDINPUT"
-                                            onchange=' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
-                                            placeholder="complete sentence of the other standards"
-                                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
-                                            onfocus='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )'
-                                            onfocusout='const name1 = this.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})' />
-
-
-
-                                    </label>
-                                </div>
-                            </div>
-                            <!---->
-                            <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_dublincore" />
-                                <label class="form-check-label" for="check_dublincore">
-                                    Dublin Core
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-dublincore" aria-controls="offcanvas-dublincore" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_darwincore" />
-                                <label class="form-check-label" for="check_darwincore">
-                                    Darwin Core
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-darwincore" aria-controls="offcanvas-darwincore" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_schemaorg" />
-                                <label class="form-check-label" for="check_schemaorg">
-                                    Schema.org
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-schemaorg" aria-controls="offcanvas-schemaorg" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1"
-                                    id="check_bioschemas" />
-                                <label class="form-check-label" for="check_bioschemas">
-                                    bioschemas
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-bioschemas" aria-controls="offcanvas-bioschemas" > more info &#128712; </a>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="2"
-                                    id="check_marc21" />
-                                <label class="form-check-label" for="check_marc21">
-                                    MARC 21
-                                </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas-marc21" aria-controls="offcanvas-marc21" > more info &#128712; </a>
-                            </div>
-                            <!---->
-                            <h3>4.2 Project data will be published:</h3>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_early"
-                                    role="button" />
-                                <label class="form-check-label" for="check_early"> Immediately upon collection</label>
-                            </div>
-
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox"
-                                    id="check_beforepublication" />
-                                <label class="form-check-label" for="check_beforepublication">
-                                    Upon publication of findings.
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_endofproject" />
-                                <label class="form-check-label" for="check_endofproject">
-                                    At the end of project.
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_embargo" />
-                                <label class="form-check-label" for="check_embargo">
-                                    After embargo period.
-                                </label>
-                            </div>
-
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_request" />
-                                <label class="form-check-label" for="check_request">
-                                    Upon request.
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
-                                <label class="form-check-label" for="check_ipissue">
-                                    Upon IP issues have been addressed.
-                                </label>
-                            </div>
-
-                            <h3>4.4 Will you follow national standards or archived in national infrastructures?</h3>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
-                                    />
-                                <label class="form-check-label" for="check_nfdi">
-                                    German NFDI
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_french"
-                                    />
-                                <label class="form-check-label" for="check_french">
-                                    French INRAe
-                                </label>
-                            </div>
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_eosc"
-                                    />
-                                <label class="form-check-label" for="check_eosc">
-                                    Europe EOSC
-                                </label>
-                            </div>
-
-
-
-                            <!---->
-                            <h2 id="scrollspyHeading5">5. Do you intend to use data visualization in your project?</h2>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization">
-                                <label class="form-check-label" for="check_vvisualization">Yes, I visualize my data.
-                                </label>
-
-
-
-                            </div>
-                        </div>
-                        <input class="btn btn-primary btn-sm d-none" type="button" id="check_box3"
-                            value="submit data type" data-checkbox="checkbox_3" onclick="get_option(this)">
-
-
-
-
-
-
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                </div>
-            </div>
-            <div class="progress position-fixed bottom-0" style="margin: 0 0 0 0; padding: 0 0 0 0; width: 100vw;">
-                <div name="progress_bar" class="progress-bar progress-bar-striped"
-                    aria-label="a progress bar to show how many questions have been answered" role="progressbar"
-                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="p-bar"
-                    style="margin: 0 0 0 0; padding: 0 0 0 0; z-index: 99;"></div>
-            </div>
+                    
+            </ul>
+        </div>
         </div>
     </div>
     <!-- offcanvas for  study objects-->
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-aim" aria-labelledby="offcanvasScrolling1">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling1">The project aim should be a apart of a sentence.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant
-                architecture</p>
-            <br />
-            <p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as
-                open as possible</p>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-obj" aria-labelledby="offcanvasScrolling2">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling2">The project object = target.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b> carbon and water flow in plants</p>
-            <br />
-            <p><b> Example 2: </b> data management plan</p>
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-utility" aria-labelledby="offcanvasScrolling3">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling3">Here is the space for additional sentence.</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p><b> Example 1: </b> Industry, politicians and students can also use the data for different purposes.</p>
-            <br />
-            <p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different
-                purpose.</p>
-        </div>
-    </div>
-
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-other" aria-labelledby="offcanvasScrolling4">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling4"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p>Information in this section is only used in DMP metadata and not used in the document</p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-officer" aria-labelledby="offcanvasScrolling5">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling5"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p>Data officers are also known as data stewards and curator.</p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-proprietary" aria-labelledby="offcanvasScrolling6">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling6"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p>software that legally remains the property of the organization, group, or individual who created it.
-            </p>
-
-        </div>
-    </div>
-
-
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-template-input" aria-labelledby="offcanvasScrolling7" style="width:70vw">
-        <div class="offcanvas-header">
-            <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
-                <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
-                    onclick='document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML); dmpStrings["user-defined"]=document.getElementById("user-defined").innerHTML; setTimeout(()=> {load_dmp(reload_answers, name ="user-defined");}, 1000) ;'>
-                    submit
-                </button></h1>
-
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-
-        <div class="offcanvas-body" style="padding-top: 0px;">
-            <h2 style="padding-top: 0px;">
-                You can click the dotted box to start editing. <br />
-                Click the grey buttons to reuse templates. <br />
-                Click submit when you finished.
-                <br />
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["Horizon2020_DMP"]; '>H2020
-                    DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["horizon_europe"]; '>Horizon
-                    Europe DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["dfg-dmp"]; '>DFG
-                    DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["practical-guide"]; '>Practical
-                    Guide</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["bmbf-dmp"]; '>BMBF
-                    DMP (Beta test)</button>
-
-            </h2>
-            <div id="template-input-content" contenteditable="true" style="border: 3px dotted black;"></div>
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-miappe" aria-labelledby="offcanvasScrolling8">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling8"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p> MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
-                More information can be found on: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
-            </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvas-mixs" aria-labelledby="offcanvasScrolling9">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling9"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <p> The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. 
-                More information can be found on: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
-            </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-migseu" aria-labelledby="offcanvasScrolling10">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling10"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
-        </p>
-
-        </div>
-    </div>
     
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-migsorg" aria-labelledby="offcanvasScrolling11">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling11"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Minimum Information about a Genome Sequence: Organelle. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
-        </p>
-
-        </div>
-    </div>
-
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mims" aria-labelledby="offcanvasScrolling12">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling12"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimarksspecimen" aria-labelledby="offcanvasScrolling13">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling13"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimarksurvey" aria-labelledby="offcanvasScrolling14">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling14"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-misag" aria-labelledby="offcanvasScrolling15">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling16"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimag" aria-labelledby="offcanvasScrolling16">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling16"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-miame" aria-labelledby="offcanvasScrolling17">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling17"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>  the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-miamet" aria-labelledby="offcanvasScrolling18">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling18"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>  MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-minseqe" aria-labelledby="offcanvasScrolling19">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling19"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>  MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-rembi" aria-labelledby="offcanvasScrolling20">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling20"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>   Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
-        </p>
-
-        </div>
-    </div>
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-miape" aria-labelledby="offcanvasScrolling21">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling21"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p>   The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-mimix" aria-labelledby="offcanvasScrolling22">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling22"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-dublincore" aria-labelledby="offcanvasScrolling23">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling23"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-darwincore" aria-labelledby="offcanvasScrolling24">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling24"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-schemaorg" aria-labelledby="offcanvasScrolling25">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling25"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-bioschemas" aria-labelledby="offcanvasScrolling26">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling26"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-marc21" aria-labelledby="offcanvasScrolling27">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasScrolling27"></h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <p> The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
-        </p>
-
-        </div>
-    </div>
-
     <!-- Button trigger modal -->
     <button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#dmp_update">
@@ -1738,12 +907,12 @@ document.addEventListener("DOMContentLoaded", function(arg) {
 
     <!-- Modal citation-->
     <div class="modal modal-xl" id="citation_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="update-label" aria-hidden="true">
+        aria-labelledby="citation_modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="update-label">You can cite this tool</h5>
-                    <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal"
+                    <h5 class="modal-title" id="citation_modal-label">You can cite this tool</h5>
+                    <button type="button" id="citation_modal_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body row justify-content-center">
@@ -1795,6 +964,68 @@ document.addEventListener("DOMContentLoaded", function(arg) {
             </div>
         </div>
     </div>
+
+
+    <div class="modal modal-xl" id="textinput_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="textinput_modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="textinput_modal-label">Add a question to ask the users about this text input field</h5>
+                <button type="button" id="textinput_modal_close" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body row justify-content-center">
+                <div class="input-group">
+                    <span class="input-group-text">Question</span>
+                    <textarea id="textInputQuestion"  class="form-control" aria-label="Question"></textarea>
+                  </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="">Place Holder</span>
+                    <input type="text" id="textInputPlaceholder" class="form-control" placeholder="Place Holder" aria-label="Place Holder" aria-describedby="basic-addon1">
+                  </div>    
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="createTextQuestion()" data-bs-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-xl" id="checkbox_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="checkbox_modal-label" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="checkbox_modal-label">Add a question to ask the users about this checkbox field</h5>
+            <button type="button" id="checkbox_modal_close" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+        </div>
+        <div class="modal-body row justify-content-center">
+            <div class="input-group">
+                <span class="input-group-text">Question</span>
+                <textarea id="checkboxQuestion" class="form-control" aria-label="Question"></textarea>
+              </div>
+            <ul class="mb-3 slist align-items-center"  id="checkboxOptionPool">
+                
+            </ul> 
+            
+            <div id="optionPool">
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="createCheckboxQuestion()" data-bs-dismiss="modal">Submit</button>
+        </div>
+    </div>
+</div>
+</div>
     <!-- offcanvas dmp storage management-->
     <div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false"
         data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas"

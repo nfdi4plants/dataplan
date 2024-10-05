@@ -102,7 +102,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
 
             <li class="c0 li-bullet-0"><span class="c0">Methods for Data Sharing &ndash; <p class="c0">
                         <span class="c1">
-                            Data will be made available via the $_PROJECTNAME platform using a user-friendly front end
+                            Data will be made available via the $_PROJECTNAME platform or a public platform using a user-friendly frontend
                             that allows data visualization. Besides this it will be ensured that data which can be
                             stored in
                             international discipline related repositories which use specialized technologies:
@@ -110,8 +110,8 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
 
 
                             <p class="c0">
-                                <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                                    #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC . #endif$_GENETIC|$_GENOMIC </span>
+                                <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC|$_RNASEQ For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                                    #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC|$_RNASEQ . #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
                             </p>
 
                             <p class="c0">
@@ -146,6 +146,8 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                             </p>
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be
                             processed there as well. #endif$_OTHEREP
+
+                            #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, commandline tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT
                         </span>
                     </p></span></li li class="c0 li-bullet-0"><span class="c0">Proprietary Data &ndash; Open public
                 data will be used whenever possible. </span></li>
