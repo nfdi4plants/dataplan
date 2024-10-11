@@ -46,7 +46,23 @@
 		.c16{background-color:#ffffff}.c11{font-weight:700}
 		.title{padding-top:0pt;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
 		.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
-		
+        .c001 {
+            border-right-style: solid;
+            padding: 0pt 5.4pt 0pt 5.4pt;
+            border-bottom-color: #000000;
+            border-top-width: 1pt;
+            border-right-width: 1pt;
+            border-left-color: #000000;
+            vertical-align: top;
+            border-right-color: #000000;
+            border-left-width: 1pt;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-width: 1pt;
+            
+            border-top-color: #000000;
+            border-bottom-style: solid
+        }
 		p{margin:0;font-size:12pt;font-family:"Arial"; white-space: normal}
 
 		h2{padding-top:18pt;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2; text-align: justify; text-align-last: left;}
