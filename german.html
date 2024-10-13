@@ -18,12 +18,17 @@
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
 
+    
     <script src="DMPDocs/BBSRC-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmbf-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
+    
     <script src="DMPDocs/dfg-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/horizon_europe-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/Horizon2020_DMP-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/practical-guide.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="DMPDocs/bmbf-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2024-10-11.js" type="text/javascript" charset="utf-8"></script>
+    
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -62,6 +67,7 @@
         "horizon_europe" : horizon_europe.horizon_europe,
         "dfg-dmp" : dfg_dmp["dfg-dmp"],
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
+        "vw-dmp": vw_dmp["vw-dmp"],
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
         "practical-guide": practical_guide["practical-guide"],
         "user-defined": window.localStorage.getItem("fulltext_user"),
@@ -94,7 +100,7 @@
     var convertedEle;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{ "dmp": { "title": "DMP des Beispielprojekts", "contact": { "contact_id": { "identifier": "http://orcid.org/0000-0000-0000-0000", "type": "orcid" }, "mbox": "E-Mail des DMP", "name": "DMP des Beispielbenutzers" }, "created": "2024-06-19T16:45:09.7", "dmp_id": { "identifier": "https://doi.org/10.0000/00.0.1234", "type": "doi" }, "dataset": [ { "dataset_id": { "identifier": "https://doi.org/10.0000/00.0.5678", "type": "doi" }, "title": "Platzhalter-Datensatz", "personal_data": "unbekannt", "sensitive_data": "unbekannt" } ], "ethical_issues_exist": "unbekannt", "language": "eng", "modified": "2024-07-09T10:53:50.4", "submission": "2024-07-09T10:53:50.4", "version": "1.0" }, "replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_DMPVERSION": "1.0", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_DATAUTILITY": "Industrie, Politiker und Studenten können die Daten auch für verschiedene Zwecke nutzen.", "$_UPDATEMONTH": "Beispielmonat", "$_PREVIOUSPROJECTS": "Name des vorherigen Projekts", "$_PROPRIETARY": "Proprietäre Software", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx", "$_OTHERSTANDARDINPUT": "andere Standards", "$_OTHEREP": "Andere Repositories", "$_PARTNERS": "Name des Partners", "$_ADDPROJECTCOORDINATOR": "Projektkoordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project", "$_ADDACRONYM":"Example Acronym","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
@@ -1549,6 +1555,9 @@
             case "bmbf":
                 load_dmp(reload_answers, name = "bmbf-dmp");
                 break;
+            case "vw-dmp":
+                load_dmp(reload_answers, name = "vw-dmp");
+                break;
             case "PracticeGuide":
                 load_dmp(reload_answers, name = "practical-guide");
                 break;
@@ -2635,29 +2644,14 @@ END:VEVENT`;
                                 ∨ </span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>
-                                <button id="detailed_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020</button>
-                            </li>
-                            <li>
-                                <button id="detailed_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
-                            </li>
-                            <li>
-                                <button id="detailed_dfg-dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
-                            </li>
-                            <li>
-                                <button id="detailed_BBSRC-dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
-                            </li>
+
                             <li>
                                 <button id="proposal_save" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
                             </li>
                             <li>
-                                <button id="guide_save" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
+                                <button id="vw_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="vw-dmp")'>Volkswagen Stiftung DMP</button>
                             </li>
                             <li>
                                 <a id="template-input" class="dropdown-item" data-bs-toggle="offcanvas"
@@ -2675,7 +2669,8 @@ END:VEVENT`;
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
+                                    onclick="window.localStorage.clear();document.location.reload()">Restore Default
+                                    (Clear Input)</button>
                             </li>
                             <li>
                                 <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
@@ -2719,7 +2714,7 @@ END:VEVENT`;
                     <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                         <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown"
                             aria-expanded="false" id="change_template">
-                            Templates &nbsp;
+                            Vorlage &nbsp;
 
                             <span
                                 style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
@@ -2727,36 +2722,19 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button id="detailed_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020 DMP</button>
-                            </li>
-                            <li>
-                                <button id="detailed_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
-                            </li>
-                            <li>
-                                <button id="detailed_dfg-dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
-                            </li>
-                            <li>
-                                <button id="detailed_BBSRC-dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
-                            </li>
-
-                            <li>
                                 <button id="proposal_save" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
                             </li>
                             <li>
-                                <button id="guide_save" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
+                                <button id="vw_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="vw-dmp")'>Volkswagen Stiftung DMP</button>
                             </li>
                             <li>
                                 <a id="template-input" class="dropdown-item" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-template-input" aria-controls="offcanvas-template-input"
                                     onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
                                     href="#">
-                                    User-defined Template
+                                    Benutzerdefinierte Vorlage
                                 </a>
                             </li>
                         </ul>
@@ -2774,57 +2752,57 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <label for="upload" class="form-label dropdown-item">
-                                    Import Answers
+                                    Antworten importieren
                                     <input class="form-control d-none" type="file" id="upload" />
                                 </label>
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
+                                    onclick="window.localStorage.clear();document.location.reload()">Standardeingabe wiederherstellen</button>
                             </li>
                             <li>
                                 <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
-                                    Generate Word Cloud
+                                    Generieren Sie eine Wortwolke
                                 </button>
                             </li>
                             <li>
 
                                 <div class="form-check form-switch ">
                                     <input id="word_cloud_switchl" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
-                                    <label class="form-check-label" for="word_cloud_switchl">Word Cloud Switch</label>
+                                    <label class="form-check-label" for="word_cloud_switchl">Wortwolkeschalter</label>
                                 </div>
 
                             </li>
                             <li>
                                 <label for="image_upload" class="form-label dropdown-item">
-                                    Upload Frontpage Image
+                                    Laden Sie das Titelbild hoch
                                     <input class="form-control d-none" type="file" id="image_upload_menu"
                                         onchange="upload_image()" />
                                 </label>
                             </li>
                             <li>
-                                <button id="load_from_cache" class="dropdown-item">Load from Cache &raquo;</button>
+                                <button id="load_from_cache" class="dropdown-item">Aus Cache laden &raquo;</button>
                                 <ul class="dropdown-menu  dropdown-submenu">
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache"
-                                            onclick="load_from_cache(1)" href="#">Slot 1</a>
+                                            onclick="load_from_cache(1)" href="#">Steckplatz 1</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache"
-                                            onclick="load_from_cache(2)" href="#">Slot 2</a>
+                                            onclick="load_from_cache(2)" href="#">Steckplatz 2</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache"
-                                            onclick="load_from_cache(3)" href="#">Slot 3</a>
+                                            onclick="load_from_cache(3)" href="#">Steckplatz 3</a>
 
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache"
-                                            onclick="load_from_cache(4)" href="#">Slot 4</a>
+                                            onclick="load_from_cache(4)" href="#">Steckplatz 4</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache"
-                                            onclick="load_from_cache(5)" href="#">Slot 5</a>
+                                            onclick="load_from_cache(5)" href="#">Steckplatz 5</a>
                                     </li>
                                 </ul>
                             </li>
@@ -2841,38 +2819,38 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>
-                                <button id="json_save" class="dropdown-item" onclick="save_json()">Export to
+                                <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Text kopieren</button>
+                                <button id="json_save" class="dropdown-item" onclick="save_json()">Exportieren nach
                                     JSON</button>
                                 <button id="docx_save" class="dropdown-item"
-                                    onclick='export2word("doc3", "DMP-DataPLAN")'>Export to Word</button>
-                                <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
+                                    onclick='export2word("doc3", "DMP-DataPLAN")'>Exportieren nach Word</button>
+                                <button id="print" class="dropdown-item" onclick="printDiv();">Druck Document</button>
 
 
 
 
-                                <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export
-                                    Document</button>
+                                <button id="odt_save" class="dropdown-item d-none" onclick="save()">
+                                    Document Exportieren </button>
                                 <button id="dmp_update_button" class="dropdown-item "
-                                    onclick="dmp_update(saved_a)">Remind me to Update DMP</button>
+                                    onclick="dmp_update(saved_a)">Erinnern Sie mich daran, DMP zu aktualisieren</button>
                             <li>
-                                <button id="save_to_cache" class="dropdown-item">Save to Cache &raquo;</button>
+                                <button id="save_to_cache" class="dropdown-item">Im Cache speichern &raquo;</button>
                                 <ul class="dropdown-menu dropdown-submenu">
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Slot 1</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Steckplatz 1</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Slot 2</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Steckplatz 2</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Slot 3</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Steckplatz 3</a>
 
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Slot 4</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Steckplatz 4</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Slot 5</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Steckplatz 5</a>
                                     </li>
                                 </ul>
                             </li>
@@ -2884,7 +2862,7 @@ END:VEVENT`;
                     <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                         <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown"
                             aria-expanded="false" id="help_menu">
-                            Help &nbsp;
+                            Helfen &nbsp;
 
                             <span
                                 style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
@@ -2893,12 +2871,12 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="tutorial_button" class="dropdown-item"
-                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">Tutorial</button>
+                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">Anleitung</button>
                             </li>
                             <li>
                                 <a id="wiki_button" class="dropdown-item" target="_blank"
                                     ref="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html"
-                                    target="_blank">Knowledge Base</a>
+                                    target="_blank">Wissensdatenbank</a>
                             </li>
                             <li>
                                 <a id="github_button" class="dropdown-item" target="_blank"
@@ -2908,15 +2886,14 @@ END:VEVENT`;
                             </li>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="classicModeBtn">
-                                <label class="form-check-label" for="classicModeBtn">Classic Mode</label>
+                                <label class="form-check-label" for="classicModeBtn">Klassischer Modus</label>
                             </div>
                             <li>
                                 <button id="print_q" class="dropdown-item"
-                                    onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print
-                                    Questions</button>
+                                    onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Fragen drucken</button>
                             </li>
                             <li>
-                                <button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog
+                                <button id="news" class="dropdown-item" onclick='cookie_modal.show()'>Neuigkeiten und Changelog
                                     <span class="badge bg-secondary">1</span>
                                     </span></button>
                             </li>
@@ -2941,19 +2918,19 @@ END:VEVENT`;
                     style="margin: auto; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80)">
                     <ul class="nav nav-fill nav-pills col-12 justify-content-center">
                         <li class="nav-item border-0">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading1">Basic Info</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading1">Basisinformation</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading2">Data Type</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading2">Datentyp</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading3">Data Volume</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading3">Datenvolumen</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading4">Data Standards</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading4">Datenstandards</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Datenanalyse</a>
                         </li>
                     </ul>
                 </nav>
@@ -2963,7 +2940,7 @@ END:VEVENT`;
             style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden;position:relative;">
             <div class="col-7" id="split-0"
                 style="position: relative;height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
-                <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/horizon_europe.js" target="_blank" id="editTemplate" title="Edit this template" style="position: fixed; top: 100px; left: calc(60vw - 5.5rem ); z-index:1030">Edit this <br> template</a>
+                <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/horizon_europe.js" target="_blank" id="editTemplate" title="Edit this template" style="position: fixed; top: 100px; left: calc(60vw - 5.5rem ); z-index:1030">Diese <br>Vorlage<br>  bearbeiten</a>
 
                 <div class="col-12" id="doc2"
                     style="top:7vh; overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
@@ -2975,7 +2952,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Copied to clipboard
+                                        Kopiert in die Zwischenablage
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -2985,7 +2962,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        The saved answers jave been updated
+                                        Die gespeicherten Antworten wurden aktualisiert.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -2995,7 +2972,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        All saved answers have been updated
+                                        Alle gespeicherten Antworten sind aktualisiert.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3005,7 +2982,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Answers has been saved
+                                        Antworten erfolgreich im Cache gespeichert.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3015,7 +2992,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Current answer has NOT been saved
+                                        Die aktuelle Antwort wurde NICHT gespeichert.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3025,7 +3002,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Cache was successfuly loaded
+                                        Aus dem Cache erfolgreich geladen.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3036,9 +3013,9 @@ END:VEVENT`;
                                 data-bs-autohide="true" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body m-auto">
-                                    All free text answers have been give. The checkboxes will not be tracked. <br> Copy text
+                                        Alle Texteingaben sind abgeschlossen. Die Kontrollkästchen werden nicht verfolgt. <br> Text kopieren
                                         <a href="#" data-toggle="tooltip" onclick="copy_doc()"
-                                            title="click to copy the document"> here
+                                            title="click to copy the document"> hier
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                 fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -3050,9 +3027,9 @@ END:VEVENT`;
                                                     d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                                             </svg>
 
-                                        </a> or <a href="#" onclick="save_json()">export answers</a> or
+                                        </a> or <a href="#" onclick="save_json()">Antworten exportieren</a> or
 
-                                        <a href="#" onclick='export2word("doc3", "DMP-DataPLAN") '>export to word</a>
+                                        <a href="#" onclick='export2word("doc3", "DMP-DataPLAN") '>Als Word exportieren</a>
 
 
                                     </div>
@@ -3063,7 +3040,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Load from cache failed because the slot selected is empty.
+                                        Das Laden aus dem Cache ist fehlgeschlagen, da der ausgewählte Slot leer ist.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3102,10 +3079,10 @@ END:VEVENT`;
                     <div id="intro-tour-input">
                         <div id="warningText"></div>
 
-                        <h2 id="scrollspyHeading1">1 Basic Information:</h2>
+                        <h2 id="scrollspyHeading1">1 Grundlegende Informationen:</h2>
 
                         <form class="" style="margin-left: 0px;" id="form_projectname">
-                            <h3>1.1 What is the project name or acronym?</h3>
+                            <h3>1.1 Wie lautet der Projektname oder das Akronym?</h3>
                             <label for="input_projectname"></label>
                             <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
@@ -3118,7 +3095,7 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_acronym"
                                          />
                                     <label class="form-check-label" for="check_acronym">
-                                        This project has an additional acronym:
+                                        Dieses Projekt hat ein zusätzliches Akronym:
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_addacronym" name="$_ADDACRONYM"
                                     placeholder="Add an acronym"
@@ -3133,11 +3110,11 @@ END:VEVENT`;
                         <form id="form_studyobject">
                             <label for="input_studyobject">
                                 <h3 class="text-left">
-                                    1.2 Please briefly state
+                                    1.2 Bitte erläutern Sie kurz
                                     <a href="#" 
                                         tabindex="-1" class="text-success" tabindex="-1" type="button"
                                             data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj"
-                                            aria-controls="offcanvas-obj">the topic of the research project &#128712;
+                                            aria-controls="offcanvas-obj">das Thema des Forschungsprojekts &#128712;
                                             </a>
 
                                 </h3>
@@ -3158,11 +3135,11 @@ END:VEVENT`;
                         <form id="form_projectaim">
                             <label class="" for="input_projectaim">
                                 <h3>
-                                    and the overall aim of the project
+                                    und das Gesamtziel des Projekts
                                     <a href="#"  class="text-success" type="button" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" 
                                         tabindex="-1">
-                                            (what do you want to achieve?) &#128712;
+                                            (was möchtest du erreichen?) &#128712;
                                             
                                     </a>
                                 </h3>
@@ -3179,7 +3156,7 @@ END:VEVENT`;
                         <form class="" style="margin-left: 0px;" id="form_datautility " >
                             <h3> <a href="#" class="text-success"   tabindex="-1" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">
-                                Who is most likely to benefit from the data? &#128712;
+                                Wer profitiert am wahrscheinlichsten von den Daten? &#128712;
                                         </a> </h3>
                             <label for="input_datautility"></label>
                             <textarea style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
@@ -3195,10 +3172,10 @@ END:VEVENT`;
                         </form>
                         <form class="" style="margin-left: 0px;" id="form_username">
                             <h3>1.3 <a id="" href="#" class="text-success infolink" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Other &#128712;
-                                     </a> DMP Metadata</h3>
+                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Andere &#128712;
+                                     </a> DMP-Metadaten</h3>
                             <label for="input_username">
-                                <h4> User Name: </h4>
+                                <h4> Benutzername: </h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_username" name="$_USERNAME"
@@ -3211,7 +3188,7 @@ END:VEVENT`;
                         </form>
                         <form class="" style="margin-left: 0px;" id="form_email">
                             <label for="input_email">
-                                <h4>User Email:</h4>
+                                <h4>Benutzer-E-Mail:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_email" name="$_EMAIL"
@@ -3225,9 +3202,8 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_dataofficer">
                             <label for="input_dataofficer">
-                                <h4><a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Data
-                                        Officer</a> Name:</h4>
+                                <h4>Name des <a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Datenschutzbeauftragten</a> </h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dataofficer"
@@ -3239,7 +3215,7 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_projectcoordinator"
                                          />
                                     <label class="form-check-label" for="check_projectcoordinator">
-                                        This project has a project coordinator:
+                                        Dieses Projekt hat einen Projektkoordinator:
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_addprojectcoordinator" name="$_ADDPROJECTCOORDINATOR"
                                     placeholder="Add a project coordinator"
@@ -3254,7 +3230,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_fundingprogramme">
                             <label for="input_fundingprogramme">
-                                <h4> Funding Programme:</h4>
+                                <h4> Förderprogramm:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_fundingprogramme"
@@ -3268,7 +3244,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_creationdate">
                             <label for="input_creationdate">
-                                <h4> DMP Creation Date:</h4>
+                                <h4> DMP-Erstellungsdatum:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_creationdate"
@@ -3282,7 +3258,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_modificationdate">
                             <label for="input_modificationdate">
-                                <h4> DMP Last Modification:</h4>
+                                <h4> DMP Letzte Änderung:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_modificationdate"
@@ -3296,7 +3272,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_dmpversion">
                             <label for="input_dmpversion">
-                                <h4>DMP version:</h4>
+                                <h4>DMP-Version:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dmpversion" name="$_DMPVERSION"
@@ -3308,14 +3284,14 @@ END:VEVENT`;
 
                         </form>
 
-                        <h3> 1.4 Please select from the following options</h3>
+                        <h3> 1.4 Bitte wählen Sie aus den folgenden Optionen</h3>
                         <div class="form-data_type form-check" id="form_checkbox_1"
                             >
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="1"
                                     id="check_protect" />
                                 <label class="form-check-label" id="check_protect_label" for="check_protect">
-                                    The data is protected.
+                                    Die Daten sind geschützt.
                                 </label>
                             </div>
                             <div>
@@ -3328,17 +3304,17 @@ END:VEVENT`;
 									role="button"-->
                                 <label class="form-check-label" for="check_dataplant">
 
-                                    Yes! I will use <a class="text-primary" href="https://nfdi4plants.github.io/"
+                                    Ja! Ich werde <a class="text-primary" href="https://nfdi4plants.github.io/"
                                         target="_blank" data-toggle="tooltip"
                                         title="An NFDI consortium of plant research."
-                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
+                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a> verwenden.
                                 </label>
                             </div>
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update"
                                      />
                                 <label class="form-check-label" for="check_update">
-                                    This project will be updated at:
+                                    Dieses Projekt wird aktualisiert unter:
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
                                 placeholder="month of update"
@@ -3352,7 +3328,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="4"
                                     id="check_previousprojects"  />
                                 <label class="form-check-label" for="check_previousprojects">
-                                    This project has previous projects.
+                                    Zu diesem Projekt gibt es Vorgängerprojekte.
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_previousprojects"
                                     name="$_PREVIOUSPROJECTS" placeholder="previous project here"
@@ -3367,7 +3343,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="5"
                                     id="check_industry" />
                                 <label class="form-check-label" for="check_industry">
-                                    This is an industry project.
+                                    Dies ist ein Industrieprojekt.
                                 </label>
                             </div>
                             <div>
@@ -3375,9 +3351,9 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="6"
                                     id="check_proprietary" />
                                 <label class="form-check-label" for="check_proprietary">
-                                    This project use <a class="text-primary" data-bs-toggle="offcanvas"
+                                    Dieses Projekt verwendet <a class="text-primary" data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary"
-                                        href="#">proprietary software</a>.
+                                        href="#">proprietäre Software</a>.
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                         onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
                                         placeholder=" proprietary software "
@@ -3391,7 +3367,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="7"
                                     id="check_partners" />
                                 <label class="form-check-label" for="check_partners">
-                                    This project has partners.
+                                    Dieses Projekt hat Partner.
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
                                     placeholder="partner name"
@@ -3403,7 +3379,7 @@ END:VEVENT`;
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_eu" />
                                 <label class="form-check-label" for="check_eu">
-                                    EU project.
+                                    EU-Projekt.
                                 </label>
                             </div>
                         </div>
@@ -3443,19 +3419,19 @@ END:VEVENT`;
 
 
                         <form class="show" id="form_checkbox_2" >
-                            <h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
+                            <h2 id="scrollspyHeading2">2. Welche Art von Daten werden Sie verarbeiten?</h2>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"
                                     data-replace="genetic data" data-replacede="genetische Daten" />
-                                <label class="form-check-label" for="check_genetic"> Genetic data </label>
+                                <label class="form-check-label" for="check_genetic"> Genetische Daten </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic"
                                     data-replace="genomic data" data-replacede="genomische Daten" />
                                 <label class="form-check-label" for="check_genomic">
-                                    Other NGS (genomics)
+                                    Andere NGS (Genomik)
                                 </label>
                             </div>
 
@@ -3463,7 +3439,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
                                     data-replace="cloned DNA" data-replacede="geklonte DNA" />
                                 <label class="form-check-label" for="check_cloned-dna">
-                                    Cloned DNA
+                                    Geklonte DNA
                                 </label>
                             </div>
 
@@ -3471,7 +3447,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"
                                     data-replace="transcriptomic data" data-replacede="transkriptomische Daten" />
                                 <label class="form-check-label" for="check_transcriptomic">
-                                    Transcriptomics
+                                    Transkriptomik
                                 </label>
                             </div>
 
@@ -3497,7 +3473,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"
                                     data-replace="proteomic data" data-replacede="proteomische Daten" />
                                 <label class="form-check-label" for="check_proteomic">
-                                    Proteomics
+                                    Proteomik
                                 </label>
                             </div>
 
@@ -3506,7 +3482,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"
                                     data-replace="plant phenotypic data" data-replacede="Pflanzenphänotypische Daten" />
                                 <label class="form-check-label" for="check_phenotypic">
-                                    Plant phenotypic data
+                                    Pflanzenphänotypische Daten
                                 </label>
                             </div>
 
@@ -3515,7 +3491,7 @@ END:VEVENT`;
                                     data-replace="targeted assays (e.g. glucose and fructose content)"
                                     data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)" />
                                 <label class="form-check-label" for="check_targeted">
-                                    Targeted assays (e.g. glucose and fructose content)
+                                    Gezielte Untersuchungen (zB Glucose- und Fructosegehalt)
                                 </label>
                             </div>
 
@@ -3523,7 +3499,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_image"
                                     data-replace="image datasets" data-replacede="Bilddatensätze" />
                                 <label class="form-check-label" for="check_image">
-                                    Image datasets
+                                    Bilddatensätze
                                 </label>
                             </div>
 
@@ -3532,7 +3508,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_models"
                                     data-replace="model outputs" data-replacede="Modellausgänge" />
                                 <label class="form-check-label" for="check_models">
-                                    Models
+                                    Modelle
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
@@ -3563,7 +3539,7 @@ END:VEVENT`;
 
                         <div class="" id="form_checkbox_5" >
                             <div class=" d-grid gap-1">
-                                <h3> 2.1 Where will you submit your data as endpoints?</h3>
+                                <h3> 2.1 Wo übermitteln Sie Ihre Daten als Endpunkte?</h3>
 
 
                                 <div class="collapse check_geneticrepo check_genomicrepo"
@@ -3717,7 +3693,7 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_otherep" />
                                     <label class="form-check-label" for="check_otherep">
-                                        Other Endpoint Repositories:
+                                        Andere Endpunkt-Repositories:
                                         <input data-replace="other endpoint repositories" style="width: 24vw;"
                                             type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHEREP"
@@ -3732,11 +3708,11 @@ END:VEVENT`;
                         <!---->
 
 
-                        <h2 id="scrollspyHeading3">3. How much data are you likely to generate?</h2>
+                        <h2 id="scrollspyHeading3">3. Wie viele Daten werden Sie wahrscheinlich generieren?</h2>
 
                         <form class="" style="margin-left: 0px;" id="form_rawdata">
                             <label for="input_rawdata">
-                                <h3>3.1 Raw data volume?</h3>
+                                <h3>3.1 Rohdatenvolumen?</h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_rawdata"
@@ -3753,7 +3729,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_deriveddata">
                             <label for="input_deriveddata">
-                                <h3>3.2 Processed data volume?</h3>
+                                <h3>3.2 Verarbeitete Datenmenge?</h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_deriveddata"
@@ -3776,7 +3752,7 @@ END:VEVENT`;
                             <br>
                             <br>
 
-                            <h2 id="scrollspyHeading4">4. Are any of the following standards relevant to your project?
+                            <h2 id="scrollspyHeading4">4. Sind einige der folgenden Standards für Ihr Projekt relevant?
                             </h2>
                             <div class=" d-grid gap-1">
 
@@ -3931,7 +3907,7 @@ END:VEVENT`;
                                 </div>
                             </div>
                             <!---->
-                            <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
+                            <h3>4.1 Halten Sie sich an strenge Standards für die Übermittlung von Metadaten?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                     id="check_dublincore" />
@@ -3973,12 +3949,12 @@ END:VEVENT`;
                                 data-bs-target="#offcanvas-marc21" aria-controls="offcanvas-marc21" > more info &#128712; </a>
                             </div>
                             <!---->
-                            <h3>4.2 Project data will be published:</h3>
+                            <h3>4.2 Projektdaten werden veröffentlicht:</h3>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_early"
                                     role="button" />
-                                <label class="form-check-label" for="check_early"> Immediately upon collection</label>
+                                <label class="form-check-label" for="check_early"> Unmittelbar nach der Abholung</label>
                             </div>
 
 
@@ -3986,38 +3962,38 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_3" type="checkbox"
                                     id="check_beforepublication" />
                                 <label class="form-check-label" for="check_beforepublication">
-                                    Upon publication of findings.
+                                    Nach Veröffentlichung der Ergebnisse.
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_endofproject" />
                                 <label class="form-check-label" for="check_endofproject">
-                                    At the end of project.
+                                    Am Ende des Projekts.
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_embargo" />
                                 <label class="form-check-label" for="check_embargo">
-                                    After embargo period.
+                                    Nach der Embargofrist.
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_request" />
                                 <label class="form-check-label" for="check_request">
-                                    Upon request.
+                                    Auf Anfrage.
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
                                 <label class="form-check-label" for="check_ipissue">
-                                    Upon IP issues have been addressed.
+                                    Nachdem die IP-Probleme behoben wurden.
                                 </label>
                             </div>
 
-                            <h3>4.4 Which national, funder, sectorial, or departmental data management procedures do you follow, and which national research data infrastructure do you use?</h3>
+                            <h3>4.4 Welchen nationalen, fördererbezogenen, sektoralen oder abteilungsbezogenen Datenmanagementverfahren folgen Sie und welche nationale Forschungsdateninfrastruktur nutzen Sie?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
                                     />
@@ -4043,10 +4019,10 @@ END:VEVENT`;
 
 
                             <!---->
-                            <h2 id="scrollspyHeading5">5. Do you intend to use data visualization in your project?</h2>
+                            <h2 id="scrollspyHeading5">5. Beabsichtigen Sie, in Ihrem Projekt Datenvisualisierung zu verwenden?</h2>
                             <div class="form-check form-switch">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization">
-                                <label class="form-check-label" for="check_vvisualization">Yes, I visualize my data.
+                                <label class="form-check-label" for="check_vvisualization">Ja, ich visualisiere meine Daten.
                                 </label>
 
 
@@ -4103,11 +4079,9 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant
-                architecture</p>
+            <p><b> Example 1: </b>zielt darauf ab, ein Computermodell des Kohlenstoff- und Wasserflusses innerhalb einer gesamten Pflanzenarchitektur zu erstellen</p>
             <br />
-            <p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as
-                open as possible</p>
+            <p><b> Example 2: </b>zielt darauf ab, mit minimalem Aufwand einen Datenmanagementplan zu erstellen und die Daten so offen wie möglich zu machen.</p>
         </div>
     </div>
 
@@ -4118,22 +4092,21 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> carbon and water flow in plants</p>
+            <p><b> Example 1: </b> Kohlenstoff- und Wasserfluss in Pflanzen.</p>
             <br />
-            <p><b> Example 2: </b> data management plan</p>
+            <p><b> Example 2: </b> Datenmanagementplan</p>
         </div>
     </div>
     <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
         id="offcanvas-utility" aria-labelledby="offcanvasScrolling3">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling3">Here is the space for additional sentence.</h5>
+            <h5 class="offcanvas-title" id="offcanvasScrolling3">Hier ist Platz für einen zusätzlichen Satz.</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> Industry, politicians and students can also use the data for different purposes.</p>
+            <p><b> Example 1: </b> Industrie, Politiker und Studierende können die Daten auch für verschiedene Zwecke nutzen.</p>
             <br />
-            <p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different
-                purpose.</p>
+            <p><b> Example 2: </b> Die im Projekt erhobenen Daten können von einer Vielzahl von Personen mit unterschiedlichen Zwecken genutzt werden.</p>
         </div>
     </div>
 
@@ -4145,7 +4118,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Information in this section is only used in DMP metadata and not used in the document</p>
+            <p>Informationen in diesem Abschnitt werden nur in den DMP-Metadaten verwendet und nicht im Dokument.</p>
 
         </div>
     </div>
@@ -4156,7 +4129,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Data officers are also known as data stewards and curator.</p>
+            <p>Datenbeauftragte sind auch als Datenmanager und Kuratoren bekannt.</p>
 
         </div>
     </div>
@@ -4168,7 +4141,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>software that legally remains the property of the organization, group, or individual who created it.
+            <p>Software, die rechtlich Eigentum der Organisation, Gruppe oder Person bleibt, die sie erstellt hat.
             </p>
 
         </div>
@@ -4181,7 +4154,7 @@ END:VEVENT`;
             <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
                 <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
                     onclick='dmpStrings["user-defined"]=document.getElementById("template-input-content").innerHTML; document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML), load_dmp(reload_answers, "user-defined") ;'>
-                    submit
+                    einreichen
                 </button></h1>
 
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -4189,22 +4162,11 @@ END:VEVENT`;
 
         <div class="offcanvas-body" style="padding-top: 0px;">
             <h2 style="padding-top: 0px;">
-                You can click the dotted box to start editing. <br />
-                Click the grey buttons to reuse templates. <br />
-                Click submit when you finished.
+                Klicken Sie auf das gepunktete Feld, um mit der Bearbeitung zu beginnen.
+                Klicken Sie auf die grauen Schaltflächen, um Vorlagen wiederzuverwenden.
+                Klicken Sie auf „einreichen“, wenn Sie fertig sind.
                 <br />
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["Horizon2020_DMP"]; '>H2020
-                    DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["horizon_europe"]; '>Horizon
-                    Europe DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["dfg-dmp"]; '>DFG
-                    DMP</button>
-                <button class="badge btn-primary"
-                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["practical-guide"]; '>Practical
-                    Guide</button>
+                
                 <button class="badge btn-primary"
                     onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["bmbf-dmp"]; '>BMBF
                     DMP</button>
@@ -4221,8 +4183,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p> MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
-                More information can be found on: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
+            <p> MIAPPE ist ein offener, gemeinschaftsgetriebener Datenstandard, der darauf abzielt, Daten aus Pflanzen-Phänotypisierungsexperimenten zu harmonisieren. MIAPPE bietet eine Spezifikation, die eine Checkliste und ein Datenmodell der Metadaten enthält, die erforderlich sind, um Pflanzen-Phänotypisierungsexperimente angemessen zu beschreiben. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
             </p>
 
         </div>
@@ -4235,8 +4196,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p> The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. 
-                More information can be found on: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
+            <p> Das Genomic Standards Consortium (GSC) hat einen Standard namens Minimum Information about any (x) Sequence (MIxS) für die Berichterstattung über Markergensequenzen entwickelt. Dieser Standard umfasst die Minimum Information about a Marker Gene Sequence (MIMARKS) und führt 'Umweltpakete' ein, um die Umgebung zu beschreiben, aus der biologische Proben stammen. MIxS zielt darauf ab, Standards zur Beschreibung von Sequenzdaten zu vereinheitlichen und bietet der wissenschaftlichen Gemeinschaft einen zentralen Zugangspunkt zu den GSC-Checklisten. Die Einführung von MIxS wird die Analyse der genetischen Vielfalt verbessern, die durch umfangreiche DNA-Sequenzierungsbemühungen in verschiedenen Ökosystemen dokumentiert wurde. Weitere Informationen finden Sie unter: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
             </p>
 
         </div>
@@ -4249,7 +4209,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        <p> Verwendung für eukaryotische Genomsequenzen. Der Organismus muss der Linie Eukaryota angehören. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4262,7 +4222,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Minimum Information about a Genome Sequence: Organelle. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        <p> Mindestinformationen über eine Genomsequenz: Organelle. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4276,7 +4236,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
+        <p> MIGS/MIMS (Mindestinformationen über eine (Meta)Genomsequenz) skizziert eine konzeptionelle Struktur zur Erweiterung der Kerninformationen, die traditionell von der INSDC (DDBJ/EMBL/Genbank) erfasst wurden, um genomische und metagenomische Sequenzen zu beschreiben. Die MIMS-Erweiterung beschreibt wichtige Aspekte des Umweltkontextes. Weitere Informationen finden Sie unter: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
         </p>
 
         </div>
@@ -4289,7 +4249,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
+        <p> Verwendung für alle Arten von Markergensequenzen, z. B. 16S, 18S, 23S, 28S rRNA oder COI, die aus kultivierten oder eindeutig identifizierbaren Proben gewonnen wurden. Weitere Informationen finden Sie unter: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
         </p>
 
         </div>
@@ -4302,7 +4262,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
+        <p> Verwendung für alle Arten von Markergensequenzen, z. B. 16S, 18S, 23S, 28S rRNA oder COI, die direkt aus der Umwelt gewonnen wurden, ohne Kultivierung oder Identifizierung der Organismen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
         </p>
 
         </div>
@@ -4315,7 +4275,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
+        <p> Die Minimum Information about a Single Amplified Genome (MISAG) und die Minimum Information about a Metagenome-Assembled Genome (MIMAG) umfassen unter anderem die Assemblierungsqualität sowie Schätzungen der Vollständigkeit und Kontamination des Genoms. Diese Standards können in Kombination mit anderen GSC-Checklisten verwendet werden, einschließlich der Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS) und Minimum Information about a Marker Gene Sequence (MIMARKS). Eine gemeinschaftsweite Einführung von MISAG und MIMAG wird robustere vergleichende genomische Analysen der bakteriellen und archaealen Vielfalt ermöglichen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
         </p>
 
         </div>
@@ -4328,7 +4288,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
+        <p> Die Minimum Information about a Metagenome-Assembled Genome (MIMAG) umfasst unter anderem die Assemblierungsqualität sowie Schätzungen der Vollständigkeit und Kontamination des Genoms. Diese Standards können in Kombination mit anderen GSC-Checklisten verwendet werden, einschließlich der Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS) und Minimum Information about a Marker Gene Sequence (MIMARKS). Eine gemeinschaftsweite Einführung von MISAG und MIMAG wird robustere vergleichende genomische Analysen der bakteriellen und archaealen Vielfalt ermöglichen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
         </p>
 
         </div>
@@ -4340,7 +4300,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
+        <p>  Die Minimum Information About a Microarray Experiment (MIAME) beschreibt die Mindestinformationen, die erforderlich sind, um sicherzustellen, dass Microarray-Daten leicht interpretiert werden können und die aus ihrer Analyse abgeleiteten Ergebnisse unabhängig überprüft werden können. Das ultimative Ziel dieser Arbeit ist es, einen Standard für die Aufzeichnung und Berichterstattung von Microarray-basierten Genexpressionsdaten zu etablieren, der wiederum die Einrichtung von Datenbanken und öffentlichen Repositories erleichtert und die Entwicklung von Datenanalysetools ermöglicht. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
         </p>
 
         </div>
@@ -4352,7 +4312,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
+        <p>  MIAMET (Minimum Information About a METabolomics experiment) ist ein ähnlicher Standard, jedoch an die Besonderheiten der Metabolomik angepasst. Weitere Informationen finden Sie unter: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
         </p>
 
         </div>
@@ -4364,7 +4324,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
+        <p>  MINSEQE beschreibt die Mindestinformationen über ein Hochdurchsatz-Nukleotid-Sequenzierungsexperiment, die benötigt werden, um eine eindeutige Interpretation zu ermöglichen und die Reproduzierbarkeit der Ergebnisse des Experiments zu erleichtern. Analog zu den MIAME-Richtlinien für Microarray-Experimente wird die Einhaltung der MINSEQE-Richtlinien die Integration mehrerer Experimente über verschiedene Modalitäten hinweg verbessern und somit den Wert der Hochdurchsatzforschung maximieren. Weitere Informationen finden Sie unter: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
         </p>
 
         </div>
@@ -4376,7 +4336,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>   Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
+        <p>   Recommended Metadata for Biological Images (REMBI) bietet Richtlinien für Metadaten biologischer Bilder, um das FAIR-Sharing wissenschaftlicher Daten zu ermöglichen. REMBI ist das Ergebnis der Zusammenarbeit der Bioimaging-Community, um Metadatenstandards zu entwickeln, die die Bilddaten selbst sowie unterstützende Metadaten, wie die Beschreibung der biologischen Studie und der Probe, umfassen. Es wird auch dazu beitragen, automatisierte Datenerfassungen mithilfe von Machine-Learning-Techniken zu ermöglichen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
         </p>
 
         </div>
@@ -4388,7 +4348,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>   The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
+        <p>   Die MIAPE-Richtlinien sollten ausreichende Informationen über einen Datensatz und seinen experimentellen Kontext erfordern, um es einem Leser zu ermöglichen, die Interpretation und Schlussfolgerungen zu verstehen und kritisch zu bewerten sowie deren experimentelle Bestätigung zu unterstützen. Praktikabilität. Weitere Informationen finden Sie unter: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
         </p>
 
         </div>
@@ -4401,7 +4361,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
+        <p> Die Einhaltung von MIMIx, den Mindestinformationen, die für die Berichterstattung über ein molekulares Interaktionsexperiment erforderlich sind, wird zu Veröffentlichungen mit erhöhter Klarheit und Nützlichkeit für die wissenschaftliche Gemeinschaft führen und die schnelle, systematische Erfassung von molekularen Interaktionsdaten in öffentlichen Datenbanken unterstützen, wodurch der Zugang zu wertvollen Interaktionsdaten verbessert wird. Weitere Informationen finden Sie unter: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
         </p>
 
         </div>
@@ -4414,7 +4374,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
+        <p> Das Dublin Core-Vokabular, auch bekannt als Dublin Core Metadata Terms (DCMT), ist ein allgemeines Metadaten-Vokabular zur Beschreibung von Ressourcen jeglicher Art. Es wurde ursprünglich in den frühen Tagen des World Wide Web zur Beschreibung von Webinhalten entwickelt. Die Dublin Core Metadata Initiative (DCMI) ist für die Pflege des Dublin Core-Vokabulars verantwortlich. Weitere Informationen finden Sie unter: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
         </p>
 
         </div>
@@ -4427,7 +4387,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
+        <p> Darwin Core ist ein Standard, der von der Darwin Core Maintenance Interest Group gepflegt wird. Er enthält ein Glossar von Begriffen (in anderen Kontexten könnten diese als Eigenschaften, Elemente, Felder, Spalten, Attribute oder Konzepte bezeichnet werden), das den Austausch von Informationen über die biologische Vielfalt erleichtern soll, indem es Bezeichner, Labels und Definitionen bereitstellt. Darwin Core basiert hauptsächlich auf Taxa, deren Vorkommen in der Natur durch Beobachtungen, Proben oder verwandte Informationen dokumentiert wird. Weitere Informationen finden Sie unter: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
         </p>
 
         </div>
@@ -4440,7 +4400,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
+        <p> Schema.org ist eine kollaborative, gemeinschaftsbasierte Initiative mit der Mission, Schemata für strukturierte Daten im Internet, auf Webseiten, in E-Mail-Nachrichten und darüber hinaus zu erstellen, zu pflegen und zu fördern. Weitere Informationen finden Sie unter: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
         </p>
 
         </div>
@@ -4453,7 +4413,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
+        <p> Bioschemas zielt darauf ab, die Auffindbarkeit von Ressourcen der Lebenswissenschaften wie Datensätze, Software und Schulungsmaterialien im Web zu verbessern. Dies geschieht, indem Personen in den Lebenswissenschaften ermutigt werden, Schema.org-Markup auf ihren Websites zu verwenden, sodass diese von Suchmaschinen und anderen Diensten indexiert werden können. Bioschemas fördert die konsistente Verwendung von Markup, um die Nutzung der enthaltenen Markups auf vielen Websites zu erleichtern. Diese strukturierten Informationen machen es dann einfacher, verteilte Ressourcen zu entdecken, zusammenzuführen und zu analysieren. Weitere Informationen finden Sie unter: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
         </p>
 
         </div>
@@ -4466,7 +4426,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
+        <p> Die MARC-Formate sind Standards für die Darstellung und den Austausch von Daten in maschinenlesbarer Form. Das Network Development and MARC Standards Office (NDMSO), unterstützt vom MARC Advisory Committee, ist für die Pflege und Entwicklung des Formats verantwortlich. MARC 21 ist auch in einer XML-Struktur sowie in zwei erweiterten Formatvarianten im Kontext von MARC-Lokalfeldern verfügbar. Weitere Informationen finden Sie unter: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
         </p>
 
         </div>
@@ -4475,7 +4435,7 @@ END:VEVENT`;
     <!-- Button trigger modal -->
     <button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#dmp_update">
-        dmp update modal
+        DMP-Aktualisierungsmodal
     </button>
 
     <!-- Modal dmp update reminder-->
@@ -4484,15 +4444,13 @@ END:VEVENT`;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can
-                        drag and drop the reminder to change order <br> You will download ".ics" files after click
-                        "download" button</h5>
+                    <h5 class="modal-title" id="update-label">Richten Sie vor Ablauf der Frist mehrere Erinnerungen ein. <br> Das können Sie Ziehen Sie die Erinnerung per Drag-and-Drop, um die Bestellung zu ändern. <br> Nach dem Klicken laden Sie „.ics“-Dateien herunter Schaltfläche „Herunterladen“.</h5>
                     <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="input-group justify-content-center">
-                        <button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add a reminder
+                        <button type="button" class="btn btn-primary" onclick='add_date_div()'> + Fügen Sie eine Erinnerung hinzu
                         </button>
                         <button type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -4501,20 +4459,20 @@ END:VEVENT`;
                                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                                 <path fill-rule="evenodd"
                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg> Remove all reminders </button>
+                            </svg> Entfernen Sie alle Erinnerungen </button>
                     </div>
                     <br>
                     <ul id="dmp-update-content" class="slist">
-                        List of reminders
+                        Liste der Erinnerungen
 
                     </ul>
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
 
-                    <button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Download</button>
+                    <button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Herunterladen</button>
                 </div>
             </div>
         </div>
@@ -4526,7 +4484,7 @@ END:VEVENT`;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="citation_modal-label">You can cite this tool</h5>
+                    <h5 class="modal-title" id="citation_modal-label">Sie können dieses Tool zitieren</h5>
                     <button type="button" id="citation_modal_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -4573,7 +4531,7 @@ END:VEVENT`;
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
 
                 </div>
             </div>
@@ -4586,19 +4544,19 @@ END:VEVENT`;
         <!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
         <div class="offcanvas-header">
 
-            <h5 class="offcanvas-title" id="storage_offcanvas">Compare and overwrite caches</h5>
+            <h5 class="offcanvas-title" id="storage_offcanvas">Caches vergleichen und überschreiben</h5>
             <button type="button" onclick="" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body" id="cache_management_modal_body">
             <div class="row ">
                 <div class="dropdown col-3">
-                    Question
+                    Fragen
                 </div>
                 <div class="dropdown col-4 ">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="current_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Current Answer
+                        Aktuelle Antwort
                     </a>
 
                     <ul class="dropdown-menu" id="current_input" aria-labelledby="current_answer_link">
@@ -4609,7 +4567,7 @@ END:VEVENT`;
                 <div class="dropdown col-4">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Import Answer
+                        Antwort importieren
                     </a>
 
                     <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
@@ -4618,7 +4576,7 @@ END:VEVENT`;
                 </div>
 
                 <div class="dropdown col-1">
-                    Over <br>write
+                    Überschreiben
                 </div>
 
 
@@ -4631,9 +4589,9 @@ END:VEVENT`;
         <div class="offcanvas-footer">
             <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="offcanvas">Close</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                onclick="overwrite_current()">Single page overwrite</button>
+                onclick="overwrite_current()">Einzelne Seite überschreiben</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                onclick="save_json();overwrite_all()">All cache overwrite</button>
+                onclick="save_json();overwrite_all()">Der gesamte Cache wird überschrieben</button>
         </div>
 
     </div>
@@ -4645,13 +4603,13 @@ END:VEVENT`;
   position: fixed !important;transform: translate(-50%, -50%) !important;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">News and changelog</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Neuigkeiten und Changelog</h5>
                     <button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-                    DataPLAN is designed to be a user-friendly data management plan (DMP) generator, capable of functioning entirely offline. Whether you disconnect from the internet or save the tool using "Ctrl + S," your work will not be affected. You can also <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> downlaod the whole website </a> and use it offline. Our work has been published in <a href="https://doi.org/10.3390/data8110159" target="_blank">
+                    DataPLAN ist so konzipiert, dass es ein benutzerfreundlicher Generator für Datenmanagementpläne (DMP) ist, der vollständig offline funktioniert. Egal, ob Sie die Verbindung zum Internet trennen oder das Tool mit "Strg + S" speichern, Ihre Arbeit wird nicht beeinträchtigt. Sie können auch <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> Die gesamte Website herunterladen </a> und offline verwenden. Unsere Arbeit wurde veröffentlicht in <a href="https://doi.org/10.3390/data8110159" target="_blank">
                         Data.</a>
                     <br>
                     <br>
@@ -4659,79 +4617,25 @@ END:VEVENT`;
                     
                     <h6><b>19th June 2024</b></h6>
                     <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Fixed issues with Wordcloud and default answers.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Added BMBF DMP beta testing.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Probleme mit Wordcloud und Standardantworten behoben.</li>
+                        <li><span class="badge bg-primary">New feature:</span> BMBF-DMP-Betatest hinzugefügt.</li>
                     </ul>
 
                     <h6><b>8th May 2024</b></h6>
                     <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved user interface issues.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Introduced BBSRC DMP beta testing.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Probleme mit der Benutzeroberfläche behoben.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Einführung des BBSRC DMP-Betatests.</li>
                     </ul>
 
-                    <h6><b>20th December 2023</b></h6>
-                    <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Corrected spacing issues around placeholders.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Added tooltips and off-canvas elements for term explanations.</li>
-                    </ul>
-
-                    <h6><b>28th March 2023</b></h6>
-                    <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Tutorial bugs fixed.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Panels are now resizable.</li>
-                    </ul>
-
-                    <h6><b>1st February 2023</b></h6>
-                    <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Print function restored.</li>
-                        <li><span class="badge bg-primary">Improvement:</span> Enhanced UI and content indicators.</li>
-                    </ul>
-
-                    <h6><b>16th January 2023</b></h6>
-                    <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Fixed model data duplication.</li>
-                        <li><span class="badge bg-primary">Improvement:</span> Renamed "Upload" menu to "Import".</li>
-                    </ul>
-
-                    <h6><b>6th December 2022</b></h6>
-                    <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved checkbox functionality issues.</li>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Improved compatibility with older saved questions.</li>
-                    </ul>
-
-                    <h6><b>30th November 2022</b></h6>
-                    <ul>
-                        <li><span class="badge bg-primary">New feature:</span> Introduced new scroll cache functionality.</li>
-                    </ul>
-
-                    <h6><b>25th November 2022</b></h6>
-                    <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Fixed floating "toast" alignment.</li>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved "save to cache" toast issues.</li>
-                    </ul>
-
-                    <h6><b>24th November 2022</b></h6>
-                    <ul>
-                        <li><span class="badge bg-primary">New feature:</span> Added a "News" panel to the "Help" menu.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Introduced notifications for saved caches.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Added new options for endpoint repositories.</li>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved issues with user-defined templates.</li>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Next question navigation is now bug-free.</li>
-                    </ul>
-
-                    <h6><b>15th November 2022</b></h6>
-                    <ul>
-                        <li><span class="badge bg-primary">New feature:</span> Added "scroll to" and "highlight" features when hovering over replaced text.</li>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Improved performance to reduce text replacement lag.</li>
-                    </ul>
+                    
 
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="consent()"
-                        data-bs-dismiss="modal">Close</button>
+                        data-bs-dismiss="modal">Schließen</button>
                     <button type="button" class="btn btn-primary d-none" data-bs-dismiss="modal"
-                        onclick="consent()">Consent</button>
+                        onclick="consent()">Zustimmung</button>
                 </div>
 
             </div>
@@ -4745,7 +4649,7 @@ END:VEVENT`;
    
     <div id="user-defined" class="d-none">
         <div id="user-defined1" class="content-page">
-            a document template
+            eine Dokumentvorlage
         </div>
     </div>
 
