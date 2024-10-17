@@ -72,6 +72,19 @@
         "user-defined": window.localStorage.getItem("fulltext_user"),
 
     }
+
+    const dmpFunders = {
+        "Horizon2020_DMP" : "Horizon 2020",
+        "horizon_europe" : "Horizon Europe",
+        "dfg-dmp" : "DFG (Deutschforschungsgemeinschaft)",
+        "bmbf-dmp" : "BMBF (Bundes Ministerium für Bildung und Forschung)",
+        "BBSRC-dmp": "BBSRC",
+        "bmel-dmp": "BMEL",
+        "vw-dmp": "Volkswagen Foundation",
+        "practical-guide": "Practical Guide",
+        "user-defined": "Userdefined",
+
+    }
     var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
     if (is_ie > 0) // If Internet Explorer, return version number
     {
@@ -407,7 +420,11 @@
         saved_a["dmp"]["modified"] = saved_a["replace"]["$_MODIFICATIONDATE"];
         saved_a["dmp"]["submission"] = date.toISOString().slice(0, -3);
         saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"];
+        saved_a["dmp"]["project"]["title"] = saved_a["replace"]["$_PROJECTNAME"];
         saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
+        
+        
+        dmpFunders
         
 
 
