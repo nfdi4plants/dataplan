@@ -127,32 +127,39 @@
 
             saved_a["dmp"] = {
                 "title": "Minimal DMP",
-                "contact": {
-                    "contact_id": {
-                        "identifier": "http://orcid.org/0000-0000-0000-0000",
-                        "type": "orcid"
-                    },
-                    "mbox": "cc@example.com",
-                    "name": "Charlie Chaplin"
-                },
+               
                 "created": "2018-07-23T10:10:23.6",
-                "dmp_id": {
-                    "identifier": "https://doi.org/10.0000/00.0.1234",
-                    "type": "doi"
-                },
-                "dataset": [{
-                    "dataset_id": {
-                        "identifier": "https://doi.org/10.0000/00.0.5678",
-                        "type": "doi"
-                    },
-                    "title": "Placeholder dataset",
-                    "personal_data": "unknown",
-                    "sensitive_data": "unknown"
-                }
-                ],
-                "ethical_issues_exist": "unknown",
+                "ethical_issues_exist": "no",
                 "language": "eng",
                 "modified": "2019-02-06T15:30:42.1",
+                "contact": {
+                    "mbox": "cc@example.com",
+                    "name": "Charlie Chaplin",
+                    "affiliation":"",
+                },
+                "project":{
+                    "title":"project name",
+                    "description":"description",
+                    "start":"starting date",
+                    "funding":{
+                        "funder_id":"funder_id",
+                        "status":"status"
+                    }
+                    
+                },
+                "dataset": [{
+                    "title":"titile",
+                    "type":"",
+                    "personal_data": "no",
+                    "sensitive_data": "no",
+                    "distribution":{
+                        "host":{
+                            "description":"description"
+                        }
+                    }
+                }
+                ],
+                
                 "submission": {
                     "time": "2022-07-06T15:30:42.1",
                     "funding": "Horizon Europe ",
@@ -396,14 +403,16 @@
         saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
         saved_a["dmp"]["contact"]["name"] = "DMP of " + saved_a["replace"]["$_USERNAME"];
         saved_a["dmp"]["contact"]["mbox"] = "DMP of " + saved_a["replace"]["$_EMAIL"];
-        saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = date.toISOString().slice(0, -3) : {};
-        saved_a["dmp"]["modified"] = date.toISOString().slice(0, -3);
+        saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = saved_a["replace"]["$_CREATIONDATE"] : {};
+        saved_a["dmp"]["modified"] = saved_a["replace"]["$_MODIFICATIONDATE"];
         saved_a["dmp"]["submission"] = date.toISOString().slice(0, -3);
         saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"];
+        saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
+        
+
 
         saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
         saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
-
 
         runWordCloud();
         
