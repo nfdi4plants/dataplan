@@ -9,10 +9,10 @@ assignees: ''
 ---
 
 ### Is the target DMP requested by a funding body? If yes, which is it?
-Yes, volkswagenstiftung.
+Yes, Volkswagenstiftung.
 
-### Is the target DMP focuse on a specific domain? If yes, which is it?
+### Is the target DMP focuses on a specific domain? If yes, which is it?
 Yes, about micro-organisms.
 
-### Is there a guideline or questionnaire? If yes, pleas provide us a link.
+### Is there a guideline or questionnaire? If yes, please provide us a link.
 https://www.volkswagenstiftung.de/sites/default/files/documents/2022-04%20Basis-Datenmanagementplan.rtf
