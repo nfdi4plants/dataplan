@@ -18,7 +18,9 @@
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
 
-    <script src="DMPDocs/BBSRC-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2024-10-18.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2024-10-18.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="DMPDocs/bmbf-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/bmel-dmp-2024-10-14.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/vw-dmp-2024-10-11.js" type="text/javascript" charset="utf-8"></script>
@@ -68,6 +70,7 @@
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
         "bmel-dmp": bmel_dmp["bmel-dmp"],
         "vw-dmp": vw_dmp["vw-dmp"],
+        "msca-dmp": msca_dmp["msca-dmp"],
         "practical-guide": practical_guide["practical-guide"],
         "user-defined": window.localStorage.getItem("fulltext_user"),
 
@@ -78,6 +81,7 @@
         "horizon_europe" : "Horizon Europe",
         "dfg-dmp" : "DFG (Deutschforschungsgemeinschaft)",
         "bmbf-dmp" : "BMBF (Bundes Ministerium für Bildung und Forschung)",
+        "msca-dmp" : "Marie Skłodowska-Curie Actions",
         "BBSRC-dmp": "BBSRC",
         "bmel-dmp": "BMEL",
         "vw-dmp": "Volkswagen Foundation",
@@ -414,17 +418,19 @@
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+".js";
         // update dmp meta data
         saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
-        saved_a["dmp"]["contact"]["name"] = "DMP of " + saved_a["replace"]["$_USERNAME"];
-        saved_a["dmp"]["contact"]["mbox"] = "DMP of " + saved_a["replace"]["$_EMAIL"];
+        saved_a["dmp"]["contact"]["name"] =  saved_a["replace"]["$_USERNAME"];
+        saved_a["dmp"]["contact"]["mbox"] =  saved_a["replace"]["$_EMAIL"];
         saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = saved_a["replace"]["$_CREATIONDATE"] : {};
         saved_a["dmp"]["modified"] = saved_a["replace"]["$_MODIFICATIONDATE"];
         saved_a["dmp"]["submission"] = date.toISOString().slice(0, -3);
         saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"];
+        saved_a["dmp"]["project"] ? {}:saved_a["dmp"]["project"] = {};
         saved_a["dmp"]["project"]["title"] = saved_a["replace"]["$_PROJECTNAME"];
         saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
+        saved_a["dmp"]["project"]["funding"] ? {}:saved_a["dmp"]["project"]["funding"] = {};
+        saved_a["dmp"]["project"]["funding"]["funder_id"] = dmpFunders[window.doc_name];
         
         
-        dmpFunders
         
 
 
@@ -2777,6 +2783,10 @@ END:VEVENT`;
                             <li>
                                 <button id="detailed_BBSRC-dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_msca-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="msca-dmp")'>MSCA (Marie Skłodowska-Curie Actions) DMP</button>
                             </li>
                             <li>
                                 <button id="detailed_bmel-dmp" class="dropdown-item d-none"

@@ -93,7 +93,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
         </ul>
         <p class="c0 c0"><span class="c0"></span></p>
         <ul class="c0 ">
-            <li class="c0 li-bullet-0"><span class="c0">Secondary Use <br> &ndash; The data will initially benefit the
+            <li class="c0 li-bullet-0"><span class="c0">Secondary Use <br> &ndash; The data will not only initially benefit the
                     $_PROJECTNAME partners, but will also be made available to selected stakeholders closely involved in
                     the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In
                     addition, the general public interested in $_STUDYOBJECT can also use the data after

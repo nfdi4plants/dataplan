@@ -868,7 +868,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 are eligible as part of the Horizon Europe grant (if compliant with the Grant Agreement
                 conditions)</span>
         </p>
-        <p class="c0"><span class="c1">The cost born by $_PROJECTNAME are covered by the project funding.
+        <p class="c0"><span class="c1">The data related cost of $_PROJECTNAME are covered by the project funding.
                 Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
                 DataPLANT consortium #endif$_DATAPLANT will also be used.</span></p>
         <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
