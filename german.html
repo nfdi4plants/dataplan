@@ -28,7 +28,7 @@
 
     <script src="DMPDocs/bmbf-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/vw-dmp-2024-10-11.js" type="text/javascript" charset="utf-8"></script>
-    
+    <script src="DMPDocs/bmel-dmp-2024-10-14.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -67,6 +67,7 @@
         "horizon_europe" : horizon_europe.horizon_europe,
         "dfg-dmp" : dfg_dmp["dfg-dmp"],
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
+        "bmel-dmp": bmel_dmp["bmel-dmp"],
         "vw-dmp": vw_dmp["vw-dmp"],
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
         "practical-guide": practical_guide["practical-guide"],
@@ -88,7 +89,7 @@
     var wordcloud = window.localStorage.getItem("wordcloud") || "true";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
-    var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
+    var cached_a = window.localStorage.getItem("saved_a_de"); // try to get the saved answers from local storage
     var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
     var datepicker_list = []; // initialize a list to store DMP update reminder
     var toast_list;
@@ -104,19 +105,19 @@
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project", "$_ADDACRONYM":"Example Acronym","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
-        saved_a = JSON.parse(cached_a); // load the cached answers to webpage
+        saved_a_de = JSON.parse(cached_a); // load the cached answers to webpage
         try {
-            saved_a["update"];
-            saved_a["update"]["timeline"];
-            saved_a["dmp"];
-            saved_a["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
+            saved_a_de["update"];
+            saved_a_de["update"]["timeline"];
+            saved_a_de["dmp"];
+            saved_a_de["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
         } // If some answers are missing, re-initialize the answers.
         catch (e) {
 
-            saved_a["update"] = {
+            saved_a_de["update"] = {
                 "timeline": [
                 ], "storage": [
-                    { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], },
+                    { "answer": { "replace": saved_a_de["replace"], "checkbox": saved_a_de["checkbox"] }, "name": [], },
                     { "answer": [], "name": [], },
                     { "answer": [], "name": [], },
                     { "answer": [], "name": [], },
@@ -126,7 +127,7 @@
                 ]
             };
 
-            saved_a["dmp"] = {
+            saved_a_de["dmp"] = {
                 "title": "Minimal DMP",
                 "contact": {
                     "contact_id": {
@@ -165,7 +166,7 @@
 
 
     } else { // if there is no saved answer, initiate a new saved answer
-        var saved_a = JSON.parse(JSONString)
+        var saved_a_de = JSON.parse(JSONString)
     }
 
     /*============== tutorial ==============*/
@@ -235,120 +236,120 @@
      */
     function updateSavedAnswers() {
         try {
-            delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {} : saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
+            delete saved_a_de["replace"]["$_VISUALIZATION"]; (saved_a_de["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a_de["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {} : saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
         }
         catch (e) { };
         // check if the newly added answers are there, to be backward compatible
         try {
-            Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {} : saved_a["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
+            Object.keys(saved_a_de["replace"]).includes("$_DATAUTILITY") ? {} : saved_a_de["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
         }
         catch (e) { };
         try {
-            (!Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") || saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
+            (!Object.keys(saved_a_de["replace"]).includes("$_OTHERSTANDARDINPUT") || saved_a_de["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? saved_a_de["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a_de["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a_de["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
         }
         catch (e) { console.log("other ep error"); };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a_de["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a_de["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
         }
         catch (e) { console.log("metabolights error"); };
         try {
-            (!Object.keys(saved_a["checkbox"]).includes("checkbox_5")) ? saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
+            (!Object.keys(saved_a_de["checkbox"]).includes("checkbox_5")) ? saved_a_de["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(saved_a_de["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? saved_a_de["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_OTHEREP") ? {} : saved_a["replace"]["$_OTHEREP"] = "Other repositories";
+            Object.keys(saved_a_de["replace"]).includes("$_OTHEREP") ? {} : saved_a_de["replace"]["$_OTHEREP"] = "Other repositories";
         }
         catch (e) { };
         try {
-            saved_a = JSON.parse(JSON.stringify(saved_a).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
+            saved_a_de = JSON.parse(JSON.stringify(saved_a_de).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(saved_a_de["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? saved_a_de["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(saved_a_de["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? saved_a_de["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(saved_a_de["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? saved_a_de["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
+            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
+            Object.keys(saved_a_de["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : saved_a_de["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : saved_a["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
+            Object.keys(saved_a_de["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : saved_a_de["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_ADDACRONYM") ? {} : saved_a["replace"]["$_ADDACRONYM"] = "Add the acronym here";
+            Object.keys(saved_a_de["replace"]).includes("$_ADDACRONYM") ? {} : saved_a_de["replace"]["$_ADDACRONYM"] = "Add the acronym here";
         }
         catch (e) { };
         try {
-            if (Object.keys(saved_a["replace"]).includes("$_PROJECT")) {
-                {Object.defineProperty(saved_a["replace"], "$_PROJECTNAME",
-                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_PROJECT")); delete saved_a["replace"]["$_PROJECT"]}
+            if (Object.keys(saved_a_de["replace"]).includes("$_PROJECT")) {
+                {Object.defineProperty(saved_a_de["replace"], "$_PROJECTNAME",
+                    Object.getOwnPropertyDescriptor(saved_a_de["replace"], "$_PROJECT")); delete saved_a_de["replace"]["$_PROJECT"]}
 
             } ;
         }
         catch (e) { };
         try {
-            if (Object.keys(saved_a["replace"]).includes("$_dataofficer")) {
-                {Object.defineProperty(saved_a["replace"], "$_DATAOFFICER",
-                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_dataofficer")); delete saved_a["replace"]["$_dataofficer"]}
+            if (Object.keys(saved_a_de["replace"]).includes("$_dataofficer")) {
+                {Object.defineProperty(saved_a_de["replace"], "$_DATAOFFICER",
+                    Object.getOwnPropertyDescriptor(saved_a_de["replace"], "$_dataofficer")); delete saved_a_de["replace"]["$_dataofficer"]}
 
             } ;
         }
         catch (e) { };
         try {
-            if (Object.keys(saved_a["replace"]).includes("$_proprietary")) {
-                {Object.defineProperty(saved_a["replace"], "$_PROPRIETARY",
-                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_proprietary")); delete saved_a["replace"]["$_proprietary"]}
+            if (Object.keys(saved_a_de["replace"]).includes("$_proprietary")) {
+                {Object.defineProperty(saved_a_de["replace"], "$_PROPRIETARY",
+                    Object.getOwnPropertyDescriptor(saved_a_de["replace"], "$_proprietary")); delete saved_a_de["replace"]["$_proprietary"]}
 
             } ;
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_CREATIONDATE") ? {} : saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
+            Object.keys(saved_a_de["replace"]).includes("$_CREATIONDATE") ? {} : saved_a_de["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_MODIFICATIONDATE") ? {} : saved_a["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
+            Object.keys(saved_a_de["replace"]).includes("$_MODIFICATIONDATE") ? {} : saved_a_de["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a["replace"]).includes("$_PARTNERS") ? {} : saved_a["replace"]["$_PARTNERS"] = "partner name";
+            Object.keys(saved_a_de["replace"]).includes("$_PARTNERS") ? {} : saved_a_de["replace"]["$_PARTNERS"] = "partner name";
         }
         catch (e) { };
 
@@ -372,7 +373,7 @@
 
 
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {} : saved_a["replace"]["$_DMPVERSION"] = "1.0";
+        Object.keys(saved_a_de["replace"]).includes("$_DMPVERSION") ? {} : saved_a_de["replace"]["$_DMPVERSION"] = "1.0";
         //document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
         let frame = document.getElementById("doc3");
         
@@ -394,16 +395,16 @@
         syn_load_cache();
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+".js";
         // update dmp meta data
-        saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
-        saved_a["dmp"]["contact"]["name"] = "DMP of " + saved_a["replace"]["$_USERNAME"];
-        saved_a["dmp"]["contact"]["mbox"] = "DMP of " + saved_a["replace"]["$_EMAIL"];
-        saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = date.toISOString().slice(0, -3) : {};
-        saved_a["dmp"]["modified"] = date.toISOString().slice(0, -3);
-        saved_a["dmp"]["submission"] = date.toISOString().slice(0, -3);
-        saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"];
+        saved_a_de["dmp"]["title"] = "DMP of " + saved_a_de["replace"]["$_PROJECTNAME"];
+        saved_a_de["dmp"]["contact"]["name"] = "DMP of " + saved_a_de["replace"]["$_USERNAME"];
+        saved_a_de["dmp"]["contact"]["mbox"] = "DMP of " + saved_a_de["replace"]["$_EMAIL"];
+        saved_a_de["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a_de["dmp"]["created"] = date.toISOString().slice(0, -3) : {};
+        saved_a_de["dmp"]["modified"] = date.toISOString().slice(0, -3);
+        saved_a_de["dmp"]["submission"] = date.toISOString().slice(0, -3);
+        saved_a_de["dmp"]["version"] = saved_a_de["replace"]["$_DMPVERSION"];
 
-        saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
-        saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
+        saved_a_de["update"]["storage"][0]["answer"]["replace"] = saved_a_de["replace"];
+        saved_a_de["update"]["storage"][0]["answer"]["checkbox"] = saved_a_de["checkbox"];
 
 
         runWordCloud();
@@ -468,7 +469,7 @@
      */
     function save_json() {
 
-        aJSONString = JSON.stringify(saved_a);
+        aJSONString = JSON.stringify(saved_a_de);
         const blob = new Blob([aJSONString], {
             type: "application/json"
         });
@@ -581,12 +582,12 @@
     function onchange_replace(child) {
         const before = child.name.toUpperCase();
         const after = child.value;
-        saved_a["replace"][before] = after;
-        trim_saved_a(saved_a);
-        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+        saved_a_de["replace"][before] = after;
+        trim_saved_a_de(saved_a_de);
+        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
         eleName = before.split("_")[1]+"-to-";
         document.getElementsByName(eleName).forEach(e=>{e.innerText=after});
-        let unfinished = compare_replace(temp_a, saved_a);
+        let unfinished = compare_replace(temp_a, saved_a_de);
         let p_bar = document.getElementById("p-bar");
 
         let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
@@ -602,10 +603,10 @@
 
 
     function htmlFind_replace(){
-        for (const [key, value] of Object.entries( saved_a["replace"])){
+        for (const [key, value] of Object.entries( saved_a_de["replace"])){
             eleName = key.split("_")[1]+"-to-";
             document.getElementsByName(eleName).forEach(e=>{e.innerText=value});
-            let unfinished = compare_replace(temp_a, saved_a);
+            let unfinished = compare_replace(temp_a, saved_a_de);
             let p_bar = document.getElementById("p-bar");
 
         let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
@@ -623,7 +624,7 @@
     function onchange_replace1(child) {
         const before = child.name;
         const after = child.value;
-        saved_a["replace"][before] = after;
+        saved_a_de["replace"][before] = after;
         load_dmp(reload_answers, name = doc_name);
 
     }
@@ -651,16 +652,16 @@
 
 
     /**
-     * @function trim_saved_a
+     * @function trim_saved_a_de
      * @description function to remove the "$_" of the text to avoid replace errors
-     * @param saved_a the element it was in
+     * @param saved_a_de the element it was in
      * @global
      */
     // trim the "$_" to avoid infinite loops
-    function trim_saved_a(saved_a) {
-        const replace = Object.entries(saved_a["replace"]);
+    function trim_saved_a_de(saved_a_de) {
+        const replace = Object.entries(saved_a_de["replace"]);
         for (const [key, value] of replace) {
-            saved_a["replace"][key] = value.replace("$_", "")
+            saved_a_de["replace"][key] = value.replace("$_", "")
         }
 
     }
@@ -682,12 +683,12 @@
 
         const selection = window.getSelection();
         selection.removeAllRanges();
-        trim_saved_a(saved_a);
+        trim_saved_a_de(saved_a_de);
 
-        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
 
 
-        const replace_input = Object.entries(saved_a["replace"]);
+        const replace_input = Object.entries(saved_a_de["replace"]);
         for (const [key, value] of replace_input) {
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
@@ -702,7 +703,7 @@
                 
             }
         }
-        const checkbox_input = Object.entries(saved_a["checkbox"]);
+        const checkbox_input = Object.entries(saved_a_de["checkbox"]);
         for (const [key, value] of checkbox_input) {
             let checkboxes = value;
             try {
@@ -751,9 +752,9 @@
         checkboxConversion();
  
 
-        for (let answers in saved_a["replace"]) {
+        for (let answers in saved_a_de["replace"]) {
             let singleOption = {};
-            singleOption[answers] = saved_a["replace"][answers];
+            singleOption[answers] = saved_a_de["replace"][answers];
             //verbose  console.log(singleOption);
             const before = "$_" + answers.split("_")[1].toUpperCase() ;
             find_replace(before, singleOption[answers]);
@@ -762,7 +763,7 @@
         //verbose  console.log("answer reload is finished");
         issue_warning(name);
 
-        let unfinished = compare_replace(temp_a, saved_a);
+        let unfinished = compare_replace(temp_a, saved_a_de);
         let p_bar = document.getElementById("p-bar");
 
         let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
@@ -776,13 +777,17 @@
 
         let checkboxes = document.querySelectorAll(".form-check-input");
         checkboxes.forEach(e => {
-
+            const classList = Array.from(e.classList);
+            const class_name = classList.filter((word)=> word.includes("checkbox_"))
+            if(class_name.length>0){
             e.setAttribute("onfocusin", 'checkboxOnfocusin(this)');
             e.setAttribute("onfocusout", 'checkboxOnfocusout(this)');
             e.setAttribute("onmouseover", 'this.focus()');
             e.setAttribute("onclick", ' sc1(this)');
             e.setAttribute("name", e.id);
             e.setAttribute("onchange", "get_option(this)");
+            }
+            
             
         }
 
@@ -901,7 +906,7 @@
         const unchecked_list = [];
         unchecked.forEach(element => unchecked_list.push(element.id));
         console.log("uncheck and checked \n" + checked_list + "\n"+  unchecked_list)
-        saved_a["checkbox"][class_name] = {
+        saved_a_de["checkbox"][class_name] = {
             "checked": checked_list,
             "unchecked": unchecked_list
         };
@@ -931,7 +936,7 @@
         let allchecked = [];
         setTimeout(e=>{
             //document.querySelectorAll(".checkboxConverted").forEach(e=>{e.classList.add("d-none")});
-            for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
+            for (const [index, boxes] of Object.entries(saved_a_de["checkbox"])){
             allchecked.push(...boxes["checked"]);
             
         }
@@ -942,7 +947,7 @@
         
 
         let allunchecked = [];
-        for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
+        for (const [index, boxes] of Object.entries(saved_a_de["checkbox"])){
             allunchecked.push(...boxes["unchecked"]);
             
         }
@@ -975,7 +980,7 @@
         
         checkboxSelection();
         let allchecked = [];
-        for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
+        for (const [index, boxes] of Object.entries(saved_a_de["checkbox"])){
             allchecked.push(...boxes["checked"])
             
         }
@@ -1085,12 +1090,12 @@
     //     const unchecked_list = [];
     //     unchecked.forEach(element => unchecked_list.push(element.id));
     //     //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
-    //     saved_a["checkbox"][class_name] = {
+    //     saved_a_de["checkbox"][class_name] = {
     //         "checked": checked_list,
     //         "unchecked": unchecked_list
     //     };
-    //     trim_saved_a(saved_a);
-    //     window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+    //     trim_saved_a_de(saved_a_de);
+    //     window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
 
     //     //verbose  console.log("+++++++++++++++++" + checked_list);
 
@@ -1511,7 +1516,7 @@
             return new bootstrap.Toast(toast_el, { animation: true, dely: 0 })
         });
         window.localStorage.setItem("user_info", "visited");
-        saved_a = update_saved_json(saved_a),
+        saved_a_de = update_saved_json(saved_a_de),
             updateSavedAnswers();
         load_dmp(reload_answers, name = cached_template);
         //document.getElementById("split-0").scrollTop= scroll_y;
@@ -1523,7 +1528,7 @@
             fetch(urls[1])
                 .then(response => response.json())
                 .then(json => {
-                    saved_a = json;
+                    saved_a_de = json;
                     updateSavedAnswers();
                     load_dmp(reload_answers, name = cached_template);
                 })
@@ -1576,17 +1581,17 @@
         function open_storage_modal() {
 
             const list1 = document.getElementById("current_input");
-            current_input_answer = JSON.parse(JSON.stringify(saved_a));
+            current_input_answer = JSON.parse(JSON.stringify(saved_a_de));
 
-            current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a["replace"]));
-            current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a["checkbox"]));
+            current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a_de["replace"]));
+            current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a_de["checkbox"]));
             list1.innerHTML = "";
             uploaded_origin = 0;
             current_origin = 0;
 
             document.getElementById("current_answer_link").innerHTML = "Current input";
             document.getElementById("uploaded_answer_link").innerHTML = "Uploaded input";
-            for (let [key, value] of Object.entries(saved_a["update"]["storage"])) {
+            for (let [key, value] of Object.entries(saved_a_de["update"]["storage"])) {
 
 
                 const new_option = document.createElement("li");
@@ -1813,13 +1818,13 @@
     }
 
     function assign_current_input(element) {
-        let a = saved_a;
+        let a = saved_a_de;
         element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split(",")[0];
         const no = element.getAttribute("data-option-no");
         current_origin = no;
 
         update_table();
-        saved_a["replace"] = saved_a["update"]["storage"][current_origin]["answer"]["replace"];
+        saved_a_de["replace"] = saved_a_de["update"]["storage"][current_origin]["answer"]["replace"];
 
     }
 
@@ -1836,12 +1841,12 @@
 
     function update_table() {
 
-        const compare_list = compare_answers(saved_a["update"]["storage"][current_origin]["answer"], uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]);
+        const compare_list = compare_answers(saved_a_de["update"]["storage"][current_origin]["answer"], uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]);
 
         const body = document.getElementById("cache_management_modal_body");
         const table = document.createElement("div");
 
-        for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["replace"])) {
+        for (let [key, value] of Object.entries(saved_a_de["update"]["storage"][current_origin]["answer"]["replace"])) {
             const row = document.createElement("div");
 
             const key_pool = compare_list["4"];
@@ -1871,21 +1876,21 @@
 
             col4_button.addEventListener("change", function () {
                 if (this.checked) {
-                    saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] =
+                    saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key] =
                         uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
                     row.setAttribute("style", "background-color: #f0f5e6");
                     col2.innerHTML = uploaded_input_answer["replace"][key];
 
-                    saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a_de["replace"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key];
 
                     const now = new Date();
-                    saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+                    saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
                     load_dmp(reload_answers, name = cached_template);
                 } else {
-                    saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = value;
-                    saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a_de["replace"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key];
                     load_dmp(reload_answers, name = cached_template);
 
 
@@ -1911,7 +1916,7 @@
 
         }
 
-        for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["checkbox"])) {
+        for (let [key, value] of Object.entries(saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"])) {
 
 
 
@@ -1947,21 +1952,21 @@
 
             col4_button.addEventListener("change", function () {
                 if (this.checked) {
-                    saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] =
+                    saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key] =
                         uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"][key];
                     row.setAttribute("style", "background-color: #f0f5e6");
                     col2.innerHTML = JSON.stringify(uploaded_input_answer["checkbox"][key], null, "\t");
                     this.checked = true;
-                    saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+                    saved_a_de["checkbox"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key];
 
                     const now = new Date();
-                    saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+                    saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
                     load_dmp(reload_answers, name = cached_template);
                 } else {
-                    saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+                    saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["checkbox"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = JSON.stringify(value, null, "\t");
-                    saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+                    saved_a_de["checkbox"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key];
                     load_dmp(reload_answers, name = cached_template);
 
 
@@ -1994,34 +1999,34 @@
     function overwrite_all() {
 
         toast_list[2].show();
-        saved_a = uploaded_input_all;
+        saved_a_de = uploaded_input_all;
         updateSavedAnswers();
         load_dmp(reload_answers, name = cached_template);
 
-        ////verbose  console.log(JSON.stringify(saved_a));
+        ////verbose  console.log(JSON.stringify(saved_a_de));
 
 
     }
     function overwrite_current() {
         const now = new Date();
-        saved_a["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
-        saved_a["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
-        saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["timestamp"];
+        saved_a_de["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+        saved_a_de["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+        saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["timestamp"];
 
-        saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
-        saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
-        saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+        saved_a_de["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
+        saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
+        saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
         load_dmp(reload_answers, name = cached_template);
         syn_load_cache();
         toast_list[1].show();
 
-        ////verbose  console.log(JSON.stringify(saved_a));
+        ////verbose  console.log(JSON.stringify(saved_a_de));
 
 
     }
     function syn_load_cache() {
 
-        const cached_timestamp = saved_a["update"]["storage"].map((e) => e["answer"]);
+        const cached_timestamp = saved_a_de["update"]["storage"].map((e) => e["answer"]);
         const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
 
         saved_timestamp.forEach((e, index) => {
@@ -2038,14 +2043,14 @@
 
     function copy_doc() {
         punctual();
-        const compared_list = compare_replace(temp_a, saved_a);
+        const compared_list = compare_replace(temp_a, saved_a_de);
         let warning_element_children = Array.from(Array(99).keys());
 
         if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
             issue_warning_show();
             warning_element_children = document.getElementById("warningText").children;
             if (warning_element_children[0] == undefined) {
-                dmp_update(saved_a);
+                dmp_update(saved_a_de);
                 copy_doc1();
             } else {
                 update_reminder(compared_list, warning_element_children);
@@ -2093,7 +2098,7 @@
     }
 
     function printDiv() {
-        const compared_list = compare_replace(temp_a, saved_a);
+        const compared_list = compare_replace(temp_a, saved_a_de);
         let warning_element_children = Array.from(Array(99).keys());
 
         if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
@@ -2101,7 +2106,7 @@
             warning_element_children = document.getElementById("warningText").children;
             if (warning_element_children[0] == undefined) {
                 try {
-                    dmp_update(saved_a);
+                    dmp_update(saved_a_de);
                     return printDiv1("doc3"); // Security exception may be thrown by some browsers.
                     const selection = window.getSelection();
 
@@ -2121,9 +2126,9 @@
     }
 
     function save_to_cache(id, name = " ") {
-        if (saved_a["update"]["storage"].length < 5) {
-            saved_a["update"]["storage"] = [
-                { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], },
+        if (saved_a_de["update"]["storage"].length < 5) {
+            saved_a_de["update"]["storage"] = [
+                { "answer": { "replace": saved_a_de["replace"], "checkbox": saved_a_de["checkbox"] }, "name": [], },
                 { "answer": [], "name": [], },
                 { "answer": [], "name": [], },
                 { "answer": [], "name": [], },
@@ -2135,16 +2140,16 @@
             ];
 
 
-        } else if (saved_a["update"]["storage"].length == 5) {
-            saved_a["update"]["storage"].push({ "answer": [], "name": [], });
-            saved_a["update"]["storage"][5] = saved_a["update"]["storage"][4];
-            saved_a["update"]["storage"][4] = saved_a["update"]["storage"][3];
-            saved_a["update"]["storage"][3] = saved_a["update"]["storage"][2];
-            saved_a["update"]["storage"][2] = saved_a["update"]["storage"][1];
-            saved_a["update"]["storage"][1] = saved_a["update"]["storage"][0];
-            saved_a["update"]["storage"][0] = { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], };
+        } else if (saved_a_de["update"]["storage"].length == 5) {
+            saved_a_de["update"]["storage"].push({ "answer": [], "name": [], });
+            saved_a_de["update"]["storage"][5] = saved_a_de["update"]["storage"][4];
+            saved_a_de["update"]["storage"][4] = saved_a_de["update"]["storage"][3];
+            saved_a_de["update"]["storage"][3] = saved_a_de["update"]["storage"][2];
+            saved_a_de["update"]["storage"][2] = saved_a_de["update"]["storage"][1];
+            saved_a_de["update"]["storage"][1] = saved_a_de["update"]["storage"][0];
+            saved_a_de["update"]["storage"][0] = { "answer": { "replace": saved_a_de["replace"], "checkbox": saved_a_de["checkbox"] }, "name": [], };
         }
-        if (saved_a["update"]["storage"][id]["answer"].length != 0) {
+        if (saved_a_de["update"]["storage"][id]["answer"].length != 0) {
             let confirm_overwrite = confirm("There is already a saved answer, do you want to overwrite saved answer here?");
             if (confirm_overwrite) {
                 save_to_cache1(id, name);
@@ -2165,19 +2170,19 @@
 
     function save_to_cache1(id, name = " ") {
         const now = new Date();
-        saved_a["update"]["storage"][id]["answer"] = { "replace": JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox": JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp": now.toLocaleString() };
-        saved_a["update"]["storage"][id]["name"] = name;
-        trim_saved_a(saved_a);
-        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+        saved_a_de["update"]["storage"][id]["answer"] = { "replace": JSON.parse(JSON.stringify(saved_a_de["replace"])), "checkbox": JSON.parse(JSON.stringify(saved_a_de["checkbox"])), "timestamp": now.toLocaleString() };
+        saved_a_de["update"]["storage"][id]["name"] = name;
+        trim_saved_a_de(saved_a_de);
+        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
         let update_element = document.querySelector("#load_from_cache_menu_" + id);
         update_element.innerHTML = now.toLocaleString();
         toast_list[3].show();
     }
 
     function load_from_cache(id) {
-        if (Object.keys(saved_a["update"]["storage"][id]["answer"]).length > 0) {
-            saved_a["replace"] = saved_a["update"]["storage"][id]["answer"]["replace"]
-            saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
+        if (Object.keys(saved_a_de["update"]["storage"][id]["answer"]).length > 0) {
+            saved_a_de["replace"] = saved_a_de["update"]["storage"][id]["answer"]["replace"]
+            saved_a_de["checkbox"] = saved_a_de["update"]["storage"][id]["answer"]["checkbox"];
             load_dmp(reload_answers, doc_name);
             toast_list[5].show();
         } else {
@@ -2186,9 +2191,9 @@
 
 
     }
-    function dmp_update(saved_a) {
+    function dmp_update(saved_a_de) {
 
-        if (saved_a["update"]["timeline"].length == 0) {
+        if (saved_a_de["update"]["timeline"].length == 0) {
             clear_dmp_updates();
             document.getElementById("dmp-update-modal").click();
 
@@ -2196,7 +2201,7 @@
         } else {
             clear_dmp_updates();
             document.getElementById("dmp-update-modal").click();
-            saved_a["update"]["timeline"].forEach(
+            saved_a_de["update"]["timeline"].forEach(
                 function (e) {
                     add_date_div(e["name"], e["date"])
 
@@ -2353,16 +2358,16 @@
         const filtered_list = datepicker_list.filter(function (i) { return i != null; });
 
 
-        try { saved_a["update"]["timeline"] = filtered_list; }
-        catch (e) { saved_a["update"]["timeline"] = [] }
-        trim_saved_a(saved_a);
+        try { saved_a_de["update"]["timeline"] = filtered_list; }
+        catch (e) { saved_a_de["update"]["timeline"] = [] }
+        trim_saved_a_de(saved_a_de);
 
-        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
-        generate_vcal(saved_a);
+        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
+        generate_vcal(saved_a_de);
         document.querySelector("#update_date_close").click();
     }
 
-    function generate_vcal(saved_a) {
+    function generate_vcal(saved_a_de) {
 
         const vcal_begin = `
 BEGIN:VCALENDAR
@@ -2388,7 +2393,7 @@ DESCRIPTION:Name of the reminder: ${e["name"]};
 LAST-MODIFIED:${cal_date.getFullYear()}${String(cal_date.getMonth() + 1).padStart(2, '0')}${String(cal_date.getDate()).padStart(2, '0')}T000000Z
 SEQUENCE:0
 STATUS:CONFIRMED
-SUMMARY:No. ${index + 1} Reminder to write DMP of ${saved_a["replace"]["$_PROJECTNAME"]} (created by DataPLAN)
+SUMMARY:No. ${index + 1} Reminder to write DMP of ${saved_a_de["replace"]["$_PROJECTNAME"]} (created by DataPLAN)
 TRANSP:OPAQUE
 END:VEVENT`;
 
@@ -2552,7 +2557,7 @@ END:VEVENT`;
         
         punctual();
         runWordCloud();
-        const compared_list = compare_replace(temp_a, saved_a);
+        const compared_list = compare_replace(temp_a, saved_a_de);
         let warning_element_children = Array.from(Array(99).keys());
 
         if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
@@ -2560,7 +2565,7 @@ END:VEVENT`;
             warning_element_children = document.getElementById("warningText").children;
             if (warning_element_children[0] == undefined) {
                 try {
-                    dmp_update(saved_a);
+                    dmp_update(saved_a_de);
                     return export2word1(element, doc_name+ Date().toLocaleString().slice(19)); // Security exception may be thrown by some browsers.
                     const selection = window.getSelection();
 
@@ -2705,7 +2710,7 @@ END:VEVENT`;
                                 <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export
                                     Document</button>
                                 <button id="dmp_update_button" class="dropdown-item "
-                                    onclick="dmp_update(saved_a)">Update Reminder</button>
+                                    onclick="dmp_update(saved_a_de)">Update Reminder</button>
 
                             </li>
                         </ul>
@@ -2832,7 +2837,7 @@ END:VEVENT`;
                                 <button id="odt_save" class="dropdown-item d-none" onclick="save()">
                                     Document Exportieren </button>
                                 <button id="dmp_update_button" class="dropdown-item "
-                                    onclick="dmp_update(saved_a)">Erinnern Sie mich daran, DMP zu aktualisieren</button>
+                                    onclick="dmp_update(saved_a_de)">Erinnern Sie mich daran, DMP zu aktualisieren</button>
                             <li>
                                 <button id="save_to_cache" class="dropdown-item">Im Cache speichern &raquo;</button>
                                 <ul class="dropdown-menu dropdown-submenu">
@@ -3697,7 +3702,7 @@ END:VEVENT`;
                                         <input data-replace="other endpoint repositories" style="width: 24vw;"
                                             type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHEREP"
-                                            onchange=' saved_a["replace"]["$_OTHEREP"]= this.value '
+                                            onchange=' saved_a_de["replace"]["$_OTHEREP"]= this.value '
                                             placeholder="complete sentence of the other endpoint repositories"
                                             onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }' />
                                     </label>
@@ -3895,7 +3900,7 @@ END:VEVENT`;
                                         <input style="width: 24vw;" type="text" class="col-auto"
                                             id="input_otherstandardinput" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHERSTANDARDINPUT"
-                                            onchange=' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
+                                            onchange=' saved_a_de["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
                                             placeholder="complete sentence of the other standards"
                                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                                             onfocus='thisOnfocus(this)'

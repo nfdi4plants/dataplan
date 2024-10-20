@@ -18,8 +18,13 @@
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
 
-    <script src="DMPDocs/BBSRC-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmbf-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="DMPDocs/bmbf-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmel-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    
     <script src="DMPDocs/dfg-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/horizon_europe-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/Horizon2020_DMP-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
@@ -63,8 +68,25 @@
         "dfg-dmp" : dfg_dmp["dfg-dmp"],
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
         "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
+        "bmel-dmp": bmel_dmp["bmel-dmp"],
+        "vw-dmp": vw_dmp["vw-dmp"],
+        "msca-dmp": msca_dmp["msca-dmp"],
         "practical-guide": practical_guide["practical-guide"],
         "user-defined": window.localStorage.getItem("fulltext_user"),
+
+    }
+
+    const dmpFunders = {
+        "Horizon2020_DMP" : "Horizon 2020",
+        "horizon_europe" : "Horizon Europe",
+        "dfg-dmp" : "DFG (Deutschforschungsgemeinschaft)",
+        "bmbf-dmp" : "BMBF (Bundes Ministerium für Bildung und Forschung)",
+        "msca-dmp" : "Marie Skłodowska-Curie Actions",
+        "BBSRC-dmp": "BBSRC",
+        "bmel-dmp": "BMEL",
+        "vw-dmp": "Volkswagen Foundation",
+        "practical-guide": "Practical Guide",
+        "user-defined": "Userdefined",
 
     }
     var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
@@ -122,32 +144,39 @@
 
             saved_a["dmp"] = {
                 "title": "Minimal DMP",
-                "contact": {
-                    "contact_id": {
-                        "identifier": "http://orcid.org/0000-0000-0000-0000",
-                        "type": "orcid"
-                    },
-                    "mbox": "cc@example.com",
-                    "name": "Charlie Chaplin"
-                },
+               
                 "created": "2018-07-23T10:10:23.6",
-                "dmp_id": {
-                    "identifier": "https://doi.org/10.0000/00.0.1234",
-                    "type": "doi"
-                },
-                "dataset": [{
-                    "dataset_id": {
-                        "identifier": "https://doi.org/10.0000/00.0.5678",
-                        "type": "doi"
-                    },
-                    "title": "Placeholder dataset",
-                    "personal_data": "unknown",
-                    "sensitive_data": "unknown"
-                }
-                ],
-                "ethical_issues_exist": "unknown",
+                "ethical_issues_exist": "no",
                 "language": "eng",
                 "modified": "2019-02-06T15:30:42.1",
+                "contact": {
+                    "mbox": "cc@example.com",
+                    "name": "Charlie Chaplin",
+                    "affiliation":"",
+                },
+                "project":{
+                    "title":"project name",
+                    "description":"description",
+                    "start":"starting date",
+                    "funding":{
+                        "funder_id":"funder_id",
+                        "status":"status"
+                    }
+                    
+                },
+                "dataset": [{
+                    "title":"titile",
+                    "type":"",
+                    "personal_data": "no",
+                    "sensitive_data": "no",
+                    "distribution":{
+                        "host":{
+                            "description":"description"
+                        }
+                    }
+                }
+                ],
+                
                 "submission": {
                     "time": "2022-07-06T15:30:42.1",
                     "funding": "Horizon Europe ",
@@ -389,16 +418,24 @@
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+".js";
         // update dmp meta data
         saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
-        saved_a["dmp"]["contact"]["name"] = "DMP of " + saved_a["replace"]["$_USERNAME"];
-        saved_a["dmp"]["contact"]["mbox"] = "DMP of " + saved_a["replace"]["$_EMAIL"];
-        saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = date.toISOString().slice(0, -3) : {};
-        saved_a["dmp"]["modified"] = date.toISOString().slice(0, -3);
+        saved_a["dmp"]["contact"]["name"] =  saved_a["replace"]["$_USERNAME"];
+        saved_a["dmp"]["contact"]["mbox"] =  saved_a["replace"]["$_EMAIL"];
+        saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = saved_a["replace"]["$_CREATIONDATE"] : {};
+        saved_a["dmp"]["modified"] = saved_a["replace"]["$_MODIFICATIONDATE"];
         saved_a["dmp"]["submission"] = date.toISOString().slice(0, -3);
         saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"];
+        saved_a["dmp"]["project"] ? {}:saved_a["dmp"]["project"] = {};
+        saved_a["dmp"]["project"]["title"] = saved_a["replace"]["$_PROJECTNAME"];
+        saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
+        saved_a["dmp"]["project"]["funding"] ? {}:saved_a["dmp"]["project"]["funding"] = {};
+        saved_a["dmp"]["project"]["funding"]["funder_id"] = dmpFunders[window.doc_name];
+        
+        
+        
+
 
         saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
         saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
-
 
         runWordCloud();
         
@@ -618,7 +655,7 @@
         const before = child.name;
         const after = child.value;
         saved_a["replace"][before] = after;
-        load_dmp(reload_answers, name = doc_name);
+        load_dmp(reload_answers, doc_name);
 
     }
 
@@ -626,6 +663,7 @@
     function updateWC(status){
         window.wordcloud = (status).toString();
         localStorage.setItem("wordcloud", status);
+        load_dmp(reload_answers, doc_name);
 
     }
 
@@ -771,12 +809,16 @@
         let checkboxes = document.querySelectorAll(".form-check-input");
         checkboxes.forEach(e => {
 
+            const classList = Array.from(e.classList);
+            const class_name = classList.filter((word)=> word.includes("checkbox_"))
+            if(class_name.length>0){
             e.setAttribute("onfocusin", 'checkboxOnfocusin(this)');
             e.setAttribute("onfocusout", 'checkboxOnfocusout(this)');
             e.setAttribute("onmouseover", 'this.focus()');
             e.setAttribute("onclick", ' sc1(this)');
             e.setAttribute("name", e.id);
             e.setAttribute("onchange", "get_option(this)");
+            }
             
         }
 
@@ -908,7 +950,7 @@
         //verbose  console.log("+++++++++++++++++" + checked_list);
 
 
-        load_dmp(reload_answers, name = doc_name);
+        load_dmp(reload_answers, doc_name);
 
         }
 
@@ -1507,7 +1549,7 @@
         window.localStorage.setItem("user_info", "visited");
         saved_a = update_saved_json(saved_a),
             updateSavedAnswers();
-        load_dmp(reload_answers, name = cached_template);
+        load_dmp(reload_answers,cached_template);
         //document.getElementById("split-0").scrollTop= scroll_y;
 
         //verbose  console.log("current url is: " + window.location.href);
@@ -1519,7 +1561,7 @@
                 .then(json => {
                     saved_a = json;
                     updateSavedAnswers();
-                    load_dmp(reload_answers, name = cached_template);
+                    load_dmp(reload_answers, cached_template);
                 })
 
         }
@@ -1535,22 +1577,22 @@
             window.innerWidth>maxWidth? tour.show() : {};
                 break;
             case "Horizon2020":
-                load_dmp(reload_answers, name = "Horizon2020_DMP");
+                load_dmp(reload_answers, "Horizon2020_DMP");
                 break;
             case "HorizonEurope":
-                load_dmp(reload_answers, name = "horizon_europe");
+                load_dmp(reload_answers, "horizon_europe");
                 break;
             case "DFG":
-                load_dmp(reload_answers, name = "dfg-dmp");
+                load_dmp(reload_answers, "dfg-dmp");
                 break;
             case "dfg":
-                load_dmp(reload_answers, name = "dfg-dmp");
+                load_dmp(reload_answers,"dfg-dmp");
                 break;
             case "bmbf":
-                load_dmp(reload_answers, name = "bmbf-dmp");
+                load_dmp(reload_answers, "bmbf-dmp");
                 break;
             case "PracticeGuide":
-                load_dmp(reload_answers, name = "practical-guide");
+                load_dmp(reload_answers, "practical-guide");
                 break;
 
 
@@ -1871,13 +1913,13 @@
 
                     const now = new Date();
                     saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-                    load_dmp(reload_answers, name = cached_template);
+                    load_dmp(reload_answers, cached_template);
                 } else {
                     saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = value;
                     saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
-                    load_dmp(reload_answers, name = cached_template);
+                    load_dmp(reload_answers,cached_template);
 
 
 
@@ -1947,13 +1989,13 @@
 
                     const now = new Date();
                     saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-                    load_dmp(reload_answers, name = cached_template);
+                    load_dmp(reload_answers,cached_template);
                 } else {
                     saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["checkbox"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = JSON.stringify(value, null, "\t");
                     saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
-                    load_dmp(reload_answers, name = cached_template);
+                    load_dmp(reload_answers,cached_template);
 
 
                 }
@@ -1987,7 +2029,7 @@
         toast_list[2].show();
         saved_a = uploaded_input_all;
         updateSavedAnswers();
-        load_dmp(reload_answers, name = cached_template);
+        load_dmp(reload_answers,cached_template);
 
         ////verbose  console.log(JSON.stringify(saved_a));
 
@@ -2002,7 +2044,7 @@
         saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-        load_dmp(reload_answers, name = cached_template);
+        load_dmp(reload_answers,cached_template);
         syn_load_cache();
         toast_list[1].show();
 
@@ -2683,8 +2725,8 @@ END:VEVENT`;
                                 </button>
                             </li>
                             <li>
-                                <div class="form-check form-switch dropdown-item">
-                                    <input id="word_cloud_switchs" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
+                                <div class="form-check form-switch dropdown-item ">
+                                    <input id="word_cloud_switchs" class="form-check-input " onchange='updateWC(this.checked)' type="checkbox" role="switch" >
                                     <label class="form-check-label" for="word_cloud_switchs">Word Cloud Switch</label>
                                 </div>
 
@@ -2742,7 +2784,18 @@ END:VEVENT`;
                                 <button id="detailed_BBSRC-dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
                             </li>
-
+                            <li>
+                                <button id="detailed_msca-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="msca-dmp")'>MSCA (Marie Skłodowska-Curie Actions) DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_bmel-dmp" class="dropdown-item d-none"
+                                    onclick='load_dmp(reload_answers,name="bmel-dmp")'>BMEL DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_vw-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="wv-dmp")'>Volkswage Foundation DMP</button>
+                            </li>
                             <li>
                                 <button id="proposal_save" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
@@ -2906,7 +2959,7 @@ END:VEVENT`;
                                     data-bs-placement="top"
                                     title="bugs, suggestions or comments are welcom here">GitHub</a>
                             </li>
-                            <div class="form-check form-switch">
+                            <div class="form-check form-switch d-none">
                                 <input class="form-check-input" type="checkbox" id="classicModeBtn">
                                 <label class="form-check-label" for="classicModeBtn">Classic Mode</label>
                             </div>
