@@ -2,7 +2,7 @@
 
 
 vw_dmp = { "vw-dmp" : `<div id="bmbf-dmp" class="">
-    <div id="bmbf-dmp1" class="content-page" id="text_start">
+    <div class="content-page" id="text_start">
     <p class="c4"><span class="c6">7 Fragen &ndash; Basis-Datenmanagementplan</span><sup class="c6"><a href="#ftnt1"
                 id="ftnt_ref1">[1]</a></sup></p>
     <p class="c13"><span class="c5">Unter den Bedingungen einer Daten intensiven Wissenschaft sind Forschungsdaten heute

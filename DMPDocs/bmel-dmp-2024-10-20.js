@@ -1,5 +1,5 @@
 bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
-    <div id="bmel-dmp1" class="content-page" id="text_start">
+    <div  class="content-page" id="text_start">
         <h1 class="text-center">
             <p class="text-center h1">
                 <center>Datenmanagementplan für BMBF</center>

@@ -1,5 +1,5 @@
 BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
-    <div id="BBSRC-dmp1" class="content-page" id="text_start">
+    <div class="content-page" id="text_start">
         <span class="c2">Data management plan of $_PROJECTNAME for BBSRC</span>
         <ul class="c0 ">
 
