@@ -450,11 +450,21 @@ display: block;
 	
 }
 
+
+.expressmenu{
+    position: fixed; 
+    top: 160px; 
+    left: calc(60vw - 2.9rem ); 
+    z-index:1030;
+    transform: scale(1.5) !important;
+
+}
+
 #up-to-top {
   display: none;
   position: fixed;
   border: none;
-  left: calc(60vw - 4rem);
+  left: calc(60vw - 2.9rem);
   bottom: 50px;
   z-index: 1020;
   font-size: 34px;
