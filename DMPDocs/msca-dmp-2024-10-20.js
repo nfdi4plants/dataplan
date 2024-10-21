@@ -64,7 +64,7 @@ msca_dmp = {
                         purposes. 
                     </b>
                             
-                                <span class="c0">
+                                <span class="c0"> <br>
                             &ndash; #if$_EARLY Some raw data is made public as soon as it is collected and processed.
                             #endif$_EARLY
                             #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research
@@ -226,7 +226,7 @@ msca_dmp = {
                         tools/software/models for data generation and validation/interpretation /re-use.</b>
                                 <br>
 
-                    Our data will be made freely available in the public domain to permit the widest re-use
+                    &ndash; Our data will be made freely available in the public domain to permit the widest re-use
                     possible. Open licenses, such as Creative Commons (CC), will be used whenever possible.
                     #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the 
                                     <a target="_blank"
@@ -255,8 +255,7 @@ msca_dmp = {
                             <span class="c0">
                                 <b>Curation and storage/preservation costs; person/team
                     responsible for data management and quality assurance.</b>
-                                <br>
-                                    <span class="c0">The data related
+                                    <span class="c0"> <br> &ndash; The data related
                     cost of $_PROJECTNAME are covered by the project funding.
                     Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
                     DataPLANT consortium #endif$_DATAPLANT will also be used. The responsible person will be
