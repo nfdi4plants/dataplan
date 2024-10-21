@@ -1,7 +1,7 @@
 
 
 
-vw_dmp = { "vw-dmp" : `<div id="bmbf-dmp" class="">
+vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
     <div class="content-page" id="text_start">
     <p class="c4"><span class="c6">7 Fragen &ndash; Basis-Datenmanagementplan</span><sup class="c6"><a href="#ftnt1"
                 id="ftnt_ref1">[1]</a></sup></p>
