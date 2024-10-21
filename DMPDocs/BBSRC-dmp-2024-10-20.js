@@ -32,7 +32,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                 use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                 on community standards plus additional recommendations applicable in the plant science, such as the
                 <span class="list-to-remove-comma">
-                    The following metadata/ minimum informatin standards will be used to collect metadata:
+                    The following metadata/ minimum information standards will be used to collect metadata:
                     #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                     #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                     #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
@@ -147,7 +147,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                             #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be
                             processed there as well. #endif$_OTHEREP
 
-                            #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, commandline tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT
+                            #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, command line tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT
                         </span>
                     </p></span></li> <li class="c0 li-bullet-0"><span class="c0">Proprietary Data <br> &ndash; Open public
                 data will be used whenever possible. </span></li>
@@ -168,7 +168,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                 </span></li>
             <li class="c0 li-bullet-0"><span class="c0">Format of the Final Dataset <br> &ndash; Whenever possible, data
                     will be stored in common and openly defined formats including all the necessary metadata. By
-                    default, no proprietary formats will be used. However Microsoft Excel files (according to
+                    default, no proprietary formats will be used. However, Microsoft Excel files (according to
                     ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some
                     Annotated Research Context (ARC) components#endif$_DATAPLANT. In addition, text files might be edited in text processor
                     files, but will be shared as pdf.</span>

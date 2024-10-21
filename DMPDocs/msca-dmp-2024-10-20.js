@@ -150,7 +150,7 @@ msca_dmp = {
                     on community standards plus additional recommendations applicable in the plant science, such as the
                     
                             <span class="list-to-remove-comma">
-                        The following metadata/ minimum informatin standards will be used to collect metadata:
+                        the following metadata/ minimum information standards will be used to collect metadata:
                         #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                         #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                         #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
@@ -201,16 +201,16 @@ msca_dmp = {
                                 class="list-to-remove-comma">
                                 #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE
                                 Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS
-                                BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . The metadata standards will
+                                BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> The metadata standards will
                             thus allow the integration of data across projects and safeguards that reuse established and tested
                             protocols.
                             Additionally, we will use ontology terms to enrich the data sets relying on free and open
                             ontologies. In addition, additional ontology terms might be created and be canonized during the
-                            $_PROJECTNAME.</span>
+                            $_PROJECTNAME.
                                     <br>
                             Whenever possible, data will be stored in common and openly defined formats including all the
                             necessary metadata. By
-                            default, no proprietary formats will be used. However Microsoft Excel files (according to
+                            default, no proprietary formats will be used. However, Microsoft Excel files (according to
                             ISO/IEC 29500-1:2016) might be used as intermediates by the consortium#if$_DATAPLANT and by some
                             Annotated Research Context (ARC) components#endif$_DATAPLANT. In addition, text files might be
                             edited in text processor files, but will be shared as pdf.
@@ -231,7 +231,7 @@ msca_dmp = {
                     #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the 
                                     <a target="_blank"
                         href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC
-                        management tool ARCitect </a>, commandline tool 
+                        management tool ARCitect </a>, command line tool 
                                     <a target="_blank"
                         href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander
                     </a>, 
