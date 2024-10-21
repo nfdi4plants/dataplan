@@ -329,7 +329,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                 on community standards plus additional recommendations applicable in the plant science, such as the
                 <span class="list-to-remove-comma">
-                    The following metadata/ minimum informatin standards will be used to collect metadata:
+                    The following metadata/ minimum information standards will be used to collect metadata:
                     #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                     #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                     #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
@@ -647,7 +647,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern
                 browser. Access will be possible through web interfaces. For data processing after obtaining raw
                 data, typical open-source software can be used. #endif!$_PROPRIETARY
-                                #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, commandline tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT #if$_DATAPLANT DataPLANT resources are well described, and
+                                #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/guides/arcitect_QuickStart_Videos.html">ARC management tool ARCitect </a>, command line tool <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/ArcCommanderManual/index.html">ARCcommander </a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/OntologyServiceLandscape"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/Swate.html">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/MetadataQuiz.html">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.org/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html">DataPLAN DMP generator</a>. #endif$_DATAPLANT #if$_DATAPLANT DataPLANT resources are well described, and
                 their setup is documented on their github project pages. #endif$_DATAPLANT
                 As stated above, here we use publicly available open-source and well-documented certified software, #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.
             </span>
@@ -703,7 +703,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
         </p>
         <span class="c1">Whenever possible, data will be stored in common and openly defined formats including all the necessary
         metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
-        used. However Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by
+        used. However, Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by
         the consortium#if$_DATAPLANT and by some ARC components #endif$_DATAPLANT. In addition, text files might be
         edited in text processor files, but will be shared as pdf.
         Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
