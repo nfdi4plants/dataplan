@@ -1525,6 +1525,73 @@
         dmpEle.innerHTML = dmpStrings[cached_template];
 
     }
+    
+
+    function csvJSON(tsv){
+
+        var lines=tsv.split("\n");
+
+        var result = {};
+        var headers=lines[1].split("\t");
+
+        for(var i=1;i<lines.length;i++){
+
+            var obj;
+            var currentline=lines[i].split("\t");
+
+            result[currentline[0]] = {"de": currentline[1]};
+
+        }
+
+        //return result; //JavaScript object
+        return JSON.stringify(result); //JSON
+        }
+
+        async function fetchGoogleCSV(){
+        try {
+            //read .csv file on a server
+            const target = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSFe3-xGgq1a9c2vPKF2v6LQSLQX3t-EPUY-Q-_XYXHwgSBTU4l3R22GVFsl6wVXO4ebiJakEUXCF8K/pub?gid=0&single=true&output=tsv`;
+
+            const res = await fetch(target, {
+            
+                method: 'get',
+                headers: {
+                
+                    'content-type': 'text/csv;charset=UTF-8',
+                }
+            });
+
+            if (res.status === 200) {
+                const data = await res.text();
+                const result = JSON.parse(csvJSON(data));
+                return result;
+                //document.getElementById("submission").disabled = false;
+
+            } else {
+                console.log(`Error code ${res.status}`);
+            }
+        } catch (err) {
+            console.log(err)
+        }
+
+        }
+
+
+    async function translatePage(){
+        googleJSON = await fetchGoogleCSV();
+        let list = document.querySelectorAll('span[name="translateTarget"]');
+        list.forEach(e=>{
+            try {
+                e.innerHTML = googleJSON[e.dataset.en].de;
+            } catch (error) {
+                console.error(error)
+            }
+            
+
+
+        })
+
+    }
 
     // initialization
     window.addEventListener("load", function () {
@@ -2683,11 +2750,11 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button id="detailed_dmp" class="dropdown-item"
+                                <button id="menu_horizon2020_dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020</button>
                             </li>
                             <li>
-                                <button id="detailed_dmp" class="dropdown-item"
+                                <button id="menu_horizoneurope_dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
                             </li>
                             <li>
@@ -2814,7 +2881,10 @@ END:VEVENT`;
                                     data-bs-target="#offcanvas-template-input" aria-controls="offcanvas-template-input"
                                     onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
                                     href="#">
+                                    <span name="translateTarget" data-en="User-defined Template">
                                     User-defined Template
+                                    </spans>
+
                                 </a>
                             </li>
                         </ul>
@@ -2823,8 +2893,9 @@ END:VEVENT`;
                     <div class="btn-group d-none rounded-0 g-0 d-md-block dropdown col-auto">
                         <button type="button" class="btn border-0  btn-nav rounded-0" data-bs-toggle="dropdown"
                             aria-expanded="false" id="upload_button">
+                            <span name="translateTarget" data-en="Import">
                             Import &nbsp;
-
+                            </span>
                             <span
                                 style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
                                 ∨ </span>
@@ -2832,57 +2903,80 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <label for="upload" class="form-label dropdown-item">
+                                    <span name="translateTarget" data-en="Import Answers">
                                     Import Answers
+                                    </span>
                                     <input class="form-control d-none" type="file" id="upload" />
                                 </label>
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
+                                    onclick="window.localStorage.clear();document.location.reload()">
+                                    <span name="translateTarget" data-en="Clear Input (Use Default Answers)">
+                                    Clear Input (Use Default Answers)
+                                </span>
+                            </button>
                             </li>
                             <li>
-                                <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
-                                    Generate Word Cloud
+                                <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'><span name="translateTarget" data-en="Generate Word Cloud">
+                                    Generate Word Cloud</span>
                                 </button>
                             </li>
                             <li>
 
                                 <div class="form-check form-switch ">
                                     <input id="word_cloud_switchl" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
-                                    <label class="form-check-label" for="word_cloud_switchl">Word Cloud Switch</label>
+                                    
+                                    <label class="form-check-label" for="word_cloud_switchl">
+                                        <span name="translateTarget" data-en="Word Cloud Switch">
+                                            Word Cloud Switch
+                                    </span>
+                                    </label>
                                 </div>
 
                             </li>
                             <li>
                                 <label for="image_upload" class="form-label dropdown-item">
+                                    <span name="translateTarget" data-en="Upload Frontpage Image">
                                     Upload Frontpage Image
+                                </span>
                                     <input class="form-control d-none" type="file" id="image_upload_menu"
                                         onchange="upload_image()" />
                                 </label>
                             </li>
                             <li>
-                                <button id="load_from_cache" class="dropdown-item">Load from Cache &raquo;</button>
+                                <button id="load_from_cache" class="dropdown-item">
+                                    <span name="translateTarget" data-en="Load from Cache">
+                                    Load from Cache &raquo;
+                                    </span>
+                                </button>
                                 <ul class="dropdown-menu  dropdown-submenu">
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache"
-                                            onclick="load_from_cache(1)" href="#">Slot 1</a>
+                                            onclick="load_from_cache(1)" href="#">
+                                            <span name="translateTarget" data-en="Slot 1">
+                                                Slot 1</span></a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache"
-                                            onclick="load_from_cache(2)" href="#">Slot 2</a>
+                                            onclick="load_from_cache(2)" href="#"> <span name="translateTarget" data-en="Slot 2">
+                                                Slot 2</span></a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache"
-                                            onclick="load_from_cache(3)" href="#">Slot 3</a>
+                                            onclick="load_from_cache(3)" href="#"> <span name="translateTarget" data-en="Slot 3">
+                                                Slot 3</span></a>
 
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache"
-                                            onclick="load_from_cache(4)" href="#">Slot 4</a>
+                                            onclick="load_from_cache(4)" href="#"> <span name="translateTarget" data-en="Slot 4">
+                                                Slot 4</span></a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache"
-                                            onclick="load_from_cache(5)" href="#">Slot 5</a>
+                                            onclick="load_from_cache(5)" href="#"> <span name="translateTarget" data-en="Slot 5">
+                                                Slot 5</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -2899,38 +2993,61 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>
-                                <button id="json_save" class="dropdown-item" onclick="save_json()">Export to
-                                    JSON</button>
+                                <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">
+                                    <span name="translateTarget" data-en="Copy Text">
+                                        Copy Text
+                                    </span>
+                                </button>
+                                <button id="json_save" class="dropdown-item" onclick="save_json()">
+                                    <span name="translateTarget" data-en="Export to JSON">
+                                    Export to JSON
+                                </span>
+                                </button>
                                 <button id="docx_save" class="dropdown-item"
-                                    onclick='export2word("doc3", "DMP-DataPLAN")'>Export to Word</button>
-                                <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
+                                    onclick='export2word("doc3", "DMP-DataPLAN")'>
+                                    <span name="translateTarget" data-en="Export to Word">    
+                                    Export to Word
+                                    </span>
+                                </button>
+                                <button id="print" class="dropdown-item" onclick="printDiv();">
+                                    <span name="translateTarget" data-en="Print Document">
+                                    Print Document
+                                    </span>
+                                </button>
 
-
-
-
-                                <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export
-                                    Document</button>
                                 <button id="dmp_update_button" class="dropdown-item "
-                                    onclick="dmp_update(saved_a)">Remind me to Update DMP</button>
+                                    onclick="dmp_update(saved_a)">
+                                    <span name="translateTarget" data-en="Remind me to Update DMP"> 
+                                    Remind me to Update DMP
+                                </span>
+                            </button>
                             <li>
-                                <button id="save_to_cache" class="dropdown-item">Save to Cache &raquo;</button>
+                                <button id="save_to_cache" class="dropdown-item">
+                                    <span name="translateTarget" data-en="Save to Cache"> 
+                                    Save to Cache &raquo;
+                                </span>
+                                </button>
                                 <ul class="dropdown-menu dropdown-submenu">
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Slot 1</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(1)" href="#"><span name="translateTarget" data-en="Slot 1">
+                                            Slot 1</span></a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Slot 2</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(2)" href="#"><span name="translateTarget" data-en="Slot 2">
+                                            Slot 2</span></a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Slot 3</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(3)" href="#"><span name="translateTarget" data-en="Slot 3">
+                                            Slot 3</span></a>
 
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Slot 4</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(4)" href="#"><span name="translateTarget" data-en="Slot 4">
+                                            Slot 4</span></a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Slot 5</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(5)" href="#"><span name="translateTarget" data-en="Slot 5">
+                                            Slot 5</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -2942,7 +3059,9 @@ END:VEVENT`;
                     <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                         <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown"
                             aria-expanded="false" id="help_menu">
+                            <span name="translateTarget" data-en="Help">
                             Help &nbsp;
+                        </span>
 
                             <span
                                 style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
@@ -2951,12 +3070,20 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="tutorial_button" class="dropdown-item"
-                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">Tutorial</button>
+                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">
+                                    <span name="translateTarget" data-en="Tutorial">
+                                    Tutorial
+                                </span>
+                                </button>
                             </li>
                             <li>
                                 <a id="wiki_button" class="dropdown-item" target="_blank"
                                     ref="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html"
-                                    target="_blank">Knowledge Base</a>
+                                    target="_blank">
+                                    <span name="translateTarget" data-en="Knowledge Base">
+                                    Knowledge Base
+                                </span>
+                                </a>
                             </li>
                             <li>
                                 <a id="github_button" class="dropdown-item" target="_blank"
@@ -2970,11 +3097,17 @@ END:VEVENT`;
                             </div>
                             <li>
                                 <button id="print_q" class="dropdown-item"
-                                    onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print
-                                    Questions</button>
+                                    onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>
+                                    <span name="translateTarget" data-en="Print Questions">    
+                                    Print Questions
+                                </span>
+                                </button>
                             </li>
                             <li>
-                                <button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog
+                                <button id="news" class="dropdown-item" onclick='cookie_modal.show()'>
+                                    <span name="translateTarget" data-en="News and Changelog">
+                                    News and Changelog
+                                </span>
                                     <span class="badge bg-secondary">1</span>
                                     </span></button>
                             </li>
@@ -2999,19 +3132,31 @@ END:VEVENT`;
                     style="margin: auto; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80)">
                     <ul class="nav nav-fill nav-pills col-12 justify-content-center">
                         <li class="nav-item border-0">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading1">Basic Info</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading1">
+                                <span name="translateTarget" data-en="Basic Info">
+                                Basic Info
+                            </span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading2">Data Type</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading2">
+                                <span name="translateTarget" data-en="Data Type">
+                                Data Type
+                                </span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading3">Data Volume</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading3">
+                                <span name="translateTarget" data-en="Data Volume">Data Volume</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading4">Data Standards</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading4">
+                                <span name="translateTarget" data-en="Data Standards">Data Standards
+                                </span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">
+                                <span name="translateTarget" data-en="Data Analysis">Data Analysis</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -3062,7 +3207,8 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Copied to clipboard
+                                        <span name="translateTarget" data-en="Copied to clipboard">
+                                        Copied to clipboard</span>
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3072,7 +3218,8 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        The saved answers jave been updated
+                                        <span name="translateTarget" data-en="The saved answers have been updated">The saved answers have been updated</span>
+                                        
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3082,7 +3229,9 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
+                                        <span name="translateTarget" data-en="All saved answers have been updated">
                                         All saved answers have been updated
+                                        </span>
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3092,7 +3241,8 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Answers has been saved
+                                        <span name="translateTarget" data-en="Answers has been saved">Answers has been saved</span>
+                                        
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3102,7 +3252,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Current answer has NOT been saved
+                                        <span name="translateTarget" data-en="Current answer has NOT been saved">Current answer has NOT been saved</span>
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3112,7 +3262,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Cache was successfuly loaded
+                                        <span name="translateTarget" data-en="Cache was successfuly loaded">Cache was successfuly loaded</span>
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3123,9 +3273,10 @@ END:VEVENT`;
                                 data-bs-autohide="true" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body m-auto">
-                                    All free text answers have been give. The checkboxes will not be tracked. <br> Copy text
+                                        <span name="translateTarget" data-en="All free text answers have been give. The checkboxes will not be tracked. <br> Copy text">
+                                    All free text answers have been give. The checkboxes will not be tracked. <br> Copy text</span>
                                         <a href="#" data-toggle="tooltip" onclick="copy_doc()"
-                                            title="click to copy the document"> here
+                                            title="click to copy the document"> <span name="translateTarget" data-en="here">here</span>
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                 fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -3150,7 +3301,8 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Load from cache failed because the slot selected is empty.
+                                        <span name="translateTarget" data-en="Load from cache failed because the slot selected is empty.">Load from cache failed because the slot selected is empty.</span>
+                                        
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3189,10 +3341,12 @@ END:VEVENT`;
                     <div id="intro-tour-input">
                         <div id="warningText"></div>
 
-                        <h2 id="scrollspyHeading1">1 Basic Information:</h2>
+                        <h2 id="scrollspyHeading1">
+                            <span name="translateTarget" data-en="1 Basic Information:">1 Basic Information:</span></h2>
 
                         <form class="" style="margin-left: 0px;" id="form_projectname">
-                            <h3>1.1 What is the project name or acronym?</h3>
+                            <h3><span name="translateTarget" data-en="1.1 What is the project name or acronym?">1.1 What is the project name or acronym?</span>
+                                </h3>
                             <label for="input_projectname"></label>
                             <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
@@ -3205,7 +3359,9 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_acronym"
                                          />
                                     <label class="form-check-label" for="check_acronym">
+                                        <span name="translateTarget" data-en="This project has an additional acronym:">
                                         This project has an additional acronym:
+                                    </span>
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_addacronym" name="$_ADDACRONYM"
                                     placeholder="Add an acronym"
@@ -3220,11 +3376,12 @@ END:VEVENT`;
                         <form id="form_studyobject">
                             <label for="input_studyobject">
                                 <h3 class="text-left">
-                                    1.2 Please briefly state
+                                    <span name="translateTarget" data-en="1.2 Please briefly state">1.2 Please briefly state</span>
+                                    
                                     <a href="#" 
                                         tabindex="-1" class="text-success" tabindex="-1" type="button"
                                             data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj"
-                                            aria-controls="offcanvas-obj">the topic of the research project &#128712;
+                                            aria-controls="offcanvas-obj"><span name="translateTarget" data-en="the topic of the research project">the topic of the research project &#128712;</span>
                                             </a>
 
                                 </h3>
@@ -3245,11 +3402,11 @@ END:VEVENT`;
                         <form id="form_projectaim">
                             <label class="" for="input_projectaim">
                                 <h3>
-                                    and the overall aim of the project
+                                    <span name="translateTarget" data-en="and the overall aim of the project">and the overall aim of the project</span>
                                     <a href="#"  class="text-success" type="button" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" 
                                         tabindex="-1">
-                                            (what do you want to achieve?) &#128712;
+                                        <span name="translateTarget" data-en="(what do you want to achieve?)">(what do you want to achieve?) &#128712;</span>
                                             
                                     </a>
                                 </h3>
@@ -3266,7 +3423,8 @@ END:VEVENT`;
                         <form class="" style="margin-left: 0px;" id="form_datautility " >
                             <h3> <a href="#" class="text-success"   tabindex="-1" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">
-                                Who is most likely to benefit from the data? &#128712;
+                                <span name="translateTarget" data-en="Who is most likely to benefit from the data?">
+                                Who is most likely to benefit from the data? &#128712;</span>
                                         </a> </h3>
                             <label for="input_datautility"></label>
                             <textarea style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
@@ -3282,10 +3440,10 @@ END:VEVENT`;
                         </form>
                         <form class="" style="margin-left: 0px;" id="form_username">
                             <h3>1.3 <a id="" href="#" class="text-success infolink" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Other &#128712;
-                                     </a> DMP Metadata</h3>
+                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"><span name="translateTarget" data-en="Other">Other</span>  &#128712;
+                                     </a> <span name="translateTarget" data-en="DMP Metadata">DMP Metadata</span></h3>
                             <label for="input_username">
-                                <h4> User Name: </h4>
+                                <h4> <span name="translateTarget" data-en="User Name:">User Name:</span> </h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_username" name="$_USERNAME"
@@ -3298,7 +3456,7 @@ END:VEVENT`;
                         </form>
                         <form class="" style="margin-left: 0px;" id="form_email">
                             <label for="input_email">
-                                <h4>User Email:</h4>
+                                <h4> <span name="translateTarget" data-en="User Email:">User Email:</span></h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_email" name="$_EMAIL"
@@ -3313,8 +3471,7 @@ END:VEVENT`;
                         <form class="" style="margin-left: 0px;" id="form_dataofficer">
                             <label for="input_dataofficer">
                                 <h4><a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Data
-                                        Officer</a> Name:</h4>
+                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer"><span name="translateTarget" data-en="Data Officer Name:"> Data Officer Name: </span></a></h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dataofficer"
@@ -3325,8 +3482,8 @@ END:VEVENT`;
                                 <div>
                                     <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_projectcoordinator"
                                          />
-                                    <label class="form-check-label" for="check_projectcoordinator">
-                                        This project has a project coordinator:
+                                    <label class="form-check-label" for="check_projectcoordinator"><span name="translateTarget" data-en="This project has a project coordinator:">This project has a project coordinator:</span>
+                                        
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_addprojectcoordinator" name="$_ADDPROJECTCOORDINATOR"
                                     placeholder="Add a project coordinator"
@@ -3341,7 +3498,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_fundingprogramme">
                             <label for="input_fundingprogramme">
-                                <h4> Funding Programme:</h4>
+                                <h4> <span name="translateTarget" data-en="Funding Programme:">Funding Programme:</span></h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_fundingprogramme"
@@ -3355,7 +3512,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_creationdate">
                             <label for="input_creationdate">
-                                <h4> DMP Creation Date:</h4>
+                                <h4> <span name="translateTarget" data-en="DMP Creation Date:">DMP Creation Date:</span></h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_creationdate"
@@ -3369,7 +3526,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_modificationdate">
                             <label for="input_modificationdate">
-                                <h4> DMP Last Modification:</h4>
+                                <h4> <span name="translateTarget" data-en="DMP Creation Date:">DMP Last Modification:</span></h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_modificationdate"
@@ -3383,7 +3540,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_dmpversion">
                             <label for="input_dmpversion">
-                                <h4>DMP version:</h4>
+                                <h4><span name="translateTarget" data-en="DMP version:">DMP version:</span></h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dmpversion" name="$_DMPVERSION"
@@ -3395,14 +3552,14 @@ END:VEVENT`;
 
                         </form>
 
-                        <h3> 1.4 Please select from the following options</h3>
+                        <h3><span name="translateTarget" data-en="1.4 Please select from the following options">1.4 Please select from the following options</span> </h3>
                         <div class="form-data_type form-check" id="form_checkbox_1"
                             >
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="1"
                                     id="check_protect" />
                                 <label class="form-check-label" id="check_protect_label" for="check_protect">
-                                    The data is protected.
+                                    <span name="translateTarget" data-en="The data is protected.">The data is protected.</span>
                                 </label>
                             </div>
                             <div>
@@ -3414,18 +3571,19 @@ END:VEVENT`;
 									aria-controls="form_checkbox_5"
 									role="button"-->
                                 <label class="form-check-label" for="check_dataplant">
-
-                                    Yes! I will use <a class="text-primary" href="https://nfdi4plants.github.io/"
+                                    <span name="translateTarget" data-en="Yes! I will">
+                                    Yes! I will</span> <a class="text-primary" href="https://nfdi4plants.github.io/"
                                         target="_blank" data-toggle="tooltip"
                                         title="An NFDI consortium of plant research."
-                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
+                                        data-original-title="An NFDI consortium of plant research."><span name="translateTarget" data-en="use DataPLANT">use DataPLANT</span></a>.
                                 </label>
                             </div>
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update"
                                      />
                                 <label class="form-check-label" for="check_update">
-                                    This project will be updated at:
+                                    <span name="translateTarget" data-en="This project will be updated at:">
+                                    This project will be updated at:</span>
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
                                 placeholder="month of update"
@@ -3439,7 +3597,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="4"
                                     id="check_previousprojects"  />
                                 <label class="form-check-label" for="check_previousprojects">
-                                    This project has previous projects.
+                                    <span name="translateTarget" data-en="This project has previous projects.">This project has previous projects.</span>
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_previousprojects"
                                     name="$_PREVIOUSPROJECTS" placeholder="previous project here"
@@ -3454,7 +3612,8 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="5"
                                     id="check_industry" />
                                 <label class="form-check-label" for="check_industry">
-                                    This is an industry project.
+                                    <span name="translateTarget" data-en="This is an industry project.">This is an industry project.</span>
+                                    
                                 </label>
                             </div>
                             <div>
@@ -3462,9 +3621,14 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="6"
                                     id="check_proprietary" />
                                 <label class="form-check-label" for="check_proprietary">
-                                    This project use <a class="text-primary" data-bs-toggle="offcanvas"
+                                    <span name="translateTarget" data-en="This project use">This project use</span>
+                                     <a class="text-primary" data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary"
-                                        href="#">proprietary software</a>.
+                                        href="#">
+                                        <span name="translateTarget" data-en="This project use">
+                                        proprietary software
+                                            </span>
+                                        </a>.
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                         onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
                                         placeholder=" proprietary software "
@@ -3478,7 +3642,8 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="7"
                                     id="check_partners" />
                                 <label class="form-check-label" for="check_partners">
-                                    This project has partners.
+                                    <span name="translateTarget" data-en="This project has partners.">This project has partners.</span>
+                                    
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
                                     placeholder="partner name"
@@ -3530,19 +3695,19 @@ END:VEVENT`;
 
 
                         <form class="show" id="form_checkbox_2" >
-                            <h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
+                            <h2 id="scrollspyHeading2"><span name="translateTarget" data-en="2. What kind of data will you handle?">2. What kind of data will you handle?</span></h2>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"
                                     data-replace="genetic data" data-replacede="genetische Daten" />
-                                <label class="form-check-label" for="check_genetic"> Genetic data </label>
+                                <label class="form-check-label" for="check_genetic"> <span name="translateTarget" data-en="Genetic data">Genetic data</span> </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic"
                                     data-replace="genomic data" data-replacede="genomische Daten" />
                                 <label class="form-check-label" for="check_genomic">
-                                    Other NGS (genomics)
+                                    <span name="translateTarget" data-en="Other NGS (genomics)">Other NGS (genomics)</span>
                                 </label>
                             </div>
 
@@ -3550,7 +3715,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
                                     data-replace="cloned DNA" data-replacede="geklonte DNA" />
                                 <label class="form-check-label" for="check_cloned-dna">
-                                    Cloned DNA
+                                    <span name="translateTarget" data-en="Cloned DNA">Cloned DNA</span>
                                 </label>
                             </div>
 
@@ -3558,7 +3723,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"
                                     data-replace="transcriptomic data" data-replacede="transkriptomische Daten" />
                                 <label class="form-check-label" for="check_transcriptomic">
-                                    Transcriptomics
+                                    <span name="translateTarget" data-en="Transcriptomics">Transcriptomics</span>
                                 </label>
                             </div>
 
@@ -3584,7 +3749,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"
                                     data-replace="proteomic data" data-replacede="proteomische Daten" />
                                 <label class="form-check-label" for="check_proteomic">
-                                    Proteomics
+                                    <span name="translateTarget" data-en="Proteomics">Proteomics</span>
                                 </label>
                             </div>
 
@@ -3593,7 +3758,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"
                                     data-replace="plant phenotypic data" data-replacede="Pflanzenphänotypische Daten" />
                                 <label class="form-check-label" for="check_phenotypic">
-                                    Plant phenotypic data
+                                    <span name="translateTarget" data-en="Plant phenotypic data">Plant phenotypic data</span>
                                 </label>
                             </div>
 
@@ -3602,7 +3767,7 @@ END:VEVENT`;
                                     data-replace="targeted assays (e.g. glucose and fructose content)"
                                     data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)" />
                                 <label class="form-check-label" for="check_targeted">
-                                    Targeted assays (e.g. glucose and fructose content)
+                                    <span name="translateTarget" data-en="Targeted assays (e.g. glucose and fructose content)">Targeted assays (e.g. glucose and fructose content)</span>
                                 </label>
                             </div>
 
@@ -3610,7 +3775,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_image"
                                     data-replace="image datasets" data-replacede="Bilddatensätze" />
                                 <label class="form-check-label" for="check_image">
-                                    Image datasets
+                                    <span name="translateTarget" data-en="Image datasets">Image datasets</span>
                                 </label>
                             </div>
 
@@ -3619,7 +3784,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_models"
                                     data-replace="model outputs" data-replacede="Modellausgänge" />
                                 <label class="form-check-label" for="check_models">
-                                    Models
+                                    <span name="translateTarget" data-en="Models">Models</span>
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
@@ -3650,7 +3815,7 @@ END:VEVENT`;
 
                         <div class="" id="form_checkbox_5" >
                             <div class=" d-grid gap-1">
-                                <h3> 2.1 Where will you submit your data as endpoints?</h3>
+                                <h3> <span name="translateTarget" data-en="2.1 Where will you submit your data as endpoints?">2.1 Where will you submit your data as endpoints?</span></h3>
 
 
                                 <div class="collapse check_geneticrepo check_genomicrepo"
@@ -3804,7 +3969,8 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_otherep" />
                                     <label class="form-check-label" for="check_otherep">
-                                        Other Endpoint Repositories:
+                                        <span name="translateTarget" data-en="Other Endpoint Repositories:">Other Endpoint Repositories:</span>
+                                        
                                         <input data-replace="other endpoint repositories" style="width: 24vw;"
                                             type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHEREP"
@@ -3819,11 +3985,11 @@ END:VEVENT`;
                         <!---->
 
 
-                        <h2 id="scrollspyHeading3">3. How much data are you likely to generate?</h2>
+                        <h2 id="scrollspyHeading3"><span name="translateTarget" data-en="3. How much data are you likely to generate?">3. How much data are you likely to generate?</span></h2>
 
                         <form class="" style="margin-left: 0px;" id="form_rawdata">
                             <label for="input_rawdata">
-                                <h3>3.1 Raw data volume?</h3>
+                                <h3><span name="translateTarget" data-en="3. How much data are you likely to generate?"></span>3.1 Raw data volume?</span></h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_rawdata"
@@ -3840,7 +4006,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_deriveddata">
                             <label for="input_deriveddata">
-                                <h3>3.2 Processed data volume?</h3>
+                                <h3><span name="translateTarget" data-en="3.2 Processed data volume?">3.2 Processed data volume?</span></h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_deriveddata"
@@ -3863,7 +4029,7 @@ END:VEVENT`;
                             <br>
                             <br>
 
-                            <h2 id="scrollspyHeading4">4. Are any of the following standards relevant to your project?
+                            <h2 id="scrollspyHeading4"><span name="translateTarget" data-en="4. Are any of the following standards relevant to your project?">4. Are any of the following standards relevant to your project?</span>
                             </h2>
                             <div class=" d-grid gap-1">
 
@@ -4018,7 +4184,7 @@ END:VEVENT`;
                                 </div>
                             </div>
                             <!---->
-                            <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
+                            <h3><span name="translateTarget" data-en="4.1 Will you adhere to any high level metadata submission standards?">4.1 Will you adhere to any high level metadata submission standards?</span></h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                     id="check_dublincore" />
@@ -4060,12 +4226,12 @@ END:VEVENT`;
                                 data-bs-target="#offcanvas-marc21" aria-controls="offcanvas-marc21" > more info &#128712; </a>
                             </div>
                             <!---->
-                            <h3>4.2 Project data will be published:</h3>
+                            <h3><span name="translateTarget" data-en="4.2 Project data will be published:">4.2 Project data will be published:</span></h3>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_early"
                                     role="button" />
-                                <label class="form-check-label" for="check_early"> Immediately upon collection</label>
+                                <label class="form-check-label" for="check_early"> <span name="translateTarget" data-en="Immediately upon collection">Immediately upon collection</span></label>
                             </div>
 
 
@@ -4073,38 +4239,39 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_3" type="checkbox"
                                     id="check_beforepublication" />
                                 <label class="form-check-label" for="check_beforepublication">
-                                    Upon publication of findings.
+                                    <span name="translateTarget" data-en="Upon publication of findings.">Upon publication of findings.</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_endofproject" />
                                 <label class="form-check-label" for="check_endofproject">
-                                    At the end of project.
+                                    <span name="translateTarget" data-en="At the end of project.">At the end of project.</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_embargo" />
                                 <label class="form-check-label" for="check_embargo">
-                                    After embargo period.
+                                    <span name="translateTarget" data-en="After embargo period.">After embargo period.</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_request" />
                                 <label class="form-check-label" for="check_request">
-                                    Upon request.
+                                    <span name="translateTarget" data-en="Upon request.">Upon request.</span>
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
                                 <label class="form-check-label" for="check_ipissue">
-                                    Upon IP issues have been addressed.
+                                    <span name="translateTarget" data-en="Upon IP issues have been addressed.">Upon IP issues have been addressed.</span>
+                                    
                                 </label>
                             </div>
 
-                            <h3>4.4 Which national, funder, sectorial, or departmental data management procedures do you follow, and which national research data infrastructure do you use?</h3>
+                            <h3><span name="translateTarget" data-en="4.4 Which national, funder, sectorial, or departmental data management procedures do you follow, and which national research data infrastructure do you use?"></span>4.4 Which national, funder, sectorial, or departmental data management procedures do you follow, and which national research data infrastructure do you use?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
                                     />
@@ -4130,10 +4297,10 @@ END:VEVENT`;
 
 
                             <!---->
-                            <h2 id="scrollspyHeading5">5. Do you intend to use data visualization in your project?</h2>
+                            <h2 id="scrollspyHeading5"><span name="translateTarget" data-en="5. Do you intend to use data visualization in your project?">5. Do you intend to use data visualization in your project?</span></h2>
                             <div class="form-check form-switch">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization">
-                                <label class="form-check-label" for="check_vvisualization">Yes, I visualize my data.
+                                <label class="form-check-label" for="check_vvisualization"><span name="translateTarget" data-en="Yes, I visualize my data.">Yes, I visualize my data.</span>
                                 </label>
 
 
