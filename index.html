@@ -89,6 +89,20 @@
         "user-defined": "Userdefined",
 
     }
+
+    const dmpLanguage = {
+        "Horizon2020_DMP" : "en",
+        "horizon_europe" : "en",
+        "dfg-dmp" : "en",
+        "bmbf-dmp" : "de",
+        "msca-dmp" : "en",
+        "BBSRC-dmp": "en",
+        "bmel-dmp": "de",
+        "vw-dmp": "de",
+        "practical-guide": "en",
+        "user-defined": "en",
+
+    }
     var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
     if (is_ie > 0) // If Internet Explorer, return version number
     {
@@ -104,7 +118,8 @@
     var wordcloud = window.localStorage.getItem("wordcloud") || "true";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
-    var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
+    let cached_a_en = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
+    let cached_a_de = window.localStorage.getItem("saved_a_de"); // try to get the saved answers from local storage
     var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
     var datepicker_list = []; // initialize a list to store DMP update reminder
     var toast_list;
@@ -117,80 +132,91 @@
     var classicMode = true;
     var initialed = false; // set the initialed status to false
     const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+
+    const JSONStringDe = '{ "dmp": { "title": "DMP des Beispielprojekts", "contact": { "contact_id": { "identifier": "http://orcid.org/0000-0000-0000-0000", "type": "orcid" }, "mbox": "E-Mail des DMP", "name": "DMP des Beispielbenutzers" }, "created": "2024-06-19T16:45:09.7", "dmp_id": { "identifier": "https://doi.org/10.0000/00.0.1234", "type": "doi" }, "dataset": [ { "dataset_id": { "identifier": "https://doi.org/10.0000/00.0.5678", "type": "doi" }, "title": "Platzhalter-Datensatz", "personal_data": "unbekannt", "sensitive_data": "unbekannt" } ], "ethical_issues_exist": "unbekannt", "language": "eng", "modified": "2024-07-09T10:53:50.4", "submission": "2024-07-09T10:53:50.4", "version": "1.0" }, "replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_DMPVERSION": "1.0", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_DATAUTILITY": "Industrie, Politiker und Studenten können die Daten auch für verschiedene Zwecke nutzen.", "$_UPDATEMONTH": "Beispielmonat", "$_PREVIOUSPROJECTS": "Name des vorherigen Projekts", "$_PROPRIETARY": "Proprietäre Software", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx", "$_OTHERSTANDARDINPUT": "andere Standards", "$_OTHEREP": "Andere Repositories", "$_PARTNERS": "Name des Partners", "$_ADDPROJECTCOORDINATOR": "Projektkoordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
-    let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
-    if (cached_a !== null) { // if there is an answer saved in local storage
-        saved_a = JSON.parse(cached_a); // load the cached answers to webpage
-        try {
-            saved_a["update"];
-            saved_a["update"]["timeline"];
-            saved_a["dmp"];
-            saved_a["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
-        } // If some answers are missing, re-initialize the answers.
-        catch (e) {
 
-            saved_a["update"] = {
-                "timeline": [
-                ], "storage": [
-                    { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], },
-                    { "answer": [], "name": [], },
-                    { "answer": [], "name": [], },
-                    { "answer": [], "name": [], },
-                    { "answer": [], "name": [], },
-                    { "answer": [], "name": [], },
+    const templateJSONDe = '{"replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx" }}';
+    let temp_a_en = JSON.parse(JSONString); // template answers used to compare with saved answers 
+    let temp_a_de = JSON.parse(JSONStringDe); // template answers used to compare with saved answers 
 
-                ]
-            };
 
-            saved_a["dmp"] = {
-                "title": "Minimal DMP",
-               
-                "created": "2018-07-23T10:10:23.6",
-                "ethical_issues_exist": "no",
-                "language": "eng",
-                "modified": "2019-02-06T15:30:42.1",
-                "contact": {
-                    "mbox": "cc@example.com",
-                    "name": "Charlie Chaplin",
-                    "affiliation":"",
-                },
-                "project":{
-                    "title":"project name",
-                    "description":"description",
-                    "start":"starting date",
-                    "funding":{
-                        "funder_id":"funder_id",
-                        "status":"status"
-                    }
-                    
-                },
-                "dataset": [{
-                    "title":"titile",
-                    "type":"",
-                    "personal_data": "no",
-                    "sensitive_data": "no",
-                    "distribution":{
-                        "host":{
-                            "description":"description"
+    function initJSON(json0) {
+    
+        if (json0 !== null) { // if there is an answer saved in local storage
+            let json1 = JSON.parse(json0); // load the cached answers to webpage
+            try {
+                json1["update"];
+                json1["update"]["timeline"];
+                json1["dmp"];
+                json1["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
+            } // If some answers are missing, re-initialize the answers.
+            catch (e) {
+
+                json1["update"] = {
+                    "timeline": [
+                    ], "storage": [
+                        { "answer": { "replace": json1["replace"], "checkbox": json1["checkbox"] }, "name": [], },
+                        { "answer": [], "name": [], },
+                        { "answer": [], "name": [], },
+                        { "answer": [], "name": [], },
+                        { "answer": [], "name": [], },
+                        { "answer": [], "name": [], },
+
+                    ]
+                };
+
+                json1["dmp"] = {
+                    "title": "Minimal DMP",
+                
+                    "created": "2018-07-23T10:10:23.6",
+                    "ethical_issues_exist": "no",
+                    "language": "eng",
+                    "modified": "2019-02-06T15:30:42.1",
+                    "contact": {
+                        "mbox": "cc@example.com",
+                        "name": "Charlie Chaplin",
+                        "affiliation":"",
+                    },
+                    "project":{
+                        "title":"project name",
+                        "description":"description",
+                        "start":"starting date",
+                        "funding":{
+                            "funder_id":"funder_id",
+                            "status":"status"
+                        }
+                        
+                    },
+                    "dataset": [{
+                        "title":"titile",
+                        "type":"",
+                        "personal_data": "no",
+                        "sensitive_data": "no",
+                        "distribution":{
+                            "host":{
+                                "description":"description"
+                            }
                         }
                     }
-                }
-                ],
-                
-                "submission": {
-                    "time": "2022-07-06T15:30:42.1",
-                    "funding": "Horizon Europe ",
-                },
+                    ],
+                    
+                    "submission": {
+                        "time": "2022-07-06T15:30:42.1",
+                        "funding": "Horizon Europe ",
+                    },
 
-            };
+                };
 
+            }
+            return json1;
+        } else { // if there is no saved answer, initiate a new saved answer
+            return JSON.parse(JSONString);
         }
-
-
-    } else { // if there is no saved answer, initiate a new saved answer
-        var saved_a = JSON.parse(JSONString)
     }
-
+    let saved_a_en = initJSON(cached_a_en);
+    let saved_a_de = initJSON(cached_a_de);
     /*============== tutorial ==============*/
     // a tutorial to help users get familiar with the DataPLAN tool.
     var steps = [{
@@ -256,7 +282,7 @@
      * @description Update the previous saved answers to make it compatible to the newest version of software.
      * @global
      */
-    function updateSavedAnswers() {
+    function updateSavedAnswers(saved_a) {
         try {
             delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {} : saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
         }
@@ -386,7 +412,7 @@
      * @param {string} the name of the template used for replacement.
      * @global
      */
-    function load_dmp(callback = reload_answers, name = cached_template) {
+    function load_dmp(callback = reload_answers, name = cached_template, saved_a = window.saved_a_en) {
 
         punctualReplaced = false;
         const date = new Date(); // record the time
@@ -1616,9 +1642,11 @@
             return new bootstrap.Toast(toast_el, { animation: true, dely: 0 })
         });
         window.localStorage.setItem("user_info", "visited");
-        saved_a = update_saved_json(saved_a),
-            updateSavedAnswers();
-        load_dmp(reload_answers,cached_template);
+        saved_a_de = update_saved_json(saved_a_de),
+        saved_a_en = update_saved_json(saved_a_en),
+            updateSavedAnswers(saved_a_en),updateSavedAnswers(saved_a_de) ;
+        dmpLanguage["cached_template"] == "en"? window.saved_a = saved_a_en: window.saved_a = saved_a_de;
+        load_dmp(reload_answers,cached_template, window.saved_a);
         //document.getElementById("split-0").scrollTop= scroll_y;
 
         //verbose  console.log("current url is: " + window.location.href);
@@ -4357,37 +4385,38 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant
-                architecture</p>
+            <p><b> Example 1: </b><span name="translateTarget" data-en="aims at creating a computational model of carbon and water flow within a whole plant architecture"> aims at creating a computational model of carbon and water flow within a whole plant architecture
+            </span></p>
             <br />
-            <p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as
-                open as possible</p>
+            <p><b> Example 2: </b><span name="translateTarget" data-en="aims at generating data management plan with minimal effort and making the data as open as possible">aims at generating data management plan with minimal effort and making the data as open as possible</span></p>
         </div>
     </div>
 
     <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
         id="offcanvas-obj" aria-labelledby="offcanvasScrolling2">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling2">The project object = target.</h5>
+            <h5 class="offcanvas-title" id="offcanvasScrolling2"><span name="translateTarget" data-en="The project object = target.">
+                The project object = target.
+                </span>
+            </h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> carbon and water flow in plants</p>
+            <p><b> Example 1: </b> <span name="translateTarget" data-en="carbon and water flow in plants">carbon and water flow in plants</span></p>
             <br />
-            <p><b> Example 2: </b> data management plan</p>
+            <p><b> Example 2: </b><span name="translateTarget" data-en="data management plan"></span> data management plan</p>
         </div>
     </div>
     <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
         id="offcanvas-utility" aria-labelledby="offcanvasScrolling3">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling3">Here is the space for additional sentence.</h5>
+            <h5 class="offcanvas-title" id="offcanvasScrolling3"><span name="translateTarget" data-en="Here is the space for additional sentence.">Here is the space for additional sentence.</span></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> Industry, politicians and students can also use the data for different purposes.</p>
+            <p><b> Example 1: </b> <span name="translateTarget" data-en="Industry, politicians and students can also use the data for different purposes.">Industry, politicians and students can also use the data for different purposes.</span></p>
             <br />
-            <p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different
-                purpose.</p>
+            <p><b> Example 2: </b>  <span name="translateTarget" data-en="The data acquired in the project can be used by a wide range of people with different purpose.">The data acquired in the project can be used by a wide range of people with different purpose.</span></p>
         </div>
     </div>
 
@@ -4399,7 +4428,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Information in this section is only used in DMP metadata and not used in the document</p>
+            <p><span name="translateTarget" data-en="Information in this section is only used in DMP metadata and not used in the document">Information in this section is only used in DMP metadata and not used in the document</span></p>
 
         </div>
     </div>
@@ -4410,7 +4439,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Data officers are also known as data stewards and curator.</p>
+            <p><span name="translateTarget" data-en="Data officers are also known as data stewards and curator.">Data officers are also known as data stewards and curator.</span></p>
 
         </div>
     </div>
@@ -4422,7 +4451,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>software that legally remains the property of the organization, group, or individual who created it.
+            <p><span name="translateTarget" data-en="software that legally remains the property of the organization, group, or individual who created it.">software that legally remains the property of the organization, group, or individual who created it.</span>
             </p>
 
         </div>
@@ -4443,9 +4472,8 @@ END:VEVENT`;
 
         <div class="offcanvas-body" style="padding-top: 0px;">
             <h2 style="padding-top: 0px;">
-                You can click the dotted box to start editing. <br />
-                Click the grey buttons to reuse templates. <br />
-                Click submit when you finished.
+                <span name="translateTarget" data-en="You can click the dotted box to start editing. Click the grey buttons to reuse templates. Click submit when you finished.">You can click the dotted box to start editing. Click the grey buttons to reuse templates. Click submit when you finished.</span>
+                
                 <br />
                 <button class="badge btn-primary"
                     onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["Horizon2020_DMP"]; '>H2020
@@ -4475,8 +4503,8 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p> MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
-                More information can be found on: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
+            <p> <span name="translateTarget" data-en="MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. More information can be found on:">MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
+                More information can be found on:</span> <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
             </p>
 
         </div>
@@ -4489,8 +4517,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p> The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. 
-                More information can be found on: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
+            <p> <span name="translateTarget" data-en="The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. More information can be found on:">The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. More information can be found on:</span> <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
             </p>
 
         </div>
@@ -4503,7 +4530,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        <p> <span name="translateTarget" data-en="Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on:">Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on:</span> <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4516,7 +4543,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Minimum Information about a Genome Sequence: Organelle. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        <p> <span name="translateTarget" data-en="Minimum Information about a Genome Sequence: Organelle. More information can be found on:">Minimum Information about a Genome Sequence: Organelle. More information can be found on:</span> <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4530,7 +4557,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
+        <p> <span name="translateTarget" data-en="MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on:">MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on:</span> <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
         </p>
 
         </div>
@@ -4543,7 +4570,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
+        <p> <span name="translateTarget" data-en="Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on:">Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on:</span> <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
         </p>
 
         </div>
@@ -4556,7 +4583,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
+        <p> <span name="translateTarget" data-en="Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on:">Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on:</span>  <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
         </p>
 
         </div>
@@ -4569,7 +4596,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
+        <p> <span name="translateTarget" data-en="The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on:">The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on:</span> <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
         </p>
 
         </div>
@@ -4582,7 +4609,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
+        <p> <span name="translateTarget" data-en="The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on:">The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on:</span> <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
         </p>
 
         </div>
@@ -4594,7 +4621,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
+        <p> <span name="translateTarget" data-en="The Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on:">the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on:</span>  <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
         </p>
 
         </div>
@@ -4606,7 +4633,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
+        <p> <span name="translateTarget" data-en="MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on:">MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on:</span>  <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
         </p>
 
         </div>
@@ -4618,7 +4645,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
+        <p>  <span name="translateTarget" data-en="MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: ">MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: </span><a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
         </p>
 
         </div>
@@ -4630,7 +4657,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>   Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
+        <p>  <span name="translateTarget" data-en="Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on:">Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on:</span>  <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
         </p>
 
         </div>
@@ -4642,7 +4669,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>   The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
+        <p>  <span name="translateTarget" data-en="The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on:">The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on:</span>  <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
         </p>
 
         </div>
@@ -4655,7 +4682,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
+        <p> <span name="translateTarget" data-en="Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on:">Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on:</span>  <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
         </p>
 
         </div>
@@ -4668,7 +4695,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
+        <p> <span name="translateTarget" data-en="The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on:">The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on:</span>  <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
         </p>
 
         </div>
@@ -4681,7 +4708,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
+        <p> <span name="translateTarget" data-en="Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on:">Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on:</span> <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
         </p>
 
         </div>
@@ -4694,7 +4721,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
+        <p> <span name="translateTarget" data-en="Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on:"> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on:</span> <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
         </p>
 
         </div>
@@ -4707,7 +4734,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
+        <p> <span name="translateTarget" data-en="Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on:">Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on:</span>  <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
         </p>
 
         </div>
@@ -4720,7 +4747,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
+        <p> <span name="translateTarget" data-en="The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on:">The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on:</span> <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
         </p>
 
         </div>
@@ -4738,9 +4765,7 @@ END:VEVENT`;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can
-                        drag and drop the reminder to change order <br> You will download ".ics" files after click
-                        "download" button</h5>
+                    <h5 class="modal-title" id="update-label"><span name="translateTarget" data-en='Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "download" button'>Set up several reminders before deadline. <br> You can drag and drop the reminder to change order <br> You will download ".ics" files after click "download" button</span></h5>
                     <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -4780,7 +4805,7 @@ END:VEVENT`;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="citation_modal-label">You can cite this tool</h5>
+                    <h5 class="modal-title" id="citation_modal-label"><span name="translateTarget" data-en='You can cite this tool'>You can cite this tool</span></h5>
                     <button type="button" id="citation_modal_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -4840,19 +4865,19 @@ END:VEVENT`;
         <!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
         <div class="offcanvas-header">
 
-            <h5 class="offcanvas-title" id="storage_offcanvas">Compare and overwrite caches</h5>
+            <h5 class="offcanvas-title" id="storage_offcanvas"><span name="translateTarget" data-en='Compare and overwrite caches'>Compare and overwrite caches</span></h5>
             <button type="button" onclick="" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body" id="cache_management_modal_body">
             <div class="row ">
                 <div class="dropdown col-3">
-                    Question
+                    <span name="translateTarget" data-en='Question'>Question</span>
                 </div>
                 <div class="dropdown col-4 ">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="current_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Current Answer
+                        <span name="translateTarget" data-en='Current Answer'> Current Answer</span>
                     </a>
 
                     <ul class="dropdown-menu" id="current_input" aria-labelledby="current_answer_link">
@@ -4863,7 +4888,7 @@ END:VEVENT`;
                 <div class="dropdown col-4">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Import Answer
+                        <span name="translateTarget" data-en='>Import Answers'>Import Answers</span>
                     </a>
 
                     <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
@@ -4872,7 +4897,7 @@ END:VEVENT`;
                 </div>
 
                 <div class="dropdown col-1">
-                    Over <br>write
+                    <span name="translateTarget" data-en='Overwrite'>Overwrite</span>
                 </div>
 
 
