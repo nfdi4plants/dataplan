@@ -2048,13 +2048,13 @@
 
                     const now = new Date();
                     saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-                    load_dmp(reload_answers, cached_template);
+                    load_dmp(reload_answers, doc_name);
                 } else {
                     saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = value;
                     saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
-                    load_dmp(reload_answers,cached_template);
+                    load_dmp(reload_answers,doc_name);
 
 
 
