@@ -18,17 +18,17 @@
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
 
-    
-    <script src="DMPDocs/BBSRC-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    
-    <script src="DMPDocs/dfg-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/horizon_europe-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/Horizon2020_DMP-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/practical-guide.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="DMPDocs/bmbf-dmp-2024-09-30.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/vw-dmp-2024-10-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmel-dmp-2024-10-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmel-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="DMPDocs/dfg-dmp-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide-2024-10-20.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -36,7 +36,7 @@
     <script  src="js/d3.min.js" type="text/javascript" charset="utf-8"> </script>
     <script  src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
    
-    <link href="css/custom24-09-17.css" rel="stylesheet" />
+    <link href="css/custom24-10-20.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -67,11 +67,26 @@
         "horizon_europe" : horizon_europe.horizon_europe,
         "dfg-dmp" : dfg_dmp["dfg-dmp"],
         "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
+        "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
         "bmel-dmp": bmel_dmp["bmel-dmp"],
         "vw-dmp": vw_dmp["vw-dmp"],
-        "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
+        "msca-dmp": msca_dmp["msca-dmp"],
         "practical-guide": practical_guide["practical-guide"],
         "user-defined": window.localStorage.getItem("fulltext_user"),
+
+    }
+
+    const dmpFunders = {
+        "Horizon2020_DMP" : "Horizon 2020",
+        "horizon_europe" : "Horizon Europe",
+        "dfg-dmp" : "DFG (Deutschforschungsgemeinschaft)",
+        "bmbf-dmp" : "BMBF (Bundes Ministerium für Bildung und Forschung)",
+        "msca-dmp" : "Marie Skłodowska-Curie Actions",
+        "BBSRC-dmp": "BBSRC",
+        "bmel-dmp": "BMEL",
+        "vw-dmp": "Volkswagen Foundation",
+        "practical-guide": "Practical Guide",
+        "user-defined": "Userdefined",
 
     }
     var is_ie = navigator.userAgent.toLowerCase().indexOf('MSIE ') > -1;// check if the browser is firefox. For firefox, an argument 
@@ -89,7 +104,7 @@
     var wordcloud = window.localStorage.getItem("wordcloud") || "true";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
-    var cached_a = window.localStorage.getItem("saved_a_de"); // try to get the saved answers from local storage
+    var cached_a = window.localStorage.getItem("saved_a"); // try to get the saved answers from local storage
     var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
     var datepicker_list = []; // initialize a list to store DMP update reminder
     var toast_list;
@@ -101,23 +116,23 @@
     var convertedEle;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
-    const JSONString = '{ "dmp": { "title": "DMP des Beispielprojekts", "contact": { "contact_id": { "identifier": "http://orcid.org/0000-0000-0000-0000", "type": "orcid" }, "mbox": "E-Mail des DMP", "name": "DMP des Beispielbenutzers" }, "created": "2024-06-19T16:45:09.7", "dmp_id": { "identifier": "https://doi.org/10.0000/00.0.1234", "type": "doi" }, "dataset": [ { "dataset_id": { "identifier": "https://doi.org/10.0000/00.0.5678", "type": "doi" }, "title": "Platzhalter-Datensatz", "personal_data": "unbekannt", "sensitive_data": "unbekannt" } ], "ethical_issues_exist": "unbekannt", "language": "eng", "modified": "2024-07-09T10:53:50.4", "submission": "2024-07-09T10:53:50.4", "version": "1.0" }, "replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_DMPVERSION": "1.0", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_DATAUTILITY": "Industrie, Politiker und Studenten können die Daten auch für verschiedene Zwecke nutzen.", "$_UPDATEMONTH": "Beispielmonat", "$_PREVIOUSPROJECTS": "Name des vorherigen Projekts", "$_PROPRIETARY": "Proprietäre Software", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx", "$_OTHERSTANDARDINPUT": "andere Standards", "$_OTHEREP": "Andere Repositories", "$_PARTNERS": "Name des Partners", "$_ADDPROJECTCOORDINATOR": "Projektkoordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
-    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project", "$_ADDACRONYM":"Example Acronym","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
     let temp_a = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     if (cached_a !== null) { // if there is an answer saved in local storage
-        saved_a_de = JSON.parse(cached_a); // load the cached answers to webpage
+        saved_a = JSON.parse(cached_a); // load the cached answers to webpage
         try {
-            saved_a_de["update"];
-            saved_a_de["update"]["timeline"];
-            saved_a_de["dmp"];
-            saved_a_de["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
+            saved_a["update"];
+            saved_a["update"]["timeline"];
+            saved_a["dmp"];
+            saved_a["update"]["storage"]["0"]["answer"]["$_PROJECTNAME"]
         } // If some answers are missing, re-initialize the answers.
         catch (e) {
 
-            saved_a_de["update"] = {
+            saved_a["update"] = {
                 "timeline": [
                 ], "storage": [
-                    { "answer": { "replace": saved_a_de["replace"], "checkbox": saved_a_de["checkbox"] }, "name": [], },
+                    { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], },
                     { "answer": [], "name": [], },
                     { "answer": [], "name": [], },
                     { "answer": [], "name": [], },
@@ -127,34 +142,41 @@
                 ]
             };
 
-            saved_a_de["dmp"] = {
+            saved_a["dmp"] = {
                 "title": "Minimal DMP",
-                "contact": {
-                    "contact_id": {
-                        "identifier": "http://orcid.org/0000-0000-0000-0000",
-                        "type": "orcid"
-                    },
-                    "mbox": "cc@example.com",
-                    "name": "Charlie Chaplin"
-                },
+               
                 "created": "2018-07-23T10:10:23.6",
-                "dmp_id": {
-                    "identifier": "https://doi.org/10.0000/00.0.1234",
-                    "type": "doi"
-                },
-                "dataset": [{
-                    "dataset_id": {
-                        "identifier": "https://doi.org/10.0000/00.0.5678",
-                        "type": "doi"
-                    },
-                    "title": "Placeholder dataset",
-                    "personal_data": "unknown",
-                    "sensitive_data": "unknown"
-                }
-                ],
-                "ethical_issues_exist": "unknown",
+                "ethical_issues_exist": "no",
                 "language": "eng",
                 "modified": "2019-02-06T15:30:42.1",
+                "contact": {
+                    "mbox": "cc@example.com",
+                    "name": "Charlie Chaplin",
+                    "affiliation":"",
+                },
+                "project":{
+                    "title":"project name",
+                    "description":"description",
+                    "start":"starting date",
+                    "funding":{
+                        "funder_id":"funder_id",
+                        "status":"status"
+                    }
+                    
+                },
+                "dataset": [{
+                    "title":"titile",
+                    "type":"",
+                    "personal_data": "no",
+                    "sensitive_data": "no",
+                    "distribution":{
+                        "host":{
+                            "description":"description"
+                        }
+                    }
+                }
+                ],
+                
                 "submission": {
                     "time": "2022-07-06T15:30:42.1",
                     "funding": "Horizon Europe ",
@@ -166,7 +188,7 @@
 
 
     } else { // if there is no saved answer, initiate a new saved answer
-        var saved_a_de = JSON.parse(JSONString)
+        var saved_a = JSON.parse(JSONString)
     }
 
     /*============== tutorial ==============*/
@@ -236,120 +258,120 @@
      */
     function updateSavedAnswers() {
         try {
-            delete saved_a_de["replace"]["$_VISUALIZATION"]; (saved_a_de["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a_de["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {} : saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
+            delete saved_a["replace"]["$_VISUALIZATION"]; (saved_a["checkbox"]["checkbox_3"]["unchecked"].includes("check_vvisualization") || saved_a["checkbox"]["checkbox_3"]["checked"].includes("check_vvisualization")) ? {} : saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_vvisualization")
         }
         catch (e) { };
         // check if the newly added answers are there, to be backward compatible
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_DATAUTILITY") ? {} : saved_a_de["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
+            Object.keys(saved_a["replace"]).includes("$_DATAUTILITY") ? {} : saved_a["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
         }
         catch (e) { };
         try {
-            (!Object.keys(saved_a_de["replace"]).includes("$_OTHERSTANDARDINPUT") || saved_a_de["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? saved_a_de["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
+            (!Object.keys(saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") || saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a_de["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a_de["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
         }
         catch (e) { console.log("other ep error"); };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a_de["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a_de["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
         }
         catch (e) { console.log("metabolights error"); };
         try {
-            (!Object.keys(saved_a_de["checkbox"]).includes("checkbox_5")) ? saved_a_de["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
+            (!Object.keys(saved_a["checkbox"]).includes("checkbox_5")) ? saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(saved_a_de["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? saved_a_de["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_OTHEREP") ? {} : saved_a_de["replace"]["$_OTHEREP"] = "Other repositories";
+            Object.keys(saved_a["replace"]).includes("$_OTHEREP") ? {} : saved_a["replace"]["$_OTHEREP"] = "Other repositories";
         }
         catch (e) { };
         try {
-            saved_a_de = JSON.parse(JSON.stringify(saved_a_de).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
+            saved_a = JSON.parse(JSON.stringify(saved_a).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(saved_a_de["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? saved_a_de["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(saved_a_de["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? saved_a_de["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(saved_a_de["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? saved_a_de["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
         }
         catch (e) { };
         try {
-            ((!Object.values(saved_a_de["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(saved_a_de["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? saved_a_de["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
+            ((!Object.values(saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : saved_a_de["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
+            Object.keys(saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : saved_a_de["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
+            Object.keys(saved_a["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : saved_a["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_ADDACRONYM") ? {} : saved_a_de["replace"]["$_ADDACRONYM"] = "Add the acronym here";
+            Object.keys(saved_a["replace"]).includes("$_ADDACRONYM") ? {} : saved_a["replace"]["$_ADDACRONYM"] = "Add the acronym here";
         }
         catch (e) { };
         try {
-            if (Object.keys(saved_a_de["replace"]).includes("$_PROJECT")) {
-                {Object.defineProperty(saved_a_de["replace"], "$_PROJECTNAME",
-                    Object.getOwnPropertyDescriptor(saved_a_de["replace"], "$_PROJECT")); delete saved_a_de["replace"]["$_PROJECT"]}
+            if (Object.keys(saved_a["replace"]).includes("$_PROJECT")) {
+                {Object.defineProperty(saved_a["replace"], "$_PROJECTNAME",
+                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_PROJECT")); delete saved_a["replace"]["$_PROJECT"]}
 
             } ;
         }
         catch (e) { };
         try {
-            if (Object.keys(saved_a_de["replace"]).includes("$_dataofficer")) {
-                {Object.defineProperty(saved_a_de["replace"], "$_DATAOFFICER",
-                    Object.getOwnPropertyDescriptor(saved_a_de["replace"], "$_dataofficer")); delete saved_a_de["replace"]["$_dataofficer"]}
+            if (Object.keys(saved_a["replace"]).includes("$_dataofficer")) {
+                {Object.defineProperty(saved_a["replace"], "$_DATAOFFICER",
+                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_dataofficer")); delete saved_a["replace"]["$_dataofficer"]}
 
             } ;
         }
         catch (e) { };
         try {
-            if (Object.keys(saved_a_de["replace"]).includes("$_proprietary")) {
-                {Object.defineProperty(saved_a_de["replace"], "$_PROPRIETARY",
-                    Object.getOwnPropertyDescriptor(saved_a_de["replace"], "$_proprietary")); delete saved_a_de["replace"]["$_proprietary"]}
+            if (Object.keys(saved_a["replace"]).includes("$_proprietary")) {
+                {Object.defineProperty(saved_a["replace"], "$_PROPRIETARY",
+                    Object.getOwnPropertyDescriptor(saved_a["replace"], "$_proprietary")); delete saved_a["replace"]["$_proprietary"]}
 
             } ;
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_CREATIONDATE") ? {} : saved_a_de["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
+            Object.keys(saved_a["replace"]).includes("$_CREATIONDATE") ? {} : saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_MODIFICATIONDATE") ? {} : saved_a_de["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
+            Object.keys(saved_a["replace"]).includes("$_MODIFICATIONDATE") ? {} : saved_a["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
         }
         catch (e) { };
         try {
-            Object.keys(saved_a_de["replace"]).includes("$_PARTNERS") ? {} : saved_a_de["replace"]["$_PARTNERS"] = "partner name";
+            Object.keys(saved_a["replace"]).includes("$_PARTNERS") ? {} : saved_a["replace"]["$_PARTNERS"] = "partner name";
         }
         catch (e) { };
 
@@ -373,7 +395,7 @@
 
 
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        Object.keys(saved_a_de["replace"]).includes("$_DMPVERSION") ? {} : saved_a_de["replace"]["$_DMPVERSION"] = "1.0";
+        Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {} : saved_a["replace"]["$_DMPVERSION"] = "1.0";
         //document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
         let frame = document.getElementById("doc3");
         
@@ -393,19 +415,27 @@
 
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+".js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-10-20.js";
         // update dmp meta data
-        saved_a_de["dmp"]["title"] = "DMP of " + saved_a_de["replace"]["$_PROJECTNAME"];
-        saved_a_de["dmp"]["contact"]["name"] = "DMP of " + saved_a_de["replace"]["$_USERNAME"];
-        saved_a_de["dmp"]["contact"]["mbox"] = "DMP of " + saved_a_de["replace"]["$_EMAIL"];
-        saved_a_de["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a_de["dmp"]["created"] = date.toISOString().slice(0, -3) : {};
-        saved_a_de["dmp"]["modified"] = date.toISOString().slice(0, -3);
-        saved_a_de["dmp"]["submission"] = date.toISOString().slice(0, -3);
-        saved_a_de["dmp"]["version"] = saved_a_de["replace"]["$_DMPVERSION"];
+        saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
+        saved_a["dmp"]["contact"]["name"] =  saved_a["replace"]["$_USERNAME"];
+        saved_a["dmp"]["contact"]["mbox"] =  saved_a["replace"]["$_EMAIL"];
+        saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = saved_a["replace"]["$_CREATIONDATE"] : {};
+        saved_a["dmp"]["modified"] = saved_a["replace"]["$_MODIFICATIONDATE"];
+        saved_a["dmp"]["submission"] = date.toISOString().slice(0, -3);
+        saved_a["dmp"]["version"] = saved_a["replace"]["$_DMPVERSION"];
+        saved_a["dmp"]["project"] ? {}:saved_a["dmp"]["project"] = {};
+        saved_a["dmp"]["project"]["title"] = saved_a["replace"]["$_PROJECTNAME"];
+        saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
+        saved_a["dmp"]["project"]["funding"] ? {}:saved_a["dmp"]["project"]["funding"] = {};
+        saved_a["dmp"]["project"]["funding"]["funder_id"] = dmpFunders[window.doc_name];
+        
+        
+        
 
-        saved_a_de["update"]["storage"][0]["answer"]["replace"] = saved_a_de["replace"];
-        saved_a_de["update"]["storage"][0]["answer"]["checkbox"] = saved_a_de["checkbox"];
 
+        saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
+        saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
 
         runWordCloud();
         
@@ -469,7 +499,7 @@
      */
     function save_json() {
 
-        aJSONString = JSON.stringify(saved_a_de);
+        aJSONString = JSON.stringify(saved_a);
         const blob = new Blob([aJSONString], {
             type: "application/json"
         });
@@ -550,7 +580,7 @@
     function compare_replace(old_a, new_a) {
         let locala = JSON.parse(JSON.stringify(old_a["replace"]));
         let unreplaced_keys = [];
-
+        let replaced_keys = [];
         let total_keywords = 0,
             changed_keywords = 0;
         document.getElementById("check_update").checked? locala["$_UPDATEMONTH"]="Example Month" : {} ;
@@ -558,12 +588,14 @@
         document.getElementById("check_proprietary").checked? locala["$_PROPRIETARY"]="Proprietary Software" : {} ;
         document.getElementById("check_partners").checked? locala["$_PARTNERS"]="partner name" : {} ;
         document.getElementById("check_otherep").checked? locala["$_OTHEREP"]="" : {} ;
+        document.getElementById("check_acronym").checked? locala["$_ADDACRONYM"]="Add the acronym here" :  {};
+        document.getElementById("check_projectcoordinator").checked? locala["$_ADDPROJECTCOORDINATOR"]="Project Coordinator" :  {};
         
         for (const [key, value] of Object.entries(locala)) {
             total_keywords++;
             if ((new_a["replace"][key] != value) && (new_a["replace"][key] != "") && (new_a["replace"][key] != undefined)) {
                 changed_keywords++;
-
+                replaced_keys.push(key);
                 //verbose  console.log(new_a["replace"][key]);
             } else {
                 unreplaced_keys.push(key);
@@ -571,7 +603,7 @@
 
         }
         //unreplaced_keys = unreplaced_keys.filter(item => item !== "$_PROPRIETARY").filter(item => item !== "$_PREVIOUSPROJECTS").filter(item => item !== "$_UPDATEMONTH").filter(item => item !== "$_DATAUTILITY");
-        return [total_keywords, 0, changed_keywords, 0, unreplaced_keys, []];
+        return [total_keywords, 0, changed_keywords, 0, unreplaced_keys, [], replaced_keys];
     }
     /**
      * @function onchange_replace
@@ -582,12 +614,12 @@
     function onchange_replace(child) {
         const before = child.name.toUpperCase();
         const after = child.value;
-        saved_a_de["replace"][before] = after;
-        trim_saved_a_de(saved_a_de);
-        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
+        saved_a["replace"][before] = after;
+        trim_saved_a(saved_a);
+        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
         eleName = before.split("_")[1]+"-to-";
         document.getElementsByName(eleName).forEach(e=>{e.innerText=after});
-        let unfinished = compare_replace(temp_a, saved_a_de);
+        let unfinished = compare_replace(temp_a, saved_a);
         let p_bar = document.getElementById("p-bar");
 
         let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
@@ -603,10 +635,10 @@
 
 
     function htmlFind_replace(){
-        for (const [key, value] of Object.entries( saved_a_de["replace"])){
+        for (const [key, value] of Object.entries( saved_a["replace"])){
             eleName = key.split("_")[1]+"-to-";
             document.getElementsByName(eleName).forEach(e=>{e.innerText=value});
-            let unfinished = compare_replace(temp_a, saved_a_de);
+            let unfinished = compare_replace(temp_a, saved_a);
             let p_bar = document.getElementById("p-bar");
 
         let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
@@ -624,8 +656,8 @@
     function onchange_replace1(child) {
         const before = child.name;
         const after = child.value;
-        saved_a_de["replace"][before] = after;
-        load_dmp(reload_answers, name = doc_name);
+        saved_a["replace"][before] = after;
+        load_dmp(reload_answers, doc_name);
 
     }
 
@@ -633,6 +665,7 @@
     function updateWC(status){
         window.wordcloud = (status).toString();
         localStorage.setItem("wordcloud", status);
+        load_dmp(reload_answers, doc_name);
 
     }
 
@@ -652,16 +685,16 @@
 
 
     /**
-     * @function trim_saved_a_de
+     * @function trim_saved_a
      * @description function to remove the "$_" of the text to avoid replace errors
-     * @param saved_a_de the element it was in
+     * @param saved_a the element it was in
      * @global
      */
     // trim the "$_" to avoid infinite loops
-    function trim_saved_a_de(saved_a_de) {
-        const replace = Object.entries(saved_a_de["replace"]);
+    function trim_saved_a(saved_a) {
+        const replace = Object.entries(saved_a["replace"]);
         for (const [key, value] of replace) {
-            saved_a_de["replace"][key] = value.replace("$_", "")
+            saved_a["replace"][key] = value.replace("$_", "")
         }
 
     }
@@ -683,12 +716,12 @@
 
         const selection = window.getSelection();
         selection.removeAllRanges();
-        trim_saved_a_de(saved_a_de);
+        trim_saved_a(saved_a);
 
-        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
+        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 
 
-        const replace_input = Object.entries(saved_a_de["replace"]);
+        const replace_input = Object.entries(saved_a["replace"]);
         for (const [key, value] of replace_input) {
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
@@ -703,7 +736,7 @@
                 
             }
         }
-        const checkbox_input = Object.entries(saved_a_de["checkbox"]);
+        const checkbox_input = Object.entries(saved_a["checkbox"]);
         for (const [key, value] of checkbox_input) {
             let checkboxes = value;
             try {
@@ -752,9 +785,9 @@
         checkboxConversion();
  
 
-        for (let answers in saved_a_de["replace"]) {
+        for (let answers in saved_a["replace"]) {
             let singleOption = {};
-            singleOption[answers] = saved_a_de["replace"][answers];
+            singleOption[answers] = saved_a["replace"][answers];
             //verbose  console.log(singleOption);
             const before = "$_" + answers.split("_")[1].toUpperCase() ;
             find_replace(before, singleOption[answers]);
@@ -763,7 +796,7 @@
         //verbose  console.log("answer reload is finished");
         issue_warning(name);
 
-        let unfinished = compare_replace(temp_a, saved_a_de);
+        let unfinished = compare_replace(temp_a, saved_a);
         let p_bar = document.getElementById("p-bar");
 
         let percentage = (unfinished[2] + unfinished[3]) / (unfinished[0] + unfinished[1]) * 100;
@@ -777,6 +810,7 @@
 
         let checkboxes = document.querySelectorAll(".form-check-input");
         checkboxes.forEach(e => {
+
             const classList = Array.from(e.classList);
             const class_name = classList.filter((word)=> word.includes("checkbox_"))
             if(class_name.length>0){
@@ -787,7 +821,6 @@
             e.setAttribute("name", e.id);
             e.setAttribute("onchange", "get_option(this)");
             }
-            
             
         }
 
@@ -906,7 +939,7 @@
         const unchecked_list = [];
         unchecked.forEach(element => unchecked_list.push(element.id));
         console.log("uncheck and checked \n" + checked_list + "\n"+  unchecked_list)
-        saved_a_de["checkbox"][class_name] = {
+        saved_a["checkbox"][class_name] = {
             "checked": checked_list,
             "unchecked": unchecked_list
         };
@@ -919,7 +952,7 @@
         //verbose  console.log("+++++++++++++++++" + checked_list);
 
 
-        load_dmp(reload_answers, name = doc_name);
+        load_dmp(reload_answers, doc_name);
 
         }
 
@@ -936,7 +969,7 @@
         let allchecked = [];
         setTimeout(e=>{
             //document.querySelectorAll(".checkboxConverted").forEach(e=>{e.classList.add("d-none")});
-            for (const [index, boxes] of Object.entries(saved_a_de["checkbox"])){
+            for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
             allchecked.push(...boxes["checked"]);
             
         }
@@ -947,7 +980,7 @@
         
 
         let allunchecked = [];
-        for (const [index, boxes] of Object.entries(saved_a_de["checkbox"])){
+        for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
             allunchecked.push(...boxes["unchecked"]);
             
         }
@@ -980,7 +1013,7 @@
         
         checkboxSelection();
         let allchecked = [];
-        for (const [index, boxes] of Object.entries(saved_a_de["checkbox"])){
+        for (const [index, boxes] of Object.entries(saved_a["checkbox"])){
             allchecked.push(...boxes["checked"])
             
         }
@@ -1090,12 +1123,12 @@
     //     const unchecked_list = [];
     //     unchecked.forEach(element => unchecked_list.push(element.id));
     //     //verbose  console.log("uncheck and checked" + checked_list, unchecked_list)
-    //     saved_a_de["checkbox"][class_name] = {
+    //     saved_a["checkbox"][class_name] = {
     //         "checked": checked_list,
     //         "unchecked": unchecked_list
     //     };
-    //     trim_saved_a_de(saved_a_de);
-    //     window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
+    //     trim_saved_a(saved_a);
+    //     window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
 
     //     //verbose  console.log("+++++++++++++++++" + checked_list);
 
@@ -1516,9 +1549,9 @@
             return new bootstrap.Toast(toast_el, { animation: true, dely: 0 })
         });
         window.localStorage.setItem("user_info", "visited");
-        saved_a_de = update_saved_json(saved_a_de),
+        saved_a = update_saved_json(saved_a),
             updateSavedAnswers();
-        load_dmp(reload_answers, name = cached_template);
+        load_dmp(reload_answers,cached_template);
         //document.getElementById("split-0").scrollTop= scroll_y;
 
         //verbose  console.log("current url is: " + window.location.href);
@@ -1528,9 +1561,9 @@
             fetch(urls[1])
                 .then(response => response.json())
                 .then(json => {
-                    saved_a_de = json;
+                    saved_a = json;
                     updateSavedAnswers();
-                    load_dmp(reload_answers, name = cached_template);
+                    load_dmp(reload_answers, cached_template);
                 })
 
         }
@@ -1546,25 +1579,25 @@
             window.innerWidth>maxWidth? tour.show() : {};
                 break;
             case "Horizon2020":
-                load_dmp(reload_answers, name = "Horizon2020_DMP");
+                load_dmp(reload_answers, "Horizon2020_DMP");
                 break;
             case "HorizonEurope":
-                load_dmp(reload_answers, name = "horizon_europe");
+                load_dmp(reload_answers, "horizon_europe");
                 break;
             case "DFG":
-                load_dmp(reload_answers, name = "dfg-dmp");
+                load_dmp(reload_answers, "dfg-dmp");
                 break;
             case "dfg":
-                load_dmp(reload_answers, name = "dfg-dmp");
+                load_dmp(reload_answers,"dfg-dmp");
                 break;
             case "bmbf":
-                load_dmp(reload_answers, name = "bmbf-dmp");
-                break;
-            case "vw-dmp":
-                load_dmp(reload_answers, name = "vw-dmp");
+                load_dmp(reload_answers, "bmbf-dmp");
                 break;
             case "PracticeGuide":
-                load_dmp(reload_answers, name = "practical-guide");
+                load_dmp(reload_answers, "practical-guide");
+                break;
+            case "msca":
+                load_dmp(reload_answers, "msca-dmp");
                 break;
 
 
@@ -1581,17 +1614,17 @@
         function open_storage_modal() {
 
             const list1 = document.getElementById("current_input");
-            current_input_answer = JSON.parse(JSON.stringify(saved_a_de));
+            current_input_answer = JSON.parse(JSON.stringify(saved_a));
 
-            current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a_de["replace"]));
-            current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a_de["checkbox"]));
+            current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a["replace"]));
+            current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a["checkbox"]));
             list1.innerHTML = "";
             uploaded_origin = 0;
             current_origin = 0;
 
             document.getElementById("current_answer_link").innerHTML = "Current input";
             document.getElementById("uploaded_answer_link").innerHTML = "Uploaded input";
-            for (let [key, value] of Object.entries(saved_a_de["update"]["storage"])) {
+            for (let [key, value] of Object.entries(saved_a["update"]["storage"])) {
 
 
                 const new_option = document.createElement("li");
@@ -1818,13 +1851,13 @@
     }
 
     function assign_current_input(element) {
-        let a = saved_a_de;
+        let a = saved_a;
         element.parentElement.parentElement.previousElementSibling.innerHTML = element.innerHTML.split(",")[0];
         const no = element.getAttribute("data-option-no");
         current_origin = no;
 
         update_table();
-        saved_a_de["replace"] = saved_a_de["update"]["storage"][current_origin]["answer"]["replace"];
+        saved_a["replace"] = saved_a["update"]["storage"][current_origin]["answer"]["replace"];
 
     }
 
@@ -1841,12 +1874,12 @@
 
     function update_table() {
 
-        const compare_list = compare_answers(saved_a_de["update"]["storage"][current_origin]["answer"], uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]);
+        const compare_list = compare_answers(saved_a["update"]["storage"][current_origin]["answer"], uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]);
 
         const body = document.getElementById("cache_management_modal_body");
         const table = document.createElement("div");
 
-        for (let [key, value] of Object.entries(saved_a_de["update"]["storage"][current_origin]["answer"]["replace"])) {
+        for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["replace"])) {
             const row = document.createElement("div");
 
             const key_pool = compare_list["4"];
@@ -1876,22 +1909,22 @@
 
             col4_button.addEventListener("change", function () {
                 if (this.checked) {
-                    saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key] =
+                    saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] =
                         uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"][key];
                     row.setAttribute("style", "background-color: #f0f5e6");
                     col2.innerHTML = uploaded_input_answer["replace"][key];
 
-                    saved_a_de["replace"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
 
                     const now = new Date();
-                    saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-                    load_dmp(reload_answers, name = cached_template);
+                    saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+                    load_dmp(reload_answers, cached_template);
                 } else {
-                    saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = value;
-                    saved_a_de["replace"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["replace"][key];
-                    load_dmp(reload_answers, name = cached_template);
+                    saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    load_dmp(reload_answers,cached_template);
 
 
 
@@ -1916,7 +1949,7 @@
 
         }
 
-        for (let [key, value] of Object.entries(saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"])) {
+        for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["checkbox"])) {
 
 
 
@@ -1952,22 +1985,22 @@
 
             col4_button.addEventListener("change", function () {
                 if (this.checked) {
-                    saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key] =
+                    saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] =
                         uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"][key];
                     row.setAttribute("style", "background-color: #f0f5e6");
                     col2.innerHTML = JSON.stringify(uploaded_input_answer["checkbox"][key], null, "\t");
                     this.checked = true;
-                    saved_a_de["checkbox"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+                    saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
 
                     const now = new Date();
-                    saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-                    load_dmp(reload_answers, name = cached_template);
+                    saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+                    load_dmp(reload_answers,cached_template);
                 } else {
-                    saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+                    saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["checkbox"][key];
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = JSON.stringify(value, null, "\t");
-                    saved_a_de["checkbox"][key] = saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"][key];
-                    load_dmp(reload_answers, name = cached_template);
+                    saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
+                    load_dmp(reload_answers,cached_template);
 
 
                 }
@@ -1999,34 +2032,34 @@
     function overwrite_all() {
 
         toast_list[2].show();
-        saved_a_de = uploaded_input_all;
+        saved_a = uploaded_input_all;
         updateSavedAnswers();
-        load_dmp(reload_answers, name = cached_template);
+        load_dmp(reload_answers,cached_template);
 
-        ////verbose  console.log(JSON.stringify(saved_a_de));
+        ////verbose  console.log(JSON.stringify(saved_a));
 
 
     }
     function overwrite_current() {
         const now = new Date();
-        saved_a_de["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
-        saved_a_de["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
-        saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["timestamp"];
+        saved_a["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+        saved_a["update"]["storage"][current_origin]["answer"]["replace"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["replace"];
+        saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["timestamp"];
 
-        saved_a_de["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
-        saved_a_de["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
-        saved_a_de["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-        load_dmp(reload_answers, name = cached_template);
+        saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
+        saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
+        saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
+        load_dmp(reload_answers,cached_template);
         syn_load_cache();
         toast_list[1].show();
 
-        ////verbose  console.log(JSON.stringify(saved_a_de));
+        ////verbose  console.log(JSON.stringify(saved_a));
 
 
     }
     function syn_load_cache() {
 
-        const cached_timestamp = saved_a_de["update"]["storage"].map((e) => e["answer"]);
+        const cached_timestamp = saved_a["update"]["storage"].map((e) => e["answer"]);
         const saved_timestamp = document.querySelectorAll('[name="load_from_cache"]');
 
         saved_timestamp.forEach((e, index) => {
@@ -2043,14 +2076,14 @@
 
     function copy_doc() {
         punctual();
-        const compared_list = compare_replace(temp_a, saved_a_de);
+        const compared_list = compare_replace(temp_a, saved_a);
         let warning_element_children = Array.from(Array(99).keys());
 
         if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
             issue_warning_show();
             warning_element_children = document.getElementById("warningText").children;
             if (warning_element_children[0] == undefined) {
-                dmp_update(saved_a_de);
+                dmp_update(saved_a);
                 copy_doc1();
             } else {
                 update_reminder(compared_list, warning_element_children);
@@ -2098,7 +2131,7 @@
     }
 
     function printDiv() {
-        const compared_list = compare_replace(temp_a, saved_a_de);
+        const compared_list = compare_replace(temp_a, saved_a);
         let warning_element_children = Array.from(Array(99).keys());
 
         if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
@@ -2106,7 +2139,7 @@
             warning_element_children = document.getElementById("warningText").children;
             if (warning_element_children[0] == undefined) {
                 try {
-                    dmp_update(saved_a_de);
+                    dmp_update(saved_a);
                     return printDiv1("doc3"); // Security exception may be thrown by some browsers.
                     const selection = window.getSelection();
 
@@ -2126,9 +2159,9 @@
     }
 
     function save_to_cache(id, name = " ") {
-        if (saved_a_de["update"]["storage"].length < 5) {
-            saved_a_de["update"]["storage"] = [
-                { "answer": { "replace": saved_a_de["replace"], "checkbox": saved_a_de["checkbox"] }, "name": [], },
+        if (saved_a["update"]["storage"].length < 5) {
+            saved_a["update"]["storage"] = [
+                { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], },
                 { "answer": [], "name": [], },
                 { "answer": [], "name": [], },
                 { "answer": [], "name": [], },
@@ -2140,16 +2173,16 @@
             ];
 
 
-        } else if (saved_a_de["update"]["storage"].length == 5) {
-            saved_a_de["update"]["storage"].push({ "answer": [], "name": [], });
-            saved_a_de["update"]["storage"][5] = saved_a_de["update"]["storage"][4];
-            saved_a_de["update"]["storage"][4] = saved_a_de["update"]["storage"][3];
-            saved_a_de["update"]["storage"][3] = saved_a_de["update"]["storage"][2];
-            saved_a_de["update"]["storage"][2] = saved_a_de["update"]["storage"][1];
-            saved_a_de["update"]["storage"][1] = saved_a_de["update"]["storage"][0];
-            saved_a_de["update"]["storage"][0] = { "answer": { "replace": saved_a_de["replace"], "checkbox": saved_a_de["checkbox"] }, "name": [], };
+        } else if (saved_a["update"]["storage"].length == 5) {
+            saved_a["update"]["storage"].push({ "answer": [], "name": [], });
+            saved_a["update"]["storage"][5] = saved_a["update"]["storage"][4];
+            saved_a["update"]["storage"][4] = saved_a["update"]["storage"][3];
+            saved_a["update"]["storage"][3] = saved_a["update"]["storage"][2];
+            saved_a["update"]["storage"][2] = saved_a["update"]["storage"][1];
+            saved_a["update"]["storage"][1] = saved_a["update"]["storage"][0];
+            saved_a["update"]["storage"][0] = { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], };
         }
-        if (saved_a_de["update"]["storage"][id]["answer"].length != 0) {
+        if (saved_a["update"]["storage"][id]["answer"].length != 0) {
             let confirm_overwrite = confirm("There is already a saved answer, do you want to overwrite saved answer here?");
             if (confirm_overwrite) {
                 save_to_cache1(id, name);
@@ -2170,19 +2203,19 @@
 
     function save_to_cache1(id, name = " ") {
         const now = new Date();
-        saved_a_de["update"]["storage"][id]["answer"] = { "replace": JSON.parse(JSON.stringify(saved_a_de["replace"])), "checkbox": JSON.parse(JSON.stringify(saved_a_de["checkbox"])), "timestamp": now.toLocaleString() };
-        saved_a_de["update"]["storage"][id]["name"] = name;
-        trim_saved_a_de(saved_a_de);
-        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
+        saved_a["update"]["storage"][id]["answer"] = { "replace": JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox": JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp": now.toLocaleString() };
+        saved_a["update"]["storage"][id]["name"] = name;
+        trim_saved_a(saved_a);
+        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
         let update_element = document.querySelector("#load_from_cache_menu_" + id);
         update_element.innerHTML = now.toLocaleString();
         toast_list[3].show();
     }
 
     function load_from_cache(id) {
-        if (Object.keys(saved_a_de["update"]["storage"][id]["answer"]).length > 0) {
-            saved_a_de["replace"] = saved_a_de["update"]["storage"][id]["answer"]["replace"]
-            saved_a_de["checkbox"] = saved_a_de["update"]["storage"][id]["answer"]["checkbox"];
+        if (Object.keys(saved_a["update"]["storage"][id]["answer"]).length > 0) {
+            saved_a["replace"] = saved_a["update"]["storage"][id]["answer"]["replace"]
+            saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
             load_dmp(reload_answers, doc_name);
             toast_list[5].show();
         } else {
@@ -2191,9 +2224,9 @@
 
 
     }
-    function dmp_update(saved_a_de) {
+    function dmp_update(saved_a) {
 
-        if (saved_a_de["update"]["timeline"].length == 0) {
+        if (saved_a["update"]["timeline"].length == 0) {
             clear_dmp_updates();
             document.getElementById("dmp-update-modal").click();
 
@@ -2201,7 +2234,7 @@
         } else {
             clear_dmp_updates();
             document.getElementById("dmp-update-modal").click();
-            saved_a_de["update"]["timeline"].forEach(
+            saved_a["update"]["timeline"].forEach(
                 function (e) {
                     add_date_div(e["name"], e["date"])
 
@@ -2358,16 +2391,16 @@
         const filtered_list = datepicker_list.filter(function (i) { return i != null; });
 
 
-        try { saved_a_de["update"]["timeline"] = filtered_list; }
-        catch (e) { saved_a_de["update"]["timeline"] = [] }
-        trim_saved_a_de(saved_a_de);
+        try { saved_a["update"]["timeline"] = filtered_list; }
+        catch (e) { saved_a["update"]["timeline"] = [] }
+        trim_saved_a(saved_a);
 
-        window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a_de));
-        generate_vcal(saved_a_de);
+        window.localStorage.setItem("saved_a", JSON.stringify(saved_a));
+        generate_vcal(saved_a);
         document.querySelector("#update_date_close").click();
     }
 
-    function generate_vcal(saved_a_de) {
+    function generate_vcal(saved_a) {
 
         const vcal_begin = `
 BEGIN:VCALENDAR
@@ -2393,7 +2426,7 @@ DESCRIPTION:Name of the reminder: ${e["name"]};
 LAST-MODIFIED:${cal_date.getFullYear()}${String(cal_date.getMonth() + 1).padStart(2, '0')}${String(cal_date.getDate()).padStart(2, '0')}T000000Z
 SEQUENCE:0
 STATUS:CONFIRMED
-SUMMARY:No. ${index + 1} Reminder to write DMP of ${saved_a_de["replace"]["$_PROJECTNAME"]} (created by DataPLAN)
+SUMMARY:No. ${index + 1} Reminder to write DMP of ${saved_a["replace"]["$_PROJECTNAME"]} (created by DataPLAN)
 TRANSP:OPAQUE
 END:VEVENT`;
 
@@ -2557,7 +2590,7 @@ END:VEVENT`;
         
         punctual();
         runWordCloud();
-        const compared_list = compare_replace(temp_a, saved_a_de);
+        const compared_list = compare_replace(temp_a, saved_a);
         let warning_element_children = Array.from(Array(99).keys());
 
         if ((compared_list[2] == compared_list[0]) && (compared_list[3] == compared_list[1])) {
@@ -2565,7 +2598,7 @@ END:VEVENT`;
             warning_element_children = document.getElementById("warningText").children;
             if (warning_element_children[0] == undefined) {
                 try {
-                    dmp_update(saved_a_de);
+                    dmp_update(saved_a);
                     return export2word1(element, doc_name+ Date().toLocaleString().slice(19)); // Security exception may be thrown by some browsers.
                     const selection = window.getSelection();
 
@@ -2649,14 +2682,29 @@ END:VEVENT`;
                                 ∨ </span>
                         </button>
                         <ul class="dropdown-menu">
-
+                            <li>
+                                <button id="detailed_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020</button>
+                            </li>
+                            <li>
+                                <button id="detailed_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_dfg-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_BBSRC-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
+                            </li>
                             <li>
                                 <button id="proposal_save" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
                             </li>
                             <li>
-                                <button id="vw_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="vw-dmp")'>Volkswagen Stiftung DMP</button>
+                                <button id="guide_save" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
                             </li>
                             <li>
                                 <a id="template-input" class="dropdown-item" data-bs-toggle="offcanvas"
@@ -2674,8 +2722,7 @@ END:VEVENT`;
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">Restore Default
-                                    (Clear Input)</button>
+                                    onclick="window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
                             </li>
                             <li>
                                 <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
@@ -2683,8 +2730,8 @@ END:VEVENT`;
                                 </button>
                             </li>
                             <li>
-                                <div class="form-check form-switch dropdown-item">
-                                    <input id="word_cloud_switchs" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
+                                <div class="form-check form-switch dropdown-item ">
+                                    <input id="word_cloud_switchs" class="form-check-input " onchange='updateWC(this.checked)' type="checkbox" role="switch" >
                                     <label class="form-check-label" for="word_cloud_switchs">Word Cloud Switch</label>
                                 </div>
 
@@ -2710,7 +2757,7 @@ END:VEVENT`;
                                 <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export
                                     Document</button>
                                 <button id="dmp_update_button" class="dropdown-item "
-                                    onclick="dmp_update(saved_a_de)">Update Reminder</button>
+                                    onclick="dmp_update(saved_a)">Update Reminder</button>
 
                             </li>
                         </ul>
@@ -2719,7 +2766,7 @@ END:VEVENT`;
                     <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                         <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown"
                             aria-expanded="false" id="change_template">
-                            Vorlage &nbsp;
+                            Templates &nbsp;
 
                             <span
                                 style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
@@ -2727,19 +2774,47 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
+                                <button id="detailed_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020 DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_dfg-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="dfg-dmp")'>German (DFG) DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_BBSRC-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_msca-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="msca-dmp")'>MSCA (Marie Skłodowska-Curie Actions) DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_bmel-dmp" class="dropdown-item d-none"
+                                    onclick='load_dmp(reload_answers,name="bmel-dmp")'>BMEL DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_vw-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="vw-dmp")'>Volkswage Foundation DMP</button>
+                            </li>
+                            <li>
                                 <button id="proposal_save" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
                             </li>
                             <li>
-                                <button id="vw_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="vw-dmp")'>Volkswagen Stiftung DMP</button>
+                                <button id="guide_save" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="practical-guide")'>Practice Guide</button>
                             </li>
                             <li>
                                 <a id="template-input" class="dropdown-item" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-template-input" aria-controls="offcanvas-template-input"
                                     onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
                                     href="#">
-                                    Benutzerdefinierte Vorlage
+                                    User-defined Template
                                 </a>
                             </li>
                         </ul>
@@ -2757,57 +2832,57 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <label for="upload" class="form-label dropdown-item">
-                                    Antworten importieren
+                                    Import Answers
                                     <input class="form-control d-none" type="file" id="upload" />
                                 </label>
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">Standardeingabe wiederherstellen</button>
+                                    onclick="window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
                             </li>
                             <li>
                                 <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
-                                    Generieren Sie eine Wortwolke
+                                    Generate Word Cloud
                                 </button>
                             </li>
                             <li>
 
                                 <div class="form-check form-switch ">
                                     <input id="word_cloud_switchl" class="form-check-input" onchange='updateWC(this.checked)' type="checkbox" role="switch" >
-                                    <label class="form-check-label" for="word_cloud_switchl">Wortwolkeschalter</label>
+                                    <label class="form-check-label" for="word_cloud_switchl">Word Cloud Switch</label>
                                 </div>
 
                             </li>
                             <li>
                                 <label for="image_upload" class="form-label dropdown-item">
-                                    Laden Sie das Titelbild hoch
+                                    Upload Frontpage Image
                                     <input class="form-control d-none" type="file" id="image_upload_menu"
                                         onchange="upload_image()" />
                                 </label>
                             </li>
                             <li>
-                                <button id="load_from_cache" class="dropdown-item">Aus Cache laden &raquo;</button>
+                                <button id="load_from_cache" class="dropdown-item">Load from Cache &raquo;</button>
                                 <ul class="dropdown-menu  dropdown-submenu">
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_1" name="load_from_cache"
-                                            onclick="load_from_cache(1)" href="#">Steckplatz 1</a>
+                                            onclick="load_from_cache(1)" href="#">Slot 1</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_2" name="load_from_cache"
-                                            onclick="load_from_cache(2)" href="#">Steckplatz 2</a>
+                                            onclick="load_from_cache(2)" href="#">Slot 2</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_3" name="load_from_cache"
-                                            onclick="load_from_cache(3)" href="#">Steckplatz 3</a>
+                                            onclick="load_from_cache(3)" href="#">Slot 3</a>
 
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_4" name="load_from_cache"
-                                            onclick="load_from_cache(4)" href="#">Steckplatz 4</a>
+                                            onclick="load_from_cache(4)" href="#">Slot 4</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" id="load_from_cache_menu_5" name="load_from_cache"
-                                            onclick="load_from_cache(5)" href="#">Steckplatz 5</a>
+                                            onclick="load_from_cache(5)" href="#">Slot 5</a>
                                     </li>
                                 </ul>
                             </li>
@@ -2824,38 +2899,38 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Text kopieren</button>
-                                <button id="json_save" class="dropdown-item" onclick="save_json()">Exportieren nach
+                                <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>
+                                <button id="json_save" class="dropdown-item" onclick="save_json()">Export to
                                     JSON</button>
                                 <button id="docx_save" class="dropdown-item"
-                                    onclick='export2word("doc3", "DMP-DataPLAN")'>Exportieren nach Word</button>
-                                <button id="print" class="dropdown-item" onclick="printDiv();">Druck Document</button>
+                                    onclick='export2word("doc3", "DMP-DataPLAN")'>Export to Word</button>
+                                <button id="print" class="dropdown-item" onclick="printDiv();">Print Document</button>
 
 
 
 
-                                <button id="odt_save" class="dropdown-item d-none" onclick="save()">
-                                    Document Exportieren </button>
+                                <button id="odt_save" class="dropdown-item d-none" onclick="save()">Export
+                                    Document</button>
                                 <button id="dmp_update_button" class="dropdown-item "
-                                    onclick="dmp_update(saved_a_de)">Erinnern Sie mich daran, DMP zu aktualisieren</button>
+                                    onclick="dmp_update(saved_a)">Remind me to Update DMP</button>
                             <li>
-                                <button id="save_to_cache" class="dropdown-item">Im Cache speichern &raquo;</button>
+                                <button id="save_to_cache" class="dropdown-item">Save to Cache &raquo;</button>
                                 <ul class="dropdown-menu dropdown-submenu">
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Steckplatz 1</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(1)" href="#">Slot 1</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Steckplatz 2</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(2)" href="#">Slot 2</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Steckplatz 3</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(3)" href="#">Slot 3</a>
 
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Steckplatz 4</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(4)" href="#">Slot 4</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Steckplatz 5</a>
+                                        <a class="dropdown-item" onclick="save_to_cache(5)" href="#">Slot 5</a>
                                     </li>
                                 </ul>
                             </li>
@@ -2867,7 +2942,7 @@ END:VEVENT`;
                     <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
                         <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown"
                             aria-expanded="false" id="help_menu">
-                            Helfen &nbsp;
+                            Help &nbsp;
 
                             <span
                                 style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
@@ -2876,12 +2951,12 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="tutorial_button" class="dropdown-item"
-                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">Anleitung</button>
+                                    onclick=" window.innerWidth>maxWidth? tour.show() : {}">Tutorial</button>
                             </li>
                             <li>
                                 <a id="wiki_button" class="dropdown-item" target="_blank"
                                     ref="https://www.nfdi4plants.de/nfdi4plants.knowledgebase/docs/implementation/DataPLAN.html"
-                                    target="_blank">Wissensdatenbank</a>
+                                    target="_blank">Knowledge Base</a>
                             </li>
                             <li>
                                 <a id="github_button" class="dropdown-item" target="_blank"
@@ -2889,16 +2964,17 @@ END:VEVENT`;
                                     data-bs-placement="top"
                                     title="bugs, suggestions or comments are welcom here">GitHub</a>
                             </li>
-                            <div class="form-check form-switch">
+                            <div class="form-check form-switch d-none">
                                 <input class="form-check-input" type="checkbox" id="classicModeBtn">
-                                <label class="form-check-label" for="classicModeBtn">Klassischer Modus</label>
+                                <label class="form-check-label" for="classicModeBtn">Classic Mode</label>
                             </div>
                             <li>
                                 <button id="print_q" class="dropdown-item"
-                                    onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Fragen drucken</button>
+                                    onclick='remove_all_warnings(); printDiv1("scrollspy-element");'>Print
+                                    Questions</button>
                             </li>
                             <li>
-                                <button id="news" class="dropdown-item" onclick='cookie_modal.show()'>Neuigkeiten und Changelog
+                                <button id="news" class="dropdown-item" onclick='cookie_modal.show()'>News and Changelog
                                     <span class="badge bg-secondary">1</span>
                                     </span></button>
                             </li>
@@ -2923,19 +2999,19 @@ END:VEVENT`;
                     style="margin: auto; padding: 0 0 0 0px; height: 3.25rem; background-color: rgb(45, 62, 80)">
                     <ul class="nav nav-fill nav-pills col-12 justify-content-center">
                         <li class="nav-item border-0">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading1">Basisinformation</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading1">Basic Info</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading2">Datentyp</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading2">Data Type</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading3">Datenvolumen</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading3">Data Volume</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading4">Datenstandards</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading4">Data Standards</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Datenanalyse</a>
+                            <a class="nav-link border-0 rounded-0" href="#scrollspyHeading5">Data Analysis</a>
                         </li>
                     </ul>
                 </nav>
@@ -2945,8 +3021,37 @@ END:VEVENT`;
             style="margin: 0 0 0 0; padding: 0 0 0 0; height: 93vh; width: 100vw; overflow-x: hidden;position:relative;">
             <div class="col-7" id="split-0"
                 style="position: relative;height: 93vh; overflow-x: hidden; margin: 0 0 0 0; padding: 0 0 0 0; ">
-                <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/horizon_europe.js" target="_blank" id="editTemplate" title="Edit this template" style="position: fixed; top: 100px; left: calc(60vw - 5.5rem ); z-index:1030">Diese <br>Vorlage<br>  bearbeiten</a>
 
+                <div class="expressmenu">
+                <a href="https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/horizon_europe.js" hover="Edit this template" target="_blank" id="editTemplate" title="Edit this template" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2d3e50" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                  </svg>
+                </a>
+                <br>
+                <a href="#" id="refreshdefault"    onclick="window.localStorage.clear();document.location.reload()"
+                hover="Clear the current input" title="Clear the current input" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2d3e50" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                  <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                  <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                </svg>
+                </a>
+                <br>
+
+                  <a href="#" id="export2json" onclick="save_json()" hover="Save answers to JSON" title="Save answers to JSON" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2d3e50" class="bi bi-filetype-json" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM4.151 15.29a1.2 1.2 0 0 1-.111-.449h.764a.58.58 0 0 0 .255.384q.105.073.25.114.142.041.319.041.245 0 .413-.07a.56.56 0 0 0 .255-.193.5.5 0 0 0 .084-.29.39.39 0 0 0-.152-.326q-.152-.12-.463-.193l-.618-.143a1.7 1.7 0 0 1-.539-.214 1 1 0 0 1-.352-.367 1.1 1.1 0 0 1-.123-.524q0-.366.19-.639.192-.272.528-.422.337-.15.777-.149.456 0 .779.152.326.153.5.41.18.255.2.566h-.75a.56.56 0 0 0-.12-.258.6.6 0 0 0-.246-.181.9.9 0 0 0-.37-.068q-.324 0-.512.152a.47.47 0 0 0-.185.384q0 .18.144.3a1 1 0 0 0 .404.175l.621.143q.326.075.566.211a1 1 0 0 1 .375.358q.135.222.135.56 0 .37-.188.656a1.2 1.2 0 0 1-.539.439q-.351.158-.858.158-.381 0-.665-.09a1.4 1.4 0 0 1-.478-.252 1.1 1.1 0 0 1-.29-.375m-3.104-.033a1.3 1.3 0 0 1-.082-.466h.764a.6.6 0 0 0 .074.27.5.5 0 0 0 .454.246q.285 0 .422-.164.137-.165.137-.466v-2.745h.791v2.725q0 .66-.357 1.005-.355.345-.985.345a1.6 1.6 0 0 1-.568-.094 1.15 1.15 0 0 1-.407-.266 1.1 1.1 0 0 1-.243-.39m9.091-1.585v.522q0 .384-.117.641a.86.86 0 0 1-.322.387.9.9 0 0 1-.47.126.9.9 0 0 1-.47-.126.87.87 0 0 1-.32-.387 1.55 1.55 0 0 1-.117-.641v-.522q0-.386.117-.641a.87.87 0 0 1 .32-.387.87.87 0 0 1 .47-.129q.265 0 .47.129a.86.86 0 0 1 .322.387q.117.255.117.641m.803.519v-.513q0-.565-.205-.973a1.46 1.46 0 0 0-.59-.63q-.38-.22-.916-.22-.534 0-.92.22a1.44 1.44 0 0 0-.589.628q-.205.407-.205.975v.513q0 .562.205.973.205.407.589.626.386.217.92.217.536 0 .917-.217.384-.22.589-.626.204-.41.205-.973m1.29-.935v2.675h-.746v-3.999h.662l1.752 2.66h.032v-2.66h.75v4h-.656l-1.761-2.676z"/>
+                      </svg>
+                  </a>
+                  <br>
+                  <a href="#" id="incompleteInform" onclick="copy_doc()" hover="click to check which answer is missing" title="Show not answer questions, if questions are all answered, the text will be copied." >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2d3e50" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                        <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                  </svg></a>
+                  
+                 
+                </div>
                 <div class="col-12" id="doc2"
                     style="top:7vh; overflow-x: hidden; overflow-y: hidden; padding-right: 0px; background-color: WhiteSmoke;">
 
@@ -2957,7 +3062,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Kopiert in die Zwischenablage
+                                        Copied to clipboard
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -2967,7 +3072,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Die gespeicherten Antworten wurden aktualisiert.
+                                        The saved answers jave been updated
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -2977,7 +3082,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Alle gespeicherten Antworten sind aktualisiert.
+                                        All saved answers have been updated
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -2987,7 +3092,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Antworten erfolgreich im Cache gespeichert.
+                                        Answers has been saved
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -2997,7 +3102,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Die aktuelle Antwort wurde NICHT gespeichert.
+                                        Current answer has NOT been saved
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3007,7 +3112,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Aus dem Cache erfolgreich geladen.
+                                        Cache was successfuly loaded
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3018,9 +3123,9 @@ END:VEVENT`;
                                 data-bs-autohide="true" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body m-auto">
-                                        Alle Texteingaben sind abgeschlossen. Die Kontrollkästchen werden nicht verfolgt. <br> Text kopieren
+                                    All free text answers have been give. The checkboxes will not be tracked. <br> Copy text
                                         <a href="#" data-toggle="tooltip" onclick="copy_doc()"
-                                            title="click to copy the document"> hier
+                                            title="click to copy the document"> here
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                                 fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
@@ -3032,9 +3137,9 @@ END:VEVENT`;
                                                     d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
                                             </svg>
 
-                                        </a> or <a href="#" onclick="save_json()">Antworten exportieren</a> or
+                                        </a> or <a href="#" onclick="save_json()">export answers</a> or
 
-                                        <a href="#" onclick='export2word("doc3", "DMP-DataPLAN") '>Als Word exportieren</a>
+                                        <a href="#" onclick='export2word("doc3", "DMP-DataPLAN") '>export to word</a>
 
 
                                     </div>
@@ -3045,7 +3150,7 @@ END:VEVENT`;
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
-                                        Das Laden aus dem Cache ist fehlgeschlagen, da der ausgewählte Slot leer ist.
+                                        Load from cache failed because the slot selected is empty.
                                     </div>
                                     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
                                         aria-label="Close">
@@ -3084,10 +3189,10 @@ END:VEVENT`;
                     <div id="intro-tour-input">
                         <div id="warningText"></div>
 
-                        <h2 id="scrollspyHeading1">1 Grundlegende Informationen:</h2>
+                        <h2 id="scrollspyHeading1">1 Basic Information:</h2>
 
                         <form class="" style="margin-left: 0px;" id="form_projectname">
-                            <h3>1.1 Wie lautet der Projektname oder das Akronym?</h3>
+                            <h3>1.1 What is the project name or acronym?</h3>
                             <label for="input_projectname"></label>
                             <input style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" id="input_projectname" name="$_PROJECTNAME"
@@ -3100,7 +3205,7 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_acronym"
                                          />
                                     <label class="form-check-label" for="check_acronym">
-                                        Dieses Projekt hat ein zusätzliches Akronym:
+                                        This project has an additional acronym:
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_addacronym" name="$_ADDACRONYM"
                                     placeholder="Add an acronym"
@@ -3115,11 +3220,11 @@ END:VEVENT`;
                         <form id="form_studyobject">
                             <label for="input_studyobject">
                                 <h3 class="text-left">
-                                    1.2 Bitte erläutern Sie kurz
+                                    1.2 Please briefly state
                                     <a href="#" 
                                         tabindex="-1" class="text-success" tabindex="-1" type="button"
                                             data-bs-toggle="offcanvas" data-bs-target="#offcanvas-obj"
-                                            aria-controls="offcanvas-obj">das Thema des Forschungsprojekts &#128712;
+                                            aria-controls="offcanvas-obj">the topic of the research project &#128712;
                                             </a>
 
                                 </h3>
@@ -3140,11 +3245,11 @@ END:VEVENT`;
                         <form id="form_projectaim">
                             <label class="" for="input_projectaim">
                                 <h3>
-                                    und das Gesamtziel des Projekts
+                                    and the overall aim of the project
                                     <a href="#"  class="text-success" type="button" data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-aim" aria-controls="offcanvas-aim" 
                                         tabindex="-1">
-                                            (was möchtest du erreichen?) &#128712;
+                                            (what do you want to achieve?) &#128712;
                                             
                                     </a>
                                 </h3>
@@ -3161,7 +3266,7 @@ END:VEVENT`;
                         <form class="" style="margin-left: 0px;" id="form_datautility " >
                             <h3> <a href="#" class="text-success"   tabindex="-1" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvas-utility" aria-controls="offcanvas-utility">
-                                Wer profitiert am wahrscheinlichsten von den Daten? &#128712;
+                                Who is most likely to benefit from the data? &#128712;
                                         </a> </h3>
                             <label for="input_datautility"></label>
                             <textarea style="width: 90%;" class="col-auto" type="text" onfocusin="this.select();"
@@ -3177,10 +3282,10 @@ END:VEVENT`;
                         </form>
                         <form class="" style="margin-left: 0px;" id="form_username">
                             <h3>1.3 <a id="" href="#" class="text-success infolink" data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Andere &#128712;
-                                     </a> DMP-Metadaten</h3>
+                                    data-bs-target="#offcanvas-other" aria-controls="offcanvas-other"> Other &#128712;
+                                     </a> DMP Metadata</h3>
                             <label for="input_username">
-                                <h4> Benutzername: </h4>
+                                <h4> User Name: </h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_username" name="$_USERNAME"
@@ -3193,7 +3298,7 @@ END:VEVENT`;
                         </form>
                         <form class="" style="margin-left: 0px;" id="form_email">
                             <label for="input_email">
-                                <h4>Benutzer-E-Mail:</h4>
+                                <h4>User Email:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_email" name="$_EMAIL"
@@ -3207,8 +3312,9 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_dataofficer">
                             <label for="input_dataofficer">
-                                <h4>Name des <a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Datenschutzbeauftragten</a> </h4>
+                                <h4><a class="text-primary" id="" href="#" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvas-officer" aria-controls="offcanvas-officer">Data
+                                        Officer</a> Name:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dataofficer"
@@ -3220,7 +3326,7 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_projectcoordinator"
                                          />
                                     <label class="form-check-label" for="check_projectcoordinator">
-                                        Dieses Projekt hat einen Projektkoordinator:
+                                        This project has a project coordinator:
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_addprojectcoordinator" name="$_ADDPROJECTCOORDINATOR"
                                     placeholder="Add a project coordinator"
@@ -3235,7 +3341,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_fundingprogramme">
                             <label for="input_fundingprogramme">
-                                <h4> Förderprogramm:</h4>
+                                <h4> Funding Programme:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_fundingprogramme"
@@ -3249,7 +3355,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_creationdate">
                             <label for="input_creationdate">
-                                <h4> DMP-Erstellungsdatum:</h4>
+                                <h4> DMP Creation Date:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_creationdate"
@@ -3263,7 +3369,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_modificationdate">
                             <label for="input_modificationdate">
-                                <h4> DMP Letzte Änderung:</h4>
+                                <h4> DMP Last Modification:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_modificationdate"
@@ -3277,7 +3383,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_dmpversion">
                             <label for="input_dmpversion">
-                                <h4>DMP-Version:</h4>
+                                <h4>DMP version:</h4>
                             </label>
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="text" id="input_dmpversion" name="$_DMPVERSION"
@@ -3289,14 +3395,14 @@ END:VEVENT`;
 
                         </form>
 
-                        <h3> 1.4 Bitte wählen Sie aus den folgenden Optionen</h3>
+                        <h3> 1.4 Please select from the following options</h3>
                         <div class="form-data_type form-check" id="form_checkbox_1"
                             >
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="1"
                                     id="check_protect" />
                                 <label class="form-check-label" id="check_protect_label" for="check_protect">
-                                    Die Daten sind geschützt.
+                                    The data is protected.
                                 </label>
                             </div>
                             <div>
@@ -3309,17 +3415,17 @@ END:VEVENT`;
 									role="button"-->
                                 <label class="form-check-label" for="check_dataplant">
 
-                                    Ja! Ich werde <a class="text-primary" href="https://nfdi4plants.github.io/"
+                                    Yes! I will use <a class="text-primary" href="https://nfdi4plants.github.io/"
                                         target="_blank" data-toggle="tooltip"
                                         title="An NFDI consortium of plant research."
-                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a> verwenden.
+                                        data-original-title="An NFDI consortium of plant research.">DataPLANT</a>.
                                 </label>
                             </div>
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="3" id="check_update"
                                      />
                                 <label class="form-check-label" for="check_update">
-                                    Dieses Projekt wird aktualisiert unter:
+                                    This project will be updated at:
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" id="intput_updatemonth" name="$_UPDATEMONTH"
                                 placeholder="month of update"
@@ -3333,7 +3439,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="4"
                                     id="check_previousprojects"  />
                                 <label class="form-check-label" for="check_previousprojects">
-                                    Zu diesem Projekt gibt es Vorgängerprojekte.
+                                    This project has previous projects.
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="intput_previousprojects"
                                     name="$_PREVIOUSPROJECTS" placeholder="previous project here"
@@ -3348,7 +3454,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="5"
                                     id="check_industry" />
                                 <label class="form-check-label" for="check_industry">
-                                    Dies ist ein Industrieprojekt.
+                                    This is an industry project.
                                 </label>
                             </div>
                             <div>
@@ -3356,9 +3462,9 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="6"
                                     id="check_proprietary" />
                                 <label class="form-check-label" for="check_proprietary">
-                                    Dieses Projekt verwendet <a class="text-primary" data-bs-toggle="offcanvas"
+                                    This project use <a class="text-primary" data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvas-proprietary" aria-controls="offcanvas-proprietary"
-                                        href="#">proprietäre Software</a>.
+                                        href="#">proprietary software</a>.
                                         <input style="width: 90%;" type="text" onfocusin="this.select();"
                                         onchange="onchange_replace(this);" id="input_proprietary" name="$_PROPRIETARY"
                                         placeholder=" proprietary software "
@@ -3372,7 +3478,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_1" type="checkbox" value="7"
                                     id="check_partners" />
                                 <label class="form-check-label" for="check_partners">
-                                    Dieses Projekt hat Partner.
+                                    This project has partners.
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
                                     onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
                                     placeholder="partner name"
@@ -3384,7 +3490,7 @@ END:VEVENT`;
                             <div>
                                 <input class="form-check-input checkbox_1" type="checkbox" value="8" id="check_eu" />
                                 <label class="form-check-label" for="check_eu">
-                                    EU-Projekt.
+                                    EU project.
                                 </label>
                             </div>
                         </div>
@@ -3424,19 +3530,19 @@ END:VEVENT`;
 
 
                         <form class="show" id="form_checkbox_2" >
-                            <h2 id="scrollspyHeading2">2. Welche Art von Daten werden Sie verarbeiten?</h2>
+                            <h2 id="scrollspyHeading2">2. What kind of data will you handle?</h2>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"
                                     data-replace="genetic data" data-replacede="genetische Daten" />
-                                <label class="form-check-label" for="check_genetic"> Genetische Daten </label>
+                                <label class="form-check-label" for="check_genetic"> Genetic data </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic"
                                     data-replace="genomic data" data-replacede="genomische Daten" />
                                 <label class="form-check-label" for="check_genomic">
-                                    Andere NGS (Genomik)
+                                    Other NGS (genomics)
                                 </label>
                             </div>
 
@@ -3444,7 +3550,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
                                     data-replace="cloned DNA" data-replacede="geklonte DNA" />
                                 <label class="form-check-label" for="check_cloned-dna">
-                                    Geklonte DNA
+                                    Cloned DNA
                                 </label>
                             </div>
 
@@ -3452,7 +3558,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"
                                     data-replace="transcriptomic data" data-replacede="transkriptomische Daten" />
                                 <label class="form-check-label" for="check_transcriptomic">
-                                    Transkriptomik
+                                    Transcriptomics
                                 </label>
                             </div>
 
@@ -3478,7 +3584,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"
                                     data-replace="proteomic data" data-replacede="proteomische Daten" />
                                 <label class="form-check-label" for="check_proteomic">
-                                    Proteomik
+                                    Proteomics
                                 </label>
                             </div>
 
@@ -3487,7 +3593,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"
                                     data-replace="plant phenotypic data" data-replacede="Pflanzenphänotypische Daten" />
                                 <label class="form-check-label" for="check_phenotypic">
-                                    Pflanzenphänotypische Daten
+                                    Plant phenotypic data
                                 </label>
                             </div>
 
@@ -3496,7 +3602,7 @@ END:VEVENT`;
                                     data-replace="targeted assays (e.g. glucose and fructose content)"
                                     data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)" />
                                 <label class="form-check-label" for="check_targeted">
-                                    Gezielte Untersuchungen (zB Glucose- und Fructosegehalt)
+                                    Targeted assays (e.g. glucose and fructose content)
                                 </label>
                             </div>
 
@@ -3504,7 +3610,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_image"
                                     data-replace="image datasets" data-replacede="Bilddatensätze" />
                                 <label class="form-check-label" for="check_image">
-                                    Bilddatensätze
+                                    Image datasets
                                 </label>
                             </div>
 
@@ -3513,7 +3619,7 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_models"
                                     data-replace="model outputs" data-replacede="Modellausgänge" />
                                 <label class="form-check-label" for="check_models">
-                                    Modelle
+                                    Models
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
@@ -3544,7 +3650,7 @@ END:VEVENT`;
 
                         <div class="" id="form_checkbox_5" >
                             <div class=" d-grid gap-1">
-                                <h3> 2.1 Wo übermitteln Sie Ihre Daten als Endpunkte?</h3>
+                                <h3> 2.1 Where will you submit your data as endpoints?</h3>
 
 
                                 <div class="collapse check_geneticrepo check_genomicrepo"
@@ -3698,11 +3804,11 @@ END:VEVENT`;
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
                                         id="check_otherep" />
                                     <label class="form-check-label" for="check_otherep">
-                                        Andere Endpunkt-Repositories:
+                                        Other Endpoint Repositories:
                                         <input data-replace="other endpoint repositories" style="width: 24vw;"
                                             type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHEREP"
-                                            onchange=' saved_a_de["replace"]["$_OTHEREP"]= this.value '
+                                            onchange=' saved_a["replace"]["$_OTHEREP"]= this.value '
                                             placeholder="complete sentence of the other endpoint repositories"
                                             onkeydown='if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();tab_next(this).focus();return false; }' />
                                     </label>
@@ -3713,11 +3819,11 @@ END:VEVENT`;
                         <!---->
 
 
-                        <h2 id="scrollspyHeading3">3. Wie viele Daten werden Sie wahrscheinlich generieren?</h2>
+                        <h2 id="scrollspyHeading3">3. How much data are you likely to generate?</h2>
 
                         <form class="" style="margin-left: 0px;" id="form_rawdata">
                             <label for="input_rawdata">
-                                <h3>3.1 Rohdatenvolumen?</h3>
+                                <h3>3.1 Raw data volume?</h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_rawdata"
@@ -3734,7 +3840,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_deriveddata">
                             <label for="input_deriveddata">
-                                <h3>3.2 Verarbeitete Datenmenge?</h3>
+                                <h3>3.2 Processed data volume?</h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_deriveddata"
@@ -3757,7 +3863,7 @@ END:VEVENT`;
                             <br>
                             <br>
 
-                            <h2 id="scrollspyHeading4">4. Sind einige der folgenden Standards für Ihr Projekt relevant?
+                            <h2 id="scrollspyHeading4">4. Are any of the following standards relevant to your project?
                             </h2>
                             <div class=" d-grid gap-1">
 
@@ -3900,7 +4006,7 @@ END:VEVENT`;
                                         <input style="width: 24vw;" type="text" class="col-auto"
                                             id="input_otherstandardinput" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHERSTANDARDINPUT"
-                                            onchange=' saved_a_de["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
+                                            onchange=' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
                                             placeholder="complete sentence of the other standards"
                                             onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
                                             onfocus='thisOnfocus(this)'
@@ -3912,7 +4018,7 @@ END:VEVENT`;
                                 </div>
                             </div>
                             <!---->
-                            <h3>4.1 Halten Sie sich an strenge Standards für die Übermittlung von Metadaten?</h3>
+                            <h3>4.1 Will you adhere to any high level metadata submission standards?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                     id="check_dublincore" />
@@ -3954,12 +4060,12 @@ END:VEVENT`;
                                 data-bs-target="#offcanvas-marc21" aria-controls="offcanvas-marc21" > more info &#128712; </a>
                             </div>
                             <!---->
-                            <h3>4.2 Projektdaten werden veröffentlicht:</h3>
+                            <h3>4.2 Project data will be published:</h3>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_early"
                                     role="button" />
-                                <label class="form-check-label" for="check_early"> Unmittelbar nach der Abholung</label>
+                                <label class="form-check-label" for="check_early"> Immediately upon collection</label>
                             </div>
 
 
@@ -3967,38 +4073,38 @@ END:VEVENT`;
                                 <input class="form-check-input checkbox_3" type="checkbox"
                                     id="check_beforepublication" />
                                 <label class="form-check-label" for="check_beforepublication">
-                                    Nach Veröffentlichung der Ergebnisse.
+                                    Upon publication of findings.
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_endofproject" />
                                 <label class="form-check-label" for="check_endofproject">
-                                    Am Ende des Projekts.
+                                    At the end of project.
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_embargo" />
                                 <label class="form-check-label" for="check_embargo">
-                                    Nach der Embargofrist.
+                                    After embargo period.
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_request" />
                                 <label class="form-check-label" for="check_request">
-                                    Auf Anfrage.
+                                    Upon request.
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_ipissue" />
                                 <label class="form-check-label" for="check_ipissue">
-                                    Nachdem die IP-Probleme behoben wurden.
+                                    Upon IP issues have been addressed.
                                 </label>
                             </div>
 
-                            <h3>4.4 Welchen nationalen, fördererbezogenen, sektoralen oder abteilungsbezogenen Datenmanagementverfahren folgen Sie und welche nationale Forschungsdateninfrastruktur nutzen Sie?</h3>
+                            <h3>4.4 Which national, funder, sectorial, or departmental data management procedures do you follow, and which national research data infrastructure do you use?</h3>
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_3" type="checkbox" value="1" id="check_nfdi"
                                     />
@@ -4024,10 +4130,10 @@ END:VEVENT`;
 
 
                             <!---->
-                            <h2 id="scrollspyHeading5">5. Beabsichtigen Sie, in Ihrem Projekt Datenvisualisierung zu verwenden?</h2>
+                            <h2 id="scrollspyHeading5">5. Do you intend to use data visualization in your project?</h2>
                             <div class="form-check form-switch">
                                 <input class="form-check-input checkbox_3" type="checkbox" id="check_vvisualization">
-                                <label class="form-check-label" for="check_vvisualization">Ja, ich visualisiere meine Daten.
+                                <label class="form-check-label" for="check_vvisualization">Yes, I visualize my data.
                                 </label>
 
 
@@ -4084,34 +4190,37 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b>zielt darauf ab, ein Computermodell des Kohlenstoff- und Wasserflusses innerhalb einer gesamten Pflanzenarchitektur zu erstellen</p>
+            <p><b> Example 1: </b>aims at creating a computational model of carbon and water flow within a whole plant
+                architecture</p>
             <br />
-            <p><b> Example 2: </b>zielt darauf ab, mit minimalem Aufwand einen Datenmanagementplan zu erstellen und die Daten so offen wie möglich zu machen.</p>
+            <p><b> Example 2: </b>aims at generating data management plan with minimal effort and making the data as
+                open as possible</p>
         </div>
     </div>
 
     <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
         id="offcanvas-obj" aria-labelledby="offcanvasScrolling2">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling2">Das Projektobjekt = Ziel.</h5>
+            <h5 class="offcanvas-title" id="offcanvasScrolling2">The project object = target.</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> Kohlenstoff- und Wasserfluss in Pflanzen.</p>
+            <p><b> Example 1: </b> carbon and water flow in plants</p>
             <br />
-            <p><b> Example 2: </b> Datenmanagementplan</p>
+            <p><b> Example 2: </b> data management plan</p>
         </div>
     </div>
     <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
         id="offcanvas-utility" aria-labelledby="offcanvasScrolling3">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasScrolling3">Hier ist Platz für einen zusätzlichen Satz.</h5>
+            <h5 class="offcanvas-title" id="offcanvasScrolling3">Here is the space for additional sentence.</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> Industrie, Politiker und Studierende können die Daten auch für verschiedene Zwecke nutzen.</p>
+            <p><b> Example 1: </b> Industry, politicians and students can also use the data for different purposes.</p>
             <br />
-            <p><b> Example 2: </b> Die im Projekt erhobenen Daten können von einer Vielzahl von Personen mit unterschiedlichen Zwecken genutzt werden.</p>
+            <p><b> Example 2: </b> The data acquired in the project can be used by a wide range of people with different
+                purpose.</p>
         </div>
     </div>
 
@@ -4123,7 +4232,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Informationen in diesem Abschnitt werden nur in den DMP-Metadaten verwendet und nicht im Dokument.</p>
+            <p>Information in this section is only used in DMP metadata and not used in the document</p>
 
         </div>
     </div>
@@ -4134,7 +4243,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Datenbeauftragte sind auch als Datenmanager und Kuratoren bekannt.</p>
+            <p>Data officers are also known as data stewards and curator.</p>
 
         </div>
     </div>
@@ -4146,7 +4255,7 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p>Software, die rechtlich Eigentum der Organisation, Gruppe oder Person bleibt, die sie erstellt hat.
+            <p>software that legally remains the property of the organization, group, or individual who created it.
             </p>
 
         </div>
@@ -4159,7 +4268,7 @@ END:VEVENT`;
             <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
                 <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
                     onclick='dmpStrings["user-defined"]=document.getElementById("template-input-content").innerHTML; document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML), load_dmp(reload_answers, "user-defined") ;'>
-                    einreichen
+                    submit
                 </button></h1>
 
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -4167,11 +4276,22 @@ END:VEVENT`;
 
         <div class="offcanvas-body" style="padding-top: 0px;">
             <h2 style="padding-top: 0px;">
-                Klicken Sie auf das gepunktete Feld, um mit der Bearbeitung zu beginnen.
-                Klicken Sie auf die grauen Schaltflächen, um Vorlagen wiederzuverwenden.
-                Klicken Sie auf „einreichen“, wenn Sie fertig sind.
+                You can click the dotted box to start editing. <br />
+                Click the grey buttons to reuse templates. <br />
+                Click submit when you finished.
                 <br />
-                
+                <button class="badge btn-primary"
+                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["Horizon2020_DMP"]; '>H2020
+                    DMP</button>
+                <button class="badge btn-primary"
+                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["horizon_europe"]; '>Horizon
+                    Europe DMP</button>
+                <button class="badge btn-primary"
+                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["dfg-dmp"]; '>DFG
+                    DMP</button>
+                <button class="badge btn-primary"
+                    onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["practical-guide"]; '>Practical
+                    Guide</button>
                 <button class="badge btn-primary"
                     onclick=' document.getElementById("template-input-content").innerHTML= dmpStrings["bmbf-dmp"]; '>BMBF
                     DMP</button>
@@ -4188,7 +4308,8 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p> MIAPPE ist ein offener, gemeinschaftsgetriebener Datenstandard, der darauf abzielt, Daten aus Pflanzen-Phänotypisierungsexperimenten zu harmonisieren. MIAPPE bietet eine Spezifikation, die eine Checkliste und ein Datenmodell der Metadaten enthält, die erforderlich sind, um Pflanzen-Phänotypisierungsexperimente angemessen zu beschreiben. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
+            <p> MIAPPE is an open, community driven, data standard designed to harmonize data from plant phenotyping experiments. MIAPPE provides a specification including a checklist and a data model of metadata required to adequately describe plant phenotyping experiments. 
+                More information can be found on: <a target="_blank" href="https://www.miappe.org/"> MIAPPE Homepage </a>
             </p>
 
         </div>
@@ -4201,7 +4322,8 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p> Das Genomic Standards Consortium (GSC) hat einen Standard namens Minimum Information about any (x) Sequence (MIxS) für die Berichterstattung über Markergensequenzen entwickelt. Dieser Standard umfasst die Minimum Information about a Marker Gene Sequence (MIMARKS) und führt 'Umweltpakete' ein, um die Umgebung zu beschreiben, aus der biologische Proben stammen. MIxS zielt darauf ab, Standards zur Beschreibung von Sequenzdaten zu vereinheitlichen und bietet der wissenschaftlichen Gemeinschaft einen zentralen Zugangspunkt zu den GSC-Checklisten. Die Einführung von MIxS wird die Analyse der genetischen Vielfalt verbessern, die durch umfangreiche DNA-Sequenzierungsbemühungen in verschiedenen Ökosystemen dokumentiert wurde. Weitere Informationen finden Sie unter: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
+            <p> The Genomic Standards Consortium (GSC) has developed a standard called the Minimum Information about any (x) Sequence (MIxS) for reporting marker gene sequences. This standard includes the Minimum Information about a Marker Gene Sequence (MIMARKS) and introduces 'environmental packages' to describe the environment from which biological samples originate. MIxS aims to unify standards for describing sequence data, providing a single point of entry for the scientific community to access GSC checklists. Adoption of MIxS will improve the analysis of genetic diversity documented by extensive DNA sequencing efforts across various ecosystems. 
+                More information can be found on: <a target="_blank" href="https://genomicsstandardsconsortium.github.io/mixs/"> MIxS Homepage </a>
             </p>
 
         </div>
@@ -4214,7 +4336,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Verwendung für eukaryotische Genomsequenzen. Der Organismus muss der Linie Eukaryota angehören. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        <p> Use for eukaryotic genomic sequences. Organism must have lineage Eukaryota. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4227,7 +4349,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Mindestinformationen über eine Genomsequenz: Organelle. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
+        <p> Minimum Information about a Genome Sequence: Organelle. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt1360"> MIGS publication </a>
         </p>
 
         </div>
@@ -4241,7 +4363,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> MIGS/MIMS (Mindestinformationen über eine (Meta)Genomsequenz) skizziert eine konzeptionelle Struktur zur Erweiterung der Kerninformationen, die traditionell von der INSDC (DDBJ/EMBL/Genbank) erfasst wurden, um genomische und metagenomische Sequenzen zu beschreiben. Die MIMS-Erweiterung beschreibt wichtige Aspekte des Umweltkontextes. Weitere Informationen finden Sie unter: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
+        <p> MIGS/MIMS (Minimum Information About a (Meta)Genome Sequence) outlines a conceptual structure for extending the core information that has been traditionally captured by the INSDC (DDBJ/EMBL/Genbank) to describe genomic and metagenomic sequences. The MIMS extension describes key aspects of environmental context. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/18479204/"> MIGS/MIMS publication </a>
         </p>
 
         </div>
@@ -4254,7 +4376,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Verwendung für alle Arten von Markergensequenzen, z. B. 16S, 18S, 23S, 28S rRNA oder COI, die aus kultivierten oder eindeutig identifizierbaren Proben gewonnen wurden. Weitere Informationen finden Sie unter: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
+        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained from cultured or voucher-identifiable specimens. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSpecimen publication </a>
         </p>
 
         </div>
@@ -4267,7 +4389,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Verwendung für alle Arten von Markergensequenzen, z. B. 16S, 18S, 23S, 28S rRNA oder COI, die direkt aus der Umwelt gewonnen wurden, ohne Kultivierung oder Identifizierung der Organismen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
+        <p> Use for any type of marker gene sequences, eg, 16S, 18S, 23S, 28S rRNA or COI obtained directly from the environment, without culturing or identification of the organisms. More information can be found on: <a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/21552244/"> MIMARKSSurvey publication </a>
         </p>
 
         </div>
@@ -4280,7 +4402,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Die Minimum Information about a Single Amplified Genome (MISAG) und die Minimum Information about a Metagenome-Assembled Genome (MIMAG) umfassen unter anderem die Assemblierungsqualität sowie Schätzungen der Vollständigkeit und Kontamination des Genoms. Diese Standards können in Kombination mit anderen GSC-Checklisten verwendet werden, einschließlich der Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS) und Minimum Information about a Marker Gene Sequence (MIMARKS). Eine gemeinschaftsweite Einführung von MISAG und MIMAG wird robustere vergleichende genomische Analysen der bakteriellen und archaealen Vielfalt ermöglichen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
+        <p> The Minimum Information about a Single Amplified Genome (MISAG) and the Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MISAG publication </a>
         </p>
 
         </div>
@@ -4293,7 +4415,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Die Minimum Information about a Metagenome-Assembled Genome (MIMAG) umfasst unter anderem die Assemblierungsqualität sowie Schätzungen der Vollständigkeit und Kontamination des Genoms. Diese Standards können in Kombination mit anderen GSC-Checklisten verwendet werden, einschließlich der Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS) und Minimum Information about a Marker Gene Sequence (MIMARKS). Eine gemeinschaftsweite Einführung von MISAG und MIMAG wird robustere vergleichende genomische Analysen der bakteriellen und archaealen Vielfalt ermöglichen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
+        <p> The Minimum Information about a Metagenome-Assembled Genome (MIMAG), including, but not limited to, assembly quality, and estimates of genome completeness and contamination. These standards can be used in combination with other GSC checklists, including the Minimum Information about a Genome Sequence (MIGS), Minimum Information about a Metagenomic Sequence (MIMS), and Minimum Information about a Marker Gene Sequence (MIMARKS). Community-wide adoption of MISAG and MIMAG will facilitate more robust comparative genomic analyses of bacterial and archaeal diversity. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/nbt.3893"> MIMAG publication </a>
         </p>
 
         </div>
@@ -4305,7 +4427,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  Die Minimum Information About a Microarray Experiment (MIAME) beschreibt die Mindestinformationen, die erforderlich sind, um sicherzustellen, dass Microarray-Daten leicht interpretiert werden können und die aus ihrer Analyse abgeleiteten Ergebnisse unabhängig überprüft werden können. Das ultimative Ziel dieser Arbeit ist es, einen Standard für die Aufzeichnung und Berichterstattung von Microarray-basierten Genexpressionsdaten zu etablieren, der wiederum die Einrichtung von Datenbanken und öffentlichen Repositories erleichtert und die Entwicklung von Datenanalysetools ermöglicht. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
+        <p>  the Minimum Information About a Microarray Experiment (MIAME), that describes the minimum information required to ensure that microarray data can be easily interpreted and that results derived from its analysis can be independently verified. The ultimate goal of this work is to establish a standard for recording and reporting microarray-based gene expression data, which will in turn facilitate the establishment of databases and public repositories and enable the development of data analysis tools. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/ng1201-365"> MIAME publication </a>
         </p>
 
         </div>
@@ -4317,7 +4439,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  MIAMET (Minimum Information About a METabolomics experiment) ist ein ähnlicher Standard, jedoch an die Besonderheiten der Metabolomik angepasst. Weitere Informationen finden Sie unter: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
+        <p>  MIAMET (Minimum Information About a METabolomics experiment) is an analogous standard, but adapted to the specifics of metabolomics. More information can be found on: <a target="_blank" href="https://doi.org/10.1016/j.tplants.2004.07.004"> MIAMET publication </a>
         </p>
 
         </div>
@@ -4329,7 +4451,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>  MINSEQE beschreibt die Mindestinformationen über ein Hochdurchsatz-Nukleotid-Sequenzierungsexperiment, die benötigt werden, um eine eindeutige Interpretation zu ermöglichen und die Reproduzierbarkeit der Ergebnisse des Experiments zu erleichtern. Analog zu den MIAME-Richtlinien für Microarray-Experimente wird die Einhaltung der MINSEQE-Richtlinien die Integration mehrerer Experimente über verschiedene Modalitäten hinweg verbessern und somit den Wert der Hochdurchsatzforschung maximieren. Weitere Informationen finden Sie unter: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
+        <p>  MINSEQE describes the Minimum Information about a high-throughput nucleotide SEQuencing Experiment that is needed to enable the unambiguous interpretation and facilitate reproduction of the results of the experiment. By analogy to the MIAME guidelines for microarray experiments, adherence to the MINSEQE guidelines will improve integration of multiple experiments across different modalities, thereby maximising the value of high-throughput research. More information can be found on: <a target="_blank" href="https://zenodo.org/records/5706412"> MINSEQE publication </a>
         </p>
 
         </div>
@@ -4341,7 +4463,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>   Recommended Metadata for Biological Images (REMBI) bietet Richtlinien für Metadaten biologischer Bilder, um das FAIR-Sharing wissenschaftlicher Daten zu ermöglichen. REMBI ist das Ergebnis der Zusammenarbeit der Bioimaging-Community, um Metadatenstandards zu entwickeln, die die Bilddaten selbst sowie unterstützende Metadaten, wie die Beschreibung der biologischen Studie und der Probe, umfassen. Es wird auch dazu beitragen, automatisierte Datenerfassungen mithilfe von Machine-Learning-Techniken zu ermöglichen. Weitere Informationen finden Sie unter: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
+        <p>   Recommended Metadata for Biological Images (REMBI) provides guidelines for metadata for biological images to enable the FAIR sharing of scientific data. REMBI is the result of the bioimaging community coming together to develop metadata standards that describe the imaging data itself, together with supporting metadata such as those describing the biological study and sample. It will also help enable automated data harvesting using machine learning techniques. More information can be found on: <a target="_blank" href="https://www.nature.com/articles/s41592-021-01166-8"> REMBI publication </a>
         </p>
 
         </div>
@@ -4353,7 +4475,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p>   Die MIAPE-Richtlinien sollten ausreichende Informationen über einen Datensatz und seinen experimentellen Kontext erfordern, um es einem Leser zu ermöglichen, die Interpretation und Schlussfolgerungen zu verstehen und kritisch zu bewerten sowie deren experimentelle Bestätigung zu unterstützen. Praktikabilität. Weitere Informationen finden Sie unter: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
+        <p>   The MIAPE guidelines should require sufficient information about a dataset and its experimental context to allow a reader to understand and critically evaluate the interpretation and conclusions, and to support their experimental corroboration. Practicability. More information can be found on: <a href="https://doi.org/10.1038/nbt1329" target="_blank"> MIAPE publication </a>
         </p>
 
         </div>
@@ -4366,7 +4488,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Die Einhaltung von MIMIx, den Mindestinformationen, die für die Berichterstattung über ein molekulares Interaktionsexperiment erforderlich sind, wird zu Veröffentlichungen mit erhöhter Klarheit und Nützlichkeit für die wissenschaftliche Gemeinschaft führen und die schnelle, systematische Erfassung von molekularen Interaktionsdaten in öffentlichen Datenbanken unterstützen, wodurch der Zugang zu wertvollen Interaktionsdaten verbessert wird. Weitere Informationen finden Sie unter: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
+        <p> Adherence to MIMIx, the minimum information required for reporting a molecular interaction experiment, will result in publications of increased clarity and usefulness to the scientific community and will support the rapid, systematic capture of molecular interaction data in public databases, thereby improving access to valuable interaction data. More information can be found on: <a href="https://doi.org/10.1038/nbt1324" target="_blank"> MIMIx publication </a>
         </p>
 
         </div>
@@ -4379,7 +4501,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Das Dublin Core-Vokabular, auch bekannt als Dublin Core Metadata Terms (DCMT), ist ein allgemeines Metadaten-Vokabular zur Beschreibung von Ressourcen jeglicher Art. Es wurde ursprünglich in den frühen Tagen des World Wide Web zur Beschreibung von Webinhalten entwickelt. Die Dublin Core Metadata Initiative (DCMI) ist für die Pflege des Dublin Core-Vokabulars verantwortlich. Weitere Informationen finden Sie unter: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
+        <p> The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary. More information can be found on: <a href="https://www.dublincore.org/" target="_blank"> Dublin Core official homepage </a>
         </p>
 
         </div>
@@ -4392,7 +4514,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Darwin Core ist ein Standard, der von der Darwin Core Maintenance Interest Group gepflegt wird. Er enthält ein Glossar von Begriffen (in anderen Kontexten könnten diese als Eigenschaften, Elemente, Felder, Spalten, Attribute oder Konzepte bezeichnet werden), das den Austausch von Informationen über die biologische Vielfalt erleichtern soll, indem es Bezeichner, Labels und Definitionen bereitstellt. Darwin Core basiert hauptsächlich auf Taxa, deren Vorkommen in der Natur durch Beobachtungen, Proben oder verwandte Informationen dokumentiert wird. Weitere Informationen finden Sie unter: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
+        <p> Darwin Core is a standard maintained by the Darwin Core Maintenance Interest Group. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing identifiers, labels, and definitions. Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. More information can be found on: <a href="https://dwc.tdwg.org/" target="_blank"> Darwin Core official homepage </a>
         </p>
 
         </div>
@@ -4405,7 +4527,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Schema.org ist eine kollaborative, gemeinschaftsbasierte Initiative mit der Mission, Schemata für strukturierte Daten im Internet, auf Webseiten, in E-Mail-Nachrichten und darüber hinaus zu erstellen, zu pflegen und zu fördern. Weitere Informationen finden Sie unter: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
+        <p> Schema.org is a collaborative, community activity with a mission to create, maintain, and promote schemas for structured data on the Internet, on web pages, in email messages, and beyond. More information can be found on: <a href="https://schema.org/" target="_blank"> Schema.org official homepage </a>
         </p>
 
         </div>
@@ -4418,7 +4540,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Bioschemas zielt darauf ab, die Auffindbarkeit von Ressourcen der Lebenswissenschaften wie Datensätze, Software und Schulungsmaterialien im Web zu verbessern. Dies geschieht, indem Personen in den Lebenswissenschaften ermutigt werden, Schema.org-Markup auf ihren Websites zu verwenden, sodass diese von Suchmaschinen und anderen Diensten indexiert werden können. Bioschemas fördert die konsistente Verwendung von Markup, um die Nutzung der enthaltenen Markups auf vielen Websites zu erleichtern. Diese strukturierten Informationen machen es dann einfacher, verteilte Ressourcen zu entdecken, zusammenzuführen und zu analysieren. Weitere Informationen finden Sie unter: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
+        <p> Bioschemas aims to improve the Findability on the Web of life sciences resources such as datasets, software, and training materials. It does this by encouraging people in the life sciences to use Schema.org markup in their websites so that they are indexable by search engines and other services. Bioschemas encourages the consistent use of markup to ease the consumption of the contained markup across many sites. This structured information then makes it easier to discover, collate, and analyse distributed resources. More information can be found on: <a href="https://bioschemas.org/" target="_blank"> Bioschemas official homepage </a>
         </p>
 
         </div>
@@ -4431,7 +4553,7 @@ END:VEVENT`;
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <p> Die MARC-Formate sind Standards für die Darstellung und den Austausch von Daten in maschinenlesbarer Form. Das Network Development and MARC Standards Office (NDMSO), unterstützt vom MARC Advisory Committee, ist für die Pflege und Entwicklung des Formats verantwortlich. MARC 21 ist auch in einer XML-Struktur sowie in zwei erweiterten Formatvarianten im Kontext von MARC-Lokalfeldern verfügbar. Weitere Informationen finden Sie unter: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
+        <p> The MARC formats are standards for the representation and exchange of data in machine-readable form.The Network Development and MARC Standards Office (NDMSO), supported by the MARC Advisory Committee, is responsible for maintaining and developing the format. MARC 21 is also available in an XML structure as well as in two extended format variants in the context of MARC local fields. More information can be found on: <a href="https://www.loc.gov/marc/" target="_blank"> MARC official homepage </a>
         </p>
 
         </div>
@@ -4440,7 +4562,7 @@ END:VEVENT`;
     <!-- Button trigger modal -->
     <button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#dmp_update">
-        DMP-Aktualisierungsmodal
+        dmp update modal
     </button>
 
     <!-- Modal dmp update reminder-->
@@ -4449,13 +4571,15 @@ END:VEVENT`;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="update-label">Richten Sie vor Ablauf der Frist mehrere Erinnerungen ein. <br> Das können Sie Ziehen Sie die Erinnerung per Drag-and-Drop, um die Bestellung zu ändern. <br> Nach dem Klicken laden Sie „.ics“-Dateien herunter Schaltfläche „Herunterladen“.</h5>
+                    <h5 class="modal-title" id="update-label">Set up several reminders before deadline. <br> You can
+                        drag and drop the reminder to change order <br> You will download ".ics" files after click
+                        "download" button</h5>
                     <button type="button" id="update_date_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="input-group justify-content-center">
-                        <button type="button" class="btn btn-primary" onclick='add_date_div()'> + Fügen Sie eine Erinnerung hinzu
+                        <button type="button" class="btn btn-primary" onclick='add_date_div()'> + Add a reminder
                         </button>
                         <button type="button" class="btn btn-secondary" onclick="clear_dmp_updates()"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -4464,20 +4588,20 @@ END:VEVENT`;
                                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                                 <path fill-rule="evenodd"
                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg> Entfernen Sie alle Erinnerungen </button>
+                            </svg> Remove all reminders </button>
                     </div>
                     <br>
                     <ul id="dmp-update-content" class="slist">
-                        Liste der Erinnerungen
+                        List of reminders
 
                     </ul>
 
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                    <button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Herunterladen</button>
+                    <button type="button" class="btn btn-primary" onclick="datepicker_list_to_JSON()">Download</button>
                 </div>
             </div>
         </div>
@@ -4489,7 +4613,7 @@ END:VEVENT`;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="citation_modal-label">Sie können dieses Tool zitieren</h5>
+                    <h5 class="modal-title" id="citation_modal-label">You can cite this tool</h5>
                     <button type="button" id="citation_modal_close" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -4536,7 +4660,7 @@ END:VEVENT`;
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                 </div>
             </div>
@@ -4549,19 +4673,19 @@ END:VEVENT`;
         <!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
         <div class="offcanvas-header">
 
-            <h5 class="offcanvas-title" id="storage_offcanvas">Caches vergleichen und überschreiben</h5>
+            <h5 class="offcanvas-title" id="storage_offcanvas">Compare and overwrite caches</h5>
             <button type="button" onclick="" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
         <div class="offcanvas-body" id="cache_management_modal_body">
             <div class="row ">
                 <div class="dropdown col-3">
-                    Fragen
+                    Question
                 </div>
                 <div class="dropdown col-4 ">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="current_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Aktuelle Antwort
+                        Current Answer
                     </a>
 
                     <ul class="dropdown-menu" id="current_input" aria-labelledby="current_answer_link">
@@ -4572,7 +4696,7 @@ END:VEVENT`;
                 <div class="dropdown col-4">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Antwort importieren
+                        Import Answer
                     </a>
 
                     <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
@@ -4581,7 +4705,7 @@ END:VEVENT`;
                 </div>
 
                 <div class="dropdown col-1">
-                    Überschreiben
+                    Over <br>write
                 </div>
 
 
@@ -4594,9 +4718,9 @@ END:VEVENT`;
         <div class="offcanvas-footer">
             <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="offcanvas">Close</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                onclick="overwrite_current()">Einzelne Seite überschreiben</button>
+                onclick="overwrite_current()">Single page overwrite</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                onclick="save_json();overwrite_all()">Der gesamte Cache wird überschrieben</button>
+                onclick="save_json();overwrite_all()">All cache overwrite</button>
         </div>
 
     </div>
@@ -4608,13 +4732,13 @@ END:VEVENT`;
   position: fixed !important;transform: translate(-50%, -50%) !important;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Neuigkeiten und Changelog</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">News and changelog</h5>
                     <button type="button" onclick="consent()" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-                    DataPLAN ist so konzipiert, dass es ein benutzerfreundlicher Generator für Datenmanagementpläne (DMP) ist, der vollständig offline funktioniert. Egal, ob Sie die Verbindung zum Internet trennen oder das Tool mit "Strg + S" speichern, Ihre Arbeit wird nicht beeinträchtigt. Sie können auch <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> Die gesamte Website herunterladen </a> und offline verwenden. Unsere Arbeit wurde veröffentlicht in <a href="https://doi.org/10.3390/data8110159" target="_blank">
+                    DataPLAN is designed to be a user-friendly data management plan (DMP) generator, capable of functioning entirely offline. Whether you disconnect from the internet or save the tool using "Ctrl + S," your work will not be affected. You can also <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> downlaod the whole website </a> and use it offline. Our work has been published in <a href="https://doi.org/10.3390/data8110159" target="_blank">
                         Data.</a>
                     <br>
                     <br>
@@ -4622,25 +4746,79 @@ END:VEVENT`;
                     
                     <h6><b>19th June 2024</b></h6>
                     <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Probleme mit Wordcloud und Standardantworten behoben.</li>
-                        <li><span class="badge bg-primary">New feature:</span> BMBF-DMP-Betatest hinzugefügt.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Fixed issues with Wordcloud and default answers.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Added BMBF DMP beta testing.</li>
                     </ul>
 
                     <h6><b>8th May 2024</b></h6>
                     <ul>
-                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Probleme mit der Benutzeroberfläche behoben.</li>
-                        <li><span class="badge bg-primary">New feature:</span> Einführung des BBSRC DMP-Betatests.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved user interface issues.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Introduced BBSRC DMP beta testing.</li>
                     </ul>
 
-                    
+                    <h6><b>20th December 2023</b></h6>
+                    <ul>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Corrected spacing issues around placeholders.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Added tooltips and off-canvas elements for term explanations.</li>
+                    </ul>
+
+                    <h6><b>28th March 2023</b></h6>
+                    <ul>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Tutorial bugs fixed.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Panels are now resizable.</li>
+                    </ul>
+
+                    <h6><b>1st February 2023</b></h6>
+                    <ul>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Print function restored.</li>
+                        <li><span class="badge bg-primary">Improvement:</span> Enhanced UI and content indicators.</li>
+                    </ul>
+
+                    <h6><b>16th January 2023</b></h6>
+                    <ul>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Fixed model data duplication.</li>
+                        <li><span class="badge bg-primary">Improvement:</span> Renamed "Upload" menu to "Import".</li>
+                    </ul>
+
+                    <h6><b>6th December 2022</b></h6>
+                    <ul>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved checkbox functionality issues.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Improved compatibility with older saved questions.</li>
+                    </ul>
+
+                    <h6><b>30th November 2022</b></h6>
+                    <ul>
+                        <li><span class="badge bg-primary">New feature:</span> Introduced new scroll cache functionality.</li>
+                    </ul>
+
+                    <h6><b>25th November 2022</b></h6>
+                    <ul>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Fixed floating "toast" alignment.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved "save to cache" toast issues.</li>
+                    </ul>
+
+                    <h6><b>24th November 2022</b></h6>
+                    <ul>
+                        <li><span class="badge bg-primary">New feature:</span> Added a "News" panel to the "Help" menu.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Introduced notifications for saved caches.</li>
+                        <li><span class="badge bg-primary">New feature:</span> Added new options for endpoint repositories.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Resolved issues with user-defined templates.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Next question navigation is now bug-free.</li>
+                    </ul>
+
+                    <h6><b>15th November 2022</b></h6>
+                    <ul>
+                        <li><span class="badge bg-primary">New feature:</span> Added "scroll to" and "highlight" features when hovering over replaced text.</li>
+                        <li><span class="badge bg-warning text-dark">Bug fix:</span> Improved performance to reduce text replacement lag.</li>
+                    </ul>
 
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="consent()"
-                        data-bs-dismiss="modal">Schließen</button>
+                        data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary d-none" data-bs-dismiss="modal"
-                        onclick="consent()">Zustimmung</button>
+                        onclick="consent()">Consent</button>
                 </div>
 
             </div>
@@ -4654,7 +4832,7 @@ END:VEVENT`;
    
     <div id="user-defined" class="d-none">
         <div id="user-defined1" class="content-page">
-            eine Dokumentvorlage
+            a document template
         </div>
     </div>
 
