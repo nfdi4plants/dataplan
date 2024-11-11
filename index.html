@@ -491,7 +491,7 @@
      * @global
      */
     function load_dmp(callback = reload_answers, name = cached_template) {
-        
+        translatePage(name);
         punctualReplaced = false;
        
         
@@ -923,7 +923,7 @@
         
         
         convertedEle = document.getElementById("doc3").innerHTML;
-        
+        //window.doc_name = name;
         // e.setAttribute("onchange", "const col1 = new bootstrap.Collapse('."+id+"Repo', {toggle: false});if(this.checked == true){col1.show();}else{col1.hide();}");
     }
     function checkboxOnfocusin(ele){
@@ -1669,20 +1669,25 @@
         }
 
 
-    async function translatePage(){
+    async function translatePage(name){
         googleJSON = await fetchGoogleCSV();
-        let list = document.querySelectorAll('span[name="translateTarget"]');
-        list.forEach(e=>{
+        var list = document.querySelectorAll('span[name="translateTarget"]');
+        if (dmpLanguage[name] == "de"){
+            list.forEach(e=>{
             try {
                 e.innerHTML = googleJSON[e.dataset.en].de;
             } catch (error) {
                 console.error(error)
             }
-            
-
-
-        })
-
+        }); }else{
+            list.forEach(e=>{
+            try {
+                e.innerHTML = e.dataset.en;
+            } catch (error) {
+                console.error(error)
+            }})
+        }
+        
     }
 
     // initialization
