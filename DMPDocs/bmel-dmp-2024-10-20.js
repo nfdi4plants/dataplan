@@ -2,7 +2,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
     <div  class="content-page" id="text_start">
         <h1 class="text-center">
             <p class="text-center h1">
-                <center>Title: Datenmanagementplan für $_PROJECTNAME </center>
+                <center>Title: $_PROJECTNAME Forschungsdatenmanagementplan für BMEL </center>
             </p>
         </h1>
         <p class="c0"><span class="c3"><b>Kurzbeschreibung: $_ADDACRONYM &nbsp;</b></span></p>
@@ -12,7 +12,8 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
         <p class="c0"><span class="c3"><b>Forschungsf&ouml;rderer</b>: Bundesministerium f&uuml;r Erna&uuml;hrung und Landwirtschaft</span></p>
         <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME&nbsp;</span></p>
         <p class="c0"><span class="c3"><b>FKZ: $_DMPVERSION&nbsp;</b></span></p>
-
+        <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE&nbsp; </span></p>
+        <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE&nbsp;</span></p>
         
 
        
@@ -32,6 +33,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
 
                         </span>
                     </p>
+                    
                 <p class="c0">
                     <span class="c3">
                         <b>Welche Daten werden in dem Forschungsvorhaben erzeugt, erhoben und ausgewertet?</b>:
@@ -62,7 +64,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                                
                         </span>
                     </p>
-                            <p class="c0 c2"><span class="c3"><b>Datenerhebung</b></span></p>
+                            <p class="c0 c2"><span class="c3"><b>Wie werden die Daten erfasst und ausgewertet/prozessiert?</b></span></p>
 
         <p class="c0 c2"><span class="c1">
                 <p class="c0"><span class="c1">Öffentliche Daten werden wie im vorherigen Absatz beschrieben
@@ -229,30 +231,8 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
             </span></p>
                 </span>
             </p>
-        <p class="c0 c2"><span class="c1"></span></p>
-        <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE&nbsp; </span></p>
-        <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE&nbsp;</span></p>
-        <p class="c0"><span class="c3"><b>Zu beachtende Vorgaben:</b> </span></p>
 
-        <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
-                #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu
-                speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu
-                machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die
-                Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT
-            </span>
-        </p>
-        <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
-                sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem
-                Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der
-                Forschungsdaten führt. #endif$_DATAPLANT&nbsp; </span>
-        </p>
-
-
-
-
-
-
-        <p class="c0"><span class="c3"><b>Datenspeicherung:</b> </span></p>
+                <p class="c0"><span class="c3"><b>Wie werden die Daten während der Projektlaufzeit verwaltet, gespeichert und gesichert?</b> </span></p>
 
         <p class="c0">
             <span class="c1">
@@ -276,18 +256,61 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
         </p>
 
         <p class="c0 "><span class="c1">
-                <p class="c0"><span class="c1">Das $_PROJECTNAME trägt die Kosten für die Datenkuratierung,
-                        #if$_DATAPLANT ARC-Konsistenzprüfungen, #endif$_DATAPLANT und die Datenwartung/-sicherheit
-                        vor der Übertragung an öffentliche Repositorien. Nachfolgende Kosten werden dann von den
-                        Betreibern dieser Repositorien getragen.</span></p>
+               
 
-                <p class="c0">
-                    <span class="c1">
-                        Zusätzlich werden Kosten für die Speicherung nach der Veröffentlichung von den
-                        Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECTNAME oder seinen
-                        Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien.
+
+               <p class="c0"><span class="c3"><b>Wie, wo und für welchen Zeitraum sollen die Daten für die Nachnutzung bereitgestellt werden? Den Regeln der guten wissenschaftlichen Praxis folgend, sollten Forschungsdaten in der eigenen Einrichtung oder in einer fachlich einschlägigen, überregionalen Infrastruktur für mindestens zehn Jahre archiviert werden. </b> </span></p>
+               
+               <p class="c0">
+                    <span class="c1">Wir erwarten, dass wir Rohdaten im Bereich von $_RAWDATA GB an Daten
+                        generieren. Die Größe der abgeleiteten Daten wird etwa $_DERIVEDDATA GB betragen.
                     </span>
                 </p>
+
+
+                <p class="c0">
+                    #if$_DATAPLANT Da das $_PROJECTNAME eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und
+                    DataHUB verwendet, um die Endpunkt-Repositories zu finden und die Daten automatisch in die
+                    Repositories hochzuladen. #endif$_DATAPLANT
+
+                    <span class="c1"> </span>
+                </p>
+                <p class="c0">
+                    <span class="c1">
+                        Die Daten werden über die $_PROJECTNAME-Plattform mit einer benutzerfreundlichen Oberfläche
+                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Die Endpunkt-Repositories sind:
+                        #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
+                        #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                        #endif$_GENETIC #if$_TRANSCRIPTOMIC|$_GENETIC #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO
+                        NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC #if$_ARRAYEXPRESS
+                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC #if$_IMAGE #if$_BIOIMAGE
+                        EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
+                        #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-MetaboLights, #endif$_METABOLIGHTS
+                        #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct
+                        (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                        EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
+                        Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                        #endif$_EDAL #endif$_PHENOTYPIC.
+
+                        #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
+                        dort ebenfalls verarbeitet. #endif$_OTHEREP
+
+                    </span>
+                </p>
+                <p class="c0">
+                    <span class="c1">
+                        Die Einreichung ist kostenlos, und es ist das Ziel (zumindest von ENA), so viele Daten wie
+                        möglich zu erhalten. Daher sind Absprachen weder notwendig noch sinnvoll.
+                        Catch-all-Repositories sind nicht erforderlich.
+                        #if$_DATAPLANT Für DataPLANT wurde dies vereinbart. #endif$_DATAPLANT #issuewarning Wenn
+                        keine Datenmanagementplattform wie DataPLANT verwendet wird, müssen Sie ein geeignetes
+                        Repository finden, um Ihre Daten nach der Veröffentlichung zu speichern oder zu archivieren.
+                        #endissuewarning
+
+                    </span>
+                </p>
+
+            </span></p>
                 <span class="c1">
                     Es wird sichergestellt, dass Daten, die in internationalen, disziplinspezifischen Repositories
                     gespeichert werden können, die spezialisierte Technologien nutzen:<br>
@@ -339,7 +362,11 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
 
             </span></p>
 
-        <p class="c0"><span class="c3"><b>Die Dateibenennung erfolgt nach folgendem Standard</b>:</span></p>
+  
+        
+
+
+        <p class="c0"><span class="c3"><b>Wie wird sichergestellt, dass die Daten auffindbar, zugänglich und nachnutzbar sind?</b>:</span></p>
         <p class="c0">
             <span class="c1">
                 Datenvariablen werden mit Standardnamen versehen. Zum Beispiel werden Gene, Proteine und Metaboliten
@@ -349,9 +376,6 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                 Stamm-/Kultivar-/Unterart-/Sortenbezeichner.
             </span>
         </p>
-
-        <p class="c0"><span class="c1"></span></p>
-        <p class="c0"><span class="c3"><b>Datendokumentation</b></span></p>
         <p class="c0">
             <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
                 Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC Für spezifische Daten (z.B. RNASeq oder genomische
@@ -426,34 +450,8 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                 #endif$_DATAPLANT</span></p>
 
 
-        <p class="c0"><span class="c3"><b>Legitimit&auml;t</b></span></p>
-        <p class="c0"><span class="c1">
-                <p class="c0">
-                    <span class="c1">
-                        Im Moment erwarten wir keine ethischen oder rechtlichen Probleme beim Datenaustausch. In
-                        Bezug auf Ethik, da es sich um Pflanzendaten handelt, ist kein Ethikkomitee erforderlich,
-                        jedoch wird Sorgfalt bei der Aufteilung der Vorteile von Pflanzenressourcen berücksichtigt.
-                        #issuewarning Sie müssen sicherstellen, dass Sie die erforderliche Sorgfaltspflicht erfüllen. Derzeit warten wir auf eine Klärung, ob das Nagoya-Protokoll (🡺 siehe Nagoya-Protokoll) auch Sequenzinformationen umfasst. Unabhängig davon kann die Nutzung von Material aus einem anderen Land als Ihrem eigenen (oder dem Ihres Partners) und dessen physikalische oder biochemische Charakterisierung (z.B. Metaboliten, Proteom, RNASeq, etc.) eine relevante Handlung im Sinne des Nagoya-Protokolls darstellen. Ausnahmen könnten Materialien aus Ländern wie den USA (Nicht-Partner), Irland (hat nicht unterzeichnet—trotzdem kontaktieren), usw. sein, wobei jedoch andere Gesetze Anwendung finden könnten. #endissuewarning
-                    </span>
-                </p>
-                <p class="c0">
-                    <span class="c1">
-                        Die einzigen personenbezogenen Daten, die möglicherweise gespeichert werden, sind der Name
-                        und die Zugehörigkeit des Einreichers in den Metadaten der Daten. Darüber hinaus werden
-                        personenbezogene Daten für Verbreitungs- und Kommunikationsaktivitäten gesammelt, wobei
-                        spezifische Methoden und Verfahren verwendet werden, die von den $_PROJECTNAME-Partnern
-                        entwickelt wurden, um den Datenschutz einzuhalten. #issuewarning Sie müssen informieren und
-                        besser eine SCHRIFTLICHE Zustimmung einholen, dass Sie E-Mails und Namen oder sogar
-                        Pseudonyme wie Twitter-Handles speichern, wir entschuldigen uns sehr für diese Probleme, die
-                        wir nicht erfunden haben. #endissuewarning
-                    </span>
-                </p>
-
-
-            </span></p>
-
-        <p class="c0"><span class="c3"><b>Data Sharing</b></span></p>
-        <p class="c0 c2"><span class="c1">
+        <p class="c0"><span class="c3"><b>Welche Daten sind ggf. nicht oder nur eingeschränkt durch Dritte nachnutzbar? Warum? An welche Bedingungen ist die Bereitstellung und Nachnutzung durch Dritte ggf. geknüpft?</b></span></p>
+         <p class="c0 c2"><span class="c1">
                 <p class="c20">
                     <span class="c1">
                         Falls Daten nur innerhalb des Konsortiums geteilt werden, wenn die Daten noch nicht fertig
@@ -501,9 +499,65 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     </span>
                 </p>
             </span></p>
-        <p class="c0"><span class="c3"><b>Datenerhalt</b></span></p>
-        <p class="c0 c2"><span class="c1">
+                <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
+                #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu
+                speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu
+                machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die
+                Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT 
+            </span>
+        </p>
+        <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
+                sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem
+                Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der
+                Forschungsdaten führt. #endif$_DATAPLANT&nbsp; </span>
+        </p>
+        
+        
+        <p class="c0"><span class="c3"><b>Gibt es Daten, die aus rechtlichen, patentrechtlichen, urheberrechtlichen, wettbewerblichen oder ethischen Gründen sowie aufgrund von Regelungen, die sich aus internationalem Recht ergeben, nicht zur Nachnutzung bereitgestellt werden können? Wenn ja, welche und warum?</b></span></p>
 
+
+
+        <p class="c0"><span class="c1">
+                <p class="c0">
+                    <span class="c1">
+                        Im Moment erwarten wir keine ethischen oder rechtlichen Probleme beim Datenaustausch. In
+                        Bezug auf Ethik, da es sich um Pflanzendaten handelt, ist kein Ethikkomitee erforderlich,
+                        jedoch wird Sorgfalt bei der Aufteilung der Vorteile von Pflanzenressourcen berücksichtigt.
+                        #issuewarning Sie müssen sicherstellen, dass Sie die erforderliche Sorgfaltspflicht erfüllen. Derzeit warten wir auf eine Klärung, ob das Nagoya-Protokoll (🡺 siehe Nagoya-Protokoll) auch Sequenzinformationen umfasst. Unabhängig davon kann die Nutzung von Material aus einem anderen Land als Ihrem eigenen (oder dem Ihres Partners) und dessen physikalische oder biochemische Charakterisierung (z.B. Metaboliten, Proteom, RNASeq, etc.) eine relevante Handlung im Sinne des Nagoya-Protokolls darstellen. Ausnahmen könnten Materialien aus Ländern wie den USA (Nicht-Partner), Irland (hat nicht unterzeichnet—trotzdem kontaktieren), usw. sein, wobei jedoch andere Gesetze Anwendung finden könnten. #endissuewarning
+                    </span>
+                </p>
+                <p class="c0">
+                    <span class="c1">
+                        Die einzigen personenbezogenen Daten, die möglicherweise gespeichert werden, sind der Name
+                        und die Zugehörigkeit des Einreichers in den Metadaten der Daten. Darüber hinaus werden
+                        personenbezogene Daten für Verbreitungs- und Kommunikationsaktivitäten gesammelt, wobei
+                        spezifische Methoden und Verfahren verwendet werden, die von den $_PROJECTNAME-Partnern
+                        entwickelt wurden, um den Datenschutz einzuhalten. #issuewarning Sie müssen informieren und
+                        besser eine SCHRIFTLICHE Zustimmung einholen, dass Sie E-Mails und Namen oder sogar
+                        Pseudonyme wie Twitter-Handles speichern, wir entschuldigen uns sehr für diese Probleme, die
+                        wir nicht erfunden haben. #endissuewarning
+                    </span>
+                </p>
+
+
+            </span></p>
+
+        
+       
+        <p class="c0"><span class="c3"><b>Welche Ausgaben/Kosten sind mit dem Forschungsdatenmanagement zur Laufzeit des Projektes und mit der Bereitstellung zur Nachnutzung verbunden und wie erfolgt die Finanzierung? Hin-weis: Für das Forschungsdatenmanagement während der Projektlaufzeit können notwendige, projektspezifische Ausgaben/Kosten auf Antragsebene beantragt werden. Die veranschlagten Ausgaben/Kosten sind bereits auf Skizzenebene im Finanzierungsplan / der Vorkalkulation zu berücksichtigen.</b></span></p>
+        <p class="c0 c2"><span class="c1">
+                 <p class="c0"><span class="c1">Das $_PROJECTNAME trägt die Kosten für die Datenkuratierung,
+                        #if$_DATAPLANT ARC-Konsistenzprüfungen, #endif$_DATAPLANT und die Datenwartung/-sicherheit
+                        vor der Übertragung an öffentliche Repositorien. Nachfolgende Kosten werden dann von den
+                        Betreibern dieser Repositorien getragen.</span></p>
+
+                <p class="c0">
+                    <span class="c1">
+                        Zusätzlich werden Kosten für die Speicherung nach der Veröffentlichung von den
+                        Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECTNAME oder seinen
+                        Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien.
+                    </span>
+                </p>
                 <p class="c0">
                     <span class="c1">Wir erwarten, dass wir Rohdaten im Bereich von $_RAWDATA GB an Daten
                         generieren. Die Größe der abgeleiteten Daten wird etwa $_DERIVEDDATA GB betragen.
