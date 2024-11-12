@@ -319,6 +319,7 @@
         updateSavedAnswers();
     }
 
+
      function addSinglePlaceholder(importJSON, oldPlaceholder, content ){
         try {
             Object.keys(importJSON["replace"]).includes( oldPlaceholder) ? {} : importJSON["replace"][oldPlaceholder] = content;
@@ -1053,7 +1054,7 @@
             checkboxOnfocusout(ele); setTimeout(()=> {
                 scroll_y  = document.getElementById("split-0").scrollTop;
             punctualReplaced || classicMode ? load_dmp(reload_answers, doc_name)  :singleCheckbox(ele.id);}, "0"); 
-            setTimeout(()=> { checkboxOnfocusin(ele)}, "500")
+            setTimeout(()=> { checkboxOnfocusin(ele), saveToLocalStorage(doc_name)}, "500")
             
             
         }

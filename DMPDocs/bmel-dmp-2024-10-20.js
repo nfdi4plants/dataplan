@@ -2,12 +2,12 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
     <div  class="content-page" id="text_start">
         <h1 class="text-center">
             <p class="text-center h1">
-                <center>Datenmanagementplan für BMBF</center>
+                <center>Title: Datenmanagementplan für $_PROJECTNAME </center>
             </p>
         </h1>
         <p class="c0"><span class="c3"><b>Kurzbeschreibung: $_ADDACRONYM &nbsp;</b></span></p>
         <p class="c0"><span class="c3"><b>Projektkoordinator</b>: #if$_PROJECTCOORDINATOR $_ADDPROJECTCOORDINATOR #endif$_PROJECTCOORDINATOR &nbsp; #if!$_PROJECTCOORDINATOR $_DATAOFFICER #endif!$_PROJECTCOORDINATOR</span></p>
-        <p class="c0"><span class="c3"><b>Skizzen- bzw. Antragseinreicher Kontaktperson Datenmanagement</b>: $_DATAOFFICER&nbsp;</span></p>
+        <p class="c0"><span class="c3"><b>Skizzen- bzw. Antragseinreicher</b>: $_DATAOFFICER&nbsp;</span></p>
          <p class="c0"><span class="c3"><b>Kontakt</b>: $_EMAIL&nbsp;</span></p>
         <p class="c0"><span class="c3"><b>Forschungsf&ouml;rderer</b>: Bundesministerium f&uuml;r Erna&uuml;hrung und Landwirtschaft</span></p>
         <p class="c0"><span class="c3"><b>F&ouml;rderprogramm:</b> $_FUNDINGPROGRAMME&nbsp;</span></p>
@@ -34,7 +34,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     </p>
                 <p class="c0">
                     <span class="c3">
-                        <b>Projektbeschreibung</b>:
+                        <b>Welche Daten werden in dem Forschungsvorhaben erzeugt, erhoben und ausgewertet?</b>:
                      </span>
                     </p>
                         <p class="c0">
@@ -62,29 +62,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                                
                         </span>
                     </p>
-                </span>
-            </p>
-        <p class="c0 c2"><span class="c1"></span></p>
-        <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE&nbsp; </span></p>
-        <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE&nbsp;</span></p>
-        <p class="c0"><span class="c3"><b>Zu beachtende Vorgaben:</b> </span></p>
-
-        <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
-                #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu
-                speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu
-                machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die
-                Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT
-            </span>
-        </p>
-        <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
-                sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem
-                Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der
-                Forschungsdaten führt. #endif$_DATAPLANT&nbsp; </span>
-        </p>
-
-
-
-        <p class="c0 c2"><span class="c3"><b>Datenerhebung</b></span></p>
+                            <p class="c0 c2"><span class="c3"><b>Datenerhebung</b></span></p>
 
         <p class="c0 c2"><span class="c1">
                 <p class="c0"><span class="c1">Öffentliche Daten werden wie im vorherigen Absatz beschrieben
@@ -249,6 +227,29 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                 <p class="c0"><span class="c3"></span></p>
 
             </span></p>
+                </span>
+            </p>
+        <p class="c0 c2"><span class="c1"></span></p>
+        <p class="c0"><span class="c3"><b>Erstellungsdatum:</b> $_CREATIONDATE&nbsp; </span></p>
+        <p class="c0"><span class="c3"><b>&Auml;nderungsdatum:</b> $_MODIFICATIONDATE&nbsp;</span></p>
+        <p class="c0"><span class="c3"><b>Zu beachtende Vorgaben:</b> </span></p>
+
+        <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
+                #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu
+                speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu
+                machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die
+                Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT
+            </span>
+        </p>
+        <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
+                sicherstellen, dass alle relevanten Richtlinien und Anforderungen im Zusammenhang mit dem
+                Datenmanagement eingehalten werden, was zu einer höheren Qualität und Zuverlässigkeit der
+                Forschungsdaten führt. #endif$_DATAPLANT&nbsp; </span>
+        </p>
+
+
+
+
 
 
         <p class="c0"><span class="c3"><b>Datenspeicherung:</b> </span></p>
