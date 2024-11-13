@@ -51,10 +51,13 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                     <span class="c1">
                         Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
                         #if$_GENETIC genetische Daten, #endif$_GENETIC  
-                #if$_GENOMIC genomische Daten, #endif$_GENOMIC 
+                #if$_GENOMIC genomische Daten, #endif$_GENOMIC
+                #if$_PANGENOMIC Pangenomische Daten, #endif$_PANGENOMIC 
                 #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
                 #if$_TRANSCRIPTOMIC transkriptomische Daten, #endif$_TRANSCRIPTOMIC  
                 #if$_RNASEQ RNA-Seq-Daten, #endif$_RNASEQ 
+                #if$_SCRNASEQ Einzelzell RNA-Seq-Daten, #endif$_SCRNASEQ
+ 
                 #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
                 #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
                 #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
@@ -101,7 +104,14 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                         einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                 </p>
                 <ul style="list-style-type:disc;">
-
+                    #if$_PANGENOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Pangenomische Daten werden erhoben, indem die Genome mehrerer Individuen einer Population sequenziert und die Sequenzen zusammengefügt und ausgerichtet werden, um eine umfassende Referenz zu erstellen, die die genetische Vielfalt repräsentiert und detaillierte Metadaten enthält. 
+                            </span>
+                        </p>
+                    </li>
+                    #endif$_PANGENOMIC
                     #if$_GENETIC&nbsp;
                     <li>
                         <p class="c0">
@@ -146,7 +156,22 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                                 Methoden gesammelt.</span>
                         </p>
                     </li>
-                    #endif$_TRANSCRIPTOMIC
+                            #endif$_TRANSCRIPTOMIC
+
+                            #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+                    <li>
+
+                            <span class="c1"> Räumliche Transkriptomikdaten werden gesammelt, indem die Gewebestruktur auf mit Barcodes versehenen Objektträgern konserviert, räumlich aufgelöste RNA erfasst und sequenziert wird, um die Genexpression bestimmten Geweberegionen mit detaillierten Metadaten zuzuordnen. </span>
+
+                    </li>
+                    #endif$_SPATIALTRANSCRIPTOMIC&nbsp; #if$_SCRNASEQ&nbsp; 
+                    <li>
+
+                            <span class="c1"> Einzelzell-RNA-seq-Daten werden durch die Isolierung einzelner Zellen, die Extraktion und das Barcoding von RNA, die Vorbereitung von Sequenzierungsbibliotheken und die Erzeugung hochwertiger transkriptomischer Daten mit Hilfe von Plattformen wie Illumina gesammelt, wobei die Metadaten sorgfältig aufgezeichnet werden.</span>
+
+                    </li>
+                    #endif$_SCRNASEQ&nbsp;
+
                     #if$_RNASEQ&nbsp;
                     <li>
                         <p class="c0">
@@ -244,15 +269,17 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                 </ul>
                  <p class="c0">
             <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
-                Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC Für spezifische Daten (z.B. RNASeq oder genomische
+                Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+ Für spezifische Daten (z.B. RNASeq oder genomische
                 Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span
                 class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment
-                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC&nbsp;</span>
+                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+&nbsp;</span>
             <span class="c1">
                 Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
                     <span class="list-to-remove-comma">
                     
-                        #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
+                        #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                         #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                         #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
                         #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
@@ -262,7 +289,7 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                         Survey), #endif$_MIMARKSSURVEY
                         #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
                         #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
-                        #endif$_GENOMIC|$_GENETIC
+                        #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
                         #if$_TRANSCRIPTOMIC
                         #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
                         Experiment), #endif$_MINSEQE #endif$_TRANSCRIPTOMIC
@@ -271,11 +298,13 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                         #if$_IMAGE
                         #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                         #endif$_IMAGE
-                        #if$_RNASEQ|$_GENOMIC 
+                        #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+ 
                         #if$_MINSEQE
                             MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                         #endif$_MINSEQE 
-                        #endif$_RNASEQ|$_GENOMIC
+                        #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+
                         #if$_METABOLOMIC
                         #if$_MMIAMET
                         MIAMET (Minimum Information About a METabolomics experiment),
@@ -304,8 +333,10 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                 Parser, die von DataPLANT bereitgestellt werden, um
                 Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
                 auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
-                #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC z.B.#if$_MINSEQE MinSEQe für
-                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights-kompatible
+                #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+ z.B.#if$_MINSEQE MinSEQe für
+                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+ Metabolights-kompatible
                 Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
                 Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
                 etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir

@@ -134,12 +134,12 @@
     var convertedEle;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"aims at Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
 
     const JSONStringDe = '{ "dmp": { "title": "DMP des Beispielprojekts", "contact": { "contact_id": { "identifier": "http://orcid.org/0000-0000-0000-0000", "type": "orcid" }, "mbox": "E-Mail des DMP", "name": "DMP des Beispielbenutzers" }, "created": "2024-06-19T16:45:09.7", "dmp_id": { "identifier": "https://doi.org/10.0000/00.0.1234", "type": "doi" }, "dataset": [ { "dataset_id": { "identifier": "https://doi.org/10.0000/00.0.5678", "type": "doi" }, "title": "Platzhalter-Datensatz", "personal_data": "unbekannt", "sensitive_data": "unbekannt" } ], "ethical_issues_exist": "unbekannt", "language": "eng", "modified": "2024-07-09T10:53:50.4", "submission": "2024-07-09T10:53:50.4", "version": "1.0" }, "replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_DMPVERSION": "1.0", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_DATAUTILITY": "Industrie, Politiker und Studenten können die Daten auch für verschiedene Zwecke nutzen.", "$_UPDATEMONTH": "Beispielmonat", "$_PREVIOUSPROJECTS": "Name des vorherigen Projekts", "$_PROPRIETARY": "Proprietäre Software", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx", "$_OTHERSTANDARDINPUT": "andere Standards", "$_OTHEREP": "Andere Repositories", "$_PARTNERS": "Name des Partners", "$_ADDPROJECTCOORDINATOR": "Projektkoordinator", "$_ADDACRONYM": "Fügen Sie hier das Akronym ein" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[  "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     var cached_a_en = window.localStorage.getItem("saved_a") || JSONString; // try to get the saved answers from local storage
     var cached_a_de = window.localStorage.getItem("saved_a_de") || JSONStringDe; // try to get the saved answers from local storage
-    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
+    const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"aims at Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
 
     const templateJSONDe = '{"replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx" }}';
     var temp_a_en = JSON.parse(templateJSON); // template answers used to compare with saved answers 
@@ -465,7 +465,10 @@
             Object.keys(window.saved_a["replace"]).includes("$_PARTNERS") ? {} : window.saved_a["replace"]["$_PARTNERS"] = "partner name";
         }
         catch (e) { };
-        
+        try {
+            ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_pangenomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_pangenomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_pangenomic", "check_spatialtranscriptomic", "check_scrnaseq") : {};
+        }
+        catch (e) { };
 
     }
 
@@ -1455,7 +1458,7 @@
                     window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                     let endif_range = window.getSelection().getRangeAt(0).cloneRange();
-                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
+                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC|$_PANGENOMIC");
                     
                     let in_range = document.createRange();                    
                     in_range.setStart(if_range.endContainer, if_range.endOffset);                    
@@ -3816,47 +3819,59 @@ END:VEVENT`;
                             <h2 id="scrollspyHeading2"><span name="translateTarget" data-en="2. What kind of data will you handle?">2. What kind of data will you handle?</span></h2>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"
-                                    data-replace="genetic data" data-replacede="genetische Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_pangenomic" />
+                                <label class="form-check-label" for="check_pangenetic"> <span name="translateTarget" data-en="Pangenomic data">Pangenomic data</span> </label>
+                            </div>
+
+                            <div class="form-data_type form-check">
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"/>
                                 <label class="form-check-label" for="check_genetic"> <span name="translateTarget" data-en="Genetic data">Genetic data</span> </label>
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic"
-                                    data-replace="genomic data" data-replacede="genomische Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_genomic" />
                                 <label class="form-check-label" for="check_genomic">
                                     <span name="translateTarget" data-en="Other NGS (genomics)">Other NGS (genomics)</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"
-                                    data-replace="cloned DNA" data-replacede="geklonte DNA" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_cloned-dna"/>
                                 <label class="form-check-label" for="check_cloned-dna">
                                     <span name="translateTarget" data-en="Cloned DNA">Cloned DNA</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"
-                                    data-replace="transcriptomic data" data-replacede="transkriptomische Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_transcriptomic"/>
                                 <label class="form-check-label" for="check_transcriptomic">
                                     <span name="translateTarget" data-en="Transcriptomics">Transcriptomics</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_rnaseq"
-                                    data-replace="RNA-Seq data" data-replacede="RNA-Seq-Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_spatialtranscriptomic"/>
+                                <label class="form-check-label" for="check_spatialtranscriptomic">
+                                    <span name="translateTarget" data-en="Spatial Transcriptomics">Spatial Transcriptomics</span>
+                                </label>
+                            </div>
+
+                            <div class="form-data_type form-check">
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_rnaseq"/>
                                 <label class="form-check-label" for="check_rnaseq">
                                     RNAseq
                                 </label>
                             </div>
 
+                            <div class="form-data_type form-check">
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_scrnaseq"/>
+                                <label class="form-check-label"  for="check_scrnaseq">
+                                    <span name="translateTarget" data-en="Single Cell RNAseq">Single Cell RNAseq</span>
+                                </label>
+                            </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_metabolomic"
-                                    data-replace="metabolomic data" data-replacede="metabolomische Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_metabolomic"/>
                                 <label class="form-check-label" for="check_metabolomic">
                                     Metabolomics
                                 </label>
@@ -3864,8 +3879,7 @@ END:VEVENT`;
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"
-                                    data-replace="proteomic data" data-replacede="proteomische Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_proteomic"/>
                                 <label class="form-check-label" for="check_proteomic">
                                     <span name="translateTarget" data-en="Proteomics">Proteomics</span>
                                 </label>
@@ -3873,25 +3887,21 @@ END:VEVENT`;
 
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"
-                                    data-replace="plant phenotypic data" data-replacede="Pflanzenphänotypische Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_phenotypic"/>
                                 <label class="form-check-label" for="check_phenotypic">
                                     <span name="translateTarget" data-en="Plant phenotypic data">Plant phenotypic data</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_targeted"
-                                    data-replace="targeted assays (e.g. glucose and fructose content)"
-                                    data-replacede="gezielte Tests (z. B. Glukose- und Fruktosegehalt)" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_targeted"/>
                                 <label class="form-check-label" for="check_targeted">
                                     <span name="translateTarget" data-en="Targeted assays (e.g. glucose and fructose content)">Targeted assays (e.g. glucose and fructose content)</span>
                                 </label>
                             </div>
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_image"
-                                    data-replace="image datasets" data-replacede="Bilddatensätze" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_image" />
                                 <label class="form-check-label" for="check_image">
                                     <span name="translateTarget" data-en="Image datasets">Image datasets</span>
                                 </label>
@@ -3899,22 +3909,19 @@ END:VEVENT`;
 
 
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_models"
-                                    data-replace="model outputs" data-replacede="Modellausgänge" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_models"/>
                                 <label class="form-check-label" for="check_models">
                                     <span name="translateTarget" data-en="Models">Models</span>
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_code"
-                                    data-replace="computational code" data-replacede="Rechencode" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_code" />
                                 <label class="form-check-label" for="check_code">
                                     Code
                                 </label>
                             </div>
                             <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_excel"
-                                    data-replace="excel data" data-replacede="Excel-Daten" />
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_excel"/>
                                 <label class="form-check-label" for="check_excel">
                                     <a href="#" class="text-primary" data-toggle="tooltip"
                                         title="includes other tabular data (e.g. .csv, .tab)"
@@ -3936,7 +3943,7 @@ END:VEVENT`;
                                 <h3> <span name="translateTarget" data-en="2.1 Where will you submit your data as endpoints?">2.1 Where will you submit your data as endpoints?</span></h3>
 
 
-                                <div class="collapse check_geneticrepo check_genomicrepo"
+                                <div class="collapse check_geneticrepo check_pangenomicrepo "
                                     id="genbank">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="3"
                                         id="check_genbank" />
@@ -3944,7 +3951,7 @@ END:VEVENT`;
                                         NCBI-GenBank
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo  check_transcriptomicrepo"
+                                <div class="collapse check_geneticrepo check_scrnaseqrepo check_transcriptomicrepo check_spatialtranscriptomicrepo check_pangenomicrepo"
                                     id="sra">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_sra" />
@@ -3952,14 +3959,14 @@ END:VEVENT`;
                                         NCBI-SRA (Sequence Read Archive)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_transcriptomicrepo" id="geo">
+                                <div class="collapse check_geneticrepo check_spatialtranscriptomicrepo check_transcriptomicrepo check_scrnaseqrepo" id="geo">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="2"
                                         id="check_geo" />
                                     <label class="form-check-label" for="check_geo">
                                         NCBI-GEO (Gene Expression Omnibus)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo check_transcriptomicrepo"
+                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo check_scrnaseqrepo check_transcriptomicrepo check_spatialtranscriptomicrepo check_pangenomicrepo"
                                     id="ENA">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_ena" />
@@ -3967,7 +3974,7 @@ END:VEVENT`;
                                         EBI-ENA (European Nucleotide Archive)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_genomicrepo check_transcriptomicrepo"
+                                <div class="collapse check_geneticrepo check_genomicrepo check_spatialtranscriptomicrepo check_transcriptomicrepo"
                                     id="arrayexpress">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_arrayexpress" />
@@ -4089,7 +4096,7 @@ END:VEVENT`;
                                     <label class="form-check-label" for="check_otherep">
                                         <span name="translateTarget" data-en="Other Endpoint Repositories:">Other Endpoint Repositories:</span>
                                         
-                                        <input data-replace="other endpoint repositories" style="width: 24vw;"
+                                        <input style="width: 24vw;"
                                             type="text" class="col-auto" id="input_otherep" onfocusin="this.select();"
                                             onchange="onchange_replace(this);" name="$_OTHEREP"
                                             onchange=' saved_a["replace"]["$_OTHEREP"]= this.value '
@@ -4243,7 +4250,7 @@ END:VEVENT`;
                                     </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-miamet" aria-controls="offcanvas-miamet" > more info &#128712; </a> 
                                 </div>
-                                <div class="collapse check_transcriptomicrepo check_rnaseqrepo" id="minseqe">
+                                <div class="collapse check_transcriptomicrepo check_rnaseqrepo check_scrnaseqrepo" id="minseqe">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                         id="check_minseqe" />
                                     <label class="form-check-label" for="check_minseqe">

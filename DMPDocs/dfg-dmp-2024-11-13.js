@@ -47,6 +47,14 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 example:</span>
         </p>
         <ul style="list-style-type:disc;">
+            
+            #if$_PANGENOMIC&nbsp; 
+            <li>
+                
+                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals from a population, assembling and aligning the sequences to create a comprehensive reference representing genetic diversity and annotated with detailed metadata. </span>
+
+            </li>
+            #endif$_PANGENOMIC
             #if$_GENETIC&nbsp; <li>
                     <span class="c1"> Genetic data will be generated from targeted crosses and in breeding experiments, and
                         will include recombination frequencies and position of genetic markers. This data will be used to associate quantitative trait loci with physical genomic markers/variants.
@@ -78,7 +86,19 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                         hybridization. RNA-Seq data will be collected in seperate methods.</span>
 
             </li>
-            #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
+            #endif$_TRANSCRIPTOMIC&nbsp; #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+            <li>
+
+                    <span class="c1"> Spatial transcriptomics captures gene expression within preserved tissue architecture by using barcoded slides to map RNA to specific locations, enabling precise spatial analysis with thorough metadata and adherence to FAIR principles.</span>
+
+            </li>
+            #endif$_SPATIALTRANSCRIPTOMIC&nbsp; #if$_SCRNASEQ&nbsp; 
+            <li>
+
+                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
+
+            </li>
+            #endif$_SCRNASEQ&nbsp;  #if$_RNASEQ&nbsp; 
             <li>
 
                     <span class="c1"> RNA sequencing data will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
@@ -180,9 +200,12 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 The project builds on existing data sets. #if$_RNASEQ For instance, without a
                 proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
                 #if$_GENOMIC genomic data, #endif$_GENOMIC
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
                 #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
                 #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
                 #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+#if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
                 #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
                 #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
                 #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
@@ -207,10 +230,13 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             <span class="c1">
                 As part of $_PROJECTNAME, the following types of raw data will be gathered and/or produced: 
                 #if$_GENETIC genetic data, #endif$_GENETIC  
-                #if$_GENOMIC genomic data, #endif$_GENOMIC 
+                #if$_GENOMIC genomic data, #endif$_GENOMIC
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC 
                 #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
-                #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
-                #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC  
+                #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+#if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ 
                 #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
                 #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
                 #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
@@ -256,7 +282,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 use the Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
                 on community standards plus additional recommendations applicable in the plant science, such as:
                 <span class="list-to-remove-comma">
-                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
+                    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                     #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                     #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
                     #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
@@ -266,7 +292,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                     Survey), #endif$_MIMARKSSURVEY
                     #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
                     #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
-                    #endif$_GENOMIC|$_GENETIC
+                    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
                     #if$_TRANSCRIPTOMIC
                     #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
                     Experiment), #endif$_MINSEQE #endif$_TRANSCRIPTOMIC
@@ -275,11 +301,13 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                     #if$_IMAGE
                     #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                     #endif$_IMAGE
-                    #if$_RNASEQ|$_GENOMIC 
+                    #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+ 
                     #if$_MINSEQE
                         MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                     #endif$_MINSEQE 
-                    #endif$_RNASEQ|$_GENOMIC
+                    #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+
                     #if$_METABOLOMIC
                     #if$_MMIAMET
                     MIAMET (Minimum Information About a METabolomics experiment),
@@ -354,7 +382,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 As mentioned above, <span class="c1 list-to-remove-comma">we will use ISA specification for metadata creation.
                     The following metadata standards will also be used:
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
-                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS, #endif$_MIXS
+                    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIXS MIxS, #endif$_MIXS
                     #if$_MIGSEU MigsEu, #endif$_MIGSEU
                     #if$_MIGSORG MigsOrg, #endif$_MIGSORG
                     #if$_MIMS MIMS, #endif$_MIMS
@@ -362,7 +390,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                     #if$_MIMARKSSURVEY MIMARKSSurvey, #endif$_MIMARKSSURVEY
                     #if$_MISAG MISAG, #endif$_MISAG
                     #if$_MIMAG MIMAG, #endif$_MIMAG
-                    #endif$_GENOMIC|$_GENETIC
+                    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
                     #if$_GENOMIC|$_TRANSCRIPTOMIC #if$_MINSEQE MINSEQE, #endif$_MINSEQE #endif$_GENOMIC|$_TRANSCRIPTOMIC
                     #if$_TRANSCRIPTOMIC #if$_MIAME MIAME, #endif$_MIAME #endif$_TRANSCRIPTOMIC
                     #if$_IMAGE
@@ -395,8 +423,10 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 will be analyzed for quality control (QC) problems using automatic procedures as well as by manual
                 curation.
                 #endif$_DATAPLANT PhD students and lab professionals will be responsible for the first-hand quality
-                control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC
-                FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data
+                control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+
+                FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+ Before publication, the data
                 will be controlled again.
             </span>
         </p>
@@ -778,16 +808,16 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
     #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
     #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
     #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
-    #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
+    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
     #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
     #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
     #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
-    #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
+    #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC  
     #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
-    #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
+    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC 
     #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
-    #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
-    #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
+    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
+    #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC 
     <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
     <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
     <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
