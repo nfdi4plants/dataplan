@@ -1358,7 +1358,7 @@
                     window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                     let endif_range = window.getSelection().getRangeAt(0).cloneRange();
-                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC|$_PANGENOMIC");
+                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
                     
                     let in_range = document.createRange();                    
                     in_range.setStart(if_range.endContainer, if_range.endOffset);                    

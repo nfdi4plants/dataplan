@@ -5,13 +5,16 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
 
             <li class="c0 li-bullet-0"><span class="c0">Data Areas and Data Types <br> &ndash; $_PROJECTNAME will collect
                     and/or generate the following types of raw data: #if$_GENETIC genetic data, #endif$_GENETIC  
-                    #if$_GENOMIC genomic data, #endif$_GENOMIC
+                    #if$_GENOMIC genomic data, 
                     #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC 
+                    #endif$_GENOMIC
                     #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
-                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                    #if$_TRANSCRIPTOMIC transcriptomic data,
                     #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
-                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+                     #endif$_TRANSCRIPTOMIC
+                    #if$_RNASEQ RNAseq data, 
                     #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ 
+                    #endif$_RNASEQ
                     #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
                     #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
                     #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
@@ -36,7 +39,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                 on community standards plus additional recommendations applicable in the plant science, such as the
                 <span class="list-to-remove-comma">
                     The following metadata/ minimum information standards will be used to collect metadata:
-                    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
+                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                     #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                     #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
                     #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
@@ -46,20 +49,20 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                     Survey), #endif$_MIMARKSSURVEY
                     #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
                     #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
-                    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
+                    #endif$_GENOMIC|$_GENETIC
                     #if$_TRANSCRIPTOMIC
                     #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
-                    Experiment), #endif$_MINSEQE #endif$_TRANSCRIPTOMIC
-                    #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray
+                    Experiment), #endif$_MINSEQE 
+                     #if$_MIAME MIAME (Minimum Information About a Microarray
                     Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
                     #if$_IMAGE
                     #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                     #endif$_IMAGE
-                    #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+                    #if$_RNASEQ|$_GENOMIC
                     #if$_MINSEQE
                         MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                     #endif$_MINSEQE 
-                    #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+                    #endif$_RNASEQ|$_GENOMIC
 
                     #if$_METABOLOMIC
                     #if$_MMIAMET
@@ -121,7 +124,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                             <p class="c0">
                                 <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA
                                     NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #if$_ARRAYEXPRESS
-                                    EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC</span>
+                                    EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC$_SPATIALTRANSCRIPTOMIC</span>
                             </p>
 
                             <p class="c0">

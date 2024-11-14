@@ -18,18 +18,18 @@
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
 
-    <script src="DMPDocs/BBSRC-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/carl-zeiss-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/msca-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/carl-zeiss-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="DMPDocs/bmbf-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmel-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/vw-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmel-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
     
-    <script src="DMPDocs/dfg-dmp-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/horizon_europe-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/Horizon2020_DMP-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/practical-guide-2024-11-13.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dfg-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -527,7 +527,7 @@
 
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-13.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-14.js";
         maDMPUpdate();
 
         runWordCloud();
@@ -950,9 +950,6 @@
     }
 
     function checkboxSelection(){
-
-
-
         let c2Checked = [];
         let c2Unchecked = [];
         document.querySelectorAll(".checkbox_2").forEach((e) => {
@@ -971,11 +968,12 @@
                 try {
                     let repolist = document.querySelectorAll('.' + id + 'repo');
                     repolist.forEach(item => {
+                        //console.log(item.id);
                         const col1 = new bootstrap.Collapse("#" + item.id, { toggle: false });
                         col1.hide();
                     });
                 } catch (e) { 
-                //    console.log(e) 
+                console.log(e) 
                 };
             }
         );
@@ -1123,7 +1121,7 @@
         
         checkboxContent.forEach(
             e=>{
-                debug=e.classList.contains("check_dataplant");
+                debug=e.classList.contains("check_genomic");
                 const operator = e.dataset.operator.split("|");
                 const found = allchecked.some(ele=> e.classList.contains(ele));
                 //console.log(e)
@@ -1458,7 +1456,7 @@
                     window.find(endif_range_string , aCaseSensitive = 0, aBackwards = 0, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0);
                     let endif_range = window.getSelection().getRangeAt(0).cloneRange();
-                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC|$_PANGENOMIC");
+                    //debug = if_range.toString().includes( "#if$_GENOMIC|$_GENETIC");
                     
                     let in_range = document.createRange();                    
                     in_range.setStart(if_range.endContainer, if_range.endOffset);                    
@@ -3818,10 +3816,6 @@ END:VEVENT`;
                         <form class="show" id="form_checkbox_2" >
                             <h2 id="scrollspyHeading2"><span name="translateTarget" data-en="2. What kind of data will you handle?">2. What kind of data will you handle?</span></h2>
 
-                            <div class="form-data_type form-check">
-                                <input class="form-check-input checkbox_2" type="checkbox" id="check_pangenomic" />
-                                <label class="form-check-label" for="check_pangenetic"> <span name="translateTarget" data-en="Pangenomic data">Pangenomic data</span> </label>
-                            </div>
 
                             <div class="form-data_type form-check">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_genetic"/>
@@ -3833,6 +3827,12 @@ END:VEVENT`;
                                 <label class="form-check-label" for="check_genomic">
                                     <span name="translateTarget" data-en="Other NGS (genomics)">Other NGS (genomics)</span>
                                 </label>
+                            </div>
+
+                            
+                            <div class="collapse form-data_type form-check check_genomicrepo" id="pangenomic">
+                                <input class="form-check-input checkbox_2" type="checkbox" id="check_pangenomic" />
+                                <label class="form-check-label" for="check_pangenomic"> <span name="translateTarget" data-en="Pangenomic data">Pangenomic data</span> </label>
                             </div>
 
                             <div class="form-data_type form-check">
@@ -3849,7 +3849,7 @@ END:VEVENT`;
                                 </label>
                             </div>
 
-                            <div class="form-data_type form-check">
+                            <div class="collapse form-data_type form-check check_transcriptomicrepo" id="spatialtranscriptomic">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_spatialtranscriptomic"/>
                                 <label class="form-check-label" for="check_spatialtranscriptomic">
                                     <span name="translateTarget" data-en="Spatial Transcriptomics">Spatial Transcriptomics</span>
@@ -3863,7 +3863,7 @@ END:VEVENT`;
                                 </label>
                             </div>
 
-                            <div class="form-data_type form-check">
+                            <div class="collapse form-check check_rnaseqrepo" id="scrnaseq">
                                 <input class="form-check-input checkbox_2" type="checkbox" id="check_scrnaseq"/>
                                 <label class="form-check-label"  for="check_scrnaseq">
                                     <span name="translateTarget" data-en="Single Cell RNAseq">Single Cell RNAseq</span>
@@ -3943,7 +3943,7 @@ END:VEVENT`;
                                 <h3> <span name="translateTarget" data-en="2.1 Where will you submit your data as endpoints?">2.1 Where will you submit your data as endpoints?</span></h3>
 
 
-                                <div class="collapse check_geneticrepo check_pangenomicrepo "
+                                <div class="collapse check_geneticrepo  "
                                     id="genbank">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="3"
                                         id="check_genbank" />
@@ -3951,7 +3951,7 @@ END:VEVENT`;
                                         NCBI-GenBank
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_scrnaseqrepo check_transcriptomicrepo check_spatialtranscriptomicrepo check_pangenomicrepo"
+                                <div class="collapse check_geneticrepo  check_transcriptomicrepo  "
                                     id="sra">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_sra" />
@@ -3959,14 +3959,14 @@ END:VEVENT`;
                                         NCBI-SRA (Sequence Read Archive)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_spatialtranscriptomicrepo check_transcriptomicrepo check_scrnaseqrepo" id="geo">
+                                <div class="collapse check_geneticrepo  check_transcriptomicrepo " id="geo">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="2"
                                         id="check_geo" />
                                     <label class="form-check-label" for="check_geo">
                                         NCBI-GEO (Gene Expression Omnibus)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo check_scrnaseqrepo check_transcriptomicrepo check_spatialtranscriptomicrepo check_pangenomicrepo"
+                                <div class="collapse check_geneticrepo check_rnaseqrepo check_genomicrepo  check_transcriptomicrepo  "
                                     id="ENA">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_ena" />
@@ -3974,7 +3974,7 @@ END:VEVENT`;
                                         EBI-ENA (European Nucleotide Archive)
                                     </label>
                                 </div>
-                                <div class="collapse check_geneticrepo check_genomicrepo check_spatialtranscriptomicrepo check_transcriptomicrepo"
+                                <div class="collapse check_geneticrepo check_genomicrepo  check_transcriptomicrepo"
                                     id="arrayexpress">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="1"
                                         id="check_arrayexpress" />
@@ -4114,7 +4114,7 @@ END:VEVENT`;
 
                         <form class="" style="margin-left: 0px;" id="form_rawdata">
                             <label for="input_rawdata">
-                                <h3><span name="translateTarget" data-en="3. How much data are you likely to generate?"></span>3.1 Raw data volume?</span></h3>
+                                <h3><span name="translateTarget" data-en="3.1 Raw data volume?">3.1 Raw data volume?</span></h3>
                             </label>
                             <div class="align-bottom">
                                 <input style="width: 24vw;" type="text" class="col-auto" id="input_rawdata"
@@ -4168,7 +4168,7 @@ END:VEVENT`;
 
                                 </div>
 
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mixs">
+                                <div class="collapse check_genomicrepo check_geneticrepo " id="mixs">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mixs" />
                                     <label class="form-check-label" for="check_mixs">
@@ -4177,7 +4177,7 @@ END:VEVENT`;
                                     data-bs-target="#offcanvas-mixs" aria-controls="offcanvas-mixs" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="migseu">
+                                <div class="collapse check_genomicrepo check_geneticrepo " id="migseu">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_migseu" />
                                     <label class="form-check-label" for="check_migseu">
@@ -4185,7 +4185,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-migseu" aria-controls="offcanvas-migseu" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="migsorg">
+                                <div class="collapse check_genomicrepo check_geneticrepo " id="migsorg">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_migsorg" />
                                     <label class="form-check-label" for="check_migsorg">
@@ -4194,7 +4194,7 @@ END:VEVENT`;
                                     data-bs-target="#offcanvas-migsorg" aria-controls="offcanvas-migsorg" > more info &#128712; </a>
                                 </div>
 
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mims">
+                                <div class="collapse check_genomicrepo check_geneticrepo " id="mims">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mims" />
                                     <label class="form-check-label" for="check_mims">
@@ -4202,7 +4202,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mims" aria-controls="offcanvas-mims" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark1">
+                                <div class="collapse check_genomicrepo check_geneticrepo " id="mimark1">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mimarksspecimen" />
                                     <label class="form-check-label" for="check_mimarksspecimen">
@@ -4210,7 +4210,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimarksspecimen" aria-controls="offcanvas-mimarksspecimen" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo check_geneticrepo" id="mimark2">
+                                <div class="collapse check_genomicrepo check_geneticrepo " id="mimark2">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mimarkssurvey" />
                                     <label class="form-check-label" for="check_mimarkssurvey">
@@ -4218,7 +4218,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimarksurvey" aria-controls="offcanvas-mimarksurvey" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo" id="misag">
+                                <div class="collapse check_genomicrepo " id="misag">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_misag" />
                                     <label class="form-check-label" for="check_misag">
@@ -4226,7 +4226,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-misag" aria-controls="offcanvas-misag" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_genomicrepo" id="mimag">
+                                <div class="collapse check_genomicrepo " id="mimag">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="3"
                                         id="check_mimag" />
                                     <label class="form-check-label" for="check_mimag">
@@ -4234,7 +4234,7 @@ END:VEVENT`;
                                     </label> <a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-mimag" aria-controls="offcanvas-mimag" > more info &#128712; </a>
                                 </div>
-                                <div class="collapse check_transcriptomicrepo" id="miame">
+                                <div class="collapse check_transcriptomicrepo " id="miame">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                         id="check_miame" /> 
                                     <label class="form-check-label" for="check_miame">
@@ -4250,7 +4250,7 @@ END:VEVENT`;
                                     </label><a href="#" class="text-success"  data-bs-toggle="offcanvas"
                                     data-bs-target="#offcanvas-miamet" aria-controls="offcanvas-miamet" > more info &#128712; </a> 
                                 </div>
-                                <div class="collapse check_transcriptomicrepo check_rnaseqrepo check_scrnaseqrepo" id="minseqe">
+                                <div class="collapse check_transcriptomicrepo  check_rnaseqrepo " id="minseqe">
                                     <input class="form-check-input checkbox_3" type="checkbox" value="1"
                                         id="check_minseqe" />
                                     <label class="form-check-label" for="check_minseqe">

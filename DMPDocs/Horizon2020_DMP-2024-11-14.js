@@ -130,16 +130,16 @@ Horizon2020_DMP={
                 <span class="c1">
                     $_PROJECTNAME will collect and/or generate the following types of raw data: 
                     #if$_GENETIC genetic data, #endif$_GENETIC  
-                    #if$_GENOMIC genomic data, #endif$_GENOMIC
-                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC 
-                    #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
-                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                                    #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
                     #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
-#if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
-
-  
-                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ
-#if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ 
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
                     #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
                     #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
                     #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
@@ -161,16 +161,16 @@ Horizon2020_DMP={
                 <span class="c1">
                     The project builds on existing data sets. #if$_RNASEQ For instance, without a
                         proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For, #if$_GENETIC genetic data, #endif$_GENETIC
-                        #if$_GENOMIC genomic data, #endif$_GENOMIC
+                                    #if$_GENOMIC genomic data, 
                     #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
-                        #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
-                        #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
                     #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
-#if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
-
-
-                        #if$_RNASEQ RNAseq data, #endif$_RNASEQ
-#if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
                         #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
                         #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
                         #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
@@ -196,13 +196,7 @@ Horizon2020_DMP={
                     unique approaches. For example:</span>
             </p>
             <ul style="list-style-type:disc;">
-                #if$_PANGENOMIC&nbsp; 
-                <li>
-                    
-                        <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals from a population, assembling and aligning the sequences to create a comprehensive reference representing genetic diversity and annotated with detailed metadata. </span>
-
-                </li>
-                #endif$_PANGENOMIC
+                
                 #if$_GENETIC&nbsp; <li>
                         <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and
                             will include recombination frequencies and crossover event that position genetic markers and
@@ -216,6 +210,13 @@ Horizon2020_DMP={
                             SNPs, microsatellites and structural variants. </span>
    
                 </li>
+                #if$_PANGENOMIC&nbsp; 
+                <li>
+                    
+                        <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals from a population, assembling and aligning the sequences to create a comprehensive reference representing genetic diversity and annotated with detailed metadata. </span>
+
+                </li>
+                #endif$_PANGENOMIC
                 #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
                 <li>
      
@@ -235,24 +236,26 @@ Horizon2020_DMP={
                             hybridization. RNA-Seq data will be collected in seperate methods.</span>
 
                 </li>
-                #endif$_TRANSCRIPTOMIC&nbsp; #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+                 #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
             <li>
 
                     <span class="c1"> Spatial transcriptomics captures gene expression within preserved tissue architecture by using barcoded slides to map RNA to specific locations, enabling precise spatial analysis with thorough metadata and adherence to FAIR principles.</span>
 
             </li>
-            #endif$_SPATIALTRANSCRIPTOMIC&nbsp; #if$_SCRNASEQ&nbsp; 
-            <li>
-
-                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
-
-            </li>
-            #endif$_SCRNASEQ&nbsp;  #if$_RNASEQ&nbsp; 
+            #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+                #endif$_TRANSCRIPTOMIC&nbsp;   #if$_RNASEQ&nbsp; 
                 <li>
    
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
          
                 </li>
+                #if$_SCRNASEQ&nbsp; 
+            <li>
+
+                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
+
+            </li>
+            #endif$_SCRNASEQ&nbsp;
                 #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
                 <li>
 
@@ -365,7 +368,7 @@ Horizon2020_DMP={
                     on community standards plus additional recommendations applicable in the plant science, such as the
                         <span class="list-to-remove-comma">
                             The following metadata/ minimum information standards will be used to collect metadata:
-                            #if$_GENOMIC|$_GENETIC|$_PANGENOMIC 
+                            #if$_GENOMIC|$_GENETIC 
                             #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
                             #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
                             #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
@@ -376,7 +379,7 @@ Horizon2020_DMP={
                             Survey), #endif$_MIMARKSSURVEY
                             #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
                             #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG 
-                            #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
+                            #endif$_GENOMIC|$_GENETIC
                             #if$_TRANSCRIPTOMIC 
                             #if$_MIAME MIAME (Minimum Information About a Microarray Experiment), #endif$_MIAME 
                             
@@ -384,12 +387,12 @@ Horizon2020_DMP={
                             #if$_IMAGE
                             #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                             #endif$_IMAGE
-                            #if$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+                            #if$_RNASEQ|$_GENOMIC
  
                             #if$_MINSEQE
                                 MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                             #endif$_MINSEQE 
-                            #endif$_RNASEQ|$_GENOMIC|$_SCRNASEQ
+                            #endif$_RNASEQ|$_GENOMIC
 
                             #if$_METABOLOMIC
                             #if$_MMIAMET
@@ -452,7 +455,7 @@ Horizon2020_DMP={
                 <span class="c1 list-to-remove-comma">We will use Investigation, Study, Assay (ISA) specification for metadata creation.
                     The following metadata standards will also be used:
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
-                    #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIXS MIxS, #endif$_MIXS
+                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS, #endif$_MIXS
                     #if$_MIGSEU MigsEu, #endif$_MIGSEU
                     #if$_MIGSORG MigsOrg, #endif$_MIGSORG
                     #if$_MIMS MIMS, #endif$_MIMS
@@ -460,7 +463,7 @@ Horizon2020_DMP={
                     #if$_MIMARKSSURVEY MIMARKSSurvey, #endif$_MIMARKSSURVEY
                     #if$_MISAG MISAG, #endif$_MISAG
                     #if$_MIMAG MIMAG, #endif$_MIMAG
-                    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
+                    #endif$_GENOMIC|$_GENETIC
                     #if$_GENOMIC|$_TRANSCRIPTOMIC #if$_MINSEQE MINSEQE, #endif$_MINSEQE #endif$_GENOMIC|$_TRANSCRIPTOMIC
                     #if$_TRANSCRIPTOMIC #if$_MIAME MIAME, #endif$_MIAME #endif$_TRANSCRIPTOMIC
                     #if$_IMAGE
@@ -677,7 +680,7 @@ Horizon2020_DMP={
                         <span class="c1 list-to-remove-comma">We will use Investigation, Study, Assay (ISA) specification for metadata creation.
                             The following metadata standards will also be used:
                             #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
-                            #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIXS MIxS, #endif$_MIXS
+                            #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS, #endif$_MIXS
                             #if$_MIGSEU MigsEu, #endif$_MIGSEU
                             #if$_MIGSORG MigsOrg, #endif$_MIGSORG
                             #if$_MIMS MIMS, #endif$_MIMS
@@ -685,7 +688,7 @@ Horizon2020_DMP={
                             #if$_MIMARKSSURVEY MIMARKSSurvey, #endif$_MIMARKSSURVEY
                             #if$_MISAG MISAG, #endif$_MISAG
                             #if$_MIMAG MIMAG, #endif$_MIMAG
-                            #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC
+                            #endif$_GENOMIC|$_GENETIC
                             #if$_GENOMIC|$_TRANSCRIPTOMIC #if$_MINSEQE MINSEQE, #endif$_MINSEQE #endif$_GENOMIC|$_TRANSCRIPTOMIC
                             #if$_TRANSCRIPTOMIC #if$_MIAME MIAME, #endif$_MIAME #endif$_TRANSCRIPTOMIC
                             #if$_IMAGE
@@ -912,16 +915,16 @@ Horizon2020_DMP={
             #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
             #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
              #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
-            #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
+            #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
              #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
              #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
             #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
-             #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC  
+             #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
            #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
-            #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC 
+            #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
             #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
-            #if$_GENOMIC|$_GENETIC|$_PANGENOMIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
-            #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC|$_PANGENOMIC 
+            #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
+            #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
              <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
              <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
              <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
