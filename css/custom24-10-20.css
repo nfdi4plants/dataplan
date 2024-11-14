@@ -450,6 +450,10 @@ display: block;
 	
 }
 
+#check_pangenomic, #check_spatialtranscriptomic, #check_scrnaseq{
+    margin-left: 0em;
+    margin-right: 0.5em;
+}
 
 .expressmenu{
     position: fixed; 

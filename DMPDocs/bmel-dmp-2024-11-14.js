@@ -43,10 +43,14 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                             <span class="c1">
                         Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
                         #if$_GENETIC genetische Daten, #endif$_GENETIC  
-                        #if$_GENOMIC genomische Daten, #endif$_GENOMIC 
+                        #if$_GENOMIC genomische Daten, #endif$_GENOMIC
+                #if$_PANGENOMIC Pangenomische Daten, #endif$_PANGENOMIC 
                         #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
-                        #if$_TRANSCRIPTOMIC transkriptomische Daten, #endif$_TRANSCRIPTOMIC  
+                        #if$_TRANSCRIPTOMIC transkriptomische Daten, #endif$_TRANSCRIPTOMIC
+                #if$_SPATIALTRANSCRIPTOMIC räumliche Transkriptomik-Daten, #endif$_SPATIALTRANSCRIPTOMIC  
                         #if$_RNASEQ RNA-Seq-Daten, #endif$_RNASEQ 
+                #if$_SCRNASEQ Einzelzell RNA-Seq-Daten, #endif$_SCRNASEQ
+ 
                         #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
                         #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
                         #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
@@ -77,7 +81,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                         einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                 </p>
                 <ul style="list-style-type:disc;">
-
+                    
                     #if$_GENETIC&nbsp;
                     <li>
                         <p class="c0">
@@ -89,7 +93,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     </li>
                     #endif$_GENETIC
 
-                    #if$_GENOMIC&nbsp;
+                                        #if$_GENOMIC&nbsp;
                     <li>
                         <p class="c0">
                             <span class="c1"> Genomische Daten werden aus Sequenzdaten erstellt, die verarbeitet
@@ -98,6 +102,15 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                             </span>
                         </p>
                     </li>
+                    
+                    #if$_PANGENOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Pangenomische Daten werden erhoben, indem die Genome mehrerer Individuen einer Population sequenziert und die Sequenzen zusammengefügt und ausgerichtet werden, um eine umfassende Referenz zu erstellen, die die genetische Vielfalt repräsentiert und detaillierte Metadaten enthält. 
+                            </span>
+                        </p>
+                    </li>
+                    #endif$_PANGENOMIC
                     #endif$_GENOMIC
                     #if$_CLONED-DNA&nbsp;
                     <li>
@@ -122,7 +135,18 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                                 Methoden gesammelt.</span>
                         </p>
                     </li>
+                    
+
+                            #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+                    <li>
+
+                            <span class="c1"> Räumliche Transkriptomikdaten werden gesammelt, indem die Gewebestruktur auf mit Barcodes versehenen Objektträgern konserviert, räumlich aufgelöste RNA erfasst und sequenziert wird, um die Genexpression bestimmten Geweberegionen mit detaillierten Metadaten zuzuordnen. </span>
+
+                    </li>
+                    #endif$_SPATIALTRANSCRIPTOMIC&nbsp; 
                     #endif$_TRANSCRIPTOMIC
+                    
+
                     #if$_RNASEQ&nbsp;
                     <li>
                         <p class="c0">
@@ -132,7 +156,16 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                                 bioinformatischen Pipelines verarbeitet. </span>
                         </p>
                     </li>
+                   
+                    #if$_SCRNASEQ&nbsp; 
+                    <li>
+
+                            <span class="c1"> Einzelzell-RNA-seq-Daten werden durch die Isolierung einzelner Zellen, die Extraktion und das Barcoding von RNA, die Vorbereitung von Sequenzierungsbibliotheken und die Erzeugung hochwertiger transkriptomischer Daten mit Hilfe von Plattformen wie Illumina gesammelt, wobei die Metadaten sorgfältig aufgezeichnet werden.</span>
+
+                    </li>
+                    #endif$_SCRNASEQ&nbsp;
                     #endif$_RNASEQ
+
                     #if$_METABOLOMIC&nbsp;
                     <li>
                         <p class="c0">
@@ -378,10 +411,12 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
         </p>
         <p class="c0">
             <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
-                Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC Für spezifische Daten (z.B. RNASeq oder genomische
+                Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC
+ Für spezifische Daten (z.B. RNASeq oder genomische
                 Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span
                 class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment
-                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC&nbsp;</span>
+                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
+&nbsp;</span>
             <span class="c1">
                 Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
                     <span class="list-to-remove-comma">
@@ -399,17 +434,19 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                         #endif$_GENOMIC|$_GENETIC
                         #if$_TRANSCRIPTOMIC
                         #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
-                        Experiment), #endif$_MINSEQE #endif$_TRANSCRIPTOMIC
-                        #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray
+                        Experiment), #endif$_MINSEQE 
+                         #if$_MIAME MIAME (Minimum Information About a Microarray
                         Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
                         #if$_IMAGE
                         #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                         #endif$_IMAGE
-                        #if$_RNASEQ|$_GENOMIC 
+                        #if$_RNASEQ|$_GENOMIC
+ 
                         #if$_MINSEQE
                             MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                         #endif$_MINSEQE 
                         #endif$_RNASEQ|$_GENOMIC
+
                         #if$_METABOLOMIC
                         #if$_MMIAMET
                         MIAMET (Minimum Information About a METabolomics experiment),
@@ -438,8 +475,10 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                 Parser, die von DataPLANT bereitgestellt werden, um
                 Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
                 auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
-                #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC z.B.#if$_MINSEQE MinSEQe für
-                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC Metabolights-kompatible
+                #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC
+ z.B.#if$_MINSEQE MinSEQe für
+                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
+ Metabolights-kompatible
                 Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
                 Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
                 etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir

@@ -47,6 +47,8 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 example:</span>
         </p>
         <ul style="list-style-type:disc;">
+            
+            
             #if$_GENETIC&nbsp; <li>
                     <span class="c1"> Genetic data will be generated from targeted crosses and in breeding experiments, and
                         will include recombination frequencies and position of genetic markers. This data will be used to associate quantitative trait loci with physical genomic markers/variants.
@@ -59,6 +61,13 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                         SNPs, microsatellites and structural variants. </span>
 
             </li>
+            #if$_PANGENOMIC&nbsp; 
+            <li>
+                
+                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals from a population, assembling and aligning the sequences to create a comprehensive reference representing genetic diversity and annotated with detailed metadata. </span>
+
+            </li>
+            #endif$_PANGENOMIC
             #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
             <li>
 
@@ -78,12 +87,26 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                         hybridization. RNA-Seq data will be collected in seperate methods.</span>
 
             </li>
-            #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
+            #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+            <li>
+
+                    <span class="c1"> Spatial transcriptomics captures gene expression within preserved tissue architecture by using barcoded slides to map RNA to specific locations, enabling precise spatial analysis with thorough metadata and adherence to FAIR principles.</span>
+
+            </li>
+            #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+            #endif$_TRANSCRIPTOMIC&nbsp;    #if$_RNASEQ&nbsp; 
             <li>
 
                     <span class="c1"> RNA sequencing data will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
     
             </li>
+            #if$_SCRNASEQ&nbsp; 
+            <li>
+
+                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
+
+            </li>
+            #endif$_SCRNASEQ&nbsp;
             #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
             <li>
 
@@ -179,10 +202,16 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             <span class="c1">
                 The project builds on existing data sets. #if$_RNASEQ For instance, without a
                 proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
-                #if$_GENOMIC genomic data, #endif$_GENOMIC
+                #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
                 #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
-                #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
-                #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
                 #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
                 #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
                 #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
@@ -207,10 +236,16 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             <span class="c1">
                 As part of $_PROJECTNAME, the following types of raw data will be gathered and/or produced: 
                 #if$_GENETIC genetic data, #endif$_GENETIC  
-                #if$_GENOMIC genomic data, #endif$_GENOMIC 
-                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
-                #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
-                #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                                #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
                 #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
                 #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
                 #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
@@ -269,17 +304,19 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                     #endif$_GENOMIC|$_GENETIC
                     #if$_TRANSCRIPTOMIC
                     #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
-                    Experiment), #endif$_MINSEQE #endif$_TRANSCRIPTOMIC
-                    #if$_TRANSCRIPTOMIC #if$_MIAME MIAME (Minimum Information About a Microarray
+                    Experiment), #endif$_MINSEQE 
+                     #if$_MIAME MIAME (Minimum Information About a Microarray
                     Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
                     #if$_IMAGE
                     #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                     #endif$_IMAGE
-                    #if$_RNASEQ|$_GENOMIC 
+                    #if$_RNASEQ|$_GENOMIC
+ 
                     #if$_MINSEQE
                         MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                     #endif$_MINSEQE 
                     #endif$_RNASEQ|$_GENOMIC
+
                     #if$_METABOLOMIC
                     #if$_MMIAMET
                     MIAMET (Minimum Information About a METabolomics experiment),
@@ -396,7 +433,9 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 curation.
                 #endif$_DATAPLANT PhD students and lab professionals will be responsible for the first-hand quality
                 control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC
-                FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data
+
+                FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC
+ Before publication, the data
                 will be controlled again.
             </span>
         </p>

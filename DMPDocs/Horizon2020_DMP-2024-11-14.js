@@ -130,10 +130,16 @@ Horizon2020_DMP={
                 <span class="c1">
                     $_PROJECTNAME will collect and/or generate the following types of raw data: 
                     #if$_GENETIC genetic data, #endif$_GENETIC  
-                    #if$_GENOMIC genomic data, #endif$_GENOMIC 
-                    #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA 
-                    #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC  
-                    #if$_RNASEQ RNAseq data, #endif$_RNASEQ 
+                                    #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
                     #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
                     #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
                     #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
@@ -155,10 +161,16 @@ Horizon2020_DMP={
                 <span class="c1">
                     The project builds on existing data sets. #if$_RNASEQ For instance, without a
                         proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For, #if$_GENETIC genetic data, #endif$_GENETIC
-                        #if$_GENOMIC genomic data, #endif$_GENOMIC
-                        #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
-                        #if$_TRANSCRIPTOMIC transcriptomic data, #endif$_TRANSCRIPTOMIC
-                        #if$_RNASEQ RNAseq data, #endif$_RNASEQ
+                                    #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
                         #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
                         #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
                         #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
@@ -184,6 +196,7 @@ Horizon2020_DMP={
                     unique approaches. For example:</span>
             </p>
             <ul style="list-style-type:disc;">
+                
                 #if$_GENETIC&nbsp; <li>
                         <span class="c1"> Genetic data will be generated targeting crosses and breeding experiments, and
                             will include recombination frequencies and crossover event that position genetic markers and
@@ -197,6 +210,13 @@ Horizon2020_DMP={
                             SNPs, microsatellites and structural variants. </span>
    
                 </li>
+                #if$_PANGENOMIC&nbsp; 
+                <li>
+                    
+                        <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals from a population, assembling and aligning the sequences to create a comprehensive reference representing genetic diversity and annotated with detailed metadata. </span>
+
+                </li>
+                #endif$_PANGENOMIC
                 #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
                 <li>
      
@@ -216,12 +236,26 @@ Horizon2020_DMP={
                             hybridization. RNA-Seq data will be collected in seperate methods.</span>
 
                 </li>
-                #endif$_TRANSCRIPTOMIC&nbsp;  #if$_RNASEQ&nbsp; 
+                 #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+            <li>
+
+                    <span class="c1"> Spatial transcriptomics captures gene expression within preserved tissue architecture by using barcoded slides to map RNA to specific locations, enabling precise spatial analysis with thorough metadata and adherence to FAIR principles.</span>
+
+            </li>
+            #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+                #endif$_TRANSCRIPTOMIC&nbsp;   #if$_RNASEQ&nbsp; 
                 <li>
    
                         <span class="c1"> RNA sequencing will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
          
                 </li>
+                #if$_SCRNASEQ&nbsp; 
+            <li>
+
+                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
+
+            </li>
+            #endif$_SCRNASEQ&nbsp;
                 #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
                 <li>
 
@@ -353,11 +387,13 @@ Horizon2020_DMP={
                             #if$_IMAGE
                             #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
                             #endif$_IMAGE
-                            #if$_RNASEQ|$_GENOMIC 
+                            #if$_RNASEQ|$_GENOMIC
+ 
                             #if$_MINSEQE
                                 MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
                             #endif$_MINSEQE 
                             #endif$_RNASEQ|$_GENOMIC
+
                             #if$_METABOLOMIC
                             #if$_MMIAMET
                             MIAMET (Minimum Information About a METabolomics experiment),
