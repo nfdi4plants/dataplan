@@ -246,8 +246,8 @@
             return JSON.parse(JSONString);
         }
     }
-    var saved_a_en = initJSON(cached_a_en);
-    var saved_a_de = initJSON(cached_a_de);
+    var saved_a_en = initJSON(cached_a_en) || initJSON(cached_a_en);
+    var saved_a_de = initJSON(cached_a_de) || initJSON(cached_a_de);
     /*============== tutorial ==============*/
     // a tutorial to help users get familiar with the DataPLAN tool.
     var steps = [{
@@ -315,11 +315,11 @@
      */
 
     function answersManagement(name){
-        saved_a_de = update_saved_json(saved_a_de);
-        saved_a_en = update_saved_json(saved_a_en);
+        saved_a_de = window.saved_a_de||update_saved_json(saved_a_de);
+        saved_a_en = window.saved_a_en||update_saved_json(saved_a_en);
         if (dmpLanguage[name] == "en"){
-            window.temp_a = temp_a_en;
-            window.saved_a = saved_a_en;
+            window.temp_a =  temp_a_en;
+            window.saved_a =  saved_a_en;
         }else{
             window.temp_a = temp_a_de;
             window.saved_a = saved_a_de;
@@ -502,6 +502,7 @@
      * @param {string} the name of the template used for replacement.
      * @global
      */
+
     function load_dmp(callback = reload_answers, name = cached_template) {
         translatePage(name);
         punctualReplaced = false;
@@ -526,6 +527,7 @@
         else{
             frame.innerHTML = convertedEle;
             allCheckbox(), htmlFind_replace();
+            
         }
         window.doc_name = name; // overwrite global variable doc_name
 
@@ -533,12 +535,7 @@
         syn_load_cache();
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-14.js";
         maDMPUpdate();
-
         runWordCloud();
-        
-        
-        
-
         setTimeout(() => {
             
             classicMode ? punctual(): {};
@@ -595,8 +592,10 @@
      * @global
      */
     function save_json() {
-
+        saved_a["templateName"] = doc_name;
+        saved_a["templateText"] = dmpStrings[doc_name];
         aJSONString = JSON.stringify(saved_a);
+
         const blob = new Blob([aJSONString], {
             type: "application/json"
         });
@@ -705,7 +704,11 @@
     }
 
     function saveToLocalStorage(name = window.doc_name){
-        dmpLanguage[name]=="en"? window.localStorage.setItem("saved_a", JSON.stringify(saved_a)):window.localStorage.setItem("saved_a_de", JSON.stringify(saved_a)) ;
+        if (dmpLanguage[name] == dmpLanguage[doc_name]){
+            window["saved_a_"+dmpLanguage[name]]=saved_a;
+        }
+        
+        dmpLanguage[name]=="en"? window.localStorage.setItem("saved_a", JSON.stringify(window.saved_a)): window.localStorage.setItem("saved_a_de", JSON.stringify(window.saved_a)) ;
     }
 
     /**
@@ -718,8 +721,8 @@
         const before = child.name.toUpperCase();
         const after = child.value;
         saved_a["replace"][before] = after;
-        trim_saved_a(saved_a);
-        saveToLocalStorage(doc_name);
+        //trim_saved_a(saved_a);
+        
         eleName = before.split("_")[1]+"-to-";
         document.getElementsByName(eleName).forEach(e=>{e.innerText=after});
         let unfinished = compare_replace(temp_a, saved_a);
@@ -733,6 +736,7 @@
         p_bar.style.setProperty("width", Math.ceil(percentage) + "%");
         p_bar.innerHTML = Math.ceil(percentage) + "%";
         p_bar.setAttribute("aria-valuenow", Math.ceil(percentage));
+        saveToLocalStorage(doc_name);
 
     }
 
@@ -4570,8 +4574,8 @@ END:VEVENT`;
         <div class="offcanvas-header">
             <h1 class="offcanvas-title" id="offcanvasScrolling7" style="padding-bottom: 0px;">User-defined template
                 <button class="badge btn-primary" data-bs-dismiss="offcanvas" aria-label="Close"
-                    onclick='dmpStrings["user-defined"]=document.getElementById("template-input-content").innerHTML; document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML), load_dmp(reload_answers, "user-defined") ;'>
-                    submit
+                    onclick='loading.show(), setTimeout(e => {dmpStrings["user-defined"]=document.getElementById("template-input-content").innerHTML; document.getElementById("user-defined").innerHTML=document.getElementById("template-input-content").innerHTML;window.localStorage.setItem("fulltext_user", document.getElementById("user-defined").innerHTML), load_dmp(reload_answers, "user-defined"), loading.hide()}, 10) '>
+                    Finished Editing
                 </button></h1>
 
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -5146,7 +5150,32 @@ END:VEVENT`;
     </div>
     </div>
 
+    <div class="modal" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="#loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="loadingModalLabel">Please wait</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
 
+
+          </div>
+         
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
     <script>
         let up_to_top = document.getElementById("up-to-top");
@@ -5172,7 +5201,9 @@ END:VEVENT`;
             cursor: 'column-resize',
             gutterSize: 5,
         });	
-
+        const loading = new bootstrap.Modal(document.getElementById('loadingModal'), {
+      keyboard: true, show: false
+    });
     </script>
 </body>
 
