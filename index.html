@@ -1377,7 +1377,7 @@
                 newText.setAttribute("data-id" , warning_number);
                 newText.setAttribute("data-text" , text);
                 console.log("doc_name is : " + name)
-                if (name == 'bmbf-dmp'){
+                if (dmpLanguage[name] == "de" ){
                     newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><-- Bitte achten Sie auf den vorhergehenden Satz. ' + text + '</span>';
                 }else {
                     newText.innerHTML = '<span id= "warning_number' + warning_number + '" name="warning_elements" class = "text-warning"><-- Please pay attention to the sentence before. ' + text + '</span>';
@@ -2864,11 +2864,11 @@ END:VEVENT`;
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button id="menu_horizon2020_dmp" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020</button>
+                                <button id="detailed_dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020 DMP</button>
                             </li>
                             <li>
-                                <button id="menu_horizoneurope_dmp" class="dropdown-item"
+                                <button id="detailed_dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
                             </li>
                             <li>
@@ -2880,8 +2880,28 @@ END:VEVENT`;
                                     onclick='load_dmp(reload_answers,name="BBSRC-dmp")'>BBSRC DMP</button>
                             </li>
                             <li>
+                                <button id="detailed_NSF-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="NSF-dmp")'>NSF DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_msca-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="msca-dmp")'>MSCA (Marie Skłodowska-Curie Actions) DMP</button>
+                            </li>
+                            <li>
+                                <button id="detailed_bmel-dmp" class="dropdown-item "
+                                    onclick='load_dmp(reload_answers,name="bmel-dmp")'>BMEL DMP [Deutsch]</button>
+                            </li>
+                            <li>
+                                <button id="detailed_cz-dmp" class="dropdown-item "
+                                    onclick='load_dmp(reload_answers,name="cz-dmp")'>Carl-Zeiss Stiftung DMP [Deutsch]</button>
+                            </li>
+                            <li>
+                                <button id="detailed_vw-dmp" class="dropdown-item"
+                                    onclick='load_dmp(reload_answers,name="vw-dmp")'>Volkswagen Foundation DMP [Deutsch]</button>
+                            </li>
+                            <li>
                                 <button id="proposal_save" class="dropdown-item"
-                                    onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP</button>
+                                    onclick='load_dmp(reload_answers,name="bmbf-dmp")'>BMBF DMP [Deutsch]</button>
                             </li>
                             <li>
                                 <button id="guide_save" class="dropdown-item"
@@ -2892,7 +2912,10 @@ END:VEVENT`;
                                     data-bs-target="#offcanvas-template-input" aria-controls="offcanvas-template-input"
                                     onclick='document.getElementById("template-input-content").innerHTML=window.localStorage.getItem("fulltext_user");'
                                     href="#">
+                                    <span name="translateTarget" data-en="User-defined Template">
                                     User-defined Template
+                                    </spans>
+
                                 </a>
                             </li>
                             <li>
