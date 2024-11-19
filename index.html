@@ -2728,7 +2728,7 @@ END:VEVENT`;
             document.querySelectorAll("div[role=tooltip ]")[0].remove();
             document.querySelectorAll("[class='modal-backdrop show']")[0].remove();
             document.querySelector("body").classList.remove("tour-active-element");
-            callback;
+            issue_warning_show(), remove_all_warnings(), callback;
         }
         return reminders;
     }
@@ -2805,12 +2805,12 @@ END:VEVENT`;
                     return false;
                 }
             } else {
-                update_reminder(compared_list, warning_element_children, export2word1(element, window.doc_name+ Date().toLocaleString().slice(19)));
+                update_reminder(compared_list, warning_element_children);
             }
 
         } else {
 
-            update_reminder(compared_list, warning_element_children, export2word1(element, window.doc_name+ Date().toLocaleString().slice(19)));
+            update_reminder(compared_list, warning_element_children);
         }
     }
 
