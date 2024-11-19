@@ -136,6 +136,8 @@
     var punctualReplaced = false;
     var dmpEle;
     var convertedEle;
+    var reminders;
+    var reminderModal;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
     const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"aims at Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
@@ -876,6 +878,7 @@
                         element.checked = false;
                     } catch (error) {
                         console.error(error);
+                        console.log(value.toLowerCase());
                     }
                    
                     
@@ -1129,7 +1132,7 @@
         
         checkboxContent.forEach(
             e=>{
-                debug=e.classList.contains("check_genomic");
+                //debug=e.classList.contains("check_genomic");
                 const operator = e.dataset.operator.split("|");
                 const found = allchecked.some(ele=> e.classList.contains(ele));
                 //console.log(e)
@@ -2211,12 +2214,17 @@
     }
 
     function overwrite_all() {
-
+        
         toast_list[2].show();
+        saved_a["replace"] = uploaded_input_all["replace"];
+        saved_a["checkbox"] =uploaded_input_all["checkbox"];
         saved_a = uploaded_input_all;
-        updateSavedAnswers();
-        load_dmp(reload_answers,cached_template);
-
+        
+        
+        
+        load_dmp(reload_answers,doc_name),
+        reload_answers(doc_name);
+        
         ////verbose  console.log(JSON.stringify(saved_a));
 
 
@@ -2230,10 +2238,12 @@
         saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-        load_dmp(reload_answers,cached_template);
+        
+        load_dmp(reload_answers,doc_name),
+        reload_answers(doc_name);
         syn_load_cache();
         toast_list[1].show();
-
+        
         ////verbose  console.log(JSON.stringify(saved_a));
 
 
@@ -2639,8 +2649,8 @@ END:VEVENT`;
         a.print();
     }
 
-    var reminders;
-    function update_reminder(compared_list, warning_element_children) {
+
+    function update_reminder(compared_list, warning_element_children, callback) {
         const question_n = compared_list[1] + compared_list[0] - compared_list[2] - compared_list[3];
         const issue_n = warning_element_children.length;
         let question_reminder, issue_reminder;
@@ -2711,8 +2721,15 @@ END:VEVENT`;
             //verbose  console.log("id_is " + Object.values(id_and_content));
 
         }
-        let reminder = new Tour(reminders);
-        reminder.show();
+        window.reminderModal = new Tour(reminders);
+        try{window.reminderModal.show();}
+        catch(e){
+            alert("The DMP is not finished and our answer checking system is having problems, please check the answers manually. You will still be able to copy the text or download the document.");
+            document.querySelectorAll("div[role=tooltip ]")[0].remove();
+            document.querySelectorAll("[class='modal-backdrop show']")[0].remove();
+            document.querySelector("body").classList.remove("tour-active-element");
+            callback;
+        }
         return reminders;
     }
 
@@ -2780,7 +2797,7 @@ END:VEVENT`;
             if (warning_element_children[0] == undefined) {
                 try {
                     dmp_update(saved_a);
-                    return export2word1(element, doc_name+ Date().toLocaleString().slice(19)); // Security exception may be thrown by some browsers.
+                    return export2word1(element, window.doc_name+ Date().toLocaleString().slice(19)); // Security exception may be thrown by some browsers.
                     const selection = window.getSelection();
 
                 } catch (error) {
@@ -2788,12 +2805,12 @@ END:VEVENT`;
                     return false;
                 }
             } else {
-                update_reminder(compared_list, warning_element_children);
+                update_reminder(compared_list, warning_element_children, export2word1(element, window.doc_name+ Date().toLocaleString().slice(19)));
             }
 
         } else {
 
-            update_reminder(compared_list, warning_element_children);
+            update_reminder(compared_list, warning_element_children, export2word1(element, window.doc_name+ Date().toLocaleString().slice(19)));
         }
     }
 
