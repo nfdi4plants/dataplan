@@ -130,7 +130,7 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                     #if$_PANGENOMIC&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Pangenomische Daten werden erhoben, indem die Genome mehrerer Individuen einer Population sequenziert und die Sequenzen zusammengefügt und ausgerichtet werden, um eine umfassende Referenz zu erstellen, die die genetische Vielfalt repräsentiert und detaillierte Metadaten enthält. 
+                            <span class="c1"> Pangenomische Daten werden durch Sequenzierung der Genome mehrerer Individuen innerhalb einer Gruppe erhoben. Anschließend werden die Sequenzen zusammengefügt und ausgerichtet, um eine umfassende Genreferenz zu erstellen.
                             </span>
                         </p>
                     </li>
@@ -164,7 +164,7 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                             #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
                     <li>
 
-                            <span class="c1"> Räumliche Transkriptomikdaten werden gesammelt, indem die Gewebestruktur auf mit Barcodes versehenen Objektträgern konserviert, räumlich aufgelöste RNA erfasst und sequenziert wird, um die Genexpression bestimmten Geweberegionen mit detaillierten Metadaten zuzuordnen. </span>
+                            <span class="c1">Räumliche Transkriptomikdaten werden mit Hilfe von Methoden gesammelt, die RNA-Moleküle räumlich ihren genauen Gewebestandorten zuordnen, wodurch die Erhaltung von RNA-Daten zusammen mit umfassenden Metadaten über ihre Herkunft gewährleistet wird. </span>
 
                     </li>
                     #endif$_SPATIALTRANSCRIPTOMIC&nbsp; 

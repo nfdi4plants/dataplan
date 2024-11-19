@@ -64,7 +64,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             #if$_PANGENOMIC&nbsp; 
             <li>
                 
-                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals from a population, assembling and aligning the sequences to create a comprehensive reference representing genetic diversity and annotated with detailed metadata. </span>
+                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals within a clade. Then the the sequences are assembled and aligned to create a comprehensive gene reference.  </span>
 
             </li>
             #endif$_PANGENOMIC
@@ -90,7 +90,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
             <li>
 
-                    <span class="c1"> Spatial transcriptomics captures gene expression within preserved tissue architecture by using barcoded slides to map RNA to specific locations, enabling precise spatial analysis with thorough metadata and adherence to FAIR principles.</span>
+                    <span class="c1"> Spatial transcriptomics data will be collected using methods that spatially map RNA molecules to their precise tissue locations, ensuring the preservation of RNA data alongside comprehensive metadata about its origin.</span>
 
             </li>
             #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
