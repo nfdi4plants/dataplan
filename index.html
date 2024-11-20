@@ -294,7 +294,7 @@
     ];
     var maxWidth = 1100;
     var tour = new Tour(steps); // initialize the guided tour
-    var upload_json1, upload_json2, current_input_answer, uploaded_input_answer, current_origin, uploaded_origin, uploaded_input_all;
+    var upload_json1, upload_json2, current_input_answer, uploaded_input_answer, current_origin=0, uploaded_origin=0, uploaded_input_all;
     const prefix = '$_';
 
 
@@ -1692,7 +1692,7 @@
         if (dmpLanguage[name] == "de"){
             list.forEach(e=>{
             try {
-                console.log(e.dataset.en);
+                //console.log(e.dataset.en);
                 e.innerHTML = googleJSON[e.dataset.en].de;
                 
             } catch (error) {
@@ -2134,15 +2134,8 @@
         }
 
         for (let [key, value] of Object.entries(saved_a["update"]["storage"][current_origin]["answer"]["checkbox"])) {
-
-
-
             const row = document.createElement("div");
-
             const key_pool = compare_list["5"];
-
-
-
             row.setAttribute("class", "row border-bottom border border-1 mb-1");
             row.setAttribute("name", "input_table_row");
             const col1 = document.createElement("div");
@@ -2185,14 +2178,9 @@
                     col2.innerHTML = JSON.stringify(value, null, "\t");
                     saved_a["checkbox"][key] = saved_a["update"]["storage"][current_origin]["answer"]["checkbox"][key];
                     load_dmp(reload_answers,cached_template);
-
-
                 }
             }
-
             );
-
-
             if (Object.values(key_pool).includes(key)) {
                 row.setAttribute("style", "background-color: #f0f5e6")
 
@@ -2203,27 +2191,23 @@
 
             row.append(col1, col2, col3, col4);
             value == "" ? console.log("empty input") : table.append(row);
-
-
-
         }
         try { document.querySelectorAll('[name="input_table_row"]').forEach(e => e.remove()); }
         catch (e) { };
         body.append(table);
-
     }
 
     function overwrite_all() {
-        
         toast_list[2].show();
-        saved_a["replace"] = uploaded_input_all["replace"];
-        saved_a["checkbox"] =uploaded_input_all["checkbox"];
-        saved_a = uploaded_input_all;
+        window.saved_a["replace"] = uploaded_input_all["replace"];
+        window.saved_a["checkbox"] = uploaded_input_all["checkbox"];
+        window.saved_a = JSON.parse(JSON.stringify(uploaded_input_all));
+        setTimeout(
+        e =>{    
+            load_dmp(reload_answers,doc_name);reload_answers(doc_name);}, 100
+
+        )
         
-        
-        
-        load_dmp(reload_answers,doc_name),
-        reload_answers(doc_name);
         
         ////verbose  console.log(JSON.stringify(saved_a));
 
@@ -2239,13 +2223,14 @@
         saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
         
-        load_dmp(reload_answers,doc_name),
-        reload_answers(doc_name);
+        setTimeout(
+        e =>{        
+            load_dmp(reload_answers,doc_name);reload_answers(doc_name);}, 100
+
+        )
         syn_load_cache();
         toast_list[1].show();
-        
         ////verbose  console.log(JSON.stringify(saved_a));
-
 
     }
     function syn_load_cache() {
@@ -2937,7 +2922,7 @@ END:VEVENT`;
                             </li>
                             <li>
                                 <label for="upload_menu" class="form-label dropdown-item">
-                                    Import Answers
+                                    Import Answers (JSON)
                                     <input class="form-control d-none" type="file" id="upload_menu" />
                                 </label>
                             </li>
@@ -3065,8 +3050,8 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <label for="upload" class="form-label dropdown-item">
-                                    <span name="translateTarget" data-en="Import Answers">
-                                    Import Answers
+                                    <span name="translateTarget" data-en="Import Answers (JSON)">
+                                    Import Answers (JSON)
                                     </span>
                                     <input class="form-control d-none" type="file" id="upload" />
                                 </label>
@@ -4536,10 +4521,10 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b><span name="translateTarget" data-en="aims at creating a computational model of carbon and water flow within a whole plant architecture"> aims at creating a computational model of carbon and water flow within a whole plant architecture
+            <p><b> <span name="translateTarget" data-en="Example">Example</span> 1 : </b><span name="translateTarget" data-en="aims at creating a computational model of carbon and water flow within a whole plant architecture"> aims at creating a computational model of carbon and water flow within a whole plant architecture
             </span></p>
             <br />
-            <p><b> Example 2: </b><span name="translateTarget" data-en="aims at generating data management plan with minimal effort and making the data as open as possible">aims at generating data management plan with minimal effort and making the data as open as possible</span></p>
+            <p><b>  <span name="translateTarget" data-en="Example">Example</span> 2: </b><span name="translateTarget" data-en="aims at generating data management plan with minimal effort and making the data as open as possible">aims at generating data management plan with minimal effort and making the data as open as possible</span></p>
         </div>
     </div>
 
@@ -4553,9 +4538,9 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> <span name="translateTarget" data-en="carbon and water flow in plants">carbon and water flow in plants</span></p>
+            <p><b>  <span name="translateTarget" data-en="Example">Example</span> 1: </b> <span name="translateTarget" data-en="carbon and water flow in plants">carbon and water flow in plants</span></p>
             <br />
-            <p><b> Example 2: </b><span name="translateTarget" data-en="data management plan"></span> data management plan</p>
+            <p><b>  <span name="translateTarget" data-en="Example">Example</span> 2: </b><span name="translateTarget" data-en="data management plan">data management plan</span> </p>
         </div>
     </div>
     <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
@@ -4565,9 +4550,9 @@ END:VEVENT`;
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <p><b> Example 1: </b> <span name="translateTarget" data-en="Industry, politicians and students can also use the data for different purposes.">Industry, politicians and students can also use the data for different purposes.</span></p>
+            <p><b>  <span name="translateTarget" data-en="Example">Example</span> 1: </b> <span name="translateTarget" data-en="Industry, politicians and students can also use the data for different purposes.">Industry, politicians and students can also use the data for different purposes.</span></p>
             <br />
-            <p><b> Example 2: </b>  <span name="translateTarget" data-en="The data acquired in the project can be used by a wide range of people with different purpose.">The data acquired in the project can be used by a wide range of people with different purpose.</span></p>
+            <p><b>  <span name="translateTarget" data-en="Example">Example</span> 2: </b>  <span name="translateTarget" data-en="The data acquired in the project can be used by a wide range of people with different purpose.">The data acquired in the project can be used by a wide range of people with different purpose.</span></p>
         </div>
     </div>
 
@@ -5039,7 +5024,7 @@ END:VEVENT`;
                 <div class="dropdown col-4">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <span name="translateTarget" data-en='Import Answers'>Import Answers</span>
+                        <span name="translateTarget" data-en='Import Answers (JSON)'>Import Answers (JSON)</span>
                     </a>
 
                     <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
