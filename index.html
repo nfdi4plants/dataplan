@@ -317,16 +317,16 @@
      */
 
     function answersManagement(name){
-        saved_a_de = window.saved_a_de||update_saved_json(saved_a_de);
-        saved_a_en = window.saved_a_en||update_saved_json(saved_a_en);
+        saved_a_de = answerStorageUpdate(saved_a_de);
+        saved_a_en = answerStorageUpdate(saved_a_en);
         if (dmpLanguage[name] == "en"){
             window.temp_a =  temp_a_en;
             window.saved_a =  saved_a_en;
-        }else{
+        }else if(dmpLanguage[name] == "de"){
             window.temp_a = temp_a_de;
             window.saved_a = saved_a_de;
         }
-        updateSavedAnswers();
+       
     }
 
 
@@ -494,8 +494,7 @@
         saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
         saved_a["dmp"]["project"]["funding"] ? {}:saved_a["dmp"]["project"]["funding"] = {};
         saved_a["dmp"]["project"]["funding"]["funder_id"] = dmpFunders[window.doc_name];
-        saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
-        saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
+       
     }
     /**
      * @function load_dmp
@@ -532,7 +531,8 @@
             
         }
         window.doc_name = name; // overwrite global variable doc_name
-
+        saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
+        saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
         initialed = true;
         syn_load_cache();
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-14.js";
@@ -619,6 +619,7 @@
      * @global
      */
     function compare_answers(old_a, new_a) {
+        
         let unreplaced_keys = [];
         let unsubmitted_checkbox = [];
         let total_keywords = 0,
@@ -1938,11 +1939,11 @@
 
 
 
-    function update_saved_json(answers) {
+    function answerStorageUpdate(answers) {
         try {
             answers["update"];
             answers["update"]["storage"];
-            answers["update"]["storage"][0];
+            answers["update"]["storage"][0]["answer"]["replace"]["$_PROJECTNAME"];
         } catch (e) {
             answers.update = {};
             answers.update.storage = [
@@ -1995,7 +1996,7 @@
         const list2 = document.getElementById("uploaded_input");
         list2.innerHTML = "";
 
-        uploaded_input_all = update_saved_json(a2);
+        uploaded_input_all = answerStorageUpdate(a2);
         for (let [key, value] of Object.entries(uploaded_input_all["update"]["storage"])) {
 
             const new_option = document.createElement("li");
@@ -2201,7 +2202,9 @@
         toast_list[2].show();
         window.saved_a["replace"] = uploaded_input_all["replace"];
         window.saved_a["checkbox"] = uploaded_input_all["checkbox"];
-        window.saved_a = JSON.parse(JSON.stringify(uploaded_input_all));
+        window.saved_a = uploaded_input_all;
+        updateSavedAnswers();
+        window["saved_a_"+dmpLanguage[doc_name]]=window.saved_a;
         setTimeout(
         e =>{    
             load_dmp(reload_answers,doc_name);reload_answers(doc_name);}, 100
@@ -2222,7 +2225,8 @@
         saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-        
+        updateSavedAnswers();
+        window["saved_a_"+dmpLanguage[doc_name]]=window.saved_a;
         setTimeout(
         e =>{        
             load_dmp(reload_answers,doc_name);reload_answers(doc_name);}, 100
@@ -2393,6 +2397,7 @@
             saved_a["replace"] = saved_a["update"]["storage"][id]["answer"]["replace"]
             saved_a["checkbox"] = saved_a["update"]["storage"][id]["answer"]["checkbox"];
             load_dmp(reload_answers, doc_name);
+            reload_answers(doc_name);
             toast_list[5].show();
         } else {
             toast_list[7].show();
