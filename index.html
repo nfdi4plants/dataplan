@@ -191,11 +191,11 @@
                     "timeline": [
                     ], "storage": [
                         { "answer": { "replace": json1["replace"], "checkbox": json1["checkbox"] }, "name": [], },
-                        { "answer": [], "name": [], },
-                        { "answer": [], "name": [], },
-                        { "answer": [], "name": [], },
-                        { "answer": [], "name": [], },
-                        { "answer": [], "name": [], },
+                        { "answer": {}, "name": "" , },
+                        { "answer": {}, "name": "" , },
+                        { "answer": {}, "name": "" , },
+                        { "answer": {}, "name": "" , },
+                        { "answer": {}, "name": "" , },
 
                     ]
                 };
@@ -496,6 +496,7 @@
         saved_a["dmp"]["project"]["funding"]["funder_id"] = dmpFunders[window.doc_name];
        
     }
+
     /**
      * @function load_dmp
      * @description General function for replace place holders in the document text.
@@ -531,8 +532,7 @@
             
         }
         window.doc_name = name; // overwrite global variable doc_name
-        saved_a["update"]["storage"][0]["answer"]["replace"] = saved_a["replace"];
-        saved_a["update"]["storage"][0]["answer"]["checkbox"] = saved_a["checkbox"];
+        saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-14.js";
@@ -1801,8 +1801,7 @@
             const list1 = document.getElementById("current_input");
             current_input_answer = JSON.parse(JSON.stringify(saved_a));
 
-            current_input_answer["update"]["storage"][0]["answer"]["replace"] = JSON.parse(JSON.stringify(saved_a["replace"]));
-            current_input_answer["update"]["storage"][0]["answer"]["checkbox"] = JSON.parse(JSON.stringify(saved_a["checkbox"]));
+            current_input_answer["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
             list1.innerHTML = "";
             uploaded_origin = 0;
             current_origin = 0;
@@ -1947,12 +1946,12 @@
         } catch (e) {
             answers.update = {};
             answers.update.storage = [
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
+                { "answer": {}, "name": "", },
+                { "answer": {}, "name": "", },
+                { "answer": {}, "name": "", },
+                { "answer": {}, "name": "", },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
 
             ];
             answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
@@ -1960,12 +1959,12 @@
         };
         if (answers["update"]["storage"].length < 5) {
             answers["update"]["storage"] = [
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
 
             ];
             answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
@@ -2342,11 +2341,11 @@
         if (saved_a["update"]["storage"].length < 5) {
             saved_a["update"]["storage"] = [
                 { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
-                { "answer": [], "name": [], },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
+                { "answer": {}, "name": "" , },
 
 
 
@@ -2362,7 +2361,7 @@
             saved_a["update"]["storage"][1] = saved_a["update"]["storage"][0];
             saved_a["update"]["storage"][0] = { "answer": { "replace": saved_a["replace"], "checkbox": saved_a["checkbox"] }, "name": [], };
         }
-        if (saved_a["update"]["storage"][id]["answer"].length != 0) {
+        if (Object.keys(saved_a["update"]["storage"][id]["answer"]).includes("replace")) {
             let confirm_overwrite = confirm("There is already a saved answer, do you want to overwrite saved answer here?");
             if (confirm_overwrite) {
                 save_to_cache1(id, name);
@@ -2792,7 +2791,8 @@ END:VEVENT`;
 
                 } catch (error) {
                     console.warn("export doc failed.", error);
-                    return false;
+                    return export2word1(element, window.doc_name+ Date().toLocaleString().slice(19)); // Security exception may be thrown by some browsers.
+                    const selection = window.getSelection();
                 }
             } else {
                 update_reminder(compared_list, warning_element_children);
