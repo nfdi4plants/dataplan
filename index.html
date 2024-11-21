@@ -126,7 +126,7 @@
     var wordcloud = window.localStorage.getItem("wordcloud") || "true";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
-   
+    var inputHistory = window.localStorage.getItem("allHistory") || { "replace":{}, "checkbox":{} };
     var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
     var datepicker_list = []; // initialize a list to store DMP update reminder
     var toast_list;
@@ -507,6 +507,7 @@
 
     function load_dmp(callback = reload_answers, name = cached_template) {
         translatePage(name);
+        
         punctualReplaced = false;
        
         
@@ -710,7 +711,7 @@
         if (dmpLanguage[name] == dmpLanguage[doc_name]){
             window["saved_a_"+dmpLanguage[name]]=saved_a;
         }
-        
+        window.localStorage.setItem("inputHistory", JSON.stringify(window.inputHistory));
         dmpLanguage[name]=="en"? window.localStorage.setItem("saved_a", JSON.stringify(window.saved_a)): window.localStorage.setItem("saved_a_de", JSON.stringify(window.saved_a)) ;
     }
 
@@ -722,8 +723,20 @@
      */
     function onchange_replace(child) {
         const before = child.name.toUpperCase();
-        const after = child.value;
+        const after1 = child.value;
+        after = answerPunctual(after1)
+        child.value=after;
         saved_a["replace"][before] = after;
+        inputReplace =  inputHistory["replace"];
+        try{
+            inputReplace[before][0];
+        }catch(e){
+            inputReplace[before]= [];
+        }
+        inputBefore = inputReplace[before]
+        singleInputContent = [after, saved_a["replace"][before], Date().toLocaleString().slice(0,15)].join();
+        inputBefore.push(singleInputContent);
+        inputHistory["replace"][before] = inputBefore.filter((value, index, array) => array.indexOf(value) === index);
         //trim_saved_a(saved_a);
         
         eleName = before.split("_")[1]+"-to-";
@@ -802,10 +815,10 @@
      */
     // trim the "$_" to avoid infinite loops
     function trim_saved_a(saved_a) {
-        const replace = Object.entries(saved_a["replace"]);
-        for (const [key, value] of replace) {
-            saved_a["replace"][key] = value.replace("$_", "")
-        }
+        // const replace = Object.entries(saved_a["replace"]);
+        // for (const [key, value] of replace) {
+        //     saved_a["replace"][key] = value.replace("$_", "")
+        // }
 
     }
 
@@ -827,17 +840,17 @@
 
         const selection = window.getSelection();
         selection.removeAllRanges();
-        trim_saved_a(saved_a);
+        //trim_saved_a(saved_a);
 
         saveToLocalStorage(name);
-
-
         const replace_input = Object.entries(saved_a["replace"]);
-        for (const [key, value] of replace_input) {
+        for (const [key, value1] of replace_input) {
+            value = answerPunctual(value1);
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
                 //console.log(key + " "+value);
                 try {
+                    
                     element.value = value;
                 } catch (error) {
                     console.error(error);
@@ -1169,7 +1182,18 @@
     
 
     }
-
+        function answerPunctual(textall){
+            textall= textall.replaceAll("and.", "."),
+            textall= textall.replaceAll(", .", "."), 
+            textall= textall.replaceAll("..", "."),
+            textall= textall.replaceAll("..", ""),
+            textall= textall.replaceAll(". .", "."),
+            textall= textall.replaceAll(" ,", ","),
+            textall= textall.replaceAll(",,", ","), 
+            textall= textall.replaceAll(",,", ""),
+            textall= textall.replaceAll(" .", ".");
+            return textall
+        }
         function punctual(){
             let noDisplay = document.getElementById("doc3").querySelectorAll(".d-none");
         noDisplay.forEach(e=>{ e.innerHTML= "" });
@@ -1177,9 +1201,11 @@
             removeArtifact("and.", "."),
             removeArtifact(", .", "."), 
             removeArtifact("..", "."),
+            removeArtifact("..", ""),
             removeArtifact(". .", "."),
             removeArtifact(" ,", ","),
             removeArtifact(",,", ","), 
+            removeArtifact(",,", ""), 
             removeArtifact(" .", ".");
             setTimeout(() => {
             removeComma("list-to-remove-comma", " and"),
@@ -1205,6 +1231,7 @@
             }
 
         function removeArtifact(text1, text2){
+            
             while (window.find(text1, aCaseSensitive = 0, aBackwards = is_firefox, aWrapAround = 1,
                     aWholeWord = 0, aSearchInFrames = is_firefox, aShowDialog = 0)) {
                     let last_letter;
@@ -1221,6 +1248,8 @@
                 }
 
             }
+
+        
     // function get_option(this_element) {
 
 
@@ -1788,7 +1817,7 @@
 
 
         }
-        var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'));
+        
         var upload_json1 = document.getElementById("upload");
         upload_json1.addEventListener("change", open_storage_modal, false);
         var upload_json2 = document.getElementById("upload_menu");
@@ -2384,7 +2413,7 @@
         const now = new Date();
         saved_a["update"]["storage"][id]["answer"] = { "replace": JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox": JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp": now.toLocaleString() };
         saved_a["update"]["storage"][id]["name"] = name;
-        trim_saved_a(saved_a);
+        //trim_saved_a(saved_a);
         saveToLocalStorage(doc_name);
         let update_element = document.querySelector("#load_from_cache_menu_" + id);
         update_element.innerHTML = now.toLocaleString();
@@ -2405,6 +2434,11 @@
 
     }
     function dmp_update(saved_a) {
+        try {
+            saved_a["update"]["timeline"].length;
+        } catch (error) {
+            saved_a["update"]["timeline"] = [];
+        }
 
         if (saved_a["update"]["timeline"].length == 0) {
             clear_dmp_updates();
@@ -2425,7 +2459,6 @@
 
 
         }
-
 
 
 
@@ -2569,11 +2602,9 @@
         [].slice.call(document.querySelectorAll("#dmp-update-content li")).forEach((e) => datepicker_list.push({ "name": e.children[1].value, "date": e.children[2].value, }));
 
         const filtered_list = datepicker_list.filter(function (i) { return i != null; });
-
-
         try { saved_a["update"]["timeline"] = filtered_list; }
         catch (e) { saved_a["update"]["timeline"] = [] }
-        trim_saved_a(saved_a);
+        //trim_saved_a(saved_a);
 
         saveToLocalStorage(doc_name);
         generate_vcal(saved_a);
@@ -2805,7 +2836,12 @@ END:VEVENT`;
     }
 
     function thisOnfocus(ele){
-        const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 )
+        const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 );
+        try {
+            document.getElementById("historyContent").innerHTML = inputHistory.replace[ele.name];
+        } catch (error) {
+            
+        } 
     }
     function thisOnfocusout(ele){
         const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1);elem1.forEach(e => e.classList.remove("border-highlight")); document.querySelectorAll("[name=\"scroll-bar-span\"]").forEach(e => {e.remove()})
@@ -2955,6 +2991,11 @@ END:VEVENT`;
                                 </label>
                             </li>
                             <li>
+                                <button id="inputHistoryBtn1" class="dropdown-item d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-history" aria-controls="offcanvas-history">
+                                   All History Inputs
+                                </button>
+                            </li>
+                            <li>
                                 <button id="copy_doc" class="dropdown-item" onclick="copy_doc()">Copy Text</button>
 
                                 <button id="test" class="d-none dropdown-item" onclick="test()">Debug Test</button>
@@ -3096,6 +3137,9 @@ END:VEVENT`;
                                         onchange="upload_image()" />
                                 </label>
                             </li>
+                            <button id="inputHistoryBtn2" class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-history" aria-controls="offcanvas-history">
+                                All History Inputs
+                             </button>
                             <li>
                                 <button id="load_from_cache" class="dropdown-item">
                                     <span name="translateTarget" data-en="Load from Cache">
@@ -3367,7 +3411,7 @@ END:VEVENT`;
                     <button onclick="go_top()" id="up-to-top" title="Go to top">⭱</button>
                     <div aria-live="polite" aria-atomic="true" class="">
                         <div class="toast-container  translate-middle-x"
-                            style="position:fixed; top:32vh; z-index: 1400; left:48vw; ">
+                            style="position:fixed; top:8vh; z-index: 1400; left:78vw; ">
                             <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex">
                                     <div class="toast-body">
@@ -4894,6 +4938,19 @@ END:VEVENT`;
         </div>
     </div>
 
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+    id="offcanvas-history" aria-labelledby="offcanvasScrolling28">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasScrolling28"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+        <div class="offcanvas-body">
+            <div id="historyContent">
+
+            </div>
+
+        </div>
+    </div>
     <!-- Button trigger modal -->
     <button type="button" id="dmp-update-modal" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#dmp_update">
@@ -5234,6 +5291,7 @@ END:VEVENT`;
         const loading = new bootstrap.Modal(document.getElementById('loadingModal'), {
       keyboard: true, show: false
     });
+    var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'));
     </script>
 </body>
 
