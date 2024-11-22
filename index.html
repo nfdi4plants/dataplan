@@ -18,19 +18,19 @@
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
 
-    <script src="DMPDocs/BBSRC-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/NSF-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/carl-zeiss-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/msca-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/NSF-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/carl-zeiss-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="DMPDocs/bmbf-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmel-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/vw-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmel-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
     
-    <script src="DMPDocs/dfg-dmp-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/horizon_europe-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/Horizon2020_DMP-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/practical-guide-2024-11-14.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dfg-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -126,7 +126,7 @@
     var wordcloud = window.localStorage.getItem("wordcloud") || "true";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
-    var inputHistory = window.localStorage.getItem("allHistory") || { "replace":{}, "checkbox":{} };
+    var inputHistory = JSON.parse(window.localStorage.getItem("inputHistory")) || { "replace":{}, "checkbox":{} };
     var cached_template = window.localStorage.getItem("template"); // try to get the saved templates from local storage
     var datepicker_list = []; // initialize a list to store DMP update reminder
     var toast_list;
@@ -536,7 +536,7 @@
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-14.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-11-22.js";
         maDMPUpdate();
         runWordCloud();
         setTimeout(() => {
@@ -734,7 +734,7 @@
             inputReplace[before]= [];
         }
         inputBefore = inputReplace[before]
-        singleInputContent = [after, saved_a["replace"][before], Date().toLocaleString().slice(0,15)].join();
+        singleInputContent = [after, saved_a["replace"]["$_PROJECTNAME"], Date().toLocaleString().slice(0,19), dmpLanguage[doc_name]];
         inputBefore.push(singleInputContent);
         inputHistory["replace"][before] = inputBefore.filter((value, index, array) => array.indexOf(value) === index);
         //trim_saved_a(saved_a);
@@ -2838,9 +2838,42 @@ END:VEVENT`;
     function thisOnfocus(ele){
         const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 );
         try {
-            document.getElementById("historyContent").innerHTML = inputHistory.replace[ele.name];
+            let historyHTML = `<table  table-striped class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Language</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                `;
+                console.log(historyHTML);
+            inputHistory.replace[ele.name].forEach((value,index)=>{
+
+                historyHTML += `
+                <tr>
+                    <th scope="row">${index}</th>
+                    <td>${value[2]}</td>
+                    <td>${value[3]}</td>
+                    <td>${value[1]}</td>
+                    <td><button class="btn btn-primary" value="${ele.name}" onclick="document.getElementsByName('${ele.name}')[0].value = '${value[0]}'"> ${value[0]}</button></td>
+                </tr>
+                
+                `;
+                console.log(historyHTML);
+
+            });
+
+                
+
+            historyHTML+= "</tbody> </table>";
+            console.log(historyHTML);
+            document.getElementById("historyContent").innerHTML = historyHTML;
         } catch (error) {
-            
+            console.error(error);
         } 
     }
     function thisOnfocusout(ele){
@@ -2991,7 +3024,7 @@ END:VEVENT`;
                                 </label>
                             </li>
                             <li>
-                                <button id="inputHistoryBtn1" class="dropdown-item d-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-history" aria-controls="offcanvas-history">
+                                <button id="inputHistoryBtn1" class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-history" aria-controls="offcanvas-history">
                                    All History Inputs
                                 </button>
                             </li>
@@ -3398,7 +3431,7 @@ END:VEVENT`;
                       </svg>
                   </a>
                   <br>
-                  <a href="#" id="incompleteInform" onclick="copy_doc()" hover="click to check which answer is missing" title="Show not answer questions, if questions are all answered, the text will be copied." >
+                  <a href="#" id="incompleteInform" onclick="copy_doc()" hover="click to check which answer is missing" title="Identify unanswered questions; if all are answered, copy the text." >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2d3e50" class="bi bi-ui-checks" viewBox="0 0 16 16">
                         <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
                   </svg></a>

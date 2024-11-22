@@ -92,7 +92,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                     <span class="c1"> Daten unterschiedlicher Typen oder aus verschiedenen Bereichen werden mit
                         einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                 </p>
-                <ul style="list-style-type:disc;"
+                <ul style="list-style-type:disc;">
 
                     
 
