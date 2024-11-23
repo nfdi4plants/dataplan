@@ -518,7 +518,7 @@
         Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {} : saved_a["replace"]["$_DMPVERSION"] = "1.0";
         //document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
         let frame = document.getElementById("doc3");
-        
+        updateSavedAnswers();
         if (convertedEle ==undefined){
             callback(name);
         }else if (doc_name == "user-defined"){
@@ -533,6 +533,7 @@
             
         }
         window.doc_name = name; // overwrite global variable doc_name
+        
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
@@ -737,7 +738,7 @@
         singleInputContent = [after, saved_a["replace"]["$_PROJECTNAME"], Date().toLocaleString().slice(0,19), dmpLanguage[doc_name]];
         inputBefore.push(singleInputContent);
         inputHistory["replace"][before] = inputBefore.filter((value, index, array) => array.indexOf(value) === index);
-        //trim_saved_a(saved_a);
+        trim_saved_a(saved_a);
         
         eleName = before.split("_")[1]+"-to-";
         document.getElementsByName(eleName).forEach(e=>{e.innerText=after});
@@ -815,10 +816,10 @@
      */
     // trim the "$_" to avoid infinite loops
     function trim_saved_a(saved_a) {
-        // const replace = Object.entries(saved_a["replace"]);
-        // for (const [key, value] of replace) {
-        //     saved_a["replace"][key] = value.replace("$_", "")
-        // }
+        const replace = Object.entries(saved_a["replace"]);
+        for (const [key, value] of replace) {
+            saved_a["replace"][key] = value.replace("$_", "")
+        }
 
     }
 
@@ -840,7 +841,7 @@
 
         const selection = window.getSelection();
         selection.removeAllRanges();
-        //trim_saved_a(saved_a);
+        trim_saved_a(saved_a);
 
         saveToLocalStorage(name);
         const replace_input = Object.entries(saved_a["replace"]);
@@ -2413,7 +2414,7 @@
         const now = new Date();
         saved_a["update"]["storage"][id]["answer"] = { "replace": JSON.parse(JSON.stringify(saved_a["replace"])), "checkbox": JSON.parse(JSON.stringify(saved_a["checkbox"])), "timestamp": now.toLocaleString() };
         saved_a["update"]["storage"][id]["name"] = name;
-        //trim_saved_a(saved_a);
+        trim_saved_a(saved_a);
         saveToLocalStorage(doc_name);
         let update_element = document.querySelector("#load_from_cache_menu_" + id);
         update_element.innerHTML = now.toLocaleString();
@@ -2604,7 +2605,7 @@
         const filtered_list = datepicker_list.filter(function (i) { return i != null; });
         try { saved_a["update"]["timeline"] = filtered_list; }
         catch (e) { saved_a["update"]["timeline"] = [] }
-        //trim_saved_a(saved_a);
+        trim_saved_a(saved_a);
 
         saveToLocalStorage(doc_name);
         generate_vcal(saved_a);
@@ -2837,6 +2838,7 @@ END:VEVENT`;
 
     function thisOnfocus(ele){
         const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 );
+        console.log("ele.name" +ele.name)  
         try {
             let historyHTML = `<table  table-striped class="table table-hover">
                 <thead>
@@ -2850,9 +2852,9 @@ END:VEVENT`;
                 </thead>
                 <tbody>
                 `;
-                console.log(historyHTML);
+                //console.log(historyHTML);
             inputHistory.replace[ele.name].forEach((value,index)=>{
-
+                
                 historyHTML += `
                 <tr>
                     <th scope="row">${index}</th>
@@ -2863,14 +2865,14 @@ END:VEVENT`;
                 </tr>
                 
                 `;
-                console.log(historyHTML);
+                //console.log(historyHTML);
 
             });
 
                 
 
             historyHTML+= "</tbody> </table>";
-            console.log(historyHTML);
+            //console.log(historyHTML);
             document.getElementById("historyContent").innerHTML = historyHTML;
         } catch (error) {
             console.error(error);
