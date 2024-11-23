@@ -160,7 +160,7 @@ Horizon2020_DMP={
             <p class="c0">
                 <span class="c1">
                     The project builds on existing data sets. #if$_RNASEQ For instance, without a
-                        proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For, #if$_GENETIC genetic data, #endif$_GENETIC
+                        proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
                                     #if$_GENOMIC genomic data, 
                     #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
                 #endif$_GENOMIC
