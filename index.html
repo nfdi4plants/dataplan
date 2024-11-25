@@ -123,7 +123,7 @@
     var debug;
     var doc_name = 'Horizon2020_DMP'; // default document to use at the first page load
     var user_info = window.localStorage.getItem("user_info"); // store user information in local storage
-    var wordcloud = window.localStorage.getItem("wordcloud") || "true";
+    var wordcloud = window.localStorage.getItem("wordcloud") || "false";
     var scroll_y = window.localStorage.getItem("scroll_y");
     //console.log("scroll_y read from cache is " + scroll_y);
     var inputHistory = JSON.parse(window.localStorage.getItem("inputHistory")) || { "replace":{}, "checkbox":{} };
@@ -294,7 +294,14 @@
     ];
     var maxWidth = 1100;
     var tour = new Tour(steps); // initialize the guided tour
-    var upload_json1, upload_json2, current_input_answer, uploaded_input_answer, current_origin=0, uploaded_origin=0, uploaded_input_all;
+    var upload_json1, 
+    upload_json2, 
+    import_history,
+    current_input_answer, 
+    uploaded_input_answer, 
+    current_origin=0, 
+    uploaded_origin=0, 
+    uploaded_input_all;
     const prefix = '$_';
 
 
@@ -606,7 +613,21 @@
         saveAs(blob, "DataPLAN_DMP");
 
     }
+    /**
+     * @function save_json
+     * @description save answers to JSON
+     * 
+     * @global
+     */
+     function exportHistory() {
+        aJSONString = JSON.stringify(inputHistory);
 
+        const blob = new Blob([aJSONString], {
+            type: "application/json"
+        });
+        saveAs(blob, "inputHistory");
+
+    }
     /*============== tutorial initialization ends ==============*/
 
     // event listener for text input (no need to press submit button anymore)
@@ -734,10 +755,11 @@
         }catch(e){
             inputReplace[before]= [];
         }
-        inputBefore = inputReplace[before]
-        singleInputContent = [after, saved_a["replace"]["$_PROJECTNAME"], Date().toLocaleString().slice(0,19), dmpLanguage[doc_name]];
+        inputBefore = inputReplace[before];
+        const now =  new Date();
+        singleInputContent = [after, saved_a["replace"]["$_PROJECTNAME"], now.toISOString().slice(0,19), dmpLanguage[doc_name]];
         inputBefore.push(singleInputContent);
-        inputHistory["replace"][before] = inputBefore.filter((value, index, array) => array.indexOf(value) === index);
+        //inputHistory["replace"][before] = inputBefore.filter((value, index, array) => array.indexOf(value) === index);
         trim_saved_a(saved_a);
         
         eleName = before.split("_")[1]+"-to-";
@@ -1756,7 +1778,7 @@
         loadFromJson(cached_template);
         if (window.localStorage.getItem("cookie_consent") !== "yes") {
 
-            cookie_modal.show();
+           // cookie_modal.show();
         }
         var toast_el_list = [].slice.call(document.querySelectorAll('.toast'));
         toast_list = toast_el_list.map(function (toast_el) {
@@ -1819,14 +1841,22 @@
 
         }
         
-        var upload_json1 = document.getElementById("upload");
-        upload_json1.addEventListener("change", open_storage_modal, false);
-        var upload_json2 = document.getElementById("upload_menu");
-        upload_json2.addEventListener("change", open_storage_modal, false);
+        window.upload_json1 = document.getElementById("upload");
+        upload_json1.addEventListener("change", openStorageModal, false);
+        window.upload_json2 = document.getElementById("upload_menu");
+        upload_json2.addEventListener("change", openStorageModal, false);
+        window.import_history = document.getElementById("import_history");
+        import_history.addEventListener("change", importHistory, false);
 
+        function importHistory(){
+            try {
+                import_history.files[0].text().then(text => (history = JSON.parse(text))).then((history) => {exportHistory(); inputHistory=history; window.localStorage.setItem("inputHistor", history), updateHistoryHTML(import_history.dataset.elename)});
 
+            } catch (e) {
+                console.log(e);}
+        }
 
-        function open_storage_modal() {
+        function openStorageModal() {
 
             const list1 = document.getElementById("current_input");
             current_input_answer = JSON.parse(JSON.stringify(saved_a));
@@ -2836,32 +2866,33 @@ END:VEVENT`;
         }
     }
 
-    function thisOnfocus(ele){
-        const name1 = ele.name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 );
-        console.log("ele.name" +ele.name)  
-        try {
-            let historyHTML = `<table  table-striped class="table table-hover">
+
+    function updateHistoryHTML(ele_name){
+        import_history.vlaue=ele_name;
+        let historyHTML = `<table  table-striped class="table table-hover" style="table-layout:auto; width:100%;">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Language</th>
-                    <th scope="col">Name</th>
+                    <th scope="col"> Date and Time </th>
+                    
+                    <th scope="col">Project Name</th>
                     <th scope="col">Content</th>
+                    <th scope="col">&nbsp;Action&nbsp;&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                 `;
                 //console.log(historyHTML);
-            inputHistory.replace[ele.name].forEach((value,index)=>{
+            inputHistory.replace[ele_name].forEach((value,index)=>{
                 
                 historyHTML += `
                 <tr>
-                    <th scope="row">${index}</th>
+                    <td >${index}</td>
                     <td>${value[2]}</td>
-                    <td>${value[3]}</td>
                     <td>${value[1]}</td>
-                    <td><button class="btn btn-primary" value="${ele.name}" onclick="document.getElementsByName('${ele.name}')[0].value = '${value[0]}'"> ${value[0]}</button></td>
+                    <td>${value[0]}</td>
+                    
+                    <td><button class="btn btn-primary btn-sm" value="${ele_name}" onclick="const replace =document.getElementsByName('${ele_name}')[0]; replace.value = '${value[0]}'; onchange_replace(replace);"> Reload </button><button class="btn btn-warning btn-sm" value="${ele_name}" onclick="inputHistory.replace['${ele_name}'].splice(${index},1) ;updateHistoryHTML('${ele_name}');saveToLocalStorage(doc_name)"> Delete </button></td>
                 </tr>
                 
                 `;
@@ -2874,6 +2905,15 @@ END:VEVENT`;
             historyHTML+= "</tbody> </table>";
             //console.log(historyHTML);
             document.getElementById("historyContent").innerHTML = historyHTML;
+    }
+
+    function thisOnfocus(ele){
+        ele_name = ele.name;
+        const name1 = ele_name.split("_")[1]+"-to-";const elem1 = document.getElementsByName(name1); elem1.forEach(e => e.classList.add("border-highlight")); set_scrollbar_marker( scroll_marker,elem1 );
+        console.log("ele.name" +ele_name)  
+        try {
+            updateHistoryHTML(ele_name);
+            
         } catch (error) {
             console.error(error);
         } 
@@ -3240,6 +3280,15 @@ END:VEVENT`;
                                     Export to Word
                                     </span>
                                 </button>
+                                
+                                <button id="docx_save_force" class="dropdown-item"
+                                onclick='export2word1("doc3", "DMP-DataPLAN")'>
+                                <span name="translateTarget" data-en="Export to Word (without completion check)">    
+                                Export to Word (without completion check)
+                                </span>
+                                </button>
+                                
+
                                 <button id="print" class="dropdown-item" onclick="printDiv();">
                                     <span name="translateTarget" data-en="Print Document">
                                     Print Document
@@ -3249,7 +3298,7 @@ END:VEVENT`;
                                 <button id="dmp_update_button" class="dropdown-item "
                                     onclick="dmp_update(saved_a)">
                                     <span name="translateTarget" data-en="Remind me to Update DMP"> 
-                                    Remind me to Update DMP
+                                    Calendar Reminder
                                 </span>
                             </button>
                             <li>
@@ -4974,9 +5023,16 @@ END:VEVENT`;
     </div>
 
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-    id="offcanvas-history" aria-labelledby="offcanvasScrolling28">
+    id="offcanvas-history" aria-labelledby="offcanvasScrolling28" style="width:55vw">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasScrolling28"></h5>
+        <label for="import_history" class="btn btn-primary" >
+            Import History
+            <input class="d-none" type="file" id="import_history" data-elename="$_PROJECTNAME"/>
+        </label>
+        <button  id="download_history" class="btn btn-primary" onclick="exportHistory()">
+            Export History
+        </button>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
         <div class="offcanvas-body">
@@ -5162,7 +5218,7 @@ END:VEVENT`;
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+                    <!-- <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br> -->
                     DataPLAN is designed to be a user-friendly data management plan (DMP) and data management and sharing plan (DMSP) generator, capable of functioning entirely offline. Whether you disconnect from the internet or save the tool using "Ctrl + S," your work will not be affected. You can also <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> downlaod the whole website </a> and use it offline. Our work has been published in <a href="https://doi.org/10.3390/data8110159" target="_blank">
                         Data.</a>
                     <br>

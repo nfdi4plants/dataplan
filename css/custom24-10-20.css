@@ -94,6 +94,11 @@
   scrollbar-color:  #1FC2A7  #d1d1d1 !important;
   scrollbar-width: thin !important;
 }
+
+td {
+    overflow-wrap: break-all;
+    word-break: break-all;
+  }
 .tab-content > li {
     float:none;
     display:inline-block;
