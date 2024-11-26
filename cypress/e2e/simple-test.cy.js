@@ -1,83 +1,187 @@
 /// <reference types="cypress" />
 const path = require("path");
-// Welcome to Cypress!
-//
-// This spec file contains a variety of sample tests
-// for a todo list app that are designed to demonstrate
-// the power of writing tests in Cypress.
-//
-// To learn more about how Cypress works and
-// what makes it such an awesome testing tool,
-// please read our getting started guide:
-// https://on.cypress.io/introduction-to-cypress
+
 
 describe('Simple E2E testing of DataPLAN', () => {
   beforeEach(() => {
-    // Cypress starts out with a blank slate for each test
-    // so we must tell it to visit our website with the `cy.visit()` command.
-    // Since we want to visit the same URL at the start of all our tests,
-    // we include it in our beforeEach function so that it runs before each test
+
     cy.visit('http://127.0.0.1:8000/')
   })
 
-  it('displays two todo items by default', () => {
-    // We use the `cy.get()` command to get all elements that match the selector.
-    // Then, we use `should` to assert that there are two matched items,
-    // which are the two default items.
+  it('Check general replaced text and converted checkbox options', () => {
     cy.get('.text-warning').should('have.length', 40)
-
-    // We can go even further and check that the default todos each contain
-    // the correct text. We use the `first` and `last` functions
-    // to get just the first and last matched elements individually,
-    // and then perform an assertion with `should`.
     cy.get('.checkboxConverted').first().should('have.text', "  Example Project  ")
     cy.get('.checkboxConverted').should('have.length', 115)
   })
 
-  it('can add new todo items', () => {
-    // We'll store our item text in a variable so we can reuse it
-    const newItem = 'My nice project'
-
-    // Let's get the input element and use the `type` command to
-    // input our new list item. After typing the content of our item,
-    // we need to type the enter key as well in order to submit the input.
-    // This input has a data-test attribute so we'll use that to select the
-    // element in accordance with best practices:
-    // https://on.cypress.io/selecting-elements
-    cy.get('#input_projectname').type(`{selectAll}{del}${newItem}{enter}`)
-
-    // Now that we've typed our new item, let's check that it actually was added to the list.
-    // Since it's the newest item, it should exist as the last element in the list.
-    // In addition, with the two default items, we should have a total of 3 elements in the list.
-    // Since assertions yield the element that was asserted on,
-    // we can chain both of these assertions together into a single statement.
-    cy.get('.checkboxConverted')
-      .should('have.length', 115)
-      .first()
-      .should('have.text', "  "+newItem+"  ")
+  it('$_PROJECTNAME can be replaced', () => {
+    const newItem = 'ProjectName'
+    cy.get('#input_projectname').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true})
+    cy.get('[name=PROJECTNAME-to-]').each(($el, index, $list) =>{
+      cy.wrap($el).should('have.text', newItem)
+    })
+  })
+  it('$_STUDYOBJECT can be replaced', () => {
+    const newItem = 'Study Object'
+    cy.get('#input_studyobject').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true})
+    cy.get('[name=STUDYOBJECT-to-]').each(($el, index, $list) =>{
+      cy.wrap($el).should('have.text', newItem)
+    })
   })
 
-  it('can check off an item as completed', () => {
-    // In addition to using the `get` command to get an element by selector,
-    // we can also use the `contains` command to get an element by its contents.
-    // However, this will yield the <label>, which is lowest-level element that contains the text.
-    // In order to check the item, we'll find the <input> element for this <label>
-    // by traversing up the dom to the parent element. From there, we can `find`
-    // the child checkbox <input> element and use the `check` command to check it.
+  it('$_PROJECTAIM can be replaced', () => {
+    const newItem = 'aims at project aim';
+    cy.get('#input_projectaim').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=PROJECTAIM-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_DMPVERSION can be replaced', () => {
+    const newItem = '1.0';
+    cy.get('#input_dmpversion').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=DMPVERSION-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_USERNAME can be replaced', () => {
+    const newItem = 'Example User ABC';
+    cy.get('#input_username').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=USERNAME-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_EMAIL can be replaced', () => {
+    const newItem = 'Some email';
+    cy.get('#input_email').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=EMAIL-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_DATAOFFICER can be replaced', () => {
+    const newItem = 'Example data officer name';
+    cy.get('#input_dataofficer').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=DATAOFFICER-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  it('$_DATAUTILITY can be replaced', () => {
+    const newItem = 'Data Utility';
+    cy.get('#input_datautility').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=DATAUTILITY-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_UPDATEMONTH can be replaced', () => {
+    const newItem = 'A Simple Example Month';
+    cy.get('#input_updatemonth').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=UPDATEMONTH-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_PREVIOUSPROJECTS can be replaced', () => {
+    const newItem = 'Some related Previous Project Name';
+    cy.get('#input_previousprojects').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=PREVIOUSPROJECTS-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_PROPRIETARY can be replaced', () => {
+    const newItem = 'A single Proprietary Software';
+    cy.get('#input_proprietary').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=PROPRIETARY-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_RAWDATA can be replaced', () => {
+    const newItem = 'Raw Data Size';
+    cy.get('#input_rawdata').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=RAWDATA-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_DERIVEDDATA can be replaced', () => {
+    const newItem = 'Derived Data Size';
+    cy.get('#input_deriveddata').click().wait(200).type(`{selectAll}{del}${newItem}{tab}`, {force:true});
+    cy.get('[name=DERIVEDDATA-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_FUNDINGPROGRAMME can be replaced', () => {
+    const newItem = 'Funding Programme';
+    cy.get('#input_fundingprogramme').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=FUNDINGPROGRAMME-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_CREATIONDATE can be replaced', () => {
+    const newItem = 'xxxx-xx-xx';
+    cy.get('#input_creationdate').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=CREATIONDATE-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_MODIFICATIONDATE can be replaced', () => {
+    const newItem = 'xxxx-xx-xx';
+    cy.get('#input_modificationdate').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=MODIFICATIONDATE-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_OTHERSTANDARDINPUT can be replaced', () => {
+    const newItem = 'other standards';
+    cy.get('#input_otherstandardinput').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=OTHERSTANDARDINPUT-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_OTHEREP can be replaced', () => {
+    const newItem = 'Other repositories';
+    cy.get('#input_otherep').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=OTHEREP-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_PARTNERS can be replaced', () => {
+    const newItem = 'partner name';
+    cy.get('#input_partners').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=PARTNERS-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+  
+  it('$_ADDPROJECTCOORDINATOR can be replaced', () => {
+    const newItem = 'project coordinator';
+    cy.get('#input_addprojectcoordinator').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    cy.get('[name=ADDPROJECTCOORDINATOR-to-]').each(($el) => {
+      cy.wrap($el).should('have.text', newItem);
+    });
+  });
+
+  
+  it('Eu project can be selected', () => {
     cy.contains('EU project.')
       .parent()
       .find('input[type=checkbox]')
       .check()
 
-    // Now that we've checked the button, we can go ahead and make sure
-    // that the list element is now marked as completed.
-    // Again we'll use `contains` to find the <label> element and then use the `parents` command
-    // to traverse multiple levels up the dom until we find the corresponding <li> element.
-    // Once we get that element, we can assert that it has the completed class.
     cy.get('.check_eu')
       .should('have.text', ' Example Project is part of the Open Data Initiative (ODI) of the EU.\n                   ')
   })
-
   // context('with a checked task', () => {
   //   beforeEach(() => {
   //     // We'll take the command we used above to check off an element

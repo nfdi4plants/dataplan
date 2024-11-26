@@ -866,8 +866,12 @@
         trim_saved_a(saved_a);
 
         saveToLocalStorage(name);
+        const now =  new Date();
         const replace_input = Object.entries(saved_a["replace"]);
-        for (const [key, value1] of replace_input) {
+        const history_replace = inputHistory.replace;
+        for (const [key, value1] of replace_input) {            
+            singleInputContent = [value1, replace_input["$_PROJECTNAME"], now.toISOString().slice(0,19), dmpLanguage[doc_name]];
+            history_replace[key] ?history_replace[key].push(singleInputContent): history_replace[key]= [singleInputContent];
             value = answerPunctual(value1);
             if (key !== "$_VISUALIZATION") {
                 let element = document.getElementsByName(key)[0];
@@ -875,6 +879,7 @@
                 try {
                     
                     element.value = value;
+                    
                 } catch (error) {
                     console.error(error);
 
@@ -981,6 +986,12 @@
         convertedEle = document.getElementById("doc3").innerHTML;
         //window.doc_name = name;
         // e.setAttribute("onchange", "const col1 = new bootstrap.Collapse('."+id+"Repo', {toggle: false});if(this.checked == true){col1.show();}else{col1.hide();}");
+        try {
+            window.wordcloud =="true" ? {}: document.querySelector("#doc3").querySelector("#vis").remove();
+        } catch (error) {
+            
+        }
+        
     }
     function checkboxOnfocusin(ele){
         const elem1 = document.querySelectorAll("."+ele.id); 
@@ -2128,9 +2139,12 @@
 
             const key_pool = compare_list["4"];
             row.setAttribute("class", "row border-bottom border border-1 mb-1");
+            
+            
             row.setAttribute("name", "input_table_row");
             const col1 = document.createElement("div");
             col1.setAttribute("class", "col-3");
+            col1.setAttribute("style", "overflow-wrap: break-all; word-break: break-all;");
             col1.innerHTML = key.toUpperCase().split("_")[1];
             const col2 = document.createElement("div");
             col2.innerHTML = value;
@@ -2163,12 +2177,14 @@
                     const now = new Date();
                     saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
                     load_dmp(reload_answers, doc_name);
+                    reload_answers(doc_name);
                 } else {
-                    saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = current_input_answer["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a["update"]["storage"][current_origin]["answer"]["replace"][key] = value;
                     row.setAttribute("style", "background-color: #E6A5B0");
                     col2.innerHTML = value;
-                    saved_a["replace"][key] = saved_a["update"]["storage"][current_origin]["answer"]["replace"][key];
+                    saved_a["replace"][key] = value;
                     load_dmp(reload_answers,doc_name);
+                    reload_answers(doc_name);
 
 
 
@@ -2916,6 +2932,7 @@ END:VEVENT`;
             
         } catch (error) {
             console.error(error);
+            document.getElementById("historyContent").innerHTML = "No history for this question.";
         } 
     }
     function thisOnfocusout(ele){
@@ -3038,13 +3055,13 @@ END:VEVENT`;
                             </li>
                             <li>
                                 <label for="upload_menu" class="form-label dropdown-item">
-                                    Import Answers (JSON)
+                                    Import Answers (JSON include checkboxes)
                                     <input class="form-control d-none" type="file" id="upload_menu" />
                                 </label>
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
+                                    onclick="inputHistory.replace=={}? {} : exportHistory();window.localStorage.clear();document.location.reload()">Clear Input (Use Default Answers)</button>
                             </li>
                             <li>
                                 <button id="word_cloud" class="dropdown-item" onclick='runWordCloud()'>
@@ -3171,15 +3188,15 @@ END:VEVENT`;
                         <ul class="dropdown-menu">
                             <li>
                                 <label for="upload" class="form-label dropdown-item">
-                                    <span name="translateTarget" data-en="Import Answers (JSON)">
-                                    Import Answers (JSON)
+                                    <span name="translateTarget" data-en="Import Answers (JSON include checkboxes)">
+                                        Import Answers (JSON include checkboxes)
                                     </span>
                                     <input class="form-control d-none" type="file" id="upload" />
                                 </label>
                             </li>
                             <li>
                                 <button id="clear_cache" class="dropdown-item"
-                                    onclick="window.localStorage.clear();document.location.reload()">
+                                    onclick="inputHistory.replace=={}? {} : exportHistory();window.localStorage.clear();document.location.reload()">
                                     <span name="translateTarget" data-en="Clear Input (Use Default Answers)">
                                     Clear Input (Use Default Answers)
                                 </span>
@@ -5177,7 +5194,7 @@ END:VEVENT`;
                 <div class="dropdown col-4">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="uploaded_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <span name="translateTarget" data-en='Import Answers (JSON)'>Import Answers (JSON)</span>
+                        <span name="translateTarget" data-en='Import Answers'>Import Answers</span>
                     </a>
 
                     <ul class="dropdown-menu" id="uploaded_input" aria-labelledby="uploaded_answer_link">
@@ -5218,7 +5235,7 @@ END:VEVENT`;
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br> -->
+                    <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
                     DataPLAN is designed to be a user-friendly data management plan (DMP) and data management and sharing plan (DMSP) generator, capable of functioning entirely offline. Whether you disconnect from the internet or save the tool using "Ctrl + S," your work will not be affected. You can also <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> downlaod the whole website </a> and use it offline. Our work has been published in <a href="https://doi.org/10.3390/data8110159" target="_blank">
                         Data.</a>
                     <br>
