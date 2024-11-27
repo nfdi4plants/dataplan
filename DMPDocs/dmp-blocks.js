@@ -1,0 +1,329 @@
+dmpBlocks = [
+    ["basicInfo-isEu-en", `#if$_EU $_PROJECTNAME is part of the Open Data Initiative (ODI) of the EU. #endif$_EU`],
+    ["basicInfo-isEu-de", `#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU. #endif$_EU`],
+    ["text-not-only-but-fair-en", `To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).`],
+    ["text-not-only-but-fair-de", `Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu machen.`],
+    ["basicInfo-isProtected-en", `#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT`],
+    ["basicInfo-isProtected-de", `#if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT`],
+    ["text-intro-en", "This document outlines the principles of data management for $_PROJECTNAME. A Data Management Plan (DMP), created using responses to the EU DMP questionnaire, will detail key aspects such as data types, collection methods, storage, access, sharing, preservation, and reuse strategies, ensuring compliance with FAIR data principles."],
+    ["list-dataType-en", `<ul style="list-style-type:disc;">
+            #if$_GENETIC&nbsp; <li>
+                    <span class="c1"> Genetic data will be generated from targeted crosses and in breeding experiments, and
+                        will include recombination frequencies and position of genetic markers. This data will be used to associate quantitative trait loci with physical genomic markers/variants.
+                    </span>
+            </li> #endif$_GENETIC #if$_GENOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Genomic data will be created from sequencing data, which will be processed to
+                        identify genes, regulatory elements, transposable elements, and physical markers such as
+                        SNPs, microsatellites and structural variants. </span>
+            </li>
+            #if$_PANGENOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals within a clade. Then the the sequences are assembled and aligned to create a comprehensive gene reference.  </span>
+            </li>
+            #endif$_PANGENOMIC
+            #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
+            <li>
+                    <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original
+                        vector sequence with adding gene reference where available, and source of insert DNA (e.g.,
+                        amplification by PCR from a given sample, or obtained from existing library), (b) cloning
+                        strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson
+                        assembly, LR recombination), and (c) verified DNA sequence data of final recombinant vector.
+                    </span>
+            </li>
+            #endif$_CLONED-DNA  #if$_TRANSCRIPTOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Methods of transcriptomics data collection will be selected from microarrays,
+                        quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ
+                        hybridization. RNA-Seq data will be collected in seperate methods.</span>
+            </li>
+            #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Spatial transcriptomics data will be collected using methods that spatially map RNA molecules to their precise tissue locations, ensuring the preservation of RNA data alongside comprehensive metadata about its origin.</span>
+            </li>
+            #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+            #endif$_TRANSCRIPTOMIC&nbsp;    #if$_RNASEQ&nbsp; 
+            <li>
+                    <span class="c1"> RNA sequencing data will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
+            </li>
+            #if$_SCRNASEQ&nbsp; 
+            <li>
+                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
+            </li>
+            #endif$_SCRNASEQ&nbsp;
+            #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass
+                        spectrometry using targeted or untargeted approaches.</span>
+            </li>
+            #endif$_METABOLOMIC  #if$_PROTEOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Proteomic data will be generated using coupled chromatography and mass
+                        spectrometry for the analysis of protein abundance and protein identification, as well as
+                        additional techniques for structural analysis, the identification of post-translational
+                        modifications and the characterization of protein interactions.</span>
+            </li>
+            #endif$_PROTEOMIC  #if$_PHENOTYPIC&nbsp; 
+            <li>
+                    <span class="c1"> Phenotypic data will be generated using phenotyping platforms and annotated using
+                        corresponding ontologies, including number/size of organs such as leaves, flowers, buds
+                        etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc),
+                        organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition
+                        indicators, among others. </span>
+            </li>
+            #endif$_PHENOTYPIC  #if$_TARGETED&nbsp; 
+            <li>
+                    <span class="c1"> Targeted assay data (e.g. glucose and fructose concentrations or
+                        production/utilization rates) will be generated using specific equipment and methods that
+                        are fully documented in the laboratory notebook. </span>
+            </li>
+            #endif$_TARGETED #if$_IMAGE&nbsp; 
+            <li>
+                    <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and
+                        microscopes combined with software. Original images which contain metadata such as EXIF
+                        photo information will be archived.</span>
+            </li>
+            #endif$_IMAGE #if$_MODELS&nbsp; 
+            <li>
+                    <span class="c1"> Model data will be generated by using software simulations. The complete
+                        workflow, which includes the environment, runtime, parameters, and results, will be
+                        documented and archived. </span>
+            </li>
+            #endif$_MODELS #if$_CODE&nbsp; 
+            <li>
+                    <span class="c1"> Computer code will be produced by programmers. </span>
+            </li>
+            #endif$_CODE  #if$_EXCEL&nbsp; 
+            <li>
+                    <span class="c1"> Excel data will be generated by data analysts by using MS Office or
+                        open-source software. </span>
+            </li>
+            #endif$_EXCEL 
+        </ul>`],
+    ["list-dataType-de", [`                <ul style="list-style-type:disc;">
+                    #if$_GENETIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Genetische Daten werden durch Kreuzungen und Zuchtexperimente
+                                generiert und umfassen Rekombinationsfrequenzen und Crossover-Ereignisse, die
+                                genetische Marker und quantitative Merkmalsloci positionieren können, die mit
+                                physischen genomischen Markern/Varianten assoziiert werden können. </span>
+                        </p>
+                    </li>
+                    #endif$_GENETIC
+                    #if$_GENOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Genomische Daten werden aus Sequenzdaten erstellt, die verarbeitet
+                                werden, um Gene, regulatorische Elemente, transponierbare Elemente und physikalische
+                                Marker wie SNPs, Mikrosatelliten und strukturelle Varianten zu identifizieren.
+                            </span>
+                        </p>
+                    </li>
+                    #if$_PANGENOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Pangenomische Daten werden durch Sequenzierung der Genome mehrerer Individuen innerhalb einer Gruppe erhoben. Anschließend werden die Sequenzen zusammengefügt und ausgerichtet, um eine umfassende Genreferenz zu erstellen. 
+                            </span>
+                        </p>
+                    </li>
+                    #endif$_PANGENOMIC
+                    #endif$_GENOMIC
+                    #if$_CLONED-DNA&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Der Ursprung und die Zusammenstellung der klonierten DNA umfassen (a)
+                                die Quelle der ursprünglichen Vektorsequenz mit Add-Gene-Referenz, sofern verfügbar,
+                                und die Quelle der Insert-DNA (z.B. Amplifikation durch PCR aus einer bestimmten
+                                Probe oder aus einer vorhandenen Bibliothek), (b) die Klonierungsstrategie (z.B.
+                                Restriktionsendonuklease-Verdau/Ligation, PCR, TOPO-Klonierung, Gibson-Assembly,
+                                LR-Rekombination), und (c) die verifizierte DNA-Sequenz des finalen rekombinanten
+                                Vektors.</span>
+                        </p>
+                    </li>
+                    #endif$_CLONED-DNA
+                    #if$_TRANSCRIPTOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Methoden zur Erfassung von Transkriptomik-Daten werden aus
+                                Mikroarrays, quantitativer PCR, Northern Blotting, RNA-Immunpräzipitation und
+                                Fluoreszenz-in-situ-Hybridisierung ausgewählt. RNA-Seq-Daten werden mit separaten
+                                Methoden gesammelt.</span>
+                        </p>
+                    </li>
+                    #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+                    <li>
+                            <span class="c1">Räumliche Transkriptomikdaten werden mit Hilfe von Methoden gesammelt, die RNA-Moleküle räumlich ihren genauen Gewebestandorten zuordnen, wodurch die Erhaltung von RNA-Daten zusammen mit umfassenden Metadaten über ihre Herkunft gewährleistet wird.</span>
+                    </li>
+                    #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+                    #endif$_TRANSCRIPTOMIC
+
+                             
+
+                    #if$_RNASEQ&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> RNA-Sequenzierung wird unter Verwendung von Short-Read- oder
+                                Long-Read-Plattformen entweder intern oder an akademische Einrichtungen oder
+                                kommerzielle Dienste ausgelagert und die Rohdaten werden mit etablierten
+                                bioinformatischen Pipelines verarbeitet. </span>
+                        </p>
+                    </li>
+                    #if$_SCRNASEQ&nbsp; 
+                    <li>
+                            <span class="c1"> Einzelzell-RNA-seq-Daten werden durch die Isolierung einzelner Zellen, die Extraktion und das Barcoding von RNA, die Vorbereitung von Sequenzierungsbibliotheken und die Erzeugung hochwertiger transkriptomischer Daten mit Hilfe von Plattformen wie Illumina gesammelt, wobei die Metadaten sorgfältig aufgezeichnet werden.</span>
+                    </li>
+                    #endif$_SCRNASEQ&nbsp;
+                    #endif$_RNASEQ
+                    #if$_METABOLOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Metabolomische Daten werden durch gekoppelte Chromatographie und
+                                Massenspektrometrie unter Verwendung gezielter oder ungezielter Ansätze
+                                generiert.</span>
+                        </p>
+                    </li>
+                    #endif$_METABOLOMIC #if$_PROTEOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Proteomische Daten werden durch gekoppelte Chromatographie und
+                                Massenspektrometrie zur Analyse der Proteinmenge und -identifikation sowie durch
+                                zusätzliche Techniken zur Strukturanalyse, zur Identifizierung posttranslationaler
+                                Modifikationen und zur Charakterisierung von Proteininteraktionen generiert.</span>
+                        </p>
+                    </li>
+                    #endif$_PROTEOMIC
+
+                    #if$_PHENOTYPIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Phänotypische Daten werden mit Hilfe von Phänotypisierungsplattformen
+                                und entsprechenden Ontologien generiert, einschließlich Anzahl/Größe von Organen wie
+                                Blätter, Blumen, Knospen usw., Größe der gesamten Pflanze,
+                                Stängel/Wurzel-Architektur (Anzahl der seitlichen Zweige/Wurzeln usw.),
+                                Organstrukturen/Morphologien, quantitativen Metriken wie Farbe, Turgor,
+                                Gesundheits-/Nährstoffindikatoren und anderen. </span>
+                        </p>
+                    </li>
+                    #endif$_PHENOTYPIC
+                    #if$_TARGETED&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Gezielte Assays-Daten (z. B. Glukose- und Fruktosekonzentrationen oder
+                                Produktions-/Nutzungsraten) werden mit spezifischen Geräten und Methoden generiert,
+                                die im Laborbuch vollständig dokumentiert sind. </span>
+                        </p>
+                    </li>
+                    #endif$_TARGETED
+
+                    #if$_IMAGE&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Bilddaten werden durch Geräte wie Kameras, Scanner und Mikroskope in
+                                Kombination mit Software generiert. Originalbilder, die Metadaten wie
+                                EXIF-Fotoinformationen enthalten, werden archiviert.</span>
+                        </p>
+                    </li>
+                    #endif$_IMAGE
+
+                    #if$_MODELS&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Modelldaten werden durch Softwaresimulationen generiert. Der
+                                vollständige Workflow, einschließlich der Umgebung, Laufzeit, Parameter und
+                                Ergebnisse, wird dokumentiert und archiviert. </span>
+                        </p>
+                    </li>
+                    #endif$_MODELS
+
+                    #if$_CODE&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Computercode wird von Programmierern erstellt. </span>
+                        </p>
+                    </li>
+                    #endif$_CODE
+
+                    #if$_EXCEL&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Excel-Tabellen werden durch Ausfüllen spezifischer Dateien erstellt,
+                                die Feldbeobachtungen oder andere digitale Erhebungen enthalten. </span>
+                        </p>
+                    </li>
+                    #endif$_EXCEL
+                </ul>`]],    
+    ["list-reuse-en", `The project builds on existing data sets. #if$_RNASEQ For instance, without a
+                proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
+                #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
+                #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
+                #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
+                #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
+                #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED
+                #if$_IMAGE image datasets, #endif$_IMAGE
+                #if$_MODELS modelling data, #endif$_MODELS
+                #if$_CODE computational code, #endif$_CODE
+                #if$_EXCEL excel files #endif$_EXCEL data of $_STUDYOBJECT,
+                existing data sets as well as additional characterizations and background knowledge from prior publications will be used. #if$_PARTNERS of the
+                partners: $_PARTNERS #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
+                genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
+                Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP).`],
+    ["list-dataCollection-en", `                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
+                    #if$_GENETIC genetic data, #endif$_GENETIC  
+                                    #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
+                    #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                    #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                    #if$_IMAGE image datasets, #endif$_IMAGE  
+                    #if$_MODELS modelling data, #endif$_MODELS 
+                    #if$_CODE computational code, #endif$_CODE  
+                    #if$_EXCEL excel files, #endif$_EXCEL 
+                     and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
+                    will also be processed and modified using analytical pipelines, which may yield different results or
+                    include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
+                    tracked in the DataPLANT ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive
+                    these resources (including the analytical pipelines) as well, #if$_DATAPLANT relying on the expertise in the DataPLANT consortium #endif$_DATAPLANT.`],
+    ["list-dataCollection-de", ` Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
+                        #if$_GENETIC genetische Daten, #endif$_GENETIC  
+                #if$_GENOMIC genomische Daten, 
+                #if$_PANGENOMIC Pangenomische Daten, #endif$_PANGENOMIC #endif$_GENOMIC
+                #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
+                #if$_TRANSCRIPTOMIC transkriptomische Daten, 
+                #if$_SPATIALTRANSCRIPTOMIC räumliche Transkriptomik-Daten, #endif$_SPATIALTRANSCRIPTOMIC  #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNA-Seq-Daten,  
+                #if$_SCRNASEQ Einzelzell RNA-Seq-Daten, #endif$_SCRNASEQ #endif$_RNASEQ
+ 
+                #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
+                #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
+                #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
+                #if$_TARGETED gezielte Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
+                #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
+                #if$_MODELS Modellausgänge, #endif$_MODELS 
+                #if$_CODE Rechencode, #endif$_CODE  
+                #if$_EXCEL Excel-Daten, #endif$_EXCEL Daten, die sich auf $_STUDYOBJECT
+                        beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
+                        modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
+                        umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
+                        verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
+                        analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
+                        auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT .`],
+]

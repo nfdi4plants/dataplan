@@ -17,7 +17,7 @@
     <link href="css/bootstrap.min2106.css" rel="stylesheet" />
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
-
+    <script src="DMPDocs/dmp-blocks.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/BBSRC-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/NSF-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/carl-zeiss-dmp-2024-11-22.js" type="text/javascript" charset="utf-8"></script>
@@ -64,18 +64,35 @@
      * @static
      * @description to log if the browser is IE
      **/
+
+
+
+
+function textReform(template){
+    const t0 = performance.now();
+
+
+    for (ele of dmpBlocks){
+        
+        template = template.replaceAll(ele[0],ele[1] );
+    }
+    const t1 = performance.now();
+    console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+    return template;
+    
+}
     const dmpStrings = {
-        "Horizon2020_DMP" : Horizon2020_DMP.Horizon2020_DMP,
-        "horizon_europe" : horizon_europe.horizon_europe,
-        "dfg-dmp" : dfg_dmp["dfg-dmp"],
-        "bmbf-dmp" : bmbf_dmp["bmbf-dmp"],
-        "BBSRC-dmp": BBSRC_dmp["BBSRC-dmp"],
-        "NSF-dmp": NSF_dmp["NSF-dmp"],
-        "bmel-dmp": bmel_dmp["bmel-dmp"],
-        "cz-dmp": cz_dmp["cz-dmp"],
-        "vw-dmp": vw_dmp["vw-dmp"],
-        "msca-dmp": msca_dmp["msca-dmp"],
-        "practical-guide": practical_guide["practical-guide"],
+        "Horizon2020_DMP" : textReform(Horizon2020_DMP.Horizon2020_DMP),
+        "horizon_europe" : textReform(horizon_europe.horizon_europe),
+        "dfg-dmp" : textReform(dfg_dmp["dfg-dmp"]),
+        "bmbf-dmp" : textReform(bmbf_dmp["bmbf-dmp"]),
+        "BBSRC-dmp": textReform(BBSRC_dmp["BBSRC-dmp"]),
+        "NSF-dmp": textReform(NSF_dmp["NSF-dmp"]),
+        "bmel-dmp": textReform(bmel_dmp["bmel-dmp"]),
+        "cz-dmp": textReform(cz_dmp["cz-dmp"]),
+        "vw-dmp": textReform(vw_dmp["vw-dmp"]),
+        "msca-dmp": textReform(msca_dmp["msca-dmp"]),
+        "practical-guide": textReform(practical_guide["practical-guide"]),
         "user-defined": window.localStorage.getItem("fulltext_user"),
 
     }

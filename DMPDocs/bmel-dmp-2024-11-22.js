@@ -41,30 +41,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     </p>
                         <p class="c0">
                             <span class="c1">
-                        Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
-                        #if$_GENETIC genetische Daten, #endif$_GENETIC  
-                        #if$_GENOMIC genomische Daten, #endif$_GENOMIC
-                #if$_PANGENOMIC Pangenomische Daten, #endif$_PANGENOMIC 
-                        #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
-                        #if$_TRANSCRIPTOMIC transkriptomische Daten, #endif$_TRANSCRIPTOMIC
-                #if$_SPATIALTRANSCRIPTOMIC räumliche Transkriptomik-Daten, #endif$_SPATIALTRANSCRIPTOMIC  
-                        #if$_RNASEQ RNA-Seq-Daten, #endif$_RNASEQ 
-                #if$_SCRNASEQ Einzelzell RNA-Seq-Daten, #endif$_SCRNASEQ
- 
-                        #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
-                        #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
-                        #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
-                        #if$_TARGETED gezielte Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
-                        #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
-                        #if$_MODELS Modellausgänge, #endif$_MODELS 
-                        #if$_CODE Rechencode, #endif$_CODE  
-                        #if$_EXCEL Excel-Daten, #endif$_EXCEL Daten, die sich auf $_STUDYOBJECT
-                        beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
-                        modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
-                        umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
-                        verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
-                        analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
-                        auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT .
+                        list-dataCollection-de
                                
                         </span>
                     </p>
@@ -80,177 +57,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     <span class="c1"> Daten unterschiedlicher Typen oder aus verschiedenen Bereichen werden mit
                         einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                 </p>
-                <ul style="list-style-type:disc;">
-                    
-                    #if$_GENETIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Genetische Daten werden durch Kreuzungen und Zuchtexperimente
-                                generiert und umfassen Rekombinationsfrequenzen und Crossover-Ereignisse, die
-                                genetische Marker und quantitative Merkmalsloci positionieren können, die mit
-                                physischen genomischen Markern/Varianten assoziiert werden können. </span>
-                        </p>
-                    </li>
-                    #endif$_GENETIC
-
-                                        #if$_GENOMIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Genomische Daten werden aus Sequenzdaten erstellt, die verarbeitet
-                                werden, um Gene, regulatorische Elemente, transponierbare Elemente und physikalische
-                                Marker wie SNPs, Mikrosatelliten und strukturelle Varianten zu identifizieren.
-                            </span>
-                        </p>
-                    </li>
-                    
-                    #if$_PANGENOMIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Pangenomische Daten werden durch Sequenzierung der Genome mehrerer Individuen innerhalb einer Gruppe erhoben. Anschließend werden die Sequenzen zusammengefügt und ausgerichtet, um eine umfassende Genreferenz zu erstellen. 
-                            </span>
-                        </p>
-                    </li>
-                    #endif$_PANGENOMIC
-                    #endif$_GENOMIC
-                    #if$_CLONED-DNA&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Der Ursprung und die Zusammenstellung der klonierten DNA umfassen (a)
-                                die Quelle der ursprünglichen Vektorsequenz mit Add-Gene-Referenz, sofern verfügbar,
-                                und die Quelle der Insert-DNA (z.B. Amplifikation durch PCR aus einer bestimmten
-                                Probe oder aus einer vorhandenen Bibliothek), (b) die Klonierungsstrategie (z.B.
-                                Restriktionsendonuklease-Verdau/Ligation, PCR, TOPO-Klonierung, Gibson-Assembly,
-                                LR-Rekombination), und (c) die verifizierte DNA-Sequenz des finalen rekombinanten
-                                Vektors.</span>
-                        </p>
-                    </li>
-                    #endif$_CLONED-DNA
-
-                    #if$_TRANSCRIPTOMIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Methoden zur Erfassung von Transkriptomik-Daten werden aus
-                                Mikroarrays, quantitativer PCR, Northern Blotting, RNA-Immunpräzipitation und
-                                Fluoreszenz-in-situ-Hybridisierung ausgewählt. RNA-Seq-Daten werden mit separaten
-                                Methoden gesammelt.</span>
-                        </p>
-                    </li>
-                    
-
-                            #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
-                    <li>
-
-                            <span class="c1">Räumliche Transkriptomikdaten werden mit Hilfe von Methoden gesammelt, die RNA-Moleküle räumlich ihren genauen Gewebestandorten zuordnen, wodurch die Erhaltung von RNA-Daten zusammen mit umfassenden Metadaten über ihre Herkunft gewährleistet wird.</span>
-
-                    </li>
-                    #endif$_SPATIALTRANSCRIPTOMIC&nbsp; 
-                    #endif$_TRANSCRIPTOMIC
-                    
-
-                    #if$_RNASEQ&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> RNA-Sequenzierung wird unter Verwendung von Short-Read- oder
-                                Long-Read-Plattformen entweder intern oder an akademische Einrichtungen oder
-                                kommerzielle Dienste ausgelagert und die Rohdaten werden mit etablierten
-                                bioinformatischen Pipelines verarbeitet. </span>
-                        </p>
-                    </li>
-                   
-                    #if$_SCRNASEQ&nbsp; 
-                    <li>
-
-                            <span class="c1"> Einzelzell-RNA-seq-Daten werden durch die Isolierung einzelner Zellen, die Extraktion und das Barcoding von RNA, die Vorbereitung von Sequenzierungsbibliotheken und die Erzeugung hochwertiger transkriptomischer Daten mit Hilfe von Plattformen wie Illumina gesammelt, wobei die Metadaten sorgfältig aufgezeichnet werden.</span>
-
-                    </li>
-                    #endif$_SCRNASEQ&nbsp;
-                    #endif$_RNASEQ
-
-                    #if$_METABOLOMIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Metabolomische Daten werden durch gekoppelte Chromatographie und
-                                Massenspektrometrie unter Verwendung gezielter oder ungezielter Ansätze
-                                generiert.</span>
-                        </p>
-                    </li>
-                    #endif$_METABOLOMIC #if$_PROTEOMIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Proteomische Daten werden durch gekoppelte Chromatographie und
-                                Massenspektrometrie zur Analyse der Proteinmenge und -identifikation sowie durch
-                                zusätzliche Techniken zur Strukturanalyse, zur Identifizierung posttranslationaler
-                                Modifikationen und zur Charakterisierung von Proteininteraktionen generiert.</span>
-                        </p>
-                    </li>
-                    #endif$_PROTEOMIC
-
-                    #if$_PHENOTYPIC&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Phänotypische Daten werden mit Hilfe von Phänotypisierungsplattformen
-                                und entsprechenden Ontologien generiert, einschließlich Anzahl/Größe von Organen wie
-                                Blätter, Blumen, Knospen usw., Größe der gesamten Pflanze,
-                                Stängel/Wurzel-Architektur (Anzahl der seitlichen Zweige/Wurzeln usw.),
-                                Organstrukturen/Morphologien, quantitativen Metriken wie Farbe, Turgor,
-                                Gesundheits-/Nährstoffindikatoren und anderen. </span>
-                        </p>
-                    </li>
-                    #endif$_PHENOTYPIC
-
-
-
-                    #if$_TARGETED&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Gezielte Assays-Daten (z. B. Glukose- und Fruktosekonzentrationen oder
-                                Produktions-/Nutzungsraten) werden mit spezifischen Geräten und Methoden generiert,
-                                die im Laborbuch vollständig dokumentiert sind. </span>
-                        </p>
-                    </li>
-                    #endif$_TARGETED
-
-                    #if$_IMAGE&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Bilddaten werden durch Geräte wie Kameras, Scanner und Mikroskope in
-                                Kombination mit Software generiert. Originalbilder, die Metadaten wie
-                                EXIF-Fotoinformationen enthalten, werden archiviert.</span>
-                        </p>
-                    </li>
-                    #endif$_IMAGE
-
-                    #if$_MODELS&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Modelldaten werden durch Softwaresimulationen generiert. Der
-                                vollständige Workflow, einschließlich der Umgebung, Laufzeit, Parameter und
-                                Ergebnisse, wird dokumentiert und archiviert. </span>
-                        </p>
-                    </li>
-                    #endif$_MODELS
-
-                    #if$_CODE&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Computercode wird von Programmierern erstellt. </span>
-                        </p>
-                    </li>
-                    #endif$_CODE
-
-                    #if$_EXCEL&nbsp;
-                    <li>
-                        <p class="c0">
-                            <span class="c1"> Excel-Tabellen werden durch Ausfüllen spezifischer Dateien erstellt,
-                                die Feldbeobachtungen oder andere digitale Erhebungen enthalten. </span>
-                        </p>
-                    </li>
-                    #endif$_EXCEL
-
-                    
-
-                    
-                </ul>
+                list-dataType-de
 
                 #if$_PREVIOUSPROJECTS&nbsp;
                 <p class="c0"><span class="c1"> Daten aus früheren Projekten wie $_PREVIOUSPROJECTS werden
@@ -538,11 +345,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     </span>
                 </p>
             </span></p>
-                <p class="c0"><span class="c1">#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU.
-                #endif$_EU Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu
-                speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu
-                machen. #if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die
-                Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT 
+                <p class="c0"><span class="c1">basicInfo-isEu-de text-not-only-but-fair-de basicInfo-isProtected-de 
             </span>
         </p>
         <p class="c0"><span class="c1">#if$_DATAPLANT Durch die Implementierung von DataPLANT können Forscher
