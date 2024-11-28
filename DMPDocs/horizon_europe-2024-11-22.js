@@ -91,7 +91,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 #endif$_UPDATE</span>
         </p>
 
-        <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">1.&nbsp; &nbsp; Data Summary</span></h2>
+        <h2 class="c9" ><span class="c4">1.&nbsp; &nbsp; Data Summary</span></h2>
         <p class="c0"><span class="c3">Will you re-use any existing data and what will you re-use it for? State the
                 reasons if re-use of any existing data has been considered but discarded.</span></p>
         <p class="c0">
@@ -114,14 +114,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 objectives of the project?</span></p>
         <p class="c0">
             <span class="c1">
-                $_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
-                and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
-                #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
-                #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
-                necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
-                be informed about the provenance of data analysis information. Stakeholders must also be informed
-                about the provenance of data. It is therefore necessary to ensure that the data are well generated
-                and also well annotated with metadata using open standards, as laid out in the next section.
+                text-aim-intro-en
             </span>
         </p>
 
@@ -179,58 +172,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             </span>
         </p>
         <p class="c0">
-            <span class="c1">
-                All datasets will be associated with unique identifiers and will be annotated with metadata. We will
-                use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
-                on community standards plus additional recommendations applicable in the plant science, such as the
-                <span class="list-to-remove-comma">
-                    The following metadata/ minimum information standards will be used to collect metadata:
-                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
-                    #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
-                    #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
-                    #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
-                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen:
-                    Specimen), #endif$_MIMARKSSPECIMEN
-                    #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
-                    Survey), #endif$_MIMARKSSURVEY
-                    #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
-                    #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
-                    #endif$_GENOMIC|$_GENETIC
-                    #if$_TRANSCRIPTOMIC
-                    #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
-                    Experiment), #endif$_MINSEQE 
-                     #if$_MIAME MIAME (Minimum Information About a Microarray
-                    Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
-                    #if$_IMAGE
-                    #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
-                    #endif$_IMAGE
-                    #if$_RNASEQ|$_GENOMIC
- 
-                    #if$_MINSEQE
-                        MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
-                    #endif$_MINSEQE 
-                    #endif$_RNASEQ|$_GENOMIC
-
-                    #if$_METABOLOMIC
-                    #if$_MMIAMET
-                    MIAMET (Minimum Information About a METabolomics experiment),
-                    #endif$_MMIAMET
-                    #endif$_METABOLOMIC
-                    #if$_PROTEOMIC
-                    #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                    #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                    #endif$_PROTEOMIC  
-                    #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
-                    </span>
-            </span>
-            <span class="c1"> #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
-                not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
-                mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
-                individual releases to be tagged with a Digital Object Identifier (DOI).
-                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
-                to. #endif$_OTHERSTANDARDS
-            </span>
+            text-standards-long-en
         </p>
         <p class="c0"><span class="c3">Will search keywords be provided in the metadata to optimize the possibility
                 for discovery and then potential re-use?</span></p>
@@ -264,56 +206,12 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
 
 
 
-        <h2 class="c9" id="h.3l7mu272odf4"><span class="c4">2.2.&nbsp; &nbsp; Making data accessible</span></h2>
+        <h2 class="c9" ><span class="c4">2.2.&nbsp; &nbsp; Making data accessible</span></h2>
         <p class="c0"><span class="c3">Repository</span></p>
         <p class="c0"><span class="c3">Will the data be deposited in a trusted repository?</span></p>
 
         <p class="c0">
-            <span class="c1">
-                Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
-                data visualization. Besides this it will be ensured that data which can be stored in
-                international discipline related repositories which use specialized technologies:
-                
-
-
-                 <p class="c0">
-                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC|$_RNASEQ For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC|$_RNASEQ . #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
-                    </p>
-
-                <p class="c0">
-                    <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA
-                        NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #if$_ARRAYEXPRESS
-                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC</span>
-                </p>
-
-                <p class="c0">
-                    <span class="c1 list-to-remove-comma">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage
-                        Archive, #endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource), #endif$_IDR .
-                        #endif$_IMAGE </span>
-                </p>
-
-                <p class="c0">
-                    <span class="c1 list-to-remove-comma">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS
-                        EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                        Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
-                        interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
-                </p>
-                <p class="c0">
-                    <span class="c1 list-to-remove-comma">#if$_PROTEOMIC For proteomics data: #if$_PRIDE
-                        EBI-PRIDE (PRoteomics IDEntifications Database), #endif$_PRIDE #if$_PDB PDB (Protein Data Bank), #endif$_PDB
-                        #if$_CHEBI Chebi (Chemical Entities of Biological Interest), #endif$_CHEBI .
-                        #endif$_PROTEOMIC </span>
-                </p>
-
-                <p class="c0">
-                    <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
-                        Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
-                        #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                        well. #endif$_OTHEREP
-                    </span>
-                </p>
-            </span>
+            text-repository-long-en
         </p>
 
 
@@ -336,20 +234,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             <span class="c1">
                 
                 <p class="c0">
-                    <span class="c1 list-to-remove-comma">
-                        As mentioned above, data will be made archived in
-                        international discipline related repositories which use specialized technologies: #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
-                        #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
-                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
-                        EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
-                        #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                        #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
-                        EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                        Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
-                        #endif$_EDAL #endif$_PHENOTYPIC.
-                        #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                        well. #endif$_OTHEREP
-                    </span>
+                text-repository-short-en
                 </p> 
                 <p class="c0">
                     <span class="c1">
@@ -499,15 +384,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             </span>
         </p>
         <p class="c0">
-            <span class="c1">
-                #if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
-                #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern
-                browser. Access will be possible through web interfaces. For data processing after obtaining raw
-                data, typical open-source software can be used. #endif!$_PROPRIETARY
-                                #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC management tool ARCitect </a>, command line tool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander </a>, <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP generator</a>. #endif$_DATAPLANT #if$_DATAPLANT DataPLANT resources are well described, and
-                their setup is documented on their github project pages. #endif$_DATAPLANT
-                As stated above, here we use publicly available open-source and well-documented certified software, #if$_PROPRIETARY except for $_PROPRIETARY #endif$_PROPRIETARY.
-            </span>
+            text-dataplant-tools-en
         </p>
 
         <h3><span class="c7"> 2.3. Making data interoperable </span></h3>
@@ -519,44 +396,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             </span>
         </p>
         <p class="c0">
-            
-        
-                <span class="c1 list-to-remove-comma">We will use Investigation, Study, Assay (ISA) specification for metadata creation.
-                    The following metadata standards will also be used:
-                    #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
-                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS, #endif$_MIXS
-                    #if$_MIGSEU MigsEu, #endif$_MIGSEU
-                    #if$_MIGSORG MigsOrg, #endif$_MIGSORG
-                    #if$_MIMS MIMS, #endif$_MIMS
-                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen, #endif$_MIMARKSSPECIMEN
-                    #if$_MIMARKSSURVEY MIMARKSSurvey, #endif$_MIMARKSSURVEY
-                    #if$_MISAG MISAG, #endif$_MISAG
-                    #if$_MIMAG MIMAG, #endif$_MIMAG
-                    #endif$_GENOMIC|$_GENETIC
-                    #if$_GENOMIC|$_TRANSCRIPTOMIC #if$_MINSEQE MINSEQE, #endif$_MINSEQE #endif$_GENOMIC|$_TRANSCRIPTOMIC
-                    #if$_TRANSCRIPTOMIC #if$_MIAME MIAME, #endif$_MIAME #endif$_TRANSCRIPTOMIC
-                    #if$_IMAGE
-                    #if$_REMBI REMBI, #endif$_REMBI
-                    #endif$_IMAGE
-                    #if$_METABOLOMIC
-                    #if$_MMIAMET MIAMET, #endif$_MMIAMET
-                    #endif$_METABOLOMIC
-                    #if$_PROTEOMIC
-                    #if$_MIAPE MIAPE, #endif$_MIAPE
-                    #if$_MIMIX MIMix, #endif$_MIMIX
-                    #endif$_PROTEOMIC.
-                    
-                </span>
-        
-            
-            <span class="c1">#if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
-                not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which
-                mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow
-                individual releases to be tagged with a Digital Object Identifier (DOI).
-                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered
-                to. #endif$_OTHERSTANDARDS
-            </span>
+            text-standards-short-en
         </p>
         <span class="c1">Whenever possible, data will be stored in common and openly defined formats including all the necessary
         metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
@@ -637,19 +477,13 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             </span>
         </p>
         <p class="c0"><span class="c3">Will the provenance of the data be thoroughly documented using the
-                appropriate standards? Describe all relevant data quality assurance processes.
+                appropriate standards?
             </span></p>
 
         <p class="c0">
             <span class="c1">
-                $_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
-                and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
-                #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT ARC structure are absolutely necessary,
-                #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
-                necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
-                be informed about the provenance of data analysis information. Stakeholders must also be informed
-                about the provenance of data. It is therefore necessary to ensure that the data are well generated
-                and also well annotated with metadata using open standards, as laid out in the next section.
+                text-standards-en
+                text-aim-intro-en
             </span>
         </p>
 
@@ -660,13 +494,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
 
         <p class="c0">
             <span class="c1">
-                The data will be checked and curated by using data collection protocol, personnel training, data
-                cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for
-                quality control (QC) problems using automatic procedures as well as by manual curation.
-                #endif$_DATAPLANT Document all data quality assurance processes, including the data collection
-                protocol, data cleaning procedures, data analysis techniques, and quality control measures. This
-                documentation should be kept for future reference and should be made available to stakeholders upon
-                request.
+                text-quality-control-en
 
             </span>
         </p>
@@ -742,7 +570,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 EU and international standards.
             </span>
         </p>
-        <h2 class="c9" id="h.of351jlpnl2l"><span class="c4">5.&nbsp; &nbsp; Data security</span></h2>
+        <h2 class="c9" ><span class="c4">5.&nbsp; &nbsp; Data security</span></h2>
         <p class="c10"><span class="c3">What provisions are or will be in place for data security (including data
                 recovery as well as secure storage/archiving and transfer of sensitive data)?</span></p>
         <p class="c20">
@@ -758,23 +586,9 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 preservation and curation?</span></p>
     
                 <p class="c0">
-                    <span class="c1 list-to-remove-comma">
-                        As mentioned above, data will be archived in
-                        international discipline related repositories which use specialized technologies: 
-                        #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
-                        #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
-                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
-                        EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
-                        #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
-                        #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
-                        EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                        Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
-                        #endif$_EDAL #endif$_PHENOTYPIC.
-                        #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
-                        well. #endif$_OTHEREP
-                    </span>
+                   text-repository-short-en
                 </p>
-        <h2 class="c9" id="h.ozaz4qpzixaa"><span class="c4">6.&nbsp; &nbsp; Ethics</span></h2>
+        <h2 class="c9" ><span class="c4">6.&nbsp; &nbsp; Ethics</span></h2>
         <p class="c10">
             <span class="c3">
                 Are there, or could there be, any ethics or legal issues that can have an impact on data sharing?
@@ -804,7 +618,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 invent them #endissuewarning
             </span>
         </p>
-        <h2 class="c9" id="h.slb0g3rbvjfl"><span class="c4">7.&nbsp; &nbsp; Other issues</span></h2>
+        <h2 class="c9" ><span class="c4">7.&nbsp; &nbsp; Other issues</span></h2>
         <p class="c0"><span class="c3">Do you, or will you, make use of other national/funder/sectorial/departmental
                 procedures for data management? If yes, which ones (please list and briefly describe them)?</span>
         </p>

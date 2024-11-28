@@ -33,30 +33,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
 
                 <p class="c0">
                     <span class="c1">
-                        Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
-                        #if$_GENETIC genetische Daten, #endif$_GENETIC  
-                #if$_GENOMIC genomische Daten, 
-                #if$_PANGENOMIC Pangenomische Daten, #endif$_PANGENOMIC #endif$_GENOMIC
-                #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
-                #if$_TRANSCRIPTOMIC transkriptomische Daten, 
-                #if$_SPATIALTRANSCRIPTOMIC räumliche Transkriptomik-Daten, #endif$_SPATIALTRANSCRIPTOMIC  #endif$_TRANSCRIPTOMIC
-                #if$_RNASEQ RNA-Seq-Daten,  
-                #if$_SCRNASEQ Einzelzell RNA-Seq-Daten, #endif$_SCRNASEQ #endif$_RNASEQ
- 
-                #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
-                #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
-                #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
-                #if$_TARGETED gezielte Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
-                #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
-                #if$_MODELS Modellausgänge, #endif$_MODELS 
-                #if$_CODE Rechencode, #endif$_CODE  
-                #if$_EXCEL Excel-Daten, #endif$_EXCEL Daten, die sich auf $_STUDYOBJECT
-                        beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
-                        modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
-                        umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
-                        verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
-                        analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
-                        auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT .
+                        list-dataCollection-de
                     </span>
                 </p>
             </span></p>
@@ -126,65 +103,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         </p>
 
         <p class="c0 "><span class="c1">
-                <p class="c0"><span class="c1">Das $_PROJECTNAME trägt die Kosten für die Datenkuratierung,
-                        #if$_DATAPLANT ARC-Konsistenzprüfungen, #endif$_DATAPLANT und die Datenwartung/-sicherheit
-                        vor der Übertragung an öffentliche Repositorien. Nachfolgende Kosten werden dann von den
-                        Betreibern dieser Repositorien getragen.</span></p>
-
-                <p class="c0">
-                    <span class="c1">
-                        Zusätzlich werden Kosten für die Speicherung nach der Veröffentlichung von den
-                        Endpunkt-Repositorien (z.B. ENA) getragen, jedoch nicht vom $_PROJECTNAME oder seinen
-                        Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien.
-                    </span>
-                </p>
-                <span class="c1">
-                    Es wird sichergestellt, dass Daten, die in internationalen, disziplinspezifischen Repositories
-                    gespeichert werden können, die spezialisierte Technologien nutzen:<br>
-
-                   
-                        <span class="c1 list-to-remove-comma">#if$_GENETIC|$_GENOMIC|$_RNASEQ Für genetische Daten: #if$_GENBANK
-                            NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA, #endif$_SRA #if$_ENA
-                            EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                            #if$_GEO NCBI-GEO, #endif$_GEO . <br> #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
-                   
-
-                    
-                        <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA
-                            NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #if$_ARRAYEXPRESS
-                            EBI-ArrayExpress, #endif$_ARRAYEXPRESS . <br> #endif$_TRANSCRIPTOMIC</span>
-                   
-
-                   
-                        <span class="c1 list-to-remove-comma">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage
-                            Archive #endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource), #endif$_IDR .
-                            <br> #endif$_IMAGE</span>
-                   
-
-                   
-                        <span class="c1 list-to-remove-comma">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS
-                            EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
-                            Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
-                            interactions), #endif$_INTACT . <br> #endif$_METABOLOMIC</span>
-                   
-                    
-                        <span class="c1 list-to-remove-comma">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE
-                            EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB
-                            #if$_CHEBI Chebi,  #endif$_CHEBI .
-                             <br> #endif$_PROTEOMIC</span>
-                   
-
-                    
-                        <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC Für phänotypische Daten: #if$_EDAL e!DAL-PGP (Plant
-                            Genomics & Phenomics Research Data Repository), #endif$_EDAL . <br> #endif$_PHENOTYPIC
-                        </span>
-                    
-
-                
-                    #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
-                    dort ebenfalls verarbeitet. #endif$_OTHEREP
-
-                </span>
+                text-repository-long-de
 
 
             </span></p>
@@ -203,83 +122,8 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0"><span class="c1"></span></p>
         <p class="c0"><span class="c3"><b>Datendokumentation</b></span></p>
         <p class="c0">
-            <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
-                Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC
- Für spezifische Daten (z.B. RNASeq oder genomische
-                Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span
-                class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment
-                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
-&nbsp;</span>
-            <span class="c1">
-                Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
-                    <span class="list-to-remove-comma">
-                    
-                        #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
-                        #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
-                        #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
-                        #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
-                        #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen:
-                        Specimen), #endif$_MIMARKSSPECIMEN
-                        #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
-                        Survey), #endif$_MIMARKSSURVEY
-                        #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
-                        #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
-                        #endif$_GENOMIC|$_GENETIC
-                        #if$_TRANSCRIPTOMIC
-                        #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
-                        Experiment), #endif$_MINSEQE 
-                         #if$_MIAME MIAME (Minimum Information About a Microarray
-                        Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
-                        #if$_IMAGE
-                        #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
-                        #endif$_IMAGE
-                        #if$_RNASEQ|$_GENOMIC
- 
-                        #if$_MINSEQE
-                            MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
-                        #endif$_MINSEQE 
-                        #endif$_RNASEQ|$_GENOMIC
-
-                        #if$_METABOLOMIC
-                        #if$_MMIAMET
-                        MIAMET (Minimum Information About a METabolomics experiment),
-                        #endif$_MMIAMET
-                        #endif$_METABOLOMIC
-                        #if$_PROTEOMIC
-                        #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
-                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
-                        #endif$_PROTEOMIC .
-                        </span>
-
-                #if$_METABOLOMIC #if$_METABOLIGHTS Metabolights-Einreichungskonforme Standards werden für
-                metabolomische Daten verwendet, wo dies von den Konsortialpartnern akzeptiert wird.#issuewarning
-                Einige Metabolomik-Partner betrachten Metabolights nicht als akzeptierten Standard.#endissuewarning
-                #endif$_METABOLIGHTS #endif$_METABOLOMIC Als Teil der Pflanzenforschungsgemeinschaft verwenden wir
-                #if$_MIAPPE MIAPPE für Phänotypisierungsdaten im weitesten Sinne, werden aber auch auf
-                #endif$_MIAPPE spezifische SOPs für zusätzliche Annotationen #if$_DATAPLANT zurückgreifen, die
-                fortgeschrittene DataPLANT-Annotationen und Ontologien berücksichtigen. #endif$_DATAPLANT
-
-
-            </span>
-        </p>
-        <p class="c0"><span class="c1">
-                In dem Fall, dass einige Metadaten noch fehlen, werden diese von den experimentellen
-                Wissenschaftlern und dem Datenbeauftragten dokumentiert. #if$_DATAPLANT Rohdaten-Identifier und
-                Parser, die von DataPLANT bereitgestellt werden, um
-                Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
-                auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
-                #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC
- z.B.#if$_MINSEQE MinSEQe für
-                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
- Metabolights-kompatible
-                Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
-                Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
-                etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
-                Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
-                Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
-                werden. #if$_DATAPLANT
-                DataPLANT bietet Open-Source-Datenkurationswerkzeuge wie das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC-Verwaltungstool ARCitect</a>, das Kommandozeilentool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander</a>, die <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology">DataPLANT Biological Ontology (DPBO)</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">Metadaten-Annotationstool Swate</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">Metadata Quiz</a> und den <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP-Generator</a> an.
-                #endif$_DATAPLANT</span></p>
+            text-standards-long-de
+            </p>
 
 
         <p class="c0"><span class="c3"><b>Legitimit&auml;t</b></span></p>
@@ -375,26 +219,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                     <span class="c1"> </span>
                 </p>
                 <p class="c0">
-                    <span class="c1">
-                        Die Daten werden über die $_PROJECTNAME-Plattform mit einer benutzerfreundlichen Oberfläche
-                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Die Endpunkt-Repositories sind:
-                        #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
-                        #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
-                        #endif$_GENETIC #if$_TRANSCRIPTOMIC|$_GENETIC #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO
-                        NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC #if$_ARRAYEXPRESS
-                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC #if$_IMAGE #if$_BIOIMAGE
-                        EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
-                        #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-MetaboLights, #endif$_METABOLIGHTS
-                        #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct
-                        (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
-                        EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
-                        Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
-                        #endif$_EDAL #endif$_PHENOTYPIC.
-
-                        #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
-                        dort ebenfalls verarbeitet. #endif$_OTHEREP
-
-                    </span>
+                    text-repository-short-de
                 </p>
                 <p class="c0">
                     <span class="c1">
