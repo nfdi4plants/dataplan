@@ -80,8 +80,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             volume?</span>
 
         <p class="c0">
-            <span class="c1">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the
-                derived data will be about $_DERIVEDDATA GB.</span>
+            <span class="c1">text-data-size-en</span>
         </p>
 
         <h2 class="c13" id="documentation">
@@ -89,7 +88,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 class="c2 c12">Documentation and data quality</span>
         </h2>
         <h3 class="c3">
-            <span class="c0">2.1.&nbsp;&nbsp;&nbsp;&nbsp;What approaches are being taken to describe the data in a
+            <span class="c1">2.1.&nbsp;&nbsp;&nbsp;&nbsp;What approaches are being taken to describe the data in a
                 comprehensible manner (such as the use of available metadata, documentation standards or
                 ontologies)? </span>
         </h3>
@@ -106,8 +105,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
                 Keywords about the experiment and the general consortium will be included, as well as an abstract
                 about the data, where useful. In addition, certain keywords can be auto-generated from dense
-                metadata and
-                its underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with
+                metadata and its underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with
                 standardized DataPLANT ontologies that are supplemented where the ontology does not yet include the
                 variables.
                 #endif$_DATAPLANT
@@ -264,13 +262,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
 
         <p class="c0">
             <span class="c1">
-                Whenever possible, data will be stored in common and openly defined formats including all the
-                necessary metadata to interpret and analyze data in a biological context. By default, no proprietary
-                formats will
-                be used; however, Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as
-                intermediates by the consortium#if$_DATAPLANT and by some ARC components in form #endif$_DATAPLANT.
-                In addition,
-                text files might be edited in text processor files, but will be shared as pdf.
+                text-metadata-format-en
             </span>
         </p>
 
@@ -421,54 +413,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
     <h2 class="c9" ><span class="c11 c18">7.1&nbsp;&nbsp;&nbsp;&nbsp;</span><span
             class="c15"> </span><span class="c4">Abbreviations</span></h2>
     <p class="c0"><span class="c1"></span></p>
-    #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
-
-    <span class="c11"> CC</span><span class="c1"> Creative Commons</span> <br>
-    <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expression Language</span> <br>
-    #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> <br>  #endif$_CHEBI #endif$_PROTEOMIC      
-    <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span> <br>
-    <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span> <br>
-    <span class="c11"> DoA</span><span class="c1"> Description of Action</span> <br>
-    <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span> <br>
-    <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span> <br>
-    #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> <br>  #endif$_EDAL   #endif$_PHENOTYPIC  
-    #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC   
-    <span class="c11"> EU </span><span class="c1">European Union</span> <br>
-    <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span> <br>
-    <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span> <br>
-    #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  <br>  #endif$_GEO   #endif$_TRANSCRIPTOMIC|$_GENETIC   
-    #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  <br>  #endif$_IDR  #endif$_IMAGE 
-    <span class="c11"> IP</span><span class="c1"> Intellectual Property</span> <br>
-    <span class="c11"> ISO</span><span class="c1"> International Organization for Standardization</span>  <br>
-    #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> <br>  #endif$_MIAME  #endif$_TRANSCRIPTOMIC  
-    #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
-    #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
-    #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
-    #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
-    #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
-    #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
-    #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
-    #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
-    #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
-    #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
-    #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
-    #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
-    #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
-    <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
-    <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
-    <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
-    #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> <br>  #endif$_PRIDE
-    #if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> <br>  #endif$_PDB #endif$_PROTEOMIC
-    <span class="c11"> RDM</span><span class="c1"> Research Data Management</span> <br>
-    #if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> <br>  #endif$_REMBI #endif$_IMAGE 
-
-    #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
-    <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
-    #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
-    #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
-    <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
-    <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
-    <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>
+    list-abbreviation-en
         <p class="c0"><span class="c1"></span></p>
         <p class="c0"><span class="c1"></span></p>
         <p class="c0"><span class="c1"></span></p>

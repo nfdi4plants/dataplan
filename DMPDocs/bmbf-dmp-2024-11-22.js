@@ -72,8 +72,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                         berücksichtigt. </span></p>
                 #endif$_PREVIOUSPROJECTS
 
-                <p class="c0"><span class="c1">Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu
-                        $_DERIVEDDATA GB verarbeiteten Daten.</span></p>
+                <p class="c0"><span class="c1">text-data-size-de</span></p>
                 <p class="c0"><span class="c3"></span></p>
 
             </span></p>
@@ -191,8 +190,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0 c2"><span class="c1">
 
                 <p class="c0">
-                    <span class="c1">Wir erwarten, dass wir Rohdaten im Bereich von $_RAWDATA GB an Daten
-                        generieren. Die Größe der abgeleiteten Daten wird etwa $_DERIVEDDATA GB betragen.
+                    <span class="c1">text-data-size-de
                     </span>
                 </p>
 

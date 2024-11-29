@@ -64,8 +64,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                         berücksichtigt. </span></p>
                 #endif$_PREVIOUSPROJECTS
 
-                <p class="c0"><span class="c1">Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu
-                        $_DERIVEDDATA GB verarbeiteten Daten.</span></p>
+                <p class="c0"><span class="c1">text-data-size-de</span></p>
                 <p class="c0"><span class="c3"></span></p>
 
             </span></p>
@@ -102,8 +101,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                <p class="c0"><span class="c3"><b>Wie, wo und für welchen Zeitraum sollen die Daten für die Nachnutzung bereitgestellt werden? Den Regeln der guten wissenschaftlichen Praxis folgend, sollten Forschungsdaten in der eigenen Einrichtung oder in einer fachlich einschlägigen, überregionalen Infrastruktur für mindestens zehn Jahre archiviert werden. </b> </span></p>
                
                <p class="c0">
-                    <span class="c1">Wir erwarten, dass wir Rohdaten im Bereich von $_RAWDATA GB an Daten
-                        generieren. Die Größe der abgeleiteten Daten wird etwa $_DERIVEDDATA GB betragen.
+                    <span class="c1">text-data-size-de
                     </span>
                 </p>
 
@@ -245,8 +243,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     </span>
                 </p>
                 <p class="c0">
-                    <span class="c1">Wir erwarten, dass wir Rohdaten im Bereich von $_RAWDATA GB an Daten
-                        generieren. Die Größe der abgeleiteten Daten wird etwa $_DERIVEDDATA GB betragen.
+                    <span class="c1">text-data-size-de
                     </span>
                 </p>
 

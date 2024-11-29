@@ -3,26 +3,25 @@ NSF_dmp = {"NSF-dmp" : `<div id="NSF-dmp" class="">
         <span class="c2">Data management and sharing plan of $_PROJECTNAME for U.S. National Science Foundation (NSF)</span>
         <ul class="c0 ">
 
-            <li class="c0 li-bullet-0"><span class="c0">Types of data, samples, physical collections, software, curriculum materials, and other materials. <br> &ndash; list-dataCollection-en </span></li>
+            <li class="c0 li-bullet-0"><span class="c1">Types of data, samples, physical collections, software, curriculum materials, and other materials. <br> &ndash; list-dataCollection-en </span></li>
 
-            <span class="c0">We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the
-                derived data will be about $_DERIVEDDATA GB.</span>
-            <p class="c0"><span class="c0"></span></p>
+            <span class="c1"> text-data-size-en </span>
+            <p class="c0"><span class="c1"></span></p>
             <li class="c0 li-bullet-0">text-standards-long-en
             </li>
-            <li class="c0 li-bullet-0"><span class="c0">Policies for data access and sharing  <p class="c0">
+            <li class="c0 li-bullet-0"><span class="c1">Policies for data access and sharing  <p class="c0">
                         <span class="c1"> The data will not only initially benefit the
                     $_PROJECTNAME partners, but will also be made available to selected stakeholders closely involved in
                     the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In
                     addition, the general public interested in $_STUDYOBJECT can also use the data after
                     publication. The data will be disseminated according to $_PROJECTNAME&#39;s dissemination and
                     communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.</span>
-text-dataplant-tools-en
+                    text-dataplant-tools-en
                     &ndash; text-made-public-en
                     </p></span></li>
                     
                     
-                    <li class="c0 li-bullet-0"><span class="c0">Policies and provisions for data reuse, redistribution and the production of derivatives <br> &ndash; Open public
+                    <li class="c0 li-bullet-0"><span class="c1">Policies and provisions for data reuse, redistribution and the production of derivatives <br> &ndash; Open public
                 data will be used whenever possible.  The project builds on
                     existing data sets and relies on them. #if$_RNASEQ For example, without a proper genomic
                     reference it is very difficult to analyze next-generation sequencing (NGS) data
@@ -37,7 +36,7 @@ text-dataplant-tools-en
 
 
 
-            <li class="c0 li-bullet-0"><span class="c0">Plans for archiving data, samples and other research products, and for preserving access to them <br>
+            <li class="c0 li-bullet-0"><span class="c1">Plans for archiving data, samples and other research products, and for preserving access to them <br>
                 text-repository-short-en
                 </span></li>
             
