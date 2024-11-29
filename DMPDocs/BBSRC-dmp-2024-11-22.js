@@ -38,19 +38,7 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                     </p></span></li> <li class="c0 li-bullet-0"><span class="c0">Proprietary Data <br> &ndash; Open public
                 data will be used whenever possible. </span></li>
             <li class="c0 li-bullet-0"><span class="c0">Timeframes <br>
-                    &ndash; #if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
-                    #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings
-                    are published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data
-                    without embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is
-                    subject to an embargo period, is not publicly accessible until the end of embargo
-                    period. #endif$_EMBARGO #if$_REQUEST Data is made available upon request, allowing controlled
-                    sharing while ensuring responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked
-                    before publication. #endif$_IPISSUE All consortium partners will be
-                    encouraged to make data available before publication, openly and/or under pre-publication
-                    agreements #if$_GENOMIC such as those started in Fort Lauderdale and set forth by the Toronto
-                    International Data
-                    Release Workshop #endif$_GENOMIC . This will be implemented as soon as IP-related checks are
-                    complete.
+                    &ndash; text-made-public-en
                 </span></li>
             <li class="c0 li-bullet-0"><span class="c0">Format of the Final Dataset <br> &ndash; Whenever possible, data
                     will be stored in common and openly defined formats including all the necessary metadata. By

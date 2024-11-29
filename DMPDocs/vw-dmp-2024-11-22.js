@@ -182,21 +182,7 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                     <span class="c1">Es wird keine Einschränkungen geben, sobald die Daten öffentlich gemacht
                         werden.</span>
                     <span class="c1">
-                        #if$_EARLY Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich
-                        gemacht. #endif$_EARLY #if$_BEFOREPUBLICATION Relevante verarbeitete Datensätze werden
-                        öffentlich gemacht, wenn die Forschungsergebnisse veröffentlicht
-                        werden. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT Am Ende des Projekts werden alle Daten
-                        ohne Sperrfrist veröffentlicht. #endif$_ENDOFPROJECT #if$_EMBARGO Daten, die einer Sperrfrist
-                        unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich. #endif$_EMBARGO
-                        #if$_REQUEST Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe
-                        ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt. #endif$_REQUEST
-                        #if$_IPISSUE IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_IPISSUE Alle
-                        Konsortialpartner werden ermutigt,
-                        Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter
-                        Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und
-                        durch den Toronto International Data Release Workshop festgelegten Vereinbarungen
-                        #endif$_GENOMIC . Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
-                        sind.
+                        text-made-public-de
                     </span>
                 </p>
 

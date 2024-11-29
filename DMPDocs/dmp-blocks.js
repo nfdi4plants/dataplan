@@ -614,5 +614,31 @@ dmpBlocks = [
                 browser. Access will be possible through web interfaces. For data processing after obtaining raw
                 data, typical open-source software can be used. #endif!$_PROPRIETARY
                 #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC management tool ARCitect </a>, command line tool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander </a>, <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP generator</a>. #endif$_DATAPLANT
-            </span>`]
+            </span>`],
+    ["text-made-public-en", `#if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
+                #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
+                published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
+                embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
+                embargo period, is not publicly accessible until the end of embargo period. #endif$_EMBARGO
+                #if$_REQUEST Data is made available upon request, allowing controlled sharing while ensuring
+                responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
+                #endif$_IPISSUE All consortium partners will be encouraged to make data available before publication, 
+                openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale 
+                and set forth by the Toronto International Data Release Workshop #endif$_GENOMIC . 
+                This will be implemented as soon as IP-related checks are complete.`],
+    ["text-made-public-de", `#if$_EARLY Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich
+                        gemacht. #endif$_EARLY #if$_BEFOREPUBLICATION Relevante verarbeitete Datensätze werden
+                        öffentlich gemacht, wenn die Forschungsergebnisse veröffentlicht
+                        werden. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT Am Ende des Projekts werden alle Daten
+                        ohne Sperrfrist veröffentlicht. #endif$_ENDOFPROJECT #if$_EMBARGO Daten, die einer Sperrfrist
+                        unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich. #endif$_EMBARGO
+                        #if$_REQUEST Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe
+                        ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt. #endif$_REQUEST
+                        #if$_IPISSUE IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_IPISSUE Alle
+                        Konsortialpartner werden ermutigt,
+                        Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter
+                        Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und
+                        durch den Toronto International Data Release Workshop festgelegten Vereinbarungen
+                        #endif$_GENOMIC . Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
+                        sind.`]
 ]
