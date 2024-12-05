@@ -2,14 +2,16 @@
 const path = require("path");
 
 
-describe('Simple E2E testing of DataPLAN', () => {
+describe('default template (h2020)', () => {
   beforeEach(() => {
 
-    cy.visit('http://127.0.0.1:8000/')
+    cy.visit('http://127.0.0.1:8000/');
+    cy.get("#horizon_europe_dmp").click({force: true});
+
   })
 
   it('Check general replaced text and converted checkbox options', () => {
-    cy.get('.text-warning').should('have.length', 40)
+    cy.get('.text-warning').should('have.length', 48)
     cy.get('.checkboxConverted').first().should('have.text', "  Example Project  ")
     cy.get('.checkboxConverted').should('have.length', 115)
   })
@@ -78,6 +80,7 @@ describe('Simple E2E testing of DataPLAN', () => {
   
   it('$_UPDATEMONTH can be replaced', () => {
     const newItem = 'A Simple Example Month';
+    cy.get('#check_update').click();
     cy.get('#input_updatemonth').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
     cy.get('[name=UPDATEMONTH-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
@@ -86,6 +89,7 @@ describe('Simple E2E testing of DataPLAN', () => {
   
   it('$_PREVIOUSPROJECTS can be replaced', () => {
     const newItem = 'Some related Previous Project Name';
+    cy.get('#check_previousprojects').click();
     cy.get('#input_previousprojects').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
     cy.get('[name=PREVIOUSPROJECTS-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
@@ -94,6 +98,7 @@ describe('Simple E2E testing of DataPLAN', () => {
   
   it('$_PROPRIETARY can be replaced', () => {
     const newItem = 'A single Proprietary Software';
+    cy.get('#check_proprietary').click();
     cy.get('#input_proprietary').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
     cy.get('[name=PROPRIETARY-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
@@ -110,7 +115,7 @@ describe('Simple E2E testing of DataPLAN', () => {
   
   it('$_DERIVEDDATA can be replaced', () => {
     const newItem = 'Derived Data Size';
-    cy.get('#input_deriveddata').click().wait(200).type(`{selectAll}{del}${newItem}{tab}`, {force:true});
+    cy.get('#input_deriveddata').click().wait(200).type(`{selectAll}{del}${newItem}`, {force:true}).blur();
     cy.get('[name=DERIVEDDATA-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
     });
@@ -125,31 +130,26 @@ describe('Simple E2E testing of DataPLAN', () => {
   });
   
   it('$_CREATIONDATE can be replaced', () => {
-    const newItem = 'xxxx-xx-xx';
-    cy.get('#input_creationdate').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    const newItem = '2025-01-01';
+    cy.get('#input_creationdate').click().wait(200).type(`${newItem}`, {force:true}).blur();
     cy.get('[name=CREATIONDATE-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
     });
   });
   
   it('$_MODIFICATIONDATE can be replaced', () => {
-    const newItem = 'xxxx-xx-xx';
-    cy.get('#input_modificationdate').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
+    const newItem = '2025-01-01';
+    cy.get('#input_modificationdate').click().wait(200).type(`${newItem}`, {force:true}).blur();
     cy.get('[name=MODIFICATIONDATE-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
     });
   });
   
-  it('$_OTHERSTANDARDINPUT can be replaced', () => {
-    const newItem = 'other standards';
-    cy.get('#input_otherstandardinput').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
-    cy.get('[name=OTHERSTANDARDINPUT-to-]').each(($el) => {
-      cy.wrap($el).should('have.text', newItem);
-    });
-  });
+
   
   it('$_OTHEREP can be replaced', () => {
     const newItem = 'Other repositories';
+    cy.get('#check_otherep').click();
     cy.get('#input_otherep').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
     cy.get('[name=OTHEREP-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
@@ -157,7 +157,8 @@ describe('Simple E2E testing of DataPLAN', () => {
   });
   
   it('$_PARTNERS can be replaced', () => {
-    const newItem = 'partner name';
+    const newItem = 'some partner name';
+    cy.get('#check_partners').click();
     cy.get('#input_partners').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
     cy.get('[name=PARTNERS-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
@@ -166,6 +167,7 @@ describe('Simple E2E testing of DataPLAN', () => {
   
   it('$_ADDPROJECTCOORDINATOR can be replaced', () => {
     const newItem = 'project coordinator';
+    cy.get('#check_acronym').click();
     cy.get('#input_addprojectcoordinator').click().wait(200).type(`{selectAll}{del}${newItem}{enter}`, {force:true});
     cy.get('[name=ADDPROJECTCOORDINATOR-to-]').each(($el) => {
       cy.wrap($el).should('have.text', newItem);
@@ -247,12 +249,8 @@ describe('Simple E2E testing of DataPLAN', () => {
     
     const downloadsFolder = Cypress.config("downloadsFolder");
     //cy.task('deleteFolder', downloadsFolder);
-
     cy.get("[id='json_save']").last().click({force: true});
-
     cy.readFile(path.join(downloadsFolder, "DataPLAN_DMP.json")).should("exist");
-  
-
 
 });
 

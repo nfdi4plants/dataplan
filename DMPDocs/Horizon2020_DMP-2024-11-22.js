@@ -248,7 +248,7 @@ Horizon2020_DMP={
             
             <p class="c0"><span class="c1"></span></p>
             <p class="c0"><span class="c3">What methods or software tools are needed to access the data?</span></p>
-            <p class="c0"><span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY . #endif$_PROPRIETARY </span></p>
+            
             <p class="c0">
                 text-dataplant-tools-en
             </p>

@@ -376,7 +376,15 @@ dmpBlocks = [
                     #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                     #endif$_PROTEOMIC  
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
-                    </span></span>`],
+                    </span>
+                    #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
+                not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
+                The metadata standards will thus allow the integration of data across projects and safegard the established and tested
+                protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
+                ontologies. In addition, additional ontology terms might be created and be canonized during the
+                $_PROJECTNAME </span>`],
     ["text-standards-long-de", `
                 <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
                 Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC
@@ -446,9 +454,7 @@ dmpBlocks = [
                 etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
                 Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
                 Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
-                werden. #if$_DATAPLANT
-                DataPLANT bietet Open-Source-Datenkurationswerkzeuge wie das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC-Verwaltungstool ARCitect</a>, das Kommandozeilentool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander</a>, die <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology">DataPLANT Biological Ontology (DPBO)</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">Metadaten-Annotationstool Swate</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">Metadata Quiz</a> und den <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP-Generator</a> an.
-                #endif$_DATAPLANT</span>`],
+                werden. </span>`],
     ["text-standards-short-en", `As mentioned above, <span class="c1 list-to-remove-comma">we will use ISA specification for metadata creation.
                     The following metadata standards will also be used:
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
@@ -474,10 +480,12 @@ dmpBlocks = [
                     #if$_MIMIX MIMix, #endif$_MIMIX
                     #endif$_PROTEOMIC.                   
                 </span> 
-                The metadata standards will
-                thus allow the integration of data across projects and safegard the established and tested
-                protocols being reused.
-                Additionally, we will use ontology terms to enrich the data sets relying on free and open
+                #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
+                not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
+                The metadata standards will thus allow the integration of data across projects and safegard the established and tested
+                protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
                 ontologies. In addition, additional ontology terms might be created and be canonized during the
                 $_PROJECTNAME`],
     ["text-quality-control-en",`
@@ -615,6 +623,11 @@ dmpBlocks = [
                 data, typical open-source software can be used. #endif!$_PROPRIETARY
                 #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC management tool ARCitect </a>, command line tool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander </a>, <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP generator</a>. #endif$_DATAPLANT
             </span>`],
+    ["text-dataplant-tools-de", `#if$_DATAPLANT
+                DataPLANT bietet Open-Source-Datenkurationswerkzeuge wie das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC-Verwaltungstool ARCitect</a>, das Kommandozeilentool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander</a>, die <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology">DataPLANT Biological Ontology (DPBO)</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">Metadaten-Annotationstool Swate</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">Metadata Quiz</a> und den <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP-Generator</a> an.
+                #endif$_DATAPLANT
+        
+        `],
     ["text-made-public-en", `#if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
                 #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
                 published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without

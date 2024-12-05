@@ -3020,7 +3020,7 @@ END:VEVENT`;
                                     onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020 DMP</button>
                             </li>
                             <li>
-                                <button id="detailed_dmp" class="dropdown-item"
+                                <button id="horizon_europe_dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
                             </li>
                             <li>
@@ -3139,7 +3139,7 @@ END:VEVENT`;
                                     onclick='load_dmp(reload_answers,name="Horizon2020_DMP")'>Horizon 2020 DMP</button>
                             </li>
                             <li>
-                                <button id="detailed_dmp" class="dropdown-item"
+                                <button id="horizon_europe_dmp" class="dropdown-item"
                                     onclick='load_dmp(reload_answers,name="horizon_europe")'>Horizon Europe DMP</button>
                             </li>
                             <li>
@@ -3444,10 +3444,6 @@ END:VEVENT`;
                         <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" 
                             data-bs-toggle="modal" data-bs-target="#citation_modal" id="cite_menu">
                             Cite Us &nbsp;
-
-                            <span
-                                style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
-                                ∨ </span>
                         </button>
 
                     </div>
@@ -3843,7 +3839,7 @@ END:VEVENT`;
                             <input style="width: 90%;" class="" onfocusin="this.select();"
                                 onchange="onchange_replace(this);" type="date" id="input_creationdate"
                                 name="$_CREATIONDATE"
-                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.nextElementSibling.children[1].focus();return false;}"
+                                onkeydown="  if (event.keyCode == 13){event.preventDefault(); event.stopPropagation(); this.parentElement.nextElementSibling.children[1].focus();return false;}"
                                 onfocus='thisOnfocus(this)'
                                 onfocusout='thisOnfocusout(this)' />
 
@@ -3970,7 +3966,7 @@ END:VEVENT`;
                                     <span name="translateTarget" data-en="This project has partners.">This project has partners.</span>
                                     
                                     <input style="width: 90%;" type="text" onfocusin="this.select();"
-                                    onchange="onchange_replace(this);" id="input_partner" name="$_PARTNERS"
+                                    onchange="onchange_replace(this);" id="input_partners" name="$_PARTNERS"
                                     placeholder="partner name"
                                     onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.firstElementChild.focus();return false;}"
                                     onfocus='thisOnfocus(this)'
@@ -4505,7 +4501,7 @@ END:VEVENT`;
                                             onchange="onchange_replace(this);" name="$_OTHERSTANDARDINPUT"
                                             onchange=' saved_a["replace"]["$_OTHERSTANDARDINPUT"]= this.value '
                                             placeholder="complete sentence of the other standards"
-                                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation();this.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.children[0].focus();return false;}"
+                                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation()}"
                                             onfocus='thisOnfocus(this)'
                                             onfocusout='thisOnfocusout(this)' />
 
@@ -5252,7 +5248,7 @@ END:VEVENT`;
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+                    <!-- <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/T40Kmah1RTY?si=O-en3eP_UL5vGyly" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br> -->
                     DataPLAN is designed to be a user-friendly data management plan (DMP) and data management and sharing plan (DMSP) generator, capable of functioning entirely offline. Whether you disconnect from the internet or save the tool using "Ctrl + S," your work will not be affected. You can also <a href="https://github.com/nfdi4plants/dataplan/archive/refs/heads/main.zip"> downlaod the whole website </a> and use it offline. Our work has been published in <a href="https://doi.org/10.3390/data8110159" target="_blank">
                         Data.</a>
                     <br>
