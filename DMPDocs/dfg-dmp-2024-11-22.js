@@ -121,10 +121,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             <span class="c1">
                 text-aim-intro-en
 
-                Data variables will be allocated standardized names. For example, genes, proteins and metabolites will
-                be named according to approved nomenclature and conventions. These will also be linked to functional
-                ontologies where possible. Datasets will also be named in a meaningful way to ensure readability by
-                humans. Plant names will include traditional names, binomials, and all strain/cultivar/subspecies/variety identifiers. Using methods from question 1.2 ensures high-quality raw data during collection and generation.
+                text-metadata-naming-en
             </span>
         </p>
 

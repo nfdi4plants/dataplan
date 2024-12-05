@@ -143,11 +143,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
         <p class="c0"><span class="c3">To whom might it be useful ('data utility'), outside your project?</span></p>
         <p class="c0">
             <span class="c1">
-                The data will initially benefit $_PROJECTNAME partners, but will also be made available to selected
-                stakeholders closely involved in the project, and then the scientific community working on
-                $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
-                use the data after publication. The data will be disseminated according to $_PROJECTNAME's
-                dissemination and communication plan #if$_DATAPLANT , which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
+                text-data-utility-en
             </span>
         </p>
 
@@ -197,11 +193,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                 #endif$_DATAPLANT</span>
 
             <span class="c1">
-                Data variables will be allocated standard names. For example, genes, proteins and metabolites will
-                be named according to approved nomenclature and conventions. These will also be linked to functional
-                ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by
-                humans. Plant names will include traditional names, binomials, and all
-                strain/cultivar/subspecies/variety identifiers.</span>
+                text-metadata-naming-en</span>
         </p>
 
 

@@ -10,12 +10,7 @@ NSF_dmp = {"NSF-dmp" : `<div id="NSF-dmp" class="">
             <li class="c0 li-bullet-0">text-standards-long-en
             </li>
             <li class="c0 li-bullet-0"><span class="c1">Policies for data access and sharing  <p class="c0">
-                        <span class="c1"> The data will not only initially benefit the
-                    $_PROJECTNAME partners, but will also be made available to selected stakeholders closely involved in
-                    the project, and then the scientific community working on $_STUDYOBJECT. $_DATAUTILITY In
-                    addition, the general public interested in $_STUDYOBJECT can also use the data after
-                    publication. The data will be disseminated according to $_PROJECTNAME&#39;s dissemination and
-                    communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.</span>
+                        <span class="c1"> text-data-utility-en</span>
                     text-dataplant-tools-en
                     &ndash; text-made-public-en
                     </p></span></li>

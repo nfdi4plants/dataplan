@@ -273,8 +273,8 @@ dmpBlocks = [
                 #if$_MODELS modelling data, #endif$_MODELS
                 #if$_CODE computational code, #endif$_CODE
                 #if$_EXCEL excel files #endif$_EXCEL data of $_STUDYOBJECT,
-                existing data sets as well as additional characterizations and background knowledge from prior publications will be used. #if$_PARTNERS of the
-                partners: $_PARTNERS #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
+                existing data sets #if$_PARTNERS of the
+                partners: $_PARTNERS as well as additional characterizations and background knowledge from prior publications will be used.  #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
                 genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
                 Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP).`],
     ["list-dataCollection-en", `                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
@@ -384,7 +384,7 @@ dmpBlocks = [
                 The metadata standards will thus allow the integration of data across projects and safegard the established and tested
                 protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
                 ontologies. In addition, additional ontology terms might be created and be canonized during the
-                $_PROJECTNAME </span>`],
+                $_PROJECTNAME. </span>`],
     ["text-standards-long-de", `
                 <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
                 Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC
@@ -455,7 +455,7 @@ dmpBlocks = [
                 Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
                 Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
                 werden. </span>`],
-    ["text-standards-short-en", `As mentioned above, <span class="c1 list-to-remove-comma">we will use ISA specification for metadata creation.
+    ["text-standards-short-en", `<span class="c1">As mentioned above, <span class="c1 list-to-remove-comma">we will use ISA specification for metadata creation.
                     The following metadata standards will also be used:
                     #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
                     #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS, #endif$_MIXS
@@ -487,7 +487,7 @@ dmpBlocks = [
                 The metadata standards will thus allow the integration of data across projects and safegard the established and tested
                 protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
                 ontologies. In addition, additional ontology terms might be created and be canonized during the
-                $_PROJECTNAME`],
+                $_PROJECTNAME.</span>`],
     ["text-quality-control-en",`
         The data will be checked and curated by using data collection protocol, personnel training, data cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Document all data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures. This documentation should be kept for future reference and should be made available to stakeholders upon request.#endif$_DATAPLANT PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.`],
     ["text-repository-long-en", `<span class="c1">
@@ -734,5 +734,18 @@ dmpBlocks = [
         ["text-data-size-en", `We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the
                 derived data will be about $_DERIVEDDATA GB.
             `], 
-        ["text-data-size-de", `Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu $_DERIVEDDATA GB verarbeiteten Daten.`]  
+        ["text-data-size-de", `Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu $_DERIVEDDATA GB verarbeiteten Daten.`],
+        ["text-data-utility-en", `<span class="c1">
+                    The data will initially benefit $_PROJECTNAME partners, but will also be made available to selected
+                    stakeholders closely involved in the project, and then the scientific community working on
+                    $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
+                    use the data after publication. The data will be disseminated according to $_PROJECTNAME's
+                    dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
+                </span>`],
+        ["text-metadata-naming-en", `<span class="c1">
+                Data variables will be allocated standard names. For example, genes, proteins and metabolites will
+                be named according to approved nomenclature and conventions. These will also be linked to functional
+                ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by
+                humans. Plant names will include traditional names, binomials, and all
+                strain/cultivar/subspecies/variety identifiers.</span>`] 
 ]
