@@ -699,13 +699,7 @@ practical_guide={
                                             
                                             
                                         ">
-                        In case data is only shared within the consortium, if the data is not yet finished or under
-                        IP checks, the data is hosted internally, and the username and the password will be required
-                        (see also our GDPR
-                        rules). In the case data is made public under final EU or US repositories, completely
-                        anonymous access is normally allowed. This is the case for ENA as well and both are in line
-                        with GDPR
-                        requirements.
+                        text-access-identity-en
                     </span>
                 </p>
                 <p dir="ltr" style="line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt;">

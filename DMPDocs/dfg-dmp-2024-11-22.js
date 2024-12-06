@@ -100,15 +100,8 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
 
         <p class="c0">
             <span class="c1">
-                Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-                vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the
-                advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
-                Keywords about the experiment and the general consortium will be included, as well as an abstract
-                about the data, where useful. In addition, certain keywords can be auto-generated from dense
-                metadata and its underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with
-                standardized DataPLANT ontologies that are supplemented where the ontology does not yet include the
-                variables.
-                #endif$_DATAPLANT
+                text-ontologies-en
+                text-keywords-en
             </span>
         </p>
 
@@ -150,8 +143,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             <span class="c3">2.4&nbsp;&nbsp;&nbsp;&nbsp;Which digital methods and tools (e.g. software) are required
                 to use the data?</span>
         </h3>
-            <p class="c0"><span class="c1 list-to-remove-comma"> $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
-                    </span></p>
+            <p class="c0"> text-infrastructure-en </p>
 
         <p class="c0">
            text-dataplant-tools-en
@@ -193,12 +185,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             </span>
         </p>
         <p class="c20">
-            <span class="c1">
-                In case data is only shared within the consortium, because the data is not yet finished or under IP
-                checks, the data is hosted internally, and the username and the password will be required (see also GDPR rules).
-                In the case data is made public under final EU or US repositories, completely anonymous access is
-                normally allowed. This is the case for ENA as well and both are in line with GDPR requirements.
-            </span>
+            text-access-identity-en
         </p>
         <p class="c0">
             <span class="c1">There will be no restrictions once the data is made public.</span>
@@ -214,23 +201,10 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
         </h3>
 
         <p class="c0">
-            <span class="c1">
-                At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
-                since this is plant data, there is no need for an ethics committee, however, diligence for plant
-                resource
-                benefit sharing is considered. #issuewarning Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply. #endissuewarning
-            </span>
+            text-ethical-en
         </p>
         <p class="c0">
-            <span class="c1">
-                The only personal data that will potentially be stored is the submitter name and affiliation in the
-                metadata for data. In addition, personal data will be collected for dissemination and communication
-                activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
-                data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
-                emails and
-                names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
-                invent them #endissuewarning
-            </span>
+           text-personnal-data-en
         </p>
         <h3 class="c0">
             <span class="c3">4.2&nbsp;&nbsp;&nbsp;&nbsp;Do you anticipate any implications or restrictions regarding
@@ -273,15 +247,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
         </h3>
 
         <p class="c0">
-            <span class="c1">
-                The data will be useful for $_PROJECTNAME partners, the scientific community working on
-                $_STUDYOBJECT or the general public interested in $_STUDYOBJECT. Hence, $_PROJECTNAME also strives
-                to collect the data
-                that has been disseminated and potentially advertise it #if$_DATAPLANT e.g. through the DataPLANT
-                platform or other means #endif$_DATAPLANT , if it is not included in a publication anyway, which is
-                the most
-                likely form of dissemination.
-            </span>
+            text-data-utility-en
         </p>
 
         <h3 class="c0">
@@ -290,22 +256,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
         </h3>
 
         <p class="c0">
-            <span class="c1">
-                By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
-                available. This is, however, after partners have had the ability to check for IP protection
-                (according to
-                agreements and background rights). #if$_INDUSTRY This applies in particular to data pertaining to
-                the industry. #endif$_INDUSTRY However, all partners also strive for IP protection of data sets
-                which will
-                be tested and due diligence will be given.
-            </span>
-        </p>
-        <p class="c0">
-            <span class="c1">
-                Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their
-                data closed if relevant provisions are made in the consortium agreement and are in line with the
-                reasons for opting out.
-            </span>
+            text-data-accessible-en
         </p>
         <h3 class="c0">
             <span class="c3">5.3&nbsp;&nbsp;&nbsp;&nbsp;Are you planning to archive your data in a suitable
@@ -321,13 +272,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
         text-repository-short-en
         </p>
         <p class="c0">
-            <span class="c1">
-                The submission is for free, and it is the goal #if$_ENA (at least of ENA) #endif$_ENA to obtain as much data as possible.
-                Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
-                #if$_DATAPLANT For DataPLANT, this has been agreed upon. #endif$_DATAPLANT #issuewarning If no data
-                management platform such as DataPLANT is used, then you need to find appropriate repository to store
-                or archive your data after publication. #endissuewarning
-            </span>
+            text-archive-en
         </p>
         <h3 class="c0">
             <span class="c3">5.4&nbsp;&nbsp;&nbsp;&nbsp;If so, how and where? Are there any retention periods?
@@ -363,12 +308,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 data (description of roles and responsibilities within the project)? </span>
         </h3>
         <p class="c0">
-            <span class="c1">The responsible will be $_DATAOFFICER as data officer.</span>
-            <span class="c1">The data responsible(s) (data officer#if$_PARTNERS or $_PARTNERS #endif$_PARTNERS)
-                decides on the preservation of data not submitted to end-point subject area repositories
-                #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after the
-                project end. This will be in line with EU institute policies, and data sharing based on EU and
-                international standards.</span>
+            text-data-officer-en
         </p>
         <h3 class="c0">
             <span class="c3">6.2&nbsp;&nbsp;&nbsp;&nbsp;Which resources (costs; time or other) are required to

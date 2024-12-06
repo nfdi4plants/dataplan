@@ -174,13 +174,7 @@ Horizon2020_DMP={
             <p class="c0"><span class="c3">Will search keywords be provided that optimize possibilities for
                     re-use?</span></p>
             <p class="c0">
-                <span class="c1">
-                    Keywords about the experiment and consortium will be included, as well as an abstract about the
-                    data, where useful. In addition, certain keywords can be auto-generated from dense metadata and its
-                    underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with standardized
-                    DataPLANT ontologies that are provided where the ontology does not yet include such variables.
-                    #endif$_DATAPLANT
-                </span>
+                text-keywords-en
             </p>
             <p class="c0"><span class="c3">Do you provide clear version numbers?</span></p>
             <p class="c0">
@@ -212,21 +206,7 @@ Horizon2020_DMP={
                 </span>
             </p>
             <p class="c0">
-                <span class="c1">
-                    By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
-                    available. However, before the data are released, all will be provided with an opportunity to check
-                    for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
-                    This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
-                    be prioritized for datasets that offer the potential for exploitation.
-                </span>
-            </p>
-            <p class="c0">
-                <span class="c3">
-                    Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their
-                    data closed if relevant provisions are made in the consortium agreement and are in line with the
-                    reasons
-                    for opting out.
-                </span>
+                text-data-accessible-en
             </p>
             <p class="c0"><span class="c3"></span></p>
             <p class="c0"><span class="c3">How will the data be made accessible (e.g. by deposition in a
@@ -272,12 +252,7 @@ Horizon2020_DMP={
             <p class="c0"><span class="c3">Have you explored appropriate arrangements with the identified
                     repository?</span></p>
             <p class="c0">
-                <span class="c1">
-                    The submission is for free, and it is the goal (at least of ENA) to obtain as much data as possible.
-                    Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required, #if$_DATAPLANT and this has been confirmed for data associated with DataPLANT #endif$_DATAPLANT.
-                    #issuewarning If no data management platform such as DataPLANT is used, then you need to find
-                    appropriate repository to store or archive your data after publication. #endissuewarning
-                </span>
+                text-archive-en
             </p>
             <p class="c0"><span class="c3">If there are restrictions on use, how will access be provided?</span></p>
             <p class="c0"><span class="c1">There are no restrictions beyond the IP screening described above, which is
@@ -294,19 +269,7 @@ Horizon2020_DMP={
             <p class="c0"><span class="c3">How will the identity of the person accessing the data be ascertained?</span>
             </p>
             <p class="c0">
-                <span class="c1">
-                    When data are shared only within the consortium, if the datasets are not yet complete or are undergoing 
-                    IP checks, the data will be hosted internally, requiring a username and password for access (see GDPR rules). 
-                    Once the data are made public in EU or US repositories, completely anonymous access is typically allowed. 
-                    This applies to ENA as well, and both are in line with GDPR requirements.
-                </span>
-            </p>
-            <p class="c0">
-                <span class="c1">
-                    #if$_DATAPLANT Currently, data management relies on the annotated research context (ARC). It is
-                    password protected, so before any data or samples can be obtained, user authentication is required.
-                    #endif$_DATAPLANT
-                </span>
+                text-access-identity-en
             </p>
             <h3 class="c14" ><span class="c7">Making data interoperable</span></h3>
             <p class="c10">
@@ -333,7 +296,7 @@ Horizon2020_DMP={
                     data set, to allow inter-disciplinary interoperability?</span></p>
             <p class="c0">
                 <span class="c1">
-                    Open ontologies will be used where they are mature. As stated above, some ontologies and controlled vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the advanced ontologies integrated in DataPLANT. #endif$_DATAPLANT
+                    text-ontologies-en
                 </span>
             </p>
             <p class="c10"><span class="c3">In case it is unavoidable that you use uncommon or generate project specific
@@ -392,34 +355,19 @@ Horizon2020_DMP={
                     eligible as part of the Horizon 2020 or Horizon Europe grant (if compliant with the Grant Agreement
                     conditions).</span>
             </p>
-            <p class="c0"><span class="c1">The cost born by $_PROJECTNAME are covered by the project funding.
-                    Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
-                    DataPLANT consortium #endif$_DATAPLANT will also be used.</span></p>
+            <p class="c0">text-cost-coverage-en</p>
             <p class="c10"><span class="c3">Who will be responsible for data management in your project?</span></p>
-            <p class="c0"><span class="c1">The responsible person will be $_DATAOFFICER of $_PROJECTNAME.</span></p>
+            <p class="c0"> text-data-officer-en </p>
             <p class="c10"><span class="c3">Are the resources for long term preservation discussed (costs and potential
                     value, who decides and how/what data will be kept and for how long)?</span></p>
             <p class="c0">
-                <span class="c1">
-                    The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decide on the
-                    strategy to preserve data that are not submitted to end-point subject area repositories
-                    #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
-                    project ends. This will be in line with EU guidlines, institute policies, and data sharing based on
-                    EU and international standards.
-                </span>
+                text-data-officer-decide-en
             </p>
             <h2 class="c9" ><span class="c4">2.4&nbsp;&nbsp;&nbsp;&nbsp;Data security</span></h2>
             <p class="c10"><span class="c3">What provisions are in place for data security (including data recovery as
                     well as secure storage and transfer of sensitive data)?</span></p>
             <p class="c20">
-                <span class="c1">
-                    Online platforms will be protected by vulnerability scanning, two-factor authorization and daily
-                    automatic backups allowing immediate recovery. All partners holding confidential project data will use
-                    secure platforms with automatic backups and offsite secure copies.
-                    #if$_DATAPLANT As ARCs are stored in the PlantDataHub of DataPLANT, data security will be imposed.
-                    This comprises secure storage, and the use of password and usernames is generally transferred via
-                    separate safe media. #endif$_DATAPLANT
-                </span>
+                text-data-security-en
             </p>
             <p class="c10"><span class="c3">Is the data safely stored in certified repositories for long term
                     preservation and curation?</span></p>
@@ -437,32 +385,17 @@ Horizon2020_DMP={
                 </span>
             </p>
             <p class="c0">
-                <span class="c1">
-                    At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
-                    since this is plant data, there is no need for an ethics committee to deal with data from plants,
-                    although we will diligently follow the Nagoya protocol on access and benefit sharing. #issuewarning
-                    Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply.
-                    #endissuewarning
-                </span>
+                text-ethical-en
             </p>
             <p class="c10"><span class="c3">Is informed consent for data sharing and long term preservation included in
                     questionnaires dealing with personal data?</span></p>
             <p class="c0">
-                <span class="c1">
-                    The only personal data that will potentially be stored is the submitter name and affiliation in the
-                    metadata for data. In addition, personal data will be collected for dissemination and communication
-                    activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
-                    data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
-                    emails and
-                    names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
-                    invent them #endissuewarning
-                </span>
+                text-personnal-data-en
             </p>
             <h2 class="c9" ><span class="c4">2.6&nbsp;&nbsp;&nbsp;&nbsp;Other issues</span></h2>
             <p class="c0"><span class="c3">Do you make use of other national/funder/sectorial/departmental procedures
                     for data management? If yes, which ones?</span></p>
-                    <p class="c0"><span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
-                    </span></p>
+                    <p class="c0"> text-infrastructure-en </p>
             <p class="c6"><span class="c1"></span></p>
             <h1 class="c13">
                 <span class="c2">3&nbsp;&nbsp;&nbsp;&nbsp;</span>

@@ -489,7 +489,7 @@ dmpBlocks = [
                 ontologies. In addition, additional ontology terms might be created and be canonized during the
                 $_PROJECTNAME.</span>`],
     ["text-quality-control-en",`
-        The data will be checked and curated by using data collection protocol, personnel training, data cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Document all data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures. This documentation should be kept for future reference and should be made available to stakeholders upon request.#endif$_DATAPLANT PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.`],
+        <span class="c1">The data will be checked and curated by using data collection protocol, personnel training, data cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Document all data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures. This documentation should be kept for future reference and should be made available to stakeholders upon request.#endif$_DATAPLANT PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.</span>`],
     ["text-repository-long-en", `<span class="c1">
                 Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
                 data visualization. Besides this it will be ensured that data which can be stored in
@@ -658,11 +658,8 @@ dmpBlocks = [
         metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
         used. However, Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by
         the consortium#if$_DATAPLANT and by some ARC components #endif$_DATAPLANT. In addition, text files might be
-        edited in text processor files, but will be shared as pdf.
-        Open ontologies will be used where they are mature. As stated above, some ontologies and controlled
-        vocabularies might need to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the advanced
-        ontologies integrated in DataPLANT. #endif$_DATAPLANT`],
-    ["text-cross-metadata-en",`$_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such
+        edited in text processor files, but will be shared as pdf.`],
+    ["text-cross-metadata-en",`<span class="c1">$_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such
                             as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 
                             <span class="list-to-remove-comma">
                             #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE 
@@ -671,7 +668,7 @@ dmpBlocks = [
                             #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS 
                             #if$_MARC21 MARC 21 #endif$_MARC21 . </span> 
                             The metadata standards will thus allow the integration of data across projects and safeguards that reuse established and tested
-                            protocols. Additionally, we will use ontology terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECTNAME.
+                            protocols. Additionally, we will use ontology terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECTNAME.</span>
         `], 
     ["list-abbreviation-en", `
         #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
@@ -719,8 +716,7 @@ dmpBlocks = [
         #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
         <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
         <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
-        <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>
-        `],
+        <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>`],
         ["text-cost-en", `<span class="c1">$_PROJECTNAME will bear the costs of data curation, #if$_DATAPLANT ARC
                 consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
                 repositories. Subsequent costs are then borne by the operators of these repositories.</span>
@@ -729,11 +725,13 @@ dmpBlocks = [
                 Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
                 but not charged against $_PROJECTNAME or its members but by the operation budget of these
                 repositories.
-                </span>
-            `],
+                </span>`], 
+        ["text-cost-coverage-en", `
+            <span class="c1">The data related cost of $_PROJECTNAME are covered by the project funding.
+                Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
+                DataPLANT consortium #endif$_DATAPLANT will also be used.</span>`],
         ["text-data-size-en", `We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the
-                derived data will be about $_DERIVEDDATA GB.
-            `], 
+                derived data will be about $_DERIVEDDATA GB.`], 
         ["text-data-size-de", `Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu $_DERIVEDDATA GB verarbeiteten Daten.`],
         ["text-data-utility-en", `<span class="c1">
                     The data will initially benefit $_PROJECTNAME partners, but will also be made available to selected
@@ -747,5 +745,92 @@ dmpBlocks = [
                 be named according to approved nomenclature and conventions. These will also be linked to functional
                 ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by
                 humans. Plant names will include traditional names, binomials, and all
-                strain/cultivar/subspecies/variety identifiers.</span>`] 
+                strain/cultivar/subspecies/variety identifiers.</span>`],
+        ["text-data-accessible-en", `
+            <span class="c1">
+                    By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
+                    available. However, before the data are released, all will be provided with an opportunity to check
+                    for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
+                    This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
+                    be prioritized for datasets that offer the potential for exploitation.
+                <br>
+                    Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their
+                    data closed if relevant provisions are made in the consortium agreement and are in line with the
+                    reasons
+                    for opting out.
+                </span>`],
+         ["text-access-identity-en",`
+            <span class="c1">
+                In case data is only shared within the consortium, if the data is not yet finished or under IP
+                checks, the data is hosted internally and username and password will be required (see also our GDPR
+                rules). In the case data is made public under final EU or US repositories, completely anonymous
+                access is normally allowed. This is the case for ENA as well and both are in line with GDPR
+                requirements.
+                #if$_DATAPLANT Currently, data management relies on the annotated research context ARC. It is
+                password protected, so before any data can be obtained or samples generated an authentication needs
+                to take place. #endif$_DATAPLANT
+            </span>`],
+         ["text-personnal-data-en", `
+            <span class="c1">
+                    The only personal data that will potentially be stored is the submitter name and affiliation in the
+                    metadata for data. In addition, personal data will be collected for dissemination and communication
+                    activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
+                    data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
+                    emails and
+                    names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
+                    invent them #endissuewarning
+                </span>`],
+        ["text-keywords-en", `
+            <span class="c1">Keywords about the experiment and the general consortium will be included, as well as an abstract
+                about the data, where useful. In addition, certain keywords can be auto-generated from dense
+                metadata and its underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with
+                standardized DataPLANT ontologies that are supplemented where the ontology does not yet include the
+                variables.
+                #endif$_DATAPLANT</span>`],
+        ["text-ontologies-en", `
+            <span class="c1">Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they
+                are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies
+                might have to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the DataPLANT biology
+                ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT Ontology databases such as OBO Foundry
+                will be used to publish ontology. #if$_DATAPLANT The DPBO is also published in GitHub
+                https://github.com/nfdi4plants/nfdi4plants_ontology #endif$_DATAPLANT.</span>`],
+        ["text-data-officer-en", `
+            <span class="c1">The responsible will be $_DATAOFFICER as data officer.</span>
+            <span class="c1">The data responsible(s) (data officer#if$_PARTNERS or $_PARTNERS #endif$_PARTNERS)
+                decides on the preservation of data not submitted to end-point subject area repositories
+                #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after the
+                project end. This will be in line with EU institute policies, and data sharing based on EU and
+                international standards.</span>`],
+        ["text-data-officer-decide-en", `<span class="c1">
+                The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decide on the
+                strategy to preserve data that are not submitted to end-point subject area repositories
+                #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
+                project ends. This will be in line with EU guidlines, institute policies, and data sharing based on
+                EU and international standards.
+            </span>`],
+
+        ["text-archive-en", `
+            <span class="c1">
+                The submission is for free, and it is the goal #if$_ENA (at least of ENA) #endif$_ENA to obtain as much data as possible.
+                Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
+                #if$_DATAPLANT For DataPLANT, this has been agreed upon. #endif$_DATAPLANT #issuewarning If no data
+                management platform such as DataPLANT is used, then you need to find appropriate repository to store
+                or archive your data after publication. #endissuewarning
+            </span>`],
+        ["text-data-security-en", `<span class="c1">
+                Online platforms will be protected by vulnerability scanning, two-factor authorization and daily
+                automatic backups allowing immediate recovery. All partners holding confidential project data will use secure platforms with automatic backups and offsite secure copies.
+                #if$_DATAPLANT As ARCs are stored in the PLANTDataHUB of DataPLANT, data security will be imposed.
+                This comprises secure storage, and the use of password and usernames is generally transferred via
+                separate safe media. #endif$_DATAPLANT
+            </span>`],
+        ["text-ethical-en", `<span class="c1">
+                    At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
+                    since this is plant data, there is no need for an ethics committee to deal with data from plants,
+                    although we will diligently follow the Nagoya protocol on access and benefit sharing. #issuewarning
+                    Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply.
+                    #endissuewarning
+                </span>`], 
+        ["text-infrastructure-en", `<span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
+                    </span>`]
 ]
