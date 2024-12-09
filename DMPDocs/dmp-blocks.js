@@ -710,7 +710,7 @@ dmpBlocks = [
         #if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> <br>  #endif$_PDB #endif$_PROTEOMIC
         <span class="c11"> RDM</span><span class="c1"> Research Data Management</span> <br>
         #if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> <br>  #endif$_REMBI #endif$_IMAGE 
-        #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> RNA Sequencing</span> <br>  #endif$_RNASEQ 
+        #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> Ribonucleic Acid Sequencing</span> <br>  #endif$_RNASEQ 
         <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
         #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
         #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 

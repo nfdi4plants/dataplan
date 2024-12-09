@@ -5,7 +5,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                 <center>Title: $_PROJECTNAME Forschungsdatenmanagementplan für BMEL </center>
             </p>
         </h1>
-        <p class="c0"><span class="c3"><b>Kurzbeschreibung: $_ADDACRONYM &nbsp;</b></span></p>
+        <p class="c0"><span class="c3"><b>Kurzbeschreibung: #if!$_ACRONYM  $_PROJECTNAME   #endif!$_ACRONYM   #if$_ACRONYM   $_ADDACRONYM #endif$_ACRONYM  &nbsp;</b></span></p>
         <p class="c0"><span class="c3"><b>Projektkoordinator</b>: #if$_PROJECTCOORDINATOR $_ADDPROJECTCOORDINATOR #endif$_PROJECTCOORDINATOR &nbsp; #if!$_PROJECTCOORDINATOR $_DATAOFFICER #endif!$_PROJECTCOORDINATOR</span></p>
         <p class="c0"><span class="c3"><b>Skizzen- bzw. Antragseinreicher</b>: $_DATAOFFICER&nbsp;</span></p>
          <p class="c0"><span class="c3"><b>Kontakt</b>: $_EMAIL&nbsp;</span></p>
