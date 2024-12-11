@@ -74,10 +74,10 @@ function textReform(template){
 
     for (ele of dmpBlocks){
         
-        template = template.replaceAll(ele[0],ele[1] );
+        template = template.replaceAll(ele[0],"<span class='dmpblocks-"+ele[0]+"'>"+ ele[1]+"</span>" );
     }
     const t1 = performance.now();
-    console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
+    console.log(`Call to textReform took ${t1 - t0} milliseconds.`);
     return template;
     
 }
@@ -561,7 +561,7 @@ function textReform(template){
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2024-12-11.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/newstruct/DMPDocs/"+doc_name+"-2024-12-11.js";
         maDMPUpdate();
         runWordCloud();
         setTimeout(() => {
@@ -626,6 +626,29 @@ function textReform(template){
 
         const blob = new Blob([aJSONString], {
             type: "application/json"
+        });
+        saveAs(blob, "DataPLAN_DMP");
+
+    }
+
+    function save_rdmoxml() {
+        // saved_a["templateName"] = doc_name;
+        // saved_a["templateText"] = dmpStrings[doc_name];
+        issue_warning_show(),
+        remove_all_warnings();
+        let newxml = rdmo_dmp["rdmo-dmp"];
+        for (ele of dmpBlocks){
+        try {
+            newxml = newxml.replaceAll(ele[0],document.querySelector(".dmpblocks-"+ele[0]).innerText);
+        } catch (error) {
+            console.error(ele[0]+" is not found")
+        }
+            
+    }
+        
+
+        const blob = new Blob([newxml], {
+            type: "application/XML"
         });
         saveAs(blob, "DataPLAN_DMP");
 
@@ -3335,6 +3358,11 @@ END:VEVENT`;
                                     Calendar Reminder
                                 </span>
                             </button>
+                            <button id="json_rdmoxml" class="dropdown-item" onclick="save_rdmoxml()">
+                                <span name="translateTarget" data-en="Export to RDMO XML">
+                                    Export to RDMO XML
+                            </span>
+                            </button>
                             <li>
                                 <button id="save_to_cache" class="dropdown-item">
                                     <span name="translateTarget" data-en="Save to Cache"> 
@@ -5415,7 +5443,7 @@ END:VEVENT`;
     var cache_management = new bootstrap.Offcanvas(document.getElementById('cache_management'));
     </script>
 </body>
-
+<script src="DMPDocs/rdmo-2024-12-11.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/cloud.min2106.js" charset="utf-8"> </script>
 
 </html>
