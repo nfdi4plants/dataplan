@@ -425,10 +425,10 @@ rdmo_dmp = {"rdmo-dmp" : `<?xml version="1.0" encoding="UTF-8"?>
 			<set_index>0</set_index>
 			<set_collection>True</set_collection>
 			<collection_index>3</collection_index>
-			<text/>
+			<text>text-standards-long-en</text>
 			<option dc:uri="https://rdmorganiser.github.io/terms/options/dataset_interoperability_options/256"/>
 			<file/>
-			<value_type> text-standards-long-en </value_type>
+			<value_type> text </value_type>
 			<unit/>
 			<external_id/>
 			<created>2024-12-11T11:16:02.265496+01:00</created>
@@ -680,10 +680,10 @@ rdmo_dmp = {"rdmo-dmp" : `<?xml version="1.0" encoding="UTF-8"?>
 			<set_index>0</set_index>
 			<set_collection>True</set_collection>
 			<collection_index>0</collection_index>
-			<text>123123</text>
+			<text>text-aim-intro-en</text>
 			<option/>
 			<file/>
-			<value_type> text-aim-intro-en </value_type>
+			<value_type> text </value_type>
 			<unit/>
 			<external_id/>
 			<created>2024-12-11T11:16:13.023206+01:00</created>
