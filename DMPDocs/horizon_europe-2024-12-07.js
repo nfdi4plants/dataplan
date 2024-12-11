@@ -47,7 +47,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
                             </tr>
                             <tr>
                                 <td>
-                                    <h2>Creation Date:</h2>
+                                    <h3>Creation Date:</h3>
                                 </td>
                                 <td>
                                     <h3>$_CREATIONDATE</h3>

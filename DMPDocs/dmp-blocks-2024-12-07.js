@@ -541,7 +541,7 @@ dmpBlocks = [
                     #endif$_DATAPLANT
                 </span>`],
     ["text-repository-long-de", `
-                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung. Außerdem wird sichergestellt, dass Daten, die in internationalen disziplinären Repositories gespeichert werden können, die spezialisierte Technologien verwenden und Daten für mehr als 10 Jahre aufbewahren:<br>
+                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung ermöglicht. Außerdem wird sichergestellt, dass Daten, die in internationalen disziplinären Repositories gespeichert werden können, die spezialisierten Technologien verwenden und Daten für mehr als 10 Jahre aufbewahren:<br>
 
                    
                         <span class="c1 list-to-remove-comma">#if$_GENETIC|$_GENOMIC|$_RNASEQ Für genetische Daten: #if$_GENBANK

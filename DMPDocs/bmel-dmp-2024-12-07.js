@@ -36,7 +36,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
                     
                 <p class="c0">
                     <span class="c3">
-                        <b>Welche Daten werden in dem Forschungsvorhaben erzeugt, erhoben und ausgewertet?</b>:
+                        <b>Welche Daten werden in dem Forschungsvorhaben erzeugt, erhoben und ausgewertet?</b>
                      </span>
                     </p>
                         <p class="c0">
@@ -108,7 +108,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
 
                 <p class="c0">
                     #if$_DATAPLANT Da das $_PROJECTNAME eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und
-                    DataHUB verwendet, um die Endpunkt-Repositories zu finden und die Daten automatisch in die
+                    DataHUB verwendet, um die Endpunkt-Repositorien zu finden und die Daten automatisch in die
                     Repositories hochzuladen. #endif$_DATAPLANT
 
                     <span class="c1"> </span>
@@ -250,7 +250,7 @@ bmel_dmp = { "bmel-dmp" : `<div id="bmel-dmp" class="">
 
                 <p class="c0">
                     #if$_DATAPLANT Da das $_PROJECTNAME eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und
-                    DataHUB verwendet, um die Endpunkt-Repositories zu finden und die Daten automatisch in die
+                    DataHUB verwendet, um die Endpunkt-Repositorien zu finden und die Daten automatisch in die
                     Repositories hochzuladen. #endif$_DATAPLANT
 
                     <span class="c1"> </span>
