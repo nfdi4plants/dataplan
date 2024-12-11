@@ -637,6 +637,14 @@ function textReform(template){
         issue_warning_show(),
         remove_all_warnings();
         let newxml = rdmo_dmp["rdmo-dmp"];
+
+        for (ele1 of Object.entries(saved_a.replace)){
+        try {
+            newxml = newxml.replaceAll(ele1[0],ele1[1]);
+        } catch (error) {
+            console.error(ele1[0]+" is not found")
+        };
+    }
         for (ele of dmpBlocks){
         try {
             newxml = newxml.replaceAll(ele[0],document.querySelector(".dmpblocks-"+ele[0]).innerText);
