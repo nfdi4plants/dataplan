@@ -89,7 +89,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         </p>
 
 
-        <p class="c20">
+        <p class="c0 ">
             <span class="c1">
                 Online-Plattformen werden durch Schwachstellen-Scans, Zwei-Faktor-Authentifizierung und tägliche
                 automatische Backups geschützt, die eine sofortige Wiederherstellung ermöglichen. Alle Partner, die
