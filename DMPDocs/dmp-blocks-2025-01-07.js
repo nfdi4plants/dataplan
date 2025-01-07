@@ -541,7 +541,7 @@ dmpBlocks = [
                     #endif$_DATAPLANT
                 </span>`],
     ["text-repository-long-de", `
-                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung ermöglicht. Außerdem wird sichergestellt, dass Daten, die in internationalen disziplinären Repositorien gespeichert werden können, die spezialisierten Technologien verwenden und Daten für mehr als 10 Jahre aufbewahren:<br>
+                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:<br>
 
                    
                         <span class="c1 list-to-remove-comma">#if$_GENETIC|$_GENOMIC|$_RNASEQ Für genetische Daten: #if$_GENBANK
@@ -599,7 +599,7 @@ dmpBlocks = [
                     </span>`],
     ["text-repository-short-de", `<span class="c1">
                         Die Daten werden über die $_PROJECTNAME-Plattform mit einer benutzerfreundlichen Oberfläche
-                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Die Endpunkt-Repositorien sind:
+                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:
                         #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
                         #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
                         #endif$_GENETIC #if$_TRANSCRIPTOMIC|$_GENETIC #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO

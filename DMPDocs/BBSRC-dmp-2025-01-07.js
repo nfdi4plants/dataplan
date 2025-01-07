@@ -20,11 +20,15 @@ BBSRC_dmp = {"BBSRC-dmp" : `<div id="BBSRC-dmp" class="">
                         text-repository-long-en
                         text-dataplant-tools-en
                         </span>
-                    </p></span></li> <li class="c0 li-bullet-0"><span class="c1">Proprietary Data <br> &ndash; Open public
-                data will be used whenever possible. </span></li>
+                    </p></span></li> 
+                    <li class="c0 li-bullet-0"><span class="c1">Proprietary Data <br> &ndash; Open public
+                data will be used whenever possible. </span>
+                <span class="c1"> text-metadata-format-en </span>
+                </li>
             <li class="c0 li-bullet-0"><span class="c1">Timeframes <br>
                     &ndash; text-made-public-en
-                </span></li>
-            <li class="c0 li-bullet-0"><span class="c1"> text-metadata-format-en </span></li>
+                </span>
+           
+           </li>
     </div>
 </div>`}
