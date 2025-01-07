@@ -158,7 +158,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                         Falls Daten nur innerhalb des Konsortiums geteilt werden, wenn die Daten noch nicht fertig
                         sind oder sich in der IP-Prüfung befinden, werden die Daten intern gehostet und der
                         Benutzername und das Passwort werden benötigt (siehe auch unsere GDPR-Regeln).
-                        Wenn Daten unter finalen EU- oder US-Repositorys öffentlich gemacht werden, ist
+                        Wenn Daten unter finalen EU- oder US-Repositorien öffentlich gemacht werden, ist
                         normalerweise ein vollständig anonymer Zugang erlaubt. Dies ist auch bei ENA der Fall und
                         beide entsprechen den GDPR-Anforderungen.
 
@@ -197,8 +197,8 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
 
                 <p class="c0">
                     #if$_DATAPLANT Da das $_PROJECTNAME eng mit DataPLANT abgestimmt ist, werden der ARC-Konverter und
-                    DataHUB verwendet, um die Endpunkt-Repositories zu finden und die Daten automatisch in die
-                    Repositories hochzuladen. #endif$_DATAPLANT
+                    DataHUB verwendet, um die Endpunkt-Repositorien zu finden und die Daten automatisch in die
+                    Repositorien hochzuladen. #endif$_DATAPLANT
 
                     <span class="c1"> </span>
                 </p>
@@ -209,7 +209,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                     <span class="c1">
                         Die Einreichung ist kostenlos, und es ist das Ziel (zumindest von ENA), so viele Daten wie
                         möglich zu erhalten. Daher sind Absprachen weder notwendig noch sinnvoll.
-                        Catch-all-Repositories sind nicht erforderlich.
+                        Catch-all-Repositorien sind nicht erforderlich.
                         #if$_DATAPLANT Für DataPLANT wurde dies vereinbart. #endif$_DATAPLANT #issuewarning Wenn
                         keine Datenmanagementplattform wie DataPLANT verwendet wird, müssen Sie ein geeignetes
                         Repository finden, um Ihre Daten nach der Veröffentlichung zu speichern oder zu archivieren.
