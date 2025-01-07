@@ -59,8 +59,7 @@ practical_guide={
                                         ">
                         The practical guide of data management in $_PROJECTNAME aims at providing a complete
                         walkthrough for the researcher. The contents are customized based on the user input in the
-                        Data Management Plant
-                        Generator (DMPG). The practices in this guide are customized to fit related legal, ethical,
+                       DMP generator DataPLAN. The practices in this guide are customized to fit related legal, ethical,
                         standardization and funding body requirements. The suitable practices will cover all steps
                         of a data
                         management life-cycle:
