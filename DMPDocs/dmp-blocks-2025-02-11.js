@@ -99,6 +99,11 @@ dmpBlocks = [
                         open-source software. </span>
             </li>
             #endif$_EXCEL 
+            #if$_OTHERDATATYPE&nbsp; 
+            <li>
+                    <span class="c1"> $_OTHERDATATYPETEXT </span>
+            </li>
+            #endif$_OTHERDATATYPE 
         </ul>`],
     ["list-dataType-de", [`                <ul style="list-style-type:disc;">
                     #if$_GENETIC&nbsp;
@@ -252,6 +257,11 @@ dmpBlocks = [
                         </p>
                     </li>
                     #endif$_EXCEL
+                    #if$_OTHERDATATYPE&nbsp; 
+                    <li>
+                            <span class="c1"> $_OTHERDATATYPETEXT </span>
+                    </li>
+                    #endif$_OTHERDATATYPE 
                 </ul>`]],    
     ["list-reuse-en", `The project builds on existing data sets. #if$_RNASEQ For instance, without a
                 proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
@@ -272,7 +282,9 @@ dmpBlocks = [
                 #if$_IMAGE image datasets, #endif$_IMAGE
                 #if$_MODELS modelling data, #endif$_MODELS
                 #if$_CODE computational code, #endif$_CODE
-                #if$_EXCEL excel files #endif$_EXCEL data of $_STUDYOBJECT,
+                #if$_EXCEL excel files #endif$_EXCEL 
+                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE
+                data of $_STUDYOBJECT,
                 existing data sets #if$_PARTNERS of the
                 partners: $_PARTNERS as well as additional characterizations and background knowledge from prior publications will be used.  #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
                 genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
@@ -297,6 +309,7 @@ dmpBlocks = [
                     #if$_MODELS modelling data, #endif$_MODELS 
                     #if$_CODE computational code, #endif$_CODE  
                     #if$_EXCEL excel files, #endif$_EXCEL 
+                    #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE
                      and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
                     will also be processed and modified using analytical pipelines, which may yield different results or
                     include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
@@ -319,7 +332,8 @@ dmpBlocks = [
                 #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
                 #if$_MODELS Modellausgänge, #endif$_MODELS 
                 #if$_CODE Rechencode, #endif$_CODE  
-                #if$_EXCEL Excel-Daten, #endif$_EXCEL Daten, die sich auf $_STUDYOBJECT
+                #if$_EXCEL Excel-Daten, #endif$_EXCEL daten,
+                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE Daten, die sich auf $_STUDYOBJECT
                         beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
                         modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
                         umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
