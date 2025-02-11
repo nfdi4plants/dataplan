@@ -510,6 +510,13 @@ function textReform(template){
         }
         catch (e) { };
 
+        if (dmpLanguage[doc_name] == "en"){
+            
+            window.saved_a_en =  saved_a;
+        }else if(dmpLanguage[doc_name] == "de"){
+            
+            window.saved_a_de = saved_a;
+        }
     }
 
 
@@ -933,8 +940,9 @@ function textReform(template){
             history_replace[key] ?history_replace[key].push(singleInputContent): history_replace[key]= [singleInputContent];
             value = answerPunctual(value1);
             if (key !== "$_VISUALIZATION") {
-                let element = document.getElementsByName(key)[0];
-                //console.log(key + " "+value);
+               
+                let element = document.getElementsByName(key.toUpperCase())[0];
+                console.log(key + " "+value);
                 try {
                     
                     element.value = value;
