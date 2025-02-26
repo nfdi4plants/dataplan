@@ -1,0 +1,850 @@
+dmpBlocks = [
+    ["basicInfo-isEu-en", `#if$_EU $_PROJECTNAME is part of the Open Data Initiative (ODI) of the EU. #endif$_EU`],
+    ["basicInfo-isEu-de", `#if$_EU Das $_PROJECTNAME ist Teil der Open Data Initiative (ODI) der EU. #endif$_EU`],
+    ["text-not-only-but-fair-en", `To best profit from open data, it is necessary not only to store data but to make data Findable, Accessible, Interoperable, and Reusable (FAIR).`],
+    ["text-not-only-but-fair-de", `Um optimal von offenen Daten zu profitieren, ist es notwendig, die Daten nicht nur zu speichern, sondern sie auch auffindbar, zugänglich, interoperabel und wiederverwendbar (FAIR) zu machen.`],
+    ["basicInfo-isProtected-en", `#if$_PROTECT We support open and FAIR data, however, we also consider the need to protect individual data sets. #endif$_PROTECT`],
+    ["basicInfo-isProtected-de", `#if$_PROTECT Wir unterstützen offene und FAIR-Daten, berücksichtigen jedoch auch die Notwendigkeit, einzelne Datensätze zu schützen. #endif$_PROTECT`],
+    ["text-intro-en", "This document outlines the principles of data management for $_PROJECTNAME. A Data Management Plan (DMP), created using responses to the EU DMP questionnaire, will detail key aspects such as data types, collection methods, storage, access, sharing, preservation, and reuse strategies, ensuring compliance with FAIR data principles."],
+    ["list-dataType-en", `<ul style="list-style-type:disc;">
+            #if$_GENETIC&nbsp; <li>
+                    <span class="c1"> Genetic data will be generated from targeted crosses and in breeding experiments, and
+                        will include recombination frequencies and position of genetic markers. This data will be used to associate quantitative trait loci with physical genomic markers/variants.
+                    </span>
+            </li> #endif$_GENETIC #if$_GENOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Genomic data will be created from sequencing data, which will be processed to
+                        identify genes, regulatory elements, transposable elements, and physical markers such as
+                        SNPs, microsatellites and structural variants. </span>
+            </li>
+            #if$_PANGENOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals within a clade. Then the the sequences are assembled and aligned to create a comprehensive gene reference.  </span>
+            </li>
+            #endif$_PANGENOMIC
+            #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
+            <li>
+                    <span class="c1"> The origin and assembly of cloned DNA will include (a) source of original
+                        vector sequence with adding gene reference where available, and source of insert DNA (e.g.,
+                        amplification by PCR from a given sample, or obtained from existing library), (b) cloning
+                        strategy (e.g., restriction endonuclease digests/ligation, PCR, TOPO cloning, Gibson
+                        assembly, LR recombination), and (c) verified DNA sequence data of final recombinant vector.
+                    </span>
+            </li>
+            #endif$_CLONED-DNA  #if$_TRANSCRIPTOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Methods of transcriptomics data collection will be selected from microarrays,
+                        quantitative PCR, Northern blotting, RNA immunoprecipitation, fluorescence in situ
+                        hybridization. RNA-Seq data will be collected in seperate methods.</span>
+            </li>
+            #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Spatial transcriptomics data will be collected using methods that spatially map RNA molecules to their precise tissue locations, ensuring the preservation of RNA data alongside comprehensive metadata about its origin.</span>
+            </li>
+            #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+            #endif$_TRANSCRIPTOMIC&nbsp;    #if$_RNASEQ&nbsp; 
+            <li>
+                    <span class="c1"> RNA sequencing data will be generated using short-read or long-read platforms, either in-house or outsourced to academic facilities or commercial services, and the raw data will be processed using established bioinformatics pipelines. </span>
+            </li>
+            #if$_SCRNASEQ&nbsp; 
+            <li>
+                    <span class="c1"> Single-cell RNA-seq data will be collected by isolating single cells, extracting and barcoding RNA, preparing sequencing libraries, and generating high-quality transcriptomic data using platforms like Illumina, with meticulous metadata recording.</span>
+            </li>
+            #endif$_SCRNASEQ&nbsp;
+            #endif$_RNASEQ&nbsp;  #if$_METABOLOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Metabolomic data will be generated by coupled chromatography and mass
+                        spectrometry using targeted or untargeted approaches.</span>
+            </li>
+            #endif$_METABOLOMIC  #if$_PROTEOMIC&nbsp; 
+            <li>
+                    <span class="c1"> Proteomic data will be generated using coupled chromatography and mass
+                        spectrometry for the analysis of protein abundance and protein identification, as well as
+                        additional techniques for structural analysis, the identification of post-translational
+                        modifications and the characterization of protein interactions.</span>
+            </li>
+            #endif$_PROTEOMIC  #if$_PHENOTYPIC&nbsp; 
+            <li>
+                    <span class="c1"> Phenotypic data will be generated using phenotyping platforms and annotated using
+                        corresponding ontologies, including number/size of organs such as leaves, flowers, buds
+                        etc., size of whole plant, stem/root architecture (number of lateral branches/roots etc),
+                        organ structures/morphologies, quantitative metrics such as color, turgor, health/nutrition
+                        indicators, among others. </span>
+            </li>
+            #endif$_PHENOTYPIC  #if$_TARGETED&nbsp; 
+            <li>
+                    <span class="c1"> Targeted assay data (e.g. glucose and fructose concentrations or
+                        production/utilization rates) will be generated using specific equipment and methods that
+                        are fully documented in the laboratory notebook. </span>
+            </li>
+            #endif$_TARGETED #if$_IMAGE&nbsp; 
+            <li>
+                    <span class="c1"> Image data will be generated by equipment such as cameras, scanners, and
+                        microscopes combined with software. Original images which contain metadata such as EXIF
+                        photo information will be archived.</span>
+            </li>
+            #endif$_IMAGE #if$_MODELS&nbsp; 
+            <li>
+                    <span class="c1"> Model data will be generated by using software simulations. The complete
+                        workflow, which includes the environment, runtime, parameters, and results, will be
+                        documented and archived. </span>
+            </li>
+            #endif$_MODELS #if$_CODE&nbsp; 
+            <li>
+                    <span class="c1"> Computer code will be produced by programmers. </span>
+            </li>
+            #endif$_CODE  #if$_EXCEL&nbsp; 
+            <li>
+                    <span class="c1"> Excel data will be generated by data analysts by using MS Office or
+                        open-source software. </span>
+            </li>
+            #endif$_EXCEL 
+            #if$_OTHERDATATYPE&nbsp; 
+            <li>
+                    <span class="c1"> $_OTHERDATATYPETEXT </span>
+            </li>
+            #endif$_OTHERDATATYPE 
+        </ul>`],
+    ["list-dataType-de", [`                <ul style="list-style-type:disc;">
+                    #if$_GENETIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Genetische Daten werden durch Kreuzungen und Zuchtexperimente
+                                generiert und umfassen Rekombinationsfrequenzen und Crossover-Ereignisse, die
+                                genetische Marker und quantitative Merkmalsloci positionieren können, die mit
+                                physischen genomischen Markern/Varianten assoziiert werden können. </span>
+                        </p>
+                    </li>
+                    #endif$_GENETIC
+                    #if$_GENOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Genomische Daten werden aus Sequenzdaten erstellt, die verarbeitet
+                                werden, um Gene, regulatorische Elemente, transponierbare Elemente und physikalische
+                                Marker wie SNPs, Mikrosatelliten und strukturelle Varianten zu identifizieren.
+                            </span>
+                        </p>
+                    </li>
+                    #if$_PANGENOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Pangenomische Daten werden durch Sequenzierung der Genome mehrerer Individuen innerhalb einer Gruppe erhoben. Anschließend werden die Sequenzen zusammengefügt und ausgerichtet, um eine umfassende Genreferenz zu erstellen. 
+                            </span>
+                        </p>
+                    </li>
+                    #endif$_PANGENOMIC
+                    #endif$_GENOMIC
+                    #if$_CLONED-DNA&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Der Ursprung und die Zusammenstellung der klonierten DNA umfassen (a)
+                                die Quelle der ursprünglichen Vektorsequenz mit Add-Gene-Referenz, sofern verfügbar,
+                                und die Quelle der Insert-DNA (z.B. Amplifikation durch PCR aus einer bestimmten
+                                Probe oder aus einer vorhandenen Bibliothek), (b) die Klonierungsstrategie (z.B.
+                                Restriktionsendonuklease-Verdau/Ligation, PCR, TOPO-Klonierung, Gibson-Assembly,
+                                LR-Rekombination), und (c) die verifizierte DNA-Sequenz des finalen rekombinanten
+                                Vektors.</span>
+                        </p>
+                    </li>
+                    #endif$_CLONED-DNA
+                    #if$_TRANSCRIPTOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Methoden zur Erfassung von Transkriptomik-Daten werden aus
+                                Mikroarrays, quantitativer PCR, Northern Blotting, RNA-Immunpräzipitation und
+                                Fluoreszenz-in-situ-Hybridisierung ausgewählt. RNA-Seq-Daten werden mit separaten
+                                Methoden gesammelt.</span>
+                        </p>
+                    </li>
+                    #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
+                    <li>
+                            <span class="c1">Räumliche Transkriptomikdaten werden mit Hilfe von Methoden gesammelt, die RNA-Moleküle räumlich ihren genauen Gewebestandorten zuordnen, wodurch die Erhaltung von RNA-Daten zusammen mit umfassenden Metadaten über ihre Herkunft gewährleistet wird.</span>
+                    </li>
+                    #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
+                    #endif$_TRANSCRIPTOMIC
+
+                             
+
+                    #if$_RNASEQ&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> RNA-Sequenzierung wird unter Verwendung von Short-Read- oder
+                                Long-Read-Plattformen entweder intern oder an akademische Einrichtungen oder
+                                kommerzielle Dienste ausgelagert und die Rohdaten werden mit etablierten
+                                bioinformatischen Pipelines verarbeitet. </span>
+                        </p>
+                    </li>
+                    #if$_SCRNASEQ&nbsp; 
+                    <li>
+                            <span class="c1"> Einzelzell-RNA-seq-Daten werden durch die Isolierung einzelner Zellen, die Extraktion und das Barcoding von RNA, die Vorbereitung von Sequenzierungsbibliotheken und die Erzeugung hochwertiger transkriptomischer Daten mit Hilfe von Plattformen wie Illumina gesammelt, wobei die Metadaten sorgfältig aufgezeichnet werden.</span>
+                    </li>
+                    #endif$_SCRNASEQ&nbsp;
+                    #endif$_RNASEQ
+                    #if$_METABOLOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Metabolomische Daten werden durch gekoppelte Chromatographie und
+                                Massenspektrometrie unter Verwendung gezielter oder ungezielter Ansätze
+                                generiert.</span>
+                        </p>
+                    </li>
+                    #endif$_METABOLOMIC #if$_PROTEOMIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Proteomische Daten werden durch gekoppelte Chromatographie und
+                                Massenspektrometrie zur Analyse der Proteinmenge und -identifikation sowie durch
+                                zusätzliche Techniken zur Strukturanalyse, zur Identifizierung posttranslationaler
+                                Modifikationen und zur Charakterisierung von Proteininteraktionen generiert.</span>
+                        </p>
+                    </li>
+                    #endif$_PROTEOMIC
+
+                    #if$_PHENOTYPIC&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Phänotypische Daten werden mit Hilfe von Phänotypisierungsplattformen
+                                und entsprechenden Ontologien generiert, einschließlich Anzahl/Größe von Organen wie
+                                Blätter, Blumen, Knospen usw., Größe der gesamten Pflanze,
+                                Stängel/Wurzel-Architektur (Anzahl der seitlichen Zweige/Wurzeln usw.),
+                                Organstrukturen/Morphologien, quantitativen Metriken wie Farbe, Turgor,
+                                Gesundheits-/Nährstoffindikatoren und anderen. </span>
+                        </p>
+                    </li>
+                    #endif$_PHENOTYPIC
+                    #if$_TARGETED&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Gezielte Assays-Daten (z. B. Glukose- und Fruktosekonzentrationen oder
+                                Produktions-/Nutzungsraten) werden mit spezifischen Geräten und Methoden generiert,
+                                die im Laborbuch vollständig dokumentiert sind. </span>
+                        </p>
+                    </li>
+                    #endif$_TARGETED
+
+                    #if$_IMAGE&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Bilddaten werden durch Geräte wie Kameras, Scanner und Mikroskope in
+                                Kombination mit Software generiert. Originalbilder, die Metadaten wie
+                                EXIF-Fotoinformationen enthalten, werden archiviert.</span>
+                        </p>
+                    </li>
+                    #endif$_IMAGE
+
+                    #if$_MODELS&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Modelldaten werden durch Softwaresimulationen generiert. Der
+                                vollständige Workflow, einschließlich der Umgebung, Laufzeit, Parameter und
+                                Ergebnisse, wird dokumentiert und archiviert. </span>
+                        </p>
+                    </li>
+                    #endif$_MODELS
+
+                    #if$_CODE&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Computercode wird von Programmierern erstellt. </span>
+                        </p>
+                    </li>
+                    #endif$_CODE
+
+                    #if$_EXCEL&nbsp;
+                    <li>
+                        <p class="c0">
+                            <span class="c1"> Excel-Tabellen werden durch Ausfüllen spezifischer Dateien erstellt,
+                                die Feldbeobachtungen oder andere digitale Erhebungen enthalten. </span>
+                        </p>
+                    </li>
+                    #endif$_EXCEL
+                    #if$_OTHERDATATYPE&nbsp; 
+                    <li>
+                            <span class="c1"> $_OTHERDATATYPETEXT </span>
+                    </li>
+                    #endif$_OTHERDATATYPE 
+                </ul>`]],    
+    ["list-reuse-en", `The project builds on existing data sets. #if$_RNASEQ For instance, without a
+                proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
+                #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
+                #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
+                #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
+                #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
+                #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED
+                #if$_IMAGE image datasets, #endif$_IMAGE
+                #if$_MODELS modelling data, #endif$_MODELS
+                #if$_CODE computational code, #endif$_CODE
+                #if$_EXCEL excel files #endif$_EXCEL 
+                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE
+                data of $_STUDYOBJECT,
+                existing data sets #if$_PARTNERS of the
+                partners: $_PARTNERS as well as additional characterizations and background knowledge from prior publications will be used.  #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
+                genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
+                Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP).`],
+    ["list-dataCollection-en", `                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
+                    #if$_GENETIC genetic data, #endif$_GENETIC  
+                                    #if$_GENOMIC genomic data, 
+                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                #endif$_GENOMIC
+                #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
+                #if$_TRANSCRIPTOMIC transcriptomic data, 
+                    #if$_SPATIALTRANSCRIPTOMIC spatial transcriptomic data, #endif$_SPATIALTRANSCRIPTOMIC
+                #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNAseq data, 
+                    #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
+                #endif$_RNASEQ
+                    #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC  
+                    #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC 
+                    #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC  
+                    #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED  
+                    #if$_IMAGE image datasets, #endif$_IMAGE  
+                    #if$_MODELS modelling data, #endif$_MODELS 
+                    #if$_CODE computational code, #endif$_CODE  
+                    #if$_EXCEL excel files, #endif$_EXCEL 
+                    #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE
+                     and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
+                    will also be processed and modified using analytical pipelines, which may yield different results or
+                    include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
+                    tracked in the DataPLANT ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive
+                    these resources (including the analytical pipelines) as well, #if$_DATAPLANT relying on the expertise in the DataPLANT consortium #endif$_DATAPLANT.`],
+    ["list-dataCollection-de", ` Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
+                        #if$_GENETIC genetische Daten, #endif$_GENETIC  
+                #if$_GENOMIC genomische Daten, 
+                #if$_PANGENOMIC Pangenomische Daten, #endif$_PANGENOMIC #endif$_GENOMIC
+                #if$_CLONED-DNA geklonte DNA Daten, #endif$_CLONED-DNA 
+                #if$_TRANSCRIPTOMIC transkriptomische Daten, 
+                #if$_SPATIALTRANSCRIPTOMIC räumliche Transkriptomik-Daten, #endif$_SPATIALTRANSCRIPTOMIC  #endif$_TRANSCRIPTOMIC
+                #if$_RNASEQ RNA-Seq-Daten,  
+                #if$_SCRNASEQ Einzelzell RNA-Seq-Daten, #endif$_SCRNASEQ #endif$_RNASEQ
+ 
+                #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
+                #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
+                #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
+                #if$_TARGETED gezielte Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
+                #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
+                #if$_MODELS Modellausgänge, #endif$_MODELS 
+                #if$_CODE Rechencode, #endif$_CODE  
+                #if$_EXCEL Excel-Daten, #endif$_EXCEL daten,
+                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE Daten, die sich auf $_STUDYOBJECT
+                        beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
+                        modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
+                        umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
+                        verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
+                        analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
+                        auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT .`],
+    ["text-aim-intro-en", `$_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
+                and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
+                #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT Annotated Research Context (ARC) structure are essential,
+                #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
+                necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
+                be informed about the provenance of data analysis information. Stakeholders must also be informed
+                about the provenance of data. It is therefore necessary to ensure that the data are well generated
+                and also well annotated with metadata using open standards, as laid out in the next section.`],
+    ["text-standards-long-en", `            <span class="c1">
+                All datasets will be associated with unique identifiers and will be annotated with metadata. We will
+                use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
+                on community standards plus additional recommendations applicable in the plant science, such as the
+                <span class="list-to-remove-comma">
+                    The following metadata/ minimum information standards will be used to collect metadata:
+                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
+                    #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
+                    #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
+                    #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
+                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen:
+                    Specimen), #endif$_MIMARKSSPECIMEN
+                    #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
+                    Survey), #endif$_MIMARKSSURVEY
+                    #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
+                    #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
+                    #endif$_GENOMIC|$_GENETIC
+                    #if$_TRANSCRIPTOMIC
+                    #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
+                    Experiment), #endif$_MINSEQE 
+                     #if$_MIAME MIAME (Minimum Information About a Microarray
+                    Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
+                    #if$_IMAGE
+                    #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
+                    #endif$_IMAGE
+                    #if$_RNASEQ|$_GENOMIC
+ 
+                    #if$_MINSEQE
+                        MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
+                    #endif$_MINSEQE 
+                    #endif$_RNASEQ|$_GENOMIC
+
+                    #if$_METABOLOMIC
+                    #if$_MMIAMET
+                    MIAMET (Minimum Information About a METabolomics experiment),
+                    #endif$_MMIAMET
+                    #endif$_METABOLOMIC
+                    #if$_PROTEOMIC
+                    #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
+                    #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
+                    #endif$_PROTEOMIC  
+                    #if$_PHENOTYPIC #if$_MIAPPE MIAPPE (Minimum Information about Plant Phenotyping Experiment) #endif$_MIAPPE  #endif$_PHENOTYPIC .
+                    </span>
+                    #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
+                not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
+                The metadata standards will thus allow the integration of data across projects and safegard the established and tested
+                protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
+                ontologies. In addition, additional ontology terms might be created and be canonized during the
+                $_PROJECTNAME. </span>`],
+    ["text-standards-long-de", `
+                <span class="c1">Wir verwenden die Investigation, Study, Assay (ISA) Spezifikation zur
+                Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC
+                Für spezifische Daten (z.B. RNASeq oder genomische
+                Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span
+                class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment
+                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
+                &nbsp;</span>
+                    <span class="c1">
+                Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
+                    <span class="list-to-remove-comma">
+                        #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
+                        #if$_MIGSEU MigsEu (Minimum Information about a Genome Sequence: Eucaryote), #endif$_MIGSEU
+                        #if$_MIGSORG MigsOrg (Minimum Information about a Genome Sequence: Organelle), #endif$_MIGSORG
+                        #if$_MIMS MIMS (Minimum Information about Metagenome or Environmental), #endif$_MIMS
+                        #if$_MIMARKSSPECIMEN MIMARKSSpecimen (Minimal Information about a Marker Specimen:
+                        Specimen), #endif$_MIMARKSSPECIMEN
+                        #if$_MIMARKSSURVEY MIMARKSSurvey (Minimal Information about a Marker Specimen:
+                        Survey), #endif$_MIMARKSSURVEY
+                        #if$_MISAG MISAG (Minimum Information about a Single Amplified Genome), #endif$_MISAG
+                        #if$_MIMAG MIMAG (Minimum Information about Metagenome-Assembled Genome), #endif$_MIMAG
+                        #endif$_GENOMIC|$_GENETIC
+                        #if$_TRANSCRIPTOMIC
+                        #if$_MINSEQE MINSEQE (Minimum Information about a high-throughput SEQuencing
+                        Experiment), #endif$_MINSEQE 
+                         #if$_MIAME MIAME (Minimum Information About a Microarray
+                        Experiment), #endif$_MIAME #endif$_TRANSCRIPTOMIC
+                        #if$_IMAGE
+                        #if$_REMBI REMBI (Recommended Metadata for Biological Images), #endif$_REMBI
+                        #endif$_IMAGE
+                        #if$_RNASEQ|$_GENOMIC
+                        #if$_MINSEQE
+                            MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
+                        #endif$_MINSEQE 
+                        #endif$_RNASEQ|$_GENOMIC
+                        #if$_METABOLOMIC
+                        #if$_MMIAMET
+                        MIAMET (Minimum Information About a METabolomics experiment),
+                        #endif$_MMIAMET
+                        #endif$_METABOLOMIC
+                        #if$_PROTEOMIC
+                        #if$_MIAPE MIAPE (Minimum Information About a Proteomics Experiment), #endif$_MIAPE
+                        #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
+                        #endif$_PROTEOMIC .
+                        </span>
+                #if$_METABOLOMIC #if$_METABOLIGHTS Metabolights-Einreichungskonforme Standards werden für
+                metabolomische Daten verwendet, wo dies von den Konsortialpartnern akzeptiert wird.#issuewarning
+                Einige Metabolomik-Partner betrachten Metabolights nicht als akzeptierten Standard.#endissuewarning
+                #endif$_METABOLIGHTS #endif$_METABOLOMIC Als Teil der Pflanzenforschungsgemeinschaft verwenden wir
+                #if$_MIAPPE MIAPPE für Phänotypisierungsdaten im weitesten Sinne, werden aber auch auf
+                #endif$_MIAPPE spezifische SOPs für zusätzliche Annotationen #if$_DATAPLANT zurückgreifen, die
+                fortgeschrittene DataPLANT-Annotationen und Ontologien berücksichtigen. #endif$_DATAPLANT
+                    </span>
+                </p>
+                <p class="c0"><span class="c1">
+                In dem Fall, dass einige Metadaten noch fehlen, werden diese von den experimentellen
+                Wissenschaftlern und dem Datenbeauftragten dokumentiert. #if$_DATAPLANT Rohdaten-Identifier und
+                Parser, die von DataPLANT bereitgestellt werden, um
+                Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
+                auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
+                #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC
+                z.B.#if$_MINSEQE MinSEQe für
+                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
+                Metabolights-kompatible
+                Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
+                Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
+                etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
+                Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
+                Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
+                werden. </span>`],
+    ["text-standards-short-en", `<span class="c1">As mentioned above, <span class="c1 list-to-remove-comma">we will use ISA specification for metadata creation.
+                    The following metadata standards will also be used:
+                    #if$_PHENOTYPIC #if$_MIAPPE MIAPPE, #endif$_MIAPPE #endif$_PHENOTYPIC
+                    #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS, #endif$_MIXS
+                    #if$_MIGSEU MigsEu, #endif$_MIGSEU
+                    #if$_MIGSORG MigsOrg, #endif$_MIGSORG
+                    #if$_MIMS MIMS, #endif$_MIMS
+                    #if$_MIMARKSSPECIMEN MIMARKSSpecimen, #endif$_MIMARKSSPECIMEN
+                    #if$_MIMARKSSURVEY MIMARKSSurvey, #endif$_MIMARKSSURVEY
+                    #if$_MISAG MISAG, #endif$_MISAG
+                    #if$_MIMAG MIMAG, #endif$_MIMAG
+                    #endif$_GENOMIC|$_GENETIC
+                    #if$_GENOMIC|$_TRANSCRIPTOMIC #if$_MINSEQE MINSEQE, #endif$_MINSEQE #endif$_GENOMIC|$_TRANSCRIPTOMIC
+                    #if$_TRANSCRIPTOMIC #if$_MIAME MIAME, #endif$_MIAME #endif$_TRANSCRIPTOMIC
+                    #if$_IMAGE
+                    #if$_REMBI REMBI, #endif$_REMBI
+                    #endif$_IMAGE
+                    #if$_METABOLOMIC
+                    #if$_MMIAMET MIAMET, #endif$_MMIAMET
+                    #endif$_METABOLOMIC
+                    #if$_PROTEOMIC
+                    #if$_MIAPE MIAPE, #endif$_MIAPE
+                    #if$_MIMIX MIMix, #endif$_MIMIX
+                    #endif$_PROTEOMIC.                   
+                </span> 
+                #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
+                not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
+                The metadata standards will thus allow the integration of data across projects and safegard the established and tested
+                protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
+                ontologies. In addition, additional ontology terms might be created and be canonized during the
+                $_PROJECTNAME.</span>`],
+    ["text-quality-control-en",`
+        <span class="c1">The data will be checked and curated by using data collection protocol, personnel training, data cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Document all data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures. This documentation should be kept for future reference and should be made available to stakeholders upon request. PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.</span>`],
+    ["text-repository-long-en", `<span class="c1">
+                Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
+                data visualization. Besides this it will be ensured that data which can be stored in
+                international discipline related repositories which use specialized technologies and preserve data for more than 10 years:
+                 <p class="c0">
+                        <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC|$_RNASEQ For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC|$_RNASEQ . #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
+                    </p>
+
+                <p class="c0">
+                    <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA
+                        NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #if$_ARRAYEXPRESS
+                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC</span>
+                </p>
+
+                <p class="c0">
+                    <span class="c1 list-to-remove-comma">#if$_IMAGE For image data: #if$_BIOIMAGE EBI-BioImage
+                        Archive, #endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource), #endif$_IDR .
+                        #endif$_IMAGE </span>
+                </p>
+
+                <p class="c0">
+                    <span class="c1 list-to-remove-comma">#if$_METABOLOMIC For metabolomic data: #if$_METABOLIGHTS
+                        EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
+                        Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
+                        interactions), #endif$_INTACT . #endif$_METABOLOMIC </span>
+                </p>
+                <p class="c0">
+                    <span class="c1 list-to-remove-comma">#if$_PROTEOMIC For proteomics data: #if$_PRIDE
+                        EBI-PRIDE (PRoteomics IDEntifications Database), #endif$_PRIDE #if$_PDB PDB (Protein Data Bank), #endif$_PDB
+                        #if$_CHEBI Chebi (Chemical Entities of Biological Interest), #endif$_CHEBI .
+                        #endif$_PROTEOMIC </span>
+                </p>
+
+                <p class="c0">
+                    <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC For phenotypic data: #if$_EDAL e!DAL-PGP (Plant
+                        Genomics & Phenomics Research Data Repository), #endif$_EDAL . #endif$_PHENOTYPIC
+                        #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as
+                        well. #endif$_OTHEREP
+                    </span>
+                </p>
+            </span>
+            <span class="c1">
+                    For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will
+                    be annotated with metadata and if complete allocated a digital object identifier (DOI).
+                    #if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the
+                    converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast
+                    and easy.
+                    #endif$_DATAPLANT
+                </span>`],
+    ["text-repository-long-de", `
+                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:<br>
+
+                   
+                        <span class="c1 list-to-remove-comma">#if$_GENETIC|$_GENOMIC|$_RNASEQ Für genetische Daten: #if$_GENBANK
+                            NCBI-GenBank, #endif$_GENBANK #if$_SRA NCBI-SRA, #endif$_SRA #if$_ENA
+                            EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                            #if$_GEO NCBI-GEO, #endif$_GEO . <br> #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
+                   
+
+                    
+                        <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC Für Transkriptomdaten: #if$_SRA
+                            NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #if$_ARRAYEXPRESS
+                            EBI-ArrayExpress, #endif$_ARRAYEXPRESS . <br> #endif$_TRANSCRIPTOMIC</span>
+                   
+
+                   
+                        <span class="c1 list-to-remove-comma">#if$_IMAGE Für Bilddaten: #if$_BIOIMAGE EBI-BioImage
+                            Archive #endif$_BIOIMAGE #if$_IDR IDR (Image Data Resource), #endif$_IDR .
+                            <br> #endif$_IMAGE</span>
+                   
+
+                   
+                        <span class="c1 list-to-remove-comma">#if$_METABOLOMIC Für Metabolomdaten: #if$_METABOLIGHTS
+                            EBI-Metabolights, #endif$_METABOLIGHTS #if$_METAWORKBENCH Metabolomics
+                            Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct (Molecular
+                            interactions), #endif$_INTACT . <br> #endif$_METABOLOMIC</span>
+                   
+                    
+                        <span class="c1 list-to-remove-comma">#if$_PROTEOMIC Für Proteomikdaten: #if$_PRIDE
+                            EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB
+                            #if$_CHEBI Chebi,  #endif$_CHEBI .
+                             <br> #endif$_PROTEOMIC</span>
+                   
+
+                    
+                        <span class="c1 list-to-remove-comma">#if$_PHENOTYPIC Für phänotypische Daten: #if$_EDAL e!DAL-PGP (Plant
+                            Genomics & Phenomics Research Data Repository), #endif$_EDAL . <br> #endif$_PHENOTYPIC
+                        </span>
+                    
+
+                
+                    #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
+                    dort ebenfalls verarbeitet. #endif$_OTHEREP
+            </span>
+        `],
+    ["text-repository-short-en", `<span class="c1 list-to-remove-comma">
+                        In addition to project related sharing platform, data will be stored in international discipline related repositories which use specialized technologies and preserve data for more than 10 years: 
+                        #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
+                        #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
+                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
+                        EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
+                        #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-Metabolights, #endif$_METABOLIGHTS
+                        #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct, #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                        EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP, #endif$_EDAL #endif$_PHENOTYPIC. 
+                        #if$_OTHEREP $_OTHEREP will also be used to store data and the data will be processed there as well. #endif$_OTHEREP
+                    </span>`],
+    ["text-repository-short-de", `<span class="c1">
+                        Die Daten werden über die $_PROJECTNAME-Plattform mit einer benutzerfreundlichen Oberfläche
+                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:
+                        #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
+                        #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
+                        #endif$_GENETIC #if$_TRANSCRIPTOMIC|$_GENETIC #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO
+                        NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC #if$_ARRAYEXPRESS
+                        EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC #if$_IMAGE #if$_BIOIMAGE
+                        EBI-BioImage Archive, #endif$_BIOIMAGE #if$_IDR IDR, #endif$_IDR
+                        #endif$_IMAGE #if$_METABOLOMIC #if$_METABOLIGHTS EBI-MetaboLights, #endif$_METABOLIGHTS
+                        #if$_METAWORKBENCH Metabolomics Workbench, #endif$_METAWORKBENCH #if$_INTACT IntAct
+                        (Molecular interactions) #endif$_INTACT #endif$_METABOLOMIC #if$_PROTEOMIC #if$_PRIDE
+                        EBI-PRIDE, #endif$_PRIDE #if$_PDB PDB, #endif$_PDB #if$_CHEBI
+                        Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
+                        #endif$_EDAL #endif$_PHENOTYPIC.
+
+                        #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
+                        dort ebenfalls verarbeitet. #endif$_OTHEREP
+
+                    </span>`],
+    ["text-dataplant-tools-en", ` <span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
+                #if!$_PROPRIETARY No specialized software will be needed to access the data, usually just a modern
+                browser. Access will be possible through web interfaces. For data processing after obtaining raw
+                data, typical open-source software can be used. #endif!$_PROPRIETARY
+                #if$_DATAPLANT DataPLANT offers opensource data curation tools such as the <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC management tool ARCitect </a>, command line tool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander </a>, <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology"> DataPLANT Biological Ontology (DPBO)</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">metadata annotation tool swate</a>, <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">the Metadata Quiz</a> and <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP generator</a>. #endif$_DATAPLANT
+            </span>`],
+    ["text-dataplant-tools-de", `#if$_DATAPLANT
+                DataPLANT bietet Open-Source-Datenkurationswerkzeuge wie das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arcitect/">ARC-Verwaltungstool ARCitect</a>, das Kommandozeilentool <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/arc-commander/">ARCcommander</a>, die <a target="_blank" href="https://github.com/nfdi4plants/nfdi4plants_ontology">DataPLANT Biological Ontology (DPBO)</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/swate/">Metadaten-Annotationstool Swate</a>, das <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/metadata-quiz/">Metadata Quiz</a> und den <a target="_blank" href="https://nfdi4plants.github.io/nfdi4plants.knowledgebase/resources/dataplan/">DataPLAN DMP-Generator</a> an.
+                #endif$_DATAPLANT
+        
+        `],
+    ["text-made-public-en", `#if$_EARLY Some raw data is made public as soon as it is collected and processed. #endif$_EARLY
+                #if$_BEFOREPUBLICATION Relevant processed datasets are made public when the research findings are
+                published. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT At the end of the project, all data without
+                embargo period will be published. #endif$_ENDOFPROJECT #if$_EMBARGO Data, which is subject to an
+                embargo period, is not publicly accessible until the end of embargo period. #endif$_EMBARGO
+                #if$_REQUEST Data is made available upon request, allowing controlled sharing while ensuring
+                responsible use. #endif$_REQUEST #if$_IPISSUE IP issues will be checked before publication.
+                #endif$_IPISSUE All consortium partners will be encouraged to make data available before publication, 
+                openly and/or under pre-publication agreements #if$_GENOMIC such as those started in Fort Lauderdale 
+                and set forth by the Toronto International Data Release Workshop #endif$_GENOMIC . 
+                This will be implemented as soon as IP-related checks are complete.`],
+    ["text-made-public-de", `#if$_EARLY Einige Rohdaten werden sofort nach ihrer Erfassung und Verarbeitung öffentlich
+                        gemacht. #endif$_EARLY #if$_BEFOREPUBLICATION Relevante verarbeitete Datensätze werden
+                        öffentlich gemacht, wenn die Forschungsergebnisse veröffentlicht
+                        werden. #endif$_BEFOREPUBLICATION #if$_ENDOFPROJECT Am Ende des Projekts werden alle Daten
+                        ohne Sperrfrist veröffentlicht. #endif$_ENDOFPROJECT #if$_EMBARGO Daten, die einer Sperrfrist
+                        unterliegen, sind bis zum Ende der Sperrfrist nicht öffentlich zugänglich. #endif$_EMBARGO
+                        #if$_REQUEST Daten werden auf Anfrage verfügbar gemacht, was eine kontrollierte Weitergabe
+                        ermöglicht und gleichzeitig eine verantwortungsvolle Nutzung sicherstellt. #endif$_REQUEST
+                        #if$_IPISSUE IP-Probleme werden vor der Veröffentlichung überprüft. #endif$_IPISSUE Alle
+                        Konsortialpartner werden ermutigt,
+                        Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter
+                        Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und
+                        durch den Toronto International Data Release Workshop festgelegten Vereinbarungen
+                        #endif$_GENOMIC . Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
+                        sind.`],
+    ["text-metadata-format-en", `Whenever possible, data will be stored in common and openly defined formats including all the necessary
+        metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
+        used. However, Microsoft Excel files (according to ISO/IEC 29500-1:2016) might be used as intermediates by
+        the consortium#if$_DATAPLANT and by some ARC components #endif$_DATAPLANT. In addition, text files might be
+        edited in text processor files, but will be shared as pdf.`],
+    ["text-cross-metadata-en",`<span class="c1">$_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such
+                            as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 
+                            <span class="list-to-remove-comma">
+                            #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE 
+                            #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE 
+                            #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG 
+                            #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS 
+                            #if$_MARC21 MARC 21 #endif$_MARC21 . </span> 
+                            The metadata standards will thus allow the integration of data across projects and safeguards that reuse established and tested
+                            protocols. Additionally, we will use ontology terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECTNAME.</span>
+        `], 
+    ["list-abbreviation-en", `
+        #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
+        <span class="c11"> CC</span><span class="c1"> Creative Commons</span> <br>
+        <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span> <br>
+        #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> <br>  #endif$_CHEBI #endif$_PROTEOMIC      
+        <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span> <br>
+        <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span> <br>
+        <span class="c11"> DoA</span><span class="c1"> Description of Action</span> <br>
+        <span class="c11"> DOI</span><span class="c1"> Digital Object Identifier</span> <br>
+        <span class="c11"> EBI</span><span class="c1"> European Bioinformatics Institute</span> <br>
+        #if$_PHENOTYPIC #if$_EDAL  <span class="c11"> e!DAL-PGP</span><span class="c1"> Plant Genomics & Phenomics Research Data Repository</span> <br>  #endif$_EDAL   #endif$_PHENOTYPIC  
+        #if$_GENETIC  #if$_ENA   <span class="c11">  ENA </span> <span class="c1"> European Nucleotide Archive </span> <br>  #endif$_ENA        #endif$_GENETIC   
+        <span class="c11"> EU </span><span class="c1">European Union</span> <br>
+        <span class="c11"> FAIR </span><span class="c1">Findable Accessible Interoperable Reproducible</span> <br>
+        <span class="c11"> GDPR</span><span class="c1"> General data protection regulation (of the EU)</span> <br>
+        #if$_TRANSCRIPTOMIC|$_GENETIC #if$_GEO  <span class="c11"> GEO</span><span class="c1"> Gene Expression Omnibus </span>  <br>  #endif$_GEO   #endif$_TRANSCRIPTOMIC|$_GENETIC   
+        #if$_IMAGE #if$_IDR  <span class="c11"> IDR</span><span class="c1"> Image Data Resource </span>  <br>  #endif$_IDR  #endif$_IMAGE 
+        <span class="c11"> IP</span><span class="c1"> Intellectual Property</span> <br>
+        <span class="c11"> ISO</span><span class="c1"> International Organization for Standardization</span>  <br>
+        #if$_TRANSCRIPTOMIC #if$_MIAME <span class="c11"> MIAME</span><span class="c1"> Minimum Information About a Microarray Experiment</span> <br>  #endif$_MIAME  #endif$_TRANSCRIPTOMIC  
+        #if$_METABOLOMIC #if$_MMIAMET <span class="c11"> MIAMET</span><span class="c1"> Minimum Information About a METabolomics experiment</span> <br>  #endif$_MMIAMET   #endif$_METABOLOMIC  
+        #if$_PROTEOMIC #if$_MIAPE <span class="c11"> MIAPE</span><span class="c1"> Minimum Information About a Proteomics Experiment</span> <br>  #endif$_MIAPE  #endif$_PROTEOMIC  
+        #if$_PHENOTYPIC #if$_MIAPPE <span class="c11"> MIAPPE</span><span class="c1"> Minimum Information about Plant Phenotyping Experiment</span> <br>  #endif$_MIAPPE  #endif$_PHENOTYPIC 
+        #if$_GENOMIC|$_GENETIC #if$_MIGSEU <span class="c11"> MigsEu </span><span class="c1"> Minimum Information about a Genome Sequence: Eucaryote </span> <br>  #endif$_MIGSEU  
+        #if$_MIGSORG <span class="c11"> MigsOrg </span><span class="c1"> Minimum Information about a Genome Sequence: Organelle </span> <br>  #endif$_MIGSORG  
+        #if$_MIMAG <span class="c11"> MIMAG </span><span class="c1"> Minimum Information about Metagenome-Assembled Genome </span> <br>  #endif$_MIMAG  
+        #if$_MIMARKSSPECIMEN <span class="c11"> MIMARKSSpecimen</span><span class="c1"> Minimal Information about a Marker Specimen: Specimen </span> <br>  #endif$_MIMARKSSPECIMEN 
+        #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
+        #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
+        #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
+        #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
+        #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
+        #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
+        <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
+        <span class="c11"> NFDI</span><span class="c1"> National Research Data Infrastructure (of Germany)</span> <br>
+        <span class="c11"> NGS</span><span class="c1"> Next Generation Sequencing</span> <br>
+        #if$_PROTEOMIC #if$_PRIDE  <span class="c11"> PRIDE</span><span class="c1"> PRoteomics IDEntifications Database</span> <br>  #endif$_PRIDE
+        #if$_PDB  <span class="c11"> PDB</span><span class="c1"> Protein Data Bank </span> <br>  #endif$_PDB #endif$_PROTEOMIC
+        <span class="c11"> RDM</span><span class="c1"> Research Data Management</span> <br>
+        #if$_IMAGE  #if$_REMBI  <span class="c11"> REMBI</span><span class="c1"> Recommended Metadata for Biological Images </span> <br>  #endif$_REMBI #endif$_IMAGE 
+        #if$_RNASEQ  <span class="c11"> RNASeq</span><span class="c1"> Ribonucleic Acid Sequencing</span> <br>  #endif$_RNASEQ 
+        <span class="c11"> SOP</span><span class="c1"> Standard Operating Procedures</span>  <br>
+        #if$_GENETIC #if$_SRA  <span class="c11"> SRA</span><span class="c1"> Sequence Read Archive</span> <br>  #endif$_SRA #endif$_GENETIC
+        #if$_DATAPLANT  <span class="c11">  SWATE</span><span class="c1"> Swate Workflow Annotation Tool for Excel</span> <br>  #endif$_DATAPLANT 
+        <span class="c11"> ONP</span><span class="c1"> Oxford Nanopore</span>  <br>
+        <span class="c11"> qRT</span> <span class="c11"> PCR</span><span class="c1"> quantitative real time polymerase chain reaction</span>  <br>
+        <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>`],
+        ["text-cost-en", `<span class="c1">$_PROJECTNAME will bear the costs of data curation, #if$_DATAPLANT ARC
+                consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
+                repositories. Subsequent costs are then borne by the operators of these repositories.</span>
+                <br>
+                <span class="c1">
+                Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
+                but not charged against $_PROJECTNAME or its members but by the operation budget of these
+                repositories.
+                </span>`], 
+        ["text-cost-coverage-en", `
+            <span class="c1">The data related cost of $_PROJECTNAME are covered by the project funding.
+                Pre-existing structures #if$_DATAPLANT such as structures, tools, and knowledge laid down in the
+                DataPLANT consortium #endif$_DATAPLANT will also be used.</span>`],
+        ["text-data-size-en", `We expect to generate raw data in the range of $_RAWDATA GB of data. The size of the
+                derived data will be about $_DERIVEDDATA GB.`], 
+        ["text-data-size-de", `Wir erwarten die Erzeugung von $_RAWDATA GB Rohdaten und bis zu $_DERIVEDDATA GB verarbeiteten Daten.`],
+        ["text-data-utility-en", `<span class="c1">
+                    The data will initially benefit $_PROJECTNAME partners, but will also be made available to selected
+                    stakeholders closely involved in the project, and then the scientific community working on
+                    $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
+                    use the data after publication. The data will be disseminated according to $_PROJECTNAME's
+                    dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
+                </span>`],
+        ["text-metadata-naming-en", `<span class="c1">
+                Data variables will be allocated standard names. For example, genes, proteins and metabolites will
+                be named according to approved nomenclature and conventions. These will also be linked to functional
+                ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by
+                humans. Plant names will include traditional names, binomials, and all
+                strain/cultivar/subspecies/variety identifiers.</span>`],
+        ["text-data-accessible-en", `
+            <span class="c1">
+                    By default, all data sets from $_PROJECTNAME will be shared with the community and made openly
+                    available. However, before the data are released, all will be provided with an opportunity to check
+                    for potential IP (according to the consortium agreement and background IP rights). #if$_INDUSTRY
+                    This applies in particular to data pertaining to the industry. #endif$_INDUSTRY IP protection will
+                    be prioritized for datasets that offer the potential for exploitation.
+                <br>
+                    Note that in multi-beneficiary projects it is also possible for specific beneficiaries to keep their
+                    data closed if relevant provisions are made in the consortium agreement and are in line with the
+                    reasons
+                    for opting out.
+                </span>`],
+         ["text-access-identity-en",`
+            <span class="c1">
+                In case data is only shared within the consortium, if the data is not yet finished or under IP
+                checks, the data is hosted internally and username and password will be required (see also our GDPR
+                rules). In the case data is made public under final EU or US repositories, completely anonymous
+                access is normally allowed. This is the case for ENA as well and both are in line with GDPR
+                requirements.
+                #if$_DATAPLANT Currently, data management relies on the annotated research context ARC. It is
+                password protected, so before any data can be obtained or samples generated an authentication needs
+                to take place. #endif$_DATAPLANT
+            </span>`],
+         ["text-personnal-data-en", `
+            <span class="c1">
+                    The only personal data that will potentially be stored is the submitter name and affiliation in the
+                    metadata for data. In addition, personal data will be collected for dissemination and communication
+                    activities using specific methods and procedures developed by $_PROJECTNAME partners to adhere to
+                    data protection. #issuewarning You need to inform and better get WRITTEN consent that you store
+                    emails and
+                    names or even pseudonyms such as twitter handles, we are very sorry about these issues we didn’t
+                    invent them #endissuewarning
+                </span>`],
+        ["text-keywords-en", `
+            <span class="c1">Keywords about the experiment and the general consortium will be included, as well as an abstract
+                about the data, where useful. In addition, certain keywords can be auto-generated from dense
+                metadata and its underlying ontologies. #if$_DATAPLANT Here, DataPLANT strives to complement these with
+                standardized DataPLANT ontologies that are supplemented where the ontology does not yet include the
+                variables.
+                #endif$_DATAPLANT</span>`],
+        ["text-ontologies-en", `
+            <span class="c1">Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they
+                are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies
+                might have to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the DataPLANT biology
+                ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT Ontology databases such as OBO Foundry
+                will be used to publish ontology. #if$_DATAPLANT The DPBO is also published in GitHub
+                https://github.com/nfdi4plants/nfdi4plants_ontology #endif$_DATAPLANT.</span>`],
+        ["text-data-officer-en", `
+            <span class="c1">The responsible will be $_DATAOFFICER as data officer.</span>
+            <span class="c1">The data responsible(s) (data officer#if$_PARTNERS or $_PARTNERS #endif$_PARTNERS)
+                decides on the preservation of data not submitted to end-point subject area repositories
+                #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT after the
+                project end. This will be in line with EU institute policies, and data sharing based on EU and
+                international standards.</span>`],
+        ["text-data-officer-decide-en", `<span class="c1">
+                The data officer #if$_PARTNERS or $_PARTNERS #endif$_PARTNERS will ultimately decide on the
+                strategy to preserve data that are not submitted to end-point subject area repositories
+                #if$_DATAPLANT or ARCs in DataPLANT #endif$_DATAPLANT when the
+                project ends. This will be in line with EU guidlines, institute policies, and data sharing based on
+                EU and international standards.
+            </span>`],
+
+        ["text-archive-en", `
+            <span class="c1">
+                The submission is for free, and it is the goal #if$_ENA (at least of ENA) #endif$_ENA to obtain as much data as possible.
+                Therefore, arrangements are neither necessary nor useful. Catch-all repositories are not required.
+                #if$_DATAPLANT For DataPLANT, this has been agreed upon. #endif$_DATAPLANT #issuewarning If no data
+                management platform such as DataPLANT is used, then you need to find appropriate repository to store
+                or archive your data after publication. #endissuewarning
+            </span>`],
+        ["text-data-security-en", `<span class="c1">
+                Online platforms will be protected by vulnerability scanning, two-factor authorization and daily
+                automatic backups allowing immediate recovery. All partners holding confidential project data will use secure platforms with automatic backups and offsite secure copies.
+                #if$_DATAPLANT As ARCs are stored in the PLANTDataHUB of DataPLANT, data security will be imposed.
+                This comprises secure storage, and the use of password and usernames is generally transferred via
+                separate safe media. #endif$_DATAPLANT
+            </span>`],
+        ["text-ethical-en", `<span class="c1">
+                    At the moment, we do not anticipate ethical or legal issues with data sharing. In terms of ethics,
+                    since this is plant data, there is no need for an ethics committee to deal with data from plants,
+                    although we will diligently follow the Nagoya protocol on access and benefit sharing. #issuewarning
+                    Please ensure that you complete any necessary due diligence. Currently, we are awaiting clarification on whether the Nagoya Protocol (🡺 see Nagoya Protocol) will encompass sequence information. Regardless, if you use material from a country other than your own (or that of your partner), and you conduct physical or biochemical characterization (e.g., metabolites, proteome, RNASeq, etc.), this may constitute an action relevant under the Nagoya Protocol. Exceptions might include materials from countries such as the U.S. (non-partner), Ireland (has not signed—still contact them), etc., though other laws could apply.
+                    #endissuewarning
+                </span>`], 
+        ["text-infrastructure-en", `<span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
+                    </span>`]
+]
