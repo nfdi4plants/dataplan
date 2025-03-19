@@ -77,6 +77,7 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                         einzigartigen Ansätzen generiert. Zum Beispiel:</span>
                 </p>
                 list-dataType-de
+                list-data-format-de
                  <p class="c0">
                      text-standards-long-de
                  </p>

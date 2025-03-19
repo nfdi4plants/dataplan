@@ -504,7 +504,8 @@ dmpBlocks = [
                 $_PROJECTNAME.</span>`],
     ["text-quality-control-en",`
         <span class="c1">The data will be checked and curated by using data collection protocol, personnel training, data cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Document all data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures. This documentation should be kept for future reference and should be made available to stakeholders upon request. PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.</span>`],
-    ["text-repository-long-en", `<span class="c1">
+    ["text-repository-long-en", `
+        <span class="c1">
                 Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
                 data visualization. Besides this it will be ensured that data which can be stored in
                 international discipline related repositories which use specialized technologies and preserve data for more than 10 years:
@@ -546,6 +547,7 @@ dmpBlocks = [
                     </span>
                 </p>
             </span>
+            <p class="c0">
             <span class="c1">
                     For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will
                     be annotated with metadata and if complete allocated a digital object identifier (DOI).
@@ -553,7 +555,7 @@ dmpBlocks = [
                     converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast
                     and easy.
                     #endif$_DATAPLANT
-                </span>`],
+                </span></p>`],
     ["text-repository-long-de", `
                     <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:<br>
 
@@ -846,5 +848,61 @@ dmpBlocks = [
                     #endissuewarning
                 </span>`], 
         ["text-infrastructure-en", `<span class="c1 list-to-remove-comma">Yes, $_PROJECTNAME will use common Research Data Management (RDM) infrastructures #if$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC developed by #endif$_DATAPLANT|$_NFDI|$_FRENCH|$_EOSC #if$_DATAPLANT|$_NFDI the NFDI of Germany, #endif$_DATAPLANT|$_NFDI #if$_FRENCH INRAe from France, #endif$_FRENCH #if$_EOSC EOSC (European Open Science Cloud), #endif$_EOSC .
-                    </span>`]
+                    </span>`],
+        ["list-data-format-en", `<span class="c1 list-to-remove-comma"> $_PROJECTNAME will use the following data format
+            #if$_OTHERDATAFORMATS $_OTHERDATAFORMATS #endif$_OTHERDATAFORMATS 
+            #if$_FORMATFASTQ FASTQ, #endif$_FORMATFASTQ
+            #if$_FORMATFAST5 FAST5, #endif$_FORMATFAST5
+            #if$_FORMATFASTA FASTA, #endif$_FORMATFASTA
+            #if$_FORMATBCL BCL, #endif$_FORMATBCL
+            #if$_FORMATSAMBAM SAM/BAM, #endif$_FORMATSAMBAM
+            #if$_FORMATVCFBCF VCF/BCF, #endif$_FORMATVCFBCF
+            #if$_FORMATCRAM CRAM, #endif$_FORMATCRAM
+            #if$_FORMATGBK GBK, #endif$_FORMATGBK
+            #if$_FORMATEMBL EMBL, #endif$_FORMATEMBL
+            #if$_FORMATGFFGTF GFT/GTF, #endif$_FORMATGFFGTF
+            #if$_FORMATMZML MZML, #endif$_FORMATMZML
+            #if$_FORMATMGF MGF, #endif$_FORMATMGF
+            #if$_FORMATMZIDENTML mzIdentML, #endif$_FORMATMZIDENTML
+            #if$_FORMATMZQUANTML mzQuantML, #endif$_FORMATMZQUANTML
+            #if$_FORMATPEPXML pepXML, #endif$_FORMATPEPXML
+            #if$_FORMATRAW RAW, #endif$_FORMATRAW
+            #if$_FORMATIMZML imzML, #endif$_FORMATIMZML
+            #if$_FORMATCDF CDF, #endif$_FORMATCDF
+            #if$_FORMATXLSX XLSX, #endif$_FORMATXLSX
+            #if$_FORMATTXT TXT, #endif$_FORMATTXT
+            #if$_FORMATCSVTSVPSV CSV/TSV/PSV, #endif$_FORMATCSVTSVPSV
+            #if$_FORMATPDF PDF, #endif$_FORMATPDF
+            #if$_FORMATJSON JSON, #endif$_FORMATJSON
+            #if$_FORMATXMLHTML XML/HTML, #endif$_FORMATXMLHTML .
+
+            </span>`],
+            ["list-data-format-de", `<span class="c1 list-to-remove-comma"> $_PROJECTNAME wird das folgende Datenformat verwendet
+            #if$_OTHERDATAFORMATS $_OTHERDATAFORMATS #endif$_OTHERDATAFORMATS
+            #if$_FORMATFASTQ FASTQ, #endif$_FORMATFASTQ
+            #if$_FORMATFAST5 FAST5, #endif$_FORMATFAST5
+            #if$_FORMATFASTA FASTA, #endif$_FORMATFASTA
+            #if$_FORMATBCL BCL, #endif$_FORMATBCL
+            #if$_FORMATSAMBAM SAM/BAM, #endif$_FORMATSAMBAM
+            #if$_FORMATVCFBCF VCF/BCF, #endif$_FORMATVCFBCF
+            #if$_FORMATCRAM CRAM, #endif$_FORMATCRAM
+            #if$_FORMATGBK GBK, #endif$_FORMATGBK
+            #if$_FORMATEMBL EMBL, #endif$_FORMATEMBL
+            #if$_FORMATGFFGTF GFT/GTF, #endif$_FORMATGFFGTF
+            #if$_FORMATMZML MZML, #endif$_FORMATMZML
+            #if$_FORMATMGF MGF, #endif$_FORMATMGF
+            #if$_FORMATMZIDENTML mzIdentML, #endif$_FORMATMZIDENTML
+            #if$_FORMATMZQUANTML mzQuantML, #endif$_FORMATMZQUANTML
+            #if$_FORMATPEPXML pepXML, #endif$_FORMATPEPXML
+            #if$_FORMATRAW RAW, #endif$_FORMATRAW
+            #if$_FORMATIMZML imzML, #endif$_FORMATIMZML
+            #if$_FORMATCDF CDF, #endif$_FORMATCDF
+            #if$_FORMATXLSX XLSX, #endif$_FORMATXLSX
+            #if$_FORMATTXT TXT, #endif$_FORMATTXT
+            #if$_FORMATCSVTSVPSV CSV/TSV/PSV, #endif$_FORMATCSVTSVPSV
+            #if$_FORMATPDF PDF, #endif$_FORMATPDF
+            #if$_FORMATJSON JSON, #endif$_FORMATJSON
+            #if$_FORMATXMLHTML XML/HTML, #endif$_FORMATXMLHTML .
+    
+                </span>`]
 ]

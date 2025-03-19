@@ -1,4 +1,5 @@
-horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
+horizon_europe = {
+    "horizon_europe": `<div id="horizon_europe" >
     <div class="content-page">
         <br />
         <center>
@@ -107,6 +108,7 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
         <p class="c0">
             <span class="c1">
                 list-dataCollection-en
+                list-data-format-en
             </span>
         </p>
 
@@ -338,13 +340,18 @@ horizon_europe= {"horizon_europe":`<div id="horizon_europe" >
             </span>
         </p>
         <p class="c0">
+        <span class="c1">
             text-standards-short-en
-        </p>
-        <span class="c1">text-metadata-format-en
+            <p class="c0">
+        <span class="c1">
+                text-metadata-format-en
         </span>
+        </p>
+        </span>
+        </p>
 
-        </span>
-        </p>
+
+        
 
 
 

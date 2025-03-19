@@ -58,6 +58,7 @@ msca_dmp = {
                            text-cross-metadata-en
                             <br>
                             text-metadata-format-en
+                            list-data-format-en
                             </span>
                         </li>
                         <li class="c0 li-bullet-0">

@@ -17,20 +17,20 @@
     <link href="css/bootstrap.min2106.css" rel="stylesheet" />
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
-    <script src="DMPDocs/dmp-blocks-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/BBSRC-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/NSF-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/carl-zeiss-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/msca-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dmp-blocks-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/NSF-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/carl-zeiss-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="DMPDocs/bmbf-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmel-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/vw-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmel-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
     
-    <script src="DMPDocs/dfg-dmp-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/horizon_europe-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/Horizon2020_DMP-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/practical-guide-2025-02-11.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dfg-dmp-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide-2025-03-19.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -77,7 +77,7 @@ function textReform(template){
         template = template.replaceAll(ele[0],"<span class='dmpblocks-"+ele[0]+"'>"+ ele[1]+"</span>" );
     }
     const t1 = performance.now();
-    console.log(`Call to textReform took ${t1 - t0} milliseconds.`);
+    //console.log(`Call to textReform took ${t1 - t0} milliseconds.`);
     return template;
     
 }
@@ -157,14 +157,14 @@ function textReform(template){
     var reminderModal;
     var classicMode = true;
     var initialed = false; // set the initialed status to false
-    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"aims at Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator", "$_ADDACRONYM": "add an acronym", "$_OTHERDATATYPETEXT":"Other data type" },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":[ "check_otherdatatype","check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONString = '{"dmp":{"title":"DMP of Example Project","contact":{"contact_id":{"identifier":"http://orcid.org/0000-0000-0000-0000","type":"orcid"},"mbox":"DMP of email","name":"DMP of Example User"},"created":"2024-06-19T16:45:09.7","dmp_id":{"identifier":"https://doi.org/10.0000/00.0.1234","type":"doi"},"dataset":[{"dataset_id":{"identifier":"https://doi.org/10.0000/00.0.5678","type":"doi"},"title":"Placeholder dataset","personal_data":"unknown","sensitive_data":"unknown"}],"ethical_issues_exist":"unknown","language":"eng","modified":"2024-07-09T10:53:50.4","submission":"2024-07-09T10:53:50.4","version":"1.0"},"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"aims at Example Aim","$_DMPVERSION":"1.0","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_DATAUTILITY":"Industry, politicians and students can also use the data for different purposes.","$_UPDATEMONTH":"Example Month","$_PREVIOUSPROJECTS":"Previous Project Name","$_PROPRIETARY":"Proprietary Software","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx","$_OTHERSTANDARDINPUT":"other standards","$_OTHEREP":"Other repositories","$_PARTNERS":"partner name", "$_ADDPROJECTCOORDINATOR": "project coordinator", "$_ADDACRONYM": "add an acronym", "$_OTHERDATATYPETEXT":"Other data type", "$_OTHERDATAFORMATS": "other data formats"},"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[ "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu", "check_projectcoordinator"]},"checkbox_2":{"checked":[],"unchecked":[ "check_otherdatatype","check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel", "check_scrnaseq", "check_spatialtranscriptomic", "check_pangenomic"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_4":{"checked":[],"unchecked":["check_formatfastq", "check_formatfast5", "check_formatfasta", "check_formatbcl", "check_formatsambam", "check_formatvcfbcf", "check_formatcram", "check_formatgbk", "check_formatembl", "check_formatgffgtf", "check_formatmzml", "check_formatmgf", "check_formatmzidentml", "check_formatmzquantml", "check_formatpepxml", "check_formatraw", "check_formatimzml", "check_formatcdf", "check_formatxlsx", "check_formattxt", "check_formatcsvtsvpsv", "check_formatpdf", "check_formatjson", "check_formatxmlhtml", "check_formathdf5", "check_formatometiff", "check_formatpng", "check_formatjpeg", "check_formattiff", "check_otherdataformats"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
 
-    const JSONStringDe = '{ "dmp": { "title": "DMP des Beispielprojekts", "contact": { "contact_id": { "identifier": "http://orcid.org/0000-0000-0000-0000", "type": "orcid" }, "mbox": "E-Mail des DMP", "name": "DMP des Beispielbenutzers" }, "created": "2024-06-19T16:45:09.7", "dmp_id": { "identifier": "https://doi.org/10.0000/00.0.1234", "type": "doi" }, "dataset": [ { "dataset_id": { "identifier": "https://doi.org/10.0000/00.0.5678", "type": "doi" }, "title": "Platzhalter-Datensatz", "personal_data": "unbekannt", "sensitive_data": "unbekannt" } ], "ethical_issues_exist": "unbekannt", "language": "eng", "modified": "2024-07-09T10:53:50.4", "submission": "2024-07-09T10:53:50.4", "version": "1.0" }, "replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_DMPVERSION": "1.0", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_DATAUTILITY": "Industrie, Politiker und Studenten können die Daten auch für verschiedene Zwecke nutzen.", "$_UPDATEMONTH": "Beispielmonat", "$_PREVIOUSPROJECTS": "Name des vorherigen Projekts", "$_PROPRIETARY": "Proprietäre Software", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx", "$_OTHERSTANDARDINPUT": "andere Standards", "$_OTHEREP": "Andere Repositorien", "$_PARTNERS": "Name des Partners", "$_ADDPROJECTCOORDINATOR": "Projektkoordinator", "$_ADDACRONYM": "Fügen Sie hier das Akronym ein", "$_OTHERDATATYPETEXT":"Andere Datenarten"  },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[  "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu"]},"checkbox_2":{"checked":[],"unchecked":["check_otherdatatype","check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
+    const JSONStringDe = '{ "dmp": { "title": "DMP des Beispielprojekts", "contact": { "contact_id": { "identifier": "http://orcid.org/0000-0000-0000-0000", "type": "orcid" }, "mbox": "E-Mail des DMP", "name": "DMP des Beispielbenutzers" }, "created": "2024-06-19T16:45:09.7", "dmp_id": { "identifier": "https://doi.org/10.0000/00.0.1234", "type": "doi" }, "dataset": [ { "dataset_id": { "identifier": "https://doi.org/10.0000/00.0.5678", "type": "doi" }, "title": "Platzhalter-Datensatz", "personal_data": "unbekannt", "sensitive_data": "unbekannt" } ], "ethical_issues_exist": "unbekannt", "language": "eng", "modified": "2024-07-09T10:53:50.4", "submission": "2024-07-09T10:53:50.4", "version": "1.0" }, "replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_DMPVERSION": "1.0", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_DATAUTILITY": "Industrie, Politiker und Studenten können die Daten auch für verschiedene Zwecke nutzen.", "$_UPDATEMONTH": "Beispielmonat", "$_PREVIOUSPROJECTS": "Name des vorherigen Projekts", "$_PROPRIETARY": "Proprietäre Software", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx", "$_OTHERSTANDARDINPUT": "andere Standards", "$_OTHEREP": "Andere Repositorien", "$_PARTNERS": "Name des Partners", "$_ADDPROJECTCOORDINATOR": "Projektkoordinator", "$_ADDACRONYM": "Fügen Sie hier das Akronym ein", "$_OTHERDATATYPETEXT":"Andere Datenarten", "$_OTHERDATAFORMATS": "andere Datenformate"  },"checkbox":{"checkbox_1":{"checked":["check_dataplant"],"unchecked":[  "check_acronym","check_protect","check_update","check_previousprojects","check_industry","check_proprietary","check_partners","check_eu", "check_projectcoordinator"]},"checkbox_2":{"checked":[],"unchecked":["check_otherdatatype","check_transcriptomic", "check_genetic","check_genomic","check_cloned-dna","check_rnaseq","check_metabolomic","check_proteomic","check_phenotypic","check_targeted","check_image","check_models","check_code","check_excel", "check_scrnaseq", "check_spatialtranscriptomic", "check_pangenomic"]},"checkbox_3":{"checked":[],"unchecked":["check_miappe","check_minseqe","check_otherstandards","check_dublincore","check_marc21", "check_darwincore", "check_bioschemas", "check_schemaorg" ,"check_early","check_ipissue","check_vvisualization","check_mixs","check_migseu","check_migsorg","check_mims","check_mimarksspecimen","check_mimarkssurvey","check_misag","check_mimag","check_miame","check_mmiamet","check_rembi","check_miape","check_mimix","check_beforepublication","check_endofproject","check_embargo","check_request","check_nfdi","check_french","check_eosc"]},"checkbox_4":{"checked":[],"unchecked":["check_formatfastq", "check_formatfast5", "check_formatfasta", "check_formatbcl", "check_formatsambam", "check_formatvcfbcf", "check_formatcram", "check_formatgbk", "check_formatembl", "check_formatgffgtf", "check_formatmzml", "check_formatmgf", "check_formatmzidentml", "check_formatmzquantml", "check_formatpepxml", "check_formatraw", "check_formatimzml", "check_formatcdf", "check_formatxlsx", "check_formattxt", "check_formatcsvtsvpsv", "check_formatpdf", "check_formatjson", "check_formatxmlhtml", "check_formathdf5", "check_formatometiff", "check_formatpng", "check_formatjpeg", "check_formattiff", "check_otherdataformats"]},"checkbox_5":{"checked":[],"unchecked":["check_genbank","check_sra","check_geo","check_ena","check_arrayexpress","check_metabolights","check_pride","check_bioimage","check_idr","check_edal","check_metaworkbench","check_intact","check_pdb","check_chebi","check_otherep"]}},"update":{"timeline":[],"storage":[{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]},{"answer":[],"name":[]}]}}';
     var cached_a_en = window.localStorage.getItem("saved_a") || JSONString; // try to get the saved answers from local storage
     var cached_a_de = window.localStorage.getItem("saved_a_de") || JSONStringDe; // try to get the saved answers from local storage
     const templateJSON = '{"replace":{"$_PROJECTNAME":"Example Project","$_STUDYOBJECT":"Example Topic","$_PROJECTAIM":"aims at Example Aim","$_USERNAME":"Example User","$_EMAIL":"email","$_DATAOFFICER":"Example data officer name","$_RAWDATA":"???","$_DERIVEDDATA":"???","$_FUNDINGPROGRAMME":"action number or funding programme name","$_CREATIONDATE":"xxxx-xx-xx","$_MODIFICATIONDATE":"xxxx-xx-xx"}}';
 
-    const templateJSONDe = '{"replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx" }}';
+    const templateJSONDe = '{"replace": { "$_PROJECTNAME": "Beispielprojekt", "$_STUDYOBJECT": "Beispielthema", "$_PROJECTAIM": "Beispielziel", "$_USERNAME": "Beispielbenutzer", "$_EMAIL": "E-Mail", "$_DATAOFFICER": "Name des Datenbeauftragten", "$_RAWDATA": "???", "$_DERIVEDDATA": "???", "$_FUNDINGPROGRAMME": "Aktionsnummer oder Name des Förderprogramms", "$_CREATIONDATE": "xxxx-xx-xx", "$_MODIFICATIONDATE": "xxxx-xx-xx"}}';
     var temp_a_en = JSON.parse(templateJSON); // template answers used to compare with saved answers 
     var temp_a_de = JSON.parse(templateJSONDe); // template answers used to compare with saved answers 
     var temp_a;
@@ -337,7 +337,7 @@ function textReform(template){
 
 
     /**
-     * @function updateSavedAnswers
+     * @function updateSavedAnswers2
      * @description Update the previous saved answers to make it compatible to the newest version of software.
      * @global
      */
@@ -356,161 +356,80 @@ function textReform(template){
     }
 
 
-     function addSinglePlaceholder(importJSON, oldPlaceholder, content ){
-        try {
-            Object.keys(importJSON["replace"]).includes( oldPlaceholder) ? {} : importJSON["replace"][oldPlaceholder] = content;
-        }
-        catch (e) {
-            console.error(e);
-         };
+    function modifyArrays(A, B) {
+            // Add elements from A to B if they are not present in B
+            for (const elem of A) {
+                if (!B.includes(elem)) {
+                B.push(elem);
+                }
+            }
 
-        }
-    function updateSinglePlaceholder(importJSON, oldPlaceholder, oldContent, newPlaceholder ="", newContent= "" ){
-        try {
-            (!Object.keys(importJSON["replace"]).includes("$_OTHERSTANDARDINPUT") || window.saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? window.saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
-        }
-        catch (e) { };
+            // Remove elements from B that are not present in A
+            for (let i = B.length - 1; i >= 0; i--) {
+                if (!A.includes(B[i])) {
+                B.splice(i, 1);
+                }
+            }
+            }
+ 
 
+    function updateSavedAnswers2() {
+        const target = JSON.parse(JSONString);
+        try {
+            let A = Object.keys(target.replace) ;
+            let B = Object.keys(saved_a.replace) ;
+            for (const elem of A) {
+                if (!B.includes(elem)) {
+                B.push(elem);
+                saved_a.replace[elem] = target.replace[elem];
+                console.log(elem+" has been added, because it is a part of the template");
+                 
+                }
+            }
+
+            // Remove elements from B that are not present in A
+            for (let i = B.length - 1; i >= 0; i--) {
+                if (!A.includes(B[i])) {
+                delete saved_a.replace[B[i]];
+                console.log(B[i]+" has been removed, because it is not a part of the template");
+
+                
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        for(const[key,value] of Object.entries(target.checkbox)){
+            
+             
+                
+        try {
+            
+            let A = target.checkbox[key].checked.concat(target.checkbox[key].unchecked) ;
+            let B = saved_a.checkbox[key].checked.concat(saved_a.checkbox[key].unchecked) ;
+            for (const elem of A) {
+                if (!B.includes(elem)) {
+                B.push(elem);
+                saved_a.checkbox[key].unchecked.push(elem);
+                console.log(elem+" has been added, because it is a part of the template");
+                 
+                }
+            }
+
+            // Remove elements from B that are not present in A
+            for (let i = B.length - 1; i >= 0; i--) {
+                if (!A.includes(B[i])) {
+                saved_a.checkbox[key].checked.pop(B[i]);   
+                saved_a.checkbox[key].unchecked.pop(B[i]);
+                console.log(B[i]+" has been removed, because it is NOT a part of the template");
+                
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
-
-    function updateSingleCheckbox(importJSON, oldPlaceholder, newPlaceholder=""){
-        try {
-            if (Object.keys(saved_a["replace"]).includes("$_PROJECT")) {
-                {Object.defineProperty(saved_a["replace"], "$_PROJECTNAME", Object.getOwnPropertyDescriptor(saved_a["replace"], "$_PROJECT")); 
-                delete saved_a["replace"]["$_PROJECT"]}
-
-            } ;
-        }catch(e){}
-    }
-    function updateSavedAnswers() {
-        
-        // check if the newly added answers are there, to be backward compatible
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_DATAUTILITY") ? {} : window.saved_a["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
-        }
-        catch (e) { };
-        try {
-            (!Object.keys(window.saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") || window.saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? window.saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
-        }
-        catch (e) { console.log("other ep error"); };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
-        }
-        catch (e) { console.log("metabolights error"); };
-        try {
-            (!Object.keys(window.saved_a["checkbox"]).includes("checkbox_5")) ? window.saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_OTHEREP") ? {} : window.saved_a["replace"]["$_OTHEREP"] = "Other repositories";
-        }
-        catch (e) { };
-        try {
-            window.saved_a = JSON.parse(JSON.stringify(window.saved_a).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(window.saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? window.saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(window.saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? window.saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_otherdatatype")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_otherdatatype"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_otherdatatype") : {};
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : window.saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : window.saved_a["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_ADDACRONYM") ? {} : window.saved_a["replace"]["$_ADDACRONYM"] = "Add an acronym here";
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_OTHERDATATYPETEXT") ? {} : window.saved_a["replace"]["$_OTHERDATATYPETEXT"] = "Other data type";
-        }
-        catch (e) { };
-        try {
-            if (Object.keys(window.saved_a["replace"]).includes("$_PROJECT")) {
-                {Object.defineProperty(window.saved_a["replace"], "$_PROJECTNAME",
-                    Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_PROJECT")); delete window.saved_a["replace"]["$_PROJECT"]}
-
-            } ;
-        }
-        catch (e) { };
-        try {
-            if (Object.keys(window.saved_a["replace"]).includes("$_dataofficer")) {
-                {Object.defineProperty(window.saved_a["replace"], "$_DATAOFFICER",
-                    Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_dataofficer")); delete window.saved_a["replace"]["$_dataofficer"]}
-
-            } ;
-        }
-        catch (e) { };
-        try {
-            if (Object.keys(window.saved_a["replace"]).includes("$_proprietary")) {
-                {Object.defineProperty(window.saved_a["replace"], "$_PROPRIETARY",
-                    Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_proprietary")); delete window.saved_a["replace"]["$_proprietary"]}
-
-            } ;
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_CREATIONDATE") ? {} : window.saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_MODIFICATIONDATE") ? {} : window.saved_a["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
-        }
-        catch (e) { };
-        try {
-            Object.keys(window.saved_a["replace"]).includes("$_PARTNERS") ? {} : window.saved_a["replace"]["$_PARTNERS"] = "partner name";
-        }
-        catch (e) { };
-        try {
-            ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_pangenomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_pangenomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_pangenomic", "check_spatialtranscriptomic", "check_scrnaseq") : {};
-        }
-        catch (e) { };
-
-        if (dmpLanguage[doc_name] == "en"){
+    if (dmpLanguage[doc_name] == "en"){
             
             window.saved_a_en =  saved_a;
         }else if(dmpLanguage[doc_name] == "de"){
@@ -520,10 +439,148 @@ function textReform(template){
     }
 
 
+    // function updateSavedAnswers() {
+        
+    //     // check if the newly added answers are there, to be backward compatible
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_DATAUTILITY") ? {} : window.saved_a["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         (!Object.keys(window.saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") || window.saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? window.saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
+    //     }
+    //     catch (e) { console.log("other ep error"); };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
+    //     }
+    //     catch (e) { console.log("metabolights error"); };
+    //     try {
+    //         (!Object.keys(window.saved_a["checkbox"]).includes("checkbox_5")) ? window.saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_OTHEREP") ? {} : window.saved_a["replace"]["$_OTHEREP"] = "Other repositories";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         window.saved_a = JSON.parse(JSON.stringify(window.saved_a).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(window.saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? window.saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(window.saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? window.saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_otherdatatype")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_otherdatatype"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_otherdatatype") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : window.saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : window.saved_a["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_ADDACRONYM") ? {} : window.saved_a["replace"]["$_ADDACRONYM"] = "Add an acronym here";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_OTHERDATATYPETEXT") ? {} : window.saved_a["replace"]["$_OTHERDATATYPETEXT"] = "Other data type";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         if (Object.keys(window.saved_a["replace"]).includes("$_PROJECT")) {
+    //             {Object.defineProperty(window.saved_a["replace"], "$_PROJECTNAME",
+    //                 Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_PROJECT")); delete window.saved_a["replace"]["$_PROJECT"]}
+
+    //         } ;
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         if (Object.keys(window.saved_a["replace"]).includes("$_dataofficer")) {
+    //             {Object.defineProperty(window.saved_a["replace"], "$_DATAOFFICER",
+    //                 Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_dataofficer")); delete window.saved_a["replace"]["$_dataofficer"]}
+
+    //         } ;
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         if (Object.keys(window.saved_a["replace"]).includes("$_proprietary")) {
+    //             {Object.defineProperty(window.saved_a["replace"], "$_PROPRIETARY",
+    //                 Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_proprietary")); delete window.saved_a["replace"]["$_proprietary"]}
+
+    //         } ;
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_CREATIONDATE") ? {} : window.saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_MODIFICATIONDATE") ? {} : window.saved_a["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         Object.keys(window.saved_a["replace"]).includes("$_PARTNERS") ? {} : window.saved_a["replace"]["$_PARTNERS"] = "partner name";
+    //     }
+    //     catch (e) { };
+    //     try {
+    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_pangenomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_pangenomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_pangenomic", "check_spatialtranscriptomic", "check_scrnaseq") : {};
+    //     }
+    //     catch (e) { };
+
+    //     if (dmpLanguage[doc_name] == "en"){
+            
+    //         window.saved_a_en =  saved_a;
+    //     }else if(dmpLanguage[doc_name] == "de"){
+            
+    //         window.saved_a_de = saved_a;
+    //     }
+    // }
+
+
     function maDMPUpdate(){
         const date = new Date(); // record the time
                 // update dmp meta data
-                saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
+        saved_a["dmp"]["title"] = "DMP of " + saved_a["replace"]["$_PROJECTNAME"];
         saved_a["dmp"]["contact"]["name"] =  saved_a["replace"]["$_USERNAME"];
         saved_a["dmp"]["contact"]["mbox"] =  saved_a["replace"]["$_EMAIL"];
         saved_a["dmp"]["created"] == "2018-07-23T10:10:23.6" ? saved_a["dmp"]["created"] = saved_a["replace"]["$_CREATIONDATE"] : {};
@@ -535,7 +592,6 @@ function textReform(template){
         saved_a["dmp"]["project"]["contact"] = saved_a["replace"]["$_ADDPROJECTCOORDINATOR"];
         saved_a["dmp"]["project"]["funding"] ? {}:saved_a["dmp"]["project"]["funding"] = {};
         saved_a["dmp"]["project"]["funding"]["funder_id"] = dmpFunders[window.doc_name];
-       
     }
 
     /**
@@ -550,16 +606,12 @@ function textReform(template){
         translatePage(name);
         
         punctualReplaced = false;
-       
-        
         initialed ? scroll_y = document.getElementById("split-0").scrollTop + "" : {};
-
-
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         Object.keys(saved_a["replace"]).includes("$_DMPVERSION") ? {} : saved_a["replace"]["$_DMPVERSION"] = "1.0";
         //document.getElementById("today_date").innerHTML = "<h3>"+date.toLocaleDateString('en-US', options)+"</h3>";
         let frame = document.getElementById("doc3");
-        updateSavedAnswers();
+        updateSavedAnswers2();
         if (convertedEle ==undefined){
             callback(name);
         }else if (doc_name == "user-defined"){
@@ -578,7 +630,7 @@ function textReform(template){
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/newstruct/DMPDocs/"+doc_name+"-2025-02-11.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/newstruct/DMPDocs/"+doc_name+"-2025-03-19.js";
         maDMPUpdate();
         runWordCloud();
         setTimeout(() => {
@@ -779,6 +831,7 @@ function textReform(template){
         document.getElementById("check_acronym").checked? locala["$_ADDACRONYM"]=optional_temp[language]["$_ADDACRONYM"] :  {};
         document.getElementById("check_projectcoordinator").checked? locala["$_ADDPROJECTCOORDINATOR"]=optional_temp[language]["$_ADDPROJECTCOORDINATOR"] :  {};
         document.getElementById("check_otherdatatype").checked? locala["$_OTHERDATATYPETEXT"]=optional_temp[language]["$_OTHERDATATYPETEXT"] :  {};
+        document.getElementById("check_otherdataformats").checked? locala["$_OTHERDATAFORMATS"]=optional_temp[language]["$_OTHERDATAFORMATS"] :  {};
         
         for (const [key, value] of Object.entries(locala)) {
             total_keywords++;
@@ -942,7 +995,7 @@ function textReform(template){
             if (key !== "$_VISUALIZATION") {
                
                 let element = document.getElementsByName(key.toUpperCase())[0];
-                console.log(key + " "+value);
+                //verbose  console.log(key + " "+value);
                 try {
                     
                     element.value = value;
@@ -1877,7 +1930,7 @@ function textReform(template){
                 .then(response => response.json())
                 .then(json => {
                     saved_a = json;
-                    updateSavedAnswers();
+                    updateSavedAnswers2();
                     load_dmp(reload_answers, cached_template);
                 })
 
@@ -2107,8 +2160,6 @@ function textReform(template){
             ];
             answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
             answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
-
-
         } else if (answers["update"]["storage"].length == 5) {
             answers["update"]["storage"].push({ "answer": [], "name": [], });
             answers["update"]["storage"][5] = answers["update"]["storage"][4];
@@ -2118,15 +2169,10 @@ function textReform(template){
             answers["update"]["storage"][1] = answers["update"]["storage"][0];
             answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
             answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
-
         } else {
             answers["update"]["storage"][0]["answer"]["replace"] = answers["replace"];
             answers["update"]["storage"][0]["answer"]["checkbox"] = answers["checkbox"];
-
         }
-
-
-
         return answers;
     }
     function update_storage_dropdown(a2) {
@@ -2345,7 +2391,7 @@ function textReform(template){
         window.saved_a["replace"] = uploaded_input_all["replace"];
         window.saved_a["checkbox"] = uploaded_input_all["checkbox"];
         window.saved_a = uploaded_input_all;
-        updateSavedAnswers();
+        updateSavedAnswers2();
         window["saved_a_"+dmpLanguage[doc_name]]=window.saved_a;
         document.getElementById("template-input-content").innerHTML = uploaded_input_all["templateText"];
         window.localStorage.setItem("fulltext_user",uploaded_input_all["templateText"] );
@@ -2369,7 +2415,7 @@ function textReform(template){
         saved_a["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["checkbox"] = uploaded_input_all["update"]["storage"][uploaded_origin]["answer"]["checkbox"];
         saved_a["update"]["storage"][current_origin]["answer"]["timestamp"] = now.toLocaleString();
-        updateSavedAnswers();
+        updateSavedAnswers2();
         window["saved_a_"+dmpLanguage[doc_name]]=window.saved_a;
         setTimeout(
         e =>{        
@@ -4407,19 +4453,266 @@ END:VEVENT`;
                                     onfocus='thisOnfocus(this)'
                                     onfocusout='thisOnfocusout(this)' />
                                 GB
-
-
                             </div>
                         </form>
 
-                        <div class=" " id="form_checkbox_3" >
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
 
+                        
+                            <h3><span name="translateTarget" data-en="3.2 Data formats used:"> 3.2 Data formats used: </span></h3>
+
+
+                            <div class="">
+
+                                <div class="form-check form-check-inline collapse check_geneticrepo form-check form-check-inline" id="formatfastq">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatfastq" />
+                                    <label class="form-check-label" for="check_formatfastq">
+                                         FASTQ
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_geneticrepo form-check form-check-inline" id="formatfast5">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatfast5" />
+                                    <label class="form-check-label" for="check_formatfast5">
+                                         FAST5
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_geneticrepo " id="formatfasta">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatfasta" />
+                                    <label class="form-check-label" for="check_formatfasta">
+                                         FASTA
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_geneticrepo" id="formatbcl">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatbcl" />
+                                    <label class="form-check-label" for="check_formatbcl">
+                                         BCL
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_geneticrepo" id="formatsambam">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatsambam" />
+                                    <label class="form-check-label" for="check_formatsambam">
+                                         SAM/BAM
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_genomicrepo" id="formatvcfbcf">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatvcfbcf" />
+                                    <label class="form-check-label" for="check_formatvcfbcf">
+                                         VCF/BCF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_genomicrepo" id="formatcram">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatcram" />
+                                    <label class="form-check-label" for="check_formatcram">
+                                         CRAM
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_genomicrepo" id="formatgbk">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatgbk" />
+                                    <label class="form-check-label" for="check_formatgbk">
+                                         GBK
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_genomicrepo" id="formatembl">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatembl" />
+                                    <label class="form-check-label" for="check_formatembl">
+                                         EMBL
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_genomicrepo" id="formatgffgtf">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatgffgtf" />
+                                    <label class="form-check-label" for="check_formatgffgtf">
+                                         GFF/GTF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_proteomicrepo check_metabolomicrepo" id="formatmzml">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatmzml" />
+                                    <label class="form-check-label" for="check_formatmzml">
+                                         MZML
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_proteomicrepo" id="formatmgf">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatmgf" />
+                                    <label class="form-check-label" for="check_formatmgf">
+                                         MGF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_proteomicrepo" id="formatmzidentml">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatmzidentml" />
+                                    <label class="form-check-label" for="check_formatmzidentml">
+                                         mzIdentML
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_proteomicrepo" id="formatmzquantml">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatmzquantml" />
+                                    <label class="form-check-label" for="check_formatmzmzquantml">
+                                         mzQuantML
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_proteomicrepo" id="formatpepxml">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatpepxml" />
+                                    <label class="form-check-label" for="check_formatpepxml">
+                                         pepXML
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_metabolomicrepo" id="formatraw">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatraw" />
+                                    <label class="form-check-label" for="check_formatraw">
+                                         RAW
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_metabolomicrepo" id="formatimzml">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatimzml" />
+                                    <label class="form-check-label" for="check_formatimzml">
+                                         imzML
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_metabolomicrepo" id="formatcdf">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatcdf" />
+                                    <label class="form-check-label" for="check_formatcdf">
+                                         CDF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_metabolomicrepo" id="formatxlsx">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatxlsx" />
+                                    <label class="form-check-label" for="check_formatxlsx">
+                                         XLSX
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_imagecrepo" id="formattiff">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formattiff" />
+                                    <label class="form-check-label" for="check_formattiff">
+                                         TIFF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_imagecrepo" id="formatjpeg">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatjpeg" />
+                                    <label class="form-check-label" for="check_formatjpeg">
+                                         JPEG
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_imagecrepo" id="formatpng">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatpng" />
+                                    <label class="form-check-label" for="check_formatpng">
+                                         PNG
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_imagecrepo" id="formatometiff">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatometiff" />
+                                    <label class="form-check-label" for="check_formatometiff">
+                                         OME-TIFF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline collapse check_imagecrepo" id="formathdf5">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formathdf5" />
+                                    <label class="form-check-label" for="check_formathdf5">
+                                         HDF5
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline show" id="formattxt">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formattxt" />
+                                    <label class="form-check-label" for="check_formattxt">
+                                         TXT
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline show" id="formatcsvtsvpsv">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatcsvtsvpsv" />
+                                    <label class="form-check-label" for="check_formatcsvtsvpsv">
+                                         CSV/TSV/PSV
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline show" id="formatpdf">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatpdf" />
+                                    <label class="form-check-label" for="check_formatpdf">
+                                         PDF
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline show" id="formatjson">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatjson" />
+                                    <label class="form-check-label" for="check_formatjson">
+                                         JSON
+                                    </label>
+                                </div>
+
+                                <div class="form-check form-check-inline show" id="formatxmlhtml">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="4"
+                                        id="check_formatxmlhtml" />
+                                    <label class="form-check-label" for="check_formatxmlhtml">
+                                         XML/HTML
+                                    </label>
+                                </div>
+
+                                <div class="form-data_type form-check">
+                                    <input class="form-check-input checkbox_4" type="checkbox" value="10"
+                                        id="check_otherdataformats" />
+                                    <label class="form-check-label" for="check_otherdataformats">
+                                        <input style="width: 24vw;" type="text" class="col-auto"
+                                            id="input_otherdataformats" onfocusin="this.select();"
+                                            onchange="onchange_replace(this);" name="$_OTHERDATAFORMATS"
+                                            onchange=' saved_a["replace"]["$_OTHERDATAFORMATS"]= this.value '
+                                            placeholder='Other used data formats (you can use "," to separate multiple formats)'
+                                            onkeydown="if (event.keyCode == 13){event.preventDefault(); event.stopPropagation()}"
+                                            onfocus='thisOnfocus(this)'
+                                            onfocusout='thisOnfocusout(this)' />
+                                    </label>
+                                </div>
+                            </div>
+
+
+                        <div class=" " id="form_checkbox_3" >
                             <h2 id="scrollspyHeading4"><span name="translateTarget" data-en="4. Are any of the following standards relevant to your project?">4. Are any of the following standards relevant to your project?</span>
                             </h2>
                             <div class=" d-grid gap-1">

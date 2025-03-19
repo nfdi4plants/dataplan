@@ -113,6 +113,7 @@ Horizon2020_DMP={
             <p class="c0">
                 <span class="c1">
             list-dataCollection-en
+            list-data-format-en
                 </span>
             </p>
             <p class="c0"><span class="c3"></span></p>
@@ -161,7 +162,7 @@ Horizon2020_DMP={
                     Object Identifiers)?
                 </span>
             </p>
-            <p class="c1">
+            <p class="c0">
             text-standards-long-en
             text-cross-metadata-en
             </p>

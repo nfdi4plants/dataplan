@@ -73,6 +73,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
         <p class="c0">
             <span class="c1">
                 list-dataCollection-en
+                list-data-format-en
             </span>
         </p>
 
@@ -88,7 +89,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
                 class="c2 c12">Documentation and data quality</span>
         </h2>
         <h3 class="c3">
-            <span class="c1">2.1.&nbsp;&nbsp;&nbsp;&nbsp;What approaches are being taken to describe the data in a
+            <span class="c3">2.1.&nbsp;&nbsp;&nbsp;&nbsp;What approaches are being taken to describe the data in a
                 comprehensible manner (such as the use of available metadata, documentation standards or
                 ontologies)? </span>
         </h3>
@@ -161,9 +162,13 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
             <span class="c3">3.1&nbsp;&nbsp;&nbsp;&nbsp;How is the data to be stored and archived throughout the
                 project duration?</span>
         </h3>
-        text-repository-long-en
+        <p class="c0">
+            <span class="c1">
+
+            text-repository-long-en
           
-    
+            </span>
+        </p>
         <p class="c0">
             <span class="c1">Data will be made available for many years#if$_DATAPLANT and potentially indefinitely
                 after the end of the project #endif$_DATAPLANT.</span>
