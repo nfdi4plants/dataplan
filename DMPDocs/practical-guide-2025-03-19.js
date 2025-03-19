@@ -346,7 +346,7 @@ practical_guide={
                         $_DATAOFFICER.#if$_DATAPLANT An electronic lab notebook was used to ensure enough metadata
                         is recorded
                         and guarantees that the data can be further reused. The workflow can be retrieved from the
-                        electronic workbook by using the toolkits provided from the DataPLANT such as SWATE and
+                        electronic workbook by using the toolkits provided from the DataPLANT such as Swate and
                         arccommander.
                         #endif$_DATAPLANT&nbsp;
                     </span>
@@ -992,7 +992,7 @@ practical_guide={
                                                                 
                                                                 
                                                             ">
-                                            #if$_DATAPLANT The sample SWATE template will be used to document the
+                                            #if$_DATAPLANT The sample Swate template will be used to document the
                                             sample metadata. A part of sample metadata which can be retrieved from
                                             the raw data will be updated
                                             afterwards using the <a
