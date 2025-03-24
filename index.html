@@ -17,20 +17,20 @@
     <link href="css/bootstrap.min2106.css" rel="stylesheet" />
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
-    <script src="DMPDocs/dmp-blocks-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/BBSRC-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/NSF-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/carl-zeiss-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/msca-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dmp-blocks-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/BBSRC-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/NSF-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/carl-zeiss-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/msca-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
 
-    <script src="DMPDocs/bmbf-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/bmel-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/vw-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmbf-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/bmel-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/vw-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
     
-    <script src="DMPDocs/dfg-dmp-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/horizon_europe-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/Horizon2020_DMP-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
-    <script src="DMPDocs/practical-guide-2025-03-20.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dfg-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/horizon_europe-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/Horizon2020_DMP-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/practical-guide-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
     <!-- loading javascript scripts -->
     <script src="js/split.min.js" type="text/javascript" charset="utf-8"></script>
     <script  src="js/bootstrap.bundle.min2106.js" type="text/javascript" charset="utf-8"> </script>
@@ -428,8 +428,7 @@ function textReform(template){
         } catch (error) {
             console.log(error);
         }
-    }
-    if (dmpLanguage[doc_name] == "en"){
+        if (dmpLanguage[doc_name] == "en"){
             
             window.saved_a_en =  saved_a;
         }else if(dmpLanguage[doc_name] == "de"){
@@ -437,6 +436,8 @@ function textReform(template){
             window.saved_a_de = saved_a;
         }
     }
+    }
+   
 
 
     // function updateSavedAnswers() {
@@ -630,7 +631,7 @@ function textReform(template){
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/newstruct/DMPDocs/"+doc_name+"-2025-03-20.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/newstruct/DMPDocs/"+doc_name+"-2025-03-24.js";
         maDMPUpdate();
         runWordCloud();
         setTimeout(() => {

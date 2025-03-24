@@ -46,6 +46,7 @@ vw_dmp = { "vw-dmp" : `<div id="vw-dmp" class="">
                 <p class="c0">
                     <span class="c1">
                         list-dataCollection-de
+                        list-data-format-de
                     </span>
                 </p>
                  #if$_PREVIOUSPROJECTS&nbsp;
