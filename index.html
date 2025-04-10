@@ -17,7 +17,7 @@
     <link href="css/bootstrap.min2106.css" rel="stylesheet" />
 
     <link href="css/bs5-intro-tour2106.css" rel="stylesheet" />
-    <script src="DMPDocs/dmp-blocks-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
+    <script src="DMPDocs/dmp-blocks-2025-04-10.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/BBSRC-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/NSF-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
     <script src="DMPDocs/carl-zeiss-dmp-2025-03-24.js" type="text/javascript" charset="utf-8"></script>
@@ -631,7 +631,7 @@ function textReform(template){
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/newstruct/DMPDocs/"+doc_name+"-2025-03-24.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2025-03-24.js";
         maDMPUpdate();
         runWordCloud();
         setTimeout(() => {
@@ -2907,6 +2907,7 @@ END:VEVENT`;
         window.reminderModal = new Tour(reminders);
         try{window.reminderModal.show();}
         catch(e){
+            console.error(e);
             alert("The DMP is not finished and our answer checking system is having problems, please check the answers manually. You will still be able to copy the text or download the document.");
             document.querySelectorAll("div[role=tooltip ]")[0].remove();
             document.querySelectorAll("[class='modal-backdrop show']")[0].remove();
@@ -4062,7 +4063,7 @@ END:VEVENT`;
                                         onfocusout='thisOnfocusout(this)' />
                                 </label>
                             </div>
-                            <div id="form_partners">
+                            <div id="form_partners" class="">
 
                                 <input class="form-check-input checkbox_1" type="checkbox" value="7"
                                     id="check_partners" />
@@ -4235,7 +4236,7 @@ END:VEVENT`;
                                 </label>
                             </div> -->
 
-                            <div id="form_otherdatatype">
+                            <div id="form_otherdatatypetext" class="">
                                 <input class="form-check-input checkbox_2" type="checkbox" value="4" id="check_otherdatatype" onfocusin="checkboxOnfocusin(this)" onfocusout="checkboxOnfocusout(this)" onmouseover="this.focus()" onclick=" sc1(this)" name="check_otherdatatype" onchange="get_option(this)">
                                 <label class="form-check-label" for="check_otherdatatype">
                                     <span name="translateTarget" data-en="Other Data Types:">Other Data Types:</span>
@@ -4353,9 +4354,6 @@ END:VEVENT`;
                                         IntAct (Molecular interactions)
                                     </label>
                                 </div>
-
-
-
 
                                 <div class="collapse check_proteomicrepo" id="pdb">
                                     <input class="form-check-input checkbox_5" type="checkbox" value="4"
