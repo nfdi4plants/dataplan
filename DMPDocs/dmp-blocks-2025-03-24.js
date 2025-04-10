@@ -19,7 +19,7 @@ dmpBlocks = [
             </li>
             #if$_PANGENOMIC&nbsp; 
             <li>
-                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals within a clade. Then the the sequences are assembled and aligned to create a comprehensive gene reference.  </span>
+                    <span class="c1"> Pangenomic data will be collected by sequencing the genomes of multiple individuals within a clade. Then the sequences are assembled and aligned to create a comprehensive gene reference.  </span>
             </li>
             #endif$_PANGENOMIC
             #endif$_GENOMIC #if$_CLONED-DNA&nbsp; 
@@ -335,7 +335,7 @@ dmpBlocks = [
     ["text-standards-long-en", `            <span class="c1">
                 All datasets will be associated with unique identifiers and will be annotated with metadata. We will
                 use Investigation, Study, Assay (ISA) specification for metadata creation. $_PROJECTNAME will rely
-                on community standards plus additional recommendations applicable in the plant science, such as the
+                on community standards plus additional recommendations applicable in the plant science.
                 <span class="list-to-remove-comma">
                     The following metadata/ minimum information standards will be used to collect metadata:
                     #if$_GENOMIC|$_GENETIC #if$_MIXS MIxS (Minimum Information about any (X) Sequence), #endif$_MIXS
@@ -360,7 +360,7 @@ dmpBlocks = [
                     #if$_RNASEQ|$_GENOMIC
  
                     #if$_MINSEQE
-                        MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
+                        MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),
                     #endif$_MINSEQE 
                     #endif$_RNASEQ|$_GENOMIC
 
@@ -379,7 +379,7 @@ dmpBlocks = [
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
                 defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
-                The metadata standards will thus allow the integration of data across projects and safegard the established and tested
+                The metadata standards will thus allow the integration of data across projects and safeguard the established and tested
                 protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
                 ontologies. In addition, additional ontology terms might be created and be canonized during the
                 $_PROJECTNAME. </span>`],
@@ -388,8 +388,8 @@ dmpBlocks = [
                 Metadaten-Erstellung. #if$_RNASEQ|$_GENOMIC
                 Für spezifische Daten (z.B. RNASeq oder genomische
                 Daten) verwenden wir Metadatentemplates der Endpunkt-Repositorien. </span><span
-                class="c1">#if$_MINSEQE The Minimum Information About a Next-generation Sequencing Experiment
-                (MinSEQe) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
+                class="c1">#if$_MINSEQE The Minimum Information About a high-throughput SEQuencing Experiment
+                (MINSEQE) wird ebenfalls verwendet. #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
                 &nbsp;</span>
                     <span class="c1">
                 Die folgenden Metadaten-/Mindestinformationsstandards werden zur Sammlung von Metadaten verwendet:
@@ -415,7 +415,7 @@ dmpBlocks = [
                         #endif$_IMAGE
                         #if$_RNASEQ|$_GENOMIC
                         #if$_MINSEQE
-                            MinSEQe (Minimum Information about a high-throughput Sequencing Experiment),
+                            MINSEQE (Minimum Information about a high-throughput SEQuencing Experiment),
                         #endif$_MINSEQE 
                         #endif$_RNASEQ|$_GENOMIC
                         #if$_METABOLOMIC
@@ -444,7 +444,7 @@ dmpBlocks = [
                 Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
                 auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
                 #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC
-                z.B.#if$_MINSEQE MinSEQe für
+                z.B.#if$_MINSEQE MINSEQE für
                 Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
                 Metabolights-kompatible
                 Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
@@ -480,26 +480,26 @@ dmpBlocks = [
                 </span> 
                 #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implements minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
-                The metadata standards will thus allow the integration of data across projects and safegard the established and tested
+                The metadata standards will thus allow the integration of data across projects and safeguard the established and tested
                 protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
                 ontologies. In addition, additional ontology terms might be created and be canonized during the
                 $_PROJECTNAME.</span>`],
     ["text-quality-control-en",`
-        <span class="c1">The data will be checked and curated by using data collection protocol, personnel training, data cleaning, data analysis, and quality control #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT Document all data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures. This documentation should be kept for future reference and should be made available to stakeholders upon request. PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.</span>`],
+        <span class="c1">Data quality will be assured by using a data collection protocol, personnel training, data cleaning, data analysis, and quality control. #if$_DATAPLANT Furthermore, data will be analyzed for quality control (QC) problems using automatic procedures as well as by manual curation. #endif$_DATAPLANT All data quality assurance processes, including the data collection protocol, data cleaning procedures, data analysis techniques, and quality control measures will be documented. This documentation should be kept for future reference and should be made available to stakeholders upon request. PhD students and lab professionals will be responsible for the first-hand quality control. Afterwards, the data will be checked and annotated by $_DATAOFFICER. #if$_RNASEQ|$_GENOMIC FastQC will be conducted on the base-calling. #endif$_RNASEQ|$_GENOMIC Before publication, the data will be controlled again.</span>`],
     ["text-repository-long-en", `
         <span class="c1">
                 Data will be made available via the $_PROJECTNAME platform using a user-friendly front end that allows
-                data visualization. Besides this it will be ensured that data which can be stored in
-                international discipline related repositories which use specialized technologies and preserve data for more than 10 years:
+                data visualization. Besides this it will be ensured that data will be stored in
+                international discipline related repositories which use specialized technologies and preserve data for more than 10 years, if available:
                  <p class="c0">
                         <span class="c1 list-to-remove-comma"> #if$_GENETIC|$_GENOMIC|$_RNASEQ For genetic or genomic data: #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENETIC #if$_SRA NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
                             #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #endif$_GENETIC #if$_GENETIC|$_GENOMIC|$_RNASEQ . #endif$_GENETIC|$_GENOMIC|$_RNASEQ </span>
                     </p>
 
                 <p class="c0">
-                    <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For Transcriptomic data: #if$_SRA
+                    <span class="c1  list-to-remove-comma">#if$_TRANSCRIPTOMIC For transcriptomic data: #if$_SRA
                         NCBI-SRA (Sequence Read Archive), #endif$_SRA #if$_GEO NCBI-GEO (Gene Expression Omnibus), #endif$_GEO #if$_ARRAYEXPRESS
                         EBI-ArrayExpress, #endif$_ARRAYEXPRESS . #endif$_TRANSCRIPTOMIC</span>
                 </p>
@@ -587,7 +587,7 @@ dmpBlocks = [
             </span>
         `],
     ["text-repository-short-en", `<span class="c1 list-to-remove-comma">
-                        In addition to project related sharing platform, data will be stored in international discipline related repositories which use specialized technologies and preserve data for more than 10 years: 
+                        In addition to the project related sharing platform, data will be stored in international discipline related repositories which use specialized technologies and preserve data for more than 10 years: 
                         #if$_GENETIC|$_GENOMIC|$_RNASEQ #if$_GENBANK NCBI-GenBank, #endif$_GENBANK #if$_ENA EBI-ENA, #endif$_ENA #endif$_GENETIC|$_GENOMIC|$_RNASEQ #if$_TRANSCRIPTOMIC|$_GENETIC 
                         #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO NCBI-GEO, #endif$_GEO #endif$_TRANSCRIPTOMIC|$_GENETIC #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_ARRAYEXPRESS
                         EBI-ArrayExpress, #endif$_ARRAYEXPRESS #endif$_TRANSCRIPTOMIC|$_GENOMIC #if$_IMAGE #if$_BIOIMAGE
@@ -700,7 +700,7 @@ dmpBlocks = [
         #if$_MIMARKSSURVEY  <span class="c11">  MIMARKSSurvey </span><span class="c1"> Minimal Information about a Marker Specimen: Survey </span> <br>  #endif$_MIMARKSSURVEY    #endif$_GENOMIC|$_GENETIC  
         #if$_PROTEOMIC #if$_MIMIX <span class="c11"> MIMIX</span><span class="c1"> The Minimum Information required for reporting a Molecular Interaction Experiment </span> <br>  #endif$_MIMIX   #endif$_PROTEOMIC 
         #if$_GENOMIC|$_GENETIC #if$_MIMS  <span class="c11">  MIMS</span><span class="c1"> Molecular Interactions </span> <br>  #endif$_MIMS    #endif$_GENOMIC|$_GENETIC 
-        #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MinSEQe</span><span class="c1"> Minimum Information about a high-throughput Sequencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
+        #if$_TRANSCRIPTOMIC|$_GENOMIC #if$_MINSEQE <span class="c11"> MINSEQE</span><span class="c1"> Minimum Information about a high-throughput SEQuencing Experiment</span> <br>  #endif$_MINSEQE #endif$_TRANSCRIPTOMIC|$_GENOMIC 
         #if$_GENOMIC|$_GENETIC #if$_MISAG <span class="c11"> MISAG</span><span class="c1"> Minimum Information about a Single Amplified Genome </span> <br>  #endif$_MISAG
         #if$_MIXS <span class="c11"> MIxS</span><span class="c1"> Minimum Information about any (X) Sequence </span> <br>  #endif$_MIXS #endif$_GENOMIC|$_GENETIC 
         <span class="c11"> NCBI</span><span class="c1"> National Center for Biotechnology Information</span> <br>
@@ -743,7 +743,7 @@ dmpBlocks = [
         ["text-metadata-naming-en", `<span class="c1">
                 Data variables will be allocated standard names. For example, genes, proteins and metabolites will
                 be named according to approved nomenclature and conventions. These will also be linked to functional
-                ontologies where possible. Datasets will also be named I a meaningful way to ensure readability by
+                ontologies where possible. Datasets will also be named in a meaningful way to ensure readability by
                 humans. Plant names will include traditional names, binomials, and all
                 strain/cultivar/subspecies/variety identifiers.</span>`],
         ["text-data-accessible-en", `
