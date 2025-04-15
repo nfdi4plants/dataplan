@@ -439,143 +439,92 @@ function textReform(template){
     }
    
 
+    function extractJSONCodeBlock(text) {
+    // Regular expression to match JSON code blocks enclosed in triple backticks with optional language specifier
+                const jsonCodeBlockRegex = /```json\s*([\s\S]*?)\s*```/;
 
-    // function updateSavedAnswers() {
-        
-    //     // check if the newly added answers are there, to be backward compatible
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_DATAUTILITY") ? {} : window.saved_a["replace"]["$_DATAUTILITY"] = "Industry, politicians and students can also use the data for different purposes.";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         (!Object.keys(window.saved_a["replace"]).includes("$_OTHERSTANDARDINPUT") || window.saved_a["replace"]["$_OTHERSTANDARDINPUT"].includes("Other standards are also adhered to")  )? window.saved_a["replace"]["$_OTHERSTANDARDINPUT"] = "other standards" : {} ;
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_otherstandards")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_otherstandards"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_otherstandards") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_otherep")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_otherep"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_otherep") : {};
-    //     }
-    //     catch (e) { console.log("other ep error"); };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metabolights")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metabolights"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_metabolights") : {};
-    //     }
-    //     catch (e) { console.log("metabolights error"); };
-    //     try {
-    //         (!Object.keys(window.saved_a["checkbox"]).includes("checkbox_5")) ? window.saved_a["checkbox"]["checkbox_5"] = { "checked": ["check_geo", "check_genbank", "check_proteomexchange", "check_Zenodo", "check_dataDyrad"], "unchecked": ["check_ena", "check_arrayexpress", "check_pride",] } : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_beforepublication")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_beforepublication"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_beforepublication", "check_endofproject", "check_embargo", "check_request", "check_nfdi", "check_french", "check_eosc") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_5"]["checked"]).includes("check_metaworkbench")) && (!Object.values(window.saved_a["checkbox"]["checkbox_5"]["unchecked"]).includes("check_metaworkbench"))) ? window.saved_a["checkbox"]["checkbox_5"]["unchecked"].push("check_edal", "check_intact", "check_sra", "check_bioimage", "check_idr", "check_metaworkbench", "check_pdb", "check_chebi", "check_otherep") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_OTHEREP") ? {} : window.saved_a["replace"]["$_OTHEREP"] = "Other repositories";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         window.saved_a = JSON.parse(JSON.stringify(window.saved_a).replaceAll("check_dublin_core", "check_dublincore").replaceAll("check_marc_21", "check_marc21"));
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mixs")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mixs"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mixs", "check_migseu", "check_migsorg", "check_mims", "check_mimarksspecimen", "check_mimarkssurvey", "check_misag", "check_mimag", "check_miame", "check_rembi", "check_miape", "check_mimix") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_transcriptomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_transcriptomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_transcriptomic") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_mmiamet")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_mmiamet"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_mmiamet") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_acronym")) && (!Object.values(window.saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_acronym"))) ? window.saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_acronym") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_1"]["checked"]).includes("check_projectcoordinator")) && (!Object.values(window.saved_a["checkbox"]["checkbox_1"]["unchecked"]).includes("check_projectcoordinator"))) ? window.saved_a["checkbox"]["checkbox_1"]["unchecked"].push("check_projectcoordinator") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_otherdatatype")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_otherdatatype"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_otherdatatype") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_3"]["checked"]).includes("check_darwincore")) && (!Object.values(window.saved_a["checkbox"]["checkbox_3"]["unchecked"]).includes("check_darwincore"))) ? window.saved_a["checkbox"]["checkbox_3"]["unchecked"].push("check_darwincore", "check_bioschemas", "check_schemaorg") : {};
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_FUNDINGPROGRAMME") ? {} : window.saved_a["replace"]["$_FUNDINGPROGRAMME"] = "action number or funding programme name";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_ADDPROJECTCOORDINATOR") ? {} : window.saved_a["replace"]["$_ADDPROJECTCOORDINATOR"] = "Project Coordinator";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_ADDACRONYM") ? {} : window.saved_a["replace"]["$_ADDACRONYM"] = "Add an acronym here";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_OTHERDATATYPETEXT") ? {} : window.saved_a["replace"]["$_OTHERDATATYPETEXT"] = "Other data type";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         if (Object.keys(window.saved_a["replace"]).includes("$_PROJECT")) {
-    //             {Object.defineProperty(window.saved_a["replace"], "$_PROJECTNAME",
-    //                 Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_PROJECT")); delete window.saved_a["replace"]["$_PROJECT"]}
+                // Execute the regex on the input text
+                const match = text.match(jsonCodeBlockRegex);
 
-    //         } ;
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         if (Object.keys(window.saved_a["replace"]).includes("$_dataofficer")) {
-    //             {Object.defineProperty(window.saved_a["replace"], "$_DATAOFFICER",
-    //                 Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_dataofficer")); delete window.saved_a["replace"]["$_dataofficer"]}
+                if (match && match[1]) {
+                    // Parse the matched JSON string into an actual JavaScript object
+                    try {
+                        const jsonObject = JSON.parse(match[1]);
+                        return jsonObject;
+                    } catch (error) {
+                        console.error("Error parsing JSON:", error.message);
+                        return null;
+                    }
+                } else {
+                    console.error("No JSON code block found in the provided text.");
+                    return null;
+                }
+            }
 
-    //         } ;
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         if (Object.keys(window.saved_a["replace"]).includes("$_proprietary")) {
-    //             {Object.defineProperty(window.saved_a["replace"], "$_PROPRIETARY",
-    //                 Object.getOwnPropertyDescriptor(window.saved_a["replace"], "$_proprietary")); delete window.saved_a["replace"]["$_proprietary"]}
 
-    //         } ;
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_CREATIONDATE") ? {} : window.saved_a["replace"]["$_CREATIONDATE"] = "xxxx-xx-xx";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_MODIFICATIONDATE") ? {} : window.saved_a["replace"]["$_MODIFICATIONDATE"] = "xxxx-xx-xx";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         Object.keys(window.saved_a["replace"]).includes("$_PARTNERS") ? {} : window.saved_a["replace"]["$_PARTNERS"] = "partner name";
-    //     }
-    //     catch (e) { };
-    //     try {
-    //         ((!Object.values(window.saved_a["checkbox"]["checkbox_2"]["checked"]).includes("check_pangenomic")) && (!Object.values(window.saved_a["checkbox"]["checkbox_2"]["unchecked"]).includes("check_pangenomic"))) ? window.saved_a["checkbox"]["checkbox_2"]["unchecked"].push("check_pangenomic", "check_spatialtranscriptomic", "check_scrnaseq") : {};
-    //     }
-    //     catch (e) { };
+    
 
-    //     if (dmpLanguage[doc_name] == "en"){
-            
-    //         window.saved_a_en =  saved_a;
-    //     }else if(dmpLanguage[doc_name] == "de"){
-            
-    //         window.saved_a_de = saved_a;
-    //     }
-    // }
+    const proposal2dmp = async function(){
+        loading.show();
+        const proposal = document.getElementById("proposalText").innerHTML;
+        const answer = document.getElementById("aiGeneratedJSON");
+        fetch('https://h.dataplan.top/v1/chat/completions', {
+                method: 'POST', // HTTP method
+                headers: {
+                    'Content-Type': 'application/json', // Specify JSON content type
+                    'Host': 'h.dataplan.top' // Host header
+                },
+                body: JSON.stringify({
+                    model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+                    messages: [
+                        {
+                            role: "user",
+                            content: `review the following proposal provided. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
+					"$_PROJECTNAME": "Example Project",
+					"$_STUDYOBJECT": "Example Topic",
+					"$_PROJECTAIM": "aims at Example Aim",
+					"$_DMPVERSION": "1.0",
+					"$_USERNAME": "Example User",
+					"$_EMAIL": "email",
+					"$_DATAOFFICER": "Example data officer name",
+					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
+					"$_UPDATEMONTH": "Example Month",
+					"$_PREVIOUSPROJECTS": "Previous Project Name",
+					"$_PROPRIETARY": "Proprietary Software",
+					"$_RAWDATA": "??? GB (The volume of raw data)",
+					"$_DERIVEDDATA": "??? GB (The volume of derived data)",
+					"$_FUNDINGPROGRAMME": "action number or funding programme name",
+					"$_CREATIONDATE": "xxxx-xx-xx",
+					"$_MODIFICATIONDATE": "xxxx-xx-xx",
+					"$_OTHERSTANDARDINPUT": "other standards",
+					"$_OTHEREP": "Other repositories",
+					"$_PARTNERS": "partner name",
+					"$_ADDPROJECTCOORDINATOR": "project coordinator",
+					"$_ADDACRONYM": "add an acronym",
+					"$_OTHERDATATYPETEXT": "Other data type",
+					"$_OTHERDATAFORMATS": "other data formats"
+				}}\n
+                Proposal is: \n\n${proposal}`
+                        }
+                    ]
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Parse the JSON response
+            })
+            .then(data => {
+                console.log('Response:', data); // Handle the parsed JSON data
+                answer.innerHTML= data.choices[0].message.content;
+                loading.hide();
+                
+            })
+            .catch(error => {
+                console.error('Error:', error); // Handle any errors
+            });
+    }
 
 
     function maDMPUpdate(){
@@ -1974,69 +1923,60 @@ function textReform(template){
         }
         
         window.upload_json1 = document.getElementById("upload");
-        upload_json1.addEventListener("change", openStorageModal, false);
         window.upload_json2 = document.getElementById("upload_menu");
-        upload_json2.addEventListener("change", openStorageModal, false);
         window.import_history = document.getElementById("import_history");
-        import_history.addEventListener("change", importHistory, false);
 
-        function importHistory(){
-            try {
-                import_history.files[0].text().then(text => (history = JSON.parse(text))).then((history) => {exportHistory(); inputHistory=history; window.localStorage.setItem("inputHistor", history), updateHistoryHTML(import_history.dataset.elename)});
+        
+        // function openStorageModal() {
 
-            } catch (e) {
-                console.log(e);}
-        }
-
-        function openStorageModal() {
-
-            const list1 = document.getElementById("current_input");
-            current_input_answer = JSON.parse(JSON.stringify(saved_a));
+        //     const list1 = document.getElementById("current_input");
+        //     current_input_answer = JSON.parse(JSON.stringify(saved_a));
             
-            current_input_answer["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
-            list1.innerHTML = "";
-            uploaded_origin = 0;
-            current_origin = 0;
+        //     current_input_answer["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
+        //     list1.innerHTML = "";
+        //     uploaded_origin = 0;
+        //     current_origin = 0;
 
-            document.getElementById("current_answer_link").innerHTML = "Current input";
-            document.getElementById("uploaded_answer_link").innerHTML = "Uploaded input";
-            for (let [key, value] of Object.entries(saved_a["update"]["storage"])) {
+        //     document.getElementById("current_answer_link").innerHTML = "Current input";
+        //     document.getElementById("uploaded_answer_link").innerHTML = "Uploaded input";
+        //     for (let [key, value] of Object.entries(saved_a["update"]["storage"])) {
 
 
-                const new_option = document.createElement("li");
-                const option_link = document.createElement("a");
+        //         const new_option = document.createElement("li");
+        //         const option_link = document.createElement("a");
 
-                option_link.setAttribute("class", "dropdown-item");
-                option_link.setAttribute("href", "#");
-                option_link.setAttribute("onclick", "assign_current_input(this)");
-                option_link.setAttribute("data-option-no", key);
-                if (key == 0) {
-                    option_link.innerHTML = "Default cache";
-                    new_option.appendChild(option_link);
-                    list1.appendChild(new_option);
-                } else if (value["answer"]["timestamp"] != undefined) {
+        //         option_link.setAttribute("class", "dropdown-item");
+        //         option_link.setAttribute("href", "#");
+        //         option_link.setAttribute("onclick", "assign_current_input(this)");
+        //         option_link.setAttribute("data-option-no", key);
+        //         if (key == 0) {
+        //             option_link.innerHTML = "Default cache";
+        //             new_option.appendChild(option_link);
+        //             list1.appendChild(new_option);
+        //         } else if (value["answer"]["timestamp"] != undefined) {
 
-                    option_link.innerHTML = "Slot " + key + " " + value["answer"]["timestamp"];
-                    new_option.appendChild(option_link);
-                    list1.appendChild(new_option);
+        //             option_link.innerHTML = "Slot " + key + " " + value["answer"]["timestamp"];
+        //             new_option.appendChild(option_link);
+        //             list1.appendChild(new_option);
 
-                }
-            }
+        //         }
+        //     }
 
-            let a2;
-            try {
-                upload_json1.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2), cache_management.show(),
-                    update_table()));
+        //     let a2;
+        //     try {
+        //         upload_json1.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2), cache_management.show(),
+        //             update_table()));
 
-            } catch (e) {
-                upload_json2.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2), cache_management.show(),
-                    update_table()));
-            }
+        //     } catch (e) {
+        //         upload_json2.files[0].text().then(text => (a2 = JSON.parse(text))).then(a2 => (uploaded_input_answer = a2, update_storage_dropdown(a2), cache_management.show(),
+        //             update_table()));
+        //     }
             
-            this.value = null;
-            return false;
+        //     this.value = null;
+        //     return false;
 
-        }
+        // }
+       
         document.getElementById("word_cloud_switchl").checked = window.wordcloud === "true";
         runWordCloud();
         const dmp1_vis = document.getElementById("wordCloud").querySelector("#vis").childNodes[0].childNodes[1];
@@ -2127,8 +2067,112 @@ function textReform(template){
 
 
     });
+    function importHistory(){
+            try {
+                import_history.files[0].text().then(text => (history = JSON.parse(text))).then((history) => {exportHistory(); inputHistory=history; window.localStorage.setItem("inputHistor", history), updateHistoryHTML(import_history.dataset.elename)});
 
+            } catch (e) {
+                console.log(e);}
+        }
 
+     /**
+         * Opens the storage modal and initializes the dropdown with saved or uploaded data.
+         * 
+         * @param {string|Object} [inputJson] - Optional input JSON (string or object). If not provided, uses `upload_json1.files[0]`.
+         */
+         function openStorageModal(inputJson = null) {
+            try {
+                // Reset UI elements
+                const list1 = document.getElementById("current_input");
+                list1.innerHTML = "";
+                uploaded_origin = 0;
+                current_origin = 0;
+
+                // Set default links
+                document.getElementById("current_answer_link").innerHTML = "Current input";
+                document.getElementById("uploaded_answer_link").innerHTML = "Uploaded input";
+
+                // Initialize current input answer
+                current_input_answer = JSON.parse(JSON.stringify(saved_a));
+                current_input_answer["update"]["storage"][0]["answer"] = {
+                    replace: saved_a["replace"],
+                    checkbox: saved_a["checkbox"]
+                };
+
+                // Populate the dropdown with saved data
+                populateDropdown(list1, saved_a["update"]["storage"]);
+
+                // Handle input JSON (either from argument or file upload)
+                handleInputJson(inputJson);
+            } catch (error) {
+                console.error("Error in openStorageModal:", error.message);
+            }
+        }
+
+        /**
+         * Populates the dropdown list with the given storage data.
+         * 
+         * @param {HTMLElement} listElement - The dropdown list element to populate.
+         * @param {Object[]} storageData - Array of storage data objects.
+         */
+        function populateDropdown(listElement, storageData) {
+            for (const [key, value] of Object.entries(storageData)) {
+                const newOption = document.createElement("li");
+                const optionLink = document.createElement("a");
+
+                optionLink.setAttribute("class", "dropdown-item");
+                optionLink.setAttribute("href", "#");
+                optionLink.setAttribute("onclick", "assign_current_input(this)");
+                optionLink.setAttribute("data-option-no", key);
+
+                if (key == 0) {
+                    optionLink.innerHTML = "Default cache";
+                } else if (value["answer"]["timestamp"] !== undefined) {
+                    optionLink.innerHTML = `Slot ${key} ${value["answer"]["timestamp"]}`;
+                }
+
+                newOption.appendChild(optionLink);
+                listElement.appendChild(newOption);
+            }
+        }
+
+        /**
+         * Handles the input JSON, either from the argument or file upload.
+         * 
+         * @param {string|Object} inputJson - Input JSON (string or object). If null, uses `upload_json1.files[0]`.
+         */
+        async function handleInputJson(inputJson) {
+            let parsedJson;
+
+            try {
+                if (inputJson) {
+                    // Use provided input JSON
+                    parsedJson = typeof inputJson === "string" ? JSON.parse(inputJson) : inputJson;
+                    window.uploaded_input_answer = JSON.parse(JSON.stringify(parsedJson));
+                    
+                    window.uploaded_input_answer.replace = parsedJson.replace;
+                } else {
+                    // Use file upload
+                    const file = upload_json1.files[0] || upload_json2.files[0];
+                    if (!file) {
+                        throw new Error("No file selected.");
+                    }
+                    const fileText = await file.text();
+                    parsedJson = JSON.parse(fileText),
+                    window.uploaded_input_answer = parsedJson;
+                    
+                }
+
+                // Process the parsed JSON
+                
+                    update_storage_dropdown(window.uploaded_input_answer);
+                cache_management.show();
+                    update_table();
+                
+            } catch (error) {
+                console.error("Error handling input JSON:", error.message);
+            }
+        }
 
     function answerStorageUpdate(answers) {
         try {
@@ -3173,7 +3217,7 @@ END:VEVENT`;
                             <li>
                                 <label for="upload_menu" class="form-label dropdown-item">
                                     Import Answers (JSON include checkboxes)
-                                    <input class="form-control d-none" type="file" id="upload_menu" />
+                                    <input onchange="openStorageModal();" class="form-control d-none" type="file" id="upload_menu" />
                                 </label>
                             </li>
                             <li>
@@ -3308,7 +3352,7 @@ END:VEVENT`;
                                     <span name="translateTarget" data-en="Import Answers (JSON include checkboxes)">
                                         Import Answers (JSON include checkboxes)
                                     </span>
-                                    <input class="form-control d-none" type="file" id="upload" />
+                                    <input onchange="openStorageModal();" class="form-control d-none" type="file" id="upload" />
                                 </label>
                             </li>
                             <li>
@@ -3541,6 +3585,28 @@ END:VEVENT`;
                                 </span>
                                     <span class="badge bg-secondary">1</span>
                                     </span></button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="btn-group d-none g-0 d-md-block dropdown col-auto">
+                        <button type="button" class="btn border-0 rounded-0 g-0 btn-nav" data-bs-toggle="dropdown"
+                            aria-expanded="false" id="AI_menu">
+                            <span name="translateTarget" data-en="AI">
+                            AI &nbsp;
+                        </span>
+
+                            <span
+                                style="display: inline-block; color: rgb(79, 179, 217); letter-spacing: 2px; font-size: 1em; transform: scaleX(2); transform-origin: 1 0;">
+                                ∨ </span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button id="proposal_button" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#proposal2dmp_modal">
+                                    <span name="translateTarget" data-en="Convert Proposal to DMP">
+                                    Convert Proposal to DMP
+                                </span>
+                                </button>
                             </li>
 
                         </ul>
@@ -5414,7 +5480,7 @@ END:VEVENT`;
     id="offcanvas-history" aria-labelledby="offcanvasScrolling28" style="width:55vw">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasScrolling28"></h5>
-        <label for="import_history" class="btn btn-primary" >
+        <label for="import_history" class="btn btn-primary" onchange="importHistory()" >
             Import History
             <input class="d-none" type="file" id="import_history" data-elename="$_PROJECTNAME"/>
         </label>
@@ -5535,6 +5601,128 @@ END:VEVENT`;
             </div>
         </div>
     </div>
+
+     <!-- Modal citation-->
+     <div class="modal modal-xl" id="proposal2dmp_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="proposal2dmp_modal-label" aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="proposal2dmp_modal-label"><span name="translateTarget" data-en='Text to DMP (Your input will be submitted to together.ai for conversion)'>Text to DMP (Your input will be submitted to together.ai for conversion)</span></h5>
+                 <button type="button" id="proposal2dmp_modal_close" class="btn-close" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body row justify-content-center">
+                <textarea id="proposalText">
+                    
+                    # Horizon Europe Project Proposal
+                    
+                    ## Title: **PlantFlow – Modelling Coupled Carbon and Water Fluxes in Plants with Axial Growth Dynamics**
+                    
+                    ### Acronym: **PlantFlow**
+                    
+                    ### Topic: **Sustainable Agriculture and Climate Resilience through Digital Plant Twins**
+                    
+                    ### Funding Programme: **HORIZON-CL6-2024-CLIMATE: Resilient agriculture and climate-smart solutions**
+                    
+                    ---
+                    
+                    ## 1. Excellence
+                    
+                    ### 1.1 Objectives
+                    
+                    **PlantFlow** aims to develop an integrated framework combining plant functional-structural modelling (FSPM), real-time environmental sensing, and AI-driven data analytics to improve our understanding of coupled carbon and water fluxes in dynamically growing plants. The core scientific objectives are:
+                    
+                    - To simulate plant axial growth in relation to water uptake and carbon assimilation at multiple scales (organ to canopy).
+                    - To link environmental conditions (e.g. soil moisture, radiation) with plant physiological responses using data-driven models.
+                    - To improve predictive capacity for plant performance under future climate scenarios.
+                    
+                    ### 1.2 Relation to the work programme
+                    
+                    The project addresses the Horizon Europe goals of climate adaptation and sustainable agriculture by enabling the digital transformation of plant research and farming practices. PlantFlow contributes directly to the development of data-driven decision support tools for resilient crop management.
+                    
+                    ### 1.3 Concept and Methodology
+                    
+                    PlantFlow builds on recent advances in functional-structural plant modelling, integrating them with high-throughput phenotyping and IoT-based monitoring platforms. Key components include:
+                    
+                    - **Model development**: Extension of existing FSPMs (e.g. CPlantBox) to incorporate dynamic axial growth under carbon and water limitations.
+                    - **Data integration**: Real-time data streams from soil moisture sensors, leaf gas exchange measurements, and 3D imaging.
+                    - **Transformation pipeline**: Standardized data transformation services to ensure machine-readable interoperability (e.g. using JSON, JSON-LD, and JSONata).
+                    - **Validation**: Controlled experiments in phenotyping platforms and open field trials to calibrate and validate the models.
+                    
+                    ### 1.4 Ambition
+                    
+                    PlantFlow will lead to a paradigm shift in how plant growth and resource use are understood, simulated, and managed. The project will establish the foundation for creating digital plant twins—interactive models capable of guiding real-world decisions in agriculture and plant breeding.
+                    
+                    ---
+                    
+                    ## 2. Impact
+                    
+                    ### 2.1 Expected impacts
+                    
+                    - **Scientific**: Advancement of coupled carbon-water modelling in plants with dynamic geometry.
+                    - **Technological**: Creation of a modular, open-source simulation platform compatible with existing crop modelling tools.
+                    - **Societal**: Empowerment of farmers, breeders, and policymakers to mitigate climate risk using predictive plant modelling.
+                    - **Educational**: Capacity building through training materials, online modules, and student exchanges.
+                    
+                    ### 2.2 Communication, Dissemination, and Exploitation
+                    
+                    - **Open access** to all publications and data, following FAIR principles.
+                    - **Repository deposition** of datasets and models in Zenodo and European Plant Phenotyping Network (EPPN2020) archives.
+                    - **Stakeholder engagement** with agricultural industry, environmental NGOs, and educational institutions through workshops and policy briefs.
+                    - **IPR and exploitation** strategy led by our innovation partner to ensure potential spin-offs.
+                    
+                    ---
+                    
+                    ## 3. Quality and Efficiency of Implementation
+                    
+                    ### 3.1 Work Plan
+                    
+                    The project will run over **48 months**, organized into 6 work packages:
+                    
+                    1. **WP1 – Model Development and Integration**
+                    2. **WP2 – Data Acquisition and Transformation Pipelines**
+                    3. **WP3 – Experimental Trials and Model Calibration**
+                    4. **WP4 – Simulation and Validation in Climate Scenarios**
+                    5. **WP5 – Dissemination, Exploitation, and Policy Outreach**
+                    6. **WP6 – Project Management and Coordination**
+                    
+                    ### 3.2 Management Structure and Procedures
+                    
+                    The project will be coordinated by **Dr. Lina Westermann** (University of Freiburg), supported by a scientific advisory board and a data governance board. Monthly online meetings and biannual consortium workshops will ensure cohesion and progress.
+                    
+                    ### 3.3 Consortium as a Whole
+                    
+                    The consortium brings together top European institutions in plant science, computational modelling, and data management:
+                    
+                    - **University of Freiburg (Germany)** – Project coordination and FSPM development
+                    - **UCLouvain (Belgium)** – Carbon-water coupling and root system modelling
+                    - **Forschungszentrum Jülich (Germany)** – Data pipelines and high-throughput phenotyping
+                    - **AgroDataNet (France)** – Stakeholder engagement and dissemination
+                    - **GreenTech Solutions GmbH (Austria)** – Commercialization and technology transfer
+                    
+                    ---
+                    
+                    ## 4. Ethics and Security
+                    
+                    The project involves no clinical trials or sensitive human data. All plant materials used are non-GMO and cultivated in accordance with EU environmental regulations. Data protection and IP management will follow the Horizon Europe guidelines.
+
+                </textarea>
+                <button class="btn btn-primary" onclick="proposal2dmp()">Submit to together.ai</button>
+                <textarea  id="aiGeneratedJSON">
+
+
+                </textarea>
+                
+                <button class="btn btn-primary" onclick="AIToDataPLAN()">Load JSON to DataPLAN</button>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+             </div>
+         </div>
+     </div>
+ </div>
     <!-- offcanvas dmp storage management-->
     <div class="offcanvas offcanvas-end " tabindex="-1" id="cache_management" data-bs-backdrop="false"
         data-bs-keyboard="false" aria-controls="offcanvasScrolling" aria-labelledby="storage_offcanvas"
