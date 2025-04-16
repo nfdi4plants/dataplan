@@ -468,6 +468,7 @@ function textReform(template){
     loading.show();
     const proposal = document.getElementById("proposalText").innerHTML;
     const answer = document.getElementById("aiGeneratedJSON");
+    answer.innerHTML= "";
     
     try {
         const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
@@ -2144,6 +2145,7 @@ function textReform(template){
             const json = extractJSONCodeBlock(textarea.innerHTML);
             if (json){
                 handleInputJson(json);
+                document.getElementById("proposal2dmp_modal_close").click();
             }
            
 
@@ -2223,7 +2225,7 @@ function textReform(template){
                 if (inputJson) {
                     // Use provided input JSON
                     parsedJson = typeof inputJson === "string" ? JSON.parse(inputJson) : inputJson;
-                    window.uploaded_input_answer = JSON.parse(JSON.stringify(parsedJson));
+                    window.uploaded_input_answer = JSON.parse(JSON.stringify(saved_a));
                     
                     window.uploaded_input_answer.replace = parsedJson.replace;
                 } else {
