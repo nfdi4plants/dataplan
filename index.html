@@ -2220,7 +2220,7 @@ Note: All details provided above are fictional and intended for illustrative pur
 
                 // Set default links
                 document.getElementById("current_answer_link").innerHTML = "Current input";
-                document.getElementById("uploaded_answer_link").innerHTML = "Uploaded input";
+                document.getElementById("uploaded_answer_link").innerHTML = "Imported input";
 
                 // Initialize current input answer
                 current_input_answer = JSON.parse(JSON.stringify(saved_a));
@@ -2256,7 +2256,7 @@ Note: All details provided above are fictional and intended for illustrative pur
                 optionLink.setAttribute("data-option-no", key);
 
                 if (key == 0) {
-                    optionLink.innerHTML = "Default cache";
+                    optionLink.innerHTML = "Cache No.1";
                 } else if (value["answer"]["timestamp"] !== undefined) {
                     optionLink.innerHTML = `Slot ${key} ${value["answer"]["timestamp"]}`;
                 }
@@ -2366,7 +2366,7 @@ Note: All details provided above are fictional and intended for illustrative pur
             option_link.setAttribute("onclick", "assign_uploaded_input(this)");
             option_link.setAttribute("data-option-no", key);
             if (key == 0) {
-                option_link.innerHTML = "Default cache";
+                option_link.innerHTML = "Cache No.1";
                 new_option.appendChild(option_link);
                 list2.appendChild(new_option);
 
@@ -5761,7 +5761,7 @@ END:VEVENT`;
                         </textarea>
                       </div>
                       <div class="col ">
-                        <h5>Converted Text</h5>   
+                        <h5>Returned AI thinking process and the extracted DMP input</h5>   
                         <textarea class="w-100 h-100 "  id="aiGeneratedJSON">
 
 
@@ -5785,8 +5785,8 @@ END:VEVENT`;
              </div>
              <div class="modal-footer">
                 
-                <button class="btn btn-primary" id="proposal2dmpBtn" onclick="proposal2dmp()">Start Conversion</button>
-                <button class="btn btn-primary" onclick="AIToDataPLAN()">Generate DMP</button>
+                <button class="btn btn-primary" id="proposal2dmpBtn" onclick="proposal2dmp()">Send Proposal to AI</button>
+                <button class="btn btn-primary" onclick="AIToDataPLAN()">Compare the Extracted Input to Current Input </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
              </div>
@@ -5800,7 +5800,7 @@ END:VEVENT`;
         <!--div class="modal-dialog modal-lg" role="document" style="width: 800px ;margin: auto;"-->
         <div class="offcanvas-header">
 
-            <h5 class="offcanvas-title" id="storage_offcanvas"><span name="translateTarget" data-en='Compare and overwrite caches'>Compare and overwrite caches</span></h5>
+            <h5 class="offcanvas-title" id="storage_offcanvas"><span name="translateTarget" data-en='Compare the imported input with the current one. Use checkboxes to load individual inputs, or use "Single Load" or "Full Load" to update one or all cached DMPs.'>Compare the imported input with the current one. Use checkboxes to load individual inputs, or use "Single Load" or "Full Load" to update one or all cached DMPs. </span></h5>
             <button type="button" onclick="" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
@@ -5812,7 +5812,7 @@ END:VEVENT`;
                 <div class="dropdown col-4 ">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="current_answer_link"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <span name="translateTarget" data-en='Current Answer'> Current Answer</span>
+                        <span name="translateTarget" data-en='Current DMP Input'> Current DMP Input</span>
                     </a>
 
                     <ul class="dropdown-menu" id="current_input" aria-labelledby="current_answer_link">
@@ -5845,9 +5845,9 @@ END:VEVENT`;
         <div class="offcanvas-footer">
             <button type="button" class="btn btn-secondary" onclick="" data-bs-dismiss="offcanvas">Close</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                onclick="overwrite_current()">Single page overwrite</button>
+                onclick="overwrite_current()">Load to DMP</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas"
-                onclick="save_json();overwrite_all()">All cache overwrite</button>
+                onclick="save_json();overwrite_all()">Load to all DMPs </button>
         </div>
 
     </div>
