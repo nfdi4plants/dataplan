@@ -465,92 +465,95 @@ function textReform(template){
 
 
     async function proposal2dmp() {
-    loading.show();
-    const proposal = document.getElementById("proposalText").innerHTML;
-    const answer = document.getElementById("aiGeneratedJSON");
-    answer.innerHTML= "";
-    
-    try {
-        const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Host': 'h.dataplan.top'
-            },
-            body: JSON.stringify({
-                model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
-                messages: [{
-                    role: "user",
-                    content: `review the following proposal provided. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
-					"$_PROJECTNAME": "Example Project",
-					"$_STUDYOBJECT": "Example Topic",
-					"$_PROJECTAIM": "aims at Example Aim",
-					"$_DMPVERSION": "1.0",
-					"$_USERNAME": "Example User",
-					"$_EMAIL": "email",
-					"$_DATAOFFICER": "Example data officer name",
-					"$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
-					"$_UPDATEMONTH": "Example Month",
-					"$_PREVIOUSPROJECTS": "Previous Project Name",
-					"$_PROPRIETARY": "Proprietary Software",
-					"$_RAWDATA": "??? GB (The volume of raw data)",
-					"$_DERIVEDDATA": "??? GB (The volume of derived data)",
-					"$_FUNDINGPROGRAMME": "action number or funding programme name",
-					"$_CREATIONDATE": "xxxx-xx-xx",
-					"$_MODIFICATIONDATE": "xxxx-xx-xx",
-					"$_OTHERSTANDARDINPUT": "other standards",
-					"$_OTHEREP": "Other repositories",
-					"$_PARTNERS": "partner name",
-					"$_ADDPROJECTCOORDINATOR": "project coordinator",
-					"$_ADDACRONYM": "add an acronym",
-					"$_OTHERDATATYPETEXT": "Other data type",
-					"$_OTHERDATAFORMATS": "other data formats"
-				}}\n
-                Proposal is: \n\n${proposal}`
-                }],
-                stream: "true"
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder('utf-8');
-        let buffer = '';
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            loading.show();
+            const proposal2dmpBtn = document.getElementById("proposal2dmpBtn");
+            proposal2dmpBtn.disabled = true;
+            const proposal = document.getElementById("proposalText").value;
+            const answer = document.getElementById("aiGeneratedJSON");
+            answer.innerHTML = "";
             
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop() || ''; // Keep incomplete line
-            
-            for (const line of lines) {
-                if (!line.trim() || !line.startsWith('data: ')) continue;
-                
-                try {
-                    // Remove 'data: ' prefix and parse
-                    const data = JSON.parse(line.slice(6));
-                    const content = data.choices?.[0]?.delta?.content || '';
-                    answer.innerHTML += content;
-                    answer.scrollTop =answer.scrollHeight;
-                    console.log(content); // Visible in console
-                } catch (err) {
-                    console.error('Streaming parse error:', err);
+            try {
+                const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Host': 'h.dataplan.top',
+                        'institution':'IBG-4'
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+                        messages: [{
+                            role: "user",
+                            content: `review the following proposal provided. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
+                            "$_PROJECTNAME": "Example Project",
+                            "$_STUDYOBJECT": "Example Topic",
+                            "$_PROJECTAIM": "aims at Example Aim",
+                            "$_DMPVERSION": "1.0",
+                            "$_USERNAME": "Example User",
+                            "$_EMAIL": "email",
+                            "$_DATAOFFICER": "Example data officer name",
+                            "$_DATAUTILITY": "Industry, politicians and students can also use the data for different purposes.",
+                            "$_UPDATEMONTH": "Example Month",
+                            "$_PREVIOUSPROJECTS": "Previous Project Name",
+                            "$_PROPRIETARY": "Proprietary Software",
+                            "$_RAWDATA": "??? GB (The volume of raw data)",
+                            "$_DERIVEDDATA": "??? GB (The volume of derived data)",
+                            "$_FUNDINGPROGRAMME": "action number or funding programme name",
+                            "$_CREATIONDATE": "xxxx-xx-xx",
+                            "$_MODIFICATIONDATE": "xxxx-xx-xx",
+                            "$_OTHERSTANDARDINPUT": "other standards",
+                            "$_OTHEREP": "Other repositories",
+                            "$_PARTNERS": "partner name",
+                            "$_ADDPROJECTCOORDINATOR": "project coordinator",
+                            "$_ADDACRONYM": "add an acronym",
+                            "$_OTHERDATATYPETEXT": "Other data type",
+                            "$_OTHERDATAFORMATS": "other data formats"
+                        }}\n
+                        Proposal is: \n\n${proposal}`
+                        }],
+                        stream: "true"
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || ''; // Keep incomplete line
+                    
+                    for (const line of lines) {
+                        if (!line.trim() || !line.startsWith('data: ')) continue;
+                        
+                        try {
+                            // Remove 'data: ' prefix and parse
+                            const data = JSON.parse(line.slice(6));
+                            const content = data.choices?.[0]?.delta?.content || '';
+                            answer.innerHTML += content;
+                            answer.scrollTop =answer.scrollHeight;
+                            //console.log(content); // Visible in console
+                        } catch (err) {
+                            console.error('Streaming parse error:', err);
+                        }
+                    }
+                }
+                proposal2dmpBtn.disabled = false;
+                loading.hide();
+            } catch (error) {
+                console.error('Error:', error);
+                loading.hide();
             }
         }
-
-        loading.hide();
-    } catch (error) {
-        console.error('Error:', error);
-        loading.hide();
-    }
-}
-    
+            
 
     // const proposal2dmp = async function(){
     //     loading.show();
@@ -2121,7 +2124,57 @@ function textReform(template){
             }
 
         };
+        const proposalEle = document.getElementById("proposalText");
+        proposalEle.value = `
+        Proposal for Horizon Europe Funding Programme
+Project Title: GreenTech Innovations
+Acronym: GTI-2024
+Project Coordinator: Dr. Emily Carter
+Funding Programme: Horizon Europe - Action Number 101095
+Proposal Creation Date: 2023-10-15
+Last Modification Date: 2023-11-01
 
+Executive Summary
+The project titled GreenTech Innovations focuses on an innovative study of sustainable energy solutions and aims at reducing carbon emissions by 30% in urban environments . This initiative builds upon the successes and insights gained from EcoFuture 2020 , leveraging advanced methodologies and cutting-edge technologies to achieve its ambitious goals.
+Our team, comprising Green Energy Corp., UrbanSolutions Ltd., and EcoNova Research Institute , is committed to delivering impactful results that will benefit a wide range of stakeholders, including industry leaders, policymakers, and academic researchers who can also use the data for different purposes . The project is set to commence in March 2024 and will adhere to rigorous data management practices as outlined in our Data Management Plan (DMP) version 1.0 .
+
+Objectives and Aims
+The primary aim of GreenTech Innovations is to reduce carbon emissions by 30% in urban environments . By doing so, we hope to address key challenges in sustainable energy solutions , leading to significant advancements in the field. Our objectives include:
+Developing new methodologies for urban energy efficiency .
+Enhancing existing tools and utilizing MATLAB and AutoCAD software to maximize efficiency.
+Ensuring that both raw (sensor data from IoT devices ) and derived data (carbon emission models ) are meticulously documented and accessible for future research.
+3. Methodology
+To achieve our objectives, we will employ a multi-disciplinary approach that integrates various scientific methods and standards, including ISO 14001 for environmental management . Our strategy involves:
+
+Collaboration with Green Energy Corp., UrbanSolutions Ltd., and EcoNova Research Institute to gather comprehensive datasets.
+Regular updates and modifications tracked via 2023-11-01 .
+Utilizing other repositories such as Zenodo and Figshare for data storage and sharing.
+4. Data Management Plan (DMP)
+4.1 Data Utility
+The data generated by GreenTech Innovations will be highly valuable not only to researchers but also to industry leaders, policymakers, and academic researchers who can also use the data for different purposes . We will ensure that all data types, including time-series sensor data , are well-documented and available in formats like CSV, JSON, and proprietary binary formats .
+
+4.2 Roles and Responsibilities
+Data Officer: Dr. Sarah Johnson
+Primary Contact: Dr. Emily Carter (Email: jane.doe@greentechinnovations.eu )
+4.3 Data Storage and Sharing
+We will utilize a combination of proprietary and open-source software solutions to manage sensor data from IoT devices and carbon emission models . Regular backups and version control will be maintained to prevent data loss and ensure data integrity.
+
+Expected Impact
+GreenTech Innovations is expected to have a transformative impact on sustainable energy solutions . By achieving a 30% reduction in carbon emissions in urban environments , we anticipate:
+Advancements in industry practices.
+Enhanced policy-making capabilities for politicians.
+Educational benefits for students and academic institutions.
+6. Conclusion
+In summary, GreenTech Innovations represents a significant step forward in understanding and addressing challenges related to sustainable energy solutions . With the support of the Horizon Europe funding programme, we are confident in our ability to deliver groundbreaking results that will benefit a diverse array of stakeholders.
+
+For further information or inquiries, please contact:
+
+Dr. Jane Doe
+Email: jane.doe@greentechinnovations.eu
+
+Note: All details provided above are fictional and intended for illustrative purposes only.
+        
+        `
         // Create an observer instance linked to the callback function
         const observer = new MutationObserver(callback);
 
@@ -5692,7 +5745,7 @@ END:VEVENT`;
 
 
              <div class="modal-header">
-                 <h5 class="modal-title" id="proposal2dmp_modal-label"><span name="translateTarget" data-en='Text to DMP (Your input will be submitted to together.ai for conversion)'>Type free text in the the text area to create a DMP. Your input will be submitted to together.ai for conversion</span></h5>
+                 <h5 class="modal-title" id="proposal2dmp_modal-label"><span name="translateTarget" data-en='Text to DMP (Your input will be submitted to together.ai for conversion)'>Enter free text to create a DMP. Your input will be sent to AI cloud service for conversion. This is an alpha test—please avoid using confidential information. The converted result will be temporarily stored on our server.</span></h5>
                  <button type="button" id="proposal2dmp_modal_close" class="btn-close" data-bs-dismiss="modal"
                      aria-label="Close"></button>
              </div>
@@ -5702,100 +5755,8 @@ END:VEVENT`;
                     <div class="row w-100 h-100">
                         
                       <div class="col">
-                        <h5>Type to convert</h5>   
-                        <textarea class="w-100 h-100" id="proposalText">
-                    
-                            # Horizon Europe Project Proposal
-                            
-                            ## Title: **PlantFlow – Modelling Coupled Carbon and Water Fluxes in Plants with Axial Growth Dynamics**
-                            
-                            ### Acronym: **PlantFlow**
-                            
-                            ### Topic: **Sustainable Agriculture and Climate Resilience through Digital Plant Twins**
-                            
-                            ### Funding Programme: **HORIZON-CL6-2024-CLIMATE: Resilient agriculture and climate-smart solutions**
-                            
-                            ---
-                            
-                            ## 1. Excellence
-                            
-                            ### 1.1 Objectives
-                            
-                            **PlantFlow** aims to develop an integrated framework combining plant functional-structural modelling (FSPM), real-time environmental sensing, and AI-driven data analytics to improve our understanding of coupled carbon and water fluxes in dynamically growing plants. The core scientific objectives are:
-                            
-                            - To simulate plant axial growth in relation to water uptake and carbon assimilation at multiple scales (organ to canopy).
-                            - To link environmental conditions (e.g. soil moisture, radiation) with plant physiological responses using data-driven models.
-                            - To improve predictive capacity for plant performance under future climate scenarios.
-                            
-                            ### 1.2 Relation to the work programme
-                            
-                            The project addresses the Horizon Europe goals of climate adaptation and sustainable agriculture by enabling the digital transformation of plant research and farming practices. PlantFlow contributes directly to the development of data-driven decision support tools for resilient crop management.
-                            
-                            ### 1.3 Concept and Methodology
-                            
-                            PlantFlow builds on recent advances in functional-structural plant modelling, integrating them with high-throughput phenotyping and IoT-based monitoring platforms. Key components include:
-                            
-                            - **Model development**: Extension of existing FSPMs (e.g. CPlantBox) to incorporate dynamic axial growth under carbon and water limitations.
-                            - **Data integration**: Real-time data streams from soil moisture sensors, leaf gas exchange measurements, and 3D imaging.
-                            - **Transformation pipeline**: Standardized data transformation services to ensure machine-readable interoperability (e.g. using JSON, JSON-LD, and JSONata).
-                            - **Validation**: Controlled experiments in phenotyping platforms and open field trials to calibrate and validate the models.
-                            
-                            ### 1.4 Ambition
-                            
-                            PlantFlow will lead to a paradigm shift in how plant growth and resource use are understood, simulated, and managed. The project will establish the foundation for creating digital plant twins—interactive models capable of guiding real-world decisions in agriculture and plant breeding.
-                            
-                            ---
-                            
-                            ## 2. Impact
-                            
-                            ### 2.1 Expected impacts
-                            
-                            - **Scientific**: Advancement of coupled carbon-water modelling in plants with dynamic geometry.
-                            - **Technological**: Creation of a modular, open-source simulation platform compatible with existing crop modelling tools.
-                            - **Societal**: Empowerment of farmers, breeders, and policymakers to mitigate climate risk using predictive plant modelling.
-                            - **Educational**: Capacity building through training materials, online modules, and student exchanges.
-                            
-                            ### 2.2 Communication, Dissemination, and Exploitation
-                            
-                            - **Open access** to all publications and data, following FAIR principles.
-                            - **Repository deposition** of datasets and models in Zenodo and European Plant Phenotyping Network (EPPN2020) archives.
-                            - **Stakeholder engagement** with agricultural industry, environmental NGOs, and educational institutions through workshops and policy briefs.
-                            - **IPR and exploitation** strategy led by our innovation partner to ensure potential spin-offs.
-                            
-                            ---
-                            
-                            ## 3. Quality and Efficiency of Implementation
-                            
-                            ### 3.1 Work Plan
-                            
-                            The project will run over **48 months**, organized into 6 work packages:
-                            
-                            1. **WP1 – Model Development and Integration**
-                            2. **WP2 – Data Acquisition and Transformation Pipelines**
-                            3. **WP3 – Experimental Trials and Model Calibration**
-                            4. **WP4 – Simulation and Validation in Climate Scenarios**
-                            5. **WP5 – Dissemination, Exploitation, and Policy Outreach**
-                            6. **WP6 – Project Management and Coordination**
-                            
-                            ### 3.2 Management Structure and Procedures
-                            
-                            The project will be coordinated by **Dr. Lina Westermann** (University of Freiburg), supported by a scientific advisory board and a data governance board. Monthly online meetings and biannual consortium workshops will ensure cohesion and progress.
-                            
-                            ### 3.3 Consortium as a Whole
-                            
-                            The consortium brings together top European institutions in plant science, computational modelling, and data management:
-                            
-                            - **University of Freiburg (Germany)** – Project coordination and FSPM development
-                            - **UCLouvain (Belgium)** – Carbon-water coupling and root system modelling
-                            - **Forschungszentrum Jülich (Germany)** – Data pipelines and high-throughput phenotyping
-                            - **AgroDataNet (France)** – Stakeholder engagement and dissemination
-                            - **GreenTech Solutions GmbH (Austria)** – Commercialization and technology transfer
-                            
-                            ---
-                            
-                            ## 4. Ethics and Security
-                            
-                            The project involves no clinical trials or sensitive human data. All plant materials used are non-GMO and cultivated in accordance with EU environmental regulations. Data protection and IP management will follow the Horizon Europe guidelines.
+                        <h5>Type to convert (maximum 5000 characters)</h5>   
+                        <textarea class="w-100 h-100" id="proposalText" value="" maxlength="5000">
         
                         </textarea>
                       </div>
@@ -5824,7 +5785,7 @@ END:VEVENT`;
              </div>
              <div class="modal-footer">
                 
-                <button class="btn btn-primary" onclick="proposal2dmp()">Start Conversion</button>
+                <button class="btn btn-primary" id="proposal2dmpBtn" onclick="proposal2dmp()">Start Conversion</button>
                 <button class="btn btn-primary" onclick="AIToDataPLAN()">Generate DMP</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
