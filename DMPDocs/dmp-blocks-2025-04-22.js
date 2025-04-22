@@ -250,10 +250,11 @@ dmpBlocks = [
                     </li>
                     #endif$_OTHERDATATYPE 
                 </ul>`]],    
-    ["list-reuse-en", `The project builds on existing data sets. #if$_RNASEQ For instance, without a
-                proper genomic reference it is very difficult to analyze NGS data sets. #endif$_RNASEQ For #if$_GENETIC genetic data, #endif$_GENETIC
+    ["list-reuse-en", `The project builds on existing datasets to support its objectives. #if$_RNASEQ For example, without a proper genomic reference, analyzing NGS datasets—such as RNAseq—can be extremely challenging. #endif$_RNASEQ
+    The following types of data will be included as relevant: 
+                #if$_GENETIC genetic data, #endif$_GENETIC
                 #if$_GENOMIC genomic data, 
-                    #if$_PANGENOMIC Pangenomic data, #endif$_PANGENOMIC
+                    #if$_PANGENOMIC pangenomic data, #endif$_PANGENOMIC
                 #endif$_GENOMIC
                 #if$_CLONED-DNA cloned DNA data, #endif$_CLONED-DNA
                 #if$_TRANSCRIPTOMIC transcriptomic data, 
@@ -262,19 +263,17 @@ dmpBlocks = [
                 #if$_RNASEQ RNAseq data, 
                     #if$_SCRNASEQ single cell RNAseq data, #endif$_SCRNASEQ
                 #endif$_RNASEQ
-                #if$_METABOLOMIC Metabolomic data, #endif$_METABOLOMIC
+                #if$_METABOLOMIC metabolomic data, #endif$_METABOLOMIC
                 #if$_PROTEOMIC proteomic data, #endif$_PROTEOMIC
                 #if$_PHENOTYPIC phenotypic data, #endif$_PHENOTYPIC
                 #if$_TARGETED targeted assays (e.g. glucose and fructose content), #endif$_TARGETED
                 #if$_IMAGE image datasets, #endif$_IMAGE
                 #if$_MODELS modelling data, #endif$_MODELS
                 #if$_CODE computational code, #endif$_CODE
-                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE
-                data of $_STUDYOBJECT,
-                existing data sets #if$_PARTNERS of the
-                partners: $_PARTNERS as well as additional characterizations and background knowledge from prior publications will be used.  #endif$_PARTNERS Genomic references can simply be gathered from reference databases for
-                genomes/sequences, like the National Center for Biotechnology Information: NCBI (US); European
-                Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP).`],
+                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE .
+                aAll data are associated with the study object: $_STUDYOBJECT.
+                 #if$_PARTNERS Additional datasets will be provided by project partners: $_PARTNERS , serving as valuable sources of characterization. #endif$_PARTNERS Where available, data will be directly retrieved from accessible repositories. For instance, genomic references can be sourced from databases such as: National Center for Biotechnology Information: NCBI (US); European
+                Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). If direct access is not possible, insights from previously published literature will be used to reconstruct or approximate relevant data. `],
     ["list-dataCollection-en", `                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
                     #if$_GENETIC genetic data, #endif$_GENETIC  
                                     #if$_GENOMIC genomic data, 
@@ -377,7 +376,9 @@ dmpBlocks = [
                     </span>
                     #if$_METABOLOMIC #if$_METABOLIGHTS The Metabolights submission compliant standards are used for metabolomic data. #issuewarning Some metabolomics partners considers Metabolights
                 not an accepted standard. #endissuewarning #endif$_METABOLIGHTS #endif$_METABOLOMIC These specific standard unlike cross-domain minimal sets such as the Dublin core, which mostly define the submitter and the general type of data, allow reusability by other researchers by
-                defining properties of the plant (see the preceding section). However, $_PROJECTNAME also implement minimal cross-domain annotations #if$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 such as #endif$_DUBLINCORE|$_DARWINCORE|$_BIOSCHEMAS|$_SCHEMAORG|$_MARC21 <span class="list-to-remove-comma"> #if$_DUBLINCORE Dublin Core, #endif$_DUBLINCORE #if$_DARWINCORE Darwin Core, #endif$_DARWINCORE #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS #if$_MARC21 MARC 21 #endif$_MARC21 . </span> #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
+                defining properties of the plant (see the preceding section). </span> 
+                
+                #if$_DATAPLANT The core integration with DataPLANT will also allow individual releases to be tagged with a Digital Object Identifier (DOI).
                 #endif$_DATAPLANT #if$_OTHERSTANDARDS Other standards such as $_OTHERSTANDARDINPUT are also adhered to. #endif$_OTHERSTANDARDS
                 The metadata standards will thus allow the integration of data across projects and safeguard the established and tested
                 protocols being reused. Additionally, we will use ontology terms to enrich the data sets relying on free and open
@@ -667,8 +668,7 @@ dmpBlocks = [
                             #if$_SCHEMAORG Schema.org, #endif$_SCHEMAORG 
                             #if$_BIOSCHEMAS BioSchemas, #endif$_BIOSCHEMAS 
                             #if$_MARC21 MARC 21 #endif$_MARC21 . </span> 
-                            The metadata standards will thus allow the integration of data across projects and safeguards that reuse established and tested
-                            protocols. Additionally, we will use ontology terms to enrich the data sets relying on free and open ontologies. In addition, additional ontology terms might be created and be canonized during the $_PROJECTNAME.</span>
+                            </span>
         `], 
     ["list-abbreviation-en", `
         #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 

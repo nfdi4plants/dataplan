@@ -96,6 +96,7 @@ dfg_dmp = {"dfg-dmp" : `<div id="dfg-dmp" class="">
 
         <p class="c0">
             text-standards-long-en
+            text-cross-metadata-en
             
         </p>
 
