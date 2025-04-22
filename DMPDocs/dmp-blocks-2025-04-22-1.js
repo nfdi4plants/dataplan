@@ -271,7 +271,7 @@ dmpBlocks = [
                 #if$_MODELS modelling data, #endif$_MODELS
                 #if$_CODE computational code, #endif$_CODE
                 #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE .
-                aAll data are associated with the study object: $_STUDYOBJECT.
+                All data are associated with the study object: $_STUDYOBJECT.
                  #if$_PARTNERS Additional datasets will be provided by project partners: $_PARTNERS , serving as valuable sources of characterization. #endif$_PARTNERS Where available, data will be directly retrieved from accessible repositories. For instance, genomic references can be sourced from databases such as: National Center for Biotechnology Information: NCBI (US); European
                 Bioinformatics Institute: EBI (EU); DNA Data Bank of Japan: DDBJ (JP). If direct access is not possible, insights from previously published literature will be used to reconstruct or approximate relevant data. `],
     ["list-dataCollection-en", `                    $_PROJECTNAME will collect and/or generate the following types of raw data: 
