@@ -25,7 +25,7 @@ const uploadmaDMP = async function (){
 function safeSyncDMPtoReplaceAndCheckbox(dmp, replace, checkbox) {
     try {
         // Safely map top-level dmp fields to replace
-        replace.$_PROJECTNAME = dmp?.project?.title ?? "Example Project";
+        replace.$_PROJECTNAME = dmp?.title ?? "Example Project";
         replace.$_USERNAME = dmp?.contact?.name ?? "Example User";
         replace.$_EMAIL = dmp?.contact?.mbox ?? "E-Mail";
         replace.$_DMPVERSION = dmp?.version ?? "1.0";
