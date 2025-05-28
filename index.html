@@ -132,8 +132,8 @@
                                 </label>
                             </li>
                             <li>
-                                <label for="upload_maDMP" class="form-label dropdown-item">
-                                    Import maDMP JSON
+                                <label for="upload_maDMP" class="form-label dropdown-item d-none d-none">
+                                    Import maDMP (Research Data Alliance)
                                     <input onchange=" uploadmaDMP()" class="form-control d-none" type="file" id="upload_maDMP" />
                                 </label>
                             </li>
@@ -267,13 +267,13 @@
                             <li>
                                 <label for="upload" class="form-label dropdown-item">
                                     <span name="translateTarget" data-en="Import Answers (JSON include checkboxes)">
-                                        Import Answers (JSON include checkboxes)
+                                        Import DataPLAN JSON
                                     </span>
                                     <input onchange="openStorageModal();" class="form-control d-none" type="file" id="upload" />
                                 </label>
                             </li>
                             <li>
-                                <label for="upload_maDMP" class="form-label dropdown-item">
+                                <label for="upload_maDMP" class="form-label dropdown-item d-none">
                                     Import maDMP JSON
                                     <input onchange=" uploadmaDMP()" class="form-control d-none" type="file" id="upload_maDMP" />
                                 </label>
@@ -531,8 +531,8 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <button id="proposal_button" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#proposal2dmp_modal">
-                                    <span name="translateTarget" data-en="Convert Proposal to DMP">
-                                    Convert Proposal to DMP
+                                    <span name="translateTarget" data-en="Convert text to DMP">
+                                    Convert text to DMP
                                 </span>
                                 </button>
                             </li>
@@ -1415,7 +1415,11 @@
                         <!---->
 
 
-                        <h2 id="scrollspyHeading3"><span name="translateTarget" data-en="3. How much data are you likely to generate?">3. How much data are you likely to generate?</span></h2>
+                        <h2 id="scrollspyHeading3"><span name="translateTarget" data-en="3. How much data are you likely to generate?">3. How much data are you likely to generate?</span> <button id="guessDV_button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#guessDV_modal">
+                                    <span name="translateTarget" data-en="Ask AI">
+                                    Ask AI
+                                </span>
+                                </button></h2>
 
                         <form class="" style="margin-left: 0px;" id="form_rawdata">
                             <label for="input_rawdata">
@@ -2530,6 +2534,64 @@
         </div>
     </div>
 
+<!-- Modal Proposal-->
+     <div class="modal " id="guessDV_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="guessDV_modal-label" aria-hidden="true">
+     <div class="modal-dialog modal-fullscreen">
+         <div class="modal-content">
+
+
+             <div class="modal-header">
+                 <h5 class="modal-title" id="guessDV_modal-label"><span name="translateTarget" data-en='describe your target organism, equipment used, data format and processing steps.'>describe your target organism, equipment used, data format and processing steps.</span></h5>
+                 <button type="button" id="guessDV_modal_close" class="btn-close" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body ">
+
+                <div class="container text-center w-100 h-100">
+                    <div class="row w-100 h-100">
+                        
+                      <div class="col">
+                        <h5>describe your target organism, equipment used, data format and processing steps.</h5>   
+                        <textarea class="w-100 h-100" id="guessDVText" value="tomato genome data" maxlength="15000">
+                            tomato genome data
+                        </textarea>
+                      </div>
+                      <div class="col ">
+                        <h5>Returned AI thinking process and estimated data volume</h5>   
+                        <textarea class="w-100 h-100 "  id="guessDV">
+
+
+                        </textarea>
+                      </div>
+                    </div>
+                    <div class="row ">
+                      <div class="col ">
+                        
+                      </div>
+                      <div class="col">
+                        
+                      </div>
+                    </div>
+                  </div>
+              
+                
+                
+                
+               
+             </div>
+             <div class="modal-footer">
+                
+                <button class="btn btn-primary" id="guessDVBtn" onclick="guessDataVolume()">Send text to AI</button>
+                <button class="btn btn-primary" onclick="AIToDataPLAN()">Compare the Extracted Input to Current Input </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+             </div>
+         </div>
+     </div>
+ </div>
+
+
      <!-- Modal Proposal-->
      <div class="modal " id="proposal2dmp_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="proposal2dmp_modal-label" aria-hidden="true">
@@ -2548,8 +2610,8 @@
                     <div class="row w-100 h-100">
                         
                       <div class="col">
-                        <h5>Type to convert (maximum 5000 characters)</h5>   
-                        <textarea class="w-100 h-100" id="proposalText" value="" maxlength="5000">
+                        <h5>Type to convert (maximum 15000 characters)</h5>   
+                        <textarea class="w-100 h-100" id="proposalText" value="" maxlength="15000">
         
                         </textarea>
                       </div>
@@ -2578,7 +2640,7 @@
              </div>
              <div class="modal-footer">
                 
-                <button class="btn btn-primary" id="proposal2dmpBtn" onclick="proposal2dmp()">Send Proposal to AI</button>
+                <button class="btn btn-primary" id="proposal2dmpBtn" onclick="proposal2dmp()">Send text to AI</button>
                 <button class="btn btn-primary" onclick="AIToDataPLAN()">Compare the Extracted Input to Current Input </button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
