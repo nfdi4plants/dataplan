@@ -19,15 +19,11 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
 
 
                 <p class="c0"> <span class="c1">
-                        Das $_PROJECTNAME hat folgendes Ziel: $_PROJECTAIM. Daher sind Datenerhebung #if!$_VVISUALIZATION und Integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , Integration und Visualisierung
-                        #endif$_VVISUALIZATION #if$_DATAPLANT unter Verwendung der DataPLANT ARC-Struktur absolut
+                        Das $_PROJECTNAME hat folgendes Ziel: $_PROJECTAIM. Um dieses Ziel zu erreichen, sind Datenerhebung #if!$_VVISUALIZATION und -integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , -integration und -visualisierung
+                        #endif$_VVISUALIZATION #if$_DATAPLANT unter Verwendung eines standardisierten Datenmanagementsystems wie der DataPLANT ARC-Struktur absolut
                         notwendig #endif$_DATAPLANT #if!$_DATAPLANT durch einen standardisierten
-                        Datenmanagementprozess absolut notwendig #endif!$_DATAPLANT da die Daten nicht nur zum
-                        Verständnis von Prinzipien verwendet werden, sondern auch über die Herkunft der analysierten
-                        Daten informiert werden muss. Stakeholder müssen ebenfalls über die Herkunft der Daten
-                        informiert werden. Es ist daher notwendig sicherzustellen, dass die Daten gut generiert und
-                        auch gut mit Metadaten unter Verwendung offener Standards annotiert werden, wie im nächsten
-                        Abschnitt dargelegt.
+                        Datenmanagementprozess absolut notwendig #endif!$_DATAPLANT. Das strukturierte Datenmanagement ist nicht nur essentiell, um die Daten zur Aufdeckung von Mechanismen verwenden zu können, sondern auch um über die Herkunft der analysierten
+                        Daten zu informieren. Die Erhebung der Daten und Beschreibung mit Metadaten wird unter Verwendung offener Standards durchgeführt, wie im nächsten Abschnitt dargelegt.
 
                     </span></p>
 
@@ -56,14 +52,13 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0 c2"><span class="c3"><b>Datenerhebung</b></span></p>
 
         <p class="c0 c2"><span class="c1">
-                <p class="c0"><span class="c1">Öffentliche Daten werden wie im vorherigen Absatz beschrieben
-                        extrahiert. Für das $_PROJECTNAME werden spezifische Datensätze von den Konsortialpartnern
+                <p class="c0"><span class="c1">Für das $_PROJECTNAME werden öffentliche Daten genutzt und spezifische Datensätze von den Konsortialpartnern
                         generiert.</span></p>
 
 
                 <p class="c0">
-                    <span class="c1"> Daten unterschiedlicher Typen oder aus verschiedenen Bereichen werden mit
-                        einzigartigen Ansätzen generiert. Zum Beispiel:</span>
+                    <span class="c1"> Diese umfassen Daten unterschiedlicher Typen, aus verschiedenen Bereichen und werden mit
+                        spezifischen Ansätzen generiert, zum Beispiel:</span>
                 </p>
                 list-dataType-de
 
@@ -82,7 +77,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
 
         <p class="c0">
             <span class="c1">
-                #if$_DATAPLANT In DataPLANT, die Datenspeicherung basiert auf dem Annotated Research Context (ARC).
+                #if$_DATAPLANT In DataPLANT basiert die Datenspeicherung auf dem Annotated Research Context (ARC).
                 Dieser ist passwortgeschützt, daher muss vor dem Erhalt von Daten oder der Generierung von Proben
                 eine Authentifizierung erfolgen. #endif$_DATAPLANT
             </span>
@@ -93,11 +88,10 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
             <span class="c1">
                 Online-Plattformen werden durch Schwachstellen-Scans, Zwei-Faktor-Authentifizierung und tägliche
                 automatische Backups geschützt, die eine sofortige Wiederherstellung ermöglichen. Alle Partner, die
-                vertrauliche Projektdaten halten, nutzen sichere Plattformen mit automatischen Backups und sicheren
+                vertrauliche Projektdaten speichern, nutzen sichere Plattformen mit automatischen Backups und sicheren
                 externen Kopien.
-                #if$_DATAPLANT DataHUB und ARCs wurden in DataPLANT generiert, Datensicherheit wird durchgesetzt.
-                Dies umfasst sichere Speicherung, und die Verwendung von Passwörtern und Benutzernamen wird generell
-                über separate sichere Medien übertragen. #endif$_DATAPLANT
+                #if$_DATAPLANT ARCs werden in DataPLANT's DataHUB gespeichert, dort wird Datensicherheit gewährleistet.
+                Dies umfasst die sichere Speicherung und dass Passwörter und Benutzernamen über separate sichere Leitungen übertragen werden. #endif$_DATAPLANT
             </span>
         </p>
 
@@ -114,7 +108,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                 gemäß anerkannter Nomenklatur und Konventionen benannt. Diese werden nach Möglichkeit auch mit
                 funktionalen Ontologien verknüpft. Datensätze werden ebenfalls sinnvoll benannt, um die Lesbarkeit
                 durch Menschen zu gewährleisten. Pflanzennamen umfassen traditionelle Namen, Binomialnamen und alle
-                Stamm-/Kultivar-/Unterart-/Sortenbezeichner.
+                Stamm-/Kultivar-/Unterart-/Sortenbezeichnungen.
             </span>
         </p>
 
@@ -129,22 +123,18 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0"><span class="c1">
                 <p class="c0">
                     <span class="c1">
-                        Im Moment erwarten wir keine ethischen oder rechtlichen Probleme beim Datenaustausch. In
-                        Bezug auf Ethik, da es sich um Pflanzendaten handelt, ist kein Ethikkomitee erforderlich,
-                        jedoch wird Sorgfalt bei der Aufteilung der Vorteile von Pflanzenressourcen berücksichtigt.
+                        Im Moment erwarten wir keine ethischen oder rechtlichen Probleme beim Datenaustausch. Da es sich um Pflanzendaten handelt, ist kein Ethikkomitee erforderlich, jedoch wird die Sorgfaltspflicht bei der Aufteilung der Vorteile aus Pflanzenressourcen eingehalten.
                         #issuewarning Sie müssen sicherstellen, dass Sie die erforderliche Sorgfaltspflicht erfüllen. Derzeit warten wir auf eine Klärung, ob das Nagoya-Protokoll (🡺 siehe Nagoya-Protokoll) auch Sequenzinformationen umfasst. Unabhängig davon kann die Nutzung von Material aus einem anderen Land als Ihrem eigenen (oder dem Ihres Partners) und dessen physikalische oder biochemische Charakterisierung (z.B. Metaboliten, Proteom, RNASeq, etc.) eine relevante Handlung im Sinne des Nagoya-Protokolls darstellen. Ausnahmen könnten Materialien aus Ländern wie den USA (Nicht-Partner), Irland (hat nicht unterzeichnet—trotzdem kontaktieren), usw. sein, wobei jedoch andere Gesetze Anwendung finden könnten. #endissuewarning
                     </span>
                 </p>
                 <p class="c0">
                     <span class="c1">
                         Die einzigen personenbezogenen Daten, die möglicherweise gespeichert werden, sind der Name
-                        und die Zugehörigkeit des Einreichers in den Metadaten der Daten. Darüber hinaus werden
+                        und die Affiliation des Einreichers in den Metadaten der Daten. Darüber hinaus werden
                         personenbezogene Daten für Verbreitungs- und Kommunikationsaktivitäten gesammelt, wobei
-                        spezifische Methoden und Verfahren verwendet werden, die von den $_PROJECTNAME-Partnern
-                        entwickelt wurden, um den Datenschutz einzuhalten. #issuewarning Sie müssen informieren und
-                        besser eine SCHRIFTLICHE Zustimmung einholen, dass Sie E-Mails und Namen oder sogar
-                        Pseudonyme wie Twitter-Handles speichern, wir entschuldigen uns sehr für diese Probleme, die
-                        wir nicht erfunden haben. #endissuewarning
+                       die $_PROJECTNAME-Partner sicherstellen, dass der Datenschutz eingehalten wird. #issuewarning Sie müssen die Betroffenen informieren und
+                        besser eine SCHRIFTLICHE Zustimmung einholen, wenn Sie E-Mail-Adressen und Namen oder sogar
+                        Pseudonyme wie Twitter-Handles speichern. #endissuewarning
                     </span>
                 </p>
 
@@ -155,9 +145,9 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
         <p class="c0 c2"><span class="c1">
                 <p class="c20">
                     <span class="c1">
-                        Falls Daten nur innerhalb des Konsortiums geteilt werden, wenn die Daten noch nicht fertig
-                        sind oder sich in der IP-Prüfung befinden, werden die Daten intern gehostet und der
-                        Benutzername und das Passwort werden benötigt (siehe auch unsere GDPR-Regeln).
+                        Falls Daten nur innerhalb des Konsortiums geteilt werden, weil die Daten noch nicht vollständig
+                        sind oder sich in der IP-Prüfung befinden, werden die Daten intern gehostet und es werden
+                        Benutzername und Passwort für den Zugriff benötigt (siehe auch unsere GDPR-Regeln).
                         Wenn Daten unter finalen EU- oder US-Repositorien öffentlich gemacht werden, ist
                         normalerweise ein vollständig anonymer Zugang erlaubt. Dies ist auch bei ENA der Fall und
                         beide entsprechen den GDPR-Anforderungen.
@@ -177,7 +167,7 @@ bmbf_dmp = { "bmbf-dmp" : `<div id="bmbf-dmp" class="">
                     <span class="c1">
                         Die Daten werden zunächst den $_PROJECTNAME Partnern zugutekommen, aber auch ausgewählten
                         Stakeholdern, die eng in das Projekt eingebunden sind, und dann der wissenschaftlichen
-                        Gemeinschaft, die an $_STUDYOBJECT arbeitet. $_DATAUTILITY Darüber hinaus können auch die
+                        Gemeinschaft, die an $_STUDYOBJECT arbeitet. $_DATAUTILITY Darüber hinaus kann auch die
                         allgemeine Öffentlichkeit, die an $_STUDYOBJECT interessiert ist, die Daten nach der
                         Veröffentlichung nutzen. Die Daten werden gemäß dem Verbreitungs- und Kommunikationsplan des
                         $_PROJECTNAME verbreitet, #if$_DATAPLANT der sich mit der DataPLANT-Plattform oder anderen
