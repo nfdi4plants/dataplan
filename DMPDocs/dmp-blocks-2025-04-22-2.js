@@ -104,10 +104,9 @@ dmpBlocks = [
                     #if$_GENETIC&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Genetische Daten werden durch Kreuzungen und Zuchtexperimente
-                                generiert und umfassen Rekombinationsfrequenzen und Crossover-Ereignisse, die
-                                genetische Marker und quantitative Merkmalsloci positionieren können, die mit
-                                physischen genomischen Markern/Varianten assoziiert werden können. </span>
+                            <span class="c1"> Genetische Daten werden durch Kreuzungen und Züchtungsexperimente
+                                generiert und umfassen Rekombinationsfrequenzen und Crossover-Ereignisse. Es werden genetische Marker und QTL identifiziert und mit
+                                physischen genomischen Markern/Varianten assoziiert werden. </span>
                         </p>
                     </li>
                     #endif$_GENETIC
@@ -115,7 +114,7 @@ dmpBlocks = [
                     <li>
                         <p class="c0">
                             <span class="c1"> Genomische Daten werden aus Sequenzdaten erstellt, die verarbeitet
-                                werden, um Gene, regulatorische Elemente, transponierbare Elemente und physikalische
+                                werden, um Gene, regulatorische Elemente, Transposons und physikalische
                                 Marker wie SNPs, Mikrosatelliten und strukturelle Varianten zu identifizieren.
                             </span>
                         </p>
@@ -132,7 +131,7 @@ dmpBlocks = [
                     #if$_CLONED-DNA&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Der Ursprung und die Zusammenstellung der klonierten DNA umfassen (a)
+                            <span class="c1"> Daten zur klonierten DNA umfassen (a)
                                 die Quelle der ursprünglichen Vektorsequenz mit Add-Gene-Referenz, sofern verfügbar,
                                 und die Quelle der Insert-DNA (z.B. Amplifikation durch PCR aus einer bestimmten
                                 Probe oder aus einer vorhandenen Bibliothek), (b) die Klonierungsstrategie (z.B.
@@ -153,7 +152,7 @@ dmpBlocks = [
                     </li>
                     #if$_SPATIALTRANSCRIPTOMIC&nbsp; 
                     <li>
-                            <span class="c1">Räumliche Transkriptomikdaten werden mit Hilfe von Methoden gesammelt, die RNA-Moleküle räumlich ihren genauen Gewebestandorten zuordnen, wodurch die Erhaltung von RNA-Daten zusammen mit umfassenden Metadaten über ihre Herkunft gewährleistet wird.</span>
+                            <span class="c1">Räumliche Transkriptomikdaten werden mit Hilfe von Methoden gesammelt, die RNA-Moleküle räumlich ihren genauen Gewebepositionen zuordnen, wodurch die Erzeugung von RNA-Daten zusammen mit umfassenden Metadaten über ihre Herkunft gewährleistet wird.</span>
                     </li>
                     #endif$_SPATIALTRANSCRIPTOMIC&nbsp;
                     #endif$_TRANSCRIPTOMIC
@@ -164,8 +163,8 @@ dmpBlocks = [
                     <li>
                         <p class="c0">
                             <span class="c1"> RNA-Sequenzierung wird unter Verwendung von Short-Read- oder
-                                Long-Read-Plattformen entweder intern oder an akademische Einrichtungen oder
-                                kommerzielle Dienste ausgelagert und die Rohdaten werden mit etablierten
+                                Long-Read-Plattformen durchgeführt, entweder intern oder ausgelagert an akademische Einrichtungen oder
+                                kommerzielle Dienste. Die Rohdaten werden mit etablierten
                                 bioinformatischen Pipelines verarbeitet. </span>
                         </p>
                     </li>
@@ -178,7 +177,7 @@ dmpBlocks = [
                     #if$_METABOLOMIC&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Metabolomische Daten werden durch gekoppelte Chromatographie und
+                            <span class="c1"> Metabolomische Daten werden durch Chromatographie, auch gekoppelt mit
                                 Massenspektrometrie unter Verwendung gezielter oder ungezielter Ansätze
                                 generiert.</span>
                         </p>
@@ -186,7 +185,7 @@ dmpBlocks = [
                     #endif$_METABOLOMIC #if$_PROTEOMIC&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Proteomische Daten werden durch gekoppelte Chromatographie und
+                            <span class="c1"> Proteomische Daten werden durch Chromatographie, gekoppelt mit
                                 Massenspektrometrie zur Analyse der Proteinmenge und -identifikation sowie durch
                                 zusätzliche Techniken zur Strukturanalyse, zur Identifizierung posttranslationaler
                                 Modifikationen und zur Charakterisierung von Proteininteraktionen generiert.</span>
@@ -197,19 +196,19 @@ dmpBlocks = [
                     #if$_PHENOTYPIC&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Phänotypische Daten werden mit Hilfe von Phänotypisierungsplattformen
-                                und entsprechenden Ontologien generiert, einschließlich Anzahl/Größe von Organen wie
+                            <span class="c1"> Phänotypische Daten werden mit Hilfe von Phänotypisierungsplattformen generiert
+                                und mit entsprechenden Ontologiebegriffen annotiert. Sie umfassen Anzahl/Größe von Organen wie
                                 Blätter, Blumen, Knospen usw., Größe der gesamten Pflanze,
                                 Stängel/Wurzel-Architektur (Anzahl der seitlichen Zweige/Wurzeln usw.),
-                                Organstrukturen/Morphologien, quantitativen Metriken wie Farbe, Turgor,
-                                Gesundheits-/Nährstoffindikatoren und anderen. </span>
+                                Organstrukturen/Morphologien, quantitative Metriken wie Farbe, Turgor,
+                                Gesundheits-/Nährstoffindikatoren und andere. </span>
                         </p>
                     </li>
                     #endif$_PHENOTYPIC
                     #if$_TARGETED&nbsp;
                     <li>
                         <p class="c0">
-                            <span class="c1"> Gezielte Assays-Daten (z. B. Glukose- und Fruktosekonzentrationen oder
+                            <span class="c1"> Gezielte Assay-Daten (z. B. Glukose- und Fruktosekonzentrationen oder
                                 Produktions-/Nutzungsraten) werden mit spezifischen Geräten und Methoden generiert,
                                 die im Laborbuch vollständig dokumentiert sind. </span>
                         </p>
@@ -220,7 +219,7 @@ dmpBlocks = [
                     <li>
                         <p class="c0">
                             <span class="c1"> Bilddaten werden durch Geräte wie Kameras, Scanner und Mikroskope in
-                                Kombination mit Software generiert. Originalbilder, die Metadaten wie
+                                Kombination mit der entsprechenden Software generiert. Originalbilder, die Metadaten wie
                                 EXIF-Fotoinformationen enthalten, werden archiviert.</span>
                         </p>
                     </li>
@@ -311,16 +310,14 @@ dmpBlocks = [
  
                 #if$_METABOLOMIC metabolomische Daten, #endif$_METABOLOMIC  
                 #if$_PROTEOMIC proteomische Daten, #endif$_PROTEOMIC 
-                #if$_PHENOTYPIC Pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
-                #if$_TARGETED gezielte Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
+                #if$_PHENOTYPIC pflanzenphänotypische Daten, #endif$_PHENOTYPIC  
+                #if$_TARGETED Daten gezielter Tests (z. B. Glukose- und Fruktosegehalt), #endif$_TARGETED  
                 #if$_IMAGE Bilddatensätze, #endif$_IMAGE  
-                #if$_MODELS Modellausgänge, #endif$_MODELS 
+                #if$_MODELS Modelldaten, #endif$_MODELS 
                 #if$_CODE Rechencode, #endif$_CODE  
-                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE und Daten die sich auf $_STUDYOBJECT
+                #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE sowie ggf. weitere Daten die sich auf $_STUDYOBJECT
                         beziehen. Zusätzlich werden die Rohdaten auch durch analytische Pipelines verarbeitet und
-                        modifiziert, was zu unterschiedlichen Ergebnissen führen kann oder ad-hoc-Datenanalyse-Teile
-                        umfassen kann. #if$_DATAPLANT Diese Pipelines werden im DataPLANT ARC
-                        verfolgt. #endif$_DATAPLANT Daher wird darauf geachtet, diese Ressourcen (einschließlich der
+                        modifiziert. Ergebnisse der ad-hoc-Datenanalyse und der finalen Datenauswertung werden ebenfalls gespeichert. Dabei wird darauf geachtet, diese Ressourcen (einschließlich der
                         analytischen Pipelines) zu dokumentieren und zu archivieren#if$_DATAPLANT unter Rückgriff
                         auf die Expertise im DataPLANT-Konsortium #endif$_DATAPLANT .`],
     ["text-aim-intro-en", `$_PROJECTNAME $_PROJECTAIM. Therefore, data collection #if!$_VVISUALIZATION
@@ -429,30 +426,30 @@ dmpBlocks = [
                         #if$_MIMIX MIMix (The Minimum Information required for reporting a Molecular Interaction Experiment), #endif$_MIMIX
                         #endif$_PROTEOMIC .
                         </span>
-                #if$_METABOLOMIC #if$_METABOLIGHTS Metabolights-Einreichungskonforme Standards werden für
+                #if$_METABOLOMIC #if$_METABOLIGHTS MetaboLights-Einreichungskonforme Standards werden für
                 metabolomische Daten verwendet, wo dies von den Konsortialpartnern akzeptiert wird.#issuewarning
-                Einige Metabolomik-Partner betrachten Metabolights nicht als akzeptierten Standard.#endissuewarning
+                Einige Metabolomik-Partner betrachten MetaboLights nicht als akzeptierten Standard.#endissuewarning
                 #endif$_METABOLIGHTS #endif$_METABOLOMIC Als Teil der Pflanzenforschungsgemeinschaft verwenden wir
                 #if$_MIAPPE MIAPPE für Phänotypisierungsdaten im weitesten Sinne, werden aber auch auf
-                #endif$_MIAPPE spezifische SOPs für zusätzliche Annotationen #if$_DATAPLANT zurückgreifen, die
+                #endif$_MIAPPE spezifische Standardvorgehensweisen (standard operating procedures, SOPs) für zusätzliche Annotationen #if$_DATAPLANT zurückgreifen, die
                 fortgeschrittene DataPLANT-Annotationen und Ontologien berücksichtigen. #endif$_DATAPLANT
                     </span>
                 </p>
                 <p class="c0"><span class="c1">
-                In dem Fall, dass einige Metadaten noch fehlen, werden diese von den experimentellen
-                Wissenschaftlern und dem Datenbeauftragten dokumentiert. #if$_DATAPLANT Rohdaten-Identifier und
-                Parser, die von DataPLANT bereitgestellt werden, um
+                In dem Fall, dass einige Metadaten noch fehlen, werden diese von den
+                Wissenschaftlern und dem Datenbeauftragten zusätzlich dokumentiert. #if$_DATAPLANT Den Rohdaten werden Identifier zugewiesen und es
+                werden Parser verwendet, um
                 Metadaten direkt aus der Rohdatei zu extrahieren. Die aus der Rohdatei gesammelten Metadaten können
-                auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren, falls Fehler auftreten.
+                auch verwendet werden, um die zuvor gesammelten Metadaten zu validieren.
                 #endif$_DATAPLANT Wir sehen vor, #if$_RNASEQ|$_GENOMIC
                 z.B.#if$_MINSEQE MINSEQE für
-                Sequenzierungsdaten zu verwenden und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
-                Metabolights-kompatible
-                Formulare für Metaboliten sowie MIAPPE für phänotypische Daten.
+                Sequenzierungsdaten und #endif$_MINSEQE #endif$_RNASEQ|$_GENOMIC
+                MetaboLights-kompatible
+                Formulare für Metaboliten sowie MIAPPE für phänotypische Daten zu verwenden.
                 Letzteres ermöglicht die Integration von Daten über Projekte hinweg und stellt sicher, dass
                 etablierte und getestete Protokolle wiederverwendet werden. Darüber hinaus werden wir
                 Ontologiebegriffe verwenden, um die Datensätze mit freien und offenen Ontologien anzureichern.
-                Zusätzlich könnten zusätzliche Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
+                Zusätzlich könnten neue Ontologiebegriffe erstellt und während des $_PROJECTNAME kanonisiert
                 werden. </span>`],
     ["text-standards-short-en", `<span class="c1">As mentioned above, <span class="c1 list-to-remove-comma">we will use ISA specification for metadata creation.
                     The following metadata standards will also be used:
@@ -542,7 +539,7 @@ dmpBlocks = [
                     #endif$_DATAPLANT
                 </span></p>`],
     ["text-repository-long-de", `
-                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einem benutzerfreundlichen Frontend zur Verfügung gestellt, das die Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:<br>
+                    <span class="c1">Die Daten werden über die Plattform $_PROJECTNAME mit einer benutzerfreundlichen Oberfläche zur Verfügung gestellt, die die Datenvisualisierung ermöglicht. Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) werden nicht von $_PROJECTNAME oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:<br>
 
                    
                         <span class="c1 list-to-remove-comma">#if$_GENETIC|$_GENOMIC|$_RNASEQ Für genetische Daten: #if$_GENBANK
@@ -583,8 +580,7 @@ dmpBlocks = [
                     
 
                 
-                    #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
-                    dort ebenfalls verarbeitet. #endif$_OTHEREP
+                    #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und zu verarbeiten. #endif$_OTHEREP
             </span>
         `],
     ["text-repository-short-en", `<span class="c1 list-to-remove-comma">
@@ -600,7 +596,7 @@ dmpBlocks = [
                     </span>`],
     ["text-repository-short-de", `<span class="c1">
                         Die Daten werden über die $_PROJECTNAME-Plattform mit einer benutzerfreundlichen Oberfläche
-                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Zusätzlich werden Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) anfallen, jedoch werden diese Kosten nicht von test oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:
+                        verfügbar gemacht, die eine Datenvisualisierung ermöglicht. Kosten für die Speicherung der Daten in den Endpunkt-Repositorien (z.B. ENA) werden nicht von $_PROJECTNAME oder seinen Mitgliedern, sondern durch das Betriebsbudget dieser Repositorien getragen. Es wird sichergestellt, dass Daten in den folgenden internationalen, disziplinspezifischen Repositorien gespeichert werden können:
                         #if$_GENETIC #if$_GENBANK NCBI-GenBank, #endif$_GENBANK
                         #if$_ENA EBI-ENA, #endif$_ENA #if$_ARRAYEXPRESS EBI-ArrayExpress, #endif$_ARRAYEXPRESS
                         #endif$_GENETIC #if$_TRANSCRIPTOMIC|$_GENETIC #if$_SRA NCBI-SRA, #endif$_SRA #if$_GEO
@@ -614,8 +610,7 @@ dmpBlocks = [
                         Chebi, #endif$_CHEBI #endif$_PROTEOMIC #if$_PHENOTYPIC #if$_EDAL e!DAL-PGP,
                         #endif$_EDAL #endif$_PHENOTYPIC.
 
-                        #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und die Daten werden
-                        dort ebenfalls verarbeitet. #endif$_OTHEREP
+                        #if$_OTHEREP und $_OTHEREP werden auch verwendet, um Daten zu speichern und zu verarbeiten. #endif$_OTHEREP
 
                     </span>`],
     ["text-dataplant-tools-en", ` <span class="c1">#if$_PROPRIETARY $_PROJECTNAME relies on the tool(s) $_PROPRIETARY. #endif$_PROPRIETARY
@@ -653,7 +648,7 @@ dmpBlocks = [
                         Daten vor der Veröffentlichung zugänglich zu machen, offen und/oder unter
                         Vorveröffentlichungsvereinbarungen #if$_GENOMIC wie die in Fort Lauderdale gestarteten und
                         durch den Toronto International Data Release Workshop festgelegten Vereinbarungen
-                        #endif$_GENOMIC . Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
+                        #endif$_GENOMIC. Dies wird umgesetzt, sobald die IP-bezogenen Überprüfungen abgeschlossen
                         sind.`],
     ["text-metadata-format-en", `Whenever possible, data will be stored in common and openly defined formats including all the necessary
         metadata to interpret and analyze data in a biological context. By default, no proprietary formats will be
