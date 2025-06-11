@@ -434,7 +434,7 @@ function textReform(template){
                         model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
                         messages: [{
                             role: "user",
-                            content: `review the following proposal provided. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
+                            content: `review the following text provided. The text can be a proposal, another Data Management Plan or a maDMP JSON file. First analyze the type then convert the text. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
                             "$_PROJECTNAME": "Example Project",
                             "$_STUDYOBJECT": "Example Topic",
                             "$_PROJECTAIM": "aims at Example Aim",
@@ -505,44 +505,70 @@ function textReform(template){
         }
             
 
-    // const proposal2dmp = async function(){
-    //     loading.show();
-    //     const proposal = document.getElementById("proposalText").innerHTML;
-    //     const answer = document.getElementById("aiGeneratedJSON");
-    //     fetch('https://h.dataplan.top/v1/chat/completions', {
-    //             method: 'POST', // HTTP method
-    //             headers: {
-    //                 'Content-Type': 'application/json', // Specify JSON content type
-    //                 'Host': 'h.dataplan.top' // Host header
-    //             },
-    //             body: JSON.stringify({
-    //                 model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
-    //                 messages: [
-    //                     {
-    //                         role: "user",
-    //                         content: 
-    //                     },
+    async function guessDataVolume() {
+            loading.show();
+            const proposal2dmpBtn = document.getElementById("guessDVBtn");
+            proposal2dmpBtn.disabled = true;
+            const userInput = document.getElementById("guessDVText").value;
+            const answer = document.getElementById("guessDV");
+            answer.value = "";
+            
+            try {
+                const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Host': 'h.dataplan.top',
+                        'institution':'IBG-4'
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+                        messages: [{
+                            role: "user",
+                            content: `In a data management plant, the following data will be generated \n\n${userInput}, estimate the data volume in GB. Checking what is the common value of the raw data volume and what is the processed data volume`
+                        }],
+                        stream: "true"
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
                     
-    //                 ],
-    //                 stream :"true",
-    //             })
-    //         })
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error(`HTTP error! Status: ${response.status}`);
-    //             }
-    //             return response.json(); // Parse the JSON response
-    //         })
-    //         .then(data => {
-    //             console.log('Response:', data); // Handle the parsed JSON data
-    //             answer.innerHTML= data.choices[0].message.content;
-    //             loading.hide();
-                
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error); // Handle any errors
-    //         });
-    // }
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || ''; // Keep incomplete line
+                    
+                    for (const line of lines) {
+                        if (!line.trim() || !line.startsWith('data: ')) continue;
+                        
+                        try {
+                            // Remove 'data: ' prefix and parse
+                            const data = JSON.parse(line.slice(6));
+                            const content = data.choices?.[0]?.delta?.content || '';
+                            answer.value += content;
+                            answer.scrollTop =answer.scrollHeight;
+                            //console.log(content); // Visible in console
+                        } catch (err) {
+                            console.error('Streaming parse error:', err);
+                        }
+                    }
+                }
+                guessDVBtn.disabled = false;
+                loading.hide();
+            } catch (error) {
+                console.error('Error:', error);
+                loading.hide();
+            }
+        }
 
 
     function maDMPUpdate(saved_a, dmpFunders, windowDocName) {
@@ -621,7 +647,7 @@ function textReform(template){
         initialed = true;
         syn_load_cache();
         document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2025-04-22.js";
-        maDMPUpdate();
+        maDMPUpdate(window.saved_a, window.dmpFunders,  doc_name);
         runWordCloud();
         setTimeout(() => {
             
