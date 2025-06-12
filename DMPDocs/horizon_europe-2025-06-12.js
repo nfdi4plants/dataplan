@@ -34,7 +34,7 @@ horizon_europe = {
                                     <h3>Action Acronym:</h3>
                                 </td>
                                 <td>
-                                     <h3> #if!$_ACRONYM  $_PROJECTNAME   #endif!$_ACRONYM   #if$_ACRONYM   $_ADDACRONYM #endif$_ACRONYM </h3> 
+                                     <h3> $_PROJECTNAME </h3> 
                                 </td>
                             </tr>
                             <tr>
@@ -42,7 +42,7 @@ horizon_europe = {
                                     <h3>Action Title:</h3>
                                 </td>
                                 <td>
-                                    <h3> $_PROJECTNAME</h3>
+                                    <h3> #if!$_ACRONYM  $_PROJECTNAME   #endif!$_ACRONYM   #if$_ACRONYM   $_ADDACRONYM #endif$_ACRONYM </h3>
                                 </td>
 
                             </tr>
