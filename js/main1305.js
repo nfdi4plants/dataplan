@@ -646,7 +646,7 @@ function textReform(template){
         saved_a["update"]["storage"][0]["answer"]= {"replace": saved_a["replace"], "checkbox": saved_a["checkbox"] };
         initialed = true;
         syn_load_cache();
-        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2025-04-22.js";
+        document.getElementById("editTemplate").href = "https://github.com/nfdi4plants/dataplan/blob/main/DMPDocs/"+doc_name+"-2025-05-28.js";
         maDMPUpdate(window.saved_a, window.dmpFunders,  doc_name);
         runWordCloud();
         setTimeout(() => {
