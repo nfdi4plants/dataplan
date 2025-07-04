@@ -29,8 +29,7 @@ Horizon2020_DMP={
                                     </td>
                                     <td>
                                          <h3> $_PROJECTNAME </h3> 
-                                    </td> 
-                                    </tr>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -43,7 +42,7 @@ Horizon2020_DMP={
                                 </tr>
                                 <tr>
                                     <td>
-                                        <h3>Creation Date:</h2>
+                                        <h3>Creation Date:</h3>
                                     </td>
                                     <td>
                                         <h3>$_CREATIONDATE</h3>
@@ -52,7 +51,7 @@ Horizon2020_DMP={
                                 </tr>
                                 <tr>
                                     <td>
-                                        <h3>Modification Date:</h2>
+                                        <h3>Modification Date:</h3>
                                     </td>
                                     <td>
                                         <h3>$_MODIFICATIONDATE</h3>
