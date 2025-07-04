@@ -668,7 +668,7 @@ dmpBlocks = [
     ["list-abbreviation-en", `
         #if$_DATAPLANT  <span class="c11">  ARC </span> <span class="c1"> Annotated Research Context</span> <br>  #endif$_DATAPLANT 
         <span class="c11"> CC</span><span class="c1"> Creative Commons</span> <br>
-        <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expressio Language</span> <br>
+        <span class="c11"> CC CEL</span><span class="c1"> Creative Commons Rights Expression Language</span> <br>
         #if$_PROTEOMIC #if$_CHEBI <span class="c11"> ChEBI</span><span class="c1"> Chemical Entities of Biological Interest </span> <br>  #endif$_CHEBI #endif$_PROTEOMIC      
         <span class="c11"> DDBJ</span><span class="c1"> DNA Data Bank of Japan</span> <br>
         <span class="c11"> DMP</span><span class="c1"> Data Management Plan</span> <br>
