@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataPLAN maDMP JSON Editor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>DataPLAN maDMP JSON Editor</h1>
+        <p>Create, inspect, and update DataPLAN compatible maDMP JSON documents using plain browser features.</p>
+    </header>
+
+    <section class="toolbar">
+        <div class="file-actions">
+            <label class="file-input">
+                <span>Import JSON</span>
+                <input type="file" id="fileInput" accept="application/json">
+            </label>
+            <button id="loadSample" type="button">Load Sample</button>
+            <button id="resetEditor" type="button">Reset</button>
+        </div>
+        <div class="export-actions">
+            <button id="exportJson" type="button">Download DataPLAN JSON</button>
+        </div>
+    </section>
+
+    <section id="statusBanner" class="status-banner" aria-live="polite"></section>
+
+    <main class="app-main">
+        <section class="panel">
+            <header>
+                <h2>maDMP Content</h2>
+                <p>Update the maDMP block following the <a href="https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard" target="_blank" rel="noopener">RDA maDMP standard</a>.</p>
+            </header>
+            <textarea id="dmpEditor" spellcheck="false"></textarea>
+            <div class="panel-actions">
+                <button id="applyDmpChanges" type="button">Apply maDMP JSON</button>
+            </div>
+            <div id="dmpValidationMessages" class="validation-messages"></div>
+        </section>
+
+        <section class="panel">
+            <header>
+                <h2>Replace & Checkbox Fields</h2>
+                <p>Manage template placeholders and checkbox groups in one place.</p>
+            </header>
+            <div class="split-column">
+                <div class="replace-section">
+                    <h3>Replace Fields</h3>
+                    <div id="replaceRows" class="replace-rows"></div>
+                </div>
+                <div class="checkbox-section">
+                    <h3>Checkbox Groups</h3>
+                    <div id="checkboxGroups" class="checkbox-groups"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <header>
+                <h2>Live Preview</h2>
+                <p>The exported JSON mirrors this preview.</p>
+            </header>
+            <pre id="jsonPreview" class="json-preview"></pre>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <small>Built with vanilla JavaScript for interoperability with DataPLAN and maDMP standard JSON.</small>
+    </footer>
+
+    <script src="ajv2020.min.js"></script>
+    <script src="madmp-schema.js"></script>
+    <script src="validator.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
