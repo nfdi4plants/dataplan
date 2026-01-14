@@ -294,10 +294,10 @@ dmpBlocks = [
                     #if$_CODE computational code, #endif$_CODE 
                     #if$_OTHERDATATYPE $_OTHERDATATYPETEXT #endif$_OTHERDATATYPE
                      and other types of data which are related to $_STUDYOBJECT. In addition, the raw data
-                    will also be processed and modified using analytical pipelines, which may yield different results or
-                    include ad hoc data analysis parts. #if$_DATAPLANT These pipelines will be
-                    tracked in the DataPLANT ARC. #endif$_DATAPLANT Therefore, care will be taken to document and archive
-                    these resources (including the analytical pipelines) as well, #if$_DATAPLANT relying on the expertise in the DataPLANT consortium #endif$_DATAPLANT.`],
+                    will also be processed and modified using analytical pipelines, which may yield additional results,
+                    including those of ad hoc data analysis. #if$_DATAPLANT These pipelines will be
+                    tracked in the ARC. #endif$_DATAPLANT Care will be taken to document and archive
+                    these resources (including the analytical pipelines) as well, #if$_DATAPLANT relying on the frameworks and expertise in the DataPLANT consortium #endif$_DATAPLANT.`],
     ["list-dataCollection-de", ` Das $_PROJECTNAME wird die folgenden Arten von Rohdaten sammeln und/oder generieren:
                         #if$_GENETIC genetische Daten, #endif$_GENETIC  
                 #if$_GENOMIC genomische Daten, 
@@ -324,8 +324,7 @@ dmpBlocks = [
                 and integration #endif!$_VVISUALIZATION #if$_VVISUALIZATION , integration and visualization
                 #endif$_VVISUALIZATION #if$_DATAPLANT using the DataPLANT Annotated Research Context (ARC) structure are essential,
                 #endif$_DATAPLANT #if!$_DATAPLANT through a standardized data management process is absolutely
-                necessary, #endif!$_DATAPLANT because the data are used not only to understand principles, but also
-                be informed about the provenance of data analysis information. Stakeholders must also be informed
+                necessary, #endif!$_DATAPLANT to get full use of the data and derive scientific insights. Stakeholders must also be informed
                 about the provenance of data. It is therefore necessary to ensure that the data are well generated
                 and also well annotated with metadata using open standards, as laid out in the next section.`],
     ["text-standards-long-en", `            <span class="c1">
@@ -531,7 +530,7 @@ dmpBlocks = [
             </span>
             <p class="c0">
             <span class="c1">
-                    For unstructured and less standardized data (e.g., experimental phenotypic measurements), these will
+                   Unstructured and less standardized data (e.g., experimental phenotypic measurements) will
                     be annotated with metadata and if complete allocated a digital object identifier (DOI).
                     #if$_DATAPLANT Whole datasets will also be wrapped into an ARC with allocated DOIs. The ARC and the
                     converters provided by DataPLANT will ensure that the upload into the endpoint repositories is fast
@@ -714,12 +713,9 @@ dmpBlocks = [
         <span class="c11"> WP</span><span class="c1"> Work Package</span>  <br>`],
         ["text-cost-en", `<span class="c1">$_PROJECTNAME will bear the costs of data curation, #if$_DATAPLANT ARC
                 consistency checks, #endif$_DATAPLANT and data maintenance/security before transfer to public
-                repositories. Subsequent costs are then borne by the operators of these repositories.</span>
+                repositories. Subsequent costs for storage after publication are then borne by the operators of these repositories and not charged against $_PROJECTNAME or its members.</span>
                 <br>
                 <span class="c1">
-                Additionally, costs for after publication storage are incurred by end-point repositories (e.g. ENA)
-                but not charged against $_PROJECTNAME or its members but by the operation budget of these
-                repositories.
                 </span>`], 
         ["text-cost-coverage-en", `
             <span class="c1">The data related cost of $_PROJECTNAME are covered by the project funding.
@@ -733,7 +729,7 @@ dmpBlocks = [
                     stakeholders closely involved in the project, and then the scientific community working on
                     $_STUDYOBJECT. $_DATAUTILITY In addition, the general public interested in $_STUDYOBJECT can also
                     use the data after publication. The data will be disseminated according to $_PROJECTNAME's
-                    dissemination and communication plan, #if$_DATAPLANT which aligns with DataPLANT platform or other means #endif$_DATAPLANT.
+                    dissemination and communication plan, #if$_DATAPLANT which makes use of DataPLANT's DataHUB and other means #endif$_DATAPLANT.
                 </span>`],
         ["text-metadata-naming-en", `<span class="c1">
                 Data variables will be allocated standard names. For example, genes, proteins and metabolites will
@@ -786,8 +782,7 @@ dmpBlocks = [
             <span class="c1">Common and open ontologies will be used. In fact, open biomedical ontologies will be used where they
                 are mature. As stated in the previous question, sometimes ontologies and controlled vocabularies
                 might have to be extended. #if$_DATAPLANT Here, $_PROJECTNAME will build on the DataPLANT biology
-                ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT Ontology databases such as OBO Foundry
-                will be used to publish ontology. #if$_DATAPLANT The DPBO is also published in GitHub
+                ontology (DPBO) developed in DataPLANT. #endif$_DATAPLANT #if$_DATAPLANT The DPBO is also published in GitHub
                 https://github.com/nfdi4plants/nfdi4plants_ontology #endif$_DATAPLANT.</span>`],
         ["text-data-officer-en", `
             <span class="c1">The responsible will be $_DATAOFFICER as data officer.</span>
