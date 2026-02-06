@@ -419,7 +419,7 @@ horizon_europe = {
 
         <p class="c0">
             <span class="c1">
-                text-standards-en
+                text-standards-short-en
                 text-aim-intro-en
             </span>
         </p>
