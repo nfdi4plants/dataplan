@@ -1,0 +1,60 @@
+imadmp,DataPLAN_key_type,DataPLAN_key
+dmp/created,placeholder,$_CREATIONDATE
+dmp/modified,placeholder,$_MODIFICATIONDATE
+dmp/version,placeholder,$_DMPVERSION
+dmp/title,placeholder,dmp of $_PROJECTNAME
+dmp/ethical_issues_description,building block - text,text-ethical-en
+dmp/ethical_issues_exist,,
+dmp/project/title,placeholder,$_PROJECTNAME
+dmp/project/acronym,placeholder,$_ADDACRONYM
+dmp/project/studyobject,placeholder,$_STUDYOBJECT
+dmp/project/description,placeholder,$_PROJECTAIM
+dmp/project/start,,
+dmp/project/end,,
+dmp/project/funding/funder_id/identifier,,
+dmp/project/funding/grant_id/identifier,,
+dmp/project/funding/programme ,placeholder,$_FUNDINGPROGRAMME
+dmp/project/funding/project_coordinator,placeholder,$_ADDPROJECTCOORDINATOR
+dmp/project/funding/partner ,placeholder,$_PARTNERS
+dmp/contact/contact_id/identifier,,
+dmp/contact/mbox,placeholder,$_EMAIL
+dmp/contact/name,placeholder,$_USERNAME
+dmp/cost/title,,
+dmp/cost/description,building block - text,text-cost-en
+dmp/cost/value,,
+,building block - text,text-cost-coverage-en
+dmp/dataset/title,,
+dmp/dataset/dataset_id/identifier,,
+dmp/dataset/description,,
+dmp/dataset/type,building block - list,list-dataType-en
+dmp/dataset/datautility,building block - text,text-data-utility-en
+dmp/dataset/keyword,,
+,building block - text,text-keywords-en
+dmp/dataset/data_quality_assurance,building block - text,text-quality-control-en
+dmp/dataset/metadata/description,,
+dmp/dataset/metadata/metadata_standard_id/identifier,building block - text,text-standards-short-en
+,building block - text,text-standards-long-en
+,building block - text,text-ontologies-en
+,building block - text,text-made-public-en
+,,
+dmp/dataset/security_and_privacy/description,building block - text,text-data-security-en
+,building block - text,text-access-identity-en
+dmp/dataset/personal_data,,
+,building block - text,text-personnal-data-en
+dmp/dataset/sensitive_data,,
+dmp/dataset/issued,,
+dmp/dataset/preservation_statement/why,,
+dmp/dataset/preservation_statement/where,building block - text,text-repository-short-en
+,building block - list,list-reuse-en
+dmp/dataset/creation_methods,building block - list,list-dataCollection-en
+dmp/dataset/distribution/format,building block - list,list-data-format-en
+dmp/dataset/distribution/byte_size,building block - text,text-data-size-en
+dmp/dataset/distribution/data_access,,text-data-accessible-en
+dmp/dataset/distribution/access_url,,
+dmp/dataset/distribution/host/availability,,
+dmp/dataset/distribution/host/backup_frequency,,
+dmp/dataset/distribution/host/pid_system,,
+dmp/dataset/distribution/host/storage_type,,
+dmp/dataset/distribution/host/support_versioning,,
+dmp/dataset/distribution/license/license_ref,,
+dmp/dataset/distribution/license/start_date,,

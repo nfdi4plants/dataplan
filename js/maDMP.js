@@ -22,6 +22,61 @@ const uploadmaDMP = async function (){
 
 
 
+/**
+ * Detects and fixes swapped $_PROJECTNAME and $_ADDACRONYM values
+ * Uses heuristics: shorter length and/or >80% uppercase = acronym
+ * @param {Object} replace - The replace object containing $_PROJECTNAME and $_ADDACRONYM
+ * @returns {Object} The corrected replace object
+ */
+function detectAndFixAcronymMismatch(replace) {
+    const projectName = replace.$_PROJECTNAME;
+    const addAcronym = replace.$_ADDACRONYM;
+
+    // Skip if either is missing, empty, or default placeholder
+    if (!projectName || !addAcronym ||
+        projectName === "Example Project" || projectName === "Beispielprojekt" ||
+        addAcronym === "Add the acronym here" ||
+        addAcronym === "Fügen Sie hier das Akronym ein") {
+        return replace;
+    }
+
+    // Calculate uppercase percentage
+    function getUppercasePercentage(str) {
+        if (!str || str.length === 0) return 0;
+        const upperCount = (str.match(/[A-Z]/g) || []).length;
+        return upperCount / str.length;
+    }
+
+    const projectUpperPct = getUppercasePercentage(projectName);
+    const acronymUpperPct = getUppercasePercentage(addAcronym);
+
+    // Check if values appear swapped
+    // Logic: Compare uppercase percentage first, if similar (<5% difference), use length as tie-breaker
+    const upperPctDiff = Math.abs(projectUpperPct - acronymUpperPct);
+    let projectLooksLikeAcronym = false;
+    let acronymLooksLikeProject = false;
+
+    if (upperPctDiff < 0.05) {
+        // Similar uppercase percentage - use shorter as acronym
+        projectLooksLikeAcronym = projectName.length < addAcronym.length;
+        acronymLooksLikeProject = addAcronym.length > projectName.length;
+    } else {
+        // Different uppercase percentage - higher % is likely acronym
+        projectLooksLikeAcronym = projectUpperPct > acronymUpperPct;
+        acronymLooksLikeProject = acronymUpperPct > projectUpperPct;
+    }
+
+    // If they appear swapped, exchange them
+    if (projectLooksLikeAcronym && acronymLooksLikeProject) {
+        console.log("Detected swapped PROJECTNAME and ADDACRONYM - swapping values");
+        const temp = replace.$_PROJECTNAME;
+        replace.$_PROJECTNAME = replace.$_ADDACRONYM;
+        replace.$_ADDACRONYM = temp;
+    }
+
+    return replace;
+}
+
 function safeSyncDMPtoReplaceAndCheckbox(dmp, replace, checkbox) {
     try {
         // Safely map top-level dmp fields to replace
@@ -62,6 +117,9 @@ function safeSyncDMPtoReplaceAndCheckbox(dmp, replace, checkbox) {
                 checkbox.checkbox_1
             );
         }
+
+        // Detect and fix swapped PROJECTNAME and ADDACRONYM
+        replace = detectAndFixAcronymMismatch(replace);
 
         return { replace, checkbox };
 
