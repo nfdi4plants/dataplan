@@ -492,7 +492,7 @@ function textReform(template){
                         'institution':'IBG-4'
                     },
                     body: JSON.stringify({
-                        model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+                        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
                         messages: [{
                             role: "user",
                             content: `review the following proposal provided. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
@@ -577,7 +577,7 @@ function textReform(template){
     //                 'Host': 'h.dataplan.top' // Host header
     //             },
     //             body: JSON.stringify({
-    //                 model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+    //                 model: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
     //                 messages: [
     //                     {
     //                         role: "user",

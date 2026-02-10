@@ -431,7 +431,7 @@ function textReform(template){
                         'institution':'IBG-4'
                     },
                     body: JSON.stringify({
-                        model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+                        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
                         messages: [{
                             role: "user",
                             content: `review the following text provided. The text can be a proposal, another Data Management Plan or a maDMP JSON file. First analyze the type then convert the text. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
@@ -522,7 +522,7 @@ function textReform(template){
                         'institution':'IBG-4'
                     },
                     body: JSON.stringify({
-                        model: "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+                        model: "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
                         messages: [{
                             role: "user",
                             content: `In a data management plant, the following data will be generated \n\n${userInput}, estimate the data volume in GB. Checking what is the common value of the raw data volume and what is the processed data volume`
