@@ -51,6 +51,7 @@
     <script  src="js/bs5-intro-tour2106.js" type="text/javascript" charset="utf-8"></script>
    
     <link href="css/custom24-10-20.css" rel="stylesheet" />
+    <link href="tools/madmp-editor/styles.css" rel="stylesheet" />
     <link href="favicon.png" rel="icon">
     <!-- 100% privacy-first analytics -->
     <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
@@ -2875,6 +2876,79 @@
       </div>
     </div>
   </div>
+
+    <!-- maDMP Editor Modal -->
+    <div class="modal fade" id="imadmp_editor_modal" tabindex="-1" aria-labelledby="imadmp_editor_modal_label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imadmp_editor_modal_label">maDMP Editor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="imadmp_editor_container">
+                    <section class="panel">
+                        <header>
+                            <h2>maDMP Content</h2>
+                            <p>Edit the key fields of your maDMP. Changes update the preview automatically.</p>
+                        </header>
+                        <div class="split-column">
+                            <div class="dmp-section">
+                                <h3>General</h3>
+                                <div id="imadmp_dmpGeneral" class="replace-rows"></div>
+                            </div>
+                            <div class="dmp-section">
+                                <h3>Contact & Project</h3>
+                                <div id="imadmp_dmpContactProject" class="replace-rows"></div>
+                            </div>
+                        </div>
+                        <details class="advanced-json-section">
+                            <summary>Advanced: Edit Raw JSON</summary>
+                            <textarea id="imadmp_dmpEditor" spellcheck="false"></textarea>
+                            <div class="panel-actions">
+                                <button id="imadmp_applyDmpChanges" type="button">Apply maDMP JSON</button>
+                            </div>
+                        </details>
+                        <div id="imadmp_dmpValidationMessages" class="validation-messages"></div>
+                    </section>
+
+                    <section class="panel">
+                        <header>
+                            <h2>Replace & Checkbox Fields</h2>
+                            <p>Manage template placeholders and checkbox groups in one place.</p>
+                        </header>
+                        <div class="split-column">
+                            <div class="replace-section">
+                                <h3>Replace Fields</h3>
+                                <div id="imadmp_replaceRows" class="replace-rows"></div>
+                            </div>
+                            <div class="checkbox-section">
+                                <h3>Checkbox Groups</h3>
+                                <div id="imadmp_checkboxGroups" class="checkbox-groups"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="panel">
+                        <header>
+                            <h2>Live Preview</h2>
+                            <p>The exported JSON mirrors this preview.</p>
+                        </header>
+                        <pre id="imadmp_jsonPreview" class="json-preview"></pre>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="imadmp_download_btn">Download JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- maDMP Editor Dependencies -->
+    <script src="tools/madmp-editor/ajv2020.min.js"></script>
+    <script src="tools/madmp-editor/madmp-schema.js"></script>
+    <script src="tools/madmp-editor/validator.js"></script>
+    <script src="tools/madmp-editor/script.js"></script>
 
     <script>
         let up_to_top = document.getElementById("up-to-top");

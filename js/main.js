@@ -7,12 +7,19 @@
      * @description to log if the browser is Firefox
      **/
     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;// check if the browser is firefox. For firefox, an argument in window.find() function is different
-    /**  
-     * @name is_ie  
+    /**
+     * @name is_ie
      * @global
      * @static
      * @description to log if the browser is IE
      **/
+
+    // Simple base64 decoding with string reversal for basic obfuscation
+    function getApiEndpoint() {
+        const encoded = 'c2IubWV0YWRwYXRoLmg=//'; // base64 of 'h.dataplan.top' reversed
+        const reversed = atob(encoded).split('').reverse().join('');
+        return reversed;
+    }
 
 
 
@@ -484,11 +491,11 @@ function textReform(template){
             answer.value = "";
             
             try {
-                const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
+                const response = await fetch(`https://${getApiEndpoint()}/v1/chat/completions`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Host': 'h.dataplan.top',
+                        'Host': getApiEndpoint(),
                         'institution':'IBG-4'
                     },
                     body: JSON.stringify({

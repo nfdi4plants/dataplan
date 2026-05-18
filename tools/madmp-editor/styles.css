@@ -327,3 +327,284 @@ textarea {
         align-items: flex-start;
     }
 }
+
+/* Scoped styles for embedded mode (modal) */
+#imadmp_editor_container .panel {
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+#imadmp_editor_container .panel header h2 {
+    margin: 0 0 0.3rem;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+#imadmp_editor_container .panel header p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+#imadmp_editor_container textarea {
+    width: 100%;
+    min-height: 180px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.85rem;
+    background: #fbfcfe;
+    resize: vertical;
+}
+
+#imadmp_editor_container .panel-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#imadmp_editor_container .panel-actions button {
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+#imadmp_editor_container .panel-actions button:hover {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+#imadmp_editor_container .replace-section h3,
+#imadmp_editor_container .checkbox-section h3 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+    color: var(--primary);
+}
+
+#imadmp_editor_container .split-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    #imadmp_editor_container .split-column {
+        grid-template-columns: 1fr;
+    }
+}
+
+#imadmp_editor_container .replace-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#imadmp_editor_container .replace-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#imadmp_editor_container .replace-row span {
+    font-family: "Courier New", Courier, monospace;
+    background: #f4f6fb;
+    border-radius: var(--radius);
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+}
+
+#imadmp_editor_container .replace-row input {
+    padding: 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+}
+
+#imadmp_editor_container .checkbox-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#imadmp_editor_container .checkbox-group {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    background: #fbfcfe;
+}
+
+#imadmp_editor_container .checkbox-group header h3 {
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+}
+
+#imadmp_editor_container .checkbox-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+#imadmp_editor_container .checkbox-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem 0.3rem;
+    border-radius: var(--radius);
+}
+
+#imadmp_editor_container .checkbox-option label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+#imadmp_editor_container .json-preview {
+    margin: 0;
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    max-height: 250px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+    font-family: "Courier New", Courier, monospace;
+}
+
+#imadmp_editor_container .muted {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+#imadmp_editor_container .validation-messages {
+    margin-top: 0.5rem;
+}
+
+#imadmp_editor_container .validation-messages .validation-error-item {
+    border: 1px solid #fecaca;
+    background: #fff5f5;
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#imadmp_editor_container .validation-error-item .error-path {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.8rem;
+    color: #4b5563;
+}
+
+#imadmp_editor_container .validation-error-item .error-message {
+    margin-top: 0.1rem;
+    font-size: 0.85rem;
+    color: #b91c1c;
+}
+
+#imadmp_editor_container .invalid-field {
+    border-color: #dc2626;
+    background: #fff5f5;
+}
+
+/* maDMP Fields Form Styles - matching Replace & Checkbox layout */
+#imadmp_editor_container .dmp-section h3 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+    color: var(--primary);
+}
+
+#imadmp_editor_container .dmp-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+#imadmp_editor_container .dmp-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#imadmp_editor_container .dmp-row label {
+    font-family: "Courier New", Courier, monospace;
+    background: #f4f6fb;
+    border-radius: var(--radius);
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+#imadmp_editor_container .dmp-row input {
+    padding: 0.4rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+}
+
+#imadmp_editor_container .dmp-row input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(31, 60, 136, 0.1);
+}
+
+/* Advanced JSON Section */
+#imadmp_editor_container .advanced-json-section {
+    margin-top: 1rem;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+}
+
+#imadmp_editor_container .advanced-json-section summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0.25rem;
+    user-select: none;
+}
+
+#imadmp_editor_container .advanced-json-section summary:hover {
+    color: var(--primary);
+}
+
+#imadmp_editor_container .advanced-json-section[open] summary {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+#imadmp_editor_container .advanced-json-section textarea {
+    min-height: 150px;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    #imadmp_editor_container .dmp-field-row {
+        grid-template-columns: 1fr;
+    }
+}
+

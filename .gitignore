@@ -2,3 +2,4 @@ node_modules
 out
 .tmp.driveupload/*
 .vscode/
+.DS_Store

@@ -172,12 +172,95 @@ function transformToIMADMP(saved_a) {
 }
 
 /**
+ * Convert IMADMP format to DataPLAN full format for the editor
+ * @param {Object} imadmpData - The IMADMP data object
+ * @param {Object} saved_a - The original saved_a for replace/checkbox data
+ * @returns {Object} DataPLAN format for the editor
+ */
+function convertToEditorFormat(imadmpData, saved_a) {
+    return {
+        templateName: "",
+        templateText: "",
+        dmp: imadmpData.dmp || {},
+        replace: saved_a.replace || {},
+        checkbox: saved_a.checkbox || {},
+        update: saved_a.update || { timeline: [], storage: [] }
+    };
+}
+
+// Track the current editor instance
+let currentEditorInstance = null;
+
+/**
  * Main export function (called from button)
- * Reuses pattern from main.js save_json() function (lines 681-691)
+ * Opens the maDMP editor modal instead of direct download
  */
 function save_imadmp() {
     const imadmpData = transformToIMADMP(window.saved_a);
-    const jsonString = JSON.stringify(imadmpData, null, 2);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    saveAs(blob, "DataPLAN_IMADMP");
+    const editorData = convertToEditorFormat(imadmpData, window.saved_a);
+
+    // Open modal and initialize editor with data
+    const modalElement = document.getElementById('imadmp_editor_modal');
+    const modal = new bootstrap.Modal(modalElement);
+
+    // Initialize editor when modal is shown
+    const container = document.getElementById('imadmp_editor_container');
+
+    // Clean up previous instance if exists
+    if (currentEditorInstance && currentEditorInstance._instanceId) {
+        window.MadmpEditor.reset(currentEditorInstance._instanceId);
+    }
+
+    // Initialize new editor instance
+    currentEditorInstance = window.MadmpEditor.init(container, editorData, 'imadmp');
+
+    // Store reference for download handler
+    modalElement._currentEditorInstance = currentEditorInstance;
+
+    modal.show();
 }
+
+/**
+ * Download handler for the editor
+ * Gets data from editor, validates, and downloads as JSON
+ */
+function handleImadmpDownload() {
+    if (!currentEditorInstance) {
+        console.error('No editor instance available');
+        return;
+    }
+
+    const data = currentEditorInstance.getData();
+
+    // Validate the dmp data
+    if (!data || !data.dmp) {
+        alert('No valid maDMP data to export.');
+        return;
+    }
+
+    // Download the JSON file
+    try {
+        const payload = JSON.stringify(data, null, 2);
+        const blob = new Blob([payload], { type: "application/json" });
+        saveAs(blob, "DataPLAN_IMADMP.json");
+    } catch (error) {
+        console.error("Export failed:", error);
+        alert("Export failed. See console for details.");
+    }
+}
+
+// Initialize download button handler when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    const downloadBtn = document.getElementById('imadmp_download_btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', handleImadmpDownload);
+    }
+
+    // Clean up when modal is hidden
+    const modalElement = document.getElementById('imadmp_editor_modal');
+    if (modalElement) {
+        modalElement.addEventListener('hidden.bs.modal', function() {
+            currentEditorInstance = null;
+        });
+    }
+});
