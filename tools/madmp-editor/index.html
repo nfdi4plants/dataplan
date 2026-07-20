@@ -3,77 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataPLAN maDMP JSON Editor</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>DataPLAN maDMP Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <header class="app-header">
-        <h1>DataPLAN maDMP JSON Editor</h1>
-        <p>Create, inspect, and update DataPLAN compatible maDMP JSON documents using plain browser features.</p>
+        <div class="app-header-inner">
+            <h1>DataPLAN <span class="title-accent">maDMP Editor</span></h1>
+            <p>Create, inspect, and update DataPLAN-compatible machine-actionable DMP documents.</p>
+        </div>
     </header>
 
     <section class="toolbar">
         <div class="file-actions">
-            <label class="file-input">
+            <label class="file-input button-like">
                 <span>Import JSON</span>
                 <input type="file" id="fileInput" accept="application/json">
             </label>
-            <button id="loadSample" type="button">Load Sample</button>
-            <button id="resetEditor" type="button">Reset</button>
+            <button id="loadSample" type="button" class="button-secondary">Load Sample</button>
+            <button id="resetEditor" type="button" class="button-secondary">Reset</button>
         </div>
         <div class="export-actions">
-            <button id="exportJson" type="button">Download DataPLAN JSON</button>
+            <button id="exportJson" type="button" class="button-primary">Download DataPLAN JSON</button>
+            <label class="template-select-label">
+                <span>Funder template</span>
+                <select id="templateSelect"></select>
+            </label>
+            <button id="exportWord" type="button" class="button-primary">Download Word Document</button>
+            <button id="exportRdmoXml" type="button" class="button-secondary">Download RDMO XML</button>
         </div>
     </section>
 
     <section id="statusBanner" class="status-banner" aria-live="polite"></section>
 
     <main class="app-main">
-        <section class="panel">
+        <section class="panel panel-editor">
             <header>
-                <h2>maDMP Content</h2>
-                <p>Update the maDMP block following the <a href="https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard" target="_blank" rel="noopener">RDA maDMP standard</a>.</p>
+                <h2>maDMP JSON</h2>
+                <p>Edit the machine-actionable DMP directly or paste exported JSON.</p>
             </header>
             <textarea id="dmpEditor" spellcheck="false"></textarea>
             <div class="panel-actions">
-                <button id="applyDmpChanges" type="button">Apply maDMP JSON</button>
+                <button id="applyDmpChanges" type="button" class="button-primary">Apply maDMP JSON</button>
             </div>
             <div id="dmpValidationMessages" class="validation-messages"></div>
         </section>
 
-        <section class="panel">
+        <section class="panel panel-fields">
             <header>
-                <h2>Replace & Checkbox Fields</h2>
-                <p>Manage template placeholders and checkbox groups in one place.</p>
+                <h2>Template Fields <span class="title-accent">(clean-example)</span></h2>
+                <p>Manage placeholders and building blocks from the <strong>clean-example</strong> mapping. Amber rows mark additional maDMP fields / new keys that need a value; blue rows are multi-line building blocks stored as template text.</p>
             </header>
+            <div class="field-legend" aria-label="Legend">
+                <span class="legend-item legend-new">additional / new key</span>
+                <span class="legend-item legend-building">building block</span>
+            </div>
             <div class="split-column">
                 <div class="replace-section">
-                    <h3>Replace Fields</h3>
+                    <div class="section-header">
+                        <h3>Replace Fields</h3>
+                        <form id="addReplaceForm" class="inline-form">
+                            <input type="text" id="newReplaceKey" placeholder="$_KEYNAME" required>
+                            <input type="text" id="newReplaceValue" placeholder="default value">
+                            <button type="submit" class="button-icon" aria-label="Add replace field">+</button>
+                        </form>
+                    </div>
                     <div id="replaceRows" class="replace-rows"></div>
                 </div>
                 <div class="checkbox-section">
-                    <h3>Checkbox Groups</h3>
+                    <div class="section-header">
+                        <h3>Checkbox Groups</h3>
+                        <form id="addGroupForm" class="inline-form">
+                            <input type="text" id="newGroupName" placeholder="group_name" required>
+                            <button type="submit" class="button-icon" aria-label="Add checkbox group">+</button>
+                        </form>
+                    </div>
                     <div id="checkboxGroups" class="checkbox-groups"></div>
                 </div>
             </div>
         </section>
 
-        <section class="panel">
+        <section class="panel panel-preview">
             <header>
                 <h2>Live Preview</h2>
                 <p>The exported JSON mirrors this preview.</p>
             </header>
             <pre id="jsonPreview" class="json-preview"></pre>
         </section>
+
+        <section class="panel panel-document">
+            <header>
+                <h2>Document Preview</h2>
+                <p>Rendered from the funder template selected above. This is what "Download Word Document" exports.</p>
+            </header>
+            <div id="documentPreview" class="document-preview"></div>
+        </section>
     </main>
 
     <footer class="app-footer">
-        <small>Built with vanilla JavaScript for interoperability with DataPLAN and maDMP standard JSON.</small>
+        <small>Built with vanilla JavaScript for interoperability with DataPLAN and the RDA maDMP standard.</small>
     </footer>
 
     <script src="ajv2020.min.js"></script>
     <script src="madmp-schema.js"></script>
     <script src="validator.js"></script>
+    <!--
+      DMPDocs/ here is a symlink -> ../../DMPDocs (the parent monorepo's template library),
+      so these relative paths resolve whether the dev server root is the repo root or this
+      subfolder. The onerror fallback covers deployments where the symlink isn't present or
+      isn't followed (e.g. a static host that serves this folder standalone) by pulling the
+      same file straight from GitHub via jsDelivr. See CLAUDE.md "Local dev server / DMPDocs
+      resolution" for details.
+    -->
+    <script src="DMPDocs/horizon_europe-2026-02-06.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/horizon_europe-2026-02-06.js'"></script>
+    <script src="DMPDocs/Horizon2020_DMP-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/Horizon2020_DMP-2025-06-12.js'"></script>
+    <script src="DMPDocs/dfg-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/dfg-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/bmbf-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/bmbf-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/BBSRC-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/BBSRC-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/NSF-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/NSF-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/bmel-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/bmel-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/carl-zeiss-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/carl-zeiss-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/vw-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/vw-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/msca-dmp-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/msca-dmp-2025-06-12.js'"></script>
+    <script src="DMPDocs/practical-guide-2025-06-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/practical-guide-2025-06-12.js'"></script>
+    <script src="DMPDocs/rdmo-2024-12-12.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/gh/nfdi4plants/dataplan@main/DMPDocs/rdmo-2024-12-12.js'"></script>
     <script src="script.js"></script>
 </body>
 </html>
