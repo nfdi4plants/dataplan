@@ -422,6 +422,13 @@ function textReform(template){
             const answer = document.getElementById("aiGeneratedJSON");
             answer.value = "";
             
+            // Guard against a hung/unreachable server - fetch() has no built-in
+            // timeout, so an unreachable h.dataplan.top would otherwise hang
+            // with the spinner showing forever instead of failing visibly.
+            const REQUEST_TIMEOUT_MS = 90000;
+            const abortController = new AbortController();
+            const timeoutId = setTimeout(() => abortController.abort(), REQUEST_TIMEOUT_MS);
+
             try {
                 const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
                     method: 'POST',
@@ -430,8 +437,19 @@ function textReform(template){
                         'Host': 'h.dataplan.top',
                         'institution':'IBG-4'
                     },
+                    signal: abortController.signal,
                     body: JSON.stringify({
-                        model: "openai/gpt-oss-20b",
+                        model: "deepseek-ai/DeepSeek-V4-Flash-0731",
+                        // Reasoning models spend a variable share of max_tokens on
+                        // hidden reasoning before any real content - eased up from
+                        // no explicit limit to give headroom without being unbounded.
+                        max_tokens: 12000,
+                        // Suppresses (though doesn't fully eliminate) DeepSeek's
+                        // default reasoning verbosity - reasoning_content still
+                        // streams separately from content either way, so this is
+                        // purely a speed/cost optimization, not required for
+                        // correctness (only .delta.content is ever read below).
+                        enable_thinking: false,
                         messages: [{
                             role: "user",
                             content: `review the following text provided. The text can be a proposal, another Data Management Plan or a maDMP JSON file. First analyze the type then convert the text. Extract the project name, project acronym, project topic, project aim. Generate a JSON file in the following JSON format: {""replace": {
@@ -476,16 +494,19 @@ function textReform(template){
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-                    
+
                     buffer += decoder.decode(value, { stream: true });
                     const lines = buffer.split('\n');
                     buffer = lines.pop() || ''; // Keep incomplete line
-                    
+
                     for (const line of lines) {
                         if (!line.trim() || !line.startsWith('data: ')) continue;
-                        
+                        if (line.includes('[DONE]')) continue;
+
                         try {
-                            // Remove 'data: ' prefix and parse
+                            // Remove 'data: ' prefix and parse. Only .delta.content
+                            // is read here - DeepSeek's separate .delta.reasoning_content
+                            // is intentionally never appended to the visible answer.
                             const data = JSON.parse(line.slice(6));
                             const content = data.choices?.[0]?.delta?.content || '';
                             answer.value += content;
@@ -496,10 +517,15 @@ function textReform(template){
                         }
                     }
                 }
-                proposal2dmpBtn.disabled = false;
-                loading.hide();
             } catch (error) {
                 console.error('Error:', error);
+                const message = error.name === 'AbortError'
+                    ? `The AI service (h.dataplan.top) did not respond within ${REQUEST_TIMEOUT_MS / 1000}s. It may be unreachable right now - please try again later.`
+                    : `Something went wrong while contacting the AI service: ${error.message}`;
+                alert(message);
+            } finally {
+                clearTimeout(timeoutId);
+                proposal2dmpBtn.disabled = false;
                 loading.hide();
             }
         }
@@ -513,6 +539,12 @@ function textReform(template){
             const answer = document.getElementById("guessDV");
             answer.value = "";
             
+            // Guard against a hung/unreachable server - see proposal2dmp() above
+            // for why this is needed.
+            const REQUEST_TIMEOUT_MS = 90000;
+            const abortController = new AbortController();
+            const timeoutId = setTimeout(() => abortController.abort(), REQUEST_TIMEOUT_MS);
+
             try {
                 const response = await fetch('https://h.dataplan.top/v1/chat/completions', {
                     method: 'POST',
@@ -521,8 +553,11 @@ function textReform(template){
                         'Host': 'h.dataplan.top',
                         'institution':'IBG-4'
                     },
+                    signal: abortController.signal,
                     body: JSON.stringify({
-                        model: "openai/gpt-oss-20b",
+                        model: "deepseek-ai/DeepSeek-V4-Flash-0731",
+                        max_tokens: 12000,
+                        enable_thinking: false,
                         messages: [{
                             role: "user",
                             content: `In a data management plant, the following data will be generated \n\n${userInput}, estimate the data volume in GB. Checking what is the common value of the raw data volume and what is the processed data volume`
@@ -542,14 +577,15 @@ function textReform(template){
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-                    
+
                     buffer += decoder.decode(value, { stream: true });
                     const lines = buffer.split('\n');
                     buffer = lines.pop() || ''; // Keep incomplete line
-                    
+
                     for (const line of lines) {
                         if (!line.trim() || !line.startsWith('data: ')) continue;
-                        
+                        if (line.includes('[DONE]')) continue;
+
                         try {
                             // Remove 'data: ' prefix and parse
                             const data = JSON.parse(line.slice(6));
@@ -562,10 +598,15 @@ function textReform(template){
                         }
                     }
                 }
-                guessDVBtn.disabled = false;
-                loading.hide();
             } catch (error) {
                 console.error('Error:', error);
+                const message = error.name === 'AbortError'
+                    ? `The AI service (h.dataplan.top) did not respond within ${REQUEST_TIMEOUT_MS / 1000}s. It may be unreachable right now - please try again later.`
+                    : `Something went wrong while contacting the AI service: ${error.message}`;
+                alert(message);
+            } finally {
+                clearTimeout(timeoutId);
+                guessDVBtn.disabled = false;
                 loading.hide();
             }
         }
