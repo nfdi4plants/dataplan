@@ -439,7 +439,7 @@ function textReform(template){
                     },
                     signal: abortController.signal,
                     body: JSON.stringify({
-                        model: "deepseek-ai/DeepSeek-V4-Flash-0731",
+                        model: "deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         // Reasoning models spend a variable share of max_tokens on
                         // hidden reasoning before any real content - eased up from
                         // no explicit limit to give headroom without being unbounded.
@@ -555,7 +555,7 @@ function textReform(template){
                     },
                     signal: abortController.signal,
                     body: JSON.stringify({
-                        model: "deepseek-ai/DeepSeek-V4-Flash-0731",
+                        model: "deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         max_tokens: 12000,
                         enable_thinking: false,
                         messages: [{
